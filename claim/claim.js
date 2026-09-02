@@ -302,6 +302,14 @@
     btn.disabled = true;
     btn.textContent = authMode === 'in' ? 'Signing in…' : 'Creating…';
 
+    /* Logged on purpose, and kept. It answers the one question that is
+       otherwise unanswerable from outside: what THIS browser actually sent.
+       A stale cached claim.js sends nothing here; a correct one prints the
+       redirect. What Supabase then DOES with the value is a separate question
+       — see the Network tab entry for /auth/v1/signup. */
+    var redirectTo = location.origin + '/sites/?confirmed=1';
+    if (authMode === 'up') console.log('[claim] signUp emailRedirectTo =', redirectTo);
+
     var p = authMode === 'in'
       ? c.auth.signInWithPassword({ email: email, password: pass })
       : c.auth.signUp({
@@ -315,7 +323,7 @@
              this line does nothing at all.
              location.origin so preview and production each return to
              themselves rather than one hardcoded host. */
-          options: { emailRedirectTo: location.origin + '/sites/?confirmed=1' }
+          options: { emailRedirectTo: redirectTo }
         });
 
     p.then(function (res) {
