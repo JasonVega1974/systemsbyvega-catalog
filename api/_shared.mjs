@@ -94,6 +94,21 @@ export const MIN_AMOUNT_CENTS = Number(process.env.STRIPE_MIN_AMOUNT_CENTS || '2
 
 export const BREVO_API_KEY = process.env.BREVO_API_KEY || '';
 
+/* ------------------------------------------------------------------ vercel */
+
+/* Attaching <client_id>.systemsbyvega.com to the project after a sale.
+   Deliberately NOT checked in assertConfigured(): a missing token must degrade
+   to "this operator needs a manual domain add", never to a failed provision on
+   a payment that already cleared.
+
+   VERCEL_TEAM_ID is required whenever the project sits under a team rather than
+   a personal account. Omitting it makes the API answer 403 with a body shaped
+   like a not-found, which reads as a wrong project id and sends you looking in
+   the wrong place. */
+export const VERCEL_TOKEN      = process.env.VERCEL_TOKEN || '';
+export const VERCEL_PROJECT_ID = process.env.VERCEL_PROJECT_ID || '';
+export const VERCEL_TEAM_ID    = process.env.VERCEL_TEAM_ID || '';
+
 /* ---------------------------------------------------------- reserved slugs */
 
 /* MUST STAY IN STEP WITH sbv_tenants_reserved_ck in sql/COMMERCE-2.sql's

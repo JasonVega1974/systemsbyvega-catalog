@@ -47,6 +47,7 @@ import {
   sendBrevo, ownerAlert, escHtml,
   STRIPE_WEBHOOK_SECRET, SUPPORT_EMAIL, SITE_URL, APEX,
   SUPABASE_URL, SERVICE_KEY, RESERVED_SLUGS,
+  VERCEL_TOKEN, VERCEL_PROJECT_ID, VERCEL_TEAM_ID,
 } from './_shared.mjs';
 
 export const config = { runtime: 'nodejs' };
@@ -423,6 +424,30 @@ async function provision(session) {
     return json({ ok: true, blocked: 'no_operator_login' });
   }
 
+  /* ── 9.5 SUBDOMAIN — before activation, and never fatal ────────────────────
+     Ordered ahead of the is_active flip so the hostname is attached by the time
+     the storefront is reachable, per D-5. It is not allowed to block: the money
+     has moved and the city is claimed, so a Vercel failure leaves a live tenant
+     plus an alert rather than an operator stuck mid-provision. */
+  const domain = await assignSubdomain(clientId);
+  if (!domain.ok) {
+    console.error('webhook: subdomain not attached for', clientId, '—', domain.reason);
+    await ownerAlert('Storefront domain not attached — ' + clientId, [
+      'tenant:    ' + clientId + '   (activating anyway)',
+      'host:      ' + clientId + '.' + APEX,
+      'reason:    ' + domain.reason,
+      '',
+      'The sale is complete. The operator can sign in and edit their site;',
+      'only the public hostname is missing, so their subdomain will not load.',
+      '',
+      'NEXT: add ' + clientId + '.' + APEX + ' to the Vercel project by hand,',
+      '      or fix VERCEL_TOKEN / VERCEL_PROJECT_ID / VERCEL_TEAM_ID and',
+      '      re-run this step for the tenant.',
+    ]);
+  } else {
+    console.log('subdomain attached', domain.host, domain.note || '');
+  }
+
   /* ── 10. GO LIVE — last, deliberately ──────────────────────────────────── */
   try {
     await pgUpdate('sbv_tenants', 'client_id=eq.' + q(clientId), { is_active: true });
@@ -529,6 +554,56 @@ async function handleRefund(charge) {
 /* ============================================================================
    helpers
    ========================================================================= */
+
+/* Attach <client_id>.systemsbyvega.com to the Vercel project, so the operator's
+   storefront resolves without anyone touching a dashboard.
+
+   BEST EFFORT BY CONTRACT. The card has cleared and the territory is claimed by
+   the time this runs, so every failure returns a reason string instead of
+   throwing. The caller alerts and carries on; a Vercel outage must never leave
+   a paid operator un-provisioned waiting on a Stripe retry that would redo work
+   already done.
+
+   A 409 is checked rather than assumed. Vercel answers domain_already_in_use
+   both when the host is already on THIS project (a Stripe replay, or a wildcard
+   that already covers it — both fine) and when it belongs to a DIFFERENT one
+   (not fine, and the storefront will not resolve). The follow-up GET is what
+   tells those two apart, and it costs one request on a path that runs once per
+   sale. */
+async function assignSubdomain(clientId) {
+  if (!VERCEL_TOKEN || !VERCEL_PROJECT_ID) {
+    return { ok: false, reason: 'VERCEL_TOKEN / VERCEL_PROJECT_ID not set' };
+  }
+
+  const host = clientId + '.' + APEX;
+  const project = encodeURIComponent(VERCEL_PROJECT_ID);
+  /* teamId goes in the query string, not a header — that is how the REST API
+     takes it. See the note on VERCEL_TEAM_ID in _shared.mjs. */
+  const team = VERCEL_TEAM_ID ? '?teamId=' + encodeURIComponent(VERCEL_TEAM_ID) : '';
+  const auth = { Authorization: 'Bearer ' + VERCEL_TOKEN, 'Content-Type': 'application/json' };
+
+  try {
+    const res = await fetch('https://api.vercel.com/v10/projects/' + project + '/domains' + team, {
+      method: 'POST', headers: auth, body: JSON.stringify({ name: host }),
+    });
+    if (res.ok) return { ok: true, host };
+
+    const body = await res.json().catch(() => ({}));
+    const code = (body && body.error && body.error.code) || '';
+    const message = (body && body.error && body.error.message) || ('HTTP ' + res.status);
+
+    if (res.status === 409 || code === 'domain_already_in_use') {
+      const check = await fetch(
+        'https://api.vercel.com/v9/projects/' + project + '/domains/' + encodeURIComponent(host) + team,
+        { headers: auth });
+      if (check.ok) return { ok: true, host, note: 'already attached' };
+      return { ok: false, reason: host + ' is attached to a different Vercel project' };
+    }
+    return { ok: false, reason: message };
+  } catch (e) {
+    return { ok: false, reason: e.message };
+  }
+}
 
 /* Find a free subdomain, starting from the one the buyer asked for. Tries a
    numeric suffix before giving up, so a late collision costs a slightly

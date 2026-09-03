@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Your site — Systems by Vega</title>
+<style>
+  :root{
+    --paper:#F1F4F8; --panel:#FFFFFF; --ink:#161B22; --ink-soft:#48515F;
+    --hair:#DCE2EA; --amber:#E8791B; --amber-deep:#C9620C; --green:#1F9D63;
+    --red:#C0392B;
+    --shadow:0 1px 2px rgba(20,28,40,.05),0 10px 30px rgba(20,28,40,.07);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px}
+  header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;margin-bottom:26px}
+  .brand{font-weight:800;font-size:18px;letter-spacing:-.01em}
+  .brand a{color:inherit;text-decoration:none}
+  .who{font-size:13.5px;color:var(--ink-soft)}
+  .who button{background:none;border:0;color:var(--amber-deep);cursor:pointer;
+    font:inherit;font-size:13.5px;text-decoration:underline;padding:0 0 0 8px}
+
+  .card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;
+    box-shadow:var(--shadow);padding:24px}
+  h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em}
+  .sub{color:var(--ink-soft);font-size:14.5px;margin:0 0 22px}
+  .sub a{color:var(--amber-deep)}
+
+  label{display:block;margin:0 0 15px}
+  label span{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  input,textarea{width:100%;font:inherit;font-size:15px;padding:10px 12px;
+    border:1px solid var(--hair);border-radius:9px;background:#fff;color:var(--ink)}
+  input:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:0;border-color:transparent}
+  textarea{resize:vertical;min-height:88px}
+  .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+
+  .go{background:var(--amber-deep);color:#fff;border:0;border-radius:9px;
+    font:inherit;font-weight:700;font-size:15px;padding:12px 20px;cursor:pointer;
+    min-height:44px}
+  .go:hover:not(:disabled){background:var(--amber)}
+  .go:disabled{opacity:.55;cursor:default}
+
+  .msg{margin-top:14px;font-size:14px;min-height:20px}
+  .msg.ok{color:var(--green);font-weight:600}
+  .msg.bad{color:var(--red);font-weight:600}
+
+  .note{margin-top:20px;padding:13px 15px;border:1px solid var(--hair);
+    border-left:3px solid var(--amber);border-radius:10px;background:#FFFDF9;
+    font-size:14px;line-height:1.5;color:var(--ink-soft)}
+  .note strong{color:var(--ink)}
+  .note a{color:var(--amber-deep)}
+  [hidden]{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><a href="/">Systems by Vega</a></div>
+    <div class="who" id="who" hidden><span id="whoEmail"></span><button type="button" id="signOut">Sign out</button></div>
+  </header>
+
+  <!-- GATE. Visible by default, hidden only once a session AND a tenant mapping
+       are both confirmed. Fail-closed on purpose: if anything below throws, the
+       operator gets the sign-in form rather than an empty editor that looks
+       ready and silently saves nothing. -->
+  <section class="card" id="gate">
+    <h1>Sign in to edit your site</h1>
+    <p class="sub">Use the email and password you created when you claimed your territory.</p>
+    <label><span>Email</span><input type="email" id="email" autocomplete="email"></label>
+    <label><span>Password</span><input type="password" id="pass" autocomplete="current-password"></label>
+    <button type="button" class="go" id="signIn">Sign in</button>
+    <p class="msg" id="gateMsg" role="alert"></p>
+  </section>
+
+  <!-- EDITOR -->
+  <section class="card" id="panel" hidden>
+    <h1>Your site</h1>
+    <p class="sub" id="panelSub"></p>
+
+    <label><span>Business name</span>
+      <input type="text" id="business_name" maxlength="120" autocomplete="organization"></label>
+
+    <div class="row">
+      <label><span>Phone</span><input type="tel" id="phone" maxlength="40" autocomplete="tel"></label>
+      <label style="grid-column:span 2"><span>Public email <span class="hint">&mdash; shown on your site</span></span>
+        <input type="email" id="email_pub" maxlength="254"></label>
+    </div>
+
+    <label><span>Street address</span>
+      <input type="text" id="address_line" maxlength="200" autocomplete="street-address"></label>
+
+    <div class="row">
+      <label><span>City</span><input type="text" id="city" maxlength="100"></label>
+      <label><span>State <span class="hint">&mdash; 2 letters</span></span>
+        <input type="text" id="state_code" maxlength="2" style="text-transform:uppercase"></label>
+      <label><span>ZIP</span><input type="text" id="postal_code" maxlength="10"></label>
+    </div>
+
+    <label><span>Hours <span class="hint">&mdash; write them however you say them</span></span>
+      <input type="text" id="hours" maxlength="300" placeholder="Mon-Fri 8-5, Sat 9-1, closed Sunday"></label>
+
+    <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
+
+    <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
+      <textarea id="bio" maxlength="2000"></textarea></label>
+
+    <button type="button" class="go" id="save">Save changes</button>
+    <p class="msg" id="saveMsg" role="status"></p>
+
+    <div class="note" id="defaultNote" hidden>
+      <strong>You have not customised anything yet.</strong> Until you save, your
+      site shows the example content it was built with. Nothing is broken &mdash;
+      fill in what you want and save, and those parts become yours.
+    </div>
+  </section>
+
+  <!-- NO MAPPING. Deliberately not phrased as an error: the usual cause is a
+       provision still finishing, not a broken account. -->
+  <section class="card" id="noAccess" hidden>
+    <h1>No site on this account yet</h1>
+    <p class="sub">You are signed in, but this email is not attached to a territory yet.
+      If you have just paid, give it a minute and reload.</p>
+    <div class="note">Still nothing after a few minutes? Email
+      <a href="mailto:info@kingdom-creatives.com">info@kingdom-creatives.com</a>
+      and we will sort it out.</div>
+  </section>
+
+</div>
+
+<script>
+/* No build step: the browser has no process.env, so config is a literal. The
+   publishable key is public by design — it ships in every page in this repo and
+   RLS is what protects the data. The service-role key never appears here. */
+window.SBV_CONFIG = (function () {
+  var url = 'https://newjbexmvltvtmxollca.supabase.co';
+  var key = 'sb_publishable_ZNgmFmfr7AHbZSEibo7jqQ_z8-Oazhy';
+  return { supabaseUrl: url, supabaseAnonKey: key, url: url, key: key };
+})();
+</script>
+<script src="/assets/vendor/supabase-2.114.0.js" defer></script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  var CFG = window.SBV_CONFIG;
+  var FIELDS = ['business_name', 'phone', 'email', 'address_line', 'city',
+                'state_code', 'postal_code', 'hours', 'owner_name', 'bio'];
+  /* The public-email input is id="email_pub" so it cannot collide with the
+     sign-in field above it. Everything else maps 1:1 to a column. */
+  var INPUT_ID = { email: 'email_pub' };
+
+  var sb = null, clientId = null, hadRow = false;
+
+  function $(id) { return document.getElementById(id); }
+  function show(id, on) { $(id).hidden = !on; }
+  function el(f) { return $(INPUT_ID[f] || f); }
+  function say(box, text, cls) {
+    var m = $(box);
+    m.textContent = text;
+    m.className = 'msg' + (cls ? ' ' + cls : '');
+  }
+
+  if (!window.supabase || !window.supabase.createClient) {
+    say('gateMsg', 'Sign-in could not load. Reload the page, or email info@kingdom-creatives.com.', 'bad');
+    return;
+  }
+  sb = window.supabase.createClient(CFG.url, CFG.key);
+
+  /* --------------------------------------------------------------- resolve */
+
+  /* Structured reasons, never a boolean. A failed read and a genuinely unmapped
+     account look identical to a caller that only gets false, and telling an
+     operator their account is inactive because Supabase hiccuped is a support
+     ticket and a scare, not a status. */
+  function resolve() {
+    return sb.auth.getSession().then(function (res) {
+      var s = res && res.data && res.data.session;
+      if (!s || !s.access_token) return { state: 'no_session' };
+
+      return sb.from('sbv_client_users').select('client_id').then(function (r) {
+        if (r.error) return { state: 'read_error', detail: r.error.message, user: s.user };
+        var ids = (r.data || []).map(function (row) { return row.client_id; });
+        if (!ids.length) return { state: 'no_mapping', user: s.user };
+
+        /* ?tenant= is a HINT, never authorisation. It only picks among the
+           tenants this user already owns; anything else is ignored rather than
+           trusted, and RLS would refuse it regardless. */
+        var want = new URLSearchParams(location.search).get('tenant');
+        var pick = (want && ids.indexOf(want) !== -1) ? want : ids[0];
+        return { state: 'ok', clientId: pick, all: ids, user: s.user };
+      });
+    }).catch(function (e) { return { state: 'read_error', detail: e.message }; });
+  }
+
+  function paint(r) {
+    show('gate', false); show('panel', false); show('noAccess', false); show('who', false);
+
+    if (r.user) { $('whoEmail').textContent = r.user.email || ''; show('who', true); }
+
+    if (r.state === 'no_session') { show('gate', true); return; }
+
+    if (r.state === 'read_error') {
+      show('gate', true);
+      say('gateMsg', 'We could not reach our server just now. Try again in a moment.', 'bad');
+      console.error('[admin] read_error:', r.detail);
+      return;
+    }
+    if (r.state === 'no_mapping') { show('noAccess', true); return; }
+
+    clientId = r.clientId;
+    show('panel', true);
+    load();
+  }
+
+  /* ------------------------------------------------------------------ load */
+
+  function load() {
+    /* Base table, not sbv_public_operator_content(): the public function gates
+       on is_active, and an operator must still be able to edit a storefront
+       that has been deactivated. RLS already limits this to their own row. */
+    sb.from('sbv_operator_content').select('*').eq('client_id', clientId).maybeSingle()
+      .then(function (r) {
+        if (r.error) {
+          say('saveMsg', 'Could not load your details. Reload the page.', 'bad');
+          console.error('[admin] load:', r.error.message);
+          return;
+        }
+        hadRow = !!r.data;
+        if (r.data) {
+          FIELDS.forEach(function (f) { el(f).value = r.data[f] == null ? '' : r.data[f]; });
+        }
+        show('defaultNote', !hadRow);
+      });
+
+    /* Name and hostname for the heading. Read through sbv_public_tenants(),
+       which is already granted to anon and returns exactly these columns. */
+    sb.rpc('sbv_public_tenants').then(function (r) {
+      var rows = (r.data || []).filter(function (t) { return t.client_id === clientId; });
+      var row = rows[0];
+      if (!row) { $('panelSub').textContent = clientId; return; }
+      if (!hadRow && !el('business_name').value) {
+        el('business_name').value = row.business_name || '';
+      }
+      var host = clientId + '.' + location.hostname.replace(/^www\./, '');
+      $('panelSub').innerHTML = 'Your site: <a href="https://' + host + '" rel="noopener">' + host + '</a>';
+    }).catch(function () { /* heading detail is cosmetic; the editor still works */ });
+  }
+
+  /* ------------------------------------------------------------------ save */
+
+  function save() {
+    var btn = $('save');
+    var row = { client_id: clientId };
+    FIELDS.forEach(function (f) {
+      var v = el(f).value.trim();
+      if (f === 'state_code') v = v.toUpperCase();
+      /* Empty clears the field rather than writing "". Every column is
+         nullable, and null is what "not set" means to the storefront's
+         fall-back-to-the-demo logic. */
+      row[f] = v === '' ? null : v;
+    });
+
+    btn.disabled = true; btn.textContent = 'Saving…'; say('saveMsg', '');
+
+    /* Upsert on the primary key, per D-10. Needs INSERT and UPDATE policies AND
+       both table grants — with only one of each, this succeeds the first time
+       and returns 42501 on every save after. */
+    sb.from('sbv_operator_content').upsert(row, { onConflict: 'client_id' })
+      .then(function (r) {
+        btn.disabled = false; btn.textContent = 'Save changes';
+        if (r.error) {
+          say('saveMsg', 'That did not save. ' + (r.error.message || ''), 'bad');
+          console.error('[admin] save:', r.error);
+          return;
+        }
+        hadRow = true;
+        show('defaultNote', false);
+        say('saveMsg', 'Saved. Your site is updated.', 'ok');
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = 'Save changes';
+        say('saveMsg', 'We could not reach our server. Try again in a moment.', 'bad');
+      });
+  }
+
+  /* ------------------------------------------------------------------ auth */
+
+  function signIn() {
+    var btn = $('signIn');
+    var email = $('email').value.trim(), pass = $('pass').value;
+    if (!email || !pass) { say('gateMsg', 'Email and password, please.', 'bad'); return; }
+
+    btn.disabled = true; btn.textContent = 'Signing in…'; say('gateMsg', '');
+    sb.auth.signInWithPassword({ email: email, password: pass }).then(function (r) {
+      btn.disabled = false; btn.textContent = 'Sign in';
+      if (r.error) {
+        /* Not "no account with that email" — that confirms which addresses
+           exist to anyone who asks. */
+        say('gateMsg', 'That email and password did not match. Try again.', 'bad');
+        return;
+      }
+      resolve().then(paint);
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Sign in';
+      say('gateMsg', 'We could not reach the sign-in server. Try again in a moment.', 'bad');
+    });
+  }
+
+  $('signIn').addEventListener('click', signIn);
+  $('pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') signIn(); });
+  $('save').addEventListener('click', save);
+  $('signOut').addEventListener('click', function () {
+    sb.auth.signOut().then(function () { location.reload(); });
+  });
+
+  resolve().then(paint);
+});
+</script>
+</body>
+</html>
