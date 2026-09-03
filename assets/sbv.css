@@ -1000,3 +1000,28 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
   .nm{transition:none}
   .entry.sheet.is-clickable::after{transition:none}
 }
+
+/* ---- email-confirmation return bar -------------------------------------
+   Shown on the landing page when Supabase returns a buyer here after they
+   confirm their address (fragment carries type=signup). Its button forwards
+   the fragment to /sites/ so the session survives the hop.
+
+   Separate from the .cb banner in sites/index.html: that one is a dismissable
+   notice, this one carries the only way forward and so is persistent and has
+   a real CTA. The two pages do not share a stylesheet. */
+.cbar{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:300;
+  display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 32px);
+  background:var(--panel);border:1px solid var(--hair);border-left:3px solid #1F9D63;
+  border-radius:11px;box-shadow:var(--shadow);padding:12px 14px;
+  font-size:14.5px;line-height:1.45}
+.cbar[hidden]{display:none}
+.cbar-tick{color:#1F9D63;font-weight:700;font-size:16px;line-height:1;flex:0 0 auto}
+.cbar-text{flex:1 1 auto;min-width:0}
+.cbar-go{flex:0 0 auto;background:var(--amber-deep);color:#fff;text-decoration:none;
+  font-weight:700;font-size:14px;padding:9px 14px;border-radius:8px;white-space:nowrap;
+  min-height:36px;display:flex;align-items:center}
+.cbar-go:hover{background:var(--amber)}
+.cbar-go:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+/* Below this the row would squeeze the CTA to an unusable width, so it wraps
+   to its own full-width line instead. */
+@media(max-width:520px){.cbar{flex-wrap:wrap}.cbar-go{width:100%;justify-content:center}}
