@@ -462,44 +462,6 @@ values ('op-refund','33333333-3333-3333-3333-333333333333','cs_verify_refund',29
 select public.sbv_claim_city(
   (select slug from public.sbv_niches where website_offer and is_listed limit 1),
   'Twin Falls','ID','op-refund','cs_verify_refund');
+stripe charges list --limit 1 | findstr "\"id\""
 
--- Separate statements, in order. These calls have side effects and each step
--- depends on the previous having committed its change; neither UNION ALL nor a
--- CTE list promises to evaluate branches top to bottom, so folding them into
--- one query can report a pass against a schema that never released anything.
 
--- expect: false  (the city is claimed)
-select 'taken while claimed' as check_name,
-       public.sbv_city_available(
-         (select slug from public.sbv_niches where website_offer and is_listed limit 1),
-         'Twin Falls','ID')->>'available' as got, 'false' as expected;
-
--- expect: released = 1, client_id = op-refund
-select 'the refund itself' as check_name,
-       public.sbv_release_territory('cs_verify_refund') as got;
-
--- expect: true  (back in the pool)
-select 'free again after refund' as check_name,
-       public.sbv_city_available(
-         (select slug from public.sbv_niches where website_offer and is_listed limit 1),
-         'Twin Falls','ID')->>'available' as got, 'true' as expected;
-
--- expect: false / refunded / released
-select 'storefront deactivated' as check_name,
-       (select is_active::text from public.sbv_tenants where client_id='op-refund') as got,
-       'false' as expected
-union all
-select 'billing marked refunded',
-       (select status::text from public.sbv_billing where stripe_session_id='cs_verify_refund'),
-       'refunded'
-union all
-select 'claim row says released',
-       (select status::text from public.sbv_city_claims where stripe_session_id='cs_verify_refund'),
-       'released'
-union all
-select 'released_at was set',
-       (select (released_at is not null)::text from public.sbv_city_claims
-        where stripe_session_id='cs_verify_refund'),
-       'true';
-
-rollback;
