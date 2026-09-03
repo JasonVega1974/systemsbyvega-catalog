@@ -559,18 +559,17 @@ window.SBV_CONFIG = {
 
 <!-- Email-confirmation return.
      Supabase sends buyers to the project Site URL after they confirm, with the
-     session in the URL fragment. This page loads no supabase-js, so it cannot
-     consume that fragment — it hands it on to /sites/, which can, and the buyer
-     arrives signed in rather than back at square one.
+     session in the URL fragment. This page consumes that fragment itself and
+     forwards the buyer to the catalog signed in; the bar below is the fallback
+     for when that cannot be done, not the normal path.
 
-     A BRIDGE, NOT A DESTINATION. Once emailRedirectTo reaches /sites/ directly
-     (it is already sent correctly by claim.js — the missing piece is the
-     Redirect URLs allowlist entry), this block is dead code and should be
-     deleted. -->
-<div id="confirmBar" class="cbar" hidden>
+     STILL A BRIDGE. Once emailRedirectTo reaches /sites/ directly (claim.js
+     already sends it correctly — the missing piece is the Redirect URLs
+     allowlist entry), this whole block is dead code and should be deleted. -->
+<div id="confirmBar" class="cbar" role="status" hidden>
   <span class="cbar-tick" aria-hidden="true">&#10003;</span>
-  <span class="cbar-text"><b>Email confirmed</b> &mdash; you&rsquo;re ready to claim a territory.</span>
-  <a class="cbar-go" id="confirmGo" href="/sites/">Continue to catalog &rarr;</a>
+  <span class="cbar-text" id="confirmText"><b>Email confirmed</b> &mdash; signing you in&hellip;</span>
+  <a class="cbar-go" id="confirmGo" href="/sites/" hidden>Continue to catalog &rarr;</a>
 </div>
 <script>
 (function () {
@@ -581,11 +580,57 @@ window.SBV_CONFIG = {
   var h = location.hash || '';
   if (h.indexOf('type=signup') === -1) return;
 
-  /* The fragment carries the session. Passing it through is what lets
-     supabase-js on /sites/ establish it; a bare href would sign them straight
-     back out, one click after confirming. */
-  document.getElementById('confirmGo').setAttribute('href', '/sites/' + h);
-  document.getElementById('confirmBar').hidden = false;
+  var bar  = document.getElementById('confirmBar');
+  var text = document.getElementById('confirmText');
+  var go   = document.getElementById('confirmGo');
+
+  /* The manual path is armed before anything async begins, so every later
+     failure already has somewhere to land. Forwarding the fragment is what
+     lets supabase-js on /sites/ establish the session instead; a bare href
+     would sign them straight back out, one click after confirming. */
+  go.setAttribute('href', '/sites/' + h);
+  bar.hidden = false;
+
+  var CFG = window.SBV_CONFIG || {};
+  if (!CFG.url || !CFG.key) return manual();
+
+  /* Injected rather than given a <script> tag: 208KB of auth SDK on every
+     landing-page visit, to serve the one arrival that came from a confirmation
+     link, is not a trade worth making. The fragment is untouched at this
+     point — nothing has consumed it yet. */
+  var s = document.createElement('script');
+  s.src = '/assets/vendor/supabase-2.114.0.js';
+  s.onload  = establish;
+  s.onerror = manual;
+  document.head.appendChild(s);
+
+  function establish() {
+    if (!window.supabase || !window.supabase.createClient) return manual();
+
+    /* createClient is what reads the fragment — detectSessionInUrl defaults to
+       true — and it does that work asynchronously. getSession() awaits that
+       same initialisation before it resolves, which is exactly why it is the
+       gate here: when it hands back a session, the token has been exchanged
+       and written to localStorage, and only then is the redirect safe. A timer
+       would race that write and land on /sites/ signed out. */
+    var sb = window.supabase.createClient(CFG.url, CFG.key);
+    sb.auth.getSession().then(function (res) {
+      if (!res || res.error || !res.data || !res.data.session) return manual();
+
+      /* Same origin, so /sites/ reads the session straight out of storage and
+         the token never has to travel in a URL again. ?confirmed=1 is what
+         claim.js watches for, and matches the emailRedirectTo it sends. */
+      location.replace('/sites/?confirmed=1');
+    }).catch(manual);
+  }
+
+  /* Not an error from the buyer's point of view — their address is confirmed
+     either way. The bar just stops promising to do the rest for them and shows
+     the button, which still carries the live fragment. */
+  function manual() {
+    text.innerHTML = '<b>Email confirmed</b> &mdash; you&rsquo;re ready to claim a territory.';
+    go.hidden = false;
+  }
 
   /* No auto-dismiss. This banner carries the only way forward, and hiding a
      button after five seconds is worse than leaving it. */

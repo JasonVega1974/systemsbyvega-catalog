@@ -310,6 +310,11 @@
     var redirectTo = location.origin + '/sites/?confirmed=1';
     if (authMode === 'up') console.log('[claim] signUp emailRedirectTo =', redirectTo);
 
+    /* Sign-UP only, and only here. Saving on every availability check would
+       ambush a buyer who looked at a city once and wandered off with a modal
+       on some unrelated later visit. */
+    if (authMode === 'up') savePending();
+
     var p = authMode === 'in'
       ? c.auth.signInWithPassword({ email: email, password: pass })
       : c.auth.signUp({
@@ -533,22 +538,117 @@
     });
   }
 
+  /* ------------------------------------------------- pending claim (resume) */
+
+  /* What the buyer was claiming when they left for their inbox, so the modal
+     can come back to phase 3 instead of an empty form.
+
+     localStorage, not sessionStorage: the confirmation link opens a NEW TAB
+     from the mail client, and sessionStorage does not cross that boundary. It
+     would work when you paste the link into the same tab and do nothing at all
+     for every real buyer — a failure that looks like a pass in testing.
+
+     Two properties make it behave like session state anyway: the TTL below,
+     and the fact that the record is DELETED the moment it is read. A refresh,
+     a back button, or a visit next week cannot replay it. */
+  var PENDING_KEY = 'sbv.claim.pending';
+  var PENDING_TTL = 60 * 60 * 1000;   /* an inbox trip, not a shopping cart */
+
+  function savePending() {
+    try {
+      localStorage.setItem(PENDING_KEY, JSON.stringify({
+        v: 1,
+        niche_slug: intent.niche,
+        niche_name: intent.nicheName,
+        city_label: intent.city,
+        state_code: intent.state,
+        /* Always 'launch' today: the tier radio lives in phase 3 and the buyer
+           has not reached it yet. Stored so the restore pre-selects whatever
+           resetIntent defaulted to, and so this keeps working unchanged if the
+           choice ever moves earlier. Do not read it as a preference. */
+        tier: intent.tier,
+        city_norm: intent.cityNorm,
+        saved_at: Date.now()
+      }));
+    } catch (e) { /* private mode, or quota. The claim still works, unresumed. */ }
+  }
+
+  /* Reads AND clears in one call: no path wants to look without consuming. */
+  function takePending() {
+    var raw = null;
+    try {
+      raw = localStorage.getItem(PENDING_KEY);
+      localStorage.removeItem(PENDING_KEY);
+    } catch (e) { return null; }
+    if (!raw) return null;
+
+    var p;
+    try { p = JSON.parse(raw); } catch (e) { return null; }
+
+    /* v guards a future shape change: a record written by an older claim.js is
+       discarded whole rather than half-restored into a screen that takes a
+       payment. Same reason the city fields are checked and not defaulted. */
+    if (!p || p.v !== 1 || !p.niche_slug || !p.city_label || !p.state_code) return null;
+    if (!p.saved_at || (Date.now() - p.saved_at) > PENDING_TTL) return null;
+    return p;
+  }
+
+  /* Both arrival shapes count. The catalog is normally reached as
+     /sites/?confirmed=1, but index.html's fallback button hands the raw auth
+     fragment over instead — gated on the query string alone, neither the
+     banner nor the resume would fire on that path. */
+  function arrivedFromConfirm() {
+    if (new URLSearchParams(location.search).get('confirmed') === '1') return true;
+    return (location.hash || '').indexOf('type=signup') !== -1;
+  }
+
+  function resumeClaim() {
+    var p = takePending();
+    if (!p) return;
+
+    open(p.niche_slug, p.niche_name);
+
+    /* The stored city goes into the phase 1 INPUTS rather than straight into
+       intent, because doCheck() reads from those inputs. That single choice
+       means the re-check, the taken-city wording, the 429 path and the hand-off
+       to phase 3 are all the code that already exists rather than a second copy
+       of it drifting out of step. cityNorm and tier are set directly because
+       doCheck does not touch either until the server answers. */
+    $('#cmCity').value = p.city_label;
+    $('#cmState').value = p.state_code;
+    intent.cityNorm = p.city_norm || '';
+    intent.tier = p.tier || 'launch';
+    var radio = modal.querySelector('input[name="cmTier"][value="' + intent.tier + '"]');
+    if (radio) radio.checked = true;
+
+    /* The city was open when they left for their inbox. That was minutes or
+       hours ago and somebody else may have taken it since, so the stored yes is
+       re-verified rather than trusted: a stale one reaching the pay button
+       comes back as a 409 AFTER the form is filled in, which is the failure
+       GarageSaleBiz's create-checkout header records as the direct cause of
+       every paid-but-blocked operator on EstateSaleBiz.
+
+       doCheck's own next() then skips phase 2 when the session is live and
+       stops there when it is not, and its failure paths leave the buyer on
+       phase 1 with the city already filled in — one click, not a retype. */
+    doCheck();
+  }
+
   /* ------------------------------------------------------- confirmed banner */
 
   /* Shown once, when the email-confirmation link lands back here. The buyer has
      just been bounced out to their inbox and back, and without this the page is
      identical to the one they left — nothing marks that anything happened.
 
-     It does NOT restore what they were claiming: they still pick the niche and
-     retype the city. The banner makes that read as a fresh start rather than a
-     lost one. Carrying the intent through the redirect is the better fix and is
-     deliberately not done here.
+     resumeClaim() reopens the claim itself; this only explains why a modal
+     appeared. It still runs when there is nothing to resume — an expired
+     record, a different browser — and then it is the whole of the feedback.
 
      The query string is stripped with replaceState so a refresh, a back
      button, or a shared link cannot replay it. */
-  function confirmedBanner() {
+  function confirmedBanner(confirmed) {
+    if (!confirmed) return;
     var params = new URLSearchParams(location.search);
-    if (params.get('confirmed') !== '1') return;
 
     var el = document.createElement('div');
     el.className = 'cb';
@@ -619,6 +719,14 @@
     if (started) return;
     started = true;
 
+    /* FIRST, before initNav(). That calls client() synchronously, and
+       createClient consumes the URL fragment on construction — so by the time
+       it returns, the #…type=signup half of arrivedFromConfirm() is already
+       gone. Read once here and pass the answer down; confirmedBanner() then
+       strips ?confirmed=1, which would take the other half out from under
+       whichever of the two ran second. */
+    var confirmed = arrivedFromConfirm();
+
     var btns = document.querySelectorAll('.claim-btn');
     for (var i = 0; i < btns.length; i++) {
       on(btns[i], 'click', function () {
@@ -626,7 +734,8 @@
       });
     }
     initNav();
-    confirmedBanner();
+    if (confirmed) resumeClaim();
+    confirmedBanner(confirmed);
     loadCounts();
   }
 

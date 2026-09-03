@@ -1020,6 +1020,9 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
 .cbar-go{flex:0 0 auto;background:var(--amber-deep);color:#fff;text-decoration:none;
   font-weight:700;font-size:14px;padding:9px 14px;border-radius:8px;white-space:nowrap;
   min-height:36px;display:flex;align-items:center}
+/* display:flex would otherwise win over the hidden attribute, and the button
+   starts hidden now — it only appears if the automatic hand-off gives up. */
+.cbar-go[hidden]{display:none}
 .cbar-go:hover{background:var(--amber)}
 .cbar-go:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 /* Below this the row would squeeze the CTA to an unusable width, so it wraps
