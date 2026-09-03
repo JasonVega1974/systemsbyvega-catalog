@@ -573,67 +573,102 @@ window.SBV_CONFIG = {
 </div>
 <script>
 (function () {
-  /* type=signup is what Supabase itself writes into the fragment. Detecting it
-     needs no dashboard change and cannot collide with anything — whereas a
-     custom "#claimed" on the Site URL would be appended alongside the auth
-     fragment, and a URL has only one. */
+  /* THE ONE RULE: never leave the buyer standing on this page.
+     Every branch below ends at /sites/, which loads the SDK and claim.js and
+     can finish the job even when this page cannot. The visible button is the
+     last resort for "JavaScript stopped entirely", not the plan. Landing here
+     and stalling is the failure this block exists to remove. */
   var h = location.hash || '';
-  if (h.indexOf('type=signup') === -1) return;
+  var q = location.search || '';
+
+  /* Broader than type=signup on purpose. That value is what the implicit flow
+     writes today, but the access_token in the fragment is the thing that
+     actually matters, and ?code= is what the same link produces if the project
+     is ever switched to PKCE. Gating on the one narrow string left this a
+     single dashboard setting away from silently doing nothing at all. */
+  if (h.indexOf('access_token') === -1
+      && h.indexOf('type=signup') === -1
+      && q.indexOf('code=') === -1) return;
+
+  /* Kept deliberately, like the emailRedirectTo log in claim.js. When this
+     misbehaves the only question worth answering is which branch ran, and
+     that is not recoverable after the fact from anywhere else. Values are
+     redacted: a live access token must never reach the console. */
+  function log(m) { console.log('[confirm] ' + m); }
+  log('arrival hash=' + (h ? h.replace(/=[^&]*/g, '=…') : '(none)')
+      + ' query=' + (q ? q.replace(/=[^&]*/g, '=…') : '(none)'));
 
   var bar  = document.getElementById('confirmBar');
   var text = document.getElementById('confirmText');
   var go   = document.getElementById('confirmGo');
 
-  /* The manual path is armed before anything async begins, so every later
-     failure already has somewhere to land. Forwarding the fragment is what
-     lets supabase-js on /sites/ establish the session instead; a bare href
-     would sign them straight back out, one click after confirming. */
-  go.setAttribute('href', '/sites/' + h);
+  /* Carrying the fragment is what lets supabase-js on /sites/ establish the
+     session if it is still unspent; a bare href would sign them straight back
+     out, one click after confirming. claim.js accepts either shape. */
+  var onward = '/sites/' + (h || q || '?confirmed=1');
+  go.setAttribute('href', onward);
+  go.hidden = false;
   bar.hidden = false;
 
-  var CFG = window.SBV_CONFIG || {};
-  if (!CFG.url || !CFG.key) return manual();
+  var done = false;
+  function forward(why) {
+    if (done) return;
+    done = true;
+    log('forwarding to ' + onward.replace(/=[^&]*/g, '=…') + ' — ' + why);
+    /* replace, not assign: the token is spent either way by this point, so the
+       back button must not be handed a URL that looks like it would work. */
+    location.replace(onward);
+  }
 
-  /* Injected rather than given a <script> tag: 208KB of auth SDK on every
-     landing-page visit, to serve the one arrival that came from a confirmation
-     link, is not a trade worth making. The fragment is untouched at this
-     point — nothing has consumed it yet. */
+  /* Nothing below is allowed to strand anyone. If the SDK is slow, blocked by
+     an extension, or never answers, /sites/ gets the attempt instead. */
+  var watchdog = setTimeout(function () { forward('timed out waiting for the SDK'); }, 4000);
+  function give(why) { clearTimeout(watchdog); forward(why); }
+
+  var CFG = window.SBV_CONFIG || {};
+  if (!CFG.url || !CFG.key) return give('SBV_CONFIG missing');
+
+  /* Injected rather than given a tag of its own up in the markup: 208KB of
+     auth SDK on every landing-page visit, to serve the one arrival that came
+     from a confirmation link, is not a trade worth making. The fragment is
+     untouched at this point — nothing has consumed it yet. */
   var s = document.createElement('script');
   s.src = '/assets/vendor/supabase-2.114.0.js';
-  s.onload  = establish;
-  s.onerror = manual;
+  s.onload = establish;
+  s.onerror = function () { give('SDK failed to load'); };
   document.head.appendChild(s);
 
   function establish() {
-    if (!window.supabase || !window.supabase.createClient) return manual();
+    if (!window.supabase || !window.supabase.createClient) {
+      return give('SDK loaded without createClient');
+    }
 
     /* createClient is what reads the fragment — detectSessionInUrl defaults to
-       true — and it does that work asynchronously. getSession() awaits that
-       same initialisation before it resolves, which is exactly why it is the
-       gate here: when it hands back a session, the token has been exchanged
-       and written to localStorage, and only then is the redirect safe. A timer
-       would race that write and land on /sites/ signed out. */
+       true and this build ships flowType implicit — and it does that work
+       asynchronously. getSession() awaits the same initialisation before it
+       resolves, which is exactly why it is the gate: when it hands back a
+       session, the token has been exchanged and written to localStorage, and
+       only then is the hop safe. A timer here would race that write. */
     var sb = window.supabase.createClient(CFG.url, CFG.key);
     sb.auth.getSession().then(function (res) {
-      if (!res || res.error || !res.data || !res.data.session) return manual();
-
-      /* Same origin, so /sites/ reads the session straight out of storage and
-         the token never has to travel in a URL again. ?confirmed=1 is what
-         claim.js watches for, and matches the emailRedirectTo it sends. */
-      location.replace('/sites/?confirmed=1');
-    }).catch(manual);
+      var sess = res && res.data && res.data.session;
+      if (!sess) {
+        /* Usually a link that was already spent — clicked twice, or prefetched
+           by a mail scanner. /sites/ still has claim.js, which puts them on the
+           sign-in step with their city intact rather than nowhere. */
+        return give('no session from the fragment');
+      }
+      /* Session is in localStorage now, same origin as /sites/, so the token
+         never has to travel in a URL again. ?confirmed=1 is what claim.js
+         watches for and matches the emailRedirectTo it sends. */
+      onward = '/sites/?confirmed=1';
+      give('session established');
+    }).catch(function () { give('getSession threw'); });
   }
 
-  /* Not an error from the buyer's point of view — their address is confirmed
-     either way. The bar just stops promising to do the rest for them and shows
-     the button, which still carries the live fragment. */
-  function manual() {
-    text.innerHTML = '<b>Email confirmed</b> &mdash; you&rsquo;re ready to claim a territory.';
-    go.hidden = false;
-  }
-
-  /* No auto-dismiss. This banner carries the only way forward, and hiding a
-     button after five seconds is worse than leaving it. */
+  /* No auto-dismiss and no close control: while this bar is up it is the only
+     thing on the page that matters, and every path above replaces the page
+     within four seconds anyway. */
 })();
 </script>
 

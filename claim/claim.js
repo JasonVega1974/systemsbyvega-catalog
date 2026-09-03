@@ -345,8 +345,21 @@
       }
       var s = res.data && res.data.session;
       if (!s) {
-        /* Sign-up with confirmations on returns a user and no session. */
-        msg.textContent = 'Check your email to confirm the account, then sign in here.';
+        /* Sign-up with confirmations on returns a user and no session. The
+           buyer does NOT have to come back and sign in: the confirmation link
+           establishes the session, and savePending() above means the modal
+           reopens on the city they already chose. The old wording — "then sign
+           in here" — described the flow before resumeClaim() existed, and sent
+           people hunting for a step that no longer exists.
+
+           The tab still flips to Sign in, as the fallback for somebody who
+           confirms in a different browser and comes back to this tab by hand.
+
+           No promise that the city is held. Nothing is written before Stripe
+           and resumeClaim() re-checks on return, so "reserved" would be a
+           claim the system does not honour. */
+        msg.textContent = 'Check your email — the link brings you straight back '
+          + 'here to finish. Nothing is reserved until payment, so confirm soon.';
         authMode = 'in'; paintTabs();
         return;
       }
@@ -598,8 +611,15 @@
      fragment over instead — gated on the query string alone, neither the
      banner nor the resume would fire on that path. */
   function arrivedFromConfirm() {
-    if (new URLSearchParams(location.search).get('confirmed') === '1') return true;
-    return (location.hash || '').indexOf('type=signup') !== -1;
+    var params = new URLSearchParams(location.search);
+    if (params.get('confirmed') === '1') return true;
+    /* PKCE hands the code back on the query string instead of putting tokens in
+       the fragment. Not this project's flow today — the vendored build ships
+       flowType implicit — but index.html forwards that shape too now, and a
+       forwarded arrival that nothing recognises is worse than no forward. */
+    if (params.get('code')) return true;
+    var h = location.hash || '';
+    return h.indexOf('type=signup') !== -1 || h.indexOf('access_token') !== -1;
   }
 
   function resumeClaim() {
