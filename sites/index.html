@@ -235,6 +235,33 @@
     letter-spacing:.06em;color:var(--amber-deep);margin:8px 0 0}
   .sc-claimed[hidden]{display:none}
 
+  /* confirmed-email banner, injected by claim.js on ?confirmed=1.
+     Bottom-centre, not top: the nav is sticky, so a top banner would either
+     cover it or shove the page down at the moment the buyer arrives. */
+  /* width:max-content with a viewport cap. Without it the flex box shrinks to
+     fit its narrowest item, which at 360px squeezed the message to 85px and
+     five wrapped lines. */
+  .cb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:300;
+    display:flex;align-items:center;gap:11px;
+    width:max-content;max-width:calc(100vw - 32px);
+    background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--green);
+    border-radius:11px;box-shadow:var(--shadow);padding:13px 14px 13px 15px;
+    font-size:14.5px;line-height:1.45;cursor:pointer;
+    animation:cb-in .28s cubic-bezier(.2,.8,.3,1)}
+  .cb.out{opacity:0;transform:translateX(-50%) translateY(8px);
+    transition:opacity .25s,transform .25s}
+  .cb-tick{color:var(--green);font-weight:700;font-size:16px;line-height:1;flex:0 0 auto}
+  .cb-text{flex:1 1 auto;min-width:0}
+  /* 28px square: the 20px glyph alone measured 16x22, under the 24px AA floor
+     for a tap target. The banner also dismisses on click anywhere, so this is
+     the precise target rather than the only one. */
+  .cb-x{background:none;border:0;font-size:20px;line-height:1;color:var(--ink-soft);
+    cursor:pointer;padding:0;margin-left:4px;flex:0 0 auto;
+    min-width:28px;min-height:28px;display:flex;align-items:center;justify-content:center}
+  .cb-x:hover{color:var(--ink)}
+  @keyframes cb-in{from{opacity:0;transform:translateX(-50%) translateY(10px)}}
+  @media(prefers-reduced-motion:reduce){.cb{animation:none}.cb.out{transition:none}}
+
   /* nav auth slot */
   .nav-auth{display:flex;align-items:center;gap:10px;font-size:13px}
   .nav-auth[hidden]{display:none}
