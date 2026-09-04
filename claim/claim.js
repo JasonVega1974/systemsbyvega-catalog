@@ -173,10 +173,15 @@
               '<b>$499</b> custom launch</label>' +
           '</fieldset>' +
           '<label class="cm-f"><span>Business name</span>' +
-            '<input type="text" id="cmBiz" maxlength="120"></label>' +
+            /* autocomplete off: Chrome otherwise fills this from the saved
+               contact profile right after the phase-2 credentials autofill,
+               and the buyer is naming a NEW business, not their account. */
+            '<input type="text" id="cmBiz" maxlength="120" autocomplete="off"></label>' +
           '<label class="cm-f"><span>Web address</span>' +
-            '<span class="cm-sub"><input type="text" id="cmSlug" maxlength="40">' +
+            '<span class="cm-sub"><input type="text" id="cmSlug" maxlength="40" autocomplete="off">' +
               '<em>.systemsbyvega.com</em></span></label>' +
+          '<p class="cm-hint">Your site&rsquo;s temporary address. You can connect' +
+            ' your own domain later.</p>' +
           '<div class="cm-terms" id="cmTerms" tabindex="0" aria-label="Terms"></div>' +
           '<label class="cm-accept"><input type="checkbox" id="cmAccept">' +
             '<span>I have read and agree to the above.</span></label>' +
@@ -473,6 +478,11 @@
     lastFocus = document.activeElement;
     $('#cmLead').textContent = name + ' — one operator per city. Check whether yours is open.';
     $('#cmCity').value = ''; $('#cmState').value = '';
+    /* Phase 3 resets too: without this, a name typed in an earlier abandoned
+       claim reappears on the next open, which reads as "we pre-filled it".
+       The touched flag resets with it so the name→slug auto-fill re-arms. */
+    $('#cmBiz').value = ''; $('#cmSlug').value = '';
+    delete $('#cmSlug').dataset.touched;
     $('#cmCheckMsg').textContent = ''; $('#cmCheckMsg').className = 'cm-msg';
     $('#cmAuthMsg').textContent = ''; $('#cmConfirmMsg').textContent = '';
     $('#cmAccept').checked = false; $('#cmClaim').disabled = true;
