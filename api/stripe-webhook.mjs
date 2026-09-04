@@ -629,20 +629,23 @@ async function freeClientId(desired) {
 /* The buyer's confirmation. States what was bought and what happens next, and
    nothing else — no earnings language, no projection, no promise of outcome,
    and no link to a dashboard that does not exist yet. */
-function sendWelcome(intake, clientId, nicheName) {
+/* Exported for tools/resend-welcome.mjs — the one-off used when a provision
+   succeeded but Brevo rejected the send (as the IP allowlist did once). The
+   webhook's idempotency gate returns before mail on a replayed event, so a
+   Stripe resend can never redeliver this; a direct call is the only path. */
+export function sendWelcome(intake, clientId, nicheName) {
   const city = intake.city_label + ', ' + intake.state_code;
   const niche = nicheName || (intake.niche_slug || '').replace(/-/g, ' ');
   const web = clientId + '.' + APEX;
   const who = intake.operator_name || intake.business_name;
 
-  /* THREE BEATS, AND EVERY ONE OF THEM IS TRUE TODAY.
-     The obvious welcome — bookmark your live site, follow the admin link,
-     watch for setup instructions — describes a product that does not exist
-     yet: no middleware routes the subdomain, there is no /admin/ page, and
-     there is no second email, because buyers create their account BEFORE
-     paying and already have a password. Promising any of it would hand a
-     buyer three dead ends thirty seconds after they spent $299.
-     Swap to the linked version once both destinations return 200. */
+  /* THREE BEATS, AND EVERY ONE OF THEM IS TRUE TODAY — the linked version the
+     earlier draft's comment promised. Both destinations now return 200: step
+     9.5 attaches the subdomain and middleware.js routes it, and /admin/ is a
+     real page. "Example content until you customise it" is load-bearing copy —
+     the site IS live but wears the niche demo until the first save, and a
+     buyer told simply "your site is live" would report the demo as a bug. */
+  const adminUrl = SITE_URL + '/admin/?tenant=' + encodeURIComponent(clientId);
   const lines = [
     'Hi ' + who + ',',
     '',
@@ -651,16 +654,16 @@ function sendWelcome(intake, clientId, nicheName) {
     '',
     'WHAT HAPPENS NEXT',
     '',
-    '1. We build your site. Your web address is reserved:',
-    '   ' + web,
-    '   It is not live yet — we will email you the moment it is.',
+    '1. Your site is live now:',
+    '   https://' + web + '/',
+    '   It opens with example content until you customise it.',
     '',
-    '2. Then you can sign in and edit it. Use the account you created at',
-    '   checkout. That link comes with the same email.',
+    '2. Make it yours. Sign in with the account you created at checkout',
+    '   and edit your business details:',
+    '   ' + adminUrl,
+    '   Changes show on your site within a minute.',
     '',
-    '3. Nothing is needed from you right now. If anything above is wrong —',
-    '   the city, your business name — reply today and we will fix it',
-    '   before we build.',
+    '3. Wrong city or business name? Just reply and we will fix it.',
     '',
     'Your payment receipt comes from Stripe separately.',
     '',
@@ -696,15 +699,16 @@ function sendWelcome(intake, clientId, nicheName) {
       '<p style="margin:0 0 16px;' + base + ';font-size:11px;font-weight:700;' +
         'letter-spacing:.09em;text-transform:uppercase;color:' + P.soft + '">What happens next</p>' +
       '<table cellpadding="0" cellspacing="0" border="0" style="width:100%">' +
-        step(1, 'We build your site.',
-          'Your web address is reserved: <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;' +
-          'font-size:13px;color:' + P.ink + '">' + escHtml(web) + '</span> — it is not live yet, ' +
-          'and we will email you the moment it is.') +
-        step(2, 'Then you can sign in and edit it.',
-          'Use the account you created at checkout. That link comes with the same email.') +
-        step(3, 'Nothing is needed from you right now.',
-          'If anything above is wrong — the city, your business name — reply today ' +
-          'and we will fix it before we build.') +
+        step(1, 'Your site is live now.',
+          '<a href="https://' + escHtml(web) + '/" style="color:' + P.amber +
+          ';font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px">' +
+          escHtml(web) + '</a> — it opens with example content until you customise it.') +
+        step(2, 'Make it yours.',
+          'Sign in with the account you created at checkout and ' +
+          '<a href="' + adminUrl + '" style="color:' + P.amber + '">edit your business info</a>. ' +
+          'Changes show on your site within a minute.') +
+        step(3, 'Wrong city or business name?',
+          'Just reply to this email and we will fix it.') +
       '</table>' +
     '</div>' +
     '<p style="font-size:14px;line-height:1.6;margin:0 0 18px;color:' + P.soft + '">' +

@@ -6,9 +6,14 @@
    (applied when no file matches the path), so a rewrite whose source is "/" is
    silently skipped, because "/" already serves index.html.
 
-   Only "/" is matched. Every other path on a tenant subdomain is a real file at
-   that same path and already serves correctly, so intercepting it would burn
-   compute to change nothing.
+   Two paths are matched, and only two. "/" is the storefront rewrite.
+   "/content.json" exists because every storefront boots by fetching that path
+   RELATIVE — on the demo page it resolves to the niche's own file, but on a
+   tenant subdomain the root was rewritten, so nothing is there; it is sent to
+   /api/operator-content instead, which serves the same shape with the
+   operator's saved fields laid over the niche defaults. Every other path on a
+   tenant subdomain is a real file at that same path and already serves
+   correctly, so intercepting it would burn compute to change nothing.
 
    ── A NOTE ABOUT package.json ───────────────────────────────────────────────
    This file is the only reason package.json exists in this repo. That file must
@@ -20,7 +25,7 @@
    ========================================================================== */
 import { next, rewrite } from '@vercel/functions';
 
-export const config = { matcher: '/' };
+export const config = { matcher: ['/', '/content.json'] };
 
 const APEX = 'systemsbyvega.com';
 
@@ -101,6 +106,16 @@ export default async function middleware(request) {
 
   const label = host.slice(0, -(APEX.length + 1));
   if (!LABEL.test(label)) return next();
+
+  /* The storefront's own boot fetch. No tenant lookup needed here: the
+     endpoint validates the label and resolves the niche itself, and it already
+     answers non-2xx for an unknown tenant — which the page treats as "keep the
+     inlined defaults". Passing it through the lookup would just double the
+     database reads per page view. */
+  const path = new URL(request.url).pathname;
+  if (path === '/content.json') {
+    return rewrite(new URL('/api/operator-content?tenant=' + label, request.url));
+  }
 
   const niche = await nicheFor(label);
 
