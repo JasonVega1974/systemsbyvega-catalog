@@ -102,20 +102,25 @@
       <p class="ty-label">Your territory</p>
       <p class="ty-terr" id="r-terr"></p>
       <p class="ty-note" style="margin:0 0 14px" id="r-biz"></p>
-      <p class="ty-label" style="margin:0 0 4px">Web address reserved</p>
-      <p class="ty-mono" id="r-web"></p>
+      <p class="ty-label" style="margin:0 0 4px">Your site &mdash; live now</p>
+      <p class="ty-mono"><a class="link" id="r-web" href="/" rel="noopener"></a></p>
     </div>
     <p class="ty-label">What happens next</p>
     <ol class="ty-steps">
-      <li><b>We build your site.</b> The address above is reserved for you. It is
-        not live yet &mdash; we will email you the moment it is.</li>
-      <li><b>Then you can sign in and edit it.</b> Use the account you created at
-        checkout. That link comes with the same email.</li>
-      <li><b>Nothing is needed from you right now.</b> If anything above is wrong
-        &mdash; the city, your business name &mdash; reply to your confirmation
-        email today and we will fix it before we build.</li>
+      <li><b>Visit your site.</b> It is live right now at the address above,
+        wearing example content until you make it yours.</li>
+      <!-- href works without the tenant too: /admin/ resolves the operator's
+           own tenants from their sign-in, and ?tenant= is only a hint. The JS
+           below adds it so a buyer with several territories lands on the right
+           one. -->
+      <li><b>Make it yours.</b> <a class="link" id="r-admin" href="/admin/">Edit
+        your business info</a> &mdash; sign in with the account you created at
+        checkout. Changes show on your site within a minute.</li>
     </ol>
-    <p class="ty-note">Your payment receipt comes from Stripe separately.</p>
+    <p class="ty-note">Your payment receipt comes from Stripe separately.
+      Wrong city or business name? Email
+      <a class="link" href="mailto:info@kingdom-creatives.com">info@kingdom-creatives.com</a>
+      and we will fix it.</p>
   </div>
 
   <!-- processing -->
@@ -332,7 +337,13 @@ window.SBV_CONFIG = {
       if (b.city) terr += ' — ' + b.city + (b.state ? ', ' + b.state : '');
       $('#r-terr').textContent = terr;
       $('#r-biz').textContent = b.business_name || '';
-      $('#r-web').textContent = b.web_address || '';
+      var web = b.web_address || '';
+      $('#r-web').textContent = web;
+      if (web) $('#r-web').setAttribute('href', 'https://' + web + '/');
+      if (b.client_id) {
+        $('#r-admin').setAttribute('href',
+          '/admin/?tenant=' + encodeURIComponent(b.client_id));
+      }
       show('ready', 'Your territory is claimed',
         'That category is yours in that city for as long as your account is active.');
       return;
