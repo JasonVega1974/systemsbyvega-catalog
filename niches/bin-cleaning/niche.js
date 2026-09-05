@@ -12,8 +12,12 @@
   'use strict';
 
   var SL = window.SL;
-  var esc = SL.esc, num = SL.num, telHref = SL.telHref;
+  var esc = SL.esc, num = SL.num, telHref = SL.telHref, telDigits = SL.telDigits;
   var CONTENT = window.DEFAULT_CONTENT;
+
+  /* Shared quote/paren stripper for anything interpolated into a CSS url("…")
+     or an img src attribute — symmetric with contracting/niche.js's cssUrl(). */
+  function safeUrl(u){ return String(u || '').replace(/["\\)]/g, ''); }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -35,7 +39,7 @@
 
   function applyRuntime(c){
     LEAD.email = (c.brand||{}).leadEmail || LEAD.email;
-    LEAD.sms = telHref((c.brand||{}).phone);
+    LEAD.sms = telDigits((c.brand||{}).phone);
   }
   applyRuntime(CONTENT);
 
@@ -43,24 +47,29 @@
   function applyPhotos(c){
     var n = c.niche || {};
     var ba = document.getElementById('ba');
-    var before = n.beforeImg || '/sites/bin-cleaning/photos/before.jpg';
-    var after  = n.afterImg  || '/sites/bin-cleaning/photos/after.jpg';
+    /* Fall back both-or-neither: a lone operator photo paired with Prime's demo
+       photo would present a fabricated before/after pair as one real bin. */
+    var hasBoth = !!(n.beforeImg && n.afterImg);
+    var before = hasBoth ? n.beforeImg : '/sites/bin-cleaning/photos/before.jpg';
+    var after  = hasBoth ? n.afterImg  : '/sites/bin-cleaning/photos/after.jpg';
     if (ba) {
-      ba.style.setProperty('--before-img', 'url("' + before + '")');
-      ba.style.setProperty('--after-img',  'url("' + after  + '")');
+      ba.style.setProperty('--before-img', 'url("' + safeUrl(before) + '")');
+      ba.style.setProperty('--after-img',  'url("' + safeUrl(after)  + '")');
       /* the slider is meaningless with a placeholder on either side */
       var wrap = ba.closest('.ba-wrap');
-      if (wrap) wrap.classList.toggle('slot-empty', !n.beforeImg && !before);
+      if (wrap) wrap.classList.toggle('slot-empty', !hasBoth && !before);
     }
+    var cityEl = document.getElementById('baCity');
+    if (cityEl) cityEl.textContent = (c.brand || {}).city || 'Nampa';
     var logo = (c.brand || {}).logo;
     [].forEach.call(document.querySelectorAll('.logo-img'), function (el) {
-      if (logo) el.style.backgroundImage = 'url("' + logo + '")';
+      if (logo) el.style.backgroundImage = 'url("' + safeUrl(logo) + '")';
       el.classList.toggle('slot-empty', !logo);
     });
     var op = document.getElementById('ownerPhoto');
     if (op) {
       var ph = (c.owner || {}).photo;
-      if (ph) op.innerHTML = '<img src="' + ph.replace(/"/g,'') + '" alt="' + ((c.owner||{}).name||'The owner') + '" loading="lazy">';
+      if (ph) op.innerHTML = '<img src="' + safeUrl(ph) + '" alt="' + esc((c.owner||{}).name||'The owner') + '" loading="lazy">';
       op.classList.toggle('slot-empty', !ph);
     }
   }
@@ -192,23 +201,54 @@
   }
 
   function pricingRender(c){
+    var brand = c.brand || {};
     var pricing = c.pricing || [];
     document.getElementById('pricingGrid').innerHTML = pricing.map(function(p, i){
       var isPriced = String(p.blurb || '').charAt(0) === '$';
       var feats = (p.features || []).map(function(f){ return '<li>' + checkSvg + esc(f) + '</li>'; }).join('');
       var cta = isPriced
         ? '<a class="btn' + (p.highlight ? '' : ' btn--ghost') + '" href="#book">Book ' + esc(p.label) + '</a>'
-        : '<a class="btn btn--ghost" href="tel:' + telHref((c.brand||{}).phone) + '">Call or text</a>';
+        : '<a class="btn btn--ghost" href="' + telHref(brand.phone) + '">Call or text</a>';
+      /* the group-rate tile's note carries no phone number of its own (F2) —
+         the CURRENT operator phone is appended here, at render time, so it can
+         never go stale or leak a different operator's number. */
+      var note = p.note ? esc(p.note) + (isPriced ? '' : (brand.phone ? ' ' + esc(brand.phone) : '')) : '';
       return '<div class="tier' + (p.highlight ? ' tier--best' : '') + ' reveal" data-delay="' + ((i % 3) + 1) + '">' +
         '<span class="tier__label">' + esc(p.label) + '</span>' +
         '<div class="tier__price">' + priceDisplay(p.blurb) + '</div>' +
         (p.per ? '<div class="tier__per">' + esc(p.per) + '</div>' : '') +
-        (p.note ? '<div class="tier__note">' + esc(p.note) + '</div>' : '') +
+        (note ? '<div class="tier__note">' + note + '</div>' : '') +
         (feats ? '<ul class="tier__features">' + feats + '</ul>' : '') +
         cta +
       '</div>';
     }).join('');
-    document.getElementById('pricingNote').innerHTML = esc(c.groupNote || '');
+    document.getElementById('pricingNote').innerHTML = esc(c.groupNote || '') + (brand.phone ? ' ' + esc(brand.phone) : '');
+  }
+
+  /* =====================================================
+     CANS SELECT — signup form's "how many cans" dropdown,
+     rebuilt from c.pricing so an edited price shows up in
+     the option text instead of a stale hardcoded label (F6).
+     Selection is preserved across re-render where possible.
+     ===================================================== */
+  function cansSelectRender(c){
+    var sel = document.getElementById('s-cans');
+    if(!sel) return;
+    var prev = sel.value;
+    var pricing = c.pricing || [];
+    var highlightIdx = 0;
+    var labels = pricing.map(function(p, i){
+      if(p.highlight) highlightIdx = i;
+      var isPriced = String(p.blurb || '').charAt(0) === '$';
+      return isPriced
+        ? (i + 1) + (i === 0 ? ' can' : ' cans') + ' — ' + p.blurb
+        : '4+ cans — group rate';
+    });
+    sel.innerHTML = labels.map(function(label){
+      return '<option value="' + esc(label) + '">' + esc(label) + '</option>';
+    }).join('');
+    var idx = labels.indexOf(prev);
+    sel.selectedIndex = idx > -1 ? idx : highlightIdx;
   }
 
   /* =====================================================
@@ -235,8 +275,8 @@
       else el.textContent = brand.name;
     });
     document.querySelectorAll('[data-tagline]').forEach(function(el){ el.textContent = brand.tagline || ''; });
-    document.querySelectorAll('a[href^="tel:"]').forEach(function(a){ a.href = 'tel:' + e164; });
-    document.querySelectorAll('a[href^="sms:"]').forEach(function(a){ a.href = 'sms:' + e164 + '?body=' + smsBody; });
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(a){ a.href = e164; });
+    document.querySelectorAll('a[href^="sms:"]').forEach(function(a){ a.href = 'sms:' + telDigits(brand.phone) + '?body=' + smsBody; });
     document.querySelectorAll('[data-phone]').forEach(function(el){ el.textContent = brand.phone; });
     document.getElementById('heroTag').textContent = brand.tagline || '';
     var fe = document.getElementById('footEmail');
@@ -293,8 +333,8 @@
       el.querySelector('.review__who').textContent = t.name ? ('— ' + t.name) : '';
     });
 
-    // ----- cans select in signup form: fixed tier labels (not derived — the wording is exact) -----
-    // (static markup already carries the four required option strings)
+    // ----- cans select in signup form: derived from c.pricing (F6) -----
+    cansSelectRender(c);
 
     revealScan(document);
   }

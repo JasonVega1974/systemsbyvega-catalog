@@ -20,7 +20,7 @@
     { "label": "3 Bins", "blurb": "$25", "per": "per cleaning", "note": "Best value · ~$8 per bin",
       "features": ["Lowest per-bin rate", "Priority scheduling", "Trash, recycle & extra"] },
     { "label": "4+ bins / whole street", "blurb": "Group rate", "per": "",
-      "note": "Text (208) 249-7296", "features": [] }
+      "note": "Text us for a group rate", "features": [] }
   ],
   "stats": [
     { "big": "$10", "small": "starting price" },
@@ -48,7 +48,7 @@
       { "title": "Leave your bin out",   "blurb": "At the curb after pickup day." },
       { "title": "We power-wash it clean", "blurb": "Sanitized, deodorized, rolled back." }
     ],
-    "groupNote": "4+ bins or a whole street? Text (208) 249-7296 for a group rate."
+    "groupNote": "4+ bins or a whole street? Text us for a group rate."
   },
   "seo": {
     "title": "Prime Bin Cleaning — Nampa & Caldwell trash bin cleaning",

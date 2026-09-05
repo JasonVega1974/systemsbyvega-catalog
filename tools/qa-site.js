@@ -285,7 +285,7 @@ const ALLOW = [
   /\$[\d,]+\+/,                                     // open-ended price: "$800+"
   /\d\+\s*['"]/,                                    // JS concat: Math.random()*100+'%'
   /<option[^>]*>[^<]*\d\+/,                          // form option: "4+ bins"
-  /\b\d+\+\s*(?:days?|hours?|bins?|dogs?|pets?|visits?|rooms?|windows?|vehicles?|loads?|bags?|stops?)\b/i,
+  /\b\d+\+\s*(?:days?|hours?|bins?|cans?|dogs?|pets?|visits?|rooms?|windows?|vehicles?|loads?|bags?|stops?)\b/i,
   /* plan-tier label: "3+ days", "4+ bins". N+ attached to a unit of what is
      being BOUGHT is a tier the buyer picks, not a track record. A track-record
      claim attaches N+ to years, jobs, clients, projects or reviews — none of
