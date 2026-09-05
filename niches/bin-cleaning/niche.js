@@ -1,290 +1,451 @@
 /* bin-cleaning/niche.js — this niche's renderer and interactive logic.
    Shared utilities come from _template/base.js via SL; the aliases below keep
    every extracted call site unchanged. base.js owns the reduced-motion flag,
-   the reveal observer, the content fetch/merge lifecycle, and calling
-   window.renderContent(). val/setErr/showDone are NOT aliased — this niche
-   defines its own with different signatures. */
+   the reveal observer (once, at boot), the content fetch/merge lifecycle, and
+   calling window.renderContent(). Because renderContent replaces innerHTML on
+   every dynamic region on EVERY call (including the post-fetch re-render),
+   this file keeps its own revealScan so freshly-created .reveal nodes are
+   re-observed — base.js's initReveal() only runs once, at boot.
+   val/setErr/showDone are NOT aliased — this niche defines its own with
+   different signatures. */
 (function () {
   'use strict';
 
   var SL = window.SL;
   var esc = SL.esc, num = SL.num, telHref = SL.telHref;
-  var reduce = SL.reduce;
   var CONTENT = window.DEFAULT_CONTENT;
 
-var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* =====================================================
      OWNER-EDITABLE CONTENT
      DEFAULT_CONTENT ships with the page and renders
      immediately. content.json (repo root, edited from
-     /admin/) is fetched at runtime and merged over it.
-     Keep content.json's shape in sync with this const.
-     Written as strict JSON so tooling can verify the two
-     stay byte-consistent.
+     /admin/) is fetched at runtime and merged over it —
+     stats, trust strip, pricing, process, owner, FAQ,
+     reviews and the footer all re-render from the merged
+     object. Keep content.json's shape in sync with this
+     const.
      ===================================================== */
-/* Zone centroids (index-matched to routeZones). The map GEOMETRY is now static SVG
-     in the markup (renders JS-off); these only position the rAF spring highlight glow. */
-  var ZONE_C = [
-    { x: 320, y: 100 }, // 0 North Meridian
-    { x: 126, y: 306 }, // 1 South Meridian
-    { x: 114, y: 108 }, // 2 West Meridian & Ten Mile
-    { x: 364, y: 306 }, // 3 East Meridian
-    { x: 516, y: 104 }, // 4 Eagle & Star
-    { x: 542, y: 306 }  // 5 Kuna & everywhere else
-  ];
-  function dayShort(day){
-    var d = String(day||'');
-    return /^(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)day$/i.test(d) ? d.slice(0,3).toUpperCase() : '· · ·';
+  /* Lead delivery — no backend. FormSubmit needs no account, but the FIRST
+     real submission emails a one-time activation link to LEAD.email; click it
+     once and every sign-up after that lands in that inbox, formatted as a
+     table. */
+  var LEAD = { provider: 'formsubmit', email: '', sms: '' };
+
+  function applyRuntime(c){
+    LEAD.email = (c.brand||{}).leadEmail || LEAD.email;
+    LEAD.sms = telHref((c.brand||{}).phone);
   }
-
-  /* ---------- render ---------- */
-  function renderContent(c){
-    document.querySelectorAll('[data-brand]').forEach(function(el){ el.textContent = c.brand.name; });
-    document.querySelectorAll('[data-city]').forEach(function(el){ el.textContent = c.brand.city; });
-    var telLink = telHref(c.brand.phone);
-    document.querySelectorAll('[data-phone]').forEach(function(el){ el.href = 'tel:' + telLink; el.textContent = c.brand.phone; });
-    document.querySelectorAll('[data-phone-link]').forEach(function(el){ el.href = 'tel:' + telLink; el.textContent = 'Call or text ' + c.brand.phone; });
-    document.querySelectorAll('.mobile-cta .call').forEach(function(el){ el.href = 'tel:' + telLink; });
-    document.querySelectorAll('.mobile-cta .text').forEach(function(el){ el.href = 'sms:' + telLink + '?body=' + encodeURIComponent('Hi ' + c.brand.name + ', can you clean my bins?'); });
-
-    // trust stats
-    document.getElementById('trustStats').innerHTML = c.stats.map(function(s){
-      return '<div class="tstat"><b>' + esc(s.num) + '</b><span>' + esc(s.label) + '</span></div>';
-    }).join('');
-
-    // how it works
-    document.getElementById('howGrid').innerHTML = c.howItWorks.map(function(st){
-      return '<div class="how-card"><h3>' + esc(st.title) + '</h3><p>' + esc(st.desc) + '</p></div>';
-    }).join('');
-
-    // plans
-    document.getElementById('priceGrid').innerHTML = c.pricing.map(function(p){
-      /* Canonical shape (§4.2): pricing[], features is an ARRAY, highlight is the
-         flag, label is the name, and this niche carries its price in blurb. */
-      var feats = (p.features || []).map(function(f){ return '<li>' + esc(f) + '</li>'; }).join('');
-      return '<div class="pcard' + (p.highlight ? ' best' : '') + '">' +
-        (p.highlight ? '<span class="pnote">' + esc(p.note || 'Most popular') + '</span>' : '') +
-        '<h3>' + esc(p.label) + '</h3>' +
-        '<div class="pnum">' + esc(p.blurb) + '<span> ' + esc(p.per) + '</span></div>' +
-        '<ul>' + feats + '</ul></div>';
-    }).join('');
-    document.getElementById('pricingNote').textContent = c.pricingNote || '';
-
-    // plan select in signup form
-    var planSel = document.getElementById('qPlan');
-    planSel.innerHTML = c.pricing.map(function(p){
-      return '<option value="' + esc(p.label) + '">' + esc(p.label) + ' (' + esc(p.blurb) + esc(p.per) + ')</option>';
-    }).join('') + '<option value="Not sure yet">Not sure yet</option>';
-
-    // route finder
-    renderRoutes(c);
-    document.getElementById('routeNote').textContent = c.routeNote || '';
-
-    // why
-    var icos = [
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 6 6.6 6 10a6 6 0 0 1-12 0c0-3.4 3-6 6-10z"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg>',
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V9l6-5 6 5v11"/></svg>'
-    ];
-    document.getElementById('whyGrid').innerHTML = c.whyClean.map(function(w, i){
-      return '<div class="wcard"><span class="w-ico">' + icos[i % icos.length] + '</span><h3>' + esc(w.title) + '</h3><p>' + esc(w.desc) + '</p></div>';
-    }).join('');
-
-    // service area
-    document.getElementById('areaShort').textContent = c.serviceArea.short;
-    document.getElementById('areaChips').innerHTML = (c.serviceArea.cities || []).map(function(city){
-      return '<span class="achip">' + esc(city) + '</span>';
-    }).join('');
-
-    // owner
-    document.getElementById('ownerEyebrow').textContent = c.owner.heading || 'Our story';
-    document.getElementById('ownerName').textContent = c.owner.name;
-    document.getElementById('ownerBio').textContent = c.owner.bio;
-    var photoWrap = document.getElementById('ownerPhotoWrap');
-    photoWrap.innerHTML = c.owner.photo ? '<img src="' + esc(c.owner.photo) + '" alt="' + esc(c.owner.name) + '">' : '';
-
-    // testimonials
-    document.getElementById('testGrid').innerHTML = c.testimonials.map(function(t){
-      return '<div class="tcard"><p>' + esc(t.quote) + '</p><div class="tname">' + esc(t.name) + '</div></div>';
-    }).join('');
-
-    // faq
-    document.getElementById('faqList').innerHTML = c.faq.map(function(f, i){
-      return '<details class="qa"' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '<span class="pm">+</span></summary><div class="ans">' + esc(f.a) + '</div></details>';
-    }).join('');
-
-    revealScan(document.body);
-  }
-
-  /* ---------- route finder: map + chips + detail panel ---------- */
-  var activeZone = -1;
-  function renderRoutes(c){
-    var zones = c.routeZones || [];
-    // Bind labels/days/aria onto the STATIC base map (geometry is fixed SVG in the markup).
-    // Only the DATA (content.json.routeZones, admin-editable) is applied here.
-    for(var i = 0; i < ZONE_C.length; i++){
-      var path = document.querySelector('#routeMap .rz[data-zone="' + i + '"]');
-      var tn = document.querySelector('#routeMap [data-zn="' + i + '"]');
-      var td = document.querySelector('#routeMap [data-zd="' + i + '"]');
-      var z = zones[i], vis = z ? '' : 'none';
-      if(path){ path.style.display = vis; if(z) path.setAttribute('aria-label', z.label + ' — ' + z.day); }
-      if(tn){ tn.style.display = vis; if(z) tn.textContent = z.label; }
-      if(td){ td.style.display = vis; if(z) td.textContent = dayShort(z.day); }
-    }
-
-    document.getElementById('routeChips').innerHTML = zones.map(function(z, i){
-      return '<button type="button" class="rchip" data-zone="' + i + '" aria-pressed="false">' + esc(z.label) + '</button>';
-    }).join('');
-
-    var wrap = document.getElementById('routes');
-    if(!wrap._wired){
-      wrap._wired = true;
-      wrap.addEventListener('click', function(e){
-        var el = e.target.closest('[data-zone]');
-        if(el) activateZone(+el.getAttribute('data-zone'));
-      });
-      wrap.addEventListener('keydown', function(e){
-        var el = e.target.closest('path[data-zone]');
-        if(el && (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar')){
-          e.preventDefault();
-          activateZone(+el.getAttribute('data-zone'));
-        }
-      });
-    }
-    if(activeZone >= 0 && activeZone < zones.length) activateZone(activeZone);
-  }
-
-  /* physics-eased highlight: a damped spring (requestAnimationFrame) scales the glow at
-     the active zone's centroid — momentum + overshoot + settle, like the north-star
-     (dj-site-blue) rAF decay loop. Reduced-motion → snap to final state, no loop. */
-  function springPulse(el, cx, cy){
-    if(el._raf) cancelAnimationFrame(el._raf);
-    el.setAttribute('cx', cx); el.setAttribute('cy', cy);
-    el.setAttribute('opacity', '0.95');
-    if(reduce){ el.setAttribute('r', '66'); return; }
-    var r = 4, v = 0, target = 66, k = 0.14, damp = 0.6, last = performance.now();
-    function step(now){
-      var dt = Math.min(2.5, (now - last) / 16.67); last = now;
-      v = (v + (target - r) * k) * damp;
-      r += v * dt;
-      el.setAttribute('r', r.toFixed(2));
-      if(Math.abs(target - r) > 0.4 || Math.abs(v) > 0.25){ el._raf = requestAnimationFrame(step); }
-      else { el.setAttribute('r', target); }
-    }
-    el._raf = requestAnimationFrame(step);
-  }
-
-  function activateZone(i){
-    var zones = CONTENT.routeZones || [];
-    var z = zones[i];
-    if(!z) return;
-    activeZone = i;
-    document.querySelectorAll('#routes [data-zone]').forEach(function(el){
-      var on = +el.getAttribute('data-zone') === i;
-      el.classList.toggle('on', on);
-      el.setAttribute('aria-pressed', on ? 'true' : 'false');
-    });
-    var pulse = document.getElementById('rzPulse'), ctr = ZONE_C[i];
-    if(pulse && ctr) springPulse(pulse, ctr.x, ctr.y);
-    document.getElementById('routeDetail').innerHTML =
-      '<p class="rd-zone">' + esc(z.label) + '</p>' +
-      '<p class="rd-day">' + esc(z.day) + '</p>' +
-      '<p class="rd-note">' + esc(z.note) + '</p>' +
-      '<p class="rd-cta"><a class="btn-pri" href="#signup">Start my plan</a></p>';
-  }
-
-  /* ---------- reveal on scroll ---------- */
-  var io = null;
-  function revealScan(root){
-    var nodes = (root || document).querySelectorAll('.reveal:not(.in)');
-    if(reduce || !('IntersectionObserver' in window)){
-      nodes.forEach(function(el){ el.classList.add('in'); });
-      return;
-    }
-    if(!io){
-      io = new IntersectionObserver(function(entries){
-        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
-    }
-    nodes.forEach(function(el){ io.observe(el); });
-  }
-
-  /* ---------- nav solidify ---------- */
-  var nav = document.getElementById('nav');
-  var onScroll = function(){ nav.classList.toggle('solid', window.scrollY > 24); };
-  onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
-
-  /* ---------- desktop sms:/tel: guard ---------- */
-  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  function toast(msg){
-    var t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    clearTimeout(toast._t); toast._t = setTimeout(function(){ t.classList.remove('show'); }, 3200);
-  }
-  document.addEventListener('click', function(e){
-    var a = e.target.closest('a[href^="sms:"], a[href^="tel:"]');
-    if(!a || isMobile) return;
-    e.preventDefault();
-    toast('Call or text ' + CONTENT.brand.phone);
-  });
-
-  /* ---------- lead form (FormSubmit) ---------- */
-  var LEAD = { provider: 'formsubmit', email: '' };
-  function applyRuntime(c){ LEAD.email = (c.brand||{}).leadEmail || LEAD.email; }
   applyRuntime(CONTENT);
 
-  var form = document.getElementById('quoteForm');
-  var status = document.getElementById('qfStatus');
-  var success = document.getElementById('qfSuccess');
-  var submitBtn = document.getElementById('qfSubmit');
+  /* photo slots: operator URLs (merged content) or dashed placeholders */
+  function applyPhotos(c){
+    var n = c.niche || {};
+    var ba = document.getElementById('ba');
+    var before = n.beforeImg || '/sites/bin-cleaning/photos/before.jpg';
+    var after  = n.afterImg  || '/sites/bin-cleaning/photos/after.jpg';
+    if (ba) {
+      ba.style.setProperty('--before-img', 'url("' + before + '")');
+      ba.style.setProperty('--after-img',  'url("' + after  + '")');
+      /* the slider is meaningless with a placeholder on either side */
+      var wrap = ba.closest('.ba-wrap');
+      if (wrap) wrap.classList.toggle('slot-empty', !n.beforeImg && !before);
+    }
+    var logo = (c.brand || {}).logo;
+    [].forEach.call(document.querySelectorAll('.logo-img'), function (el) {
+      if (logo) el.style.backgroundImage = 'url("' + logo + '")';
+      el.classList.toggle('slot-empty', !logo);
+    });
+    var op = document.getElementById('ownerPhoto');
+    if (op) {
+      var ph = (c.owner || {}).photo;
+      if (ph) op.innerHTML = '<img src="' + ph.replace(/"/g,'') + '" alt="' + ((c.owner||{}).name||'The owner') + '" loading="lazy">';
+      op.classList.toggle('slot-empty', !ph);
+    }
+  }
+
+  // ---------- year ----------
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // ---------- nav solidify ----------
+  var nav = document.getElementById('nav');
+  var onScroll = function(){ nav.classList.toggle('solid', window.scrollY > 30); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // ---------- reveal on scroll (re-armable for JS-injected nodes) ----------
+  var io = null;
+  if('IntersectionObserver' in window && !reduce){
+    io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.12, rootMargin:'0px 0px -8% 0px'});
+  }
+  function revealScan(root){
+    var nodes = (root || document).querySelectorAll('.reveal:not(.in)');
+    if(io){ nodes.forEach(function(n){ io.observe(n); }); }
+    else { nodes.forEach(function(n){ n.classList.add('in'); }); }
+  }
+  revealScan(document);
+
+  // ---------- falling water droplets in hero ----------
+  var drops = document.getElementById('drops');
+  if(drops && !reduce){
+    var n = window.innerWidth < 700 ? 10 : 18;
+    for(var i=0;i<n;i++){
+      var d = document.createElement('span');
+      d.className = 'drop';
+      d.style.left = Math.random()*100 + '%';
+      var dur = 3.5 + Math.random()*4;
+      d.style.animationDuration = dur + 's';
+      d.style.animationDelay = (-Math.random()*dur) + 's';
+      d.style.opacity = 0.3 + Math.random()*0.5;
+      d.style.height = (10 + Math.random()*12) + 'px';
+      drops.appendChild(d);
+    }
+  }
+
+  /* =====================================================
+     SIGNATURE — before/after power-wash slider
+     pointer + keyboard drag, --pos CSS var, gentle
+     auto-nudge on first view (skipped under reduced motion).
+     ===================================================== */
+  var ba = document.getElementById('ba');
+  if(ba){
+    var pos = 50, dragging = false, touched = false;
+    var setPos = function(p){
+      pos = Math.max(0, Math.min(100, p));
+      ba.style.setProperty('--pos', pos + '%');
+      ba.setAttribute('aria-valuenow', Math.round(pos));
+    };
+    var xToPct = function(clientX){
+      var r = ba.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    };
+    var start = function(e){
+      dragging = true; ba.classList.add('spraying');
+      if(!touched){ touched = true; ba.classList.add('touched'); }
+      move(e);
+    };
+    var move = function(e){
+      if(!dragging) return;
+      var x = (e.touches ? e.touches[0].clientX : e.clientX);
+      setPos(xToPct(x));
+      if(e.cancelable) e.preventDefault();
+    };
+    var end = function(){ dragging = false; ba.classList.remove('spraying'); };
+
+    ba.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move, {passive:false});
+    window.addEventListener('mouseup', end);
+    ba.addEventListener('touchstart', start, {passive:false});
+    window.addEventListener('touchmove', move, {passive:false});
+    window.addEventListener('touchend', end);
+
+    // keyboard
+    ba.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowLeft'){ setPos(pos-4); e.preventDefault(); if(!touched){touched=true;ba.classList.add('touched');} }
+      if(e.key === 'ArrowRight'){ setPos(pos+4); e.preventDefault(); if(!touched){touched=true;ba.classList.add('touched');} }
+    });
+
+    // gentle auto-nudge on first view to signal it drags
+    if(!reduce && 'IntersectionObserver' in window){
+      var io2 = new IntersectionObserver(function(en){
+        en.forEach(function(x){
+          if(x.isIntersecting && !touched){
+            var seq=[68,32,50], k=0;
+            var t = setInterval(function(){
+              if(touched){ clearInterval(t); return; }
+              setPos(seq[k++]); if(k>=seq.length) clearInterval(t);
+            }, 520);
+            io2.unobserve(ba);
+          }
+        });
+      }, {threshold:.5});
+      io2.observe(ba);
+    }
+  }
+
+  /* =====================================================
+     TRUST STRIP
+     ===================================================== */
+  var TRUST_ICONS = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 4 6 10a6 6 0 0 1-12 0C6 6 12 2 12 2z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>'
+  ];
+
+  /* =====================================================
+     PRICING tiers. Canonical shape (§4.2): pricing[], features
+     is an ARRAY, highlight is the flag, label is the name, and
+     this niche carries its price in blurb. Renders ALL tiers,
+     including the "4+ bins / whole street" group-rate entry —
+     it carries no numeric price or features, so it renders as
+     a plain call-to-text tile instead of a "Book" button.
+     ===================================================== */
+  var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+
+  function priceDisplay(blurb){
+    var s = String(blurb || '');
+    if(s.charAt(0) === '$') return '<sup>$</sup>' + esc(s.slice(1));
+    return esc(s);
+  }
+
+  function pricingRender(c){
+    var pricing = c.pricing || [];
+    document.getElementById('pricingGrid').innerHTML = pricing.map(function(p, i){
+      var isPriced = String(p.blurb || '').charAt(0) === '$';
+      var feats = (p.features || []).map(function(f){ return '<li>' + checkSvg + esc(f) + '</li>'; }).join('');
+      var cta = isPriced
+        ? '<a class="btn' + (p.highlight ? '' : ' btn--ghost') + '" href="#book">Book ' + esc(p.label) + '</a>'
+        : '<a class="btn btn--ghost" href="tel:' + telHref((c.brand||{}).phone) + '">Call or text</a>';
+      return '<div class="tier' + (p.highlight ? ' tier--best' : '') + ' reveal" data-delay="' + ((i % 3) + 1) + '">' +
+        '<span class="tier__label">' + esc(p.label) + '</span>' +
+        '<div class="tier__price">' + priceDisplay(p.blurb) + '</div>' +
+        (p.per ? '<div class="tier__per">' + esc(p.per) + '</div>' : '') +
+        (p.note ? '<div class="tier__note">' + esc(p.note) + '</div>' : '') +
+        (feats ? '<ul class="tier__features">' + feats + '</ul>' : '') +
+        cta +
+      '</div>';
+    }).join('');
+    document.getElementById('pricingNote').innerHTML = esc(c.groupNote || '');
+  }
+
+  /* =====================================================
+     CONTENT RENDER — re-paints every owner-editable region
+     from the merged CONTENT object. Runs once with the
+     inline defaults (no flash) and again if content.json
+     loads. Never hard-fails the page.
+     ===================================================== */
+  var ownerPhotoBox = document.getElementById('ownerPhoto');
+  var ownerPhotoAria = ownerPhotoBox.getAttribute('aria-label');
+
+  function renderContent(c){
+    applyRuntime(c);
+    applyPhotos(c);
+
+    var brand = c.brand || {}, area = c.serviceArea || {}, owner = c.owner || {};
+    var social = c.social || [];
+    var e164 = telHref(brand.phone);
+    var smsBody = encodeURIComponent("Hi " + brand.name + "! I'd like to sign up for bin cleaning.");
+
+    // ----- brand & contact -----
+    document.querySelectorAll('[data-brand]').forEach(function(el){
+      if (el.id === 'brandName') el.innerHTML = esc(brand.name) + '<span>' + esc(brand.tagline || '') + '</span>';
+      else el.textContent = brand.name;
+    });
+    document.querySelectorAll('[data-tagline]').forEach(function(el){ el.textContent = brand.tagline || ''; });
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(a){ a.href = 'tel:' + e164; });
+    document.querySelectorAll('a[href^="sms:"]').forEach(function(a){ a.href = 'sms:' + e164 + '?body=' + smsBody; });
+    document.querySelectorAll('[data-phone]').forEach(function(el){ el.textContent = brand.phone; });
+    document.getElementById('heroTag').textContent = brand.tagline || '';
+    var fe = document.getElementById('footEmail');
+    fe.href = 'mailto:' + brand.email; fe.textContent = brand.email;
+
+    // ----- service area -----
+    var cities = (area.cities || []).filter(Boolean);
+    document.getElementById('footServe').textContent = cities.length
+      ? 'Serving ' + cities.join(' & ')
+      : 'Serving ' + (area.short || brand.city || '');
+
+    // ----- social links (footer; hidden when empty) -----
+    document.getElementById('footSocial').innerHTML = social.length
+      ? social.map(function(s){
+          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
+        }).join(' · ') + '<br />'
+      : '';
+
+    // ----- stats -> hero proof row -----
+    document.getElementById('statsRow').innerHTML = (c.stats || []).map(function(s){
+      return '<div class="proof"><b>' + esc(s.big) + '</b><span>' + esc(s.small) + '</span></div>';
+    }).join('');
+
+    // ----- trust strip -----
+    document.getElementById('trustGrid').innerHTML = (c.trust || []).map(function(t, i){
+      return '<div class="trust__item">' + (TRUST_ICONS[i % TRUST_ICONS.length]) + esc(t.title) + '</div>';
+    }).join('');
+
+    // ----- pricing -----
+    pricingRender(c);
+
+    // ----- process -----
+    document.getElementById('processGrid').innerHTML = (c.process || []).map(function(st, i){
+      return '<div class="step reveal" data-delay="' + ((i % 3) + 1) + '"><span class="step__n"></span><h3>' + esc(st.title) + '</h3><p>' + esc(st.blurb) + '</p></div>';
+    }).join('');
+
+    // ----- owner (applyPhotos handles the photo slot itself) -----
+    document.getElementById('ownerName').textContent = owner.heading || ('Meet ' + (owner.name || 'the owner'));
+    document.getElementById('ownerBio').textContent = owner.bio || '';
+    if (!ownerPhotoBox.querySelector('img')) ownerPhotoBox.setAttribute('aria-label', ownerPhotoAria);
+    else ownerPhotoBox.setAttribute('aria-label', 'Photo of ' + (owner.name || 'the owner'));
+
+    // ----- faq -----
+    document.getElementById('faqList').innerHTML = (c.faq || []).map(function(f, i){
+      return '<details class="faq reveal"' + (i === 0 ? ' open' : '') + '><summary>' + esc(f.q) + '<span class="plus">+</span></summary><div class="faq__body">' + esc(f.a) + '</div></details>';
+    }).join('');
+
+    // ----- reviews (three static cards; empty-state CSS shows placeholder copy) -----
+    var reviewEls = document.querySelectorAll('.review');
+    (c.testimonials || []).forEach(function(t, i){
+      var el = reviewEls[i];
+      if(!el) return;
+      el.querySelector('.review__quote').textContent = t.quote || '';
+      el.querySelector('.review__who').textContent = t.name ? ('— ' + t.name) : '';
+    });
+
+    // ----- cans select in signup form: fixed tier labels (not derived — the wording is exact) -----
+    // (static markup already carries the four required option strings)
+
+    revealScan(document);
+  }
+
+  /* =====================================================
+     SIGN-UP FORM — FormSubmit fetch + sms fallback
+     ===================================================== */
+  var form = document.getElementById('signupForm');
+  var msgEl = document.getElementById('signupMsg');
+  var submitBtn = document.getElementById('signupSubmit');
+
+  var val = function(id){ var el = document.getElementById(id); return el ? (el.value||'').trim() : ''; };
+  var setErr = function(elOrField, on){
+    var f = elOrField && elOrField.closest ? elOrField.closest('.field') : elOrField;
+    if(f) f.classList.toggle('invalid', !!on);
+  };
+  var getDays = function(){
+    return [].slice.call(form.querySelectorAll('input[name="days"]:checked')).map(function(c){ return c.value; });
+  };
+
+  var buildSms = function(d){
+    var body = "Hi " + CONTENT.brand.name + "! I'd like to sign up."
+      + " Name: " + d.name + "."
+      + " Phone: " + d.phone + "."
+      + " Address: " + d.address + (d.city ? ", " + d.city : "") + "."
+      + " Cans: " + d.cans + "."
+      + " Days: " + (d.days || "any") + "."
+      + " How often: " + d.frequency + "."
+      + (d.notes ? " Notes: " + d.notes + "." : "");
+    return "sms:" + LEAD.sms + "?body=" + encodeURIComponent(body);
+  };
+
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  /* Global guard: on desktop, never let sms:/tel: links trigger the OS
+     "Pick an app" dialog. Show a friendly toast instead. Mobile untouched. */
+  if(!isMobile){
+    document.addEventListener('click', function(e){
+      var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+      if(!a) return;
+      e.preventDefault();
+      var t = document.getElementById('smsToast');
+      if(!t){
+        t = document.createElement('div');
+        t.id = 'smsToast';
+        t.setAttribute('role','status');
+        t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+          + 'background:#0b1a30;color:#fff;padding:14px 22px;border-radius:12px;'
+          + 'box-shadow:0 12px 40px rgba(0,0,0,.5);border:1px solid rgba(127,215,255,.3);'
+          + 'font-family:Inter,system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+          + 'opacity:0;transition:opacity .25s ease;';
+        document.body.appendChild(t);
+      }
+      t.innerHTML = 'Call or text us at <strong style="color:var(--accent-2);letter-spacing:.02em">' + esc(CONTENT.brand.phone) + '</strong> from your phone.';
+      requestAnimationFrame(function(){ t.style.opacity = '1'; });
+      clearTimeout(window.__smsToastTimer);
+      window.__smsToastTimer = setTimeout(function(){ t.style.opacity = '0'; }, 4500);
+    });
+  }
+
+  var showDone = function(phone, smsUrl){
+    form.hidden = true;
+    var done = document.getElementById('signupDone');
+    var dm = document.getElementById('doneMsg');
+    if(dm){
+      if(isMobile && smsUrl){
+        dm.textContent = "We got your info! We'll text you at " + phone + " to lock in your day and price. Opening a text so you can send us a copy too — just hit send.";
+      } else {
+        dm.textContent = "We got your info! We'll text you at " + phone + " from " + CONTENT.brand.phone + " to lock in your day and price. Keep an eye on your messages.";
+      }
+    }
+    if(done){ done.hidden = false; done.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'}); }
+    if(smsUrl && isMobile){ setTimeout(function(){ window.location.href = smsUrl; }, 900); }
+  };
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var honey = form.querySelector('[name="_honey"]');
-    if(honey && honey.value) return; // honeypot tripped, silently drop
+    msgEl.textContent = ''; msgEl.className = 'book__msg';
 
-    var name = document.getElementById('qName').value.trim();
-    var phone = document.getElementById('qPhone').value.trim();
-    if(!name || !phone){
-      status.textContent = 'Please fill in your name and phone number.';
-      status.classList.add('err');
-      return;
-    }
-    status.textContent = ''; status.classList.remove('err');
-    submitBtn.disabled = true; submitBtn.textContent = 'Sending…';
+    // honeypot: silently succeed for bots
+    if(form.querySelector('input[name="_honey"]').value){ showDone('your number', ''); return; }
 
-    var payload = {
-      name: name, phone: phone,
-      address: document.getElementById('qAddress').value.trim() || '(not given)',
-      bins: document.getElementById('qBins').value,
-      plan: document.getElementById('qPlan').value,
-      notes: document.getElementById('qNotes').value.trim(),
-      _subject: CONTENT.brand.name + ' — new signup from ' + name,
-      _template: 'table', _captcha: 'false'
+    var d = {
+      name: val('s-name'),
+      phone: val('s-phone'),
+      address: val('s-addr'),
+      city: val('s-city'),
+      cans: val('s-cans'),
+      days: getDays().join(', '),
+      frequency: val('s-freq'),
+      notes: val('s-notes')
     };
 
-    fetch('https://formsubmit.co/ajax/' + encodeURIComponent(LEAD.email), {
+    var bad = false;
+    setErr(document.getElementById('s-name'), !d.name); bad = bad || !d.name;
+    var digits = d.phone.replace(/\D/g,'');
+    setErr(document.getElementById('s-phone'), digits.length < 7); bad = bad || digits.length < 7;
+    setErr(document.getElementById('s-addr'), !d.address); bad = bad || !d.address;
+    setErr(document.getElementById('s-city'), !d.city); bad = bad || !d.city;
+    var daysField = form.querySelector('.field--days');
+    var noDays = getDays().length === 0;
+    setErr(daysField, noDays); bad = bad || noDays;
+    var consent = document.getElementById('s-consent').checked;
+
+    if(bad){ msgEl.textContent = 'Please fill in the highlighted fields and pick at least one day.'; msgEl.classList.add('err'); return; }
+    if(!consent){ msgEl.textContent = 'Please check the consent box so we can text you a confirmation.'; msgEl.classList.add('err'); return; }
+
+    var smsUrl = buildSms(d);
+    submitBtn.disabled = true; submitBtn.textContent = 'Reserving…';
+
+    var payload = {
+      _subject: 'New bin cleaning sign-up — ' + d.name,
+      _template: 'table',
+      _captcha: 'false',
+      name: d.name, phone: d.phone,
+      address: d.address, city: d.city,
+      cans: d.cans, days: d.days || 'any',
+      frequency: d.frequency,
+      notes: d.notes || '—'
+    };
+
+    fetch('https://formsubmit.co/ajax/' + LEAD.email, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
-    }).then(function(r){ return r.json(); }).then(function(res){
-      if(res && (res.success === 'true' || res.success === true)){
-        form.hidden = true;
-        success.hidden = false;
-        success.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
-      } else {
-        throw new Error('formsubmit rejected');
-      }
+    }).then(function(r){
+      if(!r.ok) throw new Error('bad status');
+      return r.json();
+    }).then(function(){
+      showDone(d.phone, smsUrl);
     }).catch(function(){
-      status.innerHTML = 'Something didn\'t go through — text us directly at <strong>' + esc(CONTENT.brand.phone) + '</strong> instead.';
-      status.classList.add('err');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Sign me up';
+      // network or provider hiccup — fall back to SMS so the lead isn't lost
+      submitBtn.disabled = false; submitBtn.textContent = 'Reserve my spot';
+      msgEl.classList.add('err');
+      if(isMobile){
+        msgEl.textContent = "Hmm, that didn't send. Opening a text instead — your info is pre-filled, just hit send.";
+        setTimeout(function(){ window.location.href = smsUrl; }, 700);
+      } else {
+        msgEl.textContent = "Hmm, that didn't send. Call or text us at " + CONTENT.brand.phone + " and we'll get you booked the old-fashioned way.";
+      }
     });
   });
 
-  /* ---------- boot ---------- */
-  /* boot handed to base.js */
+  // clear a field's error as the user fixes it
+  form.addEventListener('input', function(e){
+    var f = e.target.closest && e.target.closest('.field'); if(f) f.classList.remove('invalid');
+    if(e.target.name === 'days'){ var df = form.querySelector('.field--days'); if(df) df.classList.remove('invalid'); }
+  });
+
+  // paint from the inline defaults immediately, then merge the live override
+  /* boot handed to base.js */ // 404 / offline: the defaults stand
 
   window.renderContent = renderContent;
 })();

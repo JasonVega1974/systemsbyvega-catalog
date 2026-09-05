@@ -1,42 +1,39 @@
 /* bin-cleaning — tokens only. Structure lives in _template/base.css.
-   Original identity names are recorded beside each mapped token. */
+   Palette ported from PrimeBinCleaning/index.html (deep navy → steel → sky →
+   ice, silver/white type). Original identity names recorded beside each
+   mapped token. */
 :root{
-  --scheme: light;
-  --ground:       #F3F8F5;   /* was --mint */
-  --ground-2:     #FBFDFC;   /* was --mint-soft */
-  --panel:        rgba(255,255,255,.82);
-  --accent:       #0F8A6C;   /* was --spruce */
-  --accent-2:     #27A585;   /* was --spruce-bright */
-  --accent-deep:  #0B6B54;   /* was --spruce-deep */
-  --accent-alt:   #A8C823;   /* was --lime */
-  --accent-alt-soft:rgba(168,200,35,.18);   /* was --lime-soft */
-  --ink:          #1F3229;
-  --muted:        #57685E;
-  --hair:         rgba(31,50,41,.13);
-  --card:         rgba(255,255,255,.85);
-  --card-brd:     rgba(31,50,41,.10);
-  --shadow:       0 22px 52px -24px rgba(15,70,55,.24);
-  --maxw:         1120px;
+  --scheme: dark;
+  --ground:       #050f1c;   /* was --midnight */
+  --ground-2:     #0a2138;   /* was --navy */
+  --ground-deep:  #04101f;   /* darkest gradient stop, unnamed in source */
+  --panel:        #0d2a47;   /* was --navy-2 */
+  --panel-2:      #071a2f;   /* cta gradient's deep stop, unnamed in source */
+  --accent:       #4ea4e6;   /* was --sky */
+  --accent-2:     #67baf5;   /* was --sky-bright */
+  --accent-deep:  #1c5a93;   /* was --steel */
+  --accent-ink:   #04101f;   /* text on --accent — matches source button color literal */
+  --ink:          #f2f9ff;   /* was --white */
+  --ink-bright:   #ffffff;
+  --ink-dim:      #bfe3fb;   /* was --ice */
+  --ink-max:      #ffffff;
+  --muted:        #8fb2cf;   /* was --muted */
+  --hair:         rgba(120,180,230,.16);   /* was --line */
+  --hair-accent:  rgba(78,164,230,.14);
+  --card:         rgba(16,44,74,.55);      /* was --card */
+  --card-brd:     rgba(120,180,230,.18);   /* was --card-brd */
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.7);
+  --maxw:         1180px;
 
   /* Tokens the shared CSS needs that this site hardcoded inline. */
-  --err-tint:     #FFD9C6;
-  --panel-solid:  #fff;
-  --ground-deep:  var(--ground-2);
-  --ink-max:      var(--panel-solid);
-  --ink-bright:   var(--ink);
-  --ink-dim:      var(--muted);
-  --accent-ink:   var(--panel-solid);
-  --hair-accent:  var(--hair);
-  --placeholder:  var(--muted);
-  --sheen-hi:     var(--panel-solid);
-  --sheen-lo:     var(--ground-2);
-  --sheen-accent: var(--accent-2);
-  --err:          #B4453A;
-  --err-ink:      #B4453A;
-  --panel-2:      var(--ground-2);
-  --ok:           var(--accent-deep);
+  --sheen-hi:     #ffffff;
+  --sheen-lo:     #8bc2ee;
+  --sheen-accent: #dbeeff;
+  --placeholder:  #5f83a2;   /* was source's .field input::placeholder color */
+  --err:          #e0616b;   /* was source's .field.invalid border-color */
+  --err-ink:      #ff9aa2;   /* was source's .signup__msg.err color */
 
-  --display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --body:    'Figtree', system-ui, -apple-system, sans-serif;
-  --mono:    'IBM Plex Mono', ui-monospace, Consolas, monospace;
+  --display: 'Anton', sans-serif;
+  --body:    'Inter', system-ui, -apple-system, sans-serif;
+  --mono:    'Oswald', sans-serif;   /* label/data role — matches every eyebrow, nav link, button and price unit in the source, though not a literal monospace face */
 }

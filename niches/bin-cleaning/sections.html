@@ -1,284 +1,328 @@
 <!-- bin-cleaning/sections.html — this niche's body markup.
-     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche. -->
+     Ported from PrimeBinCleaning/index.html. Sections differ by product
+     (SITELAB_TEMPLATE.md §3.1), so this is per-niche; structural classes
+     that already exist in _template/base.css (.nav, .hero, .trust, .section,
+     .steps/.step, .owner__grid, .faq-list, .book/.book__grid/.field/.consent,
+     .footer, .mobile-cta, .reveal) are reused rather than reinvented — only
+     the genuinely niche-specific pieces (logo-img, drops, the before/after
+     slider, pricing tiers, benefit cards, reviews, the days checkbox row)
+     live in sections.css. -->
+<!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
-  <div class="nav-in">
-    <div class="logo"><span class="mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10l-1 13a1.5 1.5 0 0 1-1.5 1.4h-5A1.5 1.5 0 0 1 8 20z"/><path d="M5.5 7h13"/><path d="M10 4h4"/></svg></span><span>Sage &amp; Suds</span><small>Bin Co.</small></div>
-    <div class="nav-links">
-      <a href="#plans" class="tab">Plans</a>
-      <a href="#routes" class="tab">Route Days</a>
-      <a href="#faq" class="tab">FAQ</a>
-      <a href="#signup" class="cta">Get Fresh Bins</a>
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Prime Bin Cleaning home">
+      <span class="logo-img brand-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
+      <span class="brand__name" id="brandName" data-brand>Prime Bin Cleaning<span>Clean bins. Fresher homes.</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#transform">Results</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#process">How it works</a>
+      <a class="link" href="#faq">FAQ</a>
+      <a class="link" href="#book">Book</a>
+      <!-- (208) 555-01XX is a reserved fictional range; content.json carries the real demo number and renderContent rebinds this on load -->
+      <a class="nav__call" href="tel:+12085550188">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>
+        <span data-phone>(208) 555-0188</span>
+      </a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="hero-in">
-    <div>
-      <div class="eyebrow reveal">Curbside bin cleaning · Treasure Valley</div>
-      <h1 class="reveal">Fresh bins. <span class="hl">Zero effort.</span></h1>
-      <p class="reveal">Your trash can gets emptied every week — it never gets cleaned. We follow the garbage truck with a hot pressure wash, scrub and deodorize your bins at the curb, and haul the dirty water away with us. You don't even need to be home.</p>
-      <div class="hero-cta reveal">
-        <a href="#signup" class="btn-pri">Get my bins cleaned</a>
-        <a href="#routes" class="btn-sec">Find my route day ↓</a>
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="drops" id="drops" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroTag">Clean bins. Fresher homes.</span></div>
+        <h1><span class="l1">Clean Bins.</span><span class="l2">Fresher Homes.</span></h1>
+        <p class="hero__sub">Your garbage bin is filthier than your toilet. We power-wash, sanitize and deodorize it right in your driveway — so trash day stops smelling like one.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book">Book my cleaning</a>
+          <a class="btn btn--ghost btn--lg" href="tel:+12085550188">Call or text</a>
+        </div>
+        <div class="hero__proof" id="statsRow"></div>
+      </div>
+      <div class="hero__art">
+        <div class="halo" aria-hidden="true"></div>
+        <span class="logo-img hero-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning — crown P badge with pressure washer spraying a bin"></span>
       </div>
     </div>
-    <div class="hero-card reveal" data-delay="1">
-      <span class="hc-badge">The goal, every visit</span>
-      <p class="hc-line">A bin that smells like&nbsp;… nothing at all.</p>
-      <p class="hc-by">Hot wash · scrubbed · deodorized · water reclaimed</p>
-    </div>
   </div>
+  <svg class="ridge" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="currentColor" d="M0,32 C240,72 480,72 720,44 C960,16 1200,16 1440,40 L1440,70 L0,70 Z"/>
+  </svg>
 </header>
 
-<section class="trust">
-  <div class="wrap trust-in reveal" id="trustStats"></div>
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in" id="trustGrid"></div>
 </section>
 
-<section id="how">
+<!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
+<section class="section transform" id="transform">
   <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">How it works</div>
-      <h2>Three steps. You do half of one.</h2>
+    <div class="section__head center reveal">
+      <span class="eyebrow">The proof</span>
+      <h2 class="section-title">Drag to see the difference</h2>
+      <p class="lead" style="margin:0 auto">One pass with the pressure washer turns a caked-on, fly-attracting mess into a bin you'd almost keep indoors. Grab the nozzle and slide.</p>
     </div>
-    <div class="how-grid reveal" id="howGrid"></div>
-  </div>
-</section>
 
-<section id="plans" style="background:var(--ground-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">Plans</div>
-      <h2>Flat per-bin pricing. Pick a rhythm.</h2>
-      <p class="stxt">Trash, recycle or compost — every bin is the same flat price, and the math is already done for you.</p>
+    <div class="ba__labels reveal" aria-hidden="true">
+      <span class="ba__label ba__label--b">Before</span>
+      <span class="ba__label ba__label--a">After</span>
     </div>
-    <div class="price-grid reveal" id="priceGrid"></div>
-    <p class="pricing-note" id="pricingNote"></p>
-  </div>
-</section>
 
-<section id="routes">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">Find your route day</div>
-      <h2>We follow the garbage truck. Literally.</h2>
-      <p class="stxt">Tap your part of the map — your wash day is built around your trash day, so bins get cleaned the same day they're emptied.</p>
-    </div>
-    <div class="routes-wrap reveal">
-      <div>
-        <div class="route-map" id="routeMap">
-          <svg viewBox="0 0 640 420" role="img" aria-label="Stylized Treasure Valley service-area map with clickable route zones">
-            <defs>
-              <!-- feTurbulence fractalNoise terrain grain — north-star: dj-site-blue -->
-              <filter id="ssTerrain" x="-5%" y="-5%" width="110%" height="110%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.011 0.017" numOctaves="4" seed="7" result="n"/>
-                <!-- feColorMatrix tints the noise spruce-green and sets its alpha -->
-                <feColorMatrix in="n" type="matrix" values="0 0 0 0 0.05  0 0 0 0 0.40  0 0 0 0 0.31  0 0 0 0.45 0"/>
-                <feComposite in2="SourceGraphic" operator="in"/>
-              </filter>
-              <!-- feTurbulence + feDisplacementMap = naturally wavy river edge — north-star: dj-site-blue -->
-              <filter id="ssRiver" x="-8%" y="-60%" width="116%" height="220%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.018 0.05" numOctaves="2" seed="5" result="rn"/>
-                <feDisplacementMap in="SourceGraphic" in2="rn" scale="10" xChannelSelector="R" yChannelSelector="G"/>
-              </filter>
-              <!-- soft relief drop-shadow under the land mass -->
-              <filter id="ssRelief" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur in="SourceAlpha" stdDeviation="5" result="b"/>
-                <feOffset in="b" dy="4" result="o"/>
-                <feComponentTransfer in="o" result="s"><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
-                <feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge>
-              </filter>
-              <!-- layered 5-stop terrain relief gradient (lit ridge -> shadowed valley) -->
-              <linearGradient id="ssLand" x1="0" y1="0" x2="0.25" y2="1">
-                <stop offset="0" stop-color="#EDF5F0"/><stop offset="0.34" stop-color="#DBEEE4"/>
-                <stop offset="0.6" stop-color="#C6E2D4"/><stop offset="0.82" stop-color="#AFD6C3"/>
-                <stop offset="1" stop-color="#98C8B1"/>
-              </linearGradient>
-              <!-- 4-stop water-depth gradient -->
-              <linearGradient id="ssWater" x1="0" y1="0" x2="1" y2="0.2">
-                <stop offset="0" stop-color="#8CDDC6"/><stop offset="0.4" stop-color="#40BC9C"/>
-                <stop offset="0.72" stop-color="#2AA184"/><stop offset="1" stop-color="#1A876D"/>
-              </linearGradient>
-              <radialGradient id="ssAtm" cx="0.42" cy="0.12" r="0.95">
-                <stop offset="0" stop-color="var(--panel-solid)fff" stop-opacity="0.55"/>
-                <stop offset="0.45" stop-color="var(--panel-solid)fff" stop-opacity="0.12"/>
-                <stop offset="1" stop-color="#0F8A6C" stop-opacity="0.10"/>
-              </radialGradient>
-              <!-- zone highlight glow (physics-pulsed) -->
-              <radialGradient id="ssZoneGlow" cx="0.5" cy="0.5" r="0.5">
-                <stop offset="0" stop-color="#C6E85A" stop-opacity="0.7"/>
-                <stop offset="0.55" stop-color="#27A585" stop-opacity="0.34"/>
-                <stop offset="1" stop-color="#0F8A6C" stop-opacity="0"/>
-              </radialGradient>
-            </defs>
-            <!-- land mass: layered relief gradient + soft drop shadow -->
-            <path d="M60,24 Q24,28 22,70 Q20,180 22,338 Q24,390 70,388 Q300,392 582,390 Q624,386 622,340 Q624,180 622,66 Q620,22 574,26 Q300,22 60,24 Z" fill="url(#ssLand)" filter="url(#ssRelief)"/>
-            <!-- feTurbulence terrain grain, clipped to the land shape -->
-            <path d="M60,24 Q24,28 22,70 Q20,180 22,338 Q24,390 70,388 Q300,392 582,390 Q624,386 622,340 Q624,180 622,66 Q620,22 574,26 Q300,22 60,24 Z" fill="#0F8A6C" filter="url(#ssTerrain)" opacity="0.55" pointer-events="none"/>
-            <path d="M60,24 Q24,28 22,70 Q20,180 22,338 Q24,390 70,388 Q300,392 582,390 Q624,386 622,340 Q624,180 622,66 Q620,22 574,26 Q300,22 60,24 Z" fill="url(#ssAtm)" pointer-events="none"/>
-            <!-- contour detail lines -->
-            <g fill="none" stroke="rgba(15,138,108,.14)" stroke-width="1.2" stroke-dasharray="2 6" pointer-events="none">
-              <path d="M60,110 Q220,92 360,110 T628,104"/><path d="M40,300 Q220,282 380,300 T632,296"/>
-            </g>
-            <!-- Boise River: displacement-map wavy edge + water-depth gradient -->
-            <path d="M2,198 C110,176 210,214 320,196 C430,178 520,186 638,206" fill="none" stroke="url(#ssWater)" stroke-width="11" stroke-linecap="round" filter="url(#ssRiver)" opacity="0.92" pointer-events="none"/>
-            <path d="M2,196 C110,174 210,212 320,194 C430,176 520,184 638,204" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2.5" stroke-linecap="round" filter="url(#ssRiver)" pointer-events="none"/>
-            <!-- rAF damped-spring highlight glow (positioned + scaled by activateZone) -->
-            <circle id="rzPulse" cx="0" cy="0" r="1" fill="url(#ssZoneGlow)" opacity="0" pointer-events="none"/>
-            <!-- clickable route zones: geometry STATIC (renders JS-off); labels/days/aria bind from content.json.routeZones -->
-            <g class="rz-zones">
-              <g><path class="rz" data-zone="2" tabindex="0" role="button" aria-pressed="false" aria-label="West Meridian &amp; Ten Mile — Thursday" d="M36,70 Q40,40 78,36 Q140,30 176,48 Q198,62 192,100 Q188,140 168,164 Q140,186 96,180 Q56,174 42,144 Q30,108 36,70 Z"/>
-                <text class="rz-day" data-zd="2" x="114" y="98" text-anchor="middle">THU</text>
-                <text class="rz-name" data-zn="2" x="114" y="118" text-anchor="middle">West Meridian</text></g>
-              <g><path class="rz" data-zone="0" tabindex="0" role="button" aria-pressed="false" aria-label="North Meridian — Tuesday" d="M236,66 Q240,36 284,30 Q346,24 388,42 Q412,54 408,96 Q404,140 386,162 Q362,182 316,178 Q266,174 246,146 Q228,108 236,66 Z"/>
-                <text class="rz-day" data-zd="0" x="320" y="92" text-anchor="middle">TUE</text>
-                <text class="rz-name" data-zn="0" x="320" y="112" text-anchor="middle">North Meridian</text></g>
-              <g><path class="rz" data-zone="4" tabindex="0" role="button" aria-pressed="false" aria-label="Eagle &amp; Star — Friday" d="M440,68 Q444,38 492,32 Q560,26 600,46 Q620,58 614,100 Q608,144 588,164 Q562,184 512,180 Q466,176 448,148 Q432,110 440,68 Z"/>
-                <text class="rz-day" data-zd="4" x="516" y="96" text-anchor="middle">FRI</text>
-                <text class="rz-name" data-zn="4" x="516" y="116" text-anchor="middle">Eagle &amp; Star</text></g>
-              <g><path class="rz" data-zone="1" tabindex="0" role="button" aria-pressed="false" aria-label="South Meridian — Wednesday" d="M38,272 Q42,240 86,234 Q150,228 192,246 Q218,258 212,300 Q206,344 186,366 Q158,388 110,384 Q64,380 46,350 Q30,312 38,272 Z"/>
-                <text class="rz-day" data-zd="1" x="126" y="300" text-anchor="middle">WED</text>
-                <text class="rz-name" data-zn="1" x="126" y="320" text-anchor="middle">South Meridian</text></g>
-              <g><path class="rz" data-zone="3" tabindex="0" role="button" aria-pressed="false" aria-label="East Meridian — Friday" d="M280,272 Q284,240 328,234 Q390,228 432,246 Q456,258 450,300 Q444,344 424,366 Q398,388 350,384 Q304,380 288,350 Q272,312 280,272 Z"/>
-                <text class="rz-day" data-zd="3" x="364" y="300" text-anchor="middle">FRI</text>
-                <text class="rz-name" data-zn="3" x="364" y="320" text-anchor="middle">East Meridian</text></g>
-              <g><path class="rz" data-zone="5" tabindex="0" role="button" aria-pressed="false" aria-label="Kuna &amp; everywhere else — By arrangement" d="M468,272 Q472,240 516,234 Q578,228 606,248 Q626,262 618,304 Q610,348 590,368 Q564,388 518,384 Q476,380 462,350 Q452,312 468,272 Z"/>
-                <text class="rz-day" data-zd="5" x="542" y="300" text-anchor="middle">· · ·</text>
-                <text class="rz-name" data-zn="5" x="542" y="320" text-anchor="middle">Kuna &amp; elsewhere</text></g>
-            </g>
-            <!-- compass rose (detail) -->
-            <g transform="translate(52,352)" pointer-events="none" opacity="0.82">
-              <circle r="15" fill="none" stroke="rgba(31,50,41,.28)" stroke-width="1.2"/>
-              <path d="M0,-13 L4,0 L0,4 L-4,0 Z" fill="#0B6B54"/>
-              <path d="M0,13 L4,0 L0,-4 L-4,0 Z" fill="rgba(31,50,41,.35)"/>
-              <text x="0" y="-17" text-anchor="middle" font-family="'IBM Plex Mono',monospace" font-size="8" font-weight="700" fill="#0B6B54">N</text>
-            </g>
-          </svg>
+    <!-- Real photos are set on #ba via --before-img / --after-img (niche.js applyPhotos),
+         falling back to /sites/bin-cleaning/photos/before.jpg + after.jpg. The
+         slot-empty toggle on .ba-wrap guards the pathological case of missing
+         demo files; in practice the fallback always resolves. -->
+    <div class="ba-wrap reveal" data-photo-slot="before" data-photo-slot-b="after">
+      <div class="ba" id="ba" tabindex="0" role="slider" aria-label="Before and after bin cleaning comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="--pos:50%">
+        <div class="ba__panel ba__after"></div>
+        <div class="ba__panel ba__before"></div>
+        <svg class="ba__spray ba-ui" viewBox="0 0 120 80" aria-hidden="true">
+          <g fill="rgba(200,232,255,.9)">
+            <circle cx="10" cy="40" r="2"/><circle cx="34" cy="24" r="1.6"/><circle cx="30" cy="56" r="1.8"/>
+            <circle cx="58" cy="18" r="1.4"/><circle cx="62" cy="62" r="1.6"/><circle cx="52" cy="40" r="2"/>
+            <circle cx="86" cy="30" r="1.3"/><circle cx="90" cy="52" r="1.5"/><circle cx="108" cy="40" r="1.2"/>
+          </g>
+        </svg>
+        <div class="ba__handle ba-ui" aria-hidden="true"></div>
+        <div class="ba__grip ba-ui" id="grip" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
         </div>
-        <div class="route-chips" id="routeChips" role="group" aria-label="Route zones"></div>
-        <p class="route-note" id="routeNote"></p>
-      </div>
-      <div class="route-detail" id="routeDetail" aria-live="polite">
-        <p class="rd-empty">Tap your part of the map to see your route day.</p>
+        <div class="ba__hint ba-ui">◄ Drag ►</div>
       </div>
     </div>
+    <p class="price-note reveal" style="margin-top:22px">A real bin we cleaned right here in Nampa — same bin, one pass with the pressure washer.</p>
   </div>
 </section>
 
-<section id="why" style="background:var(--ground-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
+<!-- ============ BENEFITS ============ -->
+<section class="section benefits" id="benefits">
   <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">Why bother</div>
-      <h2>Because a hose can't do this.</h2>
+    <div class="section__head reveal">
+      <span class="eyebrow">Why Prime</span>
+      <h2 class="section-title">More than a rinse</h2>
+      <p class="lead">Your bin holds rotting food, leaking bags and everything flies love. We don't just spray it — we blast, sanitize and deodorize it.</p>
     </div>
-    <div class="why-grid reveal" id="whyGrid"></div>
-  </div>
-</section>
-
-<section id="area">
-  <div class="wrap reveal">
-    <div class="eyebrow">Service area</div>
-    <h2>On routes across the <span id="areaShort"></span>.</h2>
-    <div class="area-chips" id="areaChips"></div>
-  </div>
-</section>
-
-<section id="team" style="background:var(--ground-2);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)">
-  <div class="wrap reveal">
-    <div class="eyebrow" id="ownerEyebrow"></div>
-    <div class="owner-wrap">
-      <div class="owner-photo" id="ownerPhotoWrap"></div>
-      <div class="owner-bio">
-        <h3 id="ownerName"></h3>
-        <div class="oname">Founder, Sage &amp; Suds Bin Co.</div>
-        <p id="ownerBio"></p>
+    <div class="cards">
+      <div class="card reveal" data-delay="1">
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2s6 4 6 10a6 6 0 0 1-12 0C6 6 12 2 12 2z"/><path d="M12 22v-4"/></svg></div>
+        <h3>Blasts the grime</h3>
+        <p>High-pressure spray strips away caked-on residue, mold and the bacteria your bin has been growing all summer.</p>
+      </div>
+      <div class="card reveal" data-delay="2">
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg></div>
+        <h3>Kills the smell</h3>
+        <p>A deodorizing finish neutralizes odor at the source instead of masking it — so your garage and curb actually smell clean.</p>
+      </div>
+      <div class="card reveal" data-delay="3">
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12s1.5 2 4 2 4-2 4-2"/><path d="M12 3v3M12 18v3"/></svg></div>
+        <h3>Safe for your family</h3>
+        <p>Eco-friendly, water-based cleaning that's safe for kids, pets and the yard. Dirty water is captured — not left on your driveway.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="testimonials">
-  <div class="wrap reveal">
-    <div class="eyebrow">From the route</div>
-    <h2>What the neighbors say.</h2>
-    <div class="test-grid" id="testGrid"></div>
+<!-- ============ PRICING ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Simple pricing</span>
+      <h2 class="section-title">One flat price. No surprises.</h2>
+      <p class="lead" style="margin:0 auto">Have more than one bin? Add them on and the price per bin drops. Prices are per cleaning.</p>
+    </div>
+    <div class="price-grid" id="pricingGrid"></div>
+    <p class="price-note reveal" id="pricingNote"></p>
   </div>
 </section>
 
-<section id="faq" style="background:var(--ground-2);border-top:1px solid var(--hair)">
-  <div class="wrap reveal">
-    <div class="eyebrow">Questions</div>
-    <h2>Everything people ask us first.</h2>
+<!-- ============ PROCESS ============ -->
+<section class="section process" id="process">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">Three steps. Zero effort.</h2>
+    </div>
+    <div class="steps" id="processGrid"></div>
+  </div>
+</section>
+
+<!-- ============ MEET MICAH ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="owner__grid">
+      <!-- PHOTO: upload a real photo from the admin panel (Owner tab) — it replaces the dashed placeholder below (base.css .owner__photo:not(:has(img))). -->
+      <div class="owner__photo reveal" id="ownerPhoto" data-photo-slot="owner" role="img" aria-label="Photo of the owner"></div>
+
+      <div class="owner__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="ownerName">Meet Micah</h2>
+        <!-- BIO: fill Micah's short bio from the admin panel (Owner tab). Empty renders base.css's placeholder copy. -->
+        <div class="owner__desc" id="ownerBio"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Good to know</span>
+      <h2 class="section-title">Questions, answered</h2>
+    </div>
     <div class="faq-list" id="faqList"></div>
   </div>
 </section>
 
-<section class="signup" id="signup">
+<!-- ============ TESTIMONIALS ============ -->
+<!-- Fill each review from the admin panel. Empty ones show "Real review coming soon." -->
+<section class="section reviews" id="testimonials">
   <div class="wrap">
-    <div class="reveal">
-    <div class="eyebrow">Get started</div>
-    <h2>Never scrub a bin again.</h2>
-    <p>Tell us where the bins live — we'll text you to confirm your route day and first visit.</p>
+    <div class="section__head center reveal">
+      <span class="eyebrow">What neighbors are saying</span>
+      <h2 class="section-title">Kind words</h2>
     </div>
-    <form class="qform reveal" id="quoteForm" novalidate>
-      <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <div class="qf-two">
-        <div class="qf-row">
-          <label for="qName">Your name</label>
-          <input type="text" id="qName" name="name" required />
-        </div>
-        <div class="qf-row">
-          <label for="qPhone">Phone</label>
-          <input type="tel" id="qPhone" name="phone" required />
-        </div>
+    <div class="reviews-grid">
+      <div class="review reveal" data-delay="1">
+        <span class="review__mark" aria-hidden="true">&ldquo;</span>
+        <div class="review__quote"></div>
+        <div class="review__who"></div>
       </div>
-      <div class="qf-row">
-        <label for="qAddress">Street address &amp; city</label>
-        <input type="text" id="qAddress" name="address" placeholder="123 Elm St, Meridian" />
+      <div class="review reveal" data-delay="2">
+        <span class="review__mark" aria-hidden="true">&ldquo;</span>
+        <div class="review__quote"></div>
+        <div class="review__who"></div>
       </div>
-      <div class="qf-two">
-        <div class="qf-row">
-          <label for="qBins">How many bins?</label>
-          <select id="qBins" name="bins">
-            <option>1 bin</option>
-            <option selected>2 bins</option>
-            <option>3 bins</option>
-            <option>4+ bins</option>
-          </select>
-        </div>
-        <div class="qf-row">
-          <label for="qPlan">Which plan?</label>
-          <select id="qPlan" name="plan"></select>
-        </div>
+      <div class="review reveal" data-delay="3">
+        <span class="review__mark" aria-hidden="true">&ldquo;</span>
+        <div class="review__quote"></div>
+        <div class="review__who"></div>
       </div>
-      <div class="qf-row">
-        <label for="qNotes">Anything we should know?</label>
-        <textarea id="qNotes" name="notes" rows="3" placeholder="Gate codes, bin hiding spots, a bin that needs extra love…"></textarea>
-      </div>
-      <button type="submit" class="qf-submit" id="qfSubmit">Sign me up</button>
-      <p class="qf-status" id="qfStatus" role="status" aria-live="polite"></p>
-      <p class="qf-alt">Prefer to talk first? <a href="tel:+12085550247" data-phone-link>Call or text (208) 555-0247</a>.</p>
-    </form>
-    <div class="qf-success" id="qfSuccess" hidden>You're on the list! We'll text you to confirm your route day and your first wash.</div>
+    </div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot-in">
-    <div>
-      <b data-brand>Sage &amp; Suds Bin Co.</b><br />
-      Curbside bin cleaning · <span data-city>Meridian, ID</span> &amp; the Treasure Valley
+<!-- ============ SIGN UP ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Reserve your spot</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Sign up — no phone call needed</h2>
+      <p class="lead" style="margin:0 auto">Tell us where you are and which days work. We'll text you to confirm your day and price. Takes about a minute.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550188" data-phone>(208) 555-0188</a></p>
     </div>
-    <div>
-      Call or text <a href="tel:+12085550247" data-phone>(208) 555-0247</a><br />
+
+    <form class="book reveal" id="signupForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="s-name">Full name <em>*</em></label>
+          <input id="s-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="s-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="s-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0134" required />
+        </div>
+        <div class="field field--wide">
+          <label for="s-addr">Street address <em>*</em></label>
+          <input id="s-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="s-city">City <em>*</em></label>
+          <input id="s-city" name="city" type="text" autocomplete="address-level2" placeholder="Nampa" required />
+        </div>
+        <div class="field">
+          <label for="s-cans">How many cans? <em>*</em></label>
+          <select id="s-cans" name="cans" required>
+            <option value="1 can — $10">1 can — $10</option>
+            <option value="2 cans — $18" selected>2 cans — $18</option>
+            <option value="3 cans — $25">3 cans — $25</option>
+            <option value="4+ cans — group rate">4+ cans — group rate</option>
+          </select>
+        </div>
+      </div>
+
+      <fieldset class="field field--days">
+        <legend>Which days work for you? <em>*</em></legend>
+        <div class="days" id="days" role="group" aria-label="Available days">
+          <label class="day"><input type="checkbox" name="days" value="Mon" /><span>Mon</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Tue" /><span>Tue</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Wed" /><span>Wed</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Thu" /><span>Thu</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Fri" /><span>Fri</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Sat" /><span>Sat</span></label>
+          <label class="day"><input type="checkbox" name="days" value="Sun" /><span>Sun</span></label>
+          <label class="day day--any"><input type="checkbox" name="days" value="Any day" /><span>Any day works</span></label>
+        </div>
+      </fieldset>
+
+      <div class="book__grid">
+        <div class="field">
+          <label for="s-freq">How often?</label>
+          <select id="s-freq" name="frequency">
+            <option value="One-time">One-time</option>
+            <option value="Monthly" selected>Monthly</option>
+            <option value="Every other month">Every other month</option>
+            <option value="Quarterly">Quarterly</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="s-notes">Anything we should know? (optional)</label>
+          <input id="s-notes" name="notes" type="text" placeholder="Gate code, dog, where cans sit…" />
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="s-consent" required />
+        <span>Text me to confirm my service and price. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="signupSubmit">Reserve my spot</button>
+        <a class="book__alt" href="sms:+12085550188?body=Hi%20Prime%20Bin%20Cleaning!%20I'd%20like%20to%20sign%20up%20for%20bin%20cleaning.">or text us instead</a>
+      </div>
+      <p class="book__msg" id="signupMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="signupDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>You're on the list!</h3>
+      <p id="doneMsg">We'll text you shortly to lock in your day and price.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="logo-img footer-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
+      <div><b data-brand>Prime Bin Cleaning</b><span data-tagline>Clean bins. Fresher homes.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550188" data-phone>(208) 555-0188</a> · <a href="mailto:hello@example.com" id="footEmail">hello@example.com</a><br />
+      <span id="footServe">Serving Nampa &amp; Caldwell</span><br />
+      <span id="footSocial"></span>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Prime Bin Cleaning</span> · Teen-owned &amp; local</span>
       <span class="footer__credit">Concept build by <a href="https://systemsbyvega.com" target="_blank" rel="noopener noreferrer">Systems by Vega</a><!-- SWAP:DISCLOSURE --> · Demonstration website for a fictional business.<!-- /SWAP:DISCLOSURE --></span>
     </div>
   </div>
 </footer>
 
+<!-- ============ STICKY MOBILE CTA ============ -->
 <div class="mobile-cta">
-  <a class="call" href="tel:+12085550247"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
-  <a class="text" href="sms:+12085550247?body=Hi%20Sage%20%26%20Suds%2C%20can%20you%20clean%20my%20bins%3F"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+  <a class="call" href="tel:+12085550188"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550188?body=Hi%20Prime%20Bin%20Cleaning!%20I'd%20like%20to%20book%20a%20bin%20cleaning."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
 </div>
-
-<div id="toast"></div>
