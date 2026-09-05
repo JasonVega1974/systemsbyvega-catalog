@@ -144,10 +144,34 @@ function applyOperator(base, op) {
   set(out.brand, 'phone', op.phone);
   set(out.brand, 'email', op.email);
 
-  /* brand.leadEmail is deliberately NOT touched. It is where the site's contact
-     form delivers, and it is info@kingdom-creatives.com for every property in
-     this family. An operator editing their public email must not silently
-     redirect their own lead flow. */
+  /* Editable-prototype additions (spec 2026-09-05). All skip-empty, so a
+     tenant that has set only a logo keeps the demo's photos and prices. */
+  set(out.brand, 'logo', op.logo_url);
+  /* lead_email is the ONLY path to brand.leadEmail — the public `email`
+     column deliberately cannot redirect the lead flow. */
+  set(out.brand, 'leadEmail', op.lead_email);
+
+  const ph = (op.photos && typeof op.photos === 'object') ? op.photos : {};
+  out.niche = Object.assign({}, base.niche || {});
+  set(out.niche, 'beforeImg', ph.before);
+  set(out.niche, 'afterImg',  ph.after);
+  set(out.owner, 'photo',     ph.owner);
+
+  /* prices overlay pricing[] BY INDEX, field-by-field: editing one tier's
+     price keeps the demo's feature list. price_label maps onto the template's
+     `blurb` key (display-string convention). */
+  if (Array.isArray(op.prices) && Array.isArray(base.pricing)) {
+    out.pricing = base.pricing.map((tier, i) => {
+      const o = op.prices[i];
+      if (!o) return tier;
+      const merged = Object.assign({}, tier);
+      const setT = (k, v) => { if (v !== null && v !== undefined && String(v).trim() !== '') merged[k] = v; };
+      setT('label', o.label); setT('blurb', o.price_label);
+      setT('per', o.per); setT('note', o.note);
+      if (Array.isArray(o.features) && o.features.length) merged.features = o.features;
+      return merged;
+    });
+  }
 
   /* brand.city is a single display string in the template — "Meridian, ID". */
   if (op.city && op.state_code) out.brand.city = op.city + ', ' + op.state_code;
