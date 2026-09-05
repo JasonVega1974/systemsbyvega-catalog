@@ -81,6 +81,38 @@ alter table public.sbv_operator_content
   add column if not exists photos jsonb check (public.sbv_photos_valid(photos)),
   add column if not exists prices jsonb check (public.sbv_prices_valid(prices));
 
+-- ==================================================== 3. STORAGE (uploads)
+-- Browser-direct: the admin uploads with the operator's JWT; no server code.
+-- Path convention: <client_id>/<slot>.<ext>. The FIRST path segment is the
+-- tenant, and sbv_is_tenant() is the whole authorisation story.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('sbv-operator-media', 'sbv-operator-media', true,
+        2097152, array['image/jpeg','image/png','image/webp'])
+on conflict (id) do update
+  set public = true, file_size_limit = 2097152,
+      allowed_mime_types = array['image/jpeg','image/png','image/webp'];
+
+drop policy if exists sbv_media_read on storage.objects;
+create policy sbv_media_read on storage.objects
+  for select to anon, authenticated
+  using (bucket_id = 'sbv-operator-media');
+
+drop policy if exists sbv_media_write on storage.objects;
+create policy sbv_media_write on storage.objects
+  for insert to authenticated
+  with check (bucket_id = 'sbv-operator-media'
+              and public.sbv_is_tenant(split_part(name, '/', 1)));
+
+drop policy if exists sbv_media_update on storage.objects;
+create policy sbv_media_update on storage.objects
+  for update to authenticated
+  using (bucket_id = 'sbv-operator-media'
+         and public.sbv_is_tenant(split_part(name, '/', 1)))
+  with check (bucket_id = 'sbv-operator-media'
+              and public.sbv_is_tenant(split_part(name, '/', 1)));
+
+-- No DELETE policy: replacing a photo is an upsert-overwrite of the same path.
+
 -- ================================================== VERIFY PART 1 (all true)
 select 'photos fn: authenticated' as check_name,
        has_function_privilege('authenticated','public.sbv_photos_valid(jsonb)','execute')::text as got
@@ -98,4 +130,13 @@ select 'prices: good tier ok',
        public.sbv_prices_valid('[{"label":"1 Bin","price_label":"$10","per":"per cleaning"}]'::jsonb)::text
 union all
 select 'prices: junk key rejected',
-       (not public.sbv_prices_valid('[{"label":"x","cents":1000}]'::jsonb))::text;
+       (not public.sbv_prices_valid('[{"label":"x","cents":1000}]'::jsonb))::text
+union all
+select 'bucket exists + public',
+       (select (public and file_size_limit = 2097152)::text
+        from storage.buckets where id = 'sbv-operator-media')
+union all
+select 'storage policies present',
+       (select (count(*) = 3)::text from pg_policies
+        where schemaname = 'storage' and tablename = 'objects'
+          and policyname like 'sbv_media_%');
