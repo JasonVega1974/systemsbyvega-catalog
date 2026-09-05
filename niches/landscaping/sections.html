@@ -47,33 +47,19 @@
           <div class="proof"><b>Local</b><span>Owned &amp; operated</span></div>
         </div>
       </div>
-      <div class="hero__art" aria-hidden="true">
-        <div class="halo"></div>
-        <!-- terraced stone ledge with larkspur in bloom -->
-        <svg viewBox="0 0 520 380" fill="none" role="img" aria-label="Illustration: larkspur flowers growing from a terraced stone ledge">
-          <!-- sun / glow -->
-          <circle cx="418" cy="66" r="20" fill="#9C93FF" fill-opacity=".7"/>
-          <circle cx="418" cy="66" r="32" stroke="#9C93FF" stroke-opacity=".22" stroke-width="2"/>
-          <!-- terraces (stone ledges), back to front -->
-          <path d="M40 150 H480 L462 202 H58 Z" fill="#3A4A3C" fill-opacity=".5"/>
-          <path d="M64 202 H456 L436 258 H84 Z" fill="#465A48" fill-opacity=".6"/>
-          <path d="M92 258 H428 L406 320 H114 Z" fill="#55694F" fill-opacity=".72"/>
-          <!-- ledge cap lines -->
-          <rect x="40" y="146" width="440" height="8" rx="3" fill="#26332B"/>
-          <rect x="64" y="198" width="392" height="8" rx="3" fill="#26332B"/>
-          <rect x="92" y="254" width="336" height="8" rx="3" fill="#26332B"/>
-          <!-- larkspur stalks on the top tier -->
-          <path d="M140 146 C 136 116 146 96 140 66" stroke="#9C93FF" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <circle cx="140" cy="66" r="5.5" fill="#F2F0E6"/><circle cx="132" cy="78" r="4.4" fill="#F2F0E6"/><circle cx="148" cy="82" r="4.2" fill="#F2F0E6"/><circle cx="136" cy="94" r="4" fill="#F2F0E6"/>
-          <path d="M200 146 C 196 122 204 104 198 78" stroke="#9C93FF" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <circle cx="198" cy="78" r="5" fill="#F2F0E6"/><circle cx="190" cy="90" r="4" fill="#F2F0E6"/><circle cx="206" cy="94" r="3.8" fill="#F2F0E6"/>
-          <path d="M356 146 C 352 118 360 100 354 70" stroke="#9C93FF" stroke-width="3" fill="none" stroke-linecap="round"/>
-          <circle cx="354" cy="70" r="5.5" fill="#F2F0E6"/><circle cx="346" cy="82" r="4.4" fill="#F2F0E6"/><circle cx="362" cy="86" r="4.2" fill="#F2F0E6"/>
-          <!-- shrub on the middle tier -->
-          <circle cx="270" cy="196" r="26" fill="#4C6350"/><circle cx="248" cy="202" r="18" fill="#4C6350"/><circle cx="294" cy="202" r="18" fill="#4C6350"/>
-          <!-- ground -->
-          <path d="M20 358 H500" stroke="#F2F0E6" stroke-opacity=".2" stroke-width="2"/>
-        </svg>
+      <div class="hero__art">
+        <div class="halo" aria-hidden="true"></div>
+        <!-- Real photography replaced the terraced-ledge illustration
+             (design upgrade, 2026-09). Portrait crop is deliberate: the source
+             is 1080x1620 and a tall card sits better against the copy column
+             than a squashed landscape frame would. Ken Burns lives on the img
+             (see .hero__photo in sections.css), so the frame clips the zoom.
+             Credit: Candid Flaneur, Pexels (photos/CREDITS.md). -->
+        <figure class="hero__photo">
+          <img src="photos/hero-garden-path.jpg" width="1080" height="1620"
+               alt="A freshly kept garden path bordered by dense green hedges"
+               fetchpriority="high" decoding="async">
+        </figure>
       </div>
     </div>
   </div>
