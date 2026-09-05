@@ -179,7 +179,6 @@ function applyOperator(base, op) {
 
   set(out.owner, 'name', op.owner_name);
   set(out.owner, 'bio',  op.bio);
-  /* owner.photo stays on the demo image: photo upload is Phase B. */
 
   /* No template renders these yet — content.json has no slot for a street
      address, a postal code, or opening hours, and adding one means editing all

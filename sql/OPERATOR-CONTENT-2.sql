@@ -50,10 +50,10 @@ as $$
       where jsonb_typeof(tier) <> 'object'
          or exists (select 1 from jsonb_object_keys(tier) k
                     where k not in ('label','price_label','per','note','features'))
-         or not (tier ? 'label') or length(tier ->> 'label') > 60
-         or (tier ? 'price_label' and length(tier ->> 'price_label') > 20)
-         or (tier ? 'per'   and length(tier ->> 'per')   > 30)
-         or (tier ? 'note'  and length(tier ->> 'note')  > 80)
+         or not (tier ? 'label') or jsonb_typeof(tier -> 'label') <> 'string' or length(tier ->> 'label') > 60
+         or (tier ? 'price_label' and (jsonb_typeof(tier -> 'price_label') <> 'string' or length(tier ->> 'price_label') > 20))
+         or (tier ? 'per'   and (jsonb_typeof(tier -> 'per')  <> 'string' or length(tier ->> 'per')   > 30))
+         or (tier ? 'note'  and (jsonb_typeof(tier -> 'note') <> 'string' or length(tier ->> 'note')  > 80))
          or (tier ? 'features' and (
               jsonb_typeof(tier -> 'features') <> 'array'
               or jsonb_array_length(tier -> 'features') > 8
@@ -131,6 +131,9 @@ select 'prices: good tier ok',
 union all
 select 'prices: junk key rejected',
        (not public.sbv_prices_valid('[{"label":"x","cents":1000}]'::jsonb))::text
+union all
+select 'prices: non-string label rejected',
+       (not public.sbv_prices_valid('[{"label": {"x": 1}}]'::jsonb))::text
 union all
 select 'bucket exists + public',
        (select (public and file_size_limit = 2097152)::text
