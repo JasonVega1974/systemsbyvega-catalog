@@ -570,6 +570,13 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
   text-align:center;padding:12px;font:600 12px/1.5 'Oswald',sans-serif;
   letter-spacing:.08em;text-transform:uppercase;color:#4ea4e6;opacity:.85}
+/* base.css's .owner__photo:not(:has(img,svg))::after (0,1,2) outranks the
+   generic .slot-empty::after — restate the label at (0,2,1) so this niche's
+   copy wins on the owner slot too. */
+.owner__photo.slot-empty::after{content:"Photo appears here — add it in your admin";
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:12px;font:600 12px/1.5 'Oswald',sans-serif;
+  letter-spacing:.08em;text-transform:uppercase;color:#4ea4e6;opacity:.85}
 .ba-wrap.slot-empty .ba-ui{display:none} /* no drag handle over a placeholder */
 .logo-img.slot-empty::after{content:"Logo"}
 
