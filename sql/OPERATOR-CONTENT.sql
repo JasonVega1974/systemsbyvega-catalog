@@ -56,7 +56,15 @@ returns boolean
 language sql
 immutable
 as $$
-  select p is null or (
+  select p is null
+    -- Plain-English hours: "Monday - Friday 8am-5pm", "By appointment",
+    -- "24/7". The admin ships a free-text input, and forcing a schema on how
+    -- a one-person business states its hours rejected every real answer
+    -- (ADMIN-FIX.sql section 4). The structured shape below stays valid, so a
+    -- per-day editor can land later with no migration.
+    or (jsonb_typeof(p) = 'string'
+        and length(btrim(p #>> '{}')) between 1 and 300)
+    or (
     jsonb_typeof(p) = 'object'
     and not exists (
       select 1
@@ -189,7 +197,13 @@ create policy sbv_operator_content_own_update on public.sbv_operator_content
 revoke all on public.sbv_operator_content from anon, authenticated;
 grant select, insert, update on public.sbv_operator_content to authenticated;
 
--- The validator runs inside a CHECK, which evaluates as the table owner, so no
--- caller needs EXECUTE. Revoked explicitly rather than relying on the public
--- default, which grants EXECUTE to everyone.
-revoke all on function public.sbv_hours_valid(jsonb) from public, anon, authenticated;
+-- The validator runs inside a CHECK, and a CHECK evaluates AS THE ROLE DOING
+-- THE WRITE — not as the table owner. (The first version of this file claimed
+-- otherwise and revoked everything; every save then failed 42501/"permission
+-- denied for function sbv_hours_valid", which PostgREST reports as 403. See
+-- OPERATOR-CONTENT-FIX-1.sql.) So EXECUTE goes to exactly the roles that can
+-- write the table: authenticated (the admin page) and service_role (a future
+-- service-key backfill — it bypasses RLS but not function privileges). anon
+-- keeps nothing; it cannot write this table and never evaluates the CHECK.
+revoke all    on function public.sbv_hours_valid(jsonb) from public, anon;
+grant execute on function public.sbv_hours_valid(jsonb) to authenticated, service_role;

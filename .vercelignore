@@ -14,3 +14,6 @@ DNS-MIGRATION.md
 # because the build command runs from it, so this one file is named explicitly
 # rather than excluding the directory.
 tools/brevo-diag.mjs
+
+# Local one-off, same reasoning as brevo-diag above.
+tools/resend-welcome.mjs

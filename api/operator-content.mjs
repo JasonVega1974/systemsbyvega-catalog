@@ -164,7 +164,11 @@ function applyOperator(base, op) {
      a key nothing reads costs nothing; losing what an operator typed does. */
   set(out.contact, 'address', op.address_line);
   set(out.contact, 'postal',  op.postal_code);
-  if (op.hours && typeof op.hours === 'object') out.contact.hours = op.hours;
+  /* Hours are either a plain string ("Monday - Friday 8am-5pm") or the
+     structured per-day object — the validator accepts both, so both pass
+     through. The object-only check this replaced silently dropped every
+     string an operator saved. */
+  if (op.hours != null && op.hours !== '') out.contact.hours = op.hours;
 
   return out;
 }

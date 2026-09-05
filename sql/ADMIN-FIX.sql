@@ -63,6 +63,52 @@ grant select, insert, update on public.sbv_operator_content to authenticated;
 grant execute on function public.sbv_is_tenant(text) to authenticated;
 
 
+-- ============================== 4. HOURS: accept plain English too (23514) ==
+-- SYMPTOM: save fails 400, "violates check constraint
+-- sbv_operator_content_hours_check" on a value like "Monday - Friday 8am-5pm".
+-- (23514 -> HTTP 400 in PostgREST, just as 42501 -> 403 above. The upsert
+-- itself is well-formed; the constraint is what rejects the row.)
+--
+-- CAUSE: the validator was built to the structured per-day spec and the admin
+-- page still ships a free-text hours input, so it sends a jsonb STRING. The
+-- validator's first gate is jsonb_typeof(p) = 'object'; every string loses.
+--
+-- FIX: accept either shape. A plain string (trimmed, 1-300 chars) covers how
+-- a one-person business actually states hours — "M-F 8-5", "By appointment",
+-- "24/7" — and the structured object stays valid, so a per-day editor can land
+-- later with no further migration. CREATE OR REPLACE keeps the EXECUTE grants
+-- from section 1.
+create or replace function public.sbv_hours_valid(p jsonb)
+returns boolean
+language sql
+immutable
+as $$
+  select p is null
+    or (jsonb_typeof(p) = 'string'
+        and length(btrim(p #>> '{}')) between 1 and 300)
+    or (
+      jsonb_typeof(p) = 'object'
+      and not exists (
+        select 1
+        from jsonb_each(p) as e(day, val)
+        where day not in ('mon','tue','wed','thu','fri','sat','sun')
+           or not (
+                jsonb_typeof(val) = 'null'
+                or (
+                  jsonb_typeof(val) = 'object'
+                  and (select count(*) from jsonb_object_keys(val)) = 2
+                  and val ? 'open' and val ? 'close'
+                  and jsonb_typeof(val -> 'open')  = 'string'
+                  and jsonb_typeof(val -> 'close') = 'string'
+                  and (val ->> 'open')  ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'
+                  and (val ->> 'close') ~ '^([01][0-9]|2[0-3]):[0-5][0-9]$'
+                )
+              )
+      )
+    );
+$$;
+
+
 -- ================================================== 3. VERIFY (all 'true') ==
 select 'hours fn: authenticated' as check_name,
        has_function_privilege('authenticated', 'public.sbv_hours_valid(jsonb)', 'execute')::text as got
@@ -82,4 +128,13 @@ union all
 select 'three policies present',
        (count(*) = 3)::text
 from pg_policies
-where schemaname = 'public' and tablename = 'sbv_operator_content';
+where schemaname = 'public' and tablename = 'sbv_operator_content'
+union all
+select 'hours: plain string ok',
+       public.sbv_hours_valid('"Monday - Friday 8am-5pm"'::jsonb)::text
+union all
+select 'hours: structured ok',
+       public.sbv_hours_valid('{"mon":{"open":"08:00","close":"17:00"},"sun":null}'::jsonb)::text
+union all
+select 'hours: junk still rejected',
+       (not public.sbv_hours_valid('{"mon":"whenever"}'::jsonb))::text;
