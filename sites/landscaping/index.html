@@ -1011,9 +1011,13 @@ body::after{
              is 1080x1620 and a tall card sits better against the copy column
              than a squashed landscape frame would. Ken Burns lives on the img
              (see .hero__photo in sections.css), so the frame clips the zoom.
+             ABSOLUTE src, deliberately: on a tenant subdomain the document is
+             served at "/" by the middleware rewrite, so a relative photos/ URL
+             resolves to /photos/ and 404s. The /sites/... path is a real file
+             on every host.
              Credit: Candid Flaneur, Pexels (photos/CREDITS.md). -->
         <figure class="hero__photo">
-          <img src="photos/hero-garden-path.jpg" width="1080" height="1620"
+          <img src="/sites/landscaping/photos/hero-garden-path.jpg" width="1080" height="1620"
                alt="A freshly kept garden path bordered by dense green hedges"
                fetchpriority="high" decoding="async">
         </figure>
