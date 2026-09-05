@@ -56,6 +56,12 @@
   .note strong{color:var(--ink)}
   .note a{color:var(--amber-deep)}
   [hidden]{display:none !important}
+
+  .sec-h{font-size:13px;font-weight:600;margin:22px 0 10px}
+  .up{border:2px dashed var(--hair);border-radius:10px;padding:12px;text-align:center}
+  .up img{max-width:100%;border-radius:8px;margin-bottom:8px}
+  .up-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+  .pr-row{display:grid;grid-template-columns:1.2fr .7fr 1.4fr;gap:10px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -111,6 +117,23 @@
     <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
       <textarea id="bio" maxlength="2000"></textarea></label>
 
+    <p class="sec-h">Photos</p>
+    <div class="up-grid">
+      <div class="up" data-slot="logo"><span>Logo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+      <div class="up" data-slot="before"><span>Before photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+      <div class="up" data-slot="after"><span>After photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+      <div class="up" data-slot="owner"><span>Owner photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+    </div>
+
+    <p class="sec-h">Prices</p>
+    <div id="priceRows"></div>
+
+    <label style="margin-top:22px"><span>Inquiry email <span class="hint">&mdash; where booking requests go</span></span>
+      <input type="email" id="lead_email" maxlength="254"></label>
+    <div class="note"><strong>One-time step when you change this:</strong> our form
+      service (FormSubmit) emails the new inbox an activation link on the first
+      request. Click it, or inquiries will not arrive.</div>
+
     <button type="button" class="go" id="save">Save changes</button>
     <p class="msg" id="saveMsg" role="status"></p>
 
@@ -157,6 +180,9 @@ document.addEventListener('DOMContentLoaded', function () {
   var INPUT_ID = { email: 'email_pub' };
 
   var sb = null, clientId = null, hadRow = false;
+  var photoUrls = {};        /* slot -> public URL, committed on Save */
+  var PRICE_ROWS = 3;
+  var uploadsInit = false;   /* guards initUploads() against double-binding on re-paint */
 
   function $(id) { return document.getElementById(id); }
   function show(id, on) { $(id).hidden = !on; }
@@ -165,6 +191,67 @@ document.addEventListener('DOMContentLoaded', function () {
     var m = $(box);
     m.textContent = text;
     m.className = 'msg' + (cls ? ' ' + cls : '');
+  }
+
+  /* ---------------------------------------------------------------- media */
+
+  function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+
+  function initUploads() {
+    if (uploadsInit) return;
+    uploadsInit = true;
+    [].forEach.call(document.querySelectorAll('.up'), function (box) {
+      var slot = box.getAttribute('data-slot');
+      var input = box.querySelector('input[type=file]');
+      var img = box.querySelector('img');
+      var msg = box.querySelector('.up-msg');
+      input.addEventListener('change', function () {
+        var f = input.files && input.files[0];
+        if (!f) return;
+        if (f.size > 2 * 1024 * 1024) { msg.textContent = 'Max 2MB.'; return; }
+        var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[f.type];
+        if (!ext) { msg.textContent = 'JPG, PNG or WebP only.'; return; }
+        msg.textContent = 'Uploading…';
+        var path = clientId + '/' + slot + '.' + ext;
+        sb.storage.from('sbv-operator-media').upload(path, f, { upsert: true, contentType: f.type })
+          .then(function (r) {
+            if (r.error) { msg.textContent = 'Upload failed. ' + (r.error.message || ''); return; }
+            var pub = sb.storage.from('sbv-operator-media').getPublicUrl(path);
+            /* cache-bust: same path overwrites, and the CDN would happily
+               serve the old bytes to the operator checking their work */
+            photoUrls[slot] = pub.data.publicUrl;
+            img.src = pub.data.publicUrl + '?v=' + Date.now();
+            img.hidden = false;
+            msg.textContent = 'Uploaded — press Save to publish.';
+          });
+      });
+    });
+  }
+
+  function initPriceRows(saved) {
+    var host = $('priceRows');
+    var html = '';
+    for (var i = 0; i < PRICE_ROWS; i++) {
+      var p = (saved && saved[i]) || {};
+      html += '<div class="pr-row">'
+        + '<input type="text" maxlength="60" placeholder="Tier name (e.g. 1 Bin)" data-pk="label" value="' + escAttr(p.label || '') + '">'
+        + '<input type="text" maxlength="20" placeholder="$10" data-pk="price_label" value="' + escAttr(p.price_label || '') + '">'
+        + '<input type="text" maxlength="80" placeholder="Note (e.g. Best value)" data-pk="note" value="' + escAttr(p.note || '') + '">'
+        + '</div>';
+    }
+    host.innerHTML = html;
+  }
+
+  function readPrices() {
+    var rows = [].map.call(document.querySelectorAll('.pr-row'), function (row) {
+      var o = {};
+      [].forEach.call(row.querySelectorAll('input'), function (inp) {
+        var v = inp.value.trim();
+        if (v) o[inp.getAttribute('data-pk')] = v;
+      });
+      return o;
+    }).filter(function (o) { return Object.keys(o).length; });
+    return rows.length ? rows : null;
   }
 
   if (!window.supabase || !window.supabase.createClient) {
@@ -216,6 +303,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     clientId = r.clientId;
     show('panel', true);
+    initUploads();
     load();
   }
 
@@ -237,6 +325,21 @@ document.addEventListener('DOMContentLoaded', function () {
           FIELDS.forEach(function (f) { el(f).value = r.data[f] == null ? '' : r.data[f]; });
         }
         show('defaultNote', !hadRow);
+
+        $('lead_email').value = (r.data && r.data.lead_email) || '';
+        photoUrls = {};
+        if (r.data && r.data.logo_url) photoUrls.logo = r.data.logo_url;
+        if (r.data && r.data.photos) {
+          Object.keys(r.data.photos).forEach(function (slot) { photoUrls[slot] = r.data.photos[slot]; });
+        }
+        [].forEach.call(document.querySelectorAll('.up'), function (box) {
+          var slot = box.getAttribute('data-slot');
+          if (!photoUrls[slot]) return;
+          var img = box.querySelector('img');
+          img.src = photoUrls[slot];
+          img.hidden = false;
+        });
+        initPriceRows(r.data && r.data.prices);
       });
 
     /* Name and hostname for the heading. Read through sbv_public_tenants(),
@@ -266,6 +369,13 @@ document.addEventListener('DOMContentLoaded', function () {
          fall-back-to-the-demo logic. */
       row[f] = v === '' ? null : v;
     });
+
+    row.lead_email = $('lead_email').value.trim() || null;
+    row.logo_url = photoUrls.logo || null;
+    var ph = {};
+    ['before', 'after', 'owner'].forEach(function (s) { if (photoUrls[s]) ph[s] = photoUrls[s]; });
+    row.photos = Object.keys(ph).length ? ph : null;
+    row.prices = readPrices();
 
     btn.disabled = true; btn.textContent = 'Saving…'; say('saveMsg', '');
 
