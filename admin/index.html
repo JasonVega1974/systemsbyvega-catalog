@@ -223,6 +223,9 @@ document.addEventListener('DOMContentLoaded', function () {
             img.src = pub.data.publicUrl + '?v=' + Date.now();
             img.hidden = false;
             msg.textContent = 'Uploaded — press Save to publish.';
+          })
+          .catch(function () {
+            msg.textContent = 'We could not reach the upload server. Try again.';
           });
       });
     });
