@@ -1,204 +1,66 @@
 {
   "brand": {
-    "name": "Sage & Suds Bin Co.",
-    "tagline": "Fresh bins, zero effort.",
-    "phone": "(208) 555-0247",
-    "email": "hello@sagesudsbins.com",
-    "leadEmail": "info@kingdom-creatives.com",
-    "city": "Meridian, ID"
+    "name": "Prime Bin Cleaning",
+    "tagline": "Clean bins. Fresher homes.",
+    "phone": "(208) 249-7296",
+    "email": "primebincleaning0@gmail.com",
+    "leadEmail": "primebincleaning0@gmail.com",
+    "city": "Nampa, ID",
+    "logo": "/sites/bin-cleaning/photos/logo.png"
   },
-  "serviceArea": {
-    "region": "Treasure Valley, Idaho",
-    "short": "Treasure Valley",
-    "cities": [
-      "Meridian",
-      "Eagle",
-      "Star",
-      "Kuna",
-      "West Boise"
-    ]
-  },
-  "owner": {
-    "name": "Tessa Larkin",
-    "heading": "Why we started Sage & Suds",
-    "bio": "Tessa Larkin got tired of holding her breath every Tuesday. One July afternoon, after fishing a bag of week-old mystery out of the bottom of her can, she borrowed a pressure washer, cleaned every bin on her street, and realized nobody actually enjoys living with a dirty trash can — they just assume nothing can be done about it. Sage & Suds is the something: a truck, a hot-water wash, and a route that follows the garbage truck so your bin is clean an hour after it's empty.",
-    "photo": ""
-  },
+  "serviceArea": { "region": "Nampa & Caldwell, Idaho", "short": "Nampa & Caldwell",
+                   "cities": ["Nampa", "Caldwell"] },
+  "owner": { "name": "Micah", "heading": "Meet Micah", "bio": "", "photo": "" },
   "pricing": [
-    {
-      "label": "Monthly Refresh",
-      "blurb": "$12",
-      "per": "/bin · visit",
-      "note": "Most popular",
-      "features": [
-        "Every month, right after pickup",
-        "Hot pressure wash, inside and out",
-        "Deodorized — left smelling like nothing",
-        "First-visit deep clean included"
-      ],
-      "highlight": true
-    },
-    {
-      "label": "Quarterly Clean",
-      "blurb": "$20",
-      "per": "/bin · visit",
-      "note": "",
-      "features": [
-        "Four visits a year",
-        "Same hot wash and deodorizing",
-        "A good fit for milder bins"
-      ],
-      "highlight": false
-    },
-    {
-      "label": "One-Time Rescue",
-      "blurb": "$35",
-      "per": "/first bin",
-      "note": "",
-      "features": [
-        "$15 each additional bin",
-        "For the bin you can smell from the porch",
-        "No plan required — try us once"
-      ],
-      "highlight": false
-    }
+    { "label": "1 Bin",  "blurb": "$10", "per": "per cleaning", "note": "Single bin",
+      "features": ["Curbside — nothing to do", "Hot power wash + sanitize", "Deodorized & returned"] },
+    { "label": "2 Bins", "blurb": "$18", "per": "per cleaning", "note": "Just $9 per bin",
+      "features": ["$1 off each bin — save $2", "Same hot wash & sanitize", "Most homes pick this"],
+      "highlight": true },
+    { "label": "3 Bins", "blurb": "$25", "per": "per cleaning", "note": "Best value · ~$8 per bin",
+      "features": ["Lowest per-bin rate", "Priority scheduling", "Trash, recycle & extra"] },
+    { "label": "4+ bins / whole street", "blurb": "Group rate", "per": "",
+      "note": "Text (208) 249-7296", "features": [] }
   ],
   "stats": [
-    {
-      "num": "195°",
-      "label": "Hot pressure wash, every visit"
-    },
-    {
-      "num": "5 min",
-      "label": "At your curb — then we're gone"
-    },
-    {
-      "num": "100%",
-      "label": "Of the gunk leaves in our truck, not your gutter"
-    }
+    { "big": "$10", "small": "starting price" },
+    { "big": "100%", "small": "eco-friendly wash" },
+    { "big": "Local", "small": "teen-owned & operated" }
   ],
-  "testimonials": [
-    {
-      "quote": "",
-      "name": ""
-    },
-    {
-      "quote": "",
-      "name": ""
-    },
-    {
-      "quote": "",
-      "name": ""
-    }
-  ],
+  "testimonials": [ { "quote": "", "name": "" }, { "quote": "", "name": "" }, { "quote": "", "name": "" } ],
   "faq": [
-    {
-      "q": "Do I need to be home?",
-      "a": "Nope. Leave your bins at the curb after pickup and we'll take it from there. Most customers only know we came because the bin smells like nothing."
-    },
-    {
-      "q": "What happens to the dirty water?",
-      "a": "It leaves with us. The wash happens over a containment system on the truck, and the water goes into a reclaim tank for proper disposal — not down your driveway or into the storm drain."
-    },
-    {
-      "q": "My bin is… really bad. Can you fix it?",
-      "a": "Almost always, yes. The first visit on any plan is a deep clean, and the One-Time Rescue exists for exactly this bin. If a bin is genuinely beyond saving, we'll say so instead of charging you to polish it."
-    },
-    {
-      "q": "Which bins do you clean?",
-      "a": "Trash, recycling and compost carts — any standard roll-out bin. Mix and match on any plan; the per-bin price is the same."
-    },
-    {
-      "q": "How do I know which day you come?",
-      "a": "Check the route map above — we follow the city's collection schedule, so your wash day is built around your trash day. Holiday weeks slide one day, exactly like your pickup does."
-    },
-    {
-      "q": "Is there a contract?",
-      "a": "No. Plans are month-to-month, and a text message is enough to pause, skip a visit or cancel. We'd rather earn the next visit than lock you into it."
-    }
+    { "q": "What areas do you serve?", "a": "Nampa and Caldwell — text us if you're nearby and we'll tell you if the route reaches you." },
+    { "q": "Do I need to be home?", "a": "No. Leave the bins at the curb after pickup and we handle the rest." },
+    { "q": "Is it eco-friendly?", "a": "Yes — water-based, no harsh chemicals, and wash water is captured, never sent down the storm drain." },
+    { "q": "Can I set up recurring cleanings?", "a": "Yes — monthly, every other month, or quarterly. Ask about a recurring rate when you text." },
+    { "q": "How do I pay?", "a": "Card, cash, or Venmo on the day of service." }
   ],
   "social": [],
   "niche": {
-    "howItWorks": [
-      {
-        "title": "Book your route day",
-        "desc": "Pick a plan and tell us where the bins live. We match you to the route that follows your trash day."
-      },
-      {
-        "title": "Leave the bins at the curb",
-        "desc": "After pickup, just leave them out a little longer. You don't need to be home — most customers never see us."
-      },
-      {
-        "title": "Roll back a fresh bin",
-        "desc": "Hot wash, scrub, rinse, deodorize. The dirty water leaves in our reclaim tank — not down your gutter."
-      }
+    "trust": [
+      { "title": "Kills grime & bacteria", "blurb": "Hot pressure wash, inside and out." },
+      { "title": "Eliminates odor", "blurb": "Deodorized — left smelling like nothing." },
+      { "title": "Eco-friendly", "blurb": "Water-based wash, captured runoff." },
+      { "title": "Teen-owned & local", "blurb": "A Nampa venture you can root for." }
     ],
-    "routeZones": [
-      {
-        "id": "north",
-        "label": "North Meridian",
-        "day": "Tuesday",
-        "note": "We follow the Tuesday collection routes — bins get washed the same afternoon they're emptied."
-      },
-      {
-        "id": "south",
-        "label": "South Meridian",
-        "day": "Wednesday",
-        "note": "Wednesday pickup? We're right behind the truck. Leave your bins out until evening."
-      },
-      {
-        "id": "west",
-        "label": "West Meridian & Ten Mile",
-        "day": "Thursday",
-        "note": "Thursday routes west of Ten Mile, out toward the county line."
-      },
-      {
-        "id": "east",
-        "label": "East Meridian",
-        "day": "Friday",
-        "note": "Friday mornings, working east toward the Boise line."
-      },
-      {
-        "id": "eagle",
-        "label": "Eagle & Star",
-        "day": "Friday",
-        "note": "Friday afternoons, north of the river — Eagle and Star addresses."
-      },
-      {
-        "id": "kuna",
-        "label": "Kuna & everywhere else",
-        "day": "By arrangement",
-        "note": "Not on the map? Text us your address — if a route passes near you, we'll slot you in."
-      }
+    "process": [
+      { "title": "Text us your address", "blurb": "Or book below — no phone call needed." },
+      { "title": "Leave your bin out",   "blurb": "At the curb after pickup day." },
+      { "title": "We power-wash it clean", "blurb": "Sanitized, deodorized, rolled back." }
     ],
-    "routeNote": "Route days follow the city's collection schedule. Holiday week? Everything slides one day — same as your pickup.",
-    "whyClean": [
-      {
-        "title": "The smell isn't the bin's fault",
-        "desc": "Trash residue bakes into the plastic all summer. A garden hose can't fix that — hot water and a scrub can."
-      },
-      {
-        "title": "Fewer flies, fewer surprises",
-        "desc": "A dirty bin is an open invitation for flies, ants and the occasional midnight raccoon inspection. A clean bin is just a bin."
-      },
-      {
-        "title": "Your driveway stays clean too",
-        "desc": "Everything we wash off goes into the truck's reclaim tank and gets disposed of properly — nothing runs down your driveway or into the storm drain."
-      }
-    ],
-    "pricingNote": "Every plan covers trash, recycle or compost bins — mix and match. No contracts; pause, skip or cancel with a text."
+    "groupNote": "4+ bins or a whole street? Text (208) 249-7296 for a group rate."
   },
   "seo": {
-    "title": "Sage & Suds Bin Co. — Trash Bin Cleaning | Meridian, ID",
-    "description": "Curbside trash, recycle and compost bin cleaning in Meridian and the Treasure Valley. Hot pressure wash, deodorized, wash water reclaimed — on your trash day, without you lifting a finger. Find your route day.",
-    "ogTitle": "Sage & Suds Bin Co. — Fresh bins, zero effort.",
-    "ogDescription": "Curbside bin cleaning that follows the garbage truck. Find your route day and never scrub a bin again.",
-    "priceRange": "",
-    "schemaType": "LocalBusiness",
+    "title": "Prime Bin Cleaning — Nampa & Caldwell trash bin cleaning",
+    "description": "Hot pressure washing for trash and recycle bins in Nampa & Caldwell. From $10 per bin, curbside, eco-friendly, teen-owned and local.",
+    "ogTitle": "Prime Bin Cleaning — clean bins, fresher homes",
+    "ogDescription": "Curbside bin cleaning in Nampa & Caldwell from $10. Book by text — leave the bin out and we handle the rest.",
+    "priceRange": "$10-$25",
+    "schemaType": "HomeAndConstructionBusiness",
     "canonical": "https://systemsbyvega.com/sites/bin-cleaning/",
-    "themeColor": "#F3F8F5",
-    "favicon": "",
-    "fontsHref": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700;800&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+    "themeColor": "#050f1c",
+    "favicon": "/sites/bin-cleaning/photos/logo.png",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap",
     "ogImage": "https://systemsbyvega.com/sites/bin-cleaning/og.png"
   }
 }
