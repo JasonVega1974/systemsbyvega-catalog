@@ -657,6 +657,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .day input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
 .day--any span{border-style:dashed}
 .field--days.invalid .days{border-radius:12px;padding:6px;box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+
+/* =========================================================
+   REDUCED-MOTION OVERRIDE — §7.1 local gate (base.css also
+   kills animation globally under prefers-reduced-motion:reduce)
+   ========================================================= */
+@media(prefers-reduced-motion:reduce){
+  .drop{animation:none}
+  .hero__art .hero-logo{animation:none}
+}
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
