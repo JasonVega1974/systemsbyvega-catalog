@@ -82,6 +82,22 @@
 @media(max-width:520px){.ba__label{font-size:.72rem;letter-spacing:.16em;padding:.35rem .7rem}}
 
 /* =========================================================
+   EMPTY PHOTO SLOTS
+   ========================================================= */
+/* ---- empty photo slots (editable prototype) ----------------------------
+   A slot with no image shows a dashed outline and a label — never a broken
+   image, never collapsed space. The demo never shows this (every slot is
+   filled); a fresh operator subdomain shows it everywhere a photo belongs. */
+.slot-empty{position:relative;border:2px dashed rgba(78,164,230,.55) !important;
+  border-radius:14px;background:rgba(78,164,230,.06) !important;min-height:120px}
+.slot-empty::after{content:"Photo appears here — add it in your admin";
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:12px;font:600 12px/1.5 'Oswald',sans-serif;
+  letter-spacing:.08em;text-transform:uppercase;color:#4ea4e6;opacity:.85}
+.ba-wrap.slot-empty .ba-ui{display:none} /* no drag handle over a placeholder */
+.logo-img.slot-empty::after{content:"Logo"}
+
+/* =========================================================
    BENEFITS
    ========================================================= */
 .benefits{background:linear-gradient(180deg,rgba(10,33,56,.35),transparent)}
