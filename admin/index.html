@@ -47,6 +47,14 @@
   textarea{resize:vertical;min-height:88px}
   .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
   @media(max-width:560px){.row{grid-template-columns:1fr}}
+  /* Inputs in a row must align even when one label carries a wrapping helper
+     hint and its neighbors don't. Grid stretches the labels to equal height;
+     flex-column + margin-top:auto pins each label's text to the top and its
+     input to the bottom, so the input baselines meet regardless of how many
+     lines the label text takes. The field-err element (inserted after the
+     input by validation) is unaffected — it sits below the pinned input. */
+  .row>label{display:flex;flex-direction:column}
+  .row>label>input,.row>label>select{margin-top:auto}
 
   /* --------------------------------------------------------- inline validation
      One convention everywhere (static fields and dynamically-rendered rows
