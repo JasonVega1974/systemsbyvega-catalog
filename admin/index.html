@@ -41,12 +41,20 @@
   label{display:block;margin:0 0 15px}
   label span{display:block;font-size:13px;font-weight:600;margin-bottom:5px;font-family:var(--adm-font-label)}
   label .hint{font-weight:400;color:var(--adm-ink-soft)}
-  input,textarea{width:100%;font:inherit;font-size:15px;padding:10px 12px;
+  input,textarea,select{width:100%;font:inherit;font-size:15px;padding:10px 12px;
     border:1px solid var(--adm-hair);border-radius:9px;background:var(--adm-card);color:var(--adm-ink)}
-  input:focus,textarea:focus{outline:2px solid var(--adm-accent-2);outline-offset:0;border-color:transparent}
+  input:focus,textarea:focus,select:focus{outline:2px solid var(--adm-accent-2);outline-offset:0;border-color:transparent}
   textarea{resize:vertical;min-height:88px}
   .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
   @media(max-width:560px){.row{grid-template-columns:1fr}}
+
+  /* --------------------------------------------------------- inline validation
+     One convention everywhere (static fields and dynamically-rendered rows
+     alike): the message box is the validated input's very next DOM sibling,
+     so setValidity() below needs no per-field lookup table. */
+  .field-err{margin:4px 0 0;font-size:12.5px;color:var(--adm-bad)}
+  input.invalid,textarea.invalid{border-color:var(--adm-bad)}
+  p.hint{font-size:13px;color:var(--adm-ink-soft);margin:6px 0 16px}
 
   .go{background:var(--adm-accent);color:var(--adm-on-accent);border:0;border-radius:9px;
     font:inherit;font-weight:700;font-size:15px;padding:12px 20px;cursor:pointer;
@@ -66,10 +74,39 @@
   [hidden]{display:none !important}
 
   .sec-h{font-size:13px;font-weight:600;margin:22px 0 10px;font-family:var(--adm-font-label);color:var(--adm-ink)}
+  #panel>.card:first-of-type .sec-h{margin-top:0}
   .up{border:2px dashed var(--adm-hair);border-radius:10px;padding:12px;text-align:center}
   .up img{max-width:100%;border-radius:8px;margin-bottom:8px}
   .up-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-  .pr-row{display:grid;grid-template-columns:1.2fr .7fr 1.4fr;gap:10px;margin-bottom:10px}
+  /* Drag-and-drop highlight. Solid border only — no translucent fill, so it
+     reads correctly against both the light default and the dark bin-cleaning
+     theme without a second theme-aware color to maintain. */
+  .up.dragover{border-color:var(--adm-accent-2);border-style:solid}
+  .up-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 4px}
+  .up-actions button{font:inherit;font-size:13px;padding:8px 12px;border-radius:7px;
+    border:1px solid var(--adm-hair);background:var(--adm-card);color:var(--adm-ink);
+    cursor:pointer;min-height:44px}
+
+  .pr-card{border:1px solid var(--adm-hair);border-radius:10px;padding:14px;margin-bottom:12px}
+  .pr-card .pr-row{margin-bottom:0}
+  .pr-row{display:grid;grid-template-columns:1.2fr .7fr 1.4fr;gap:10px}
+  @media(max-width:480px){.pr-row{grid-template-columns:1fr}}
+  .pr-preview{margin:10px 0 0;font-size:13px;font-weight:600;color:var(--adm-ink-soft)}
+
+  .helper-text{font-size:13.5px;color:var(--adm-ink-soft);margin:0 0 16px;line-height:1.5}
+  .rev-row,.soc-row{border:1px solid var(--adm-hair);border-radius:10px;padding:14px;margin-bottom:12px}
+  .rev-row-top,.soc-row-top{display:flex;align-items:center;justify-content:space-between;
+    gap:10px;margin-bottom:4px}
+  .rev-rating{margin:0;flex:1;min-width:0}
+  .row-label{font-size:13px;font-weight:600;color:var(--adm-ink-soft)}
+  .rev-remove,.soc-remove{background:none;border:1px solid var(--adm-hair);border-radius:7px;
+    color:var(--adm-bad);font:inherit;font-size:13px;padding:8px 14px;cursor:pointer;
+    min-height:44px;flex:0 0 auto}
+  .char-count{margin:2px 0 14px;font-size:12px;color:var(--adm-ink-soft);text-align:right}
+  .add-row{background:none;border:1px dashed var(--adm-hair);border-radius:9px;color:var(--adm-accent);
+    font:inherit;font-weight:600;font-size:14px;padding:12px 16px;cursor:pointer;
+    min-height:44px;width:100%}
+  .jd-caption{margin:6px 0 0;font-size:12.5px;color:var(--adm-ink-soft)}
 
   /* ---------------------------------------------------------------- topbar */
   #topbar{position:sticky;top:0;z-index:20;background:var(--adm-panel);
@@ -158,19 +195,28 @@
     <p class="msg" id="gateMsg" role="alert"></p>
   </section>
 
-  <!-- EDITOR -->
-  <section class="card" id="panel" hidden>
+  <!-- EDITOR. #panel is now a plain visibility wrapper (no card styling of its
+       own) around five separately-carded sections, so the single input/change
+       listener bound to #panel (see bottom of the script) still reaches every
+       field in Reviews and Details — they used to be top-level cards outside
+       this wrapper, which would have left their fields out of dirty-tracking
+       once real inputs landed here. -->
+  <section id="panel" hidden>
     <h1>Your site</h1>
     <p class="sub" id="panelSub"></p>
 
-    <div id="sec-business">
+    <section class="card" id="sec-business">
+      <p class="sec-h">Business</p>
       <label><span>Business name</span>
         <input type="text" id="business_name" maxlength="120" autocomplete="organization"></label>
 
       <div class="row">
-        <label><span>Phone</span><input type="tel" id="phone" maxlength="40" autocomplete="tel"></label>
+        <label><span>Phone</span>
+          <input type="tel" id="phone" maxlength="40" autocomplete="tel">
+          <p class="field-err" hidden></p></label>
         <label style="grid-column:span 2"><span>Public email <span class="hint">&mdash; shown on your site</span></span>
-          <input type="email" id="email_pub" maxlength="254"></label>
+          <input type="email" id="email_pub" maxlength="254">
+          <p class="field-err" hidden></p></label>
       </div>
 
       <label><span>Street address</span>
@@ -179,58 +225,104 @@
       <div class="row">
         <label><span>City</span><input type="text" id="city" maxlength="100"></label>
         <label><span>State <span class="hint">&mdash; 2 letters</span></span>
-          <input type="text" id="state_code" maxlength="2" style="text-transform:uppercase"></label>
-        <label><span>ZIP</span><input type="text" id="postal_code" maxlength="10"></label>
+          <input type="text" id="state_code" maxlength="2" style="text-transform:uppercase">
+          <p class="field-err" hidden></p></label>
+        <label><span>ZIP</span>
+          <input type="text" id="postal_code" maxlength="10">
+          <p class="field-err" hidden></p></label>
       </div>
 
       <label><span>Hours <span class="hint">&mdash; write them however you say them</span></span>
         <input type="text" id="hours" maxlength="300" placeholder="Mon-Fri 8-5, Sat 9-1, closed Sunday"></label>
 
-      <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
-
-      <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
-        <textarea id="bio" maxlength="2000"></textarea></label>
-
       <label style="margin-top:22px"><span>Inquiry email <span class="hint">&mdash; where booking requests go</span></span>
-        <input type="email" id="lead_email" maxlength="254"></label>
+        <input type="email" id="lead_email" maxlength="254">
+        <p class="field-err" hidden></p></label>
       <div class="note"><strong>One-time step when you change this:</strong> our form
         service (FormSubmit) emails the new inbox an activation link on the first
         request. Click it, or inquiries will not arrive.</div>
-    </div>
+    </section>
 
-    <div id="sec-photos">
+    <section class="card" id="sec-photos">
       <p class="sec-h">Photos</p>
       <div class="up-grid">
-        <div class="up" data-slot="logo"><span>Logo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-        <div class="up" data-slot="before"><span>Before photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-        <div class="up" data-slot="after"><span>After photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-        <div class="up" data-slot="owner"><span>Owner photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+        <div class="up" data-slot="logo">
+          <span>Logo</span><img alt="" hidden>
+          <input type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="up-actions" hidden>
+            <button type="button" class="up-replace">Replace</button>
+            <button type="button" class="up-remove">Remove</button>
+          </div>
+          <p class="up-msg"></p>
+        </div>
+        <div class="up" data-slot="before">
+          <span>Before photo</span><img alt="" hidden>
+          <input type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="up-actions" hidden>
+            <button type="button" class="up-replace">Replace</button>
+            <button type="button" class="up-remove">Remove</button>
+          </div>
+          <p class="up-msg"></p>
+        </div>
+        <div class="up" data-slot="after">
+          <span>After photo</span><img alt="" hidden>
+          <input type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="up-actions" hidden>
+            <button type="button" class="up-replace">Replace</button>
+            <button type="button" class="up-remove">Remove</button>
+          </div>
+          <p class="up-msg"></p>
+        </div>
+        <div class="up" data-slot="owner">
+          <span>Owner photo</span><img alt="" hidden>
+          <input type="file" accept="image/jpeg,image/png,image/webp">
+          <div class="up-actions" hidden>
+            <button type="button" class="up-replace">Replace</button>
+            <button type="button" class="up-remove">Remove</button>
+          </div>
+          <p class="up-msg"></p>
+        </div>
       </div>
-    </div>
+      <p class="hint">Drag a photo onto a box, or click it to choose a file. JPG, PNG or WebP, up to 2MB.</p>
+    </section>
 
-    <div id="sec-pricing">
-      <p class="sec-h">Prices</p>
+    <section class="card" id="sec-pricing">
+      <p class="sec-h">Pricing</p>
       <div id="priceRows"></div>
-    </div>
+    </section>
+
+    <section class="card" id="sec-reviews">
+      <p class="sec-h">Reviews</p>
+      <p class="helper-text">Only reviews real customers gave you — these appear on your public site.</p>
+      <div id="reviewRows"></div>
+      <button type="button" class="add-row" id="addReview">+ Add review</button>
+    </section>
+
+    <section class="card" id="sec-details">
+      <p class="sec-h">Details</p>
+
+      <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
+      <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
+        <textarea id="bio" maxlength="2000"></textarea></label>
+      <p class="hint">Owner photo is uploaded in the Photos section above.</p>
+
+      <p class="sec-h">Social links</p>
+      <div id="socialRows"></div>
+      <button type="button" class="add-row" id="addSocial">+ Add social link</button>
+
+      <p class="sec-h">Job details</p>
+      <label><span>What's included <span class="hint">&mdash; one per line, up to 10</span></span>
+        <textarea id="job_included" maxlength="1400"></textarea></label>
+      <label><span>What's not included <span class="hint">&mdash; one per line, up to 10</span></span>
+        <textarea id="job_not_included" maxlength="1400"></textarea></label>
+      <p class="jd-caption">Saved — appears when your site's next update adds this section.</p>
+    </section>
 
     <div class="note" id="defaultNote" hidden>
       <strong>You have not customised anything yet.</strong> Until you save, your
       site shows the example content it was built with. Nothing is broken &mdash;
       fill in what you want and save, and those parts become yours.
     </div>
-  </section>
-
-  <!-- REVIEWS / DETAILS. Placeholders for Task 3 — the section nav needs real
-       anchors to scroll to now, even though the editors for these don't exist
-       yet. Shown/hidden together with #panel. -->
-  <section class="card" id="sec-reviews" hidden>
-    <h1>Reviews</h1>
-    <p class="sub" style="margin:0">Reviews editor is coming in the next step.</p>
-  </section>
-
-  <section class="card" id="sec-details" hidden>
-    <h1>Details</h1>
-    <p class="sub" style="margin:0">More details are coming in the next step.</p>
   </section>
 
   <!-- NO MAPPING. Deliberately not phrased as an error: the usual cause is a
@@ -297,7 +389,14 @@ document.addEventListener('DOMContentLoaded', function () {
   var photoUrls = {};        /* slot -> public URL, committed on Save */
   var themeLogoUrl = null;   /* theme-provided logo, takes priority over a saved logo_url */
   var PRICE_ROWS = 3;
+  var REVIEW_MAX = 6;
+  var SOCIAL_MAX = 6;
   var uploadsInit = false;   /* guards initUploads() against double-binding on re-paint */
+
+  /* Task 3 / PGRST204 ruling: whether load() actually saw a non-null value
+     for each of the three new jsonb columns. Read by maybeClearable() below —
+     see the comment on that function for why this is not just "is it empty". */
+  var seenInLoad = { social: false, reviews: false, job_details: false };
 
   var snapshot = null;       /* JSON.stringify(collectRow()) as of the last load/save */
   var dirty = false;
@@ -309,6 +408,46 @@ document.addEventListener('DOMContentLoaded', function () {
     var m = $(box);
     m.textContent = text;
     m.className = 'msg' + (cls ? ' ' + cls : '');
+  }
+
+  /* --------------------------------------------------------- inline validation
+     Email pattern matches the one already used in every storefront's own
+     inline form (sites/*/niche.js, sites/*/index.html) — reused rather than
+     invented fresh, per the brief's "page's own conventions". */
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var STATE_RE = /^[A-Z]{2}$/;
+  var POSTAL_RE = /^\d{5}(\d{4})?$/;
+  var HTTPS_RE = /^https:\/\//;
+
+  /* Every validator treats '' as valid — empty means "clear this field",
+     never "this field is wrong". */
+  function validateEmail(v) { return v === '' || EMAIL_RE.test(v) ? null : 'Enter a valid email address.'; }
+  function validateState(v) { return v === '' || STATE_RE.test(v.toUpperCase()) ? null : 'Use 2 letters, e.g. CA.'; }
+  function validatePostal(v) { return v === '' || POSTAL_RE.test(v) ? null : 'Use 5 or 9 digits.'; }
+  function validatePhone(v) { return v.length <= 40 ? null : 'Keep it to 40 characters or fewer.'; }
+  function validateSocialUrl(v) { return v === '' || HTTPS_RE.test(v) ? null : 'Must start with https://'; }
+
+  /* The error box is always the validated input's very next sibling in the
+     markup — true for the static business fields and for every dynamically
+     rendered review/social row alike — so this needs no per-field lookup. */
+  function setValidity(input, msg) {
+    input.classList.toggle('invalid', !!msg);
+    var box = input.nextElementSibling;
+    if (box && box.classList.contains('field-err')) {
+      box.textContent = msg || '';
+      box.hidden = !msg;
+    }
+    refreshSaveDisabled();
+  }
+  function anyInvalid() { return document.querySelectorAll('#panel .invalid').length > 0; }
+  /* Save is blocked on invalid-AND-dirty, never on invalid alone: a field can
+     be invalid before the operator has changed anything (impossible today
+     since load() only ever writes values a prior save already accepted, but
+     this keeps the rule correct if that ever stops being true). */
+  function refreshSaveDisabled() { $('save').disabled = dirty && anyInvalid(); }
+  function bindBlurValidation(id, validateFn) {
+    var input = $(id);
+    input.addEventListener('blur', function () { setValidity(input, validateFn(input.value.trim())); });
   }
 
   /* ---------------------------------------------------------------- theme */
@@ -361,6 +500,7 @@ document.addEventListener('DOMContentLoaded', function () {
     dot.hidden = false;
     dot.textContent = dirty ? '● Unsaved changes' : '● Saved';
     dot.className = 'topbar-dot ' + (dirty ? 'dot-unsaved' : 'dot-saved');
+    refreshSaveDisabled();
   }
   function markDirty() { if (!dirty) setDirtyUI(true); }
   function markSaved() { setDirtyUI(false); }
@@ -380,6 +520,10 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ---------------------------------------------------------------- media */
 
   function escAttr(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
+  /* Same escaping, minus the quote pass — used inside textarea TEXT CONTENT
+     (rating/quote HTML below), where a literal " is harmless but a bare < or
+     & would break out of the markup or start an entity. */
+  function escHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
   function initUploads() {
     if (uploadsInit) return;
@@ -389,8 +533,16 @@ document.addEventListener('DOMContentLoaded', function () {
       var input = box.querySelector('input[type=file]');
       var img = box.querySelector('img');
       var msg = box.querySelector('.up-msg');
-      input.addEventListener('change', function () {
-        var f = input.files && input.files[0];
+      var actions = box.querySelector('.up-actions');
+      var removeBtn = box.querySelector('.up-remove');
+      var replaceBtn = box.querySelector('.up-replace');
+
+      function setActions(on) { if (actions) actions.hidden = !on; }
+
+      /* Shared by the file-input's change event AND the drop event below —
+         one upload path, one set of guards, one cache-bust rule, regardless
+         of how the file got picked. */
+      function handleFile(f) {
         if (!f) return;
         if (f.size > 2 * 1024 * 1024) { msg.textContent = 'Max 2MB.'; return; }
         var ext = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[f.type];
@@ -401,11 +553,17 @@ document.addEventListener('DOMContentLoaded', function () {
           .then(function (r) {
             if (r.error) { msg.textContent = 'Upload failed. ' + (r.error.message || ''); return; }
             var pub = sb.storage.from('sbv-operator-media').getPublicUrl(path);
-            /* cache-bust: same path overwrites, and the CDN would happily
-               serve the old bytes to the operator checking their work */
-            photoUrls[slot] = pub.data.publicUrl;
-            img.src = pub.data.publicUrl + '?v=' + Date.now();
+            /* Cache-bust the STORED url, not just the on-screen thumbnail: the
+               same path overwrites on every re-upload, and the CDN would
+               otherwise happily keep serving the old bytes to every visitor —
+               including the operator checking their own save — until its TTL
+               expires. Storing the busted url means every future load/render
+               carries a fresh query string automatically. */
+            var busted = pub.data.publicUrl + '?v=' + Date.now();
+            photoUrls[slot] = busted;
+            img.src = busted;
             img.hidden = false;
+            setActions(true);
             msg.textContent = 'Uploaded — press Save to publish.';
             updateTopbarLogo();
             checkDirty();
@@ -413,6 +571,36 @@ document.addEventListener('DOMContentLoaded', function () {
           .catch(function () {
             msg.textContent = 'We could not reach the upload server. Try again.';
           });
+      }
+
+      input.addEventListener('change', function () {
+        handleFile(input.files && input.files[0]);
+        input.value = ''; /* lets the SAME filename be re-picked later (e.g. after Remove) */
+      });
+
+      /* dragover must call preventDefault() or the browser refuses the drop
+         outright; dragleave/drop both clear the highlight class again. */
+      box.addEventListener('dragover', function (e) { e.preventDefault(); box.classList.add('dragover'); });
+      box.addEventListener('dragleave', function () { box.classList.remove('dragover'); });
+      box.addEventListener('drop', function (e) {
+        e.preventDefault();
+        box.classList.remove('dragover');
+        handleFile(e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]);
+      });
+
+      if (replaceBtn) replaceBtn.addEventListener('click', function () { input.click(); });
+      if (removeBtn) removeBtn.addEventListener('click', function () {
+        /* Clears the slot from photoUrls entirely (not '' or null) so
+           collectRow()'s Object.keys(ph).length check — and logo_url's own
+           `photoUrls.logo || null` — both fall back to "not set", which is
+           what makes the storefront merge fall back to the demo photo. */
+        delete photoUrls[slot];
+        img.hidden = true;
+        img.removeAttribute('src');
+        msg.textContent = 'Removed — press Save to publish.';
+        setActions(false);
+        updateTopbarLogo();
+        checkDirty();
       });
     });
   }
@@ -422,13 +610,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var html = '';
     for (var i = 0; i < PRICE_ROWS; i++) {
       var p = (saved && saved[i]) || {};
-      html += '<div class="pr-row">'
+      html += '<div class="pr-card"><div class="pr-row">'
         + '<input type="text" maxlength="60" placeholder="Tier name (e.g. 1 Bin)" data-pk="label" value="' + escAttr(p.label || '') + '">'
         + '<input type="text" maxlength="20" placeholder="$10" data-pk="price_label" value="' + escAttr(p.price_label || '') + '">'
         + '<input type="text" maxlength="80" placeholder="Note (e.g. Best value)" data-pk="note" value="' + escAttr(p.note || '') + '">'
-        + '</div>';
+        + '</div><p class="pr-preview" aria-live="polite"></p></div>';
     }
     host.innerHTML = html;
+    updatePricePreviews();
   }
 
   function readPrices() {
@@ -441,6 +630,142 @@ document.addEventListener('DOMContentLoaded', function () {
       return o;
     }).filter(function (o) { return Object.keys(o).length; });
     return rows.length ? rows : null;
+  }
+
+  /* Live preview chip: "label — price_label", the exact headline the
+     storefront's pricing card renders (applyOperator maps price_label onto
+     the template's `blurb` key). A dash stands in for whichever half is
+     still blank so the row never goes empty mid-typing. */
+  function updatePricePreviews() {
+    [].forEach.call(document.querySelectorAll('.pr-card'), function (card) {
+      var label = card.querySelector('[data-pk="label"]').value.trim();
+      var priceLabel = card.querySelector('[data-pk="price_label"]').value.trim();
+      var preview = card.querySelector('.pr-preview');
+      preview.textContent = (label || priceLabel) ? (label || '—') + ' — ' + (priceLabel || '—') : '';
+    });
+  }
+
+  /* --------------------------------------------------------------- reviews */
+
+  var STAR_LABELS = { 1: '1 star', 2: '2 stars', 3: '3 stars', 4: '4 stars', 5: '5 stars' };
+
+  function reviewRowHTML(r) {
+    r = r || {};
+    var rating = (r.rating || r.rating === 0) ? String(r.rating) : '';
+    var quote = r.quote || '';
+    var author = r.author || '';
+    var opts = '<option value="">No rating</option>';
+    [1, 2, 3, 4, 5].forEach(function (n) {
+      opts += '<option value="' + n + '"' + (String(n) === rating ? ' selected' : '') + '>' + STAR_LABELS[n] + '</option>';
+    });
+    return '<div class="rev-row">'
+      + '<div class="rev-row-top">'
+      + '<label class="rev-rating"><span>Rating</span><select data-rk="rating">' + opts + '</select></label>'
+      + '<button type="button" class="rev-remove">Remove</button>'
+      + '</div>'
+      + '<label><span>What they said</span><textarea data-rk="quote" maxlength="300">' + escHtml(quote) + '</textarea></label>'
+      + '<p class="char-count"><span class="rev-count">' + quote.length + '</span>/300</p>'
+      + '<label><span>Author</span><input type="text" data-rk="author" maxlength="80" value="' + escAttr(author) + '"></label>'
+      + '</div>';
+  }
+
+  function initReviewRows(saved) {
+    var rows = (saved && saved.length) ? saved : [{}];
+    $('reviewRows').innerHTML = rows.map(reviewRowHTML).join('');
+    updateReviewCounts();
+    updateAddReviewBtn();
+  }
+
+  function updateAddReviewBtn() {
+    $('addReview').hidden = document.querySelectorAll('#reviewRows .rev-row').length >= REVIEW_MAX;
+  }
+
+  function updateReviewCounts() {
+    [].forEach.call(document.querySelectorAll('.rev-row'), function (row) {
+      var ta = row.querySelector('[data-rk="quote"]');
+      var counter = row.querySelector('.rev-count');
+      if (ta && counter) counter.textContent = ta.value.length;
+    });
+  }
+
+  /* A row with no quote is dropped rather than sent: sbv_reviews_valid
+     requires a non-blank quote (length >= 1 after trim), so a rating-only or
+     author-only row would be rejected server-side anyway. Treating it as
+     "not yet a review" here keeps the client and the validator in agreement,
+     and lets an operator leave a half-filled blank row without it blocking
+     Save. */
+  function readReviews() {
+    return [].map.call(document.querySelectorAll('#reviewRows .rev-row'), function (row) {
+      var quote = row.querySelector('[data-rk="quote"]').value.trim();
+      if (!quote) return null;
+      var author = row.querySelector('[data-rk="author"]').value.trim();
+      var ratingRaw = row.querySelector('[data-rk="rating"]').value;
+      var o = { quote: quote, author: author };
+      /* Number(), not the raw select value: sbv_reviews_valid typechecks
+         jsonb_typeof(rating) = 'number', and JSON.stringify would otherwise
+         serialise "3" as a jsonb STRING, which the validator rejects. */
+      if (ratingRaw) o.rating = Number(ratingRaw);
+      return o;
+    }).filter(function (o) { return o !== null; });
+  }
+
+  /* ---------------------------------------------------------------- social */
+
+  function socialRowHTML(s) {
+    s = s || {};
+    return '<div class="soc-row">'
+      + '<div class="soc-row-top"><span class="row-label">Social link</span>'
+      + '<button type="button" class="soc-remove">Remove</button></div>'
+      + '<label><span>Label <span class="hint">&mdash; e.g. Facebook</span></span>'
+      + '<input type="text" maxlength="40" data-sk="label" value="' + escAttr(s.label || '') + '"></label>'
+      + '<label><span>URL</span>'
+      + '<input type="url" maxlength="300" placeholder="https://…" data-sk="url" value="' + escAttr(s.url || '') + '">'
+      + '<p class="field-err" hidden></p></label>'
+      + '</div>';
+  }
+
+  function initSocialRows(saved) {
+    var rows = (saved && saved.length) ? saved : [{}];
+    $('socialRows').innerHTML = rows.map(socialRowHTML).join('');
+    updateAddSocialBtn();
+  }
+
+  function updateAddSocialBtn() {
+    $('addSocial').hidden = document.querySelectorAll('#socialRows .soc-row').length >= SOCIAL_MAX;
+  }
+
+  /* A row with only a label or only a url is dropped, not sent half-formed:
+     sbv_social_valid requires both keys on every element, and one blank half
+     is not yet "a social link". */
+  function readSocial() {
+    return [].map.call(document.querySelectorAll('#socialRows .soc-row'), function (row) {
+      var label = row.querySelector('[data-sk="label"]').value.trim();
+      var url = row.querySelector('[data-sk="url"]').value.trim();
+      if (!label || !url) return null;
+      return { label: label, url: url };
+    }).filter(function (o) { return o !== null; });
+  }
+
+  /* ---------------------------------------------------------------- job details */
+
+  function linesFrom(id, maxItems, maxLen) {
+    return $(id).value.split('\n')
+      .map(function (s) { return s.trim(); })
+      .filter(function (s) { return s.length > 0; })
+      .slice(0, maxItems)
+      .map(function (s) { return s.length > maxLen ? s.slice(0, maxLen) : s; });
+  }
+
+  /* Both keys are always present together when the object is sent at all —
+     never one array with the other key dropped. sbv_job_details_valid
+     rejects unknown keys but is fine with either array being EMPTY, and the
+     eventual template render expects both sides to exist. Only the whole
+     object is optional (null when both sides are empty). */
+  function readJobDetails() {
+    var included = linesFrom('job_included', 10, 120);
+    var notIncluded = linesFrom('job_not_included', 10, 120);
+    if (!included.length && !notIncluded.length) return null;
+    return { included: included, notIncluded: notIncluded };
   }
 
   /* ------------------------------------------------------------ section nav */
@@ -506,7 +831,6 @@ document.addEventListener('DOMContentLoaded', function () {
   function paint(r) {
     show('gate', false); show('panel', false); show('noAccess', false);
     show('topbar', false); show('sectionNav', false);
-    show('sec-reviews', false); show('sec-details', false);
     show('saveBar', false); document.body.classList.remove('savebar-open');
     show('gateHeader', true);
 
@@ -529,8 +853,6 @@ document.addEventListener('DOMContentLoaded', function () {
     clientId = r.clientId;
     show('panel', true);
     show('sectionNav', true);
-    show('sec-reviews', true);
-    show('sec-details', true);
     initUploads();
     load();
   }
@@ -576,8 +898,28 @@ document.addEventListener('DOMContentLoaded', function () {
         var img = box.querySelector('img');
         img.src = photoUrls[slot];
         img.hidden = false;
+        var actions = box.querySelector('.up-actions');
+        if (actions) actions.hidden = false;
       });
       initPriceRows(r.data && r.data.prices);
+
+      initReviewRows(r.data && r.data.reviews);
+      initSocialRows(r.data && r.data.social);
+      if (r.data && r.data.job_details) {
+        $('job_included').value = (r.data.job_details.included || []).join('\n');
+        $('job_not_included').value = (r.data.job_details.notIncluded || []).join('\n');
+      } else {
+        $('job_included').value = '';
+        $('job_not_included').value = '';
+      }
+      /* != null (not !==) deliberately catches both "column absent from the
+         select('*') result" (undefined, pre-migration) and "column exists,
+         never saved" (null) as NOT seen — only a real saved value flips this
+         true, which is exactly the case that requires an explicit null to
+         clear later. See maybeClearable(). */
+      seenInLoad.social = !!(r.data && r.data.social != null);
+      seenInLoad.reviews = !!(r.data && r.data.reviews != null);
+      seenInLoad.job_details = !!(r.data && r.data.job_details != null);
 
       var rows = (rt && rt.data || []).filter(function (t) { return t.client_id === clientId; });
       var row = rows[0];
@@ -603,15 +945,27 @@ document.addEventListener('DOMContentLoaded', function () {
   /* ------------------------------------------------------------------ save */
 
   /* Row-building shared by save() and the dirty-diff (checkDirty), so both
-     always agree on what "the current form state" means. maybe() exists for
-     Task 3: keys for editors that don't exist yet (social/reviews/job_details)
-     must not be emitted at all — sending them as null risks PGRST204 against
-     a schema cache that doesn't know the column yet — so this task does not
-     call it, but collectRow() is structured for Task 3 to add those keys
-     conditionally without touching the fields below. */
+     always agree on what "the current form state" means. */
   function maybe(row, key, value) {
     if (value === null || value === undefined) return;
     row[key] = value;
+  }
+
+  /* PGRST204 ruling (Task 3): social/reviews/job_details need a THIRD state
+     beyond maybe()'s null-vs-value, because clearing a previously-saved value
+     must still reach the database. PostgREST's upsert only UPDATEs columns
+     present in the payload — omit the key and the OLD value silently stands
+     forever. But a column that has never held a value (including one
+     OPERATOR-CONTENT-3.sql hasn't been run to create yet) must never be
+     referenced at all, null or otherwise, or an unmigrated schema cache
+     answers with PGRST204. seenInLoad (set in load()) is what tells these two
+     "empty" cases apart:
+       - non-empty value            -> send it (maybe() handles this)
+       - empty, but seenInLoad[key]  -> send explicit null (actually clears it)
+       - empty, never seenInLoad     -> omit the key entirely (column may not exist) */
+  function maybeClearable(row, key, value) {
+    if (value !== null && value !== undefined) { maybe(row, key, value); return; }
+    if (seenInLoad[key]) row[key] = null;
   }
 
   function collectRow() {
@@ -631,6 +985,15 @@ document.addEventListener('DOMContentLoaded', function () {
     ['before', 'after', 'owner'].forEach(function (s) { if (photoUrls[s]) ph[s] = photoUrls[s]; });
     row.photos = Object.keys(ph).length ? ph : null;
     row.prices = readPrices();
+
+    var social = readSocial();
+    maybeClearable(row, 'social', social.length ? social : null);
+
+    var reviews = readReviews();
+    maybeClearable(row, 'reviews', reviews.length ? reviews : null);
+
+    maybeClearable(row, 'job_details', readJobDetails());
+
     return row;
   }
 
@@ -694,6 +1057,61 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   $('panel').addEventListener('input', checkDirty);
   $('panel').addEventListener('change', checkDirty);
+
+  /* ----------------------------------------------------- reviews / social */
+
+  $('addReview').addEventListener('click', function () {
+    if (document.querySelectorAll('#reviewRows .rev-row').length >= REVIEW_MAX) return;
+    $('reviewRows').insertAdjacentHTML('beforeend', reviewRowHTML({}));
+    updateAddReviewBtn();
+    checkDirty();
+  });
+  $('reviewRows').addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.rev-remove') : null;
+    if (!btn) return;
+    var row = btn.closest('.rev-row');
+    row.parentNode.removeChild(row);
+    updateAddReviewBtn();
+    checkDirty();
+  });
+  /* Live "N/300" counter — delegated so it works for every row, including
+     ones added after page load via #addReview. */
+  $('reviewRows').addEventListener('input', function (e) {
+    if (!e.target.getAttribute || e.target.getAttribute('data-rk') !== 'quote') return;
+    var row = e.target.closest('.rev-row');
+    var counter = row && row.querySelector('.rev-count');
+    if (counter) counter.textContent = e.target.value.length;
+  });
+
+  $('addSocial').addEventListener('click', function () {
+    if (document.querySelectorAll('#socialRows .soc-row').length >= SOCIAL_MAX) return;
+    $('socialRows').insertAdjacentHTML('beforeend', socialRowHTML({}));
+    updateAddSocialBtn();
+    checkDirty();
+  });
+  $('socialRows').addEventListener('click', function (e) {
+    var btn = e.target.closest ? e.target.closest('.soc-remove') : null;
+    if (!btn) return;
+    var row = btn.closest('.soc-row');
+    row.parentNode.removeChild(row);
+    updateAddSocialBtn();
+    checkDirty();
+  });
+  /* focusout (not blur): blur does not bubble in every browser, so a
+     delegated listener on the host would miss it for rows added after load.
+     focusout is the bubbling equivalent and fires at the same moment. */
+  $('socialRows').addEventListener('focusout', function (e) {
+    if (!e.target.getAttribute || e.target.getAttribute('data-sk') !== 'url') return;
+    setValidity(e.target, validateSocialUrl(e.target.value.trim()));
+  });
+
+  $('priceRows').addEventListener('input', updatePricePreviews);
+
+  bindBlurValidation('email_pub', validateEmail);
+  bindBlurValidation('lead_email', validateEmail);
+  bindBlurValidation('state_code', validateState);
+  bindBlurValidation('postal_code', validatePostal);
+  bindBlurValidation('phone', validatePhone);
 
   initSectionNav();
   resolve().then(paint);
