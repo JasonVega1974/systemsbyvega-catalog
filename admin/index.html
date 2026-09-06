@@ -108,6 +108,16 @@
     min-height:44px;width:100%}
   .jd-caption{margin:6px 0 0;font-size:12.5px;color:var(--adm-ink-soft)}
 
+  /* danger zone: red-accented, visually apart from every constructive control.
+     Button text uses --adm-ground (near-white neutral / near-black on the dark
+     theme) so it clears contrast on BOTH --adm-bad values (#C0392B / #FF8A75). */
+  .card.danger{border-color:var(--adm-bad);border-left:3px solid var(--adm-bad)}
+  .danger-btn{background:var(--adm-bad);color:var(--adm-ground)}
+  .danger-btn:hover:not(:disabled){background:var(--adm-bad);filter:brightness(1.08)}
+  .danger-cancel{background:transparent;color:var(--adm-ink);border:1px solid var(--adm-hair);margin-left:8px}
+  .danger-text{font-size:14px;line-height:1.55;color:var(--adm-ink)}
+  #resetConfirm{margin-top:14px;padding-top:14px;border-top:1px dashed var(--adm-bad)}
+
   /* ---------------------------------------------------------------- topbar */
   #topbar{position:sticky;top:0;z-index:20;background:var(--adm-panel);
     border:1px solid var(--adm-hair);border-radius:14px;padding:10px 16px;margin-bottom:14px;
@@ -328,6 +338,27 @@
       site shows the example content it was built with. Nothing is broken &mdash;
       fill in what you want and save, and those parts become yours.
     </div>
+
+    <!-- DANGER ZONE. Deliberately outside the section nav (no pill points
+         here — you reach it by scrolling with intent) and nowhere near the
+         Save bar. The type-to-confirm gate is what justified adding the
+         own-row DELETE policy this uses (sql/ADMIN-RESET.sql). -->
+    <section class="card danger" id="sec-danger">
+      <p class="sec-h">Danger zone</p>
+      <p class="sub">Start over from the example content.</p>
+      <button type="button" class="go danger-btn" id="resetOpen">Reset to defaults&hellip;</button>
+      <div id="resetConfirm" hidden>
+        <p class="danger-text"><strong>This erases every change you have made</strong>
+          &mdash; your business details, prices, photos on the site, reviews,
+          everything you typed here. Your site goes back to the example content
+          it launched with. <strong>This cannot be undone.</strong></p>
+        <label><span>Type <b>RESET</b> to confirm</span>
+          <input type="text" id="resetWord" autocomplete="off" autocapitalize="characters"></label>
+        <button type="button" class="go danger-btn" id="resetGo" disabled>Erase my changes</button>
+        <button type="button" class="go danger-cancel" id="resetCancel">Cancel</button>
+        <p class="msg" id="resetMsg" role="alert"></p>
+      </div>
+    </section>
   </section>
 
   <!-- NO MAPPING. Deliberately not phrased as an error: the usual cause is a
@@ -1146,6 +1177,52 @@ document.addEventListener('DOMContentLoaded', function () {
   $('signIn').addEventListener('click', signIn);
   $('pass').addEventListener('keydown', function (e) { if (e.key === 'Enter') signIn(); });
   $('save').addEventListener('click', save);
+
+  /* ---- danger zone: reset to defaults ------------------------------------
+     Deletes the tenant's whole sbv_operator_content row (RLS scopes it to the
+     signed-in operator's own tenant; sql/ADMIN-RESET.sql). Gated on typing
+     RESET. On success we reload rather than hand-clearing ~20 pieces of
+     editor state — load() against the now-absent row provably lands in the
+     fresh-tenant state, and a destructive path deserves the lowest-bug-surface
+     option. */
+  $('resetOpen').addEventListener('click', function () {
+    show('resetOpen', false);
+    show('resetConfirm', true);
+    $('resetWord').value = '';
+    $('resetGo').disabled = true;
+    say('resetMsg', '');
+  });
+  $('resetCancel').addEventListener('click', function () {
+    show('resetConfirm', false);
+    show('resetOpen', true);
+  });
+  $('resetWord').addEventListener('input', function () {
+    $('resetGo').disabled = this.value.trim().toUpperCase() !== 'RESET';
+  });
+  $('resetGo').addEventListener('click', function () {
+    var btn = $('resetGo');
+    btn.disabled = true; btn.textContent = 'Erasing…';
+    /* Promise.resolve() first — builders are thenables without .catch (the
+       load() lesson). A failed reset must never look like a successful one. */
+    Promise.resolve(
+      sb.from('sbv_operator_content').delete().eq('client_id', clientId)
+    ).then(function (r) {
+      if (r.error) {
+        btn.disabled = false; btn.textContent = 'Erase my changes';
+        say('resetMsg', 'The reset did not go through. ' + (r.error.message || ''), 'bad');
+        console.error('[admin] reset:', r.error);
+        return;
+      }
+      /* dirty must go false BEFORE reload, or the beforeunload guard throws
+         an "unsaved changes" prompt into the middle of a successful reset. */
+      dirty = false;
+      say('resetMsg', 'Erased. Reloading…', 'ok');
+      location.reload();
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Erase my changes';
+      say('resetMsg', 'We could not reach our server. Nothing was erased.', 'bad');
+    });
+  });
   $('signOut').addEventListener('click', function () {
     sb.auth.signOut().then(function () { location.reload(); });
   });
