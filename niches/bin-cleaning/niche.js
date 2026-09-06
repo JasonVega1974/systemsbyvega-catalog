@@ -289,11 +289,16 @@
       : 'Serving ' + (area.short || brand.city || '');
 
     // ----- social links (footer; hidden when empty) -----
-    document.getElementById('footSocial').innerHTML = social.length
-      ? social.map(function(s){
-          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
-        }).join(' · ') + '<br />'
-      : '';
+    var footSocial = document.getElementById('footSocial');
+    if (social.length) {
+      footSocial.innerHTML = social.map(function(s){
+        return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
+      }).join(' · ');
+      footSocial.hidden = false;
+    } else {
+      footSocial.innerHTML = '';
+      footSocial.hidden = true;
+    }
 
     // ----- stats -> hero proof row -----
     document.getElementById('statsRow').innerHTML = (c.stats || []).map(function(s){

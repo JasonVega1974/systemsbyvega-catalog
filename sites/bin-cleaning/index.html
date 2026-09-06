@@ -490,6 +490,10 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .logo-img{background-position:center;background-repeat:no-repeat;background-size:contain}
 .brand-logo{height:46px;width:50px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
 .footer-logo{height:64px;width:60px}
+/* footSocial is a <p> (not base.css's inline default) so it can be toggled
+   via the hidden attribute; reset its margin to stay flush with the muted
+   footer__meta text flow around it. */
+#footSocial{margin:0;color:var(--muted)}
 /* hero badge: base.css's .hero__art/.halo/@keyframes pulse target an <svg>
    child by tag name — the logo here is a background-image span instead, so
    its own sizing + the (shared) float keyframe are applied directly. */
@@ -1071,7 +1075,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
     <div class="footer__meta">
       Call or text <a href="tel:+12085550188" data-phone>(208) 555-0188</a> · <a href="mailto:hello@example.com" id="footEmail">hello@example.com</a><br />
       <span id="footServe">Serving Nampa &amp; Caldwell</span><br />
-      <span id="footSocial"></span>
+      <p id="footSocial" hidden></p>
       <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Prime Bin Cleaning</span> · Teen-owned &amp; local</span>
       <span class="footer__credit">Concept build by <a href="https://systemsbyvega.com" target="_blank" rel="noopener noreferrer">Systems by Vega</a><!-- SWAP:DISCLOSURE --> · Demonstration website for a fictional business.<!-- /SWAP:DISCLOSURE --></span>
     </div>
@@ -1684,11 +1688,16 @@ var DEFAULT_CONTENT = {
       : 'Serving ' + (area.short || brand.city || '');
 
     // ----- social links (footer; hidden when empty) -----
-    document.getElementById('footSocial').innerHTML = social.length
-      ? social.map(function(s){
-          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
-        }).join(' · ') + '<br />'
-      : '';
+    var footSocial = document.getElementById('footSocial');
+    if (social.length) {
+      footSocial.innerHTML = social.map(function(s){
+        return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
+      }).join(' · ');
+      footSocial.hidden = false;
+    } else {
+      footSocial.innerHTML = '';
+      footSocial.hidden = true;
+    }
 
     // ----- stats -> hero proof row -----
     document.getElementById('statsRow').innerHTML = (c.stats || []).map(function(s){
