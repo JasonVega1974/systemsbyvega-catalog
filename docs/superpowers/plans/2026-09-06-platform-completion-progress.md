@@ -89,3 +89,15 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
   best available; shown to Jason here rather than blocking). Adjacent note:
   stock photos framed as the fictional company's own work now on 3 slots.
 - B1 pushed after review + fix.
+- Phase A spec written (docs/superpowers/specs/2026-09-06-phase-a-platform-
+  generalization.md). Rulings under brief SS7 (the three open questions +
+  pricing): manifest schema v1 with built manifests index consumed by admin +
+  endpoint; pricing.model enum (tiers/hourly/quote/percentage/calculator/
+  flash/none) drives admin editor + merge + render — kills the 11-niche silent
+  no-op; marketing kit = serverless playwright-core + @sparticuz/chromium +
+  qrcode, per-niche HTML templates, on-demand render to bucket, admin Marketing
+  tab with client-side preview; shared components use DOM-property escaping
+  standard; Phase B parallelism = B1-proven no-commit wave shape. noindex rule:
+  X-Robots-Tag from middleware when operator row exists. Costs if wrong:
+  serverless-chromium weight (fallback documented), pricing validator loosening
+  (plan carries exact SQL). Next: Phase A implementation plan, then SDD.
