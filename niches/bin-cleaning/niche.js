@@ -290,8 +290,12 @@
 
     // ----- social links (footer; hidden when empty) -----
     var footSocial = document.getElementById('footSocial');
-    if (social.length) {
-      footSocial.innerHTML = social.filter(function(s){ return /^https:\/\//i.test(s.url); /* scheme-gated here too, not just in sbv_social_valid — entity encoding cannot stop a scheme, and safeUrl only de-fangs CSS/attr breakout */ }).map(function(s){
+    /* Filter FIRST, then gate visibility on the filtered result — gating on
+       the raw (pre-filter) social.length would show an empty, hidden=false
+       footer row whenever every entry failed the https scheme check. */
+    var socialLinks = social.filter(function(s){ return /^https:\/\//i.test(s.url); /* scheme-gated here too, not just in sbv_social_valid — entity encoding cannot stop a scheme, and safeUrl only de-fangs CSS/attr breakout */ });
+    if (socialLinks.length) {
+      footSocial.innerHTML = socialLinks.map(function(s){
         return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
       }).join(' · ');
       footSocial.hidden = false;

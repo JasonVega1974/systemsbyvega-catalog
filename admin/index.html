@@ -164,7 +164,7 @@
         <span class="topbar-name" id="topbarName"></span>
       </div>
       <div class="topbar-right">
-        <span class="topbar-dot dot-saved" id="savedDot" hidden>● Saved</span>
+        <span class="topbar-dot dot-saved" id="savedDot" hidden aria-live="polite">● Saved</span>
         <span class="who"><span id="whoEmail"></span><button type="button" id="signOut">Sign out</button></span>
       </div>
     </div>
@@ -204,6 +204,10 @@
   <section id="panel" hidden>
     <h1>Your site</h1>
     <p class="sub" id="panelSub"></p>
+    <!-- Visible even when #saveBar is hidden (load() has not necessarily
+         made anything dirty yet) — a load failure must not go silently into
+         the save bar's message slot, which is invisible at that point. -->
+    <p class="msg" id="panelMsg" role="alert"></p>
 
     <section class="card" id="sec-business">
       <p class="sec-h">Business</p>
@@ -294,6 +298,7 @@
     <section class="card" id="sec-reviews">
       <p class="sec-h">Reviews</p>
       <p class="helper-text">Only reviews real customers gave you — these appear on your public site.</p>
+      <p class="jd-caption">Your site shows the first 3 reviews today; the rest are saved for when more display slots are added.</p>
       <div id="reviewRows"></div>
       <button type="button" class="add-row" id="addReview">+ Add review</button>
     </section>
@@ -529,6 +534,13 @@ document.addEventListener('DOMContentLoaded', function () {
     if (snapshot === null) return; /* not loaded yet */
     var cur = JSON.stringify(collectRow());
     if (cur !== snapshot) markDirty(); else markSaved();
+    /* markDirty() early-returns (no-op) when already dirty, so removing an
+       invalid row while already dirty would otherwise never re-evaluate
+       Save's disabled state even though the row (and its .invalid class)
+       just left the DOM. refreshSaveDisabled() is idempotent and side-effect
+       free (only reads `dirty` and .invalid count), so calling it here
+       unconditionally is safe — no recursion, no loop. */
+    refreshSaveDisabled();
   }
 
   window.addEventListener('beforeunload', function (e) {
@@ -738,7 +750,8 @@ document.addEventListener('DOMContentLoaded', function () {
       + '<div class="soc-row-top"><span class="row-label">Social link</span>'
       + '<button type="button" class="soc-remove">Remove</button></div>'
       + '<label><span>Label <span class="hint">&mdash; e.g. Facebook</span></span>'
-      + '<input type="text" maxlength="40" data-sk="label" value="' + escAttr(s.label || '') + '"></label>'
+      + '<input type="text" maxlength="40" data-sk="label" value="' + escAttr(s.label || '') + '">'
+      + '<p class="field-err" hidden></p></label>'
       + '<label><span>URL</span>'
       + '<input type="url" maxlength="300" placeholder="https://…" data-sk="url" value="' + escAttr(s.url || '') + '">'
       + '<p class="field-err" hidden></p></label>'
@@ -753,6 +766,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function updateAddSocialBtn() {
     $('addSocial').hidden = document.querySelectorAll('#socialRows .soc-row').length >= SOCIAL_MAX;
+  }
+
+  /* Social row validation mirrors validateReviewQuote(): exactly one of
+     label/url filled is invalid; fully-empty is valid (silently droppable);
+     both filled is valid. The error lands on whichever field is the empty
+     half. validateSocialUrl's https rule is unchanged and still applies
+     independently whenever url itself is non-empty. */
+  var SOCIAL_BOTH_MSG = 'Add both a label and a link, or remove this row.';
+  function socialRowMessages(row) {
+    var label = row.querySelector('[data-sk="label"]');
+    var url = row.querySelector('[data-sk="url"]');
+    if (!label || !url) return;
+
+    var labelVal = label.value.trim();
+    var urlVal = url.value.trim();
+
+    var labelMsg = (!labelVal && urlVal) ? SOCIAL_BOTH_MSG : null;
+    var urlMsg = urlVal ? validateSocialUrl(urlVal) : (labelVal ? SOCIAL_BOTH_MSG : null);
+
+    setValidity(label, labelMsg);
+    setValidity(url, urlMsg);
   }
 
   /* A row with only a label or only a url is dropped, not sent half-formed:
@@ -896,8 +930,13 @@ document.addEventListener('DOMContentLoaded', function () {
       var r = results[0];
       var rt = results[1];
 
+      say('panelMsg', ''); /* clear any stale message from a prior load() in this session */
+
       if (r.error) {
-        say('saveMsg', 'Could not load your details. Reload the page.', 'bad');
+        /* #saveBar is still hidden at this point (nothing is dirty yet) — a
+           message written there would be invisible. panelMsg lives in the
+           always-visible part of #panel. */
+        say('panelMsg', 'Could not load your details. Reload the page.', 'bad');
         console.error('[admin] load:', r.error.message);
         return;
       }
@@ -1037,9 +1076,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         hadRow = true;
         show('defaultNote', false);
+        /* A save that carried social/reviews/job_details proves the column
+           exists on this row now — the maybeClearable() clear path (an
+           explicit null instead of an omitted key) depends on seenInLoad
+           being true, and load() only sets it once, at page load. Without
+           this, saving one of these keys in this session and then clearing
+           it in the SAME session would omit the key from the next upsert,
+           leaving the old value standing in the database while the UI
+           reports Saved. */
+        ['social', 'reviews', 'job_details'].forEach(function (k) {
+          if (Object.prototype.hasOwnProperty.call(row, k)) seenInLoad[k] = true;
+        });
         snapshot = JSON.stringify(collectRow());
         markSaved();
         say('saveMsg', 'Saved. Your site is updated.', 'ok');
+        /* Keep the bar visible long enough for the success message to be
+           seen/announced, then hide it if nothing new has become dirty in
+           the meantime (F2). */
+        show('saveBar', true);
+        document.body.classList.add('savebar-open');
+        setTimeout(function () {
+          if (dirty) return;
+          show('saveBar', false);
+          document.body.classList.remove('savebar-open');
+        }, 2000);
       })
       .catch(function () {
         btn.disabled = false; btn.textContent = 'Save changes';
@@ -1141,10 +1201,22 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   /* focusout (not blur): blur does not bubble in every browser, so a
      delegated listener on the host would miss it for rows added after load.
-     focusout is the bubbling equivalent and fires at the same moment. */
+     focusout is the bubbling equivalent and fires at the same moment.
+     Both label and url participate: a half-filled row is invalid regardless
+     of which half was just left. */
   $('socialRows').addEventListener('focusout', function (e) {
-    if (!e.target.getAttribute || e.target.getAttribute('data-sk') !== 'url') return;
-    setValidity(e.target, validateSocialUrl(e.target.value.trim()));
+    if (!e.target.getAttribute || !['label', 'url'].includes(e.target.getAttribute('data-sk'))) return;
+    var row = e.target.closest('.soc-row');
+    if (!row) return;
+    socialRowMessages(row);
+  });
+  /* Also validate on input for immediate feedback as user types (mirrors
+     the review-row pattern). */
+  $('socialRows').addEventListener('input', function (e) {
+    if (!e.target.getAttribute || !['label', 'url'].includes(e.target.getAttribute('data-sk'))) return;
+    var row = e.target.closest('.soc-row');
+    if (!row) return;
+    socialRowMessages(row);
   });
 
   $('priceRows').addEventListener('input', updatePricePreviews);
