@@ -924,7 +924,13 @@ document.addEventListener('DOMContentLoaded', function () {
        sbv_public_tenants(), which is already granted to anon and returns
        exactly these columns. Its failure is cosmetic — the editor still works
        without it — so it is caught here rather than aborting the whole load. */
-    var tenantFetch = sb.rpc('sbv_public_tenants').catch(function () { return null; });
+    /* Promise.resolve() FIRST: supabase-js builders are thenables with only a
+       .then — .catch is undefined on them, and calling it directly threw a
+       synchronous TypeError that silently killed this whole function (theme,
+       pricing, dirty tracking) inside resolve().then(paint). Assimilating the
+       thenable into a real Promise makes .catch exist. */
+    var tenantFetch = Promise.resolve(sb.rpc('sbv_public_tenants'))
+      .catch(function () { return null; });
 
     Promise.all([rowFetch, tenantFetch]).then(function (results) {
       var r = results[0];
@@ -999,6 +1005,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       snapshot = JSON.stringify(collectRow());
       markSaved();
+    }).catch(function (e) {
+      /* Without this, any throw inside the then() above dies invisibly and the
+         operator gets a half-initialized editor: neutral theme, empty pricing,
+         a Save bar that never appears. Exactly that shipped once — the .catch
+         TypeError on the tenant fetch. Fail LOUD instead. */
+      say('panelMsg', 'Something went wrong loading your details. Reload the page.', 'bad');
+      console.error('[admin] load failed:', e);
     });
   }
 
