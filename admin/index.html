@@ -6,76 +6,148 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Your site — Systems by Vega</title>
 <style>
+  /* Theme tokens. DEFAULTS below reproduce the pre-theme neutral look exactly.
+     applyTheme() overwrites these on :root once a tenant's niche_slug is known;
+     an unmapped niche leaves every default untouched. --adm-hair, --green,
+     --red and --shadow are deliberately NOT part of the theme map (THEMES has
+     no such keys) so borders and status colors stay legible on any palette. */
   :root{
-    --paper:#F1F4F8; --panel:#FFFFFF; --ink:#161B22; --ink-soft:#48515F;
-    --hair:#DCE2EA; --amber:#E8791B; --amber-deep:#C9620C; --green:#1F9D63;
-    --red:#C0392B;
+    --adm-ground:#F1F4F8; --adm-panel:#FFFFFF; --adm-card:#FFFFFF;
+    --adm-accent:#C9620C; --adm-accent-2:#E8791B;
+    --adm-ink:#161B22; --adm-ink-soft:#48515F; --adm-hair:#DCE2EA;
+    --adm-font-display: system-ui,-apple-system,"Segoe UI",sans-serif;
+    --adm-font-label: system-ui,-apple-system,"Segoe UI",sans-serif;
+    --adm-font-body: system-ui,-apple-system,"Segoe UI",sans-serif;
+    --green:#1F9D63; --red:#C0392B;
     --shadow:0 1px 2px rgba(20,28,40,.05),0 10px 30px rgba(20,28,40,.07);
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
-    font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+  html{overflow-x:hidden}
+  body{margin:0;background:var(--adm-ground);color:var(--adm-ink);
+    font:16px/1.55 var(--adm-font-body);overflow-x:hidden}
   .wrap{max-width:760px;margin:0 auto;padding:28px 20px 80px}
   header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;
     flex-wrap:wrap;margin-bottom:26px}
-  .brand{font-weight:800;font-size:18px;letter-spacing:-.01em}
+  .brand{font-weight:800;font-size:18px;letter-spacing:-.01em;font-family:var(--adm-font-display)}
   .brand a{color:inherit;text-decoration:none}
-  .who{font-size:13.5px;color:var(--ink-soft)}
-  .who button{background:none;border:0;color:var(--amber-deep);cursor:pointer;
-    font:inherit;font-size:13.5px;text-decoration:underline;padding:0 0 0 8px}
 
-  .card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;
+  .card{background:var(--adm-card);border:1px solid var(--adm-hair);border-radius:14px;
     box-shadow:var(--shadow);padding:24px}
-  h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em}
-  .sub{color:var(--ink-soft);font-size:14.5px;margin:0 0 22px}
-  .sub a{color:var(--amber-deep)}
+  h1{font-size:23px;margin:0 0 6px;letter-spacing:-.02em;font-family:var(--adm-font-display)}
+  .sub{color:var(--adm-ink-soft);font-size:14.5px;margin:0 0 22px}
+  .sub a{color:var(--adm-accent)}
 
   label{display:block;margin:0 0 15px}
-  label span{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
-  label .hint{font-weight:400;color:var(--ink-soft)}
+  label span{display:block;font-size:13px;font-weight:600;margin-bottom:5px;font-family:var(--adm-font-label)}
+  label .hint{font-weight:400;color:var(--adm-ink-soft)}
   input,textarea{width:100%;font:inherit;font-size:15px;padding:10px 12px;
-    border:1px solid var(--hair);border-radius:9px;background:#fff;color:var(--ink)}
-  input:focus,textarea:focus{outline:2px solid var(--amber);outline-offset:0;border-color:transparent}
+    border:1px solid var(--adm-hair);border-radius:9px;background:var(--adm-card);color:var(--adm-ink)}
+  input:focus,textarea:focus{outline:2px solid var(--adm-accent-2);outline-offset:0;border-color:transparent}
   textarea{resize:vertical;min-height:88px}
   .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
   @media(max-width:560px){.row{grid-template-columns:1fr}}
 
-  .go{background:var(--amber-deep);color:#fff;border:0;border-radius:9px;
+  .go{background:var(--adm-accent);color:#fff;border:0;border-radius:9px;
     font:inherit;font-weight:700;font-size:15px;padding:12px 20px;cursor:pointer;
     min-height:44px}
-  .go:hover:not(:disabled){background:var(--amber)}
+  .go:hover:not(:disabled){background:var(--adm-accent-2)}
   .go:disabled{opacity:.55;cursor:default}
 
   .msg{margin-top:14px;font-size:14px;min-height:20px}
   .msg.ok{color:var(--green);font-weight:600}
   .msg.bad{color:var(--red);font-weight:600}
 
-  .note{margin-top:20px;padding:13px 15px;border:1px solid var(--hair);
-    border-left:3px solid var(--amber);border-radius:10px;background:#FFFDF9;
-    font-size:14px;line-height:1.5;color:var(--ink-soft)}
-  .note strong{color:var(--ink)}
-  .note a{color:var(--amber-deep)}
+  .note{margin-top:20px;padding:13px 15px;border:1px solid var(--adm-hair);
+    border-left:3px solid var(--adm-accent-2);border-radius:10px;background:var(--adm-card);
+    font-size:14px;line-height:1.5;color:var(--adm-ink-soft)}
+  .note strong{color:var(--adm-ink)}
+  .note a{color:var(--adm-accent)}
   [hidden]{display:none !important}
 
-  .sec-h{font-size:13px;font-weight:600;margin:22px 0 10px}
-  .up{border:2px dashed var(--hair);border-radius:10px;padding:12px;text-align:center}
+  .sec-h{font-size:13px;font-weight:600;margin:22px 0 10px;font-family:var(--adm-font-label);color:var(--adm-ink)}
+  .up{border:2px dashed var(--adm-hair);border-radius:10px;padding:12px;text-align:center}
   .up img{max-width:100%;border-radius:8px;margin-bottom:8px}
   .up-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
   .pr-row{display:grid;grid-template-columns:1.2fr .7fr 1.4fr;gap:10px;margin-bottom:10px}
+
+  /* ---------------------------------------------------------------- topbar */
+  #topbar{position:sticky;top:0;z-index:20;background:var(--adm-panel);
+    border:1px solid var(--adm-hair);border-radius:14px;padding:10px 16px;margin-bottom:14px;
+    box-shadow:var(--shadow)}
+  .topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .topbar-id{display:flex;align-items:center;gap:10px;min-width:0}
+  #topbarLogo{height:32px;width:auto;border-radius:6px;display:block;flex:0 0 auto}
+  .topbar-name{font-family:var(--adm-font-display);font-weight:800;font-size:16px;
+    color:var(--adm-ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .topbar-dot{font-size:13px;font-weight:700;white-space:nowrap}
+  .topbar-dot.dot-saved{color:var(--green)}
+  .topbar-dot.dot-unsaved{color:var(--adm-accent-2)}
+  .who{font-size:13.5px;color:var(--adm-ink-soft);display:flex;align-items:center;gap:2px}
+  .who button{background:none;border:0;color:var(--adm-accent);cursor:pointer;
+    font:inherit;font-size:13.5px;text-decoration:underline;padding:0 0 0 8px}
+
+  /* ------------------------------------------------------------ section nav */
+  #sectionNav{margin-bottom:18px}
+  .nav-scroll{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px}
+  .nav-pill{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;
+    min-height:44px;padding:0 16px;border:1px solid var(--adm-hair);border-radius:999px;
+    background:var(--adm-card);color:var(--adm-ink-soft);font:inherit;font-family:var(--adm-font-label);
+    font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
+  .nav-pill.active{background:var(--adm-accent);border-color:var(--adm-accent);color:#fff}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  /* --------------------------------------------------------------- save bar */
+  #saveBar{position:fixed;left:0;right:0;bottom:0;background:var(--adm-panel);
+    border-top:1px solid var(--adm-hair);box-shadow:0 -6px 20px rgba(20,28,40,.15);
+    padding:12px 20px;z-index:30}
+  .save-bar-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .save-bar-inner .msg{margin:0;min-height:0}
+  .save-bar-inner .go{min-width:140px}
+  body.savebar-open .wrap{padding-bottom:120px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
+  <header id="gateHeader">
     <div class="brand"><a href="/">Systems by Vega</a></div>
-    <div class="who" id="who" hidden><span id="whoEmail"></span><button type="button" id="signOut">Sign out</button></div>
   </header>
+
+  <!-- TOPBAR. Hidden until a session is confirmed (paint() reveals it whenever
+       r.user exists — same condition the old inline "who" block used). Logo and
+       business name are only populated once the tenant resolves; the saved-dot
+       only becomes meaningful once the editor (panel) is loaded. -->
+  <div id="topbar" hidden>
+    <div class="topbar-inner">
+      <div class="topbar-id">
+        <img id="topbarLogo" alt="" hidden>
+        <span class="topbar-name" id="topbarName"></span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-dot dot-saved" id="savedDot" hidden>● Saved</span>
+        <span class="who"><span id="whoEmail"></span><button type="button" id="signOut">Sign out</button></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION NAV. Five pills, shown only while the editor is loaded. -->
+  <nav id="sectionNav" hidden aria-label="Sections">
+    <div class="nav-scroll">
+      <a href="#sec-business" class="nav-pill" data-target="sec-business">Business</a>
+      <a href="#sec-photos" class="nav-pill" data-target="sec-photos">Photos</a>
+      <a href="#sec-pricing" class="nav-pill" data-target="sec-pricing">Pricing</a>
+      <a href="#sec-reviews" class="nav-pill" data-target="sec-reviews">Reviews</a>
+      <a href="#sec-details" class="nav-pill" data-target="sec-details">Details</a>
+    </div>
+  </nav>
 
   <!-- GATE. Visible by default, hidden only once a session AND a tenant mapping
        are both confirmed. Fail-closed on purpose: if anything below throws, the
        operator gets the sign-in form rather than an empty editor that looks
-       ready and silently saves nothing. -->
+       ready and silently saves nothing. Deliberately neutral — theming only
+       applies once a tenant's niche is known, which is after this is gone. -->
   <section class="card" id="gate">
     <h1>Sign in to edit your site</h1>
     <p class="sub">Use the email and password you created when you claimed your territory.</p>
@@ -90,58 +162,74 @@
     <h1>Your site</h1>
     <p class="sub" id="panelSub"></p>
 
-    <label><span>Business name</span>
-      <input type="text" id="business_name" maxlength="120" autocomplete="organization"></label>
+    <div id="sec-business">
+      <label><span>Business name</span>
+        <input type="text" id="business_name" maxlength="120" autocomplete="organization"></label>
 
-    <div class="row">
-      <label><span>Phone</span><input type="tel" id="phone" maxlength="40" autocomplete="tel"></label>
-      <label style="grid-column:span 2"><span>Public email <span class="hint">&mdash; shown on your site</span></span>
-        <input type="email" id="email_pub" maxlength="254"></label>
+      <div class="row">
+        <label><span>Phone</span><input type="tel" id="phone" maxlength="40" autocomplete="tel"></label>
+        <label style="grid-column:span 2"><span>Public email <span class="hint">&mdash; shown on your site</span></span>
+          <input type="email" id="email_pub" maxlength="254"></label>
+      </div>
+
+      <label><span>Street address</span>
+        <input type="text" id="address_line" maxlength="200" autocomplete="street-address"></label>
+
+      <div class="row">
+        <label><span>City</span><input type="text" id="city" maxlength="100"></label>
+        <label><span>State <span class="hint">&mdash; 2 letters</span></span>
+          <input type="text" id="state_code" maxlength="2" style="text-transform:uppercase"></label>
+        <label><span>ZIP</span><input type="text" id="postal_code" maxlength="10"></label>
+      </div>
+
+      <label><span>Hours <span class="hint">&mdash; write them however you say them</span></span>
+        <input type="text" id="hours" maxlength="300" placeholder="Mon-Fri 8-5, Sat 9-1, closed Sunday"></label>
+
+      <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
+
+      <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
+        <textarea id="bio" maxlength="2000"></textarea></label>
+
+      <label style="margin-top:22px"><span>Inquiry email <span class="hint">&mdash; where booking requests go</span></span>
+        <input type="email" id="lead_email" maxlength="254"></label>
+      <div class="note"><strong>One-time step when you change this:</strong> our form
+        service (FormSubmit) emails the new inbox an activation link on the first
+        request. Click it, or inquiries will not arrive.</div>
     </div>
 
-    <label><span>Street address</span>
-      <input type="text" id="address_line" maxlength="200" autocomplete="street-address"></label>
-
-    <div class="row">
-      <label><span>City</span><input type="text" id="city" maxlength="100"></label>
-      <label><span>State <span class="hint">&mdash; 2 letters</span></span>
-        <input type="text" id="state_code" maxlength="2" style="text-transform:uppercase"></label>
-      <label><span>ZIP</span><input type="text" id="postal_code" maxlength="10"></label>
+    <div id="sec-photos">
+      <p class="sec-h">Photos</p>
+      <div class="up-grid">
+        <div class="up" data-slot="logo"><span>Logo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+        <div class="up" data-slot="before"><span>Before photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+        <div class="up" data-slot="after"><span>After photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+        <div class="up" data-slot="owner"><span>Owner photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+      </div>
     </div>
 
-    <label><span>Hours <span class="hint">&mdash; write them however you say them</span></span>
-      <input type="text" id="hours" maxlength="300" placeholder="Mon-Fri 8-5, Sat 9-1, closed Sunday"></label>
-
-    <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
-
-    <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
-      <textarea id="bio" maxlength="2000"></textarea></label>
-
-    <p class="sec-h">Photos</p>
-    <div class="up-grid">
-      <div class="up" data-slot="logo"><span>Logo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-      <div class="up" data-slot="before"><span>Before photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-      <div class="up" data-slot="after"><span>After photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
-      <div class="up" data-slot="owner"><span>Owner photo</span><img alt="" hidden><input type="file" accept="image/jpeg,image/png,image/webp"><p class="up-msg"></p></div>
+    <div id="sec-pricing">
+      <p class="sec-h">Prices</p>
+      <div id="priceRows"></div>
     </div>
-
-    <p class="sec-h">Prices</p>
-    <div id="priceRows"></div>
-
-    <label style="margin-top:22px"><span>Inquiry email <span class="hint">&mdash; where booking requests go</span></span>
-      <input type="email" id="lead_email" maxlength="254"></label>
-    <div class="note"><strong>One-time step when you change this:</strong> our form
-      service (FormSubmit) emails the new inbox an activation link on the first
-      request. Click it, or inquiries will not arrive.</div>
-
-    <button type="button" class="go" id="save">Save changes</button>
-    <p class="msg" id="saveMsg" role="status"></p>
 
     <div class="note" id="defaultNote" hidden>
       <strong>You have not customised anything yet.</strong> Until you save, your
       site shows the example content it was built with. Nothing is broken &mdash;
       fill in what you want and save, and those parts become yours.
     </div>
+  </section>
+
+  <!-- REVIEWS / DETAILS. Placeholders for Task 3 — the section nav needs real
+       anchors to scroll to now, even though the editors for these don't exist
+       yet. Shown/hidden together with #panel. -->
+  <section class="card" id="sec-reviews" hidden>
+    <h1>Reviews</h1>
+    <p class="sub" style="margin:0">Reviews editor is coming in the next step.</p>
+  </section>
+
+  <section class="card" id="sec-details" hidden>
+    <h1>Details</h1>
+    <p class="sub" style="margin:0">More details are coming in the next step.</p>
   </section>
 
   <!-- NO MAPPING. Deliberately not phrased as an error: the usual cause is a
@@ -155,6 +243,15 @@
       and we will sort it out.</div>
   </section>
 
+</div>
+
+<!-- SAVE BAR. Fixed bottom, shown only while the editor has unsaved changes.
+     Replaces the old in-card Save button. -->
+<div id="saveBar" hidden>
+  <div class="save-bar-inner">
+    <p class="msg" id="saveMsg" role="status"></p>
+    <button type="button" class="go" id="save">Save changes</button>
+  </div>
 </div>
 
 <script>
@@ -179,10 +276,29 @@ document.addEventListener('DOMContentLoaded', function () {
      sign-in field above it. Everything else maps 1:1 to a column. */
   var INPUT_ID = { email: 'email_pub' };
 
+  /* ----------------------------------------------------------------- theme
+     Palette + fonts per niche_slug. Values live only here (verbatim from the
+     brief) so a missing entry is a no-op: applyTheme() then touches nothing
+     and every --adm-* custom property keeps its neutral :root default. */
+  var THEMES = {
+    'bin-cleaning': {
+      ground: '#050f1c', surface: '#0a2138', card: '#0d2a47',
+      accent: '#4ea4e6', accentBright: '#67baf5',
+      text: '#e6f4ff', textSoft: '#bfe3fb',
+      fontsHref: 'https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap',
+      display: "'Anton',sans-serif", label: "'Oswald',sans-serif", body: "'Inter',sans-serif",
+      logo: '/sites/bin-cleaning/photos/logo.png'
+    }
+  };
+
   var sb = null, clientId = null, hadRow = false;
   var photoUrls = {};        /* slot -> public URL, committed on Save */
+  var themeLogoUrl = null;   /* theme-provided logo, takes priority over a saved logo_url */
   var PRICE_ROWS = 3;
   var uploadsInit = false;   /* guards initUploads() against double-binding on re-paint */
+
+  var snapshot = null;       /* JSON.stringify(collectRow()) as of the last load/save */
+  var dirty = false;
 
   function $(id) { return document.getElementById(id); }
   function show(id, on) { $(id).hidden = !on; }
@@ -192,6 +308,69 @@ document.addEventListener('DOMContentLoaded', function () {
     m.textContent = text;
     m.className = 'msg' + (cls ? ' ' + cls : '');
   }
+
+  /* ---------------------------------------------------------------- theme */
+
+  function applyTheme(nicheSlug) {
+    var t = THEMES[nicheSlug];
+    if (!t) return; /* no entry -> every --adm-* default stands, look is unchanged */
+
+    var root = document.documentElement.style;
+    root.setProperty('--adm-ground', t.ground);
+    root.setProperty('--adm-panel', t.surface);
+    root.setProperty('--adm-card', t.card);
+    root.setProperty('--adm-accent', t.accent);
+    root.setProperty('--adm-accent-2', t.accentBright);
+    root.setProperty('--adm-ink', t.text);
+    root.setProperty('--adm-ink-soft', t.textSoft);
+    root.setProperty('--adm-font-display', t.display);
+    root.setProperty('--adm-font-label', t.label);
+    root.setProperty('--adm-font-body', t.body);
+
+    if (t.fontsHref && !document.querySelector('link[href="' + t.fontsHref + '"]')) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = t.fontsHref;
+      document.head.appendChild(link);
+    }
+
+    themeLogoUrl = t.logo || null;
+    updateTopbarLogo();
+  }
+
+  /* logo priority: theme's static logo -> saved logo_url -> hidden (name-only) */
+  function updateTopbarLogo() {
+    var src = themeLogoUrl || photoUrls.logo || null;
+    var img = $('topbarLogo');
+    if (src) { img.src = src; img.hidden = false; }
+    else { img.hidden = true; img.removeAttribute('src'); }
+  }
+
+  /* ------------------------------------------------------------- dirty state */
+
+  function setDirtyUI(isDirty) {
+    dirty = isDirty;
+    show('saveBar', dirty);
+    document.body.classList.toggle('savebar-open', dirty);
+    var dot = $('savedDot');
+    dot.hidden = false;
+    dot.textContent = dirty ? '● Unsaved changes' : '● Saved';
+    dot.className = 'topbar-dot ' + (dirty ? 'dot-unsaved' : 'dot-saved');
+  }
+  function markDirty() { if (!dirty) setDirtyUI(true); }
+  function markSaved() { setDirtyUI(false); }
+
+  function checkDirty() {
+    if (snapshot === null) return; /* not loaded yet */
+    var cur = JSON.stringify(collectRow());
+    if (cur !== snapshot) markDirty(); else markSaved();
+  }
+
+  window.addEventListener('beforeunload', function (e) {
+    if (!dirty) return;
+    e.preventDefault();
+    e.returnValue = '';
+  });
 
   /* ---------------------------------------------------------------- media */
 
@@ -223,6 +402,8 @@ document.addEventListener('DOMContentLoaded', function () {
             img.src = pub.data.publicUrl + '?v=' + Date.now();
             img.hidden = false;
             msg.textContent = 'Uploaded — press Save to publish.';
+            updateTopbarLogo();
+            checkDirty();
           })
           .catch(function () {
             msg.textContent = 'We could not reach the upload server. Try again.';
@@ -255,6 +436,34 @@ document.addEventListener('DOMContentLoaded', function () {
       return o;
     }).filter(function (o) { return Object.keys(o).length; });
     return rows.length ? rows : null;
+  }
+
+  /* ------------------------------------------------------------ section nav */
+
+  function initSectionNav() {
+    var pills = [].slice.call(document.querySelectorAll('.nav-pill'));
+    pills.forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        var target = $(a.getAttribute('data-target'));
+        if (!target) return;
+        e.preventDefault();
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    if (!('IntersectionObserver' in window)) return;
+    var sections = pills.map(function (a) { return $(a.getAttribute('data-target')); }).filter(Boolean);
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var id = entry.target.id;
+        pills.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('data-target') === id);
+        });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+    sections.forEach(function (s) { obs.observe(s); });
   }
 
   if (!window.supabase || !window.supabase.createClient) {
@@ -290,9 +499,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function paint(r) {
-    show('gate', false); show('panel', false); show('noAccess', false); show('who', false);
+    show('gate', false); show('panel', false); show('noAccess', false);
+    show('topbar', false); show('sectionNav', false);
+    show('sec-reviews', false); show('sec-details', false);
+    show('saveBar', false); document.body.classList.remove('savebar-open');
+    show('gateHeader', true);
 
-    if (r.user) { $('whoEmail').textContent = r.user.email || ''; show('who', true); }
+    if (r.user) {
+      $('whoEmail').textContent = r.user.email || '';
+      show('topbar', true);
+      show('gateHeader', false);
+    }
 
     if (r.state === 'no_session') { show('gate', true); return; }
 
@@ -306,6 +523,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     clientId = r.clientId;
     show('panel', true);
+    show('sectionNav', true);
+    show('sec-reviews', true);
+    show('sec-details', true);
     initUploads();
     load();
   }
@@ -316,53 +536,80 @@ document.addEventListener('DOMContentLoaded', function () {
     /* Base table, not sbv_public_operator_content(): the public function gates
        on is_active, and an operator must still be able to edit a storefront
        that has been deactivated. RLS already limits this to their own row. */
-    sb.from('sbv_operator_content').select('*').eq('client_id', clientId).maybeSingle()
-      .then(function (r) {
-        if (r.error) {
-          say('saveMsg', 'Could not load your details. Reload the page.', 'bad');
-          console.error('[admin] load:', r.error.message);
-          return;
-        }
-        hadRow = !!r.data;
-        if (r.data) {
-          FIELDS.forEach(function (f) { el(f).value = r.data[f] == null ? '' : r.data[f]; });
-        }
-        show('defaultNote', !hadRow);
+    var rowFetch = sb.from('sbv_operator_content').select('*').eq('client_id', clientId).maybeSingle();
 
-        $('lead_email').value = (r.data && r.data.lead_email) || '';
-        photoUrls = {};
-        if (r.data && r.data.logo_url) photoUrls.logo = r.data.logo_url;
-        if (r.data && r.data.photos) {
-          Object.keys(r.data.photos).forEach(function (slot) { photoUrls[slot] = r.data.photos[slot]; });
-        }
-        [].forEach.call(document.querySelectorAll('.up'), function (box) {
-          var slot = box.getAttribute('data-slot');
-          if (!photoUrls[slot]) return;
-          var img = box.querySelector('img');
-          img.src = photoUrls[slot];
-          img.hidden = false;
-        });
-        initPriceRows(r.data && r.data.prices);
-      });
+    /* Name, hostname and niche_slug for the heading/theme. Read through
+       sbv_public_tenants(), which is already granted to anon and returns
+       exactly these columns. Its failure is cosmetic — the editor still works
+       without it — so it is caught here rather than aborting the whole load. */
+    var tenantFetch = sb.rpc('sbv_public_tenants').catch(function () { return null; });
 
-    /* Name and hostname for the heading. Read through sbv_public_tenants(),
-       which is already granted to anon and returns exactly these columns. */
-    sb.rpc('sbv_public_tenants').then(function (r) {
-      var rows = (r.data || []).filter(function (t) { return t.client_id === clientId; });
-      var row = rows[0];
-      if (!row) { $('panelSub').textContent = clientId; return; }
-      if (!hadRow && !el('business_name').value) {
-        el('business_name').value = row.business_name || '';
+    Promise.all([rowFetch, tenantFetch]).then(function (results) {
+      var r = results[0];
+      var rt = results[1];
+
+      if (r.error) {
+        say('saveMsg', 'Could not load your details. Reload the page.', 'bad');
+        console.error('[admin] load:', r.error.message);
+        return;
       }
-      var host = clientId + '.' + location.hostname.replace(/^www\./, '');
-      $('panelSub').innerHTML = 'Your site: <a href="https://' + host + '" rel="noopener">' + host + '</a>';
-    }).catch(function () { /* heading detail is cosmetic; the editor still works */ });
+      hadRow = !!r.data;
+      if (r.data) {
+        FIELDS.forEach(function (f) { el(f).value = r.data[f] == null ? '' : r.data[f]; });
+      }
+      show('defaultNote', !hadRow);
+
+      $('lead_email').value = (r.data && r.data.lead_email) || '';
+      photoUrls = {};
+      if (r.data && r.data.logo_url) photoUrls.logo = r.data.logo_url;
+      if (r.data && r.data.photos) {
+        Object.keys(r.data.photos).forEach(function (slot) { photoUrls[slot] = r.data.photos[slot]; });
+      }
+      [].forEach.call(document.querySelectorAll('.up'), function (box) {
+        var slot = box.getAttribute('data-slot');
+        if (!photoUrls[slot]) return;
+        var img = box.querySelector('img');
+        img.src = photoUrls[slot];
+        img.hidden = false;
+      });
+      initPriceRows(r.data && r.data.prices);
+
+      var rows = (rt && rt.data || []).filter(function (t) { return t.client_id === clientId; });
+      var row = rows[0];
+      if (row) {
+        if (!hadRow && !el('business_name').value) {
+          el('business_name').value = row.business_name || '';
+        }
+        var host = clientId + '.' + location.hostname.replace(/^www\./, '');
+        $('panelSub').innerHTML = 'Your site: <a href="https://' + host + '" rel="noopener">' + host + '</a>';
+        $('topbarName').textContent = row.business_name || clientId;
+        applyTheme(row.niche_slug);
+      } else {
+        $('panelSub').textContent = clientId;
+        $('topbarName').textContent = clientId;
+      }
+      updateTopbarLogo();
+
+      snapshot = JSON.stringify(collectRow());
+      markSaved();
+    });
   }
 
   /* ------------------------------------------------------------------ save */
 
-  function save() {
-    var btn = $('save');
+  /* Row-building shared by save() and the dirty-diff (checkDirty), so both
+     always agree on what "the current form state" means. maybe() exists for
+     Task 3: keys for editors that don't exist yet (social/reviews/job_details)
+     must not be emitted at all — sending them as null risks PGRST204 against
+     a schema cache that doesn't know the column yet — so this task does not
+     call it, but collectRow() is structured for Task 3 to add those keys
+     conditionally without touching the fields below. */
+  function maybe(row, key, value) {
+    if (value === null || value === undefined) return;
+    row[key] = value;
+  }
+
+  function collectRow() {
     var row = { client_id: clientId };
     FIELDS.forEach(function (f) {
       var v = el(f).value.trim();
@@ -379,6 +626,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ['before', 'after', 'owner'].forEach(function (s) { if (photoUrls[s]) ph[s] = photoUrls[s]; });
     row.photos = Object.keys(ph).length ? ph : null;
     row.prices = readPrices();
+    return row;
+  }
+
+  function save() {
+    var btn = $('save');
+    var row = collectRow();
 
     btn.disabled = true; btn.textContent = 'Saving…'; say('saveMsg', '');
 
@@ -395,6 +648,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         hadRow = true;
         show('defaultNote', false);
+        snapshot = JSON.stringify(collectRow());
+        markSaved();
         say('saveMsg', 'Saved. Your site is updated.', 'ok');
       })
       .catch(function () {
@@ -432,7 +687,10 @@ document.addEventListener('DOMContentLoaded', function () {
   $('signOut').addEventListener('click', function () {
     sb.auth.signOut().then(function () { location.reload(); });
   });
+  $('panel').addEventListener('input', checkDirty);
+  $('panel').addEventListener('change', checkDirty);
 
+  initSectionNav();
   resolve().then(paint);
 });
 </script>
