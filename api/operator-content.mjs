@@ -173,6 +173,19 @@ function applyOperator(base, op) {
     });
   }
 
+  /* Reviews overlay the demo's (empty) testimonial cards. author -> name is
+     the template's key. Only a non-empty array overlays: empty means "not
+     set", and the demo's deliberate empty cards stand. */
+  if (Array.isArray(op.reviews) && op.reviews.length) {
+    out.testimonials = op.reviews.map(r => ({
+      quote: r.quote || '', name: r.author || '', rating: r.rating || null,
+    }));
+  }
+  if (Array.isArray(op.social) && op.social.length) out.social = op.social;
+  /* Stored-only until a template slot exists (deferred 2026-09-05). Served
+     so the day the slot lands, saved data appears without a migration. */
+  if (op.job_details && typeof op.job_details === 'object') out.jobDetails = op.job_details;
+
   /* brand.city is a single display string in the template — "Meridian, ID". */
   if (op.city && op.state_code) out.brand.city = op.city + ', ' + op.state_code;
   else set(out.brand, 'city', op.city);
