@@ -1,0 +1,28 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#050f1c", "surface": "#0a2138", "card": "#0d2a47",
+    "accent": "#4ea4e6", "accentBright": "#67baf5",
+    "text": "#e6f4ff", "textSoft": "#bfe3fb",
+    "ok": "#4FD695", "bad": "#FF8A75", "onAccent": "#050f1c",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap",
+    "display": "'Anton',sans-serif", "label": "'Oswald',sans-serif", "body": "'Inter',sans-serif",
+    "logo": "/sites/bin-cleaning/photos/logo.png"
+  },
+  "photoSlots": ["logo", "before", "after", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": true, "jobDetails": false,
+    "reviews": true, "social": true, "footerContact": false, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "realBrand": true
+}

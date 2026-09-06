@@ -126,6 +126,23 @@ let content;
 try { content = JSON.parse(contentRaw); }
 catch (e) { console.error('content.json does not parse: ' + e.message); process.exit(1); }
 
+/* ---- manifest validation (Decision 1) -----------------------------------
+ * A niche's manifest.json is optional for now — only bin-cleaning and
+ * landscaping have one so far (Task 3 fills in the rest). When one exists,
+ * an invalid manifest fails the build loudly rather than shipping a
+ * half-wired niche; this tool does NOT write assets/data/manifests.json
+ * (that is tools/build-manifest-index.js's job alone — single-writer rule).
+ */
+if (fs.existsSync(path.join(SRC, 'manifest.json'))) {
+  const { validateFile } = require('./validate-manifest');
+  const { errors } = validateFile(slug);
+  if (errors.length) {
+    console.error('niches/' + slug + '/manifest.json is invalid:');
+    for (const e of errors) console.error('  ' + e);
+    process.exit(1);
+  }
+}
+
 const seo = content.seo || {};
 /* priceRange is NOT required: 13 of 23 originals have none, and inventing one
    puts a number we made up into the operator's structured data. Absent is fine. */
