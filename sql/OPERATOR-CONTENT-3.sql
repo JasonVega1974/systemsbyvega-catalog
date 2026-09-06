@@ -51,7 +51,9 @@ as $$
          or length(row ->> 'author') > 80
          or (row ? 'rating' and (
               jsonb_typeof(row -> 'rating') <> 'number'
-              or (row ->> 'rating')::numeric not between 1 and 5))
+              or case when jsonb_typeof(row -> 'rating') = 'number'
+                      then (row ->> 'rating')::numeric not between 1 and 5
+                      else true end))
     )
   );
 $$;
@@ -118,4 +120,7 @@ select 'job_details: good row ok',
        public.sbv_job_details_valid('{"included":["Curbside pickup"],"notIncluded":["Hazardous waste"]}'::jsonb)::text
 union all
 select 'job_details: junk key rejected',
-       (not public.sbv_job_details_valid('{"extras":["x"]}'::jsonb))::text;
+       (not public.sbv_job_details_valid('{"extras":["x"]}'::jsonb))::text
+union all
+select 'reviews: string rating rejected',
+       (not public.sbv_reviews_valid('[{"rating":"five","quote":"x","author":"y"}]'::jsonb))::text;
