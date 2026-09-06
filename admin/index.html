@@ -427,6 +427,26 @@ document.addEventListener('DOMContentLoaded', function () {
   function validatePhone(v) { return v.length <= 40 ? null : 'Keep it to 40 characters or fewer.'; }
   function validateSocialUrl(v) { return v === '' || HTTPS_RE.test(v) ? null : 'Must start with https://'; }
 
+  /* Review row validation: quote is required if rating or author is present.
+     Fully-empty rows are valid (silently dropped on save). Author alone is
+     valid (quote can be empty). */
+  function validateReviewQuote(row) {
+    var quote = row.querySelector('[data-rk="quote"]');
+    var rating = row.querySelector('[data-rk="rating"]');
+    var author = row.querySelector('[data-rk="author"]');
+    if (!quote || !rating || !author) return null;
+
+    var quoteVal = quote.value.trim();
+    var ratingVal = rating.value;
+    var authorVal = author.value.trim();
+
+    /* If all empty, the row is not yet a review — valid. */
+    if (!quoteVal && !ratingVal && !authorVal) return null;
+    /* If quote is empty but rating or author is present, invalid. */
+    if (!quoteVal && (ratingVal || authorVal)) return 'Add the customer\'s words, or remove this review.';
+    return null;
+  }
+
   /* The error box is always the validated input's very next sibling in the
      markup — true for the static business fields and for every dynamically
      rendered review/social row alike — so this needs no per-field lookup. */
@@ -663,7 +683,8 @@ document.addEventListener('DOMContentLoaded', function () {
       + '<label class="rev-rating"><span>Rating</span><select data-rk="rating">' + opts + '</select></label>'
       + '<button type="button" class="rev-remove">Remove</button>'
       + '</div>'
-      + '<label><span>What they said</span><textarea data-rk="quote" maxlength="300">' + escHtml(quote) + '</textarea></label>'
+      + '<label><span>What they said</span><textarea data-rk="quote" maxlength="300">' + escHtml(quote) + '</textarea>'
+      + '<p class="field-err" hidden></p></label>'
       + '<p class="char-count"><span class="rev-count">' + quote.length + '</span>/300</p>'
       + '<label><span>Author</span><input type="text" data-rk="author" maxlength="80" value="' + escAttr(author) + '"></label>'
       + '</div>';
@@ -1081,6 +1102,27 @@ document.addEventListener('DOMContentLoaded', function () {
     var row = e.target.closest('.rev-row');
     var counter = row && row.querySelector('.rev-count');
     if (counter) counter.textContent = e.target.value.length;
+  });
+
+  /* Inline validation for review rows: quote is required if rating or author
+     is present. Delegated on the reviewRows container so it works for rows
+     added after page load. */
+  $('reviewRows').addEventListener('focusout', function (e) {
+    if (!e.target.getAttribute || !['quote', 'rating', 'author'].includes(e.target.getAttribute('data-rk'))) return;
+    var row = e.target.closest('.rev-row');
+    if (!row) return;
+    var quoteField = row.querySelector('[data-rk="quote"]');
+    if (!quoteField) return;
+    setValidity(quoteField, validateReviewQuote(row));
+  });
+  /* Also validate on input for immediate feedback as user types. */
+  $('reviewRows').addEventListener('input', function (e) {
+    if (!e.target.getAttribute || !['quote', 'rating', 'author'].includes(e.target.getAttribute('data-rk'))) return;
+    var row = e.target.closest('.rev-row');
+    if (!row) return;
+    var quoteField = row.querySelector('[data-rk="quote"]');
+    if (!quoteField) return;
+    setValidity(quoteField, validateReviewQuote(row));
   });
 
   $('addSocial').addEventListener('click', function () {
