@@ -18,6 +18,7 @@
     --adm-font-display: system-ui,-apple-system,"Segoe UI",sans-serif;
     --adm-font-label: system-ui,-apple-system,"Segoe UI",sans-serif;
     --adm-font-body: system-ui,-apple-system,"Segoe UI",sans-serif;
+    --adm-ok:#1F9D63; --adm-bad:#C0392B; --adm-on-accent:#fff;
     --green:#1F9D63; --red:#C0392B;
     --shadow:0 1px 2px rgba(20,28,40,.05),0 10px 30px rgba(20,28,40,.07);
   }
@@ -47,15 +48,15 @@
   .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}
   @media(max-width:560px){.row{grid-template-columns:1fr}}
 
-  .go{background:var(--adm-accent);color:#fff;border:0;border-radius:9px;
+  .go{background:var(--adm-accent);color:var(--adm-on-accent);border:0;border-radius:9px;
     font:inherit;font-weight:700;font-size:15px;padding:12px 20px;cursor:pointer;
     min-height:44px}
   .go:hover:not(:disabled){background:var(--adm-accent-2)}
   .go:disabled{opacity:.55;cursor:default}
 
   .msg{margin-top:14px;font-size:14px;min-height:20px}
-  .msg.ok{color:var(--green);font-weight:600}
-  .msg.bad{color:var(--red);font-weight:600}
+  .msg.ok{color:var(--adm-ok);font-weight:600}
+  .msg.bad{color:var(--adm-bad);font-weight:600}
 
   .note{margin-top:20px;padding:13px 15px;border:1px solid var(--adm-hair);
     border-left:3px solid var(--adm-accent-2);border-radius:10px;background:var(--adm-card);
@@ -94,7 +95,7 @@
     min-height:44px;padding:0 16px;border:1px solid var(--adm-hair);border-radius:999px;
     background:var(--adm-card);color:var(--adm-ink-soft);font:inherit;font-family:var(--adm-font-label);
     font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap}
-  .nav-pill.active{background:var(--adm-accent);border-color:var(--adm-accent);color:#fff}
+  .nav-pill.active{background:var(--adm-accent);border-color:var(--adm-accent);color:var(--adm-on-accent)}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
   /* --------------------------------------------------------------- save bar */
@@ -285,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ground: '#050f1c', surface: '#0a2138', card: '#0d2a47',
       accent: '#4ea4e6', accentBright: '#67baf5',
       text: '#e6f4ff', textSoft: '#bfe3fb',
+      ok: '#4FD695', bad: '#FF8A75', onAccent: '#050f1c',
       fontsHref: 'https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap',
       display: "'Anton',sans-serif", label: "'Oswald',sans-serif", body: "'Inter',sans-serif",
       logo: '/sites/bin-cleaning/photos/logo.png'
@@ -326,6 +328,9 @@ document.addEventListener('DOMContentLoaded', function () {
     root.setProperty('--adm-font-display', t.display);
     root.setProperty('--adm-font-label', t.label);
     root.setProperty('--adm-font-body', t.body);
+    if (t.ok) root.setProperty('--adm-ok', t.ok);
+    if (t.bad) root.setProperty('--adm-bad', t.bad);
+    if (t.onAccent) root.setProperty('--adm-on-accent', t.onAccent);
 
     if (t.fontsHref && !document.querySelector('link[href="' + t.fontsHref + '"]')) {
       var link = document.createElement('link');
