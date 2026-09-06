@@ -6,3 +6,4 @@ node_modules/
 # that file holds SUPABASE_SERVICE_ROLE_KEY and SBV_OWNER_KEY in plain text.
 .env*
 !.env.example
+.superpowers/

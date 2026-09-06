@@ -68,6 +68,11 @@
     }
   ],
   "social": [],
+  "testimonials": [
+    { "quote": "", "name": "" },
+    { "quote": "", "name": "" },
+    { "quote": "", "name": "" }
+  ],
   "niche": {
     "seasons": [
       {
@@ -75,7 +80,7 @@
         "label": "Spring",
         "startMonth": 3,
         "monthRange": "March – May",
-        "photo": "",
+        "photo": "/sites/landscaping/photos/work-pruning.jpg",
         "blurb": "Everything wakes up at once — beds, weeds and grass all in the same week. We knock out the reset before it gets away from you.",
         "services": [
           {
@@ -103,7 +108,7 @@
         "label": "Summer",
         "startMonth": 6,
         "monthRange": "June – August",
-        "photo": "",
+        "photo": "/sites/landscaping/photos/work-mowing.jpg",
         "blurb": "Grass grows fast, weeds grow faster. This is the season where a missed week actually shows.",
         "services": [
           {

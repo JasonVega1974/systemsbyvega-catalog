@@ -756,7 +756,7 @@ body{background:var(--ground-deep);color:var(--ink);font-family:'Rubik',system-u
     <div class="reveal" data-delay="1">
       <div class="hero-badge">
         <div class="roof-art" role="img" aria-label="Illustration of a pitched shingle roof under a dark, overcast evening sky">
-          <!-- Premium hero scene: feTurbulence cloud texture + feTurbulence shingle grain + layered atmospheric gradients + rAF lightning decay — north-star: dj-site-blue -->
+          <!-- Premium hero scene: feTurbulence cloud texture + feTurbulence shingle grain + layered atmospheric gradients — north-star: dj-site-blue -->
           <svg viewBox="0 0 440 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs>
               <!-- 5-stop atmospheric sky gradient (depth + copper horizon light) — north-star: dj-site-blue -->
@@ -816,15 +816,8 @@ body{background:var(--ground-deep);color:var(--ink);font-family:'Rubik',system-u
 
             <!-- sky -->
             <rect x="0" y="0" width="440" height="300" fill="url(#sky-grad)"/>
-            <g class="sky-clouds-move"><rect x="-60" y="-20" width="560" height="235" fill="none" filter="url(#sky-clouds)" opacity=".82"/></g>
+            <g><rect x="-60" y="-20" width="560" height="235" fill="none" filter="url(#sky-clouds)" opacity=".82"/></g>
             <rect x="0" y="0" width="440" height="300" fill="url(#sky-glow)"/>
-
-            <!-- lightning flash + bolt (driven by rAF decay; invisible in static base) -->
-            <rect id="sky-flash" x="0" y="0" width="440" height="300" fill="#EDF2F6" opacity="0"/>
-            <g id="sky-bolt" opacity="0" filter="url(#sky-boltglow)">
-              <path d="M300 18 L286 78 L303 82 L279 150 L299 96 L286 92 Z" fill="#EDF2F6"/>
-              <path d="M303 82 L322 108 L309 110" fill="none" stroke="#EDF2F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </g>
 
             <!-- roof plane: gradient depth + shingle-tab pattern + grain texture, all clipped to the pitch -->
             <g clip-path="url(#roof-clip)">
@@ -843,8 +836,8 @@ body{background:var(--ground-deep);color:var(--ink);font-family:'Rubik',system-u
             <path d="M40 292 L400 292" stroke="#7A3712" stroke-width="4"/>
             <path d="M40 289 L400 289" stroke="#B5541F" stroke-width="2" opacity=".85"/>
 
-            <!-- rain (additive; halted under reduced-motion) -->
-            <g class="rain-fall" stroke="#8CA0B3" stroke-width="1" opacity=".16">
+            <!-- rain (static decoration) -->
+            <g stroke="#8CA0B3" stroke-width="1" opacity=".16">
               <line x1="70" y1="-20" x2="67" y2="-8"/><line x1="150" y1="-20" x2="147" y2="-8"/>
               <line x1="250" y1="-20" x2="247" y2="-8"/><line x1="360" y1="-20" x2="357" y2="-8"/>
               <line x1="110" y1="4" x2="107" y2="16"/><line x1="210" y1="4" x2="207" y2="16"/>

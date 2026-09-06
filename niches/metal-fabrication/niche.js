@@ -59,6 +59,9 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // =====================================================================
   var telDigits = function(p){ var d=String(p||'').replace(/\D/g,''); if(d.length===10) d='1'+d; return '+'+d; };
   var chipHtml = function(s){ return esc(s).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>'); };
+  /* Shared quote/paren stripper for anything interpolated into an img src
+     attribute — symmetric with bin-cleaning/niche.js's safeUrl(). */
+  var safeUrl = function(u){ return String(u || '').replace(/["\\)]/g, ''); };
 
   var CAT_LABELS = { gates:"Gates & Railings", trailers:"Trailers", repair:"Repair", custom:"Custom" };
   var TONES = ["a","b","c","d","e","f","g","h"];
@@ -180,7 +183,14 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var md = document.getElementById('meetDesc');
     if(md) md.innerHTML = a.bio ? esc(a.bio).replace(/\n/g,'<br />') : '';
     var mp = document.getElementById('meetPhoto');
-    if(mp && !mp.querySelector('img')) mp.setAttribute('aria-label', 'Photo of ' + (a.name||'the owner') + ' — coming soon');
+    if(mp){
+      if(a.photo){
+        mp.innerHTML = '<img src="' + safeUrl(a.photo) + '" alt="' + esc(a.name || 'The owner') + '" loading="lazy">';
+        mp.setAttribute('aria-label', 'Photo of ' + (a.name || 'the owner'));
+      } else if(!mp.querySelector('img')){
+        mp.setAttribute('aria-label', 'Photo of ' + (a.name||'the owner') + ' — coming soon');
+      }
+    }
   };
 
   // render defaults immediately (no flash), then merge the live override.

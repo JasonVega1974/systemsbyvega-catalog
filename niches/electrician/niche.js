@@ -30,6 +30,9 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
      every quote request after that lands in that inbox, formatted as a table. */
   var LEAD = { provider: 'formsubmit', email: '', sms: '' };
 
+  /* Shared quote/paren stripper for anything interpolated into an img src
+     attribute — symmetric with bin-cleaning/niche.js's safeUrl(). */
+  function safeUrl(u){ return String(u || '').replace(/["\\)]/g, ''); }
 
   function applyRuntime(c){
     LEAD.email = (c.brand||{}).leadEmail || LEAD.email;
@@ -161,13 +164,44 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var fe = document.getElementById('footEmail');
     if(fe){ fe.href = 'mailto:' + b.email; fe.textContent = b.email; }
     document.getElementById('heroEyebrow').textContent = 'Electrician · ' + (b.city || '').replace(/, ID$/, ', Idaho');
+
+    // ----- social links (footer; hidden when empty) -----
+    var footSocial = document.getElementById('footSocial');
+    if(footSocial){
+      var social = CONTENT.social || [];
+      /* Filter FIRST, then gate visibility on the filtered result — gating on
+         the raw (pre-filter) social.length would show an empty, hidden=false
+         footer row whenever every entry failed the https scheme check. */
+      var socialLinks = social.filter(function(s){ return /^https:\/\//i.test(s.url); /* scheme-gated here too, not just in sbv_social_valid — entity encoding cannot stop a scheme, and safeUrl only de-fangs CSS/attr breakout */ });
+      if(socialLinks.length){
+        footSocial.innerHTML = socialLinks.map(function(s){
+          return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
+        }).join(' · ');
+        footSocial.hidden = false;
+      } else {
+        footSocial.innerHTML = '';
+        footSocial.hidden = true;
+      }
+    }
   }
 
   // ---------- owner ----------
+  var ownerPhotoBox = document.getElementById('ownerPhoto');
+  var ownerPhotoFallbackAria = ownerPhotoBox ? ownerPhotoBox.getAttribute('aria-label') : null;
   function renderOwner(){
     var o = CONTENT.owner || {};
     var desc = document.getElementById('ownerDesc');
     desc.textContent = o.bio || '';
+
+    if(ownerPhotoBox){
+      var ph = o.photo;
+      if(ph){
+        ownerPhotoBox.innerHTML = '<img src="' + safeUrl(ph) + '" alt="' + esc(o.name || 'The owner') + '" loading="lazy">';
+        ownerPhotoBox.setAttribute('aria-label', 'Photo of ' + (o.name || 'the owner'));
+      } else if(!ownerPhotoBox.querySelector('img') && ownerPhotoFallbackAria !== null){
+        ownerPhotoBox.setAttribute('aria-label', ownerPhotoFallbackAria);
+      }
+    }
   }
 
   // ---------- testimonials ----------

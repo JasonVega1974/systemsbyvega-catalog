@@ -31,6 +31,10 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
      every booking after that lands in that inbox, formatted as a table. */
   var LEAD = { provider: 'formsubmit', email: '', sms: '' };
 
+  /* Shared quote/paren stripper for anything interpolated into an img src or
+     href attribute — symmetric with bin-cleaning/niche.js's safeUrl(). */
+  function safeUrl(u){ return String(u || '').replace(/["\\)]/g, ''); }
+
   function money(n){ return '$' + num(n).toLocaleString('en-US'); }
 
   function applyRuntime(c){
@@ -230,6 +234,25 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(faqDeliver){ faqDeliver.textContent = cities.join(', ') + ' and everything in between — the whole ' + (area.short || '') + '.'; }
     var eyebrow = document.getElementById('heroEyebrow');
     if(eyebrow){ eyebrow.textContent = 'Residential painting · ' + (b.city || ''); }
+
+    // ----- social links (footer; hidden when empty) -----
+    var footSocial = document.getElementById('footSocial');
+    if(footSocial){
+      var social = CONTENT.social || [];
+      /* Filter FIRST, then gate visibility on the filtered result — gating on
+         the raw (pre-filter) social.length would show an empty, hidden=false
+         footer row whenever every entry failed the https scheme check. */
+      var socialLinks = social.filter(function(s){ return /^https:\/\//i.test(s.url); /* scheme-gated here too, not just in sbv_social_valid — entity encoding cannot stop a scheme, and safeUrl only de-fangs CSS/attr breakout */ });
+      if(socialLinks.length){
+        footSocial.innerHTML = socialLinks.map(function(s){
+          return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
+        }).join(' · ');
+        footSocial.hidden = false;
+      } else {
+        footSocial.innerHTML = '';
+        footSocial.hidden = true;
+      }
+    }
   }
 
   function renderAll(){

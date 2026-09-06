@@ -8,6 +8,7 @@ window.initScene = function (reduce) {
     var group = illo && illo.querySelector('.portrait__sparks');
     if(!group) return;
     var NS = 'http://www.w3.org/2000/svg', sparks = [], GRAV = 0.045, since = 0;
+    var running = false, rafId = null;
     function spawn(){
       var c = document.createElementNS(NS,'circle');
       var s = { el:c, x:170 + (Math.random()*44 - 22), y:250, vx:(Math.random()*1.5 - 0.75),
@@ -18,6 +19,7 @@ window.initScene = function (reduce) {
       group.appendChild(c); sparks.push(s);
     }
     function tick(){
+      if(!running) return;             // IO stopped us since this frame was queued
       if(++since > 7 && sparks.length < 44){ spawn(); since = 0; }
       for(var i=sparks.length-1;i>=0;i--){
         var s = sparks[i];
@@ -30,7 +32,27 @@ window.initScene = function (reduce) {
         s.el.setAttribute('opacity', (o * 0.9).toFixed(2));
         if(s.life >= s.max){ if(s.el.parentNode) group.removeChild(s.el); sparks.splice(i,1); }
       }
-      requestAnimationFrame(tick);
+      rafId = requestAnimationFrame(tick);
     }
-    requestAnimationFrame(tick);
+    function start(){
+      if(running) return;
+      running = true;
+      rafId = requestAnimationFrame(tick);
+    }
+    function stop(){
+      running = false;
+      if(rafId != null) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    /* Continuous fountain, so unlike a settle-and-stop rig this never
+       finishes on its own — gate it on hero visibility instead: pause
+       while the hero is scrolled off-screen, resume when it's back. */
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting) start(); else stop(); });
+      }, {threshold:0});
+      io.observe(illo);
+    } else {
+      start();
+    }
 };

@@ -1829,12 +1829,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderPackages(){
     var grid = document.getElementById('pkgGrid');
     if(!grid) return;
-    var pkgs = (CONTENT.catering && CONTENT.catering.packages) || [];
+    var pkgs = CONTENT.pricing || [];
     var html = '';
 
     pkgs.forEach(function(p, i){
-      var pr = splitPrice(p.price);
-      html += '<div class="pkg' + (p.best ? ' pkg--best' : '') + ' reveal" data-delay="' + (i + 1) + '">';
+      var pr = splitPrice(p.blurb);
+      html += '<div class="pkg' + (p.highlight ? ' pkg--best' : '') + ' reveal" data-delay="' + (i + 1) + '">';
       if(p.label) html += '<span class="pkg__label">' + esc(p.label) + '</span>';
       html += '<div class="pkg__price">' + (pr[0] ? '<sup>' + esc(pr[0]) + '</sup>' : '') + esc(pr[1]) + '</div>';
       if(p.per) html += '<div class="pkg__per">' + esc(p.per) + '</div>';

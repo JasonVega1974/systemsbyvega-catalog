@@ -499,6 +499,15 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       }
     }
 
+    // ----- reviews (three static cards; empty-state CSS shows placeholder copy) -----
+    var reviewEls = document.querySelectorAll('.review');
+    (c.testimonials || []).forEach(function(t, i){
+      var el = reviewEls[i];
+      if(!el) return;
+      el.querySelector('.review__quote').textContent = t.quote || '';
+      el.querySelector('.review__who').textContent = t.name ? ('— ' + t.name) : '— Add a real review here';
+    });
+
     revealScan(document);
   }
 

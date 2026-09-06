@@ -128,6 +128,14 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function renderContent(c){
     var b = c.brand || {};
+    /* Full legal/display name everywhere; the nav lockup drops a trailing
+       " Contracting" (the tagline line right under it already says "General
+       Contracting"), matching the demo's original shortened lockup text. A
+       renamed brand that doesn't end in "Contracting" just shows in full. */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function(el){ el.textContent = b.name || ""; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function(el){
+      el.textContent = String(b.name || "").replace(/\s+Contracting$/i, "");
+    });
     var tel = telHref(b.phone), sms = smsHref(b.phone, SMS_BODY);
     Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function(a){ a.setAttribute('href', tel); });
     Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function(a){ a.setAttribute('href', sms); });

@@ -145,13 +145,6 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   position:absolute;inset:0;display:grid;place-items:end center;text-align:center;
   padding:0 20px 24px;font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;
   color:var(--ink);opacity:.75;z-index:1}
-.portrait:not(:has(img)) .portrait__wash{
-  position:absolute;inset:0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg opacity='.22'%3E%3Crect x='8' y='24' width='9' height='16' rx='2.5' fill='%23EDEDE6'/%3E%3Crect x='47' y='24' width='9' height='16' rx='2.5' fill='%23EDEDE6'/%3E%3Crect x='16' y='29' width='32' height='6' rx='2' fill='%23FF5A2E'/%3E%3C/g%3E%3C/svg%3E") center 38% / 140px auto no-repeat,
-    radial-gradient(70% 55% at 50% 38%, rgba(255,90,46,.14), transparent 70%),
-    radial-gradient(50% 40% at 50% 82%, rgba(237,237,230,.05), transparent 70%),
-    repeating-linear-gradient(135deg, transparent 0 16px, rgba(237,237,230,.03) 16px 17px)}
 .mote{position:absolute;bottom:-4%;border-radius:50%;opacity:0;filter:blur(1px);
   animation:rise linear infinite}
 @keyframes rise{

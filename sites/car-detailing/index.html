@@ -1070,7 +1070,7 @@ body::after{
       <h2 class="section-title">One flat price. No quote games.</h2>
       <p class="lead" style="margin:0 auto" id="packagesLead">Three levels, from a quick reset to a full showroom detail. Every price is the price you pay — mobile service to your driveway is included, not an upsell.</p>
     </div>
-    <div class="pkg-grid" id="packageGrid"><!-- rendered from CONTENT.packages --></div>
+    <div class="pkg-grid" id="packageGrid"><!-- rendered from CONTENT.pricing --></div>
     <p class="pkg__note reveal" id="pkgNote"><!-- rendered from CONTENT.notes.pkgAddon --></p>
   </div>
 </section>
@@ -1882,7 +1882,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderContent(c){
     applyRuntime(c);
     var brand = c.brand || {}, area = c.serviceArea || {}, owner = c.owner || {};
-    var packages = c.packages || [], addons = c.addons || [], zones = c.zones || [];
+    var packages = c.pricing || [], addons = c.addons || [], zones = c.zones || [];
     var results = c.results || [], testimonials = c.testimonials || [], social = c.social || [];
     var notes = c.notes || {};
     var e164 = telHref(brand.phone);
@@ -1915,26 +1915,26 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // ----- packages: cards + booking select -----
     document.getElementById('packageGrid').innerHTML = packages.map(function(p, i){
-      var items = String(p.includes || '').split(/\n+/).map(function(x){ return x.trim(); }).filter(Boolean);
-      return '<div class="pkg' + (p.popular ? ' pkg--best' : '') + ' reveal" data-delay="' + ((i % 3) + 1) + '">'
-        + (p.popular ? '<span class="pkg__flag">Most booked</span>' : '')
-        + '<div class="pkg__name">' + esc(p.name) + '</div>'
-        + (p.duration ? '<div class="pkg__dur">' + esc(p.duration) + '</div>' : '')
+      var items = p.features || [];
+      return '<div class="pkg' + (p.highlight ? ' pkg--best' : '') + ' reveal" data-delay="' + ((i % 3) + 1) + '">'
+        + (p.highlight ? '<span class="pkg__flag">Most booked</span>' : '')
+        + '<div class="pkg__name">' + esc(p.label) + '</div>'
+        + (p.per ? '<div class="pkg__dur">' + esc(p.per) + '</div>' : '')
         + '<div class="pkg__price">$' + num(p.price) + '<small>flat</small></div>'
-        + (p.best ? '<p class="pkg__best">' + esc(p.best) + '</p>' : '')
+        + (p.blurb ? '<p class="pkg__best">' + esc(p.blurb) + '</p>' : '')
         + '<ul class="pkg__list">' + items.map(function(it){ return '<li>' + checkIcon + '<span>' + esc(it) + '</span></li>'; }).join('') + '</ul>'
-        + '<button class="btn' + (p.popular ? '' : ' btn--ghost') + '" type="button" data-book-package="' + esc(p.name) + '">Book ' + esc(p.name) + '</button>'
+        + '<button class="btn' + (p.highlight ? '' : ' btn--ghost') + '" type="button" data-book-package="' + esc(p.label) + '">Book ' + esc(p.label) + '</button>'
         + '</div>';
     }).join('');
 
     if(bPackage){
       var prevPkg = bPackage.value;
       bPackage.innerHTML = packages.map(function(p){
-        return '<option value="' + esc(p.name) + '">' + esc(p.name) + ' — $' + num(p.price) + '</option>';
+        return '<option value="' + esc(p.label) + '">' + esc(p.label) + ' — $' + num(p.price) + '</option>';
       }).join('') + '<option value="Not sure — help me pick">Not sure — help me pick</option>';
-      var names = packages.map(function(p){ return p.name; });
+      var names = packages.map(function(p){ return p.label; });
       bPackage.value = (prevPkg && (names.indexOf(prevPkg) >= 0 || prevPkg === 'Not sure — help me pick'))
-        ? prevPkg : (packages[0] ? packages[0].name : '');
+        ? prevPkg : (packages[0] ? packages[0].label : '');
     }
     document.getElementById('pkgNote').textContent = notes.pkgAddon || '';
 

@@ -26,6 +26,10 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
    every quote request after that lands in that inbox, formatted as a table. */
 var LEAD = { provider: 'formsubmit', email: '', sms: '' };
 
+/* Shared quote/paren stripper for anything interpolated into an img src
+   attribute — symmetric with bin-cleaning/niche.js's safeUrl(). */
+function safeUrl(u){ return String(u || '').replace(/["\\)]/g, ''); }
+
 var SVC_ICONS = {
   leak: '<path d="M12 2c4 5 6 8 6 11a6 6 0 0 1-12 0c0-3 2-6 6-11z"/>',
   heater: '<rect x="7" y="3" width="10" height="18" rx="3"/><path d="M10 8h4M10 12h4M10 16h4"/>',
@@ -89,6 +93,10 @@ function renderContent(c){
   var oName = document.getElementById('ownerName'), oBio = document.getElementById('ownerBio');
   if(oName) oName.textContent = (c.owner||{}).name || '';
   if(oBio) oBio.textContent = (c.owner||{}).bio || '';
+  var oPhoto = document.getElementById('ownerPhoto');
+  if(oPhoto && (c.owner||{}).photo){
+    oPhoto.innerHTML = '<img src="' + safeUrl((c.owner||{}).photo) + '" alt="' + esc((c.owner||{}).name || 'The owner') + '" loading="lazy">';
+  }
 
   // testimonials
   var tg = document.getElementById('tGrid');
