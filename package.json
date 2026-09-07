@@ -4,6 +4,9 @@
   "private": true,
   "description": "Systems by Vega — territory catalog and Site Shop. Static site, no build step. This file exists ONLY so middleware.js can import @vercel/functions. Do NOT add \"type\": \"module\" — tools/build-catalog.js (the Vercel buildCommand), api/demand.js, api/digest.js and api/owner.js are CommonJS and the flag breaks the build. Extensions already carry the distinction: .mjs is ESM, .js is CommonJS.",
   "dependencies": {
-    "@vercel/functions": "^3.7.5"
+    "@sparticuz/chromium": "^149.0.0",
+    "@vercel/functions": "^3.7.5",
+    "playwright-core": "^1.63.0",
+    "qrcode": "^1.5.4"
   }
 }

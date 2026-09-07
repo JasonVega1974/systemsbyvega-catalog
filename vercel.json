@@ -4,6 +4,12 @@
   "buildCommand": "node tools/build-catalog.js --check",
   "outputDirectory": ".",
   "trailingSlash": true,
+  "functions": {
+    "api/marketing-kit.mjs": {
+      "memory": 3009,
+      "maxDuration": 300
+    }
+  },
   "redirects": [
     {
       "source": "/api/(.*).js",
