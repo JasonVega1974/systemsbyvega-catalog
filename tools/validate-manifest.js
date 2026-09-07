@@ -72,7 +72,7 @@ function validate(m) {
 
   // Closed top-level key set — defense-in-depth before 21 hand-authored
   // manifests: a typo'd optional key must fail loudly, not silently no-op.
-  const KNOWN_TOP = ['v', 'theme', 'photoSlots', 'sections', 'pricing', 'merge', 'realBrand'];
+  const KNOWN_TOP = ['v', 'theme', 'photoSlots', 'sections', 'pricing', 'merge', 'realBrand', 'heroDefault'];
   for (const k of Object.keys(m)) {
     if (!KNOWN_TOP.includes(k)) errs.push('unknown top-level key: ' + k);
   }
@@ -80,6 +80,14 @@ function validate(m) {
   // realBrand (bin-cleaning A4/A8 item) — optional, boolean when present.
   if ('realBrand' in m && typeof m.realBrand !== 'boolean') {
     errs.push('realBrand must be a boolean, got ' + typeof m.realBrand);
+  }
+
+  // heroDefault (Task 6 hero-filename-convention item) — optional, a
+  // site-relative path string overriding build-site.js's stamped default of
+  // /sites/<slug>/photos/hero.jpg for a niche whose real hero file has a
+  // different name (e.g. landscaping's photos/hero-garden-path.jpg).
+  if ('heroDefault' in m && (typeof m.heroDefault !== 'string' || !m.heroDefault)) {
+    errs.push('heroDefault must be a non-empty string, got ' + JSON.stringify(m.heroDefault));
   }
 
   // theme

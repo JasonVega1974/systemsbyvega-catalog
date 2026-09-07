@@ -67,6 +67,49 @@
       "highlight": false
     }
   ],
+  "plans": [
+    {
+      "tier": "Basic Mow & Edge",
+      "price": 120,
+      "per": "mo",
+      "freq": "Weekly, April – October",
+      "features": [
+        "Weekly mow, edge & blow",
+        "Clippings cleared off walks & drives",
+        "Text alert before every visit",
+        "Skip weeks for vacation, no penalty"
+      ],
+      "best": false
+    },
+    {
+      "tier": "Full Yard Care",
+      "price": 210,
+      "per": "mo",
+      "freq": "Weekly, April – October",
+      "features": [
+        "Everything in Basic Mow & Edge",
+        "Monthly bed weeding",
+        "Quarterly shrub trim",
+        "Spring & fall fertilization included",
+        "Priority scheduling"
+      ],
+      "best": true
+    },
+    {
+      "tier": "Estate Grounds",
+      "price": 385,
+      "per": "mo",
+      "freq": "Twice-weekly in peak season",
+      "features": [
+        "Everything in Full Yard Care",
+        "Twice-weekly mow, June – August",
+        "Irrigation system checks",
+        "Seasonal color rotation",
+        "Dedicated crew lead"
+      ],
+      "best": false
+    }
+  ],
   "social": [],
   "testimonials": [
     { "quote": "", "name": "" },

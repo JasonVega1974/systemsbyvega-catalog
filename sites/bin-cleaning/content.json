@@ -36,6 +36,19 @@
     { "q": "How do I pay?", "a": "Card, cash, or Venmo on the day of service." }
   ],
   "social": [],
+  "jobDetails": {
+    "included": [
+      "Curbside — nothing for you to carry out",
+      "Hot pressure wash, inside and out",
+      "Eco-friendly deodorizing rinse",
+      "Bin returned upright at the curb"
+    ],
+    "notIncluded": [
+      "Trash removal or bin swaps",
+      "Bins with broken wheels, lids, or missing bins",
+      "Same-day / rush service — next available slot is scheduled by text"
+    ]
+  },
   "niche": {
     "trust": [
       { "title": "Kills grime & bacteria", "blurb": "Hot pressure wash, inside and out." },

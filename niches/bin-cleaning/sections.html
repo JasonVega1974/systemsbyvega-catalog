@@ -10,8 +10,8 @@
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <div class="wrap nav__in">
-    <a class="brand" href="#top" aria-label="Prime Bin Cleaning home">
-      <span class="logo-img brand-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
+    <a class="brand" href="#top" id="navBrand" aria-label="Prime Bin Cleaning home">
+      <span class="logo-img brand-logo" id="navLogoImg" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
       <span class="brand__name" id="brandName" data-brand>Prime Bin Cleaning<span>Clean bins. Fresher homes.</span></span>
     </a>
     <div class="nav__links">
@@ -46,7 +46,7 @@
       </div>
       <div class="hero__art">
         <div class="halo" aria-hidden="true"></div>
-        <span class="logo-img hero-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning — crown P badge with pressure washer spraying a bin"></span>
+        <span class="logo-img hero-logo" id="heroLogoImg" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning — crown P badge with pressure washer spraying a bin"></span>
       </div>
     </div>
   </div>
@@ -59,6 +59,8 @@
 <section class="trust" aria-label="Highlights">
   <div class="wrap trust__in" id="trustGrid"></div>
 </section>
+
+<!-- COMPONENT:job-details -->
 
 <!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
 <section class="section transform" id="transform">
@@ -104,7 +106,7 @@
 <section class="section benefits" id="benefits">
   <div class="wrap">
     <div class="section__head reveal">
-      <span class="eyebrow">Why Prime</span>
+      <span class="eyebrow" id="benefitsEyebrow">Why Prime</span>
       <h2 class="section-title">More than a rinse</h2>
       <p class="lead">Your bin holds rotting food, leaking bags and everything flies love. We don't just spray it — we blast, sanitize and deodorize it.</p>
     </div>
@@ -308,13 +310,13 @@
 <footer class="footer">
   <div class="wrap footer__grid">
     <div class="footer__brand">
-      <span class="logo-img footer-logo" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
+      <span class="logo-img footer-logo" id="footerLogoImg" data-photo-slot="logo" role="img" aria-label="Prime Bin Cleaning logo"></span>
       <div><b data-brand>Prime Bin Cleaning</b><span data-tagline>Clean bins. Fresher homes.</span></div>
     </div>
     <div class="footer__meta">
       Call or text <a href="tel:+12085550188" data-phone>(208) 555-0188</a> · <a href="mailto:hello@example.com" id="footEmail">hello@example.com</a><br />
       <span id="footServe">Serving Nampa &amp; Caldwell</span><br />
-      <p id="footSocial" hidden></p>
+      <!-- COMPONENT:footer-contact -->
       <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Prime Bin Cleaning</span> · Teen-owned &amp; local</span>
       <span class="footer__credit">Concept build by <a href="https://systemsbyvega.com" target="_blank" rel="noopener noreferrer">Systems by Vega</a><!-- SWAP:DISCLOSURE --> · Demonstration website for a fictional business.<!-- /SWAP:DISCLOSURE --></span>
     </div>

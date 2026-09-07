@@ -265,7 +265,6 @@
     applyPhotos(c);
 
     var brand = c.brand || {}, area = c.serviceArea || {}, owner = c.owner || {};
-    var social = c.social || [];
     var e164 = telHref(brand.phone);
     var smsBody = encodeURIComponent("Hi " + brand.name + "! I'd like to sign up for bin cleaning.");
 
@@ -288,21 +287,25 @@
       ? 'Serving ' + cities.join(' & ')
       : 'Serving ' + (area.short || brand.city || '');
 
-    // ----- social links (footer; hidden when empty) -----
-    var footSocial = document.getElementById('footSocial');
-    /* Filter FIRST, then gate visibility on the filtered result — gating on
-       the raw (pre-filter) social.length would show an empty, hidden=false
-       footer row whenever every entry failed the https scheme check. */
-    var socialLinks = social.filter(function(s){ return /^https:\/\//i.test(s.url); /* scheme-gated here too, not just in sbv_social_valid — entity encoding cannot stop a scheme, and safeUrl only de-fangs CSS/attr breakout */ });
-    if (socialLinks.length) {
-      footSocial.innerHTML = socialLinks.map(function(s){
-        return '<a href="' + esc(safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer" style="color:var(--accent-2)">' + esc(s.label || s.n) + '</a>';
-      }).join(' · ');
-      footSocial.hidden = false;
-    } else {
-      footSocial.innerHTML = '';
-      footSocial.hidden = true;
-    }
+    // ----- social links: rendered by the footer-contact component (fc-social) -----
+    // (bin-cleaning's own hand-built footSocial was removed — one social
+    // renderer, not two — see _template/components/footer-contact.js)
+
+    // ----- brand-bound aria-labels & eyebrow (A4: de-brand baked "Prime" strings) -----
+    // Each was a literal "Prime Bin Cleaning" string baked into sections.html;
+    // this niche's default brand.name IS "Prime Bin Cleaning", so the default
+    // rendered text/labels are unchanged — a different operator's brand.name
+    // now flows through instead of staying stuck on "Prime".
+    var navBrandLink = document.getElementById('navBrand');
+    if (navBrandLink) navBrandLink.setAttribute('aria-label', brand.name + ' home');
+    var navLogoImg = document.getElementById('navLogoImg');
+    if (navLogoImg) navLogoImg.setAttribute('aria-label', brand.name + ' logo');
+    var heroLogoImg = document.getElementById('heroLogoImg');
+    if (heroLogoImg) heroLogoImg.setAttribute('aria-label', brand.name + ' — crown P badge with pressure washer spraying a bin');
+    var footerLogoImg = document.getElementById('footerLogoImg');
+    if (footerLogoImg) footerLogoImg.setAttribute('aria-label', brand.name + ' logo');
+    var benefitsEyebrow = document.getElementById('benefitsEyebrow');
+    if (benefitsEyebrow) benefitsEyebrow.textContent = 'Why ' + (String(brand.name || '').trim().split(/\s+/)[0] || 'us');
 
     // ----- stats -> hero proof row -----
     document.getElementById('statsRow').innerHTML = (c.stats || []).map(function(s){

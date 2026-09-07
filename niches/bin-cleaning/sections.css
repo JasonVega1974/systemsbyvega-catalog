@@ -14,10 +14,6 @@
 .logo-img{background-position:center;background-repeat:no-repeat;background-size:contain}
 .brand-logo{height:46px;width:50px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.5))}
 .footer-logo{height:64px;width:60px}
-/* footSocial is a <p> (not base.css's inline default) so it can be toggled
-   via the hidden attribute; reset its margin to stay flush with the muted
-   footer__meta text flow around it. */
-#footSocial{margin:0;color:var(--muted)}
 /* hero badge: base.css's .hero__art/.halo/@keyframes pulse target an <svg>
    child by tag name — the logo here is a background-image span instead, so
    its own sizing + the (shared) float keyframe are applied directly. */

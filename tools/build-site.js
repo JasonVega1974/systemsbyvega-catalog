@@ -182,7 +182,13 @@ if (manifest) {
       markup = markup.split('{{BEFORE_AFTER_MERGE}}').join(mergeSpec);
     }
     if (def.name === 'hero-photo') {
-      markup = markup.split('{{HERO_DEFAULT}}').join('/sites/' + slug + '/photos/hero.jpg');
+      /* Optional per-niche override (Task 6): a niche whose real hero file
+         does not follow the photos/hero.jpg convention (e.g. landscaping's
+         photos/hero-garden-path.jpg) names its actual file in the manifest
+         rather than being forced to duplicate the binary under a second
+         name. Absent falls back to the convention, unchanged. */
+      const heroDefault = manifest.heroDefault || ('/sites/' + slug + '/photos/hero.jpg');
+      markup = markup.split('{{HERO_DEFAULT}}').join(heroDefault);
     }
     sections = sections.split(slot).join(markup.trim());
 

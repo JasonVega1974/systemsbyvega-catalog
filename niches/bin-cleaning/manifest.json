@@ -11,8 +11,8 @@
   },
   "photoSlots": ["logo", "before", "after", "owner"],
   "sections": {
-    "pricing": true, "beforeAfter": true, "jobDetails": false,
-    "reviews": true, "social": true, "footerContact": false, "ownerBlock": true
+    "pricing": true, "beforeAfter": true, "jobDetails": true,
+    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
   },
   "pricing": {
     "model": "tiers",

@@ -165,12 +165,27 @@ if (content) {
   delete canonicalOnly.niche;
   const flat = JSON.stringify(canonicalOnly);
   const found = [];
+
+  /* A manifest's pricing.mergePath (Decision 2, Phase A-core) can legitimately
+     be "plans" — landscaping's plansRender() has always read content.plans,
+     never content.pricing (Task 2 finding), so a top-level `plans` key there
+     is the CURRENT correct shape, not the retired one this loop otherwise
+     flags. Read defensively: an unparsable/missing manifest must not corrupt
+     this independent QA pass — it already fails loudly elsewhere. */
+  let mergePath = null;
+  try {
+    const mPath = path.join(SRC, 'manifest.json');
+    if (fs.existsSync(mPath)) mergePath = (JSON.parse(fs.readFileSync(mPath, 'utf8')).pricing || {}).mergePath || null;
+  } catch (e) { /* validate-manifest.js is the authority on manifest validity */ }
+  const plansIsCurrent = mergePath === 'plans';
+
   for (const [k, m] of [['"plans"', 'plans[] -> pricing[]'], ['"packages"', 'packages[] -> pricing[]'],
                         ['"author"', 'author -> name'], ['"lab"', 'lab -> label'], ['"cat"', 'cat -> tag'],
                         ['"period"', 'period -> per'], ['"platform"', 'platform -> icon'],
                         ['"meta"', 'meta -> tag'],
                         ['"area"', 'brand.area -> serviceArea.region'],
                         ['"about"', 'about -> owner']]) {
+    if (k === '"plans"' && plansIsCurrent) continue;
     if (flat.includes(k)) found.push(m);
   }
   /* The highlight flag has been written three ways: best, featured, popular.
@@ -179,12 +194,19 @@ if (content) {
      `blurb`, not the retired list. Flagging the key blind produced a false
      positive on both sites converted so far. */
   for (const arr of ['pricing', 'plans', 'packages']) {
+    /* Same manifest-driven exception as above: landscaping's plansRender()
+       genuinely reads plans[].best as the highlight-flag boolean (niche.js),
+       because mergePath routes pricing edits there — the `-> highlight`
+       rename assumes the older canonical pricing[] shape and does not apply
+       to this specific array on this specific niche. */
+    const skipBest = arr === 'plans' && plansIsCurrent;
     for (const row of (Array.isArray(content[arr]) ? content[arr] : [])) {
       if (!row || typeof row !== 'object') continue;
       for (const k of ['best', 'featured', 'popular']) {
+        if (skipBest && k === 'best') continue;
         if (typeof row[k] === 'boolean') found.push(`${arr}[].${k} -> highlight`);
       }
-      if (typeof row.best === 'string') found.push(`${arr}[].best (string) -> blurb`);
+      if (!skipBest && typeof row.best === 'string') found.push(`${arr}[].best (string) -> blurb`);
     }
   }
   found.length ? bad('no retired field names (§4.2)', [...new Set(found)].join('; '))

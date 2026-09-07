@@ -40,6 +40,11 @@
        this component promises. */
     var fullAddress = '';
     if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
       var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
       var tail = [cityState, contact.postal].filter(Boolean).join(' ');
       fullAddress = [contact.address, tail].filter(Boolean).join(', ');

@@ -440,7 +440,6 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderContent(c){
     applyRuntime(c);
     var brand = c.brand || {}, area = c.serviceArea || {}, owner = c.owner || {}, misc = c.misc || {};
-    var social = c.social || [];
     var e164 = telHref(brand.phone);
     var smsBody = encodeURIComponent("Hi " + brand.name + "! I'd like a quote.");
 
@@ -462,12 +461,9 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       + ' and everything in between — <b>the whole ' + esc(area.short) + '.</b>'
       + " Outside that ring? Text us your address anyway; if a route works we'll make it work.";
 
-    // ----- social links (footer; hidden when empty) -----
-    document.getElementById('footSocial').innerHTML = social.length
-      ? social.map(function(s){
-          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--larkspur-bright)">' + esc(s.n) + '</a>';
-        }).join(' · ') + '<br />'
-      : '';
+    // ----- social links: rendered by the footer-contact component (fc-social) -----
+    // (landscaping's own hand-built footSocial was removed — one social
+    // renderer, not two — see _template/components/footer-contact.js)
 
     // ----- misc notes -----
     document.getElementById('plansNote').innerHTML = esc(misc.plansNote || '');

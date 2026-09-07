@@ -12,7 +12,7 @@
   "photoSlots": ["hero", "owner"],
   "sections": {
     "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": true, "footerContact": false, "ownerBlock": true
+    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
   },
   "pricing": {
     "model": "tiers",
@@ -23,5 +23,6 @@
     "beforeAfter": "none",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/landscaping/photos/hero-garden-path.jpg"
 }
