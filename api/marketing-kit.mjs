@@ -529,7 +529,15 @@ async function handler(request) {
           });
       });
     } catch (pe) { binProbe = 'probe-threw: ' + String(pe && pe.message).slice(0, 200); }
-    const browser = await pw.launch({
+    // launchPersistentContext, NOT launch + newPage: playwright's newPage
+    // creates an INCOGNITO browser context over CDP, and that call is what
+    // kills this binary here — live-diagnosed by spawning the same binary
+    // with the same args directly (default context, about:blank): it runs
+    // and serves DevTools happily. puppeteer works with sparticuz for the
+    // same reason (its newPage uses the default context). A persistent
+    // context IS the default profile, so pages open where the probe proved
+    // the browser survives. /tmp is the lambda's only writable path.
+    const browser = await pw.launchPersistentContext('/tmp/marketing-kit-profile', {
       args: launchArgs,
       executablePath: exePath,
       headless: true,
