@@ -215,11 +215,11 @@
         "desc": "What they ate, what they played, how bedtime landed — waiting for you in a quick note when you walk in."
       }
     ],
-    "rates": {
-      "base": "16",
-      "perExtraKid": "3",
-      "weekendBump": "2"
-    },
+    "rates": [
+      { "label": "the base rate — one kid, one evening", "rate": "16", "unit": "/hr" },
+      { "label": "for each additional kid", "rate": "3", "unit": "/hr" },
+      { "label": "on weekend evenings", "rate": "2", "unit": "/hr" }
+    ],
     "ratesNote": "Every rate is confirmed together before your first booking — and the number we agree on is the number you pay. No booking fees, no surge pricing, no app taking a cut.",
     "howItWorks": [
       {

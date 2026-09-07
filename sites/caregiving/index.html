@@ -725,6 +725,32 @@ body{background:var(--ground);color:var(--ink);font-family:'Nunito Sans',system-
   /* ---------- reveal ---------- */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
   @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: job-details -- */
+/* _template/components/job-details.css
+   .section/.section__head/.reveal/.eyebrow/.section-title are all shared
+   chrome from _template/base.css -- only the two-column list layout needs a
+   rule of its own here. */
+.jd-cmp__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 640px) { .jd-cmp__cols { grid-template-columns: 1fr; } }
+.jd-cmp__col { background: var(--card); border: 1px solid var(--card-brd); border-radius: 16px; padding: 22px 24px; }
+.jd-cmp__col h3 { margin: 0 0 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; font-size: .95rem; }
+.jd-cmp__col--yes h3 { color: var(--accent-2); }
+.jd-cmp__col--no h3 { color: var(--ink-dim); }
+.jd-cmp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.jd-cmp__list li { position: relative; padding-left: 26px; color: var(--ink-dim); line-height: 1.5; }
+.jd-cmp__col--yes li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; }
+.jd-cmp__col--no li::before { content: "\2715"; position: absolute; left: 0; color: var(--ink-dim); opacity: .6; }
+
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -938,6 +964,30 @@ body{background:var(--ground);color:var(--ink);font-family:'Nunito Sans',system-
   </div>
 </section>
 
+<!-- _template/components/job-details.html
+     Two-column "what's included / not included" block, from c.jobDetails =
+     { included: [...strings], notIncluded: [...strings] }. Starts hidden;
+     job-details.js unhides the whole section only when at least one list has
+     an item, and hides either column on its own if that list is empty. -->
+<section class="section jd-cmp" id="jobDetails" hidden>
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fine print, upfront</span>
+      <h2 class="section-title">What's included</h2>
+    </div>
+    <div class="jd-cmp__cols">
+      <div class="jd-cmp__col jd-cmp__col--yes reveal">
+        <h3>Included</h3>
+        <ul class="jd-cmp__list" id="jdIncluded"></ul>
+      </div>
+      <div class="jd-cmp__col jd-cmp__col--no reveal">
+        <h3>Not included</h3>
+        <ul class="jd-cmp__list" id="jdNotIncluded"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="area">
   <div class="wrap reveal">
     <div class="eyebrow">Service area</div>
@@ -1025,6 +1075,18 @@ body{background:var(--ground);color:var(--ink);font-family:'Nunito Sans',system-
     </div>
     <div>
       Call or text <a href="tel:+12085550198" data-phone>(208) 555-0198</a><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
       <span class="footer__credit">Concept build by <a href="https://systemsbyvega.com" target="_blank" rel="noopener noreferrer">Systems by Vega</a><!-- SWAP:DISCLOSURE --> · Demonstration website for a fictional business.<!-- /SWAP:DISCLOSURE --></span>
     </div>
   </div>
@@ -1622,6 +1684,177 @@ var DAY_ORDER = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 
   window.renderContent = renderContent;
 })();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: job-details -- */
+/* _template/components/job-details.js
+   Fills the two-column included/not-included lists from c.jobDetails.
+   DOM-property assignment throughout (createElement + textContent), no
+   innerHTML. Hidden entirely when the niche/operator supplies neither list;
+   a column with its own empty list hides independently of its sibling. */
+(function () {
+  'use strict';
+
+  function fill(ul, items) {
+    while (ul.firstChild) ul.removeChild(ul.firstChild);
+    items.forEach(function (t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+    return items.length;
+  }
+
+  function initJobDetails(c) {
+    var section = document.getElementById('jobDetails');
+    var incUl = document.getElementById('jdIncluded');
+    var notUl = document.getElementById('jdNotIncluded');
+    if (!section || !incUl || !notUl) return;
+
+    var jd = (c && c.jobDetails) || {};
+    var included = Array.isArray(jd.included) ? jd.included.filter(Boolean) : [];
+    var notIncluded = Array.isArray(jd.notIncluded) ? jd.notIncluded.filter(Boolean) : [];
+
+    var incCount = fill(incUl, included);
+    var notCount = fill(notUl, notIncluded);
+
+    var incCol = incUl.closest('.jd-cmp__col');
+    var notCol = notUl.closest('.jd-cmp__col');
+    if (incCol) incCol.hidden = !incCount;
+    if (notCol) notCol.hidden = !notCount;
+
+    section.hidden = !(incCount || notCount);
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initJobDetails);
+  }
+})();
+
 </script>
 
 <script>

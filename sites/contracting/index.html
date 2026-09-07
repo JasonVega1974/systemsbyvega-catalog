@@ -601,16 +601,18 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus
 .proof span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
 
-/* badge showpiece — S&S ridge-line emblem */
+/* hero photo card — replaced the S&S emblem showpiece (Phase B photo hero).
+   The .hero-emblem float rules died with the emblem; frame, Ken Burns zoom
+   and reduced-motion live in the shared hero-photo.css, and only this
+   niche's amber ring dress lives here. The halo still backs the card. */
 .hero__badge{position:relative;display:flex;justify-content:center}
 .hero__badge .halo{
   position:absolute;inset:-4% -4% 8%;border-radius:50%;
   background:radial-gradient(closest-side, rgba(245,166,35,.30), rgba(245,166,35,.08) 55%, transparent 72%);
   filter:blur(6px);animation:pulse 5s ease-in-out infinite;z-index:0;
 }
-.hero-emblem{position:relative;z-index:1;width:min(400px,82%);aspect-ratio:1;margin-inline:auto;
-  filter:drop-shadow(0 30px 50px rgba(0,0,0,.65));animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero .hero-photo-cmp{border:1px solid rgba(245,166,35,.32);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.7), 0 0 0 6px rgba(245,166,35,.07)}
 @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 
 /* rising grinder sparks in hero */
@@ -1008,6 +1010,31 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus
   .reveal{opacity:1;transform:none;transition:none}
   .btn::after{display:none}
 }
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -1118,24 +1145,30 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus
       </div>
       <div class="hero__badge">
         <div class="halo" aria-hidden="true"></div>
-        <svg class="hero-emblem" viewBox="0 0 200 200" role="img" aria-label="Summit &amp; Stone Contracting emblem — mountain ridge over a foundation line">
-          <defs>
-            <linearGradient id="emAmber" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffbe45"/><stop offset="1" stop-color="#b46f0d"/>
-            </linearGradient>
-            <linearGradient id="emStone" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#dde1e4"/><stop offset="1" stop-color="#8d939a"/>
-            </linearGradient>
-          </defs>
-          <circle cx="100" cy="100" r="92" fill="rgba(36,28,16,.7)" stroke="rgba(245,166,35,.4)" stroke-width="2"/>
-          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(245,166,35,.18)" stroke-width="1" stroke-dasharray="4 6"/>
-          <path d="M30 128 L72 72 L92 96 L118 56 L170 128 Z" fill="url(#emStone)" opacity=".9"/>
-          <path d="M46 128 L84 128 L65 103 Z" fill="url(#emAmber)"/>
-          <path d="M118 56 L134 78 L124 78 L112 64 Z" fill="var(--ink-max)" opacity=".8"/>
-          <rect x="34" y="134" width="132" height="7" rx="3.5" fill="url(#emAmber)"/>
-          <rect x="48" y="147" width="104" height="4" rx="2" fill="rgba(245,166,35,.35)"/>
-          <text x="100" y="171" text-anchor="middle" font-family="'Big Shoulders Display','Arial Black',sans-serif" font-weight="800" font-size="15" letter-spacing="4" fill="#f5efe3">SUMMIT &amp; STONE</text>
-        </svg>
+        <!-- Real photography replaced the S&S emblem-as-hero (design upgrade,
+             Phase B): a logo is a brand mark, not hero art. The ridge-line
+             monogram in the nav and footer keeps carrying the brand; the
+             amber halo stays behind the photo card, and the drifting-emblem
+             float animation retired with the emblem.
+
+             Hero art goes through the shared hero-photo component: it prefers
+             an operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-framing.jpg) otherwise.
+             Credit: D Goug, Pexels (photos/CREDITS.md). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/contracting/photos/hero-framing.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/contracting/photos/hero-framing.jpg" alt="Fresh lumber framing of a new house going up under a clear sky" fetchpriority="high" decoding="async">
+</figure>
       </div>
     </div>
   </div>
@@ -1701,6 +1734,15 @@ var DEFAULT_CONTENT = {
         "beforeImg": "",
         "afterImg": "",
         "note": "Tear-out to broom-finish in under a week on most driveways — old slab hauled off, new one cured, edges backfilled."
+      },
+      {
+        "title": "Fence rebuild",
+        "location": "Caldwell",
+        "beforeTag": "Grey & rotting",
+        "afterTag": "New stained cedar",
+        "beforeImg": "/sites/contracting/photos/project-fence-before.jpg",
+        "afterImg": "/sites/contracting/photos/project-fence-after.jpg",
+        "note": "Old posts pulled, new ones set in concrete, boards stained before the first winter — most backyard runs take two to three days."
       }
     ]
   },
@@ -2286,11 +2328,105 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   window.renderContent = renderContent;
 })();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
 </script>
 
 <script>
 /* contracting/scene.js — the animation is CSS, in sections.css.
-   pulse, float and rise — a pulsing hero badge, a drifting emblem and rising sparks
+   pulse and rise — a pulsing halo behind the hero photo card and rising sparks
+   (the drifting-emblem float retired with the emblem, Phase B photo hero).
    It loops on @keyframes and is switched off by the prefers-reduced-motion
    block in that same file, so there is nothing for JavaScript to drive
    (SITELAB_TEMPLATE.md 7.0, D-S). A stub here is the correct shape, NOT a gap.

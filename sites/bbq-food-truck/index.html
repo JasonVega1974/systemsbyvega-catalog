@@ -643,6 +643,21 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   100%{transform:translate3d(var(--drift,30px),-112vh,0) scale(1.25);opacity:0}
 }
 
+/* the smoker under the smoke (Phase B2 FIX): a real pit in a wide
+   cinematic crop; overrides the shared hero-photo component's 4/5 portrait
+   default. object-position biases the crop toward the meat + smoke and
+   crops the foreground clutter out of frame. */
+.hero__pit{max-width:840px;margin:44px auto 0}
+.hero .hero-photo-cmp{aspect-ratio:16/7;max-height:330px;border-radius:18px;
+  border:1px solid rgba(232,89,12,.35);
+  box-shadow:0 34px 80px -32px rgba(0,0,0,.85)}
+.hero .hero-photo-cmp img{object-position:50% 42%}
+@media(max-width:640px){.hero .hero-photo-cmp{aspect-ratio:16/10}}
+/* smoke stays ABOVE the pit photo: same puffs/embers, same keyframes, one
+   stacking level up so they read as rising off the smoker (they are still
+   pointer-events:none, so nothing under them loses its click). */
+.hero .smokes{z-index:2}
+
 /* charred rim divider under hero */
 .charline{position:absolute;left:0;right:0;bottom:-1px;height:64px;line-height:0;color:var(--ground);z-index:0;pointer-events:none;width:100%}
 
@@ -903,6 +918,31 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   .btn::after{display:none}
   .mi{animation:none}
 }
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -1015,6 +1055,29 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
       <div class="proof"><b>14 hrs</b><span>Every brisket smoked</span></div>
       <div class="proof"><b>Wood-fired</b><span>Idaho oak, never gas</span></div>
       <div class="proof"><b>1 truck</b><span>Real wood, no shortcuts</span></div>
+    </div>
+
+    <!-- The smoker itself (Phase B2 FIX): the hero had smoke with nothing to
+         rise from. Shared hero-photo component — build-site.js stamps the
+         src/alt from manifest heroDefault/heroAlt (photos/hero-smoker.jpg,
+         see photos/CREDITS.md); operators swap it from the hero photo slot
+         in /admin/. The .smokes puffs + embers above keep their animation
+         untouched and now read as rising off this pit. -->
+    <div class="hero__pit">
+      <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/bbq-food-truck/photos/hero-smoker.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/bbq-food-truck/photos/hero-smoker.jpg" alt="Our barrel smoker with the lid up — pork and brisket strips over oak coals, smoke rolling off the grate" fetchpriority="high" decoding="async">
+</figure>
     </div>
   </div>
   <svg class="charline" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
@@ -2057,6 +2120,99 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   window.renderContent = renderContent;
 })();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
 </script>
 
 <script>

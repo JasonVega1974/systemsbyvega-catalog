@@ -933,7 +933,7 @@ body::after{
       </div>
 
       <div class="wandwrap">
-        <div class="wandhero reveal" id="wandPanel" role="img" aria-label="Interactive demo: drag or tap to power-wash a grimy patio clean, revealing bright concrete underneath">
+        <div class="wandhero reveal" id="wandPanel" role="img" aria-label="Interactive demo: drag or tap to power-wash grimy, moss-grown pavers clean, revealing the bright pavers underneath">
           <canvas id="wandClean" aria-hidden="true"></canvas>
           <canvas id="wandDirty" aria-hidden="true"></canvas>
           <div class="wandhero__brush" id="wandBrush" aria-hidden="true"></div>
@@ -1845,10 +1845,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 </script>
 
 <script>
-/* pressure-washing/scene.js — the signature animation, extracted verbatim from the
-   original's main script. base.js calls window.initScene(reduce) after first
-   render; the block below closes over that parameter exactly as it closed over
-   the outer-scope `reduce` before, so the reduced-motion path is unchanged. */
+/* pressure-washing/scene.js — the signature animation, extracted from the
+   original's main script; the procedural drawClean/drawDirty painting was later
+   swapped for real photos (Phase B) with the erase mechanic untouched. base.js
+   calls window.initScene(reduce) after first render; the block below closes
+   over that parameter exactly as it closed over the outer-scope `reduce`
+   before, so the reduced-motion path is unchanged. */
 window.initScene = function (reduce) {
   /* =====================================================
      SIGNATURE — WAND-REVEAL HERO
@@ -1888,69 +1890,57 @@ window.initScene = function (reduce) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
+    /* Real photography replaces the procedural grime/concrete painting
+       (design upgrade, Phase B): two Pexels photos of matched concrete
+       block pavers -- a moss-grown dark set on the dirty layer, a bright
+       grey set on the clean layer (photos/CREDITS.md). Absolute paths,
+       since on a tenant subdomain the document is served at "/" and a
+       relative photos/ URL would 404. Until a photo decodes (or if its
+       fetch fails) the draw functions below fall back to the old flat
+       gradient fills, so the panel never shows blank or broken. A photo
+       that arrives after first paint repaints its layer -- except the
+       dirty layer once the visitor has started erasing it, because that
+       repaint would silently undo their wash. */
+    var cleanImg = new Image(), dirtyImg = new Image();
+    function onPhotoReady(){
+      if(!seen) return;
+      drawClean();
+      if(!cleaned && !touched) drawDirty();
+    }
+    cleanImg.onload = onPhotoReady;
+    dirtyImg.onload = onPhotoReady;
+    cleanImg.src = '/sites/pressure-washing/photos/wand-clean-pavers.jpg';
+    dirtyImg.src = '/sites/pressure-washing/photos/wand-dirty-pavers.jpg';
+
+    // cover-crop: fill the panel, preserve the photo's aspect, center the crop
+    function drawCover(ctx, img){
+      var iw = img.naturalWidth, ih = img.naturalHeight;
+      var s = Math.max(W / iw, H / ih), dw = iw * s, dh = ih * s;
+      ctx.drawImage(img, (W - dw) / 2, (H - dh) / 2, dw, dh);
+    }
+
     function drawClean(){
       cctx.clearRect(0,0,W,H);
+      if(cleanImg.naturalWidth){ drawCover(cctx, cleanImg); return; }
+      // fallback while the photo loads: plain bright "washed concrete"
       var g = cctx.createLinearGradient(0,0,W,H);
       g.addColorStop(0, '#eef7fa');
       g.addColorStop(.55, '#d7ecf1');
       g.addColorStop(1, '#c3dee5');
       cctx.fillStyle = g;
       cctx.fillRect(0,0,W,H);
-      // faint concrete joint lines
-      cctx.strokeStyle = 'rgba(12,44,58,.14)';
-      cctx.lineWidth = Math.max(1, W*.004);
-      var cols = 4, rows = 4;
-      for(var i=1;i<cols;i++){ cctx.beginPath(); cctx.moveTo(W*i/cols,0); cctx.lineTo(W*i/cols,H); cctx.stroke(); }
-      for(var j=1;j<rows;j++){ cctx.beginPath(); cctx.moveTo(0,H*j/rows); cctx.lineTo(W,H*j/rows); cctx.stroke(); }
-      // a soft highlight sheen to sell "clean & wet"
-      var sheen = cctx.createRadialGradient(W*.3,H*.25,0,W*.3,H*.25,W*.6);
-      sheen.addColorStop(0,'rgba(255,255,255,.5)');
-      sheen.addColorStop(1,'rgba(255,255,255,0)');
-      cctx.fillStyle = sheen;
-      cctx.fillRect(0,0,W,H);
-    }
-
-    function seeded(seedInit){
-      var s = seedInit;
-      return function(){ s = (s * 9301 + 49297) % 233280; return s / 233280; };
     }
 
     function drawDirty(){
       dctx.clearRect(0,0,W,H);
+      if(dirtyImg.naturalWidth){ drawCover(dctx, dirtyImg); return; }
+      // fallback while the photo loads: plain grime brown
       var g = dctx.createLinearGradient(0,0,W,H);
       g.addColorStop(0, '#5c4a2e');
       g.addColorStop(.5, '#4a3d26');
       g.addColorStop(1, '#332a1a');
       dctx.fillStyle = g;
       dctx.fillRect(0,0,W,H);
-      var rnd = seeded(42);
-      // grime blotches
-      for(var i=0;i<26;i++){
-        var x = rnd()*W, y = rnd()*H, r = 14 + rnd()*46;
-        var rg = dctx.createRadialGradient(x,y,0,x,y,r);
-        rg.addColorStop(0, 'rgba(30,24,14,'+(0.35+rnd()*0.3)+')');
-        rg.addColorStop(1, 'rgba(30,24,14,0)');
-        dctx.fillStyle = rg;
-        dctx.beginPath(); dctx.arc(x,y,r,0,Math.PI*2); dctx.fill();
-      }
-      // streaks
-      dctx.strokeStyle = 'rgba(20,16,9,.28)';
-      for(var k=0;k<10;k++){
-        var sx = rnd()*W, sy = 0;
-        dctx.lineWidth = 2 + rnd()*5;
-        dctx.beginPath(); dctx.moveTo(sx,sy);
-        dctx.lineTo(sx + (rnd()-0.5)*W*.25, H);
-        dctx.stroke();
-      }
-      // moss-ish patches near edges
-      for(var m=0;m<8;m++){
-        var mx = rnd()*W, my = H*(0.6+rnd()*0.4), mr = 10+rnd()*22;
-        var mg = dctx.createRadialGradient(mx,my,0,mx,my,mr);
-        mg.addColorStop(0,'rgba(70,90,40,.4)');
-        mg.addColorStop(1,'rgba(70,90,40,0)');
-        dctx.fillStyle = mg;
-        dctx.beginPath(); dctx.arc(mx,my,mr,0,Math.PI*2); dctx.fill();
-      }
     }
 
     function resize(){

@@ -525,7 +525,7 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
   /* north-star: feTurbulence fractalNoise film grain over the retro field (ref dj-site-blue .grain, line 283) */
   .hero-grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.05;mix-blend-mode:multiply;z-index:0}
   .hero-in{z-index:1}
-  .hero-in{position:relative;max-width:var(--maxw);margin:0 auto;padding:0 24px 84px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero-in{position:relative;max-width:var(--maxw);margin:0 auto;padding:0 24px 48px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
   .hero h1{font-size:clamp(36px,5.4vw,58px);font-weight:700;line-height:1.02;letter-spacing:-.015em;max-width:13ch;margin-top:20px}
   .hero h1 .hl{color:var(--accent)}
   .hero p{font-size:clamp(16px,1.8vw,18.5px);color:var(--muted);max-width:50ch;margin-top:20px}
@@ -540,6 +540,13 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
   .hero-card .hc-by{margin-top:14px;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);letter-spacing:.02em}
   .checker{height:12px;opacity:.16;background:repeating-conic-gradient(var(--accent-alt) 0 25%,transparent 0 50%) 0 0/12px 12px}
   @media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-card{order:-1}}
+
+  /* hero-promoted garage bay (Phase B2): the rendered bay + spring-lit zones
+     IS the hero art now. Markup, ids and the niche.js spring loop are
+     untouched — only placement moved up from #sounds into the hero region.
+     The sound pills below still light it up; the caption says so. */
+  .hero-stage{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 24px 72px}
+  .hero-stage .car-stage{margin:0 auto;max-width:900px}
 
   /* ---------- trust strip ---------- */
   .trust{border-bottom:3px double var(--hair);background:var(--ground-2)}
@@ -792,32 +799,7 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
       <p class="hc-by">Road test · lift check · one written number · your call</p>
     </div>
   </div>
-  <div class="checker" aria-hidden="true"></div>
-</header>
-
-<section class="trust" style="padding:0">
-  <div class="wrap trust-in reveal" id="trustStats"></div>
-</section>
-
-<section id="services">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">Services</div>
-      <h2>Everything a daily driver needs.</h2>
-      <p class="stxt">From the squeal to the shimmy to the light on the dash — brought to you in plain English, with the old parts to prove it.</p>
-    </div>
-    <div class="svc-grid reveal" id="svcGrid"></div>
-  </div>
-</section>
-
-<section id="sounds" class="alt">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow">What's that sound?</div>
-      <h2>Describe the noise. We'll translate.</h2>
-      <p class="stxt">Pick what you hear and when you hear it. You'll get the usual suspects, what checking it involves, and an honest range — no email address required.</p>
-    </div>
-
+  <div class="hero-stage">
     <!-- ===================================================================
          NORTH-STAR VISUAL: rendered garage bay + stylized car (inline SVG only)
          Techniques mirrored from dj-site-blue/index.html:
@@ -1052,6 +1034,32 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
         <span class="dot" aria-hidden="true"></span>
         <span id="carZoneLabel">Pick a sound below — the bay lights up the zone we&rsquo;d check.</span>
       </div>
+    </div>
+  </div>
+  <div class="checker" aria-hidden="true"></div>
+</header>
+
+<section class="trust" style="padding:0">
+  <div class="wrap trust-in reveal" id="trustStats"></div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Services</div>
+      <h2>Everything a daily driver needs.</h2>
+      <p class="stxt">From the squeal to the shimmy to the light on the dash — brought to you in plain English, with the old parts to prove it.</p>
+    </div>
+    <div class="svc-grid reveal" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="sounds" class="alt">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">What's that sound?</div>
+      <h2>Describe the noise. We'll translate.</h2>
+      <p class="stxt">Pick what you hear and when you hear it. You'll get the usual suspects, what checking it involves, and an honest range — no email address required.</p>
     </div>
 
     <div class="snd-wrap reveal">
@@ -1726,9 +1734,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     renderSounds(c);
     document.getElementById('soundNote').textContent = c.soundNote || '';
 
-    // pricing
+    // pricing — rows are {label, blurb}: content.json's house shape for
+    // mergePath "pricing" (bin-cleaning convention; the operator-content
+    // endpoint overlays admin saves of price_label onto blurb). This read
+    // used p.range, a key no row ever carried, so the demo rendered blank.
     document.getElementById('priceList').innerHTML = c.pricing.map(function(p){
-      return '<div class="prow"><span class="job">' + esc(p.label) + '</span><span class="dots"></span><span class="rng">' + esc(p.range) + '</span></div>';
+      return '<div class="prow"><span class="job">' + esc(p.label) + '</span><span class="dots"></span><span class="rng">' + esc(p.blurb || '') + '</span></div>';
     }).join('');
     document.getElementById('pricingNote').textContent = c.pricingNote || '';
 

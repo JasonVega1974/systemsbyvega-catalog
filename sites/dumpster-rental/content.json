@@ -10,7 +10,8 @@
   "sizes": [
     {
       "yd": "10",
-      "price": 299,
+      "label": "10 yard",
+      "price_label": "$299",
       "dims": "12'L × 8'W × 3.5'H",
       "lengthFt": 12,
       "heightFt": 3.5,
@@ -21,7 +22,8 @@
     },
     {
       "yd": "15",
-      "price": 349,
+      "label": "15 yard",
+      "price_label": "$349",
       "dims": "16'L × 8'W × 4.5'H",
       "lengthFt": 16,
       "heightFt": 4.5,
@@ -32,7 +34,8 @@
     },
     {
       "yd": "20",
-      "price": 399,
+      "label": "20 yard",
+      "price_label": "$399",
       "dims": "22'L × 8'W × 4.5'H",
       "lengthFt": 22,
       "heightFt": 4.5,

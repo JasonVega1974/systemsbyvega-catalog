@@ -586,13 +586,17 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .proof b{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
 .proof span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
-.hero__art .halo{position:absolute;inset:-4% -8% 6%;border-radius:50%;
-  background:radial-gradient(closest-side, rgba(108,99,255,.24), rgba(125,249,255,.06) 55%, transparent 72%);
-  filter:blur(8px);animation:pulse 5.5s ease-in-out infinite;z-index:0}
-.hero__art svg{position:relative;z-index:1;width:min(440px,90%);height:auto;
-  filter:drop-shadow(0 30px 50px rgba(0,0,0,.65));animation:float 6.5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+/* Phase B4 photo hero -- niche dress for the shared component (the old
+   clip-art panel's float/halo animations are retired; only its breaker-blink
+   idea survives, as the .hero__live badge over the photo). */
+.hero .hero-photo-cmp{border:1px solid rgba(108,99,255,.35);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.75), 0 0 0 6px rgba(108,99,255,.07)}
+.hero__live{position:absolute;right:7%;bottom:6%;z-index:2;display:flex;align-items:center;gap:10px;
+  background:rgba(10,13,28,.78);border:1px solid rgba(125,249,255,.35);border-radius:14px;
+  padding:9px 13px;backdrop-filter:blur(6px);pointer-events:none}
+.hero__live svg{width:24px;height:auto}
+.hero__live span{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent-alt)}
 
 .sparks{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .spark-mote{position:absolute;bottom:-4%;width:3px;height:3px;border-radius:50%;
@@ -803,6 +807,31 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   .reveal{opacity:1;transform:none;transition:none}
   .btn::after{display:none}
 }
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -915,37 +944,35 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
           <div class="proof"><b>Kuna, ID</b><span>Home base</span></div>
         </div>
       </div>
-      <div class="hero__art" aria-hidden="true">
-        <div class="halo"></div>
-        <svg viewBox="0 0 420 420" fill="none" role="img" aria-label="Illustration: an open breaker panel with one switch lit">
-          <rect x="90" y="40" width="240" height="340" rx="22" fill="#11162B" stroke="#2A335C" stroke-width="2"/>
-          <rect x="90" y="40" width="240" height="46" rx="22" fill="#171D38"/>
-          <circle cx="210" cy="63" r="5" fill="#3C34A8"/>
-          <g>
-            <rect x="118" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="122" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="168" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="172" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="218" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#7DF9FF" stroke-width="2"/>
-            <rect x="222" y="118" width="34" height="24" rx="6" fill="#7DF9FF">
+      <div class="hero__art">
+        <!-- Phase B4 photo hero. The old clip-art panel is retired along with
+             its float/halo animations; the SMIL breaker-blink idea survives as
+             the badge below, composited over the photo (paused under reduced
+             motion by niche.js, since CSS animation:none cannot stop SMIL). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/electrician/photos/hero-breaker-work.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/electrician/photos/hero-breaker-work.jpg" alt="An electrician fastening breakers inside an open panel with a cordless driver" fetchpriority="high" decoding="async">
+</figure>
+        <div class="hero__live" aria-hidden="true">
+          <svg viewBox="0 0 42 70" fill="none">
+            <rect x="1" y="1" width="40" height="68" rx="9" fill="#0A0D1C" stroke="#7DF9FF" stroke-width="2"/>
+            <rect x="7" y="8" width="28" height="20" rx="5" fill="#7DF9FF">
               <animate attributeName="opacity" values="1;.55;1" dur="2.2s" repeatCount="indefinite"/>
             </rect>
-            <rect x="268" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="272" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-          </g>
-          <g>
-            <rect x="118" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="122" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="168" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="172" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="218" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="222" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="268" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="272" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-          </g>
-          <path d="M236 292 L214 330 L226 330 L208 366 L252 322 L232 322 Z" fill="#6C63FF" opacity=".9"/>
-          <path d="M50 380 H370" stroke="#EAF0FF" stroke-opacity=".18" stroke-width="2"/>
-        </svg>
+            <rect x="13" y="38" width="16" height="22" rx="4" fill="#171D38" stroke="#2A335C" stroke-width="1.5"/>
+          </svg>
+          <span>Circuit on</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1530,6 +1557,13 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
   }
 
+  /* The hero badge's breaker-blink is SMIL (kept from the old clip-art
+     panel), which CSS animation:none cannot stop -- pause it by hand. */
+  if(reduce){
+    var liveBadge = document.querySelector('.hero__live svg');
+    if(liveBadge && liveBadge.pauseAnimations) liveBadge.pauseAnimations();
+  }
+
   // ---------- BREAKER SWITCHBOARD ----------
   var onIds = {};
   function renderBreakers(){
@@ -1573,12 +1607,14 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- pricing ----------
   function renderPricing(){
-    var p = CONTENT.pricing || {};
-    var sc = p.serviceCall || {};
+    /* pricing is the canonical root ARRAY [{label, range}] (manifest
+       mergePath "pricing"); the service-call card lives under niche.serviceCall,
+       which base.js's SLflat exposes as CONTENT.serviceCall. */
+    var sc = CONTENT.serviceCall || {};
     document.getElementById('callPrice').textContent = '$' + (sc.price != null ? sc.price : 95);
     document.getElementById('callNote').textContent = sc.note || '';
-    document.getElementById('rangesList').innerHTML = (p.ranges||[]).map(function(r){
-      return '<div class="range-row"><span class="range-row__label">'+esc(r.label)+'</span><span class="range-row__val">'+esc(r.range)+'</span></div>';
+    document.getElementById('rangesList').innerHTML = (CONTENT.pricing||[]).map(function(r){
+      return '<div class="range-row"><span class="range-row__label">'+esc(r.label)+'</span><span class="range-row__val">'+esc(r.blurb)+'</span></div>';
     }).join('');
   }
 
@@ -1758,6 +1794,99 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   window.renderContent = renderContent;
 })();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
 </script>
 
 <script>

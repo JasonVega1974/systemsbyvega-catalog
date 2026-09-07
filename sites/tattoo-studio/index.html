@@ -617,31 +617,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .proof + .proof{padding-left:28px;border-left:1px solid var(--hair)}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
 
-/* portrait frame — CSS-only placeholder until a real photo exists */
+/* Phase B4 photo hero -- the CSS placeholder portrait (ink wash, rose mark,
+   corner ticks) is retired; the photo wears the same sharp frame: no radius,
+   hairline border, thin offset accent line inside. Scoped to .hero so the
+   dress never leaks into another component. */
 .hero__portrait{position:relative;display:flex;justify-content:center}
-.portrait{position:relative;width:min(380px,86%);aspect-ratio:4/5;background:linear-gradient(165deg,var(--panel-3),var(--ground-2) 70%);
+.hero .hero-photo-cmp{width:min(380px,86%);aspect-ratio:4/5;border-radius:0;
   border:1px solid var(--card-brd);box-shadow:var(--shadow)}
-.portrait img{width:100%;height:100%;object-fit:cover;display:block}
-/* thin offset frame line + corner ticks */
-.portrait::before{content:"";position:absolute;inset:12px;border:1px solid rgba(196,43,61,.35);pointer-events:none;z-index:2}
-.portrait__corner{position:absolute;width:22px;height:22px;border:0 solid var(--accent);z-index:3;pointer-events:none}
-.portrait__corner--tl{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
-.portrait__corner--br{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
-/* no-photo state: deliberate ink-wash composition with the rose mark.
-   For a real artist rebrand, drop <img src="assets/portrait.jpg"> inside
-   .portrait and this whole treatment disappears automatically. */
-.portrait:not(:has(img))::after{
-  content:"Rae Costa · Boise";
-  position:absolute;inset:0;display:grid;place-items:end center;text-align:center;
-  padding:0 20px 24px;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--ink);opacity:.75;z-index:1}
-.portrait:not(:has(img)) .portrait__wash{
-  position:absolute;inset:0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg opacity='.2'%3E%3Cpath d='M32 12c-9.5 0-16 6.2-16 13.6C16 34 23.4 38 32 38s16-4 16-12.4C48 18.2 41.5 12 32 12zm0 5.6c5.6 0 10 3.4 10 8 0 4.4-4.4 6.8-10 6.8s-10-2.4-10-6.8c0-4.6 4.4-8 10-8zm0 4.4c-3.3 0-5.6 1.6-5.6 3.6S28.7 29.2 32 29.2s5.6-1.6 5.6-3.6S35.3 22 32 22z' fill='%23ede4d3'/%3E%3Cpath d='M32 38v14M32 45l-6.5 4M32 41.5l6.5 4.5' stroke='%23c42b3d' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/g%3E%3C/svg%3E") center 38% / 150px auto no-repeat,
-    radial-gradient(70% 55% at 50% 38%, rgba(196,43,61,.15), transparent 70%),
-    radial-gradient(50% 40% at 50% 82%, rgba(237,228,211,.05), transparent 70%),
-    repeating-linear-gradient(135deg, transparent 0 16px, rgba(237,228,211,.03) 16px 17px)}
+.hero .hero-photo-cmp::before{content:"";position:absolute;inset:12px;
+  border:1px solid rgba(196,43,61,.35);pointer-events:none;z-index:2}
 .mote{position:absolute;bottom:-4%;border-radius:50%;opacity:0;filter:blur(1px);
   animation:rise linear infinite}
 @keyframes rise{
@@ -947,6 +931,31 @@ img.tile__art{width:100%;height:100%;object-fit:cover}
   .reveal{opacity:1;transform:none}
   .btn::after{display:none}
 }
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
@@ -1053,13 +1062,24 @@ img.tile__art{width:100%;height:100%;object-fit:cover}
         <div class="hero__proof" id="proofRow"></div>
       </div>
       <div class="hero__portrait">
-        <!-- Rebrand note: drop <img src="assets/portrait.jpg" alt="…" /> inside .portrait
-             (before the corner spans) and the ink-wash mark treatment disappears automatically -->
-        <div class="portrait" role="img" aria-label="Static Rose mark — rose and thorn, ink on black">
-          <span class="portrait__wash" aria-hidden="true"></span>
-          <span class="portrait__corner portrait__corner--tl" aria-hidden="true"></span>
-          <span class="portrait__corner portrait__corner--br" aria-hidden="true"></span>
-        </div>
+        <!-- Phase B4 photo hero: brand-neutral studio equipment, no faces and
+             no client tattoo designs (fictional-shop compliance). The ink-wash
+             placeholder is retired; its offset frame line survives as dress on
+             the component (sections.css). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/tattoo-studio/photos/hero-machines-table.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/tattoo-studio/photos/hero-machines-table.jpg" alt="Coil tattoo machines resting on a workbench, in black and white" fetchpriority="high" decoding="async">
+</figure>
       </div>
     </div>
   </div>
@@ -2134,6 +2154,99 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   window.renderContent = renderContent;
 })();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
 </script>
 
 <script>

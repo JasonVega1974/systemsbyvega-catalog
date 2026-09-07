@@ -529,7 +529,13 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     calculator: {
-      kind: 'rows', caption: "Saved with your site's content — the calculator isn't connected to these yet.",
+      /* Wording is deliberately scoped to what BOTH calculator niches truly
+         do since the Phase B reconciliation: dumpster-rental's cards, size
+         select and computed total all follow these rows; dog-walking's
+         service cards and booking select do too, but its week-builder's
+         3-by-3 rate matrix stays demo-managed — so this caption claims the
+         service prices, not "the calculator" wholesale. */
+      kind: 'rows', caption: "Saved with your site's content — these update your service prices on the site.",
       fields: [
         { key: 'label', maxlen: 60, ph: 'Option (e.g. 20 yard)' },
         { key: 'price_label', maxlen: 20, ph: '$20' }
