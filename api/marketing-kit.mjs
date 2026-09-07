@@ -482,10 +482,20 @@ async function handler(request) {
     // example passes args verbatim. Version pairing does the compatibility
     // work instead: playwright-core is pinned to the release whose CDP
     // driver matches the shipped Chromium major (see package.json).
-    const launchArgs = chromium.args;
+    // Keep sparticuz's process-model flags (--single-process/--no-zygote —
+    // the binary is built for serverless filesystems that cannot spawn its
+    // renderer processes) but strip its --headless variant: it carries
+    // LITERAL quotes (--headless='shell'), and since it comes after the
+    // clean flag playwright adds for headless:true, the broken value wins,
+    // chromium starts in a mode that wants a display, and the browser dies
+    // the moment newPage creates a window. Live-diagnosed: binary probe ok,
+    // launch ok, death at newPage in every args permutation that kept it.
+    const launchArgs = chromium.args.filter(function (a) {
+      return a.indexOf('--headless') !== 0;
+    });
     // Graphics off: nothing in these templates needs WebGL, and swiftshader
-    // initialization is the documented crash-at-page-create culprit for
-    // this binary on non-Lambda serverless runtimes.
+    // initialization is a documented crash-at-page-create culprit for this
+    // binary on non-Lambda serverless runtimes.
     chromium.setGraphicsMode = false;
     const exePath = await chromium.executablePath();
     // TEMPORARY DIAGNOSTIC (remove once a live render succeeds): run the
