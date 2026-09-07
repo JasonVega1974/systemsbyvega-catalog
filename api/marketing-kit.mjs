@@ -504,47 +504,22 @@ async function handler(request) {
     // binary on non-Lambda serverless runtimes.
     chromium.setGraphicsMode = false;
     const exePath = await chromium.executablePath();
-    // TEMPORARY DIAGNOSTIC (remove once a live render succeeds): run the
-    // binary directly first. Its loader errors — a missing shared library,
-    // a bad extraction — are invisible through playwright, whose own error
-    // is always some flavor of "browser closed". This makes them readable
-    // in the render_failed reason.
-    let binProbe = '';
-    try {
-      // Probe v2: run the browser with the REAL launch args for a few
-      // seconds and capture its dying words. If it stays alive until the
-      // timeout kills it, the binary+args are viable and the fault is in
-      // the driver conversation; if it exits, stderr says why.
-      const { execFile } = await import('node:child_process');
-      binProbe = await new Promise(function (res) {
-        const started = Date.now();
-        execFile(exePath,
-          launchArgs.concat(['--remote-debugging-port=0', 'about:blank']),
-          { timeout: 8000, killSignal: 'SIGKILL' },
-          function (pe, stdout, stderr) {
-            const ms = Date.now() - started;
-            const tail = String(stderr || '').trim().split('\n').slice(-3).join(' | ').slice(0, 400);
-            if (pe && pe.killed) res('probe-alive-' + ms + 'ms (good) stderr: ' + tail);
-            else res('probe-exit-' + ms + 'ms code=' + (pe ? pe.code : 0) + ' stderr: ' + tail);
-          });
-      });
-    } catch (pe) { binProbe = 'probe-threw: ' + String(pe && pe.message).slice(0, 200); }
     // launchPersistentContext, NOT launch + newPage: playwright's newPage
     // creates an INCOGNITO browser context over CDP, and that call is what
     // kills this binary here — live-diagnosed by spawning the same binary
-    // with the same args directly (default context, about:blank): it runs
-    // and serves DevTools happily. puppeteer works with sparticuz for the
-    // same reason (its newPage uses the default context). A persistent
-    // context IS the default profile, so pages open where the probe proved
-    // the browser survives. /tmp is the lambda's only writable path.
-    const browser = await pw.launchPersistentContext('/tmp/marketing-kit-profile', {
+    // with the same args directly (default context, about:blank): it ran
+    // and served DevTools happily while every launch()+newPage permutation
+    // died with "browser has been closed". puppeteer works with sparticuz
+    // for the same reason (its newPage uses the default context). A
+    // persistent context IS the default profile. /tmp is the lambda's only
+    // writable path.
+    const context = await pw.launchPersistentContext('/tmp/marketing-kit-profile', {
       args: launchArgs,
       executablePath: exePath,
       headless: true,
     }).catch(function (le) {
-      throw new Error('launch: ' + String(le && le.message).split('\n')[0] + ' [' + binProbe + ']');
+      throw new Error('launch: ' + String(le && le.message).split('\n')[0]);
     });
-    globalThis.__mkBinProbe = binProbe;
     try {
       // waitUntil 'load' (not 'networkidle'): the capture is actually gated
       // by the document.fonts.ready await below, and networkidle's own 30s
@@ -552,14 +527,14 @@ async function handler(request) {
       // render_failed. fonts.ready resolves to a FontFaceSet Playwright
       // cannot serialize — the .then(true) keeps the await meaningful
       // without the serialization ambiguity.
-      const fbPage = await browser.newPage();
+      const fbPage = await context.newPage();
       await fbPage.setViewportSize({ width: 1080, height: 1350 });
       await fbPage.setContent(facebookHtml, { waitUntil: 'load' });
       await fbPage.evaluate(function () { return document.fonts.ready.then(function () { return true; }); });
       facebookPng = await fbPage.screenshot({ type: 'png' });
       await fbPage.close();
 
-      const flyPage = await browser.newPage();
+      const flyPage = await context.newPage();
       await flyPage.setViewportSize({ width: 816, height: 1056 });
       await flyPage.setContent(flyerHtml, { waitUntil: 'load' });
       await flyPage.evaluate(function () { return document.fonts.ready.then(function () { return true; }); });
@@ -568,8 +543,8 @@ async function handler(request) {
       await flyPage.close();
     } finally {
       // close() must not mask a render error with its own.
-      try { await browser.close(); } catch (e) {
-        console.error('marketing-kit: browser close failed:', e.message);
+      try { await context.close(); } catch (e) {
+        console.error('marketing-kit: context close failed:', e.message);
       }
     }
 
@@ -608,7 +583,6 @@ async function handler(request) {
       .slice(0, 140);
     // Build marker so a live retry is attributable to the deploy it hit.
     const build = String(process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7);
-    const probe = globalThis.__mkBinProbe ? ' [' + String(globalThis.__mkBinProbe).slice(0, 300) + ']' : '';
-    return json({ ok: false, error: 'render_failed@' + build + ': ' + reason + probe }, 500);
+    return json({ ok: false, error: 'render_failed@' + build + ': ' + reason }, 500);
   }
 }
