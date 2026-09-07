@@ -472,7 +472,14 @@ document.addEventListener('DOMContentLoaded', function () {
       kind: 'rows', caption: '',
       fields: [
         { key: 'label', maxlen: 60, ph: 'Crew size (e.g. 2 movers)' },
-        { key: 'rate', maxlen: 20, ph: '$129' },
+        /* Placeholder is bare digits, not "$129": the storefront template
+           itself prepends the $ when it renders this rate (see e.g.
+           moving's niche.js, '$' + rate + '/hr') — a placeholder of "$129"
+           would read as instructions to type the $ too, and the operator's
+           own $ would sit right next to the template's, showing "$$129/hr".
+           The hint spells out the same thing in words for anyone who
+           doesn't infer it from the bare-number placeholder alone. */
+        { key: 'rate', maxlen: 20, ph: '129', hint: 'numbers only — your site adds the $ sign' },
         { key: 'unit', maxlen: 20, ph: 'per hour' }
       ]
     },
@@ -850,8 +857,12 @@ document.addEventListener('DOMContentLoaded', function () {
                row-kind model's DB validator requires once ANY field in the
                row is filled (see validatePriceRow()). A plain wrapper div
                keeps this a single grid item, same as a bare input, so the
-               row's column layout is unaffected. */
+               row's column layout is unaffected. A field with an f.hint
+               (currently just hourly's rate) gets the same treatment with
+               a p.hint instead — same page-wide hint convention used next
+               to labels elsewhere in this form. */
             if (f.key === 'label') return '<div class="pr-label-wrap">' + input + '<p class="field-err" hidden></p></div>';
+            if (f.hint) return '<div class="pr-label-wrap">' + input + '<p class="hint">' + escHtml(f.hint) + '</p></div>';
             return input;
           }).join('')
         + '</div><p class="pr-preview" aria-live="polite"></p></div>';

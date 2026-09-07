@@ -30,6 +30,16 @@
    null. So every failure path here returns a non-2xx and the visitor sees the
    demo content — never a blank page, never an error. There is no failure mode
    worth breaking a storefront over.
+
+   ── MANIFEST-DRIVEN MERGE ROUTING (Phase A-core, 2026-09-06) ───────────────
+   niches/<slug>/manifest.json (compiled to assets/data/manifests.json) tells
+   this endpoint WHERE an operator's saved prices/photos/reviews/owner fields
+   land for a given niche, instead of every niche being forced through the
+   same hardcoded paths that only ever matched the tiers-pricing, before/after-
+   on-niche, testimonials-everywhere shape. A manifest absent for a niche (the
+   index failed to load, or the niche has no entry yet) means applyOperator
+   falls back to EXACTLY today's hardcoded behavior — that fallback is the
+   regression guard for the rollout, not a re-implementation of it.
    ========================================================================== */
 import { json, preflight, pgSelectOne, SITE_URL, assertConfigured } from './_shared.mjs';
 
@@ -93,8 +103,15 @@ async function handler(request) {
   }
 
   /* No row is the EXPECTED state for a freshly provisioned operator, not an
-     error. They see the demo they were sold until their first save. */
-  const body = op ? applyOperator(defaults, op) : defaults;
+     error. They see the demo they were sold until their first save. There is
+     also nothing to merge-route in that case, so the manifest index is only
+     worth fetching when there is an operator row to lay over the defaults. */
+  let manifest = null;
+  if (op) {
+    const index = await manifestIndex();
+    manifest = (index && index[tenantRow.niche_slug]) || null;
+  }
+  const body = op ? applyOperator(defaults, op, manifest) : defaults;
 
   /* Short shared cache with a longer stale window. An operator who saves and
      refreshes should see the change quickly, and every other visitor should be
@@ -125,16 +142,212 @@ async function nicheDefaults(niche) {
   }
 }
 
+/* Same HTTP-over-fs reasoning as nicheDefaults: assets/data/manifests.json is
+   a built, static artifact (tools/build-manifest-index.js, controller-run),
+   always matching the deployment serving it. Module-level cache with a TTL
+   because the index only changes on deploy — no point re-fetching it on every
+   request for the lifetime of a warm lambda. fetch() is wrapped in
+   Promise.resolve() and everything funnels through one terminal catch: a
+   flaky or slow index must never turn into a 5xx here, only into the legacy
+   fallback path in applyOperator. */
+let manifestCache = { data: null, at: 0 };
+const MANIFEST_TTL_MS = 5 * 60 * 1000;
+
+async function manifestIndex() {
+  const now = Date.now();
+  if (manifestCache.data && (now - manifestCache.at) < MANIFEST_TTL_MS) {
+    return manifestCache.data;
+  }
+  const stop = new AbortController();
+  const timer = setTimeout(function () { stop.abort(); }, 2000);
+  try {
+    const res = await Promise.resolve(
+      fetch(SITE_URL + '/assets/data/manifests.json', { signal: stop.signal }));
+    if (!res.ok) return null;
+    const data = await res.json();
+    manifestCache = { data: data, at: now };
+    return data;
+  } catch (e) {
+    console.error('operator-content: manifest index fetch failed:', e.message);
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/* ── Pricing overlay field maps (manifest-driven path only) ────────────────
+   The admin's saved shape is validator-constrained (sbv_prices_valid, Task 1)
+   to a small fixed key set — label/price_label/per/note/features/unit/rate
+   for the array form, starting_at/note/commission/minimum for the object
+   form — but a niche's OWN pricing rows don't always use those names. Where
+   they line up, the map is the identity; where they don't, the mapping is a
+   deliberate decision, recorded here:
+     - "pricing" (the tiers default most niches use): price_label -> blurb.
+       That is today's convention (a display string, not a machine value) —
+       unchanged by this task.
+     - "plans" (landscaping): label -> tier, price_label -> price ONLY.
+       plans[] rows also carry freq ("Weekly, April - October") and a best
+       flag the admin's tiers editor has no field for; guessing either from a
+       price label would be worse than leaving the demo's copy standing, so
+       this decision leaves both alone.
+     - "niche.flash" (tattoo-studio): label -> title, price_label -> price.
+       The flash board's cards are titled/priced, not labeled/price_labeled.
+     - everything else (niche.crewTiers, niche.walkServices, niche.rates,
+       sizes, pricing.ranges, ...) uses the identity map. Several of these
+       targets already use label/rate/unit directly (moving's crewTiers is
+       exactly {label, rate, unit} among other fields); where a niche's row
+       shape uses names the validator doesn't even allow saving yet, identity
+       is a safe no-op rather than an invented mapping. */
+const ARRAY_FIELD_MAPS = {
+  pricing: { label: 'label', price_label: 'blurb', per: 'per', note: 'note', features: 'features' },
+  plans: { label: 'tier', price_label: 'price' },
+  'niche.flash': { label: 'title', price_label: 'price' },
+};
+const DEFAULT_ARRAY_FIELD_MAP = {
+  label: 'label', price_label: 'price_label', per: 'per', note: 'note',
+  unit: 'unit', rate: 'rate', features: 'features',
+};
+
+/* Resolves a manifest mergePath ("pricing", "plans", "sizes", "niche.X",
+   "pricing.ranges") against base/out. mergePaths in the wild are at most two
+   segments, so this does not attempt a general-purpose deep-path walker.
+   Returns null when the path is unusable against THIS niche's actual content
+   shape (an intermediate segment missing, or not a plain object) — the
+   caller's job is to skip and warn, never to throw or to coerce the shape. */
+function pricingTarget(out, base, mergePath) {
+  const parts = mergePath.split('.');
+  if (parts.length === 1) {
+    const key = parts[0];
+    return { baseVal: base[key], set: function (v) { out[key] = v; } };
+  }
+  const outerKey = parts[0];
+  const innerKey = parts[1];
+  const outerBase = base[outerKey];
+  if (outerBase === null || typeof outerBase !== 'object' || Array.isArray(outerBase)) {
+    return null;
+  }
+  out[outerKey] = Object.assign({}, out[outerKey] || {});
+  return {
+    baseVal: outerBase[innerKey],
+    set: function (v) { out[outerKey][innerKey] = v; },
+  };
+}
+
+/* By-index field-merge for the array pricing shape (tiers/hourly/calculator/
+   flash), mirroring the original pricing-tiers loop: editing one row keeps
+   the rest of that row (and every row past what the operator saved) intact. */
+function overlayArrayByIndex(baseArr, opArr, fieldMap) {
+  return baseArr.map(function (row, i) {
+    const o = opArr[i];
+    if (!o || typeof o !== 'object') return row;
+    const merged = Object.assign({}, row);
+    Object.keys(fieldMap).forEach(function (fromKey) {
+      const toKey = fieldMap[fromKey];
+      const v = o[fromKey];
+      if (fromKey === 'features') {
+        if (Array.isArray(v) && v.length) merged[toKey] = v;
+      } else if (v !== null && v !== undefined && String(v).trim() !== '') {
+        merged[toKey] = v;
+      }
+    });
+    return merged;
+  });
+}
+
+/* Object-shape counterpart to ARRAY_FIELD_MAPS, same bug class it exists
+   for: the admin's quote/percentage editor saves the operator-facing key
+   (sbv_prices_valid's object form — "starting_at" is what an operator
+   means by "starting at", and stays the stored key on the DB/validator
+   side). A niche's own quoterSettings speaks its own dialect — delivery's
+   quote calculator reads its floor as `minimum`, not `starting_at` — so
+   without a rename the operator's edit lands under a key the consumer
+   never reads: a silent no-op (or an orphan key sitting unread next to the
+   real one) exactly like an unmapped ARRAY_FIELD_MAPS entry would be.
+   Only mergePaths that need a rename are listed; every other object
+   mergePath (today, none) falls through unmapped in overlayObjectKeys. */
+const OBJECT_FIELD_MAPS = {
+  'niche.quoterSettings': { starting_at: 'minimum' },
+};
+
+/* Key-merge for the object pricing shape (quote/percentage): whatever the
+   operator saved lands on the target object under fieldMap's renamed key
+   when one is given (CONSUMING the saved key, not duplicating it alongside
+   a mapped copy), or under its own name when fieldMap has no entry for it —
+   those keys are already display-ready strings, no renaming decision needed
+   for the ones that already line up. */
+function overlayObjectKeys(baseObj, opObj, fieldMap) {
+  fieldMap = fieldMap || {};
+  const merged = Object.assign({}, baseObj);
+  Object.keys(opObj).forEach(function (k) {
+    const v = opObj[k];
+    if (v === null || v === undefined || String(v).trim() === '') return;
+    const toKey = fieldMap[k] || k;
+    merged[toKey] = v;
+  });
+  return merged;
+}
+
+/* Routes op.prices to manifest.pricing.mergePath, model-aware: pricing.model
+   decides whether the saved shape SHOULD be an array (tiers/hourly/
+   calculator/flash) or an object (quote/percentage) — matching the two
+   shapes sbv_prices_valid actually allows (Task 1). A saved shape that
+   doesn't match (a legacy tiers array sitting on a niche whose manifest now
+   says "quote", or a mergePath whose own target isn't the shape the manifest
+   claims) is a real possibility during rollout, not a bug to crash on: warn
+   and leave the demo's pricing standing. */
+function overlayPricingManifest(out, base, op, manifest) {
+  const cfg = manifest.pricing || {};
+  const mergePath = cfg.mergePath;
+  if (!mergePath || mergePath === 'none') return;
+  if (op.prices === null || op.prices === undefined) return;
+
+  const target = pricingTarget(out, base, mergePath);
+  if (!target) {
+    console.warn('operator-content: pricing mergePath "' + mergePath +
+      '" has no usable target in this niche\'s content — skipping');
+    return;
+  }
+
+  const wantsObject = cfg.model === 'quote' || cfg.model === 'percentage';
+  const gotArray = Array.isArray(op.prices);
+
+  if (wantsObject) {
+    if (gotArray || target.baseVal === null || typeof target.baseVal !== 'object' ||
+        Array.isArray(target.baseVal)) {
+      console.warn('operator-content: saved prices do not match pricing.model "' +
+        cfg.model + '" for mergePath "' + mergePath + '" — skipping');
+      return;
+    }
+    target.set(overlayObjectKeys(target.baseVal, op.prices, OBJECT_FIELD_MAPS[mergePath]));
+  } else {
+    if (!gotArray || !Array.isArray(target.baseVal)) {
+      console.warn('operator-content: saved prices do not match pricing.model "' +
+        cfg.model + '" for mergePath "' + mergePath + '" — skipping');
+      return;
+    }
+    const fieldMap = ARRAY_FIELD_MAPS[mergePath] || DEFAULT_ARRAY_FIELD_MAP;
+    target.set(overlayArrayByIndex(target.baseVal, op.prices, fieldMap));
+  }
+}
+
 /* Lay the operator's saved fields over the niche defaults.
    Null and empty are SKIPPED rather than written: null in the database means
    "not set", and copying it across would erase a demo value the operator never
    asked to remove. This is what makes the fall-back work field by field rather
-   than all-or-nothing. */
-function applyOperator(base, op) {
+   than all-or-nothing.
+
+   `manifest` is the compiled niches/<slug>/manifest.json entry for this
+   tenant's niche, or null. Null means "behave exactly as before manifests
+   existed" — every hardcoded path below is unchanged from the original,
+   untouched inside the `if (!manifest)` branches, on purpose: that is the
+   regression guard for the whole rollout, not a re-implementation of the
+   old behavior via the new generic machinery. */
+function applyOperator(base, op, manifest) {
   const out = Object.assign({}, base);
   out.brand   = Object.assign({}, base.brand || {});
   out.owner   = Object.assign({}, base.owner || {});
   out.contact = Object.assign({}, base.contact || {});
+  out.niche   = Object.assign({}, base.niche || {});
 
   const set = function (obj, key, val) {
     if (val !== null && val !== undefined && String(val).trim() !== '') obj[key] = val;
@@ -152,31 +365,74 @@ function applyOperator(base, op) {
   set(out.brand, 'leadEmail', op.lead_email);
 
   const ph = (op.photos && typeof op.photos === 'object') ? op.photos : {};
-  out.niche = Object.assign({}, base.niche || {});
-  set(out.niche, 'beforeImg', ph.before);
-  set(out.niche, 'afterImg',  ph.after);
-  set(out.owner, 'photo',     ph.owner);
 
-  /* prices overlay pricing[] BY INDEX, field-by-field: editing one tier's
-     price keeps the demo's feature list. price_label maps onto the template's
-     `blurb` key (display-string convention). */
-  if (Array.isArray(op.prices) && Array.isArray(base.pricing)) {
-    out.pricing = base.pricing.map((tier, i) => {
-      const o = op.prices[i];
-      if (!o) return tier;
-      const merged = Object.assign({}, tier);
-      const setT = (k, v) => { if (v !== null && v !== undefined && String(v).trim() !== '') merged[k] = v; };
-      setT('label', o.label); setT('blurb', o.price_label);
-      setT('per', o.per); setT('note', o.note);
-      if (Array.isArray(o.features) && o.features.length) merged.features = o.features;
-      return merged;
-    });
+  /* ── beforeAfter photos ─────────────────────────────────────────────── */
+  if (!manifest) {
+    set(out.niche, 'beforeImg', ph.before);
+    set(out.niche, 'afterImg',  ph.after);
+  } else {
+    const beforeAfter = manifest.merge && manifest.merge.beforeAfter;
+    if (beforeAfter === 'niche.beforeImg/afterImg') {
+      set(out.niche, 'beforeImg', ph.before);
+      set(out.niche, 'afterImg',  ph.after);
+    } else if (beforeAfter === 'projects[0]') {
+      /* Some niches (contracting) show their before/after as the first
+         signature project rather than a single before/after slot. The page
+         reads CONTENT.projects (top-level) — not niche.projects — so that is
+         the shape mirrored here. Contracting's content.json currently has no
+         top-level projects[] at all (a known demo bug, already ticketed);
+         when that is true there is nothing to overlay onto, so this skips
+         and warns instead of inventing a projects array from nothing. */
+      if (Array.isArray(base.projects) && base.projects.length) {
+        out.projects = base.projects.slice();
+        out.projects[0] = Object.assign({}, out.projects[0]);
+        set(out.projects[0], 'beforeImg', ph.before);
+        set(out.projects[0], 'afterImg',  ph.after);
+      } else {
+        console.warn('operator-content: beforeAfter mergePath "projects[0]" ' +
+          'requested but this niche has no base projects[] — skipping');
+      }
+    }
+    /* "none" (auto-body, dj, and every quote/calculator/flash niche without a
+       before/after slot): no-op by design — there is nothing to merge. */
   }
 
-  /* Reviews overlay the demo's (empty) testimonial cards. author -> name is
-     the template's key. Only a non-empty array overlays: empty means "not
-     set", and the demo's deliberate empty cards stand. */
-  if (Array.isArray(op.reviews) && op.reviews.length) {
+  /* ── owner photo/name/bio ───────────────────────────────────────────── */
+  const ownerShape = manifest ? (manifest.merge && manifest.merge.ownerShape) : 'owner';
+  if (ownerShape !== 'none') {
+    set(out.owner, 'photo', ph.owner);
+  }
+
+  /* ── prices ──────────────────────────────────────────────────────────
+     prices overlay pricing[] BY INDEX, field-by-field: editing one tier's
+     price keeps the demo's feature list. price_label maps onto the template's
+     `blurb` key (display-string convention). This is the legacy, manifest-
+     absent behavior, kept verbatim as the fallback. */
+  if (!manifest) {
+    if (Array.isArray(op.prices) && Array.isArray(base.pricing)) {
+      out.pricing = base.pricing.map((tier, i) => {
+        const o = op.prices[i];
+        if (!o) return tier;
+        const merged = Object.assign({}, tier);
+        const setT = (k, v) => { if (v !== null && v !== undefined && String(v).trim() !== '') merged[k] = v; };
+        setT('label', o.label); setT('blurb', o.price_label);
+        setT('per', o.per); setT('note', o.note);
+        if (Array.isArray(o.features) && o.features.length) merged.features = o.features;
+        return merged;
+      });
+    }
+  } else {
+    overlayPricingManifest(out, base, op, manifest);
+  }
+
+  /* ── reviews ─────────────────────────────────────────────────────────
+     Overlay the demo's (empty) testimonial cards. author -> name is the
+     template's key. Only a non-empty array overlays: empty means "not set",
+     and the demo's deliberate empty cards stand. Manifests can turn this
+     off entirely (merge.reviews === "none") for niches with no reviews
+     section at all — today's behavior always overlaid, unconditionally. */
+  const reviewsOff = manifest && manifest.merge && manifest.merge.reviews === 'none';
+  if (!reviewsOff && Array.isArray(op.reviews) && op.reviews.length) {
     out.testimonials = op.reviews.map(r => ({
       quote: r.quote || '', name: r.author || '', rating: r.rating || null,
     }));
@@ -190,8 +446,10 @@ function applyOperator(base, op) {
   if (op.city && op.state_code) out.brand.city = op.city + ', ' + op.state_code;
   else set(out.brand, 'city', op.city);
 
-  set(out.owner, 'name', op.owner_name);
-  set(out.owner, 'bio',  op.bio);
+  if (ownerShape !== 'none') {
+    set(out.owner, 'name', op.owner_name);
+    set(out.owner, 'bio',  op.bio);
+  }
 
   /* No template renders these yet — content.json has no slot for a street
      address, a postal code, or opening hours, and adding one means editing all
