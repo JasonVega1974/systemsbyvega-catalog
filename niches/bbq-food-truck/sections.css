@@ -164,6 +164,21 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   100%{transform:translate3d(var(--drift,30px),-112vh,0) scale(1.25);opacity:0}
 }
 
+/* the smoker under the smoke (Phase B2 FIX): a real pit in a wide
+   cinematic crop; overrides the shared hero-photo component's 4/5 portrait
+   default. object-position biases the crop toward the meat + smoke and
+   crops the foreground clutter out of frame. */
+.hero__pit{max-width:840px;margin:44px auto 0}
+.hero .hero-photo-cmp{aspect-ratio:16/7;max-height:330px;border-radius:18px;
+  border:1px solid rgba(232,89,12,.35);
+  box-shadow:0 34px 80px -32px rgba(0,0,0,.85)}
+.hero .hero-photo-cmp img{object-position:50% 42%}
+@media(max-width:640px){.hero .hero-photo-cmp{aspect-ratio:16/10}}
+/* smoke stays ABOVE the pit photo: same puffs/embers, same keyframes, one
+   stacking level up so they read as rising off the smoker (they are still
+   pointer-events:none, so nothing under them loses its click). */
+.hero .smokes{z-index:2}
+
 /* charred rim divider under hero */
 .charline{position:absolute;left:0;right:0;bottom:-1px;height:64px;line-height:0;color:var(--ground);z-index:0;pointer-events:none;width:100%}
 

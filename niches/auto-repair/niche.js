@@ -54,9 +54,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     renderSounds(c);
     document.getElementById('soundNote').textContent = c.soundNote || '';
 
-    // pricing
+    // pricing — rows are {label, blurb}: content.json's house shape for
+    // mergePath "pricing" (bin-cleaning convention; the operator-content
+    // endpoint overlays admin saves of price_label onto blurb). This read
+    // used p.range, a key no row ever carried, so the demo rendered blank.
     document.getElementById('priceList').innerHTML = c.pricing.map(function(p){
-      return '<div class="prow"><span class="job">' + esc(p.label) + '</span><span class="dots"></span><span class="rng">' + esc(p.range) + '</span></div>';
+      return '<div class="prow"><span class="job">' + esc(p.label) + '</span><span class="dots"></span><span class="rng">' + esc(p.blurb || '') + '</span></div>';
     }).join('');
     document.getElementById('pricingNote').textContent = c.pricingNote || '';
 

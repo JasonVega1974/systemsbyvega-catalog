@@ -10,6 +10,9 @@
     "logo": ""
   },
   "photoSlots": ["hero"],
+  "heroDefault": "/sites/bbq-food-truck/photos/hero-smoker.jpg",
+  "heroAlt": "Our barrel smoker with the lid up — pork and brisket strips over oak coals, smoke rolling off the grate",
+  "heroWired": true,
   "sections": {
     "pricing": true, "beforeAfter": false, "jobDetails": false,
     "reviews": false, "social": true, "footerContact": false, "ownerBlock": false

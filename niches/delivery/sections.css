@@ -32,7 +32,7 @@ body{background:var(--ground);color:var(--ink);font-family:'Inter Tight',system-
   }
 
   /* ---------- hero ---------- */
-  .hero{padding:84px 0 90px;position:relative;overflow:hidden}
+  .hero{padding:84px 0 64px;position:relative;overflow:hidden}
   /* north-star (dj-site-blue): layered 5-stop atmospheric radials for depth over reflective lane-marking streaks */
   .hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
     background:
@@ -67,6 +67,16 @@ body{background:var(--ground);color:var(--ink);font-family:'Inter Tight',system-
   .ticket .tk-log b{color:var(--ink);font-weight:600}
   .ticket .tk-log .ok{color:var(--accent)}
   @media(max-width:900px){.hero-in{grid-template-columns:1fr}.ticket{order:-1}}
+
+  /* hero-promoted zone-map quoter (Phase B2): the terrain map + live quote
+     IS the hero art now. Markup, ids (#quote, #zoneMap, the pills) and all
+     of niche.js's rAF route/spring wiring are untouched — only placement
+     moved up from the old below-fold #quote section into the hero region. */
+  .hero-quote{position:relative;z-index:1;max-width:var(--maxw);margin:40px auto 0;padding:0 24px}
+  .hero-quote-head{text-align:center;max-width:70ch;margin:0 auto}
+  .hero-quote-head .eyebrow{justify-content:center}
+  .hero-quote-head h2{font-size:clamp(21px,2.8vw,28px);margin:10px 0 10px}
+  .hero-quote-head .stxt{margin:0 auto;font-size:15px}
 
   /* ---------- trust strip ---------- */
   .trust{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--ground-2)}

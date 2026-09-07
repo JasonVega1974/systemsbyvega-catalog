@@ -45,6 +45,16 @@
       <div class="proof"><b>Wood-fired</b><span>Idaho oak, never gas</span></div>
       <div class="proof"><b>1 truck</b><span>Real wood, no shortcuts</span></div>
     </div>
+
+    <!-- The smoker itself (Phase B2 FIX): the hero had smoke with nothing to
+         rise from. Shared hero-photo component — build-site.js stamps the
+         src/alt from manifest heroDefault/heroAlt (photos/hero-smoker.jpg,
+         see photos/CREDITS.md); operators swap it from the hero photo slot
+         in /admin/. The .smokes puffs + embers above keep their animation
+         untouched and now read as rising off this pit. -->
+    <div class="hero__pit">
+      <!-- COMPONENT:hero-photo -->
+    </div>
   </div>
   <svg class="charline" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
     <path fill="currentColor" d="M0,30 C180,58 360,58 540,40 C760,18 980,20 1160,36 C1280,46 1380,44 1440,36 L1440,64 L0,64 Z"/>

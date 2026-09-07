@@ -44,7 +44,7 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
   /* north-star: feTurbulence fractalNoise film grain over the retro field (ref dj-site-blue .grain, line 283) */
   .hero-grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.05;mix-blend-mode:multiply;z-index:0}
   .hero-in{z-index:1}
-  .hero-in{position:relative;max-width:var(--maxw);margin:0 auto;padding:0 24px 84px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .hero-in{position:relative;max-width:var(--maxw);margin:0 auto;padding:0 24px 48px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
   .hero h1{font-size:clamp(36px,5.4vw,58px);font-weight:700;line-height:1.02;letter-spacing:-.015em;max-width:13ch;margin-top:20px}
   .hero h1 .hl{color:var(--accent)}
   .hero p{font-size:clamp(16px,1.8vw,18.5px);color:var(--muted);max-width:50ch;margin-top:20px}
@@ -59,6 +59,13 @@ body{background:var(--ground);color:var(--ink);font-family:'Source Sans 3',syste
   .hero-card .hc-by{margin-top:14px;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);letter-spacing:.02em}
   .checker{height:12px;opacity:.16;background:repeating-conic-gradient(var(--accent-alt) 0 25%,transparent 0 50%) 0 0/12px 12px}
   @media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-card{order:-1}}
+
+  /* hero-promoted garage bay (Phase B2): the rendered bay + spring-lit zones
+     IS the hero art now. Markup, ids and the niche.js spring loop are
+     untouched — only placement moved up from #sounds into the hero region.
+     The sound pills below still light it up; the caption says so. */
+  .hero-stage{position:relative;z-index:1;max-width:var(--maxw);margin:0 auto;padding:0 24px 72px}
+  .hero-stage .car-stage{margin:0 auto;max-width:900px}
 
   /* ---------- trust strip ---------- */
   .trust{border-bottom:3px double var(--hair);background:var(--ground-2)}
