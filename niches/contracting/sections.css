@@ -122,16 +122,18 @@ input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus
 .proof span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
 
-/* badge showpiece — S&S ridge-line emblem */
+/* hero photo card — replaced the S&S emblem showpiece (Phase B photo hero).
+   The .hero-emblem float rules died with the emblem; frame, Ken Burns zoom
+   and reduced-motion live in the shared hero-photo.css, and only this
+   niche's amber ring dress lives here. The halo still backs the card. */
 .hero__badge{position:relative;display:flex;justify-content:center}
 .hero__badge .halo{
   position:absolute;inset:-4% -4% 8%;border-radius:50%;
   background:radial-gradient(closest-side, rgba(245,166,35,.30), rgba(245,166,35,.08) 55%, transparent 72%);
   filter:blur(6px);animation:pulse 5s ease-in-out infinite;z-index:0;
 }
-.hero-emblem{position:relative;z-index:1;width:min(400px,82%);aspect-ratio:1;margin-inline:auto;
-  filter:drop-shadow(0 30px 50px rgba(0,0,0,.65));animation:float 6s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero .hero-photo-cmp{border:1px solid rgba(245,166,35,.32);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.7), 0 0 0 6px rgba(245,166,35,.07)}
 @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 
 /* rising grinder sparks in hero */

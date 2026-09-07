@@ -23,5 +23,8 @@
     "beforeAfter": "none",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/painting/photos/hero-roller.jpg",
+  "heroAlt": "A painter's hand rolling deep green paint onto a wall under a crisp taped cut line",
+  "heroWired": true
 }

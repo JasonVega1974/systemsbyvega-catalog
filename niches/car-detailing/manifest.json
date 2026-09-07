@@ -23,5 +23,8 @@
     "beforeAfter": "niche.beforeImg/afterImg",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/car-detailing/photos/hero-polish.jpg",
+  "heroAlt": "A gloved hand guiding an orbital polisher across a freshly washed black hood",
+  "heroWired": true
 }

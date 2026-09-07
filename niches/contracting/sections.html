@@ -42,24 +42,17 @@
       </div>
       <div class="hero__badge">
         <div class="halo" aria-hidden="true"></div>
-        <svg class="hero-emblem" viewBox="0 0 200 200" role="img" aria-label="Summit &amp; Stone Contracting emblem — mountain ridge over a foundation line">
-          <defs>
-            <linearGradient id="emAmber" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#ffbe45"/><stop offset="1" stop-color="#b46f0d"/>
-            </linearGradient>
-            <linearGradient id="emStone" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#dde1e4"/><stop offset="1" stop-color="#8d939a"/>
-            </linearGradient>
-          </defs>
-          <circle cx="100" cy="100" r="92" fill="rgba(36,28,16,.7)" stroke="rgba(245,166,35,.4)" stroke-width="2"/>
-          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(245,166,35,.18)" stroke-width="1" stroke-dasharray="4 6"/>
-          <path d="M30 128 L72 72 L92 96 L118 56 L170 128 Z" fill="url(#emStone)" opacity=".9"/>
-          <path d="M46 128 L84 128 L65 103 Z" fill="url(#emAmber)"/>
-          <path d="M118 56 L134 78 L124 78 L112 64 Z" fill="var(--ink-max)" opacity=".8"/>
-          <rect x="34" y="134" width="132" height="7" rx="3.5" fill="url(#emAmber)"/>
-          <rect x="48" y="147" width="104" height="4" rx="2" fill="rgba(245,166,35,.35)"/>
-          <text x="100" y="171" text-anchor="middle" font-family="'Big Shoulders Display','Arial Black',sans-serif" font-weight="800" font-size="15" letter-spacing="4" fill="#f5efe3">SUMMIT &amp; STONE</text>
-        </svg>
+        <!-- Real photography replaced the S&S emblem-as-hero (design upgrade,
+             Phase B): a logo is a brand mark, not hero art. The ridge-line
+             monogram in the nav and footer keeps carrying the brand; the
+             amber halo stays behind the photo card, and the drifting-emblem
+             float animation retired with the emblem.
+
+             Hero art goes through the shared hero-photo component: it prefers
+             an operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-framing.jpg) otherwise.
+             Credit: D Goug, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
       </div>
     </div>
   </div>

@@ -383,20 +383,29 @@ function applyOperator(base, op, manifest) {
       set(out.niche, 'afterImg',  ph.after);
     } else if (beforeAfter === 'projects[0]') {
       /* Some niches (contracting) show their before/after as the first
-         signature project rather than a single before/after slot. The page
-         reads CONTENT.projects (top-level) — not niche.projects — so that is
-         the shape mirrored here. Contracting's content.json currently has no
-         top-level projects[] at all (a known demo bug, already ticketed);
-         when that is true there is nothing to overlay onto, so this skips
-         and warns instead of inventing a projects array from nothing. */
-      if (Array.isArray(base.projects) && base.projects.length) {
-        out.projects = base.projects.slice();
-        out.projects[0] = Object.assign({}, out.projects[0]);
-        set(out.projects[0], 'beforeImg', ph.before);
-        set(out.projects[0], 'afterImg',  ph.after);
+         signature project rather than a single before/after slot. The PAGE
+         reads CONTENT.projects — but only after base.js's SLflat() has
+         flattened c.niche onto the top level, so in the RAW json this array
+         can live at either projects or niche.projects (contracting nests
+         it; Phase B W3 authored its demo data there). Overlay onto
+         whichever one exists and write back to the SAME spot, so the
+         client-side flatten keeps resolving it. Neither present -> skip
+         and warn rather than inventing a projects array from nothing. */
+      const topProjects = Array.isArray(base.projects) && base.projects.length
+        ? base.projects : null;
+      const nestedProjects = !topProjects && base.niche
+        && Array.isArray(base.niche.projects) && base.niche.projects.length
+        ? base.niche.projects : null;
+      if (topProjects || nestedProjects) {
+        const arr = (topProjects || nestedProjects).slice();
+        arr[0] = Object.assign({}, arr[0]);
+        set(arr[0], 'beforeImg', ph.before);
+        set(arr[0], 'afterImg',  ph.after);
+        if (topProjects) out.projects = arr;
+        else set(out.niche, 'projects', arr);
       } else {
         console.warn('operator-content: beforeAfter mergePath "projects[0]" ' +
-          'requested but this niche has no base projects[] — skipping');
+          'requested but this niche has no projects[] at either level — skipping');
       }
     }
     /* "none" (auto-body, dj, and every quote/calculator/flash niche without a

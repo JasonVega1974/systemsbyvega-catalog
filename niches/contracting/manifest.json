@@ -23,5 +23,8 @@
     "beforeAfter": "projects[0]",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/contracting/photos/hero-framing.jpg",
+  "heroAlt": "Fresh lumber framing of a new house going up under a clear sky",
+  "heroWired": true
 }

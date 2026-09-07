@@ -111,9 +111,12 @@ body::after{
 .hero__art .halo{position:absolute;inset:2% -8% 8%;border-radius:50%;
   background:radial-gradient(closest-side, rgba(45,212,206,.22), rgba(45,212,206,.06) 55%, transparent 72%);
   filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0}
-.hero__art svg{position:relative;z-index:1;width:min(540px,96%);height:auto;
-  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+/* The `.hero__art svg` float rules died with the teal-outline car
+   illustration (Phase B photo hero) — frame, Ken Burns zoom and
+   reduced-motion live in the shared hero-photo.css; only this niche's
+   teal ring dress lives here. The halo above still backs the card. */
+.hero .hero-photo-cmp{border:1px solid rgba(45,212,206,.28);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.65), 0 0 0 6px rgba(45,212,206,.06)}
 @keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
 .mote{position:absolute;bottom:-4%;width:4px;height:4px;border-radius:50%;
   background:radial-gradient(circle,rgba(92,232,226,.95),rgba(92,232,226,0) 70%);

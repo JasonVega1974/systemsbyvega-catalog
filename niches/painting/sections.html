@@ -42,22 +42,19 @@
           <div class="proof"><b>Local</b><span>Owned &amp; operated</span></div>
         </div>
       </div>
-      <div class="hero__art" aria-hidden="true">
-        <div class="halo"></div>
-        <svg viewBox="0 0 520 380" fill="none" role="img" aria-label="Illustration: a paint roller and tray beside a wall mid-repaint">
-          <circle cx="418" cy="66" r="20" fill="#DE9880" fill-opacity=".7"/>
-          <circle cx="418" cy="66" r="32" stroke="#DE9880" stroke-opacity=".22" stroke-width="2"/>
-          <rect x="40" y="60" width="440" height="260" rx="10" fill="#332C25" fill-opacity=".55"/>
-          <rect x="40" y="60" width="220" height="260" rx="10" fill="#4A3F35" fill-opacity=".7"/>
-          <rect x="252" y="60" width="20" height="260" fill="#C97B63" fill-opacity=".9"/>
-          <rect x="90" y="120" width="120" height="150" rx="6" fill="#221E1A" fill-opacity=".4"/>
-          <rect x="300" y="150" width="140" height="24" rx="4" fill="#8F4E3B" fill-opacity=".6"/>
-          <rect x="300" y="184" width="100" height="24" rx="4" fill="#DE9880" fill-opacity=".55"/>
-          <rect x="120" y="300" width="60" height="20" rx="4" fill="#221E1A"/>
-          <path d="M150 300 L150 340" stroke="#221E1A" stroke-width="6" stroke-linecap="round"/>
-          <path d="M150 340 C 200 322 250 330 290 300" stroke="#F4EDE3" stroke-width="5" fill="none" stroke-linecap="round"/>
-          <rect x="20" y="358" width="480" height="2" fill="#F4EDE3" fill-opacity=".18"/>
-        </svg>
+      <div class="hero__art">
+        <div class="halo" aria-hidden="true"></div>
+        <!-- Real photography replaced the flat wall/roller clip-art and its
+             float animation (design upgrade, Phase B) -- the float was
+             byte-identical to electrician's, and this SVG carried the
+             inventory's x="20 " source typo; both retired with it. The halo
+             stays behind the card, as on landscaping.
+
+             Hero art goes through the shared hero-photo component: it prefers
+             an operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-roller.jpg) otherwise.
+             Credit: Ksenia Chernaya, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
       </div>
     </div>
   </div>
