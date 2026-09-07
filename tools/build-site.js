@@ -329,7 +329,15 @@ const DEMO_BANNER = `<div id="svDemoBanner" role="note" aria-label="Demo site no
 /* ---- assemble ---------------------------------------------------------- */
 const subs = {
   SLUG: slug,
-  ROBOTS: isDemo ? '<meta name="robots" content="noindex">' : '',
+  /* Robots moved from baked meta to HTTP headers (Phase B). One artifact
+     serves two surfaces — the demo page on systemsbyvega.com AND every
+     tenant subdomain via the middleware rewrite — and a baked noindex meta
+     always wins Google's most-restrictive-signal tiebreak, which kept live
+     tenants unindexable no matter what X-Robots-Tag said. Now: vercel.json
+     sends `noindex` for /sites/(.*) on the DEMO hosts (host-conditioned),
+     middleware sends all|noindex per tenant, and the body stays silent.
+     A buyer's clone build never carried the meta anyway. */
+  ROBOTS: '',
   DEMO_BANNER: isDemo ? DEMO_BANNER : '',
   SEO_TITLE: seo.title,
   SEO_DESCRIPTION: seo.description,

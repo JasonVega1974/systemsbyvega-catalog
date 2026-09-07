@@ -45,6 +45,21 @@
   ],
   "headers": [
     {
+      "source": "/sites/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(www\\.)?systemsbyvega\\.com"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
