@@ -1,0 +1,154 @@
+{
+  "brand": {
+    "name": "Magpie & Mantel Estate Sales",
+    "tagline": "The whole house, handled with care.",
+    "phone": "(208) 555-0127",
+    "email": "hello@kestrelandkey.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Twin Falls",
+    "state": "ID"
+  },
+  "owner": {
+    "name": "Rowan Ashby",
+    "heading": "The person who walks the house with you",
+    "bio": "Rowan Ashby grew up working weekend auctions and learned early that every box in a garage has a story attached. After years of helping neighbors downsize, Rowan turned that knack into a company — one built on the idea that a family should never have to price a lifetime of belongings while they're still saying goodbye to it. Rowan still leads every walkthrough personally, from the first look at the house to the final broom-clean handoff.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Magic Valley, Idaho",
+    "short": "Magic Valley",
+    "cities": [
+      "Twin Falls",
+      "Jerome",
+      "Kimberly",
+      "Filer",
+      "Buhl",
+      "Hansen"
+    ]
+  },
+  "testimonials": [],
+  "pricing": {
+    "commission": "35%",
+    "minimum": "$1,500",
+    "note": "We staff, stage, price and run the whole sale — 35% of sales with a $1,500 minimum, nothing up front."
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Estate sales · Downsizing · Clean-outs",
+      "title": "When it's time to let the house go, you shouldn't have to do it alone.",
+      "subtitle": "Magpie & Mantel runs full-service estate sales across Twin Falls and the Magic Valley. We walk the house with you, stage and price what's inside, run the sale weekend, and hand back a broom-clean home.",
+      "ctaPrimary": "Book a free walkthrough",
+      "ctaSecondary": "See how it works"
+    },
+    "about": {
+      "heading": "A house full of things is a house full of decisions",
+      "body": "Most families call us in one of three seasons: a passing, a move, or a long-overdue downsize. Whichever brought you here, the job is the same — treat the household with respect, research and price things honestly, and leave you with an empty, swept house and an itemized accounting of everything that sold. You keep what matters. We handle the rest."
+    },
+    "howItWorks": [
+      {
+        "title": "Walk & assess",
+        "desc": "We tour the house with you, room by room, and flag anything the family wants to keep. The walkthrough is free, and there's no pressure to book."
+      },
+      {
+        "title": "Stage & price",
+        "desc": "Our crew sorts, stages and tags every room — tables up, cabinets opened, and each item researched and priced against real estate-sale comparables."
+      },
+      {
+        "title": "Sale weekend",
+        "desc": "We run the sale from open to close: signage, crowd flow, checkout, and half-price hours at the end. You don't need to be there — many families prefer not to be."
+      },
+      {
+        "title": "Broom-clean handoff",
+        "desc": "Whatever remains is donated or hauled away by arrangement. Then we hand back a swept, empty house along with an itemized settlement sheet."
+      }
+    ],
+    "whatSells": [
+      {
+        "cat": "Furniture",
+        "item": "Mid-century teak credenza",
+        "range": "$400–$1,500",
+        "note": "Danish maker stamps push the high end; a refinish usually lowers it."
+      },
+      {
+        "cat": "Furniture",
+        "item": "Solid-wood dining set, table + six chairs",
+        "range": "$200–$800",
+        "note": "Solid walnut or oak leads the range; veneer over particle board trails it."
+      },
+      {
+        "cat": "Jewelry & Watches",
+        "item": "14k gold jewelry (priced per gram)",
+        "range": "$55–$70",
+        "note": "Weighed and priced against the day's spot price — never below melt."
+      },
+      {
+        "cat": "Jewelry & Watches",
+        "item": "Signed vintage costume jewelry (per piece)",
+        "range": "$25–$300",
+        "note": "Signed pieces only — unsigned costume sells by the bagful on the final day."
+      },
+      {
+        "cat": "China & Glassware",
+        "item": "Complete fine-china service for eight",
+        "range": "$75–$400",
+        "note": "Pattern is everything; partial sets get priced to clear."
+      },
+      {
+        "cat": "China & Glassware",
+        "item": "Patterned mid-century kitchen glass (per piece)",
+        "range": "$10–$75",
+        "note": "Rare patterns beat the range; chips and dishwasher haze sink it."
+      },
+      {
+        "cat": "Kitchen",
+        "item": "Cast-iron skillet, early smooth-milled",
+        "range": "$40–$300",
+        "note": "Pre-1960 smooth-bottom pans lead the range; modern rough-cast cooks just as well but sells low."
+      },
+      {
+        "cat": "Tools & Shop",
+        "item": "Professional cordless power tools (each)",
+        "range": "$60–$300",
+        "note": "Battery and charger included makes the price — bare tools bring about half."
+      },
+      {
+        "cat": "Tools & Shop",
+        "item": "Rolling tool chest, professional line",
+        "range": "$200–$800",
+        "note": "Well-kept pro boxes hold their value; loaded drawers sell the box."
+      },
+      {
+        "cat": "Art & Prints",
+        "item": "Original oil painting, listed artist",
+        "range": "$200–$5,000",
+        "note": "Every signature gets researched before the sale — regional artists surprise people."
+      },
+      {
+        "cat": "Electronics & Audio",
+        "item": "1970s silver-face stereo receiver",
+        "range": "$75–$500",
+        "note": "The watts-per-channel monsters draw collectors from three counties."
+      },
+      {
+        "cat": "Books & Media",
+        "item": "Collectible vinyl pressings (each)",
+        "range": "$10–$100",
+        "note": "Originals and first pressings get pulled and priced singly; the rest fill the dollar bins."
+      }
+    ],
+    "whatSellsNote": "Ranges reflect typical estate-sale pricing for well-kept examples. Every estate is different, and no range here is a promise of what any particular item will bring."
+  },
+  "seo": {
+    "title": "Kestrel &amp; Key Estate Sales — Estate Sales &amp; Clean-Outs | Twin Falls, ID",
+    "description": "Full-service estate sales in Twin Falls and the Magic Valley. We assess, stage, price and run the sale weekend, then hand back a broom-clean home. Free walkthroughs — call or text (208) 555-0127.",
+    "ogTitle": "Kestrel &amp; Key Estate Sales — The whole house, handled with care.",
+    "ogDescription": "Estate sales, downsizing and clean-outs across Twin Falls and the Magic Valley, Idaho. Free walkthroughs: (208) 555-0127.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/estate-sale/",
+    "themeColor": "#0E2A26",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/estate-sale/og.png"
+  }
+}
