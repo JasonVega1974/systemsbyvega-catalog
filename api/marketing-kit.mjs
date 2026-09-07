@@ -539,8 +539,17 @@ async function handler(request) {
     // ── 8. Public URLs back to the caller ────────────────────────────────
     return json({ ok: true, files: files });
   } catch (e) {
-    // Terminal catch: log the detail server-side, leak nothing to the caller.
+    // Terminal catch: log the detail server-side. The response carries a
+    // SANITIZED one-line reason — the caller is already authenticated (every
+    // path to here is behind the sbv_client_users gate), filesystem paths
+    // and anything after a newline are stripped, and the admin shows the
+    // code verbatim, which is what makes a field failure diagnosable
+    // without log access.
     console.error('marketing-kit: render failed:', e && e.message);
-    return json({ ok: false, error: 'render_failed' }, 500);
+    const reason = String((e && e.message) || 'unknown')
+      .split('\n')[0]
+      .replace(/[\\/][^\s]*/g, '')
+      .slice(0, 140);
+    return json({ ok: false, error: 'render_failed: ' + reason }, 500);
   }
 }
