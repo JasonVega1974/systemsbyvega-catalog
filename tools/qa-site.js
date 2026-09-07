@@ -147,10 +147,25 @@ if (content) {
          'absent in the source; not invented (D-Q)');
   }
 
-  // leadEmail is fixed
-  (content.brand || {}).leadEmail === 'info@kingdom-creatives.com'
-    ? ok('leadEmail is info@kingdom-creatives.com')
-    : bad('leadEmail is info@kingdom-creatives.com', 'found: ' + (content.brand || {}).leadEmail);
+  // leadEmail is fixed, EXCEPT for a manifest-flagged real-brand niche
+  // (bin-cleaning): that operator's leads route to their own domain, not
+  // Kingdom Creatives, and that is documented and intentional (Task 8),
+  // not an oversight this check should keep failing on forever. Read
+  // defensively, same as the mergePath read below: an unparsable/missing
+  // manifest must not corrupt this independent QA pass.
+  let realBrand = false;
+  try {
+    const mPath = path.join(SRC, 'manifest.json');
+    if (fs.existsSync(mPath)) realBrand = JSON.parse(fs.readFileSync(mPath, 'utf8')).realBrand === true;
+  } catch (e) { /* validate-manifest.js is the authority on manifest validity */ }
+
+  if (realBrand) {
+    ok('leadEmail is info@kingdom-creatives.com', 'ok (real-brand niche, documented exception)');
+  } else {
+    (content.brand || {}).leadEmail === 'info@kingdom-creatives.com'
+      ? ok('leadEmail is info@kingdom-creatives.com')
+      : bad('leadEmail is info@kingdom-creatives.com', 'found: ' + (content.brand || {}).leadEmail);
+  }
 
   // Retired field names. `best` and `featured` are only retired as the
   // highlight FLAG on a pricing tier — a niche may legitimately have a `best`

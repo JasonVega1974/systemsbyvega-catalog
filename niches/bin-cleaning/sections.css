@@ -164,7 +164,7 @@
 /* base.css's :empty placeholder is Sawtooth's own copy (its comment says so
    plainly); override with this niche's, same pattern (italic, muted). */
 .owner__desc:empty::before{
-  content:"Short description of Micah goes here — his story, why he started Prime Bin Cleaning, what he loves about the work. Replace this placeholder with the real thing.";
+  content:"Short description of the owner goes here — their story, why they started the business, what they love about the work. Replace this placeholder with the real thing.";
   color:var(--muted);opacity:.7;font-style:italic;display:block}
 
 /* =========================================================

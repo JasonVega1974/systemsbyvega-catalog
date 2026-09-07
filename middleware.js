@@ -45,47 +45,89 @@ const LABEL = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 /* Per-instance and best-effort. Every visitor to every operator's home page
    hits this lookup, and the answer changes roughly once per sale, so a short
    TTL turns thousands of identical reads into one. A cold instance just misses;
-   nothing depends on the cache being warm or shared. */
+   nothing depends on the cache being warm or shared. Each entry now carries
+   BOTH answers this file needs about a label — niche and hasContent — so a
+   home-page visit costs one cache slot and one 1.5s budget, not two. */
 const TTL_MS = 60000;
 const cache = new Map();
 
 async function nicheFor(label) {
   const hit = cache.get(label);
-  if (hit && hit.at + TTL_MS > Date.now()) return hit.niche;
+  if (hit && hit.at + TTL_MS > Date.now()) return hit;
 
-  /* Hard 1.5s ceiling. This sits in front of every tenant home page, so a slow
-     database has to degrade to the funnel rather than hold the request open. */
+  /* Hard 1.5s ceiling, shared by both requests below (they run concurrently,
+     so one budget covers both). This sits in front of every tenant home page,
+     so a slow database has to degrade to the funnel rather than hold the
+     request open. */
   const stop = new AbortController();
   const timer = setTimeout(function () { stop.abort(); }, 1500);
+  const authHeaders = { apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON };
 
   try {
     /* sbv_public_tenants() is SECURITY DEFINER, already granted to anon, and
        already returns exactly client_id / niche_slug / business_name for active
        tenants. It is `stable`, which is what lets PostgREST serve it over GET
-       and filter the result set. No new SQL was needed for routing. */
-    const res = await fetch(
-      SUPABASE_URL + '/rest/v1/rpc/sbv_public_tenants'
-        + '?client_id=eq.' + encodeURIComponent(label)
-        + '&select=niche_slug&limit=1',
-      {
-        headers: { apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON },
-        signal: stop.signal,
-      }
-    );
-    if (!res.ok) return null;
+       and filter the result set. No new SQL was needed for routing.
 
-    const rows = await res.json();
+       sbv_public_has_content(text) is the SAME pattern (SECURITY DEFINER,
+       `stable`, anon-granted) added by sql/HAS-CONTENT.sql — see that file's
+       header for why it exists and why the alternatives (extending
+       sbv_public_tenants, calling /api/operator-content, or querying
+       sbv_operator_content directly with the anon key) were rejected. It
+       answers nothing except "does this client_id have a saved row",
+       nothing about the row's contents. Until that SQL is applied, this call
+       fails (function not found) and hasContent falls back to false below —
+       every tenant just keeps today's noindex behavior, so JS can ship ahead
+       of SQL without breaking anything; it simply grants nobody `all` yet. */
+    const [nicheRes, contentRes] = await Promise.allSettled([
+      fetch(
+        SUPABASE_URL + '/rest/v1/rpc/sbv_public_tenants'
+          + '?client_id=eq.' + encodeURIComponent(label)
+          + '&select=niche_slug&limit=1',
+        { headers: authHeaders, signal: stop.signal }
+      ),
+      fetch(
+        SUPABASE_URL + '/rest/v1/rpc/sbv_public_has_content'
+          + '?p_client_id=' + encodeURIComponent(label),
+        { headers: authHeaders, signal: stop.signal }
+      ),
+    ]);
+
+    /* The niche lookup keeps its original fail-OPEN behavior exactly: a
+       rejected/aborted/non-2xx response returns uncached, so the caller falls
+       through to the funnel and the NEXT request gets a fresh try rather than
+       being stuck behind a bad cache entry. This is the routing-critical
+       answer — nothing here should make it worse than before this task. */
+    if (nicheRes.status !== 'fulfilled' || !nicheRes.value.ok) return { niche: null, hasContent: false };
+
+    const rows = await nicheRes.value.json();
     const niche = (Array.isArray(rows) && rows.length) ? rows[0].niche_slug : null;
 
-    /* Cached either way. A miss is a real answer — an unknown or deactivated
-       subdomain — and re-asking on every request would make a mistyped hostname
-       the most expensive traffic on the site. */
-    cache.set(label, { niche: niche, at: Date.now() });
-    return niche;
+    /* hasContent fails CLOSED, on purpose, and independently of the niche
+       result above: any missing function, timeout, non-2xx, or malformed body
+       leaves it false, i.e. noindex — the conservative default the spec
+       calls for, never "all" on an unknown answer. */
+    let hasContent = false;
+    if (contentRes.status === 'fulfilled' && contentRes.value.ok) {
+      try {
+        const val = await contentRes.value.json();
+        hasContent = val === true;
+      } catch (e) { /* malformed body — stays false */ }
+    }
+
+    /* Cached either way. A niche miss is a real answer — an unknown or
+       deactivated subdomain — and re-asking on every request would make a
+       mistyped hostname the most expensive traffic on the site. Same logic
+       covers hasContent: a transient failure is cached as noindex for one TTL
+       window rather than retried on every request. */
+    const result = { niche: niche, hasContent: hasContent };
+    cache.set(label, { niche: result.niche, hasContent: result.hasContent, at: Date.now() });
+    return result;
   } catch (e) {
-    /* Fail open. The caller falls through to the funnel, which is a far better
-       failure for a real visitor than a 500. */
-    return null;
+    /* Fail open on the niche (caller falls through to the funnel, a far
+       better failure for a real visitor than a 500) and closed on
+       hasContent (noindex), uncached either way so the next request retries. */
+    return { niche: null, hasContent: false };
   } finally {
     clearTimeout(timer);
   }
@@ -117,7 +159,7 @@ export default async function middleware(request) {
     return rewrite(new URL('/api/operator-content?tenant=' + label, request.url));
   }
 
-  const niche = await nicheFor(label);
+  const { niche, hasContent } = await nicheFor(label);
 
   /* NO DEFAULT TENANT, EVER. An unresolved hostname shows the funnel; it must
      never fall back to some other operator's storefront. */
@@ -126,8 +168,21 @@ export default async function middleware(request) {
   /* The headers are for reading routing decisions with `curl -I`, nothing more.
      The page itself cannot see them — a document's own response headers are not
      exposed to its JavaScript — so the storefront resolves its tenant from
-     location.hostname instead. */
+     location.hostname instead.
+
+     X-Robots-Tag overrides the `--demo` build's baked
+     <meta name="robots" content="noindex"> — headers win over body meta per
+     the robots spec, and only a header CAN win here because middleware never
+     touches the static HTML it rewrites to. `all` only when hasContent says
+     this tenant has a saved sbv_operator_content row (a proxy for "went live
+     deliberately"); every other case — no row, lookup failure, RPC not yet
+     deployed — stays `noindex`. See sql/HAS-CONTENT.sql and nicheFor() above
+     for how hasContent is resolved and why it fails closed. */
   return rewrite(new URL('/sites/' + niche + '/', request.url), {
-    headers: { 'x-niche-slug': niche, 'x-tenant': label },
+    headers: {
+      'x-niche-slug': niche,
+      'x-tenant': label,
+      'X-Robots-Tag': hasContent ? 'all' : 'noindex',
+    },
   });
 }
