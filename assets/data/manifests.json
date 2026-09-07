@@ -604,6 +604,53 @@
     },
     "heroWired": true
   },
+  "estate-sale": {
+    "theme": {
+      "ground": "#0C1614",
+      "surface": "#12211D",
+      "card": "#1A2E28",
+      "accent": "#C89A3F",
+      "accentBright": "#E3B95F",
+      "text": "#F2EDE0",
+      "textSoft": "#AEBDB4",
+      "ok": "#6FCF9F",
+      "bad": "#E0616B",
+      "onAccent": "#20160A",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap",
+      "display": "'Fraunces',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Karla',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "percentage",
+      "editableFields": [
+        "commission",
+        "minimum"
+      ],
+      "mergePath": "pricing"
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
+  },
   "hvac": {
     "theme": {
       "ground": "#F2F7FB",
