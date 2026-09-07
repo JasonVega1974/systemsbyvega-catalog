@@ -34,7 +34,8 @@
     },
     "pricing": {
       "model": "none",
-      "editableFields": []
+      "editableFields": [],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "niche.beforeImg/afterImg",
@@ -79,7 +80,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -123,7 +125,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -170,7 +173,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "niche.beforeImg/afterImg",
@@ -217,7 +221,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "niche.beforeImg/afterImg",
@@ -262,7 +267,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -307,7 +313,8 @@
         "base",
         "perExtraKid",
         "weekendBump"
-      ]
+      ],
+      "mergePath": "niche.rates"
     },
     "merge": {
       "beforeAfter": "none",
@@ -354,7 +361,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "projects[0]",
@@ -398,7 +406,8 @@
       "editableFields": [
         "minimum",
         "note"
-      ]
+      ],
+      "mergePath": "niche.quoterSettings"
     },
     "merge": {
       "beforeAfter": "none",
@@ -438,7 +447,8 @@
     },
     "pricing": {
       "model": "none",
-      "editableFields": []
+      "editableFields": [],
+      "mergePath": "none"
     },
     "merge": {
       "beforeAfter": "none",
@@ -484,7 +494,8 @@
         "rate20",
         "rate30",
         "rate45"
-      ]
+      ],
+      "mergePath": "niche.walkServices"
     },
     "merge": {
       "beforeAfter": "none",
@@ -532,7 +543,8 @@
         "loads",
         "best",
         "note"
-      ]
+      ],
+      "mergePath": "sizes"
     },
     "merge": {
       "beforeAfter": "none",
@@ -576,7 +588,8 @@
       "editableFields": [
         "label",
         "range"
-      ]
+      ],
+      "mergePath": "pricing.ranges"
     },
     "merge": {
       "beforeAfter": "none",
@@ -621,7 +634,8 @@
         "label",
         "price",
         "per"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -666,7 +680,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "plans"
     },
     "merge": {
       "beforeAfter": "none",
@@ -707,7 +722,8 @@
     },
     "pricing": {
       "model": "quote",
-      "editableFields": []
+      "editableFields": [],
+      "mergePath": "none"
     },
     "merge": {
       "beforeAfter": "none",
@@ -752,7 +768,8 @@
         "label",
         "rate",
         "unit"
-      ]
+      ],
+      "mergePath": "niche.crewTiers"
     },
     "merge": {
       "beforeAfter": "none",
@@ -799,7 +816,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -844,7 +862,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -889,7 +908,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -936,7 +956,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -981,7 +1002,8 @@
         "label",
         "price_label",
         "note"
-      ]
+      ],
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
@@ -1025,7 +1047,8 @@
       "editableFields": [
         "label",
         "price_label"
-      ]
+      ],
+      "mergePath": "niche.flash"
     },
     "merge": {
       "beforeAfter": "none",

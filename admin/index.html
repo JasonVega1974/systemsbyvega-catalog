@@ -9,8 +9,9 @@
   /* Theme tokens. DEFAULTS below reproduce the pre-theme neutral look exactly.
      applyTheme() overwrites these on :root once a tenant's niche_slug is known;
      an unmapped niche leaves every default untouched. --adm-hair, --green,
-     --red and --shadow are deliberately NOT part of the theme map (THEMES has
-     no such keys) so borders and status colors stay legible on any palette. */
+     --red and --shadow are deliberately NOT part of the theme map (the
+     manifest index's theme objects have no such keys) so borders and status
+     colors stay legible on any palette. */
   :root{
     --adm-ground:#F1F4F8; --adm-panel:#FFFFFF; --adm-card:#FFFFFF;
     --adm-accent:#C9620C; --adm-accent-2:#E8791B;
@@ -90,6 +91,10 @@
      reads correctly against both the light default and the dark bin-cleaning
      theme without a second theme-aware color to maintain. */
   .up.dragover{border-color:var(--adm-accent-2);border-style:solid}
+  /* Slot not yet in the DB validator's closed set (a future slot type). Rendered so operators see
+     the zone exists, but disabled: uploading here would 400 at Save. */
+  .up[data-disabled] input[type=file]{cursor:not-allowed;opacity:.5}
+  .up[data-disabled] .up-msg{color:var(--adm-ink-soft)}
   .up-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:8px 0 4px}
   .up-actions button{font:inherit;font-size:13px;padding:8px 12px;border-radius:7px;
     border:1px solid var(--adm-hair);background:var(--adm-card);color:var(--adm-ink);
@@ -98,7 +103,8 @@
   .pr-card{border:1px solid var(--adm-hair);border-radius:10px;padding:14px;margin-bottom:12px}
   .pr-card .pr-row{margin-bottom:0}
   .pr-row{display:grid;grid-template-columns:1.2fr .7fr 1.4fr;gap:10px}
-  @media(max-width:480px){.pr-row{grid-template-columns:1fr}}
+  .pr-row.pr-row-2{grid-template-columns:1.2fr 1fr}
+  @media(max-width:480px){.pr-row,.pr-row.pr-row-2{grid-template-columns:1fr}}
   .pr-preview{margin:10px 0 0;font-size:13px;font-weight:600;color:var(--adm-ink-soft)}
 
   .helper-text{font-size:13.5px;color:var(--adm-ink-soft);margin:0 0 16px;line-height:1.5}
@@ -267,78 +273,60 @@
 
     <section class="card" id="sec-photos">
       <p class="sec-h">Photos</p>
-      <div class="up-grid">
-        <div class="up" data-slot="logo">
-          <span>Logo</span><img alt="" hidden>
-          <input type="file" accept="image/jpeg,image/png,image/webp">
-          <div class="up-actions" hidden>
-            <button type="button" class="up-replace">Replace</button>
-            <button type="button" class="up-remove">Remove</button>
-          </div>
-          <p class="up-msg"></p>
-        </div>
-        <div class="up" data-slot="before">
-          <span>Before photo</span><img alt="" hidden>
-          <input type="file" accept="image/jpeg,image/png,image/webp">
-          <div class="up-actions" hidden>
-            <button type="button" class="up-replace">Replace</button>
-            <button type="button" class="up-remove">Remove</button>
-          </div>
-          <p class="up-msg"></p>
-        </div>
-        <div class="up" data-slot="after">
-          <span>After photo</span><img alt="" hidden>
-          <input type="file" accept="image/jpeg,image/png,image/webp">
-          <div class="up-actions" hidden>
-            <button type="button" class="up-replace">Replace</button>
-            <button type="button" class="up-remove">Remove</button>
-          </div>
-          <p class="up-msg"></p>
-        </div>
-        <div class="up" data-slot="owner">
-          <span>Owner photo</span><img alt="" hidden>
-          <input type="file" accept="image/jpeg,image/png,image/webp">
-          <div class="up-actions" hidden>
-            <button type="button" class="up-replace">Replace</button>
-            <button type="button" class="up-remove">Remove</button>
-          </div>
-          <p class="up-msg"></p>
-        </div>
-      </div>
+      <!-- Zones are rendered by renderPhotoZones() from the manifest's
+           photoSlots (fallback: logo/before/after/owner, today's fixed set,
+           when no manifest is loaded — the regression guard). -->
+      <div class="up-grid" id="photoZones"></div>
       <p class="hint">Drag a photo onto a box, or click it to choose a file. JPG, PNG or WebP, up to 2MB.</p>
     </section>
 
     <section class="card" id="sec-pricing">
       <p class="sec-h">Pricing</p>
+      <!-- initPricing() builds the right editor shape for pricing.model
+           (tiers/hourly/quote/percentage/calculator/flash) into #priceRows,
+           or hides it and fills pricingCaption for model "none". -->
       <div id="priceRows"></div>
+      <p class="jd-caption" id="pricingCaption" hidden></p>
     </section>
 
     <section class="card" id="sec-reviews">
       <p class="sec-h">Reviews</p>
       <p class="helper-text">Only reviews real customers gave you — these appear on your public site.</p>
       <p class="jd-caption">Your site shows the first 3 reviews today; the rest are saved for when more display slots are added.</p>
-      <div id="reviewRows"></div>
-      <button type="button" class="add-row" id="addReview">+ Add review</button>
+      <p class="jd-caption" id="reviewsHiddenCaption" hidden>Reviews aren't part of this site's design yet — nothing to fill in here.</p>
+      <div id="reviewsEditor">
+        <div id="reviewRows"></div>
+        <button type="button" class="add-row" id="addReview">+ Add review</button>
+      </div>
     </section>
 
     <section class="card" id="sec-details">
       <p class="sec-h">Details</p>
 
-      <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
-      <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
-        <textarea id="bio" maxlength="2000"></textarea></label>
-      <p class="hint">Owner photo is uploaded in the Photos section above.</p>
+      <p class="jd-caption" id="ownerHiddenCaption" hidden>Owner info isn't part of this site's design yet.</p>
+      <div id="ownerEditor">
+        <label><span>Owner name</span><input type="text" id="owner_name" maxlength="120"></label>
+        <label><span>About your business <span class="hint">&mdash; a short paragraph</span></span>
+          <textarea id="bio" maxlength="2000"></textarea></label>
+        <p class="hint">Owner photo is uploaded in the Photos section above.</p>
+      </div>
 
       <p class="sec-h">Social links</p>
-      <div id="socialRows"></div>
-      <button type="button" class="add-row" id="addSocial">+ Add social link</button>
+      <p class="jd-caption" id="socialHiddenCaption" hidden>Social links aren't part of this site's design yet.</p>
+      <div id="socialEditor">
+        <div id="socialRows"></div>
+        <button type="button" class="add-row" id="addSocial">+ Add social link</button>
+      </div>
 
       <p class="sec-h">Job details</p>
-      <label><span>What's included <span class="hint">&mdash; one per line, up to 10</span></span>
-        <textarea id="job_included" maxlength="1400"></textarea></label>
-      <label><span>What's not included <span class="hint">&mdash; one per line, up to 10</span></span>
-        <textarea id="job_not_included" maxlength="1400"></textarea></label>
-      <p class="jd-caption">Saved — appears when your site's next update adds this section.</p>
+      <p class="jd-caption" id="jobDetailsShownCaption" hidden>Saved — appears when your site's next update adds this section.</p>
+      <p class="jd-caption" id="jobDetailsHiddenCaption" hidden>Job details aren't part of this site's design yet.</p>
+      <div id="jobDetailsEditor">
+        <label><span>What's included <span class="hint">&mdash; one per line, up to 10</span></span>
+          <textarea id="job_included" maxlength="1400"></textarea></label>
+        <label><span>What's not included <span class="hint">&mdash; one per line, up to 10</span></span>
+          <textarea id="job_not_included" maxlength="1400"></textarea></label>
+      </div>
     </section>
 
     <div class="note" id="defaultNote" hidden>
@@ -414,28 +402,124 @@ document.addEventListener('DOMContentLoaded', function () {
   var INPUT_ID = { email: 'email_pub' };
 
   /* ----------------------------------------------------------------- theme
-     Palette + fonts per niche_slug. Values live only here (verbatim from the
-     brief) so a missing entry is a no-op: applyTheme() then touches nothing
-     and every --adm-* custom property keeps its neutral :root default. */
-  var THEMES = {
-    'bin-cleaning': {
-      ground: '#050f1c', surface: '#0a2138', card: '#0d2a47',
-      accent: '#4ea4e6', accentBright: '#67baf5',
-      text: '#e6f4ff', textSoft: '#bfe3fb',
-      ok: '#4FD695', bad: '#FF8A75', onAccent: '#050f1c',
-      fontsHref: 'https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap',
-      display: "'Anton',sans-serif", label: "'Oswald',sans-serif", body: "'Inter',sans-serif",
-      logo: '/sites/bin-cleaning/photos/logo.png'
+     Palette + fonts per niche_slug now come from the built manifest index
+     (assets/data/manifests.json — compiled by tools/build-manifest-index.js
+     from niches/<slug>/manifest.json; see Spec Decision 1). One fetch per
+     page life, cached module-level. A missing slug (or a fetch/parse
+     failure) resolves to {} — every lookup then misses, applyTheme(null) is
+     a no-op, and every --adm-* custom property keeps its neutral :root
+     default: the exact pre-manifest fallback look. */
+  var manifestIndexPromise = null;
+  function getManifestIndex() {
+    if (manifestIndexPromise) return manifestIndexPromise;
+    /* Promise.resolve() first — the load() lesson (builders/fetch results
+       that reject unexpectedly must not throw synchronously past a bare
+       .catch). fetch() itself is a real Promise, but wrapping keeps this
+       identical in shape to every other network call in this file, and the
+       terminal .catch here is what makes a themed niche's failed fetch a
+       silent neutral-theme fallback instead of a dead load(). */
+    manifestIndexPromise = Promise.resolve(fetch('/assets/data/manifests.json'))
+      .then(function (r) {
+        if (!r.ok) throw new Error('manifests.json: HTTP ' + r.status);
+        return r.json();
+      })
+      .catch(function (e) {
+        console.error('[admin] manifest index unavailable, falling back to neutral defaults:', e);
+        return {};
+      });
+    return manifestIndexPromise;
+  }
+
+  /* Slots the DB validator (sql/OPERATOR-CONTENT-2.sql sbv_photos_valid, as
+     amended live by sql/HERO-SLOT.sql) actually accepts inside the photos
+     jsonb column. "logo" is handled separately (its own logo_url column) so
+     it is not in this list even though it is a valid zone. Any photoSlot NOT
+     in this set still renders disabled (per the brief's fallback ruling) so
+     a genuinely-unknown future slot never reaches Save and 400s — but "hero"
+     is no longer one of those; the one-line SQL fix flagged in the task-4
+     report has since been applied. */
+  var PHOTOS_JSONB_SLOTS = ['hero', 'before', 'after', 'owner',
+    'gallery1', 'gallery2', 'gallery3', 'gallery4', 'gallery5', 'gallery6', 'gallery7', 'gallery8'];
+  function slotSupported(slot) { return slot === 'logo' || PHOTOS_JSONB_SLOTS.indexOf(slot) !== -1; }
+
+  var PHOTO_LABELS = { logo: 'Logo', hero: 'Hero photo', before: 'Before photo', after: 'After photo', owner: 'Owner photo' };
+  function labelForSlot(slot) {
+    if (PHOTO_LABELS[slot]) return PHOTO_LABELS[slot];
+    var g = /^gallery(\d+)$/.exec(slot);
+    if (g) return 'Gallery photo ' + g[1];
+    return slot.charAt(0).toUpperCase() + slot.slice(1) + ' photo';
+  }
+
+  /* ------------------------------------------------------------- pricing models
+     Spec Decision 2's table, verbatim: one editor shape per pricing.model.
+     "rows" kinds reuse the tiers editor's row/preview/read machinery (it was
+     always generic over data-pk, never hardcoded to label/price_label/note);
+     "object" kinds are flat labeled fields read into a single jsonb object.
+     Every field set here is a subset of the keys sql/PRICING-MODELS.sql's
+     sbv_prices_valid actually accepts — array form: label/price_label/per/
+     note/features/unit/rate; object form: starting_at/note/commission/
+     minimum — so nothing this editor writes can 400 at Save. */
+  var PRICE_MODEL_FIELDS = {
+    tiers: {
+      kind: 'rows', caption: '',
+      fields: [
+        { key: 'label', maxlen: 60, ph: 'Tier name (e.g. 1 Bin)' },
+        { key: 'price_label', maxlen: 20, ph: '$10' },
+        { key: 'note', maxlen: 80, ph: 'Note (e.g. Best value)' }
+      ]
+    },
+    hourly: {
+      kind: 'rows', caption: '',
+      fields: [
+        { key: 'label', maxlen: 60, ph: 'Crew size (e.g. 2 movers)' },
+        { key: 'rate', maxlen: 20, ph: '$129' },
+        { key: 'unit', maxlen: 20, ph: 'per hour' }
+      ]
+    },
+    calculator: {
+      kind: 'rows', caption: "Feeds your site's calculator.",
+      fields: [
+        { key: 'label', maxlen: 60, ph: 'Option (e.g. 20 yard)' },
+        { key: 'price_label', maxlen: 20, ph: '$20' }
+      ]
+    },
+    flash: {
+      kind: 'rows', caption: 'Priced per piece.',
+      fields: [
+        { key: 'label', maxlen: 60, ph: 'Design (e.g. Small piece)' },
+        { key: 'price_label', maxlen: 20, ph: '$60' }
+      ]
+    },
+    quote: {
+      kind: 'object', caption: '',
+      fields: [
+        { key: 'starting_at', maxlen: 20, ph: '$45', label: 'Starting at' },
+        { key: 'note', maxlen: 120, ph: 'Most jobs quoted by text', label: 'Note' }
+      ]
+    },
+    percentage: {
+      kind: 'object', caption: '',
+      fields: [
+        { key: 'commission', maxlen: 20, ph: '35%', label: 'Commission' },
+        { key: 'minimum', maxlen: 20, ph: '$500', label: 'Minimum' }
+      ]
+    },
+    none: {
+      kind: 'none',
+      caption: 'Pricing on this site is quote/insurance-based — edit it by texting us.'
     }
   };
+  var DEFAULT_SECTIONS = { pricing: true, reviews: true, social: true, jobDetails: true, ownerBlock: true };
 
   var sb = null, clientId = null, hadRow = false;
   var photoUrls = {};        /* slot -> public URL, committed on Save */
   var themeLogoUrl = null;   /* theme-provided logo, takes priority over a saved logo_url */
+  var currentManifest = null;      /* the resolved niche's manifest entry, or null (regression path) */
+  var currentPricingModel = 'tiers';
+  var currentPriceFieldKeys = ['label', 'price_label', 'note'];
   var PRICE_ROWS = 3;
   var REVIEW_MAX = 6;
   var SOCIAL_MAX = 6;
-  var uploadsInit = false;   /* guards initUploads() against double-binding on re-paint */
 
   /* Task 3 / PGRST204 ruling: whether load() actually saw a non-null value
      for each of the three new jsonb columns. Read by maybeClearable() below —
@@ -516,9 +600,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* ---------------------------------------------------------------- theme */
 
-  function applyTheme(nicheSlug) {
-    var t = THEMES[nicheSlug];
-    if (!t) return; /* no entry -> every --adm-* default stands, look is unchanged */
+  /* Takes the manifest's theme object directly (not a slug — the manifest
+     index lookup already happened in load()), so a manifest-less niche or a
+     failed index fetch both resolve to applyTheme(null) here: every --adm-*
+     default stands, look is unchanged. Same property mapping as the old
+     THEMES-keyed version, just data-driven now. */
+  function applyTheme(t) {
+    if (!t) return;
 
     var root = document.documentElement.style;
     root.setProperty('--adm-ground', t.ground);
@@ -596,10 +684,47 @@ document.addEventListener('DOMContentLoaded', function () {
      & would break out of the markup or start an entity. */
   function escHtml(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
+  /* Renders the .up zone markup for each photoSlot (fallback: today's fixed
+     logo/before/after/owner four, in that order, when no manifest resolved —
+     the regression guard). Same per-zone markup as the old static HTML
+     (label, image, file input, replace/remove actions, message line) for
+     every DB-supported slot; an unsupported slot (slotSupported() false)
+     renders a disabled stand-in instead, so operators SEE the zone exists
+     without being able to upload into a column that would 400. */
+  function renderPhotoZones(slots) {
+    var list = (slots && slots.length) ? slots : ['logo', 'before', 'after', 'owner'];
+    var html = list.map(function (slot) {
+      var label = labelForSlot(slot);
+      if (!slotSupported(slot)) {
+        return '<div class="up" data-slot="' + escAttr(slot) + '" data-disabled="1">'
+          + '<span>' + escHtml(label) + '</span>'
+          + '<input type="file" accept="image/jpeg,image/png,image/webp" disabled>'
+          + '<p class="up-msg">Coming soon &mdash; needs a one-line database update.</p>'
+          + '</div>';
+      }
+      return '<div class="up" data-slot="' + escAttr(slot) + '">'
+        + '<span>' + escHtml(label) + '</span><img alt="" hidden>'
+        + '<input type="file" accept="image/jpeg,image/png,image/webp">'
+        + '<div class="up-actions" hidden>'
+        + '<button type="button" class="up-replace">Replace</button>'
+        + '<button type="button" class="up-remove">Remove</button>'
+        + '</div>'
+        + '<p class="up-msg"></p>'
+        + '</div>';
+    }).join('');
+    $('photoZones').innerHTML = html;
+  }
+
+  /* Zones are rebuilt from scratch by renderPhotoZones() on every load() (a
+     manifest is only known once the tenant's niche_slug resolves), so the
+     old boxes — and any listeners bound to them — are simply gone from the
+     DOM by the time this runs again; no double-bind guard is needed the way
+     the static 4-zone markup used to require. Disabled zones (a photoSlot
+     not (yet) in the DB validator's set — see slotSupported()) are skipped
+     entirely: no listeners, so no upload can reach Save. */
   function initUploads() {
-    if (uploadsInit) return;
-    uploadsInit = true;
     [].forEach.call(document.querySelectorAll('.up'), function (box) {
+      if (box.hasAttribute('data-disabled')) return;
       var slot = box.getAttribute('data-slot');
       var input = box.querySelector('input[type=file]');
       var img = box.querySelector('img');
@@ -676,22 +801,69 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function initPriceRows(saved) {
+  /* Builds the Pricing section for pricing.model (default 'tiers' — today's
+     exact editor, unchanged markup/placeholders/maxlengths — when no
+     manifest resolved, the regression guard). "rows" models render PRICE_ROWS
+     (3) .pr-card rows of that model's fields; "object" models render one
+     .pr-card of flat labeled fields; "none" hides the whole editor and shows
+     pricingCaption instead. Sets currentPricingModel/currentPriceFieldKeys,
+     read by readPricesForModel()/updatePricePreviews() below. */
+  function initPricing(model, saved) {
+    var def = PRICE_MODEL_FIELDS[model] || PRICE_MODEL_FIELDS.tiers;
+    currentPricingModel = PRICE_MODEL_FIELDS[model] ? model : 'tiers';
     var host = $('priceRows');
-    var html = '';
+    var caption = $('pricingCaption');
+
+    if (def.kind === 'none') {
+      host.hidden = true;
+      host.innerHTML = '';
+      caption.hidden = false;
+      caption.textContent = def.caption;
+      return;
+    }
+
+    host.hidden = false;
+    caption.hidden = !def.caption;
+    caption.textContent = def.caption || '';
+
+    if (def.kind === 'object') {
+      currentPriceFieldKeys = def.fields.map(function (f) { return f.key; });
+      var o = (saved && typeof saved === 'object' && !Array.isArray(saved)) ? saved : {};
+      var objHtml = '<div class="pr-card">' + def.fields.map(function (f) {
+        return '<label><span>' + escHtml(f.label) + '</span>'
+          + '<input type="text" maxlength="' + f.maxlen + '" placeholder="' + escAttr(f.ph) + '" data-pk="' + f.key + '" value="' + escAttr(o[f.key] || '') + '"></label>';
+      }).join('') + '</div>';
+      host.innerHTML = objHtml;
+      return;
+    }
+
+    /* kind === 'rows' */
+    currentPriceFieldKeys = def.fields.map(function (f) { return f.key; });
+    var rowClass = 'pr-row' + (def.fields.length === 2 ? ' pr-row-2' : '');
+    var rowsHtml = '';
     for (var i = 0; i < PRICE_ROWS; i++) {
       var p = (saved && saved[i]) || {};
-      html += '<div class="pr-card"><div class="pr-row">'
-        + '<input type="text" maxlength="60" placeholder="Tier name (e.g. 1 Bin)" data-pk="label" value="' + escAttr(p.label || '') + '">'
-        + '<input type="text" maxlength="20" placeholder="$10" data-pk="price_label" value="' + escAttr(p.price_label || '') + '">'
-        + '<input type="text" maxlength="80" placeholder="Note (e.g. Best value)" data-pk="note" value="' + escAttr(p.note || '') + '">'
+      rowsHtml += '<div class="pr-card"><div class="' + rowClass + '">'
+        + def.fields.map(function (f) {
+            var input = '<input type="text" maxlength="' + f.maxlen + '" placeholder="' + escAttr(f.ph) + '" data-pk="' + f.key + '" value="' + escAttr(p[f.key] || '') + '">';
+            /* Only "label" gets a field-err box: it is the one key every
+               row-kind model's DB validator requires once ANY field in the
+               row is filled (see validatePriceRow()). A plain wrapper div
+               keeps this a single grid item, same as a bare input, so the
+               row's column layout is unaffected. */
+            if (f.key === 'label') return '<div class="pr-label-wrap">' + input + '<p class="field-err" hidden></p></div>';
+            return input;
+          }).join('')
         + '</div><p class="pr-preview" aria-live="polite"></p></div>';
     }
-    host.innerHTML = html;
+    host.innerHTML = rowsHtml;
     updatePricePreviews();
   }
 
-  function readPrices() {
+  /* Reads every .pr-row (array-of-rows models: tiers/hourly/calculator/
+     flash). Always generic over data-pk — never hardcoded to a specific
+     model's keys, so this needed no change when models beyond tiers arrived. */
+  function readPriceRows() {
     var rows = [].map.call(document.querySelectorAll('.pr-row'), function (row) {
       var o = {};
       [].forEach.call(row.querySelectorAll('input'), function (inp) {
@@ -703,16 +875,63 @@ document.addEventListener('DOMContentLoaded', function () {
     return rows.length ? rows : null;
   }
 
-  /* Live preview chip: "label — price_label", the exact headline the
-     storefront's pricing card renders (applyOperator maps price_label onto
-     the template's `blurb` key). A dash stands in for whichever half is
-     still blank so the row never goes empty mid-typing. */
+  /* Price row validation (array-of-rows models only — tiers/hourly/
+     calculator/flash): a row is invalid when ANY field is filled but "label"
+     is empty. Every row-kind entry in sql/PRICING-MODELS.sql's
+     sbv_prices_valid requires a string "label" key, so a row like
+     {price_label:"$10"} with no label 400s the whole save — readPriceRows()
+     above only drops a row when it is entirely empty, by design (mirrors
+     readReviews()/readSocial() dropping only what their validators would
+     also reject), so a half-filled row must be caught here instead, the same
+     way validateReviewQuote() catches a rating/author-only review row.
+     Fully-empty rows return null (valid — nothing to save, nothing to
+     block). Object-kind models (quote/percentage) have no required key at
+     the DB level (see sbv_prices_valid's object branch) and never call this. */
+  function validatePriceRow(row) {
+    var label = row.querySelector('[data-pk="label"]');
+    if (!label) return null;
+    if (label.value.trim()) return null;
+    var others = [].slice.call(row.querySelectorAll('input[data-pk]')).filter(function (inp) { return inp !== label; });
+    var anyFilled = others.some(function (inp) { return inp.value.trim(); });
+    return anyFilled ? 'Give this row a name, or clear it.' : null;
+  }
+
+  /* Reads the flat object editor (quote/percentage): every [data-pk] input
+     directly under #priceRows, no per-row grouping. */
+  function readPriceObject() {
+    var o = {};
+    [].forEach.call(document.querySelectorAll('#priceRows [data-pk]'), function (inp) {
+      var v = inp.value.trim();
+      if (v) o[inp.getAttribute('data-pk')] = v;
+    });
+    return Object.keys(o).length ? o : null;
+  }
+
+  /* Single dispatch point collectRow() calls — the model decides array vs
+     object vs null (model 'none' never writes prices at all). */
+  function readPricesForModel(model) {
+    var def = PRICE_MODEL_FIELDS[model] || PRICE_MODEL_FIELDS.tiers;
+    if (def.kind === 'rows') return readPriceRows();
+    if (def.kind === 'object') return readPriceObject();
+    return null;
+  }
+
+  /* Live preview chip, generalised over whichever fields the current model
+     uses (was hardcoded to label/price_label; tiers/hourly/calculator/flash
+     all still get a preview, quote/percentage's flat object editor has no
+     .pr-card rows to preview so this is a no-op for those). A dash stands in
+     for whichever field is still blank so the row never goes empty
+     mid-typing. */
   function updatePricePreviews() {
-    [].forEach.call(document.querySelectorAll('.pr-card'), function (card) {
-      var label = card.querySelector('[data-pk="label"]').value.trim();
-      var priceLabel = card.querySelector('[data-pk="price_label"]').value.trim();
-      var preview = card.querySelector('.pr-preview');
-      preview.textContent = (label || priceLabel) ? (label || '—') + ' — ' + (priceLabel || '—') : '';
+    [].forEach.call(document.querySelectorAll('#priceRows .pr-card .pr-row'), function (row) {
+      var card = row.closest('.pr-card');
+      var preview = card && card.querySelector('.pr-preview');
+      if (!preview) return;
+      var vals = currentPriceFieldKeys.map(function (k) {
+        var inp = row.querySelector('[data-pk="' + k + '"]');
+        return inp ? inp.value.trim() : '';
+      });
+      preview.textContent = vals.some(Boolean) ? vals.map(function (v) { return v || '—'; }).join(' — ') : '';
     });
   }
 
@@ -862,6 +1081,36 @@ document.addEventListener('DOMContentLoaded', function () {
     return { included: included, notIncluded: notIncluded };
   }
 
+  /* ------------------------------------------------------------- sections
+     Hides an editor block (with a one-line muted caption in its place) when
+     the manifest's sections.<flag> is explicitly false. No manifest (or a
+     manifest missing the sections key) falls back to DEFAULT_SECTIONS —
+     every flag true, i.e. today's always-visible behavior, unchanged. A
+     hidden block's inputs stay in the DOM (just display:none via [hidden]),
+     so readReviews()/readSocial()/readJobDetails() are untouched — an
+     operator can't reach them via the UI while hidden, but nothing about the
+     read path needed to change. */
+  function applySectionsGating(sections) {
+    var s = sections || DEFAULT_SECTIONS;
+
+    var reviewsOn = s.reviews !== false;
+    $('reviewsEditor').hidden = !reviewsOn;
+    $('reviewsHiddenCaption').hidden = reviewsOn;
+
+    var socialOn = s.social !== false;
+    $('socialEditor').hidden = !socialOn;
+    $('socialHiddenCaption').hidden = socialOn;
+
+    var jobDetailsOn = s.jobDetails !== false;
+    $('jobDetailsEditor').hidden = !jobDetailsOn;
+    $('jobDetailsHiddenCaption').hidden = jobDetailsOn;
+    $('jobDetailsShownCaption').hidden = !jobDetailsOn;
+
+    var ownerOn = s.ownerBlock !== false;
+    $('ownerEditor').hidden = !ownerOn;
+    $('ownerHiddenCaption').hidden = ownerOn;
+  }
+
   /* ------------------------------------------------------------ section nav */
 
   function initSectionNav() {
@@ -947,7 +1196,10 @@ document.addEventListener('DOMContentLoaded', function () {
     clientId = r.clientId;
     show('panel', true);
     show('sectionNav', true);
-    initUploads();
+    /* initUploads() no longer runs here: the photo zones it binds to are now
+       rendered from the manifest's photoSlots, which is only known partway
+       through load() (once niche_slug resolves) — see renderPhotoZones()
+       there. */
     load();
   }
 
@@ -971,9 +1223,17 @@ document.addEventListener('DOMContentLoaded', function () {
     var tenantFetch = Promise.resolve(sb.rpc('sbv_public_tenants'))
       .catch(function () { return null; });
 
-    Promise.all([rowFetch, tenantFetch]).then(function (results) {
+    /* Built manifest index — cached after the first load() in this page
+       life. Its own terminal .catch (inside getManifestIndex()) already
+       reduces any failure to {}, so this never needs its own .catch here;
+       a miss on the eventual niche_slug lookup is exactly the same
+       "manifest absent" path as a genuinely unmapped niche. */
+    var manifestFetch = getManifestIndex();
+
+    Promise.all([rowFetch, tenantFetch, manifestFetch]).then(function (results) {
       var r = results[0];
       var rt = results[1];
+      var manifestIndex = results[2] || {};
 
       say('panelMsg', ''); /* clear any stale message from a prior load() in this session */
 
@@ -997,16 +1257,31 @@ document.addEventListener('DOMContentLoaded', function () {
       if (r.data && r.data.photos) {
         Object.keys(r.data.photos).forEach(function (slot) { photoUrls[slot] = r.data.photos[slot]; });
       }
+
+      /* niche_slug (and therefore the manifest) comes from sbv_public_tenants,
+         not the operator-content row — resolve it now, before anything
+         manifest-driven (zones, theme, pricing editor, section gating) runs. */
+      var rows = (rt && rt.data || []).filter(function (t) { return t.client_id === clientId; });
+      var row = rows[0];
+      var nicheSlug = row && row.niche_slug;
+      var manifest = (nicheSlug && manifestIndex[nicheSlug]) || null;
+      currentManifest = manifest;
+
+      renderPhotoZones(manifest && manifest.photoSlots);
+      initUploads();
       [].forEach.call(document.querySelectorAll('.up'), function (box) {
         var slot = box.getAttribute('data-slot');
         if (!photoUrls[slot]) return;
         var img = box.querySelector('img');
+        if (!img) return; /* disabled zone — no img element, nothing to preview */
         img.src = photoUrls[slot];
         img.hidden = false;
         var actions = box.querySelector('.up-actions');
         if (actions) actions.hidden = false;
       });
-      initPriceRows(r.data && r.data.prices);
+
+      initPricing((manifest && manifest.pricing && manifest.pricing.model) || 'tiers', r.data && r.data.prices);
+      applySectionsGating(manifest && manifest.sections);
 
       initReviewRows(r.data && r.data.reviews);
       initSocialRows(r.data && r.data.social);
@@ -1026,8 +1301,6 @@ document.addEventListener('DOMContentLoaded', function () {
       seenInLoad.reviews = !!(r.data && r.data.reviews != null);
       seenInLoad.job_details = !!(r.data && r.data.job_details != null);
 
-      var rows = (rt && rt.data || []).filter(function (t) { return t.client_id === clientId; });
-      var row = rows[0];
       if (row) {
         if (!hadRow && !el('business_name').value) {
           el('business_name').value = row.business_name || '';
@@ -1035,7 +1308,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var host = clientId + '.' + location.hostname.replace(/^www\./, '');
         $('panelSub').innerHTML = 'Your site: <a href="https://' + host + '" rel="noopener">' + host + '</a>';
         $('topbarName').textContent = row.business_name || clientId;
-        applyTheme(row.niche_slug);
+        applyTheme(manifest && manifest.theme);
       } else {
         $('panelSub').textContent = clientId;
         $('topbarName').textContent = clientId;
@@ -1093,10 +1366,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     row.lead_email = $('lead_email').value.trim() || null;
     row.logo_url = photoUrls.logo || null;
+    /* Slots to consider come from the resolved manifest's photoSlots, falling
+       back to today's fixed four when no manifest resolved (regression
+       guard) — same list renderPhotoZones() used to build the zones.
+       slotSupported() is a second, defensive filter: even if a slot were
+       somehow present in photoUrls without a matching supported zone (it
+       cannot be, today — disabled zones never bind an upload handler), this
+       still keeps it out of the jsonb sbv_photos_valid would reject. */
+    var photoSlotList = (currentManifest && currentManifest.photoSlots) || ['logo', 'before', 'after', 'owner'];
     var ph = {};
-    ['before', 'after', 'owner'].forEach(function (s) { if (photoUrls[s]) ph[s] = photoUrls[s]; });
+    photoSlotList.forEach(function (s) {
+      if (s === 'logo' || !slotSupported(s)) return;
+      if (photoUrls[s]) ph[s] = photoUrls[s];
+    });
     row.photos = Object.keys(ph).length ? ph : null;
-    row.prices = readPrices();
+    row.prices = readPricesForModel(currentPricingModel);
 
     var social = readSocial();
     maybeClearable(row, 'social', social.length ? social : null);
@@ -1318,6 +1602,29 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   $('priceRows').addEventListener('input', updatePricePreviews);
+
+  /* Inline validation for price rows: delegated on the container, not bound
+     per-row, because initPricing() replaces #priceRows' entire innerHTML
+     every time the pricing model changes (or on load) — mirrors the review/
+     social row pattern. .pr-row scopes this to rows-kind cards only; object-
+     kind cards (quote/percentage) have no .pr-row ancestor, so they never
+     match and are correctly exempt (see validatePriceRow()). */
+  $('priceRows').addEventListener('focusout', function (e) {
+    var row = e.target.closest ? e.target.closest('.pr-row') : null;
+    if (!row) return;
+    var label = row.querySelector('[data-pk="label"]');
+    if (!label) return;
+    setValidity(label, validatePriceRow(row));
+  });
+  /* Also validate on input for immediate feedback as user types (mirrors
+     the review/social row pattern). */
+  $('priceRows').addEventListener('input', function (e) {
+    var row = e.target.closest ? e.target.closest('.pr-row') : null;
+    if (!row) return;
+    var label = row.querySelector('[data-pk="label"]');
+    if (!label) return;
+    setValidity(label, validatePriceRow(row));
+  });
 
   bindBlurValidation('email_pub', validateEmail);
   bindBlurValidation('lead_email', validateEmail);

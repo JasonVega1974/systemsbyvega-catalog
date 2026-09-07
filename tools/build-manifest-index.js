@@ -70,7 +70,9 @@ for (const slug of slugs) {
     sections: manifest.sections,
     pricing: {
       model: manifest.pricing.model,
-      editableFields: manifest.pricing.editableFields
+      editableFields: manifest.pricing.editableFields,
+      /* T7 prep: the merge endpoint resolves the overlay target from here. */
+      mergePath: manifest.pricing.mergePath
     },
     merge: manifest.merge
   };
