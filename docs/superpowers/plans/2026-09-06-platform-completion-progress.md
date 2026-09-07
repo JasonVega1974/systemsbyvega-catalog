@@ -126,3 +126,26 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
   model unverifiable until estate-sale (Phase C); electrician/auto-repair/
   hvac/contracting demo-side content mismatches (pre-existing, grep-found).
 - Next: Phase A-kit plan (marketing kit pipeline), then Phase B rollout waves.
+- PHASE A-KIT COMPLETE AND LIVE (6ece36d..HEAD). Marketing kit shipping for
+  all 23 niches: shared master templates (manifest-themed, spec refined from
+  46 bespoke files) + per-niche override path (bin-cleaning ships the
+  Prime-derived pair; Prime's finished pieces landed as reference);
+  api/marketing-kit.mjs (JWT->mapping gate, active-tenant only, manifest
+  token build across all 7 pricing models, QR, chromium render, stable-name
+  bucket uploads); admin Marketing tab (live scaled previews from the same
+  merged answer the download uses — 27-assertion parity proof — plus
+  honest failure surfaces). SQL applied live: MARKETING-BUCKET.sql
+  (bucket +application/pdf, 10MB — additive).
+- Live-verified end to end in the browser: startest (master templates,
+  landscaping theme, defaults-only) AND primetest (bin-cleaning override,
+  operator's saved data) both generate 3 real files (PNG 1080x1350, Letter
+  PDF, flyer PNG) — downloaded, structurally verified, eyeballed: fonts,
+  themes, working QR codes, zero unresolved tokens, compliance-clean copy.
+- Hard-won runtime finding (ledgered in detail): playwright's newPage
+  (incognito context) kills the sparticuz chromium binary on Vercel in
+  every args permutation — launchPersistentContext (default profile) is
+  the fix; playwright-core pinned 1.61.0 to match the Chromium 149 binary.
+  The final review's arg-filter prescription was reversed on live evidence.
+- Phase B pickup list additions: phone prettifying in kit tokens; per-niche
+  template overrides where a niche deserves bespoke art; rate-limit /
+  cooldown on the render endpoint (accepted residual).
