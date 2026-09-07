@@ -135,7 +135,7 @@
       "reviews": "none",
       "ownerShape": "none"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "bin-cleaning": {
     "theme": {
@@ -233,7 +233,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "caregiving": {
     "theme": {
@@ -260,10 +260,10 @@
     "sections": {
       "pricing": true,
       "beforeAfter": false,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": false,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
@@ -307,18 +307,18 @@
     "sections": {
       "pricing": true,
       "beforeAfter": false,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": false,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
       "model": "hourly",
       "editableFields": [
-        "base",
-        "perExtraKid",
-        "weekendBump"
+        "label",
+        "rate",
+        "unit"
       ],
       "mergePath": "niche.rates"
     },
@@ -376,7 +376,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "delivery": {
     "theme": {
@@ -451,7 +451,7 @@
       "jobDetails": false,
       "reviews": false,
       "social": true,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": false
     },
     "pricing": {
@@ -491,21 +491,19 @@
     "sections": {
       "pricing": true,
       "beforeAfter": false,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": false,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
       "model": "calculator",
       "editableFields": [
         "label",
-        "rate20",
-        "rate30",
-        "rate45"
+        "price_label"
       ],
-      "mergePath": "niche.walkServices"
+      "mergePath": "services"
     },
     "merge": {
       "beforeAfter": "none",
@@ -540,26 +538,22 @@
       "pricing": true,
       "beforeAfter": false,
       "jobDetails": false,
-      "reviews": false,
+      "reviews": true,
       "social": true,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
       "model": "calculator",
       "editableFields": [
-        "yd",
-        "price",
-        "dims",
-        "loads",
-        "best",
-        "note"
+        "label",
+        "price_label"
       ],
       "mergePath": "sizes"
     },
     "merge": {
       "beforeAfter": "none",
-      "reviews": "none",
+      "reviews": "testimonials",
       "ownerShape": "owner"
     },
     "heroWired": false
@@ -599,16 +593,16 @@
       "model": "tiers",
       "editableFields": [
         "label",
-        "range"
+        "price_label"
       ],
-      "mergePath": "pricing.ranges"
+      "mergePath": "pricing"
     },
     "merge": {
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "hvac": {
     "theme": {
@@ -655,7 +649,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "landscaping": {
     "theme": {
@@ -745,7 +739,7 @@
       "reviews": "none",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "moving": {
     "theme": {
@@ -792,7 +786,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "painting": {
     "theme": {
@@ -841,7 +835,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "personal-trainer": {
     "theme": {
@@ -868,10 +862,10 @@
     "sections": {
       "pricing": true,
       "beforeAfter": false,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": true,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": false
     },
     "pricing": {
@@ -915,10 +909,10 @@
     "sections": {
       "pricing": true,
       "beforeAfter": false,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": false,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
@@ -1031,7 +1025,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": true
   },
   "tattoo-studio": {
     "theme": {
@@ -1077,6 +1071,6 @@
       "reviews": "none",
       "ownerShape": "none"
     },
-    "heroWired": false
+    "heroWired": true
   }
 }

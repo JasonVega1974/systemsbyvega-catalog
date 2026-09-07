@@ -31,100 +31,11 @@
     </div>
     <div class="reveal" data-delay="1">
       <div class="hero-badge">
-        <div class="roof-art" role="img" aria-label="Illustration of a pitched shingle roof under a dark, overcast evening sky">
-          <!-- Premium hero scene: feTurbulence cloud texture + feTurbulence shingle grain + layered atmospheric gradients — north-star: dj-site-blue -->
-          <svg viewBox="0 0 440 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-              <!-- 5-stop atmospheric sky gradient (depth + copper horizon light) — north-star: dj-site-blue -->
-              <linearGradient id="sky-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#05090d"/>
-                <stop offset=".32" stop-color="#0c1621"/>
-                <stop offset=".6" stop-color="#182633"/>
-                <stop offset=".82" stop-color="#3a2a1e"/>
-                <stop offset="1" stop-color="#5a3820"/>
-              </linearGradient>
-              <!-- 4-stop roof-face gradient: light near peak, shadow at eave -->
-              <linearGradient id="roof-face" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#33454f"/>
-                <stop offset=".35" stop-color="#22323d"/>
-                <stop offset=".7" stop-color="#17232c"/>
-                <stop offset="1" stop-color="#0d151b"/>
-              </linearGradient>
-              <radialGradient id="roof-sheen" cx=".72" cy="0" r="1">
-                <stop offset="0" stop-color="#B5541F" stop-opacity=".5"/>
-                <stop offset=".4" stop-color="#B5541F" stop-opacity=".12"/>
-                <stop offset="1" stop-color="#B5541F" stop-opacity="0"/>
-              </radialGradient>
-              <radialGradient id="sky-glow" cx=".78" cy="1" r=".95">
-                <stop offset="0" stop-color="#B5541F" stop-opacity=".55"/>
-                <stop offset=".5" stop-color="#7A3712" stop-opacity=".18"/>
-                <stop offset="1" stop-color="#7A3712" stop-opacity="0"/>
-              </radialGradient>
-              <!-- feTurbulence fractalNoise clouds (+feDisplacementMap roughen, +feColorMatrix steel tint) — north-star: dj-site-blue -->
-              <filter id="sky-clouds" x="-30%" y="-30%" width="160%" height="160%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.011 0.02" numOctaves="4" seed="11" result="n"/>
-                <feDisplacementMap in="n" in2="n" scale="10" result="d"/>
-                <feColorMatrix in="d" type="matrix"
-                  values="0 0 0 0 0.17  0 0 0 0 0.23  0 0 0 0 0.30  0.7 0.6 0.5 0 -0.55"/>
-              </filter>
-              <!-- feTurbulence fractalNoise asphalt-shingle grain — north-star: dj-site-blue -->
-              <filter id="roof-grain" x="0" y="0" width="100%" height="100%">
-                <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="4" result="g"/>
-                <feColorMatrix in="g" type="matrix"
-                  values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.5 0.5 0.5 0 -0.52"/>
-              </filter>
-              <filter id="sky-boltglow" x="-60%" y="-60%" width="220%" height="220%">
-                <feGaussianBlur stdDeviation="2.4"/>
-              </filter>
-              <clipPath id="roof-clip"><polygon points="120,150 320,150 400,292 40,292"/></clipPath>
-              <!-- staggered shingle-tab pattern (branching detail density) -->
-              <pattern id="roof-tabs" patternUnits="userSpaceOnUse" width="34" height="32" patternTransform="translate(0 150)">
-                <line x1="0" y1="16" x2="34" y2="16" stroke="#05090d" stroke-opacity=".5" stroke-width="1.3"/>
-                <line x1="0" y1="32" x2="34" y2="32" stroke="#05090d" stroke-opacity=".5" stroke-width="1.3"/>
-                <line x1="0" y1="17" x2="34" y2="17" stroke="var(--ink-max)fff" stroke-opacity=".05" stroke-width="1"/>
-                <line x1="0" y1="1"  x2="34" y2="1"  stroke="var(--ink-max)fff" stroke-opacity=".05" stroke-width="1"/>
-                <line x1="0" y1="0" x2="0" y2="16" stroke="#05090d" stroke-opacity=".42" stroke-width="1"/>
-                <line x1="17" y1="0" x2="17" y2="16" stroke="#05090d" stroke-opacity=".42" stroke-width="1"/>
-                <line x1="8.5" y1="16" x2="8.5" y2="32" stroke="#05090d" stroke-opacity=".42" stroke-width="1"/>
-                <line x1="25.5" y1="16" x2="25.5" y2="32" stroke="#05090d" stroke-opacity=".42" stroke-width="1"/>
-              </pattern>
-            </defs>
-
-            <!-- sky -->
-            <rect x="0" y="0" width="440" height="300" fill="url(#sky-grad)"/>
-            <g><rect x="-60" y="-20" width="560" height="235" fill="none" filter="url(#sky-clouds)" opacity=".82"/></g>
-            <rect x="0" y="0" width="440" height="300" fill="url(#sky-glow)"/>
-
-            <!-- roof plane: gradient depth + shingle-tab pattern + grain texture, all clipped to the pitch -->
-            <g clip-path="url(#roof-clip)">
-              <rect x="0" y="148" width="440" height="160" fill="url(#roof-face)"/>
-              <rect x="0" y="200" width="440" height="18" fill="#05090d" opacity=".14"/>
-              <rect x="0" y="252" width="440" height="18" fill="#05090d" opacity=".16"/>
-              <rect x="0" y="148" width="440" height="160" fill="url(#roof-tabs)"/>
-              <rect x="0" y="148" width="440" height="160" fill="url(#roof-sheen)"/>
-              <rect x="0" y="148" width="440" height="160" fill="#000" filter="url(#roof-grain)" opacity=".5"/>
-            </g>
-
-            <!-- peak cap -->
-            <polygon points="120,150 320,150 320,157 120,157" fill="#0b1319"/>
-            <path d="M118 150 L322 150" stroke="#3a4a55" stroke-width="1.5" opacity=".7"/>
-            <!-- eave / gutter line -->
-            <path d="M40 292 L400 292" stroke="#7A3712" stroke-width="4"/>
-            <path d="M40 289 L400 289" stroke="#B5541F" stroke-width="2" opacity=".85"/>
-
-            <!-- rain (static decoration) -->
-            <g stroke="#8CA0B3" stroke-width="1" opacity=".16">
-              <line x1="70" y1="-20" x2="67" y2="-8"/><line x1="150" y1="-20" x2="147" y2="-8"/>
-              <line x1="250" y1="-20" x2="247" y2="-8"/><line x1="360" y1="-20" x2="357" y2="-8"/>
-              <line x1="110" y1="4" x2="107" y2="16"/><line x1="210" y1="4" x2="207" y2="16"/>
-              <line x1="310" y1="4" x2="307" y2="16"/><line x1="410" y1="4" x2="407" y2="16"/>
-              <line x1="60" y1="28" x2="57" y2="40"/><line x1="180" y1="28" x2="177" y2="40"/>
-              <line x1="280" y1="28" x2="277" y2="40"/><line x1="380" y1="28" x2="377" y2="40"/>
-              <line x1="130" y1="52" x2="127" y2="64"/><line x1="230" y1="52" x2="227" y2="64"/>
-              <line x1="330" y1="52" x2="327" y2="64"/><line x1="90" y1="76" x2="87" y2="88"/>
-            </g>
-          </svg>
-        </div>
+        <!-- Phase B4 photo hero: the illustrated shingle/sky scene is retired
+             (with it go the orphaned sky-boltglow filter and its bare <g> --
+             B1 leftovers nothing referenced). The storm mood now comes from a
+             real photo; dress lives in sections.css under .hero .hero-photo-cmp. -->
+        <!-- COMPONENT:hero-photo -->
         <div class="capt">Not sure what shape your roof is in? <b>Take the 2-minute self-check</b> below.</div>
       </div>
     </div>

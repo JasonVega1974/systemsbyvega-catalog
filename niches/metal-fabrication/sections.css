@@ -121,7 +121,9 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 @media(max-width:560px){.hero__proof{gap:18px}.proofstat + .proofstat{padding-left:18px}}
 
 /* rising spark particles */
-.sparks{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+/* z-index:2 (was 0): the Phase B4 hero photo carries z-index:1, and the
+   sparks must composite OVER it -- they stay pointer-events:none. */
+.sparks{position:absolute;inset:0;z-index:2;pointer-events:none;overflow:hidden}
 .sparkp{position:absolute;bottom:-2%;width:3px;height:3px;border-radius:50%;
   background:radial-gradient(circle,#ffd9a0 0%,var(--accent) 60%,transparent 100%);
   box-shadow:0 0 8px 1px rgba(255,150,60,.7);
@@ -132,6 +134,14 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
   70%{opacity:.6}
   100%{transform:translate(var(--dx,24px),-108vh) scale(.4);opacity:0}
 }
+
+/* Phase B4 photo hero -- niche dress for the shared component (wide forge
+   panel under the copy; the rising sparks composite over it). */
+.hero__media{margin-top:clamp(28px,4vh,44px)}
+.hero .hero-photo-cmp{aspect-ratio:21/9;max-height:320px;z-index:1;
+  border:1px solid var(--card-brd);border-radius:18px;
+  box-shadow:var(--shadow), 0 0 42px -18px var(--accent-glow)}
+@media(max-width:700px){.hero .hero-photo-cmp{aspect-ratio:16/10}}
 
 /* angled steel divider under hero */
 .slash{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--ground-deep);z-index:1;pointer-events:none}

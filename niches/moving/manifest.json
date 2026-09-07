@@ -1,27 +1,50 @@
 {
   "v": 1,
   "theme": {
-    "ground": "#F0E7D8", "surface": "#F8F3E9", "card": "#FDFCFA",
-    "accent": "#2F6B4F", "accentBright": "#3C8362",
-    "text": "#2E2A24", "textSoft": "#6B6353",
-    "ok": "#2F6B4F", "bad": "#B04439", "onAccent": "#FFFFFF",
+    "ground": "#F0E7D8",
+    "surface": "#F8F3E9",
+    "card": "#FDFCFA",
+    "accent": "#2F6B4F",
+    "accentBright": "#3C8362",
+    "text": "#2E2A24",
+    "textSoft": "#6B6353",
+    "ok": "#2F6B4F",
+    "bad": "#B04439",
+    "onAccent": "#FFFFFF",
     "fontsHref": "https://fonts.googleapis.com/css2?family=Bevan&family=Mulish:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
-    "display": "'Bevan',serif", "label": "'IBM Plex Mono',monospace", "body": "'Mulish',sans-serif",
+    "display": "'Bevan',serif",
+    "label": "'IBM Plex Mono',monospace",
+    "body": "'Mulish',sans-serif",
     "logo": ""
   },
-  "photoSlots": ["hero", "owner"],
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": true,
+    "social": false,
+    "footerContact": false,
+    "ownerBlock": true
   },
   "pricing": {
     "model": "hourly",
-    "editableFields": ["label", "rate", "unit"],
+    "editableFields": [
+      "label",
+      "rate",
+      "unit"
+    ],
     "mergePath": "niche.crewTiers"
   },
   "merge": {
     "beforeAfter": "none",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/moving/photos/hero-packed-boxes.jpg",
+  "heroAlt": "Packed cardboard boxes stacked and ready by the front doors on moving day",
+  "heroWired": true
 }

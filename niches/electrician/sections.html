@@ -44,37 +44,22 @@
           <div class="proof"><b>Kuna, ID</b><span>Home base</span></div>
         </div>
       </div>
-      <div class="hero__art" aria-hidden="true">
-        <div class="halo"></div>
-        <svg viewBox="0 0 420 420" fill="none" role="img" aria-label="Illustration: an open breaker panel with one switch lit">
-          <rect x="90" y="40" width="240" height="340" rx="22" fill="#11162B" stroke="#2A335C" stroke-width="2"/>
-          <rect x="90" y="40" width="240" height="46" rx="22" fill="#171D38"/>
-          <circle cx="210" cy="63" r="5" fill="#3C34A8"/>
-          <g>
-            <rect x="118" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="122" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="168" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="172" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="218" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#7DF9FF" stroke-width="2"/>
-            <rect x="222" y="118" width="34" height="24" rx="6" fill="#7DF9FF">
+      <div class="hero__art">
+        <!-- Phase B4 photo hero. The old clip-art panel is retired along with
+             its float/halo animations; the SMIL breaker-blink idea survives as
+             the badge below, composited over the photo (paused under reduced
+             motion by niche.js, since CSS animation:none cannot stop SMIL). -->
+        <!-- COMPONENT:hero-photo -->
+        <div class="hero__live" aria-hidden="true">
+          <svg viewBox="0 0 42 70" fill="none">
+            <rect x="1" y="1" width="40" height="68" rx="9" fill="#0A0D1C" stroke="#7DF9FF" stroke-width="2"/>
+            <rect x="7" y="8" width="28" height="20" rx="5" fill="#7DF9FF">
               <animate attributeName="opacity" values="1;.55;1" dur="2.2s" repeatCount="indefinite"/>
             </rect>
-            <rect x="268" y="112" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="272" y="118" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-          </g>
-          <g>
-            <rect x="118" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="122" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="168" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="172" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="218" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="222" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-            <rect x="268" y="200" width="42" height="70" rx="10" fill="#0A0D1C" stroke="#2A335C" stroke-width="1.5"/>
-            <rect x="272" y="206" width="34" height="24" rx="6" fill="var(--panel-3)"/>
-          </g>
-          <path d="M236 292 L214 330 L226 330 L208 366 L252 322 L232 322 Z" fill="#6C63FF" opacity=".9"/>
-          <path d="M50 380 H370" stroke="#EAF0FF" stroke-opacity=".18" stroke-width="2"/>
-        </svg>
+            <rect x="13" y="38" width="16" height="22" rx="4" fill="#171D38" stroke="#2A335C" stroke-width="1.5"/>
+          </svg>
+          <span>Circuit on</span>
+        </div>
       </div>
     </div>
   </div>

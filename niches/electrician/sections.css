@@ -108,13 +108,17 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .proof b{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
 .proof span{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:5px}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
-.hero__art .halo{position:absolute;inset:-4% -8% 6%;border-radius:50%;
-  background:radial-gradient(closest-side, rgba(108,99,255,.24), rgba(125,249,255,.06) 55%, transparent 72%);
-  filter:blur(8px);animation:pulse 5.5s ease-in-out infinite;z-index:0}
-.hero__art svg{position:relative;z-index:1;width:min(440px,90%);height:auto;
-  filter:drop-shadow(0 30px 50px rgba(0,0,0,.65));animation:float 6.5s ease-in-out infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+/* Phase B4 photo hero -- niche dress for the shared component (the old
+   clip-art panel's float/halo animations are retired; only its breaker-blink
+   idea survives, as the .hero__live badge over the photo). */
+.hero .hero-photo-cmp{border:1px solid rgba(108,99,255,.35);
+  box-shadow:0 30px 70px -30px rgba(0,0,0,.75), 0 0 0 6px rgba(108,99,255,.07)}
+.hero__live{position:absolute;right:7%;bottom:6%;z-index:2;display:flex;align-items:center;gap:10px;
+  background:rgba(10,13,28,.78);border:1px solid rgba(125,249,255,.35);border-radius:14px;
+  padding:9px 13px;backdrop-filter:blur(6px);pointer-events:none}
+.hero__live svg{width:24px;height:auto}
+.hero__live span{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent-alt)}
 
 .sparks{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .spark-mote{position:absolute;bottom:-4%;width:3px;height:3px;border-radius:50%;

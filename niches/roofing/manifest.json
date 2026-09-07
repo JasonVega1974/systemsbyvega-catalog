@@ -1,27 +1,50 @@
 {
   "v": 1,
   "theme": {
-    "ground": "#0A0F14", "surface": "#1A2733", "card": "#141D27",
-    "accent": "#B85B28", "accentBright": "#D97539",
-    "text": "#EDF2F6", "textSoft": "#8CA0B3",
-    "ok": "#2FA36B", "bad": "#E8836A", "onAccent": "#000000",
+    "ground": "#0A0F14",
+    "surface": "#1A2733",
+    "card": "#141D27",
+    "accent": "#B85B28",
+    "accentBright": "#D97539",
+    "text": "#EDF2F6",
+    "textSoft": "#8CA0B3",
+    "ok": "#2FA36B",
+    "bad": "#E8836A",
+    "onAccent": "#000000",
     "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500;600;700;800&family=Overpass+Mono:wght@400;500;600&display=swap",
-    "display": "'Anton',sans-serif", "label": "'Overpass Mono',monospace", "body": "'Rubik',sans-serif",
+    "display": "'Anton',sans-serif",
+    "label": "'Overpass Mono',monospace",
+    "body": "'Rubik',sans-serif",
     "logo": ""
   },
-  "photoSlots": ["hero", "owner"],
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": true,
+    "social": false,
+    "footerContact": false,
+    "ownerBlock": true
   },
   "pricing": {
     "model": "tiers",
-    "editableFields": ["label", "price_label", "note"],
+    "editableFields": [
+      "label",
+      "price_label",
+      "note"
+    ],
     "mergePath": "pricing"
   },
   "merge": {
     "beforeAfter": "none",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/roofing/photos/hero-storm-roof.jpg",
+  "heroAlt": "A steep tiled roof with two dormer windows under a heavy storm sky",
+  "heroWired": true
 }

@@ -77,6 +77,13 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
   }
 
+  /* The hero badge's breaker-blink is SMIL (kept from the old clip-art
+     panel), which CSS animation:none cannot stop -- pause it by hand. */
+  if(reduce){
+    var liveBadge = document.querySelector('.hero__live svg');
+    if(liveBadge && liveBadge.pauseAnimations) liveBadge.pauseAnimations();
+  }
+
   // ---------- BREAKER SWITCHBOARD ----------
   var onIds = {};
   function renderBreakers(){
@@ -120,12 +127,14 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- pricing ----------
   function renderPricing(){
-    var p = CONTENT.pricing || {};
-    var sc = p.serviceCall || {};
+    /* pricing is the canonical root ARRAY [{label, range}] (manifest
+       mergePath "pricing"); the service-call card lives under niche.serviceCall,
+       which base.js's SLflat exposes as CONTENT.serviceCall. */
+    var sc = CONTENT.serviceCall || {};
     document.getElementById('callPrice').textContent = '$' + (sc.price != null ? sc.price : 95);
     document.getElementById('callNote').textContent = sc.note || '';
-    document.getElementById('rangesList').innerHTML = (p.ranges||[]).map(function(r){
-      return '<div class="range-row"><span class="range-row__label">'+esc(r.label)+'</span><span class="range-row__val">'+esc(r.range)+'</span></div>';
+    document.getElementById('rangesList').innerHTML = (CONTENT.pricing||[]).map(function(r){
+      return '<div class="range-row"><span class="range-row__label">'+esc(r.label)+'</span><span class="range-row__val">'+esc(r.blurb)+'</span></div>';
     }).join('');
   }
 

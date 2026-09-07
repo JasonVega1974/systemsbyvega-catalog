@@ -1,27 +1,50 @@
 {
   "v": 1,
   "theme": {
-    "ground": "#F2F7FB", "surface": "#FBFDFE", "card": "#FFFFFF",
-    "accent": "#1E6FB0", "accentBright": "#2A7ABE",
-    "text": "#152435", "textSoft": "#4E6072",
-    "ok": "#1E6FB0", "bad": "#B4453A", "onAccent": "#FFFFFF",
+    "ground": "#F2F7FB",
+    "surface": "#FBFDFE",
+    "card": "#FFFFFF",
+    "accent": "#1E6FB0",
+    "accentBright": "#2A7ABE",
+    "text": "#152435",
+    "textSoft": "#4E6072",
+    "ok": "#1E6FB0",
+    "bad": "#B4453A",
+    "onAccent": "#FFFFFF",
     "fontsHref": "https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Albert+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
-    "display": "'Kanit',sans-serif", "label": "'IBM Plex Mono',monospace", "body": "'Albert Sans',sans-serif",
+    "display": "'Kanit',sans-serif",
+    "label": "'IBM Plex Mono',monospace",
+    "body": "'Albert Sans',sans-serif",
     "logo": ""
   },
-  "photoSlots": ["hero", "owner"],
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": true,
+    "social": false,
+    "footerContact": false,
+    "ownerBlock": true
   },
   "pricing": {
     "model": "tiers",
-    "editableFields": ["label", "price", "per"],
+    "editableFields": [
+      "label",
+      "price",
+      "per"
+    ],
     "mergePath": "pricing"
   },
   "merge": {
     "beforeAfter": "none",
     "reviews": "testimonials",
     "ownerShape": "owner"
-  }
+  },
+  "heroDefault": "/sites/hvac/photos/hero-cool-bedroom.jpg",
+  "heroAlt": "A neatly made bed in a calm bedroom kept comfortable by a wall-mounted mini-split",
+  "heroWired": true
 }

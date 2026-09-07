@@ -60,7 +60,13 @@ body{background:var(--ground);color:var(--ink);font-family:'Albert Sans',system-
   .hero-card .hc-out{font-size:13px;color:var(--muted)}
   .hero-card .hc-in{font-family:'Kanit';font-weight:800;font-size:22px}
   .hero-card .hc-by{margin-top:14px;font-family:'IBM Plex Mono';font-size:11.5px;color:var(--muted);letter-spacing:.02em}
-  @media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-card{order:-1}}
+  @media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-media{order:-1}}
+  /* Phase B4 photo hero -- dress for the shared component: photo + goal card
+     read as one unit (photo takes the top radius, the card the bottom). */
+  .hero-media{position:relative}
+  .hero .hero-photo-cmp{aspect-ratio:16/11;max-height:340px;border-radius:20px 20px 0 0;
+    border:1px solid var(--card-brd);border-bottom:0;box-shadow:var(--shadow)}
+  .hero-media .hero-card{border-radius:0 0 20px 20px;border-top:1px dashed var(--hair)}
 
   /* ---------- trust strip ---------- */
   .trust{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:var(--ground-2)}

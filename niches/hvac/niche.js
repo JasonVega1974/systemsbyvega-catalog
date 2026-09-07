@@ -122,7 +122,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       return '<div class="pcard' + (p.highlight ? ' best' : '') + '">' +
         (p.highlight ? '<span class="pnote">Most popular</span>' : '') +
         '<h3>' + esc(p.label) + '</h3>' +
-        '<div class="pnum">$' + esc(p.price) + '<span> ' + esc(p.per) + '</span></div>' +
+        '<div class="pnum">' + esc(p.blurb) + '<span> ' + esc(p.per) + '</span></div>' +
         '<ul>' + feats + '</ul></div>';
     }).join('');
     document.getElementById('pricingNote').textContent = c.pricingNote || '';

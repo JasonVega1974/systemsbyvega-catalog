@@ -137,31 +137,15 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .proof + .proof{padding-left:28px;border-left:1px solid var(--hair)}
 @media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
 
-/* portrait frame — CSS-only placeholder until a real photo exists */
+/* Phase B4 photo hero -- the CSS placeholder portrait (ink wash, rose mark,
+   corner ticks) is retired; the photo wears the same sharp frame: no radius,
+   hairline border, thin offset accent line inside. Scoped to .hero so the
+   dress never leaks into another component. */
 .hero__portrait{position:relative;display:flex;justify-content:center}
-.portrait{position:relative;width:min(380px,86%);aspect-ratio:4/5;background:linear-gradient(165deg,var(--panel-3),var(--ground-2) 70%);
+.hero .hero-photo-cmp{width:min(380px,86%);aspect-ratio:4/5;border-radius:0;
   border:1px solid var(--card-brd);box-shadow:var(--shadow)}
-.portrait img{width:100%;height:100%;object-fit:cover;display:block}
-/* thin offset frame line + corner ticks */
-.portrait::before{content:"";position:absolute;inset:12px;border:1px solid rgba(196,43,61,.35);pointer-events:none;z-index:2}
-.portrait__corner{position:absolute;width:22px;height:22px;border:0 solid var(--accent);z-index:3;pointer-events:none}
-.portrait__corner--tl{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
-.portrait__corner--br{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
-/* no-photo state: deliberate ink-wash composition with the rose mark.
-   For a real artist rebrand, drop <img src="assets/portrait.jpg"> inside
-   .portrait and this whole treatment disappears automatically. */
-.portrait:not(:has(img))::after{
-  content:"Rae Costa · Boise";
-  position:absolute;inset:0;display:grid;place-items:end center;text-align:center;
-  padding:0 20px 24px;font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
-  color:var(--ink);opacity:.75;z-index:1}
-.portrait:not(:has(img)) .portrait__wash{
-  position:absolute;inset:0;
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg opacity='.2'%3E%3Cpath d='M32 12c-9.5 0-16 6.2-16 13.6C16 34 23.4 38 32 38s16-4 16-12.4C48 18.2 41.5 12 32 12zm0 5.6c5.6 0 10 3.4 10 8 0 4.4-4.4 6.8-10 6.8s-10-2.4-10-6.8c0-4.6 4.4-8 10-8zm0 4.4c-3.3 0-5.6 1.6-5.6 3.6S28.7 29.2 32 29.2s5.6-1.6 5.6-3.6S35.3 22 32 22z' fill='%23ede4d3'/%3E%3Cpath d='M32 38v14M32 45l-6.5 4M32 41.5l6.5 4.5' stroke='%23c42b3d' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/g%3E%3C/svg%3E") center 38% / 150px auto no-repeat,
-    radial-gradient(70% 55% at 50% 38%, rgba(196,43,61,.15), transparent 70%),
-    radial-gradient(50% 40% at 50% 82%, rgba(237,228,211,.05), transparent 70%),
-    repeating-linear-gradient(135deg, transparent 0 16px, rgba(237,228,211,.03) 16px 17px)}
+.hero .hero-photo-cmp::before{content:"";position:absolute;inset:12px;
+  border:1px solid rgba(196,43,61,.35);pointer-events:none;z-index:2}
 .mote{position:absolute;bottom:-4%;border-radius:50%;opacity:0;filter:blur(1px);
   animation:rise linear infinite}
 @keyframes rise{

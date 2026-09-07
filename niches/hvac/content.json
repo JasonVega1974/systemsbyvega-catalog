@@ -105,7 +105,7 @@
   "pricing": [
     {
       "label": "One-Time Tune-Up",
-      "price": 89,
+      "blurb": "$89",
       "per": "/visit",
       "features": [
         "Heating or cooling — pick the season",
@@ -117,7 +117,7 @@
     },
     {
       "label": "Season Pass",
-      "price": 159,
+      "blurb": "$159",
       "per": "/year",
       "features": [
         "Two visits — spring cooling, fall heating",
@@ -129,7 +129,7 @@
     },
     {
       "label": "Whole-Home Plan",
-      "price": 249,
+      "blurb": "$249",
       "per": "/year",
       "features": [
         "Everything in Season Pass",

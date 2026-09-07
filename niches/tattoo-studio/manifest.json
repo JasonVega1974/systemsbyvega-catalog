@@ -1,27 +1,49 @@
 {
   "v": 1,
   "theme": {
-    "ground": "#0a0a0d", "surface": "#101014", "card": "#111014",
-    "accent": "#c42b3d", "accentBright": "#d04254",
-    "text": "#ede4d3", "textSoft": "#a89d8d",
-    "ok": "#c9a86a", "bad": "#FF9AA2", "onAccent": "#FFFFFF",
+    "ground": "#0a0a0d",
+    "surface": "#101014",
+    "card": "#111014",
+    "accent": "#c42b3d",
+    "accentBright": "#d04254",
+    "text": "#ede4d3",
+    "textSoft": "#a89d8d",
+    "ok": "#c9a86a",
+    "bad": "#FF9AA2",
+    "onAccent": "#FFFFFF",
     "fontsHref": "https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
-    "display": "'Cormorant Unicase',serif", "label": "ui-monospace,monospace", "body": "'Space Grotesk',sans-serif",
+    "display": "'Cormorant Unicase',serif",
+    "label": "ui-monospace,monospace",
+    "body": "'Space Grotesk',sans-serif",
     "logo": ""
   },
-  "photoSlots": ["hero", "owner"],
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": false, "social": true, "footerContact": false, "ownerBlock": false
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": false,
+    "social": true,
+    "footerContact": false,
+    "ownerBlock": false
   },
   "pricing": {
     "model": "flash",
-    "editableFields": ["label", "price_label"],
+    "editableFields": [
+      "label",
+      "price_label"
+    ],
     "mergePath": "niche.flash"
   },
   "merge": {
     "beforeAfter": "none",
     "reviews": "none",
     "ownerShape": "none"
-  }
+  },
+  "heroDefault": "/sites/tattoo-studio/photos/hero-machines-table.jpg",
+  "heroAlt": "Coil tattoo machines resting on a workbench, in black and white",
+  "heroWired": true
 }
