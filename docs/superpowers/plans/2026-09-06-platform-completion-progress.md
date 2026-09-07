@@ -149,3 +149,39 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
 - Phase B pickup list additions: phone prettifying in kit tokens; per-niche
   template overrides where a niche deserves bespoke art; rate-limit /
   cooldown on the render endpoint (accepted residual).
+- PHASE B COMPLETE AND LIVE (5efee85..4255d80, 8 commits). Every niche's demo
+  at launch quality: B0 infra (robots via host-conditioned headers — tenant
+  X-Robots-Tag:all now EFFECTIVE, meta noindex retired platform-wide; hero
+  uploads render on wired niches with parse-time src/alt + heroWired admin
+  honesty + a build gate that fails on a heroWired lie; kit phone
+  prettifying); W2 hero promotions (auto-body reveal slider, auto-repair
+  garage bay, delivery zone-map quoter, bbq smoker photo); W3 before/after
+  photo group (pressure-washing wand now erases real pavers; car-detailing/
+  painting/contracting photo heroes; contracting operator before/after
+  upload chain closed end-to-end at the endpoint); W4a photo-hero remainder
+  (electrician/hvac/moving/metal-fab/tattoo/roofing) with electrician+hvac
+  pricing landed on operator-reachable keys; W4b KEEP rollout (footer
+  hours/address everywhere, job-details/reviews where flagged, dog-walking/
+  dumpster/child-care calculator+hourly reconciliation with picker-math
+  proof, plumbing drip, PT rAF stop). B-final opus gate then caught 4 [H]
+  broken demo price sections (painting/plumbing/roofing/pressure-washing
+  reading keys their rows never carried) — the whole tiers class is now on
+  one label/blurb/per/highlight display-string contract, car-detailing's
+  kit headline un-broken, K/M suffix math fixed (contracting flyer was 5x
+  overstated), before/after zones honest, PRICE_ROWS 6.
+- FOR JASON'S EYEBALL (photo table, all Pexels-credited, ship+flag per B1
+  precedent): bbq smoker (pass); pw dirty/clean paver pair (disclosed
+  matched-pair, not same-surface); car-detailing polisher-on-hood (pass);
+  painting roller (pass); contracting framing + fence before/after (after
+  retagged "Restained cedar, a season in" for photo-honesty); hvac mini-
+  split bedroom (pass); moving boxes (pass); metal-fab weld sparks (pass);
+  tattoo machines still-life (pass); roofing storm roof (pass);
+  ELECTRICIAN FLAGGED: masked side-profile at a breaker panel — possibly
+  identifiable person; say the word and it's swapped in minutes.
+- Accepted residuals (ledgered): tenant-host direct /sites/ URLs carry no
+  robots signal (unlinked duplicates; header-merge precedence untested);
+  dog-walking week-builder matrix demo-managed (caption scoped truthfully);
+  plumbing hero-photo unwired pending a designed placement; 27-char blurb
+  vs 20-char operator cap edge.
+- Next: Phase C (estate-sale — validates percentage pricing — then
+  garage-sale), Phase D turnkey verification table, final platform review.
