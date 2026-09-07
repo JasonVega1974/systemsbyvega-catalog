@@ -493,6 +493,12 @@ async function handler(request) {
     const launchArgs = chromium.args.filter(function (a) {
       return a.indexOf('--headless') !== 0;
     });
+    // Canonical container fix: chromium's default shared-memory transport
+    // lives in /dev/shm, which serverless runtimes mount tiny or not at
+    // all — the classic silent browser death at first page creation.
+    if (launchArgs.indexOf('--disable-dev-shm-usage') === -1) {
+      launchArgs.push('--disable-dev-shm-usage');
+    }
     // Graphics off: nothing in these templates needs WebGL, and swiftshader
     // initialization is a documented crash-at-page-create culprit for this
     // binary on non-Lambda serverless runtimes.
@@ -505,13 +511,22 @@ async function handler(request) {
     // in the render_failed reason.
     let binProbe = '';
     try {
+      // Probe v2: run the browser with the REAL launch args for a few
+      // seconds and capture its dying words. If it stays alive until the
+      // timeout kills it, the binary+args are viable and the fault is in
+      // the driver conversation; if it exits, stderr says why.
       const { execFile } = await import('node:child_process');
       binProbe = await new Promise(function (res) {
-        execFile(exePath, ['--version'], { timeout: 20000 }, function (pe, stdout, stderr) {
-          if (pe) res('probe-failed: ' + String(pe.message || '').split('\n')[0].slice(0, 200)
-            + ' | stderr: ' + String(stderr || '').split('\n')[0].slice(0, 300));
-          else res('probe-ok: ' + String(stdout || '').trim().slice(0, 80));
-        });
+        const started = Date.now();
+        execFile(exePath,
+          launchArgs.concat(['--remote-debugging-port=0', 'about:blank']),
+          { timeout: 8000, killSignal: 'SIGKILL' },
+          function (pe, stdout, stderr) {
+            const ms = Date.now() - started;
+            const tail = String(stderr || '').trim().split('\n').slice(-3).join(' | ').slice(0, 400);
+            if (pe && pe.killed) res('probe-alive-' + ms + 'ms (good) stderr: ' + tail);
+            else res('probe-exit-' + ms + 'ms code=' + (pe ? pe.code : 0) + ' stderr: ' + tail);
+          });
       });
     } catch (pe) { binProbe = 'probe-threw: ' + String(pe && pe.message).slice(0, 200); }
     const browser = await pw.launch({
