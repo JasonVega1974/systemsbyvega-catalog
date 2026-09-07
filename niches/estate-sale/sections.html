@@ -1,0 +1,357 @@
+<!-- estate-sale/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Visual language adapted from the EstateSaleBiz demo (teal + brass, ledger
+     and ticket motifs) onto the platform template; the brand here is fictional.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Magpie &amp; Mantel Estate Sales home">
+      <span class="brand__mark" role="img" aria-label="Magpie &amp; Mantel brass magpie seal">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="mm-grad-brass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D08A"/><stop offset=".5" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#mm-grad-brass)" stroke-width="2.5"/>
+          <path d="M17 40c5-2 8-6 10-11 1.5-3.6 4-6 8-6 4.5 0 7 3 7 6.5 0 2.5-1.2 4.3-3.2 5.4L47 40l-9.5-2.6c-2.6 4-6.8 6.3-12.5 6.3-3 0-5.8-.6-8-3.7Z" fill="url(#mm-grad-brass)"/>
+          <circle cx="37.4" cy="27.6" r="1.3" fill="#20160A"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Magpie &amp; Mantel</span><span id="brandLocale">Estate sales · Twin Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#fee">The fee</a>
+      <a class="link" href="#guide">What sells</a>
+      <a class="link" href="#reviews">Reviews</a>
+      <a class="link" href="#book">Walkthrough</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550127" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0127</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- attic-light dust motes — pure CSS drift, transform/opacity only (mm-drift) -->
+  <div class="mm-motes" aria-hidden="true">
+    <span class="mm-mote"></span><span class="mm-mote"></span><span class="mm-mote"></span>
+    <span class="mm-mote"></span><span class="mm-mote"></span><span class="mm-mote"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Estate sales · Downsizing · Clean-outs</span></div>
+        <h1 id="heroTitle">When it's time to let the house go, you shouldn't have to do it alone.</h1>
+        <p class="hero__sub" id="heroSub">Magpie &amp; Mantel runs full-service estate sales across Twin Falls and the Magic Valley. We walk the house with you, stage and price what's inside, run the sale weekend, and hand back a broom-clean home.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how it works</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Free</b><span>Walkthrough, no pressure</span></div>
+          <div class="proof"><b>Itemized</b><span>Settlement sheet</span></div>
+          <div class="proof"><b>Broom-clean</b><span>Empty, swept handoff</span></div>
+        </div>
+      </div>
+      <div class="hero__estate">
+        <!-- signature motif: a brass skeleton key on its thread, swaying slowly
+             (mm-keysway in sections.css — transform only, reduced-motion safe) -->
+        <div class="mm-key" aria-hidden="true">
+          <svg viewBox="0 0 60 200" fill="none">
+            <defs>
+              <linearGradient id="mm-grad-key" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F0D08A"/><stop offset=".45" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+              </linearGradient>
+              <radialGradient id="mm-grad-bow" cx=".35" cy=".3" r=".9">
+                <stop offset="0" stop-color="#F6E2AE"/><stop offset=".55" stop-color="#C89A3F"/><stop offset="1" stop-color="#7A5518"/>
+              </radialGradient>
+            </defs>
+            <line x1="30" y1="0" x2="30" y2="52" stroke="rgba(242,237,224,.35)" stroke-width="1.2"/>
+            <circle cx="30" cy="74" r="21" stroke="url(#mm-grad-bow)" stroke-width="7"/>
+            <circle cx="30" cy="52" r="3.4" fill="url(#mm-grad-key)"/>
+            <rect x="26.4" y="94" width="7.2" height="72" rx="3.4" fill="url(#mm-grad-key)"/>
+            <path d="M33.6 150h12v7.4h-12zM33.6 162h8v7.4h-8z" fill="url(#mm-grad-key)"/>
+            <rect x="24" y="97" width="2.1" height="64" rx="1" fill="rgba(255,253,246,.32)"/>
+          </svg>
+        </div>
+        <div class="mm-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-heirloom-table.jpg).
+             Credit: Tima Miroshnichenko, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+      </div>
+    </div>
+  </div>
+  <!-- estate-ticket perforation between the dark parlor and the page -->
+  <div class="mm-perf" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 10v9h14v-9"/><path d="M3 21h18"/></svg>The whole house, handled</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Every item researched &amp; tagged</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>You keep what matters</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Nothing owed up front</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="mm-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="mm-fl-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#C89A3F" stop-opacity="0"/><stop offset=".5" stop-color="#E3B95F"/><stop offset="1" stop-color="#C89A3F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#mm-fl-a)" stroke-width="1"/>
+        <path d="M80 1.5 84.5 6 80 10.5 75.5 6Z" fill="url(#mm-fl-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">A house full of things is a house full of decisions</h2>
+      <p class="about__body" id="aboutBody">Most families call us in one of three seasons: a passing, a move, or a long-overdue downsize. Whichever brought you here, the job is the same — treat the household with respect, research and price things honestly, and leave you with an empty, swept house and an itemized accounting of everything that sold. You keep what matters. We handle the rest.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From first walkthrough to swept floors</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk &amp; assess</h3>
+        <p>We tour the house with you, room by room, and flag anything the family wants to keep. The walkthrough is free, and there's no pressure to book.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Stage &amp; price</h3>
+        <p>Our crew sorts, stages and tags every room — tables up, cabinets opened, and each item researched and priced against real estate-sale comparables.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Sale weekend</h3>
+        <p>We run the sale from open to close: signage, crowd flow, checkout, and half-price hours at the end. You don't need to be there — many families prefer not to be.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Broom-clean handoff</h3>
+        <p>Whatever remains is donated or hauled away by arrangement. Then we hand back a swept, empty house along with an itemized settlement sheet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEE STRUCTURE (percentage model) ============ -->
+<section class="section fee" id="fee">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fee</span>
+      <h2 class="section-title">One number, agreed before we start</h2>
+      <svg class="mm-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="mm-fl-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#C89A3F" stop-opacity="0"/><stop offset=".5" stop-color="#E3B95F"/><stop offset="1" stop-color="#C89A3F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#mm-fl-b)" stroke-width="1"/>
+        <path d="M80 1.5 84.5 6 80 10.5 75.5 6Z" fill="url(#mm-fl-b)"/>
+      </svg>
+    </div>
+
+    <!-- The settlement-sheet card. commission + minimum are the percentage
+         model's two editable fields (admin PRICE_MODEL_FIELDS.percentage);
+         niche.js renders them from CONTENT.pricing — no invented figures. -->
+    <div class="fee__sheet reveal" id="feeSheet">
+      <div class="fee__cols">
+        <div class="fee__col">
+          <span class="fee__label">Commission</span>
+          <div class="fee__big" id="feeCommission">35%</div>
+          <span class="fee__sub">of sales</span>
+        </div>
+        <div class="fee__rule" aria-hidden="true"></div>
+        <div class="fee__col">
+          <span class="fee__label">Sale minimum</span>
+          <div class="fee__big fee__big--min" id="feeMinimum">$1,500</div>
+          <span class="fee__sub">per estate</span>
+        </div>
+      </div>
+      <p class="fee__note" id="feeNote">We staff, stage, price and run the whole sale — 35% of sales with a $1,500 minimum, nothing up front.</p>
+      <div class="fee__cta">
+        <a class="btn" href="#book" id="feeCta">Book a free walkthrough</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT-SELLS GUIDE ============ -->
+<section class="section guide" id="guide">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The pricing ledger</span>
+      <h2 class="section-title">What things typically sell for</h2>
+      <p class="lead" style="margin:0 auto">A page from our working ledger — the kinds of pieces we see in Magic Valley households, and how we price them for a sale weekend.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.whatSells, grouped by category.
+         Every value lands via textContent (DOM-property sinks only). -->
+    <div class="ws__grid" id="wsGroups"></div>
+    <div class="ws__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="wsNote">Ranges reflect typical estate-sale pricing for well-kept examples. Every estate is different, and no range here is a promise of what any particular item will bring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Families we've helped</span>
+      <h2 class="section-title">Word from around the valley</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving the Magic Valley</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Magic Valley, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Twin Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Jerome</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Kimberly</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Filer</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Buhl</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hansen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free walkthrough</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the house</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We'll text you to set up a free walkthrough — we look at the house, you ask your questions, and there's no pressure to book.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550127" data-tel data-phone-text>(208) 555-0127</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the house <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Twin Falls" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred walkthrough date</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What's the situation? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. We're clearing my parents' three-bedroom house after a move to assisted living. Lots of furniture and a full garage. Hoping for a sale next month."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walkthrough. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request my free walkthrough</button>
+        <a class="book__alt" href="sms:+12085550127?body=Hi%20Magpie%20%26%20Mantel!%20I%27d%20like%20to%20book%20a%20free%20walkthrough." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — we're with you from here</h3>
+      <p id="doneMsg">We'll text you shortly to set up your free walkthrough.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who walks the house with you</h2>
+        <div class="meet__desc" id="meetDesc">Rowan Ashby grew up working weekend auctions and learned early that every box in a garage has a story attached. After years of helping neighbors downsize, Rowan turned that knack into a company — one built on the idea that a family should never have to price a lifetime of belongings while they're still saying goodbye to it. Rowan still leads every walkthrough personally, from the first look at the house to the final broom-clean handoff.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Magpie &amp; Mantel Estate Sales">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="mm-grad-brass2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D08A"/><stop offset=".5" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#mm-grad-brass2)" stroke-width="2.5"/>
+          <path d="M17 40c5-2 8-6 10-11 1.5-3.6 4-6 8-6 4.5 0 7 3 7 6.5 0 2.5-1.2 4.3-3.2 5.4L47 40l-9.5-2.6c-2.6 4-6.8 6.3-12.5 6.3-3 0-5.8-.6-8-3.7Z" fill="url(#mm-grad-brass2)"/>
+          <circle cx="37.4" cy="27.6" r="1.3" fill="#20160A"/>
+        </svg>
+      </span>
+      <div><b data-brand>Magpie &amp; Mantel Estate Sales</b><span id="footTagline">The whole house, handled with care.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550127" data-tel data-phone-text>(208) 555-0127</a><br />
+      <span id="areaLine">Serving Magic Valley, Idaho</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Magpie &amp; Mantel Estate Sales</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Magpie &amp; Mantel Estate Sales</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real estate-sale services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550127" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550127?body=Hi%20Magpie%20%26%20Mantel!%20I%27d%20like%20to%20book%20a%20free%20walkthrough." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

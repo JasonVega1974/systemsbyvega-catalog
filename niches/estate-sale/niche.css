@@ -1,0 +1,42 @@
+/* estate-sale — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "parlor at dusk" — deep teal-ink ground, brass accent, warm
+   parchment type. Adapted from the EstateSaleBiz demo's teal + brass system,
+   re-tuned dark for the platform template. Contrast (WCAG, computed):
+   accent-ink on accent 6.90:1, on accent-2 9.63:1; ink on ground 15.75:1;
+   ink-dim on ground 9.42:1 and 7.33:1 on panel-2; muted on ground 6.71:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #081010;   /* the dark under the dark */
+  --ground:       #0C1614;   /* teal-ink parlor ground */
+  --ground-2:     #0F1D1A;
+  --panel:        #12211D;
+  --panel-2:      #1A2E28;
+  --accent:       #C89A3F;   /* brass — the treasure accent */
+  --accent-2:     #E3B95F;   /* polished brass highlight */
+  --accent-deep:  #8A6420;   /* aged brass shadow */
+  --accent-alt:   #3FBFA5;   /* estate teal, used sparingly */
+  --accent-ink:   #20160A;   /* type on brass */
+  --ink:          #F2EDE0;   /* warm parchment */
+  --ink-bright:   #FAF7EE;
+  --ink-dim:      #AEBDB4;
+  --ink-max:      #FFFDF6;
+  --muted:        #8FA098;
+  --hair:         rgba(242,237,224,.10);
+  --hair-accent:  rgba(200,154,63,.20);
+  --card:         rgba(18,33,29,.55);
+  --card-brd:     rgba(242,237,224,.12);
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.7);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFF9EC;
+  --sheen-lo:     #D8CCAE;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #E0616B;
+  --err-ink:      #FF9AA2;
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Karla', system-ui, -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}

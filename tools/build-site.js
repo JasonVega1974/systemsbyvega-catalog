@@ -259,10 +259,16 @@ function buildJsonLd() {
   /* Use the source's value when it had one — including schema.org's price-TIER
      forms ("$", "$$"). Otherwise derive from pricing[]. Otherwise omit: an
      absent priceRange is honest, an invented one is not. */
+  /* pricing may be the percentage model's OBJECT ({commission, minimum,
+     note} — spec 2026-09-07 Decision 3, estate-sale first) rather than the
+     tier ARRAY. Every array read below must tolerate that: the object form
+     has no numeric tiers and no per-item offers, which is honest — a
+     commission is not an Offer price. */
+  const pricingTiers = Array.isArray(content.pricing) ? content.pricing : [];
   const CUR = String.fromCharCode(36);
   let pr = seo.priceRange;
   if (!pr) {
-    const nums = (content.pricing || [])
+    const nums = pricingTiers
       .flatMap(p => [p.price, p.priceHigh])
       .filter(n => typeof n === 'number');
     if (nums.length) pr = CUR + Math.min(...nums) + '-' + CUR + Math.max(...nums);
@@ -272,7 +278,7 @@ function buildJsonLd() {
 
   // makesOffer whenever the niche exposes priced items
   const offers = [];
-  (content.pricing || []).forEach(p => {
+  pricingTiers.forEach(p => {
     if (p && p.label != null && p.price != null) {
       offers.push({ '@type': 'Offer', name: String(p.label), price: String(p.price), priceCurrency: 'USD' });
     }

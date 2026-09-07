@@ -626,7 +626,7 @@ if (builtHtml) {
          markup can never succeed. Compare against the data the page renders
          from: the range is backed when its endpoints are the min and max of
          pricing[].price. */
-      const tiers = ((content && content.pricing) || [])
+      const tiers = (Array.isArray(content && content.pricing) ? content.pricing : [])
         .map(p => p.price).filter(n => typeof n === 'number');
       /* EITHER route backs the claim, and both are needed:
            - the string is in the body — landscaping and painting print their

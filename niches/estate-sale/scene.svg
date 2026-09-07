@@ -1,0 +1,4 @@
+<!-- estate-sale/scene.svg — this site keeps its illustrations inline in
+     sections.html (brass key, ledger flourishes, monograms) rather than in a
+     shared <defs> block. Placeholder so the build slot resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>

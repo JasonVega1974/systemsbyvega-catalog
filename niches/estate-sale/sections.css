@@ -1,0 +1,281 @@
+/* estate-sale/sections.css — this niche's own section rules, layered over
+   _template/base.css. Identity: "parlor at dusk" — a dark teal-ink parlor,
+   brass hardware, parchment serif type, ledger and estate-ticket motifs.
+   Adapted from the EstateSaleBiz demo's visual language (teal + brass,
+   perforated ticket edges, price-sticker tags) with a fictional brand.
+   Signature animation lives here in CSS: mm-keysway, mm-halo, mm-drift —
+   transform/opacity only, neutralised under prefers-reduced-motion below. */
+
+/* ---------- atmosphere: replace the high-desert backdrop ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1100px 620px at 78% -12%, rgba(63,191,165,.10), transparent 60%),
+    radial-gradient(900px 640px at 4% 16%, rgba(26,46,40,.6), transparent 62%),
+    radial-gradient(760px 520px at 52% 108%, rgba(200,154,63,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint ledger ruling instead of topographic rings — the bookkeeping motif */
+body::after{
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 46px, rgba(242,237,224,.028) 46px 47px),
+    repeating-linear-gradient(90deg, transparent 0 220px, rgba(200,154,63,.02) 220px 221px);
+  opacity:.9;
+}
+
+/* ---------- estate type voice ---------- */
+.section-title{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  letter-spacing:-.015em;font-size:clamp(1.9rem,4.2vw,2.9rem);line-height:1.12;
+}
+.lead{font-size:1.05rem}
+.mm-flourish{display:block;width:160px;height:12px;margin:18px auto 0}
+.section__head .mm-flourish{margin-top:22px}
+
+/* ---------- buttons: brass, pill-shaped, quietly confident ---------- */
+.btn{
+  font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;font-size:.98rem;
+  box-shadow:0 12px 30px -10px rgba(200,154,63,.5), inset 0 1px 0 rgba(255,253,246,.45);
+}
+.btn:hover{box-shadow:0 18px 40px -10px rgba(200,154,63,.6), inset 0 1px 0 rgba(255,253,246,.5)}
+.btn--ghost{
+  background:rgba(200,154,63,.07);border:1px solid rgba(200,154,63,.4);
+  box-shadow:none;color:var(--ink-bright);
+}
+.btn--ghost:hover{background:rgba(200,154,63,.14);box-shadow:0 10px 26px -14px rgba(200,154,63,.5)}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(10,18,16,.88)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0}
+.brand__mark svg{width:40px;height:40px}
+.brand__name{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:0;font-size:1.02rem;
+}
+.nav__call{
+  font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;
+  box-shadow:0 10px 24px -12px rgba(200,154,63,.6), inset 0 1px 0 rgba(255,253,246,.4);
+}
+
+/* ---------- hero: the parlor ---------- */
+.hero h1{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  font-size:clamp(2.3rem,5vw,3.8rem);line-height:1.1;letter-spacing:-.02em;
+  margin-bottom:10px;max-width:15ch;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.1rem;line-height:1.75;max-width:52ch}
+.hero__proof{gap:18px}
+.proof b{font-family:var(--display);font-weight:700;font-size:1.18rem;text-transform:none;letter-spacing:0}
+.proof span{font-size:.62rem;letter-spacing:.1em}
+.proof + .proof{padding-left:18px}
+
+/* estate column: hanging brass key + framed heirloom photo */
+.hero__estate{position:relative;display:flex;justify-content:center;padding:26px 10px 10px}
+.hero__estate .hero-photo-cmp{
+  width:min(410px,100%);border-radius:18px;
+  border:1px solid rgba(200,154,63,.35);
+  outline:1px solid rgba(200,154,63,.22);outline-offset:9px;
+  box-shadow:0 34px 80px -24px rgba(0,0,0,.75), 0 6px 18px rgba(0,0,0,.4);
+}
+.mm-halo{
+  position:absolute;inset:-2% -6% 4%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(200,154,63,.2), rgba(63,191,165,.06) 55%, transparent 74%);
+  filter:blur(10px);
+  animation:mm-halo 7s ease-in-out infinite;
+}
+.mm-key{
+  position:absolute;top:-14px;left:4%;width:56px;z-index:3;pointer-events:none;
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.5));
+}
+.mm-key svg{width:100%;height:auto;transform-origin:30px 0;animation:mm-keysway 8s ease-in-out infinite}
+@media(max-width:900px){.mm-key{left:10%;width:44px;top:-6px}}
+
+/* attic-light dust motes */
+.mm-motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.mm-mote{
+  position:absolute;bottom:-24px;width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle, rgba(227,185,95,.8), transparent 70%);
+  opacity:0;animation:mm-drift 16s linear infinite;
+}
+.mm-mote:nth-child(1){left:8%;--dx:30px;animation-duration:15s;animation-delay:-2s}
+.mm-mote:nth-child(2){left:24%;--dx:-22px;animation-duration:19s;animation-delay:-9s;width:4px;height:4px}
+.mm-mote:nth-child(3){left:47%;--dx:18px;animation-duration:14s;animation-delay:-5s}
+.mm-mote:nth-child(4){left:63%;--dx:-28px;animation-duration:21s;animation-delay:-12s;width:6px;height:6px}
+.mm-mote:nth-child(5){left:78%;--dx:24px;animation-duration:17s;animation-delay:-7s;width:4px;height:4px}
+.mm-mote:nth-child(6){left:91%;--dx:-16px;animation-duration:20s;animation-delay:-14s}
+
+/* the signature loops — sway, breathe, drift (transform/opacity only) */
+@keyframes mm-keysway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes mm-halo{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.95;transform:scale(1.05)}}
+@keyframes mm-drift{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  10%{opacity:.7}
+  60%{transform:translate3d(var(--dx,24px),-40vh,0);opacity:.45}
+  100%{transform:translate3d(calc(var(--dx,24px) * -0.6),-74vh,0);opacity:0}
+}
+
+/* estate-ticket perforation along the hero's bottom edge */
+.mm-perf{position:absolute;left:0;right:0;bottom:0;border-top:2px dashed rgba(242,237,224,.16)}
+.mm-perf::before,.mm-perf::after{
+  content:"";position:absolute;top:-14px;width:26px;height:26px;border-radius:50%;
+  background:var(--ground);border:1px solid rgba(242,237,224,.1);
+}
+.mm-perf::before{left:-13px}
+.mm-perf::after{right:-13px}
+
+/* ---------- about: the letter ---------- */
+.about{padding-bottom:60px}
+.about__card{
+  max-width:800px;margin:0 auto;text-align:center;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:22px;
+  padding:clamp(30px,5vw,52px);backdrop-filter:blur(8px);
+}
+.about__card .mm-flourish{margin:0 auto 20px}
+.about__card .section-title{margin-bottom:18px}
+.about__body{color:var(--ink-dim);font-size:1.08rem;line-height:1.85;max-width:62ch;margin:0 auto}
+
+/* ---------- how it works: four movements ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step__n{
+  font-family:var(--display);font-weight:600;font-size:2.5rem;
+  -webkit-text-stroke:1.6px rgba(200,154,63,.75);
+}
+.step h3{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  letter-spacing:-.01em;font-size:1.18rem;
+}
+
+/* ---------- fee structure: the settlement sheet ---------- */
+.fee__sheet{
+  position:relative;max-width:780px;margin:0 auto;
+  background:linear-gradient(170deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(200,154,63,.3);border-radius:22px;
+  padding:clamp(30px,5vw,50px) clamp(22px,4vw,46px) clamp(26px,4vw,40px);
+  box-shadow:0 0 0 1px rgba(200,154,63,.12), var(--shadow);
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 34px, rgba(242,237,224,.03) 34px 35px),
+    linear-gradient(170deg,var(--panel-2),var(--panel));
+  overflow:hidden;
+}
+/* ticket notches on the sheet's waist */
+.fee__sheet::before,.fee__sheet::after{
+  content:"";position:absolute;top:50%;width:26px;height:26px;margin-top:-13px;
+  border-radius:50%;background:var(--ground);border:1px solid rgba(200,154,63,.25);
+}
+.fee__sheet::before{left:-14px}
+.fee__sheet::after{right:-14px}
+.fee__cols{display:flex;align-items:stretch;justify-content:center;gap:clamp(18px,4vw,44px)}
+.fee__col{flex:1;text-align:center;padding:6px 0;min-width:0}
+.fee__rule{border-left:2px dashed rgba(200,154,63,.35);align-self:stretch}
+.fee__label{
+  display:block;font-family:var(--mono);font-weight:600;font-size:.68rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px;
+}
+.fee__big{
+  font-family:var(--display);font-weight:700;line-height:1;
+  font-size:clamp(3.4rem,9vw,5.6rem);letter-spacing:-.03em;
+  background:linear-gradient(180deg,#F6E2AE 0%,var(--accent-2) 45%,var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 24px rgba(200,154,63,.22));
+}
+.fee__big--min{font-size:clamp(2.6rem,7vw,4.2rem);padding-top:.35em}
+.fee__sub{
+  display:block;margin-top:10px;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.fee__note{
+  margin:28px auto 0;max-width:54ch;text-align:center;
+  color:var(--ink-dim);font-size:1.02rem;line-height:1.7;
+  padding-top:22px;border-top:2px dashed rgba(242,237,224,.14);
+}
+.fee__cta{text-align:center;margin-top:24px}
+@media(max-width:560px){
+  .fee__cols{flex-direction:column;gap:20px}
+  .fee__rule{border-left:0;border-top:2px dashed rgba(200,154,63,.35)}
+}
+
+/* ---------- what-sells: the pricing ledger ---------- */
+.ws__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto}
+@media(max-width:860px){.ws__grid{grid-template-columns:1fr;max-width:620px}}
+.ws-group{
+  background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
+  padding:22px 24px 14px;backdrop-filter:blur(8px);
+}
+.ws-group__cat{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-weight:600;font-size:.7rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);
+  margin-bottom:8px;
+}
+.ws-group__cat::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(200,154,63,.4),transparent)}
+.ws-row{padding:14px 0;border-bottom:1px dashed var(--hair)}
+.ws-row:last-child{border-bottom:0}
+.ws-row__top{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ws-row__item{font-weight:700;color:var(--ink-bright);font-size:1rem;line-height:1.35}
+.ws-row__range{
+  flex:none;font-family:var(--mono);font-weight:600;font-size:.82rem;white-space:nowrap;
+  color:var(--accent-2);background:rgba(200,154,63,.1);
+  border:1px solid rgba(200,154,63,.35);border-radius:100px;padding:3px 12px;
+  transform:rotate(-1.5deg);
+}
+.ws-row__note{margin-top:6px;color:var(--muted);font-size:.9rem;line-height:1.6}
+.ws__note{
+  display:flex;gap:14px;align-items:flex-start;max-width:760px;margin:28px auto 0;
+  background:rgba(200,154,63,.06);border:2px dashed rgba(200,154,63,.4);border-radius:16px;
+  padding:18px 22px;
+}
+.ws__note svg{width:22px;height:22px;flex:none;color:var(--accent-2);margin-top:2px}
+.ws__note p{color:var(--ink-dim);font-size:.98rem;line-height:1.65}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(26,46,40,.7),rgba(8,16,16,.7));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(200,154,63,.12), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,237,224,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 22px}
+.meet__desc{
+  color:var(--ink);font-size:1.02rem;line-height:1.75;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+}
+
+/* ---------- book / footer polish ---------- */
+.book{background:rgba(8,16,14,.62)}
+.book-done h3{font-family:var(--display);font-weight:600;text-transform:none;letter-spacing:-.01em}
+.footer__brand b{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:0}
+.footer__brand span{text-transform:none;letter-spacing:.02em;font-family:var(--body)}
+.disclosure{
+  max-width:860px;font-family:var(--mono);font-size:.74rem;line-height:1.7;
+  color:var(--muted);opacity:.8;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta .call{box-shadow:0 8px 20px -8px rgba(200,154,63,.7)}
+.mobile-cta .text{background:rgba(200,154,63,.1);border:1px solid rgba(200,154,63,.35)}
+.mobile-cta a{font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em}
+
+/* ---------- reduced motion: the parlor sits still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .mm-key svg,.mm-halo,.mm-mote{animation:none}
+  .mm-mote{opacity:0}
+  .hero__estate .hero-photo-cmp img{animation:none}
+}
