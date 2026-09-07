@@ -1435,10 +1435,13 @@ document.addEventListener('DOMContentLoaded', function () {
         $('topbarName').textContent = clientId;
       }
       updateTopbarLogo();
-      renderMarketingPreviews();
 
       snapshot = JSON.stringify(collectRow());
       markSaved();
+      /* AFTER the save baseline on purpose: this pane is read-only and
+         optional, and nothing optional belongs where a throw could leave
+         snapshot unset and the save bar stuck open. */
+      renderMarketingPreviews();
     }).catch(function (e) {
       /* Without this, any throw inside the then() above dies invisibly and the
          operator gets a half-initialized editor: neutral theme, empty pricing,
@@ -1791,6 +1794,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var MK_QR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132'%3E%3Crect width='132' height='132' fill='%23c9ced6'/%3E%3C/svg%3E";
 
   function mkStr(v) { return (v === null || v === undefined) ? '' : String(v).trim(); }
+  /* keep in sync with safe in api/marketing-kit.mjs */
+  function mkSafe(v) { return mkStr(v).replace(/[<>]/g, ''); }
 
   /* keep in sync with getPath in api/marketing-kit.mjs */
   function mkGetPath(obj, dotPath) {
@@ -1884,23 +1889,23 @@ document.addEventListener('DOMContentLoaded', function () {
     var c = (content && typeof content === 'object') ? content : {};
     var brand = (c.brand && typeof c.brand === 'object') ? c.brand : {};
     var photos = (c.photos && typeof c.photos === 'object') ? c.photos : {};
-    var phone = mkStr(brand.phone);
+    var phone = mkSafe(brand.phone);
     var digits = phone.replace(/[^0-9]/g, '');
     var phoneHref = '';
     if (digits.length === 10) phoneHref = 'tel:+1' + digits;
     else if (digits.length === 11 && digits.charAt(0) === '1') phoneHref = 'tel:+' + digits;
     else if (digits) phoneHref = 'tel:' + digits;
-    var city = mkStr(brand.city), state = mkStr(brand.state);
+    var city = mkSafe(brand.city), state = mkSafe(brand.state);
     var cityState = (city && state) ? city + ', ' + state : (city || state);
     var logoCand = mkStr(photos.logo) || mkStr(brand.logo);
     var logoSrc = /^https?:\/\//i.test(logoCand) ? logoCand : '';
     var host = tenant + '.systemsbyvega.com';
     var out = {
-      business_name: mkStr(brand.name),
+      business_name: mkSafe(brand.name),
       phone: phone,
       phone_href: phoneHref,
       city_state: cityState,
-      tagline: mkStr(brand.tagline),
+      tagline: mkSafe(brand.tagline),
       price_headline: mkPriceHeadline(manifest, c),
       site_url: 'https://' + host + '/',
       site_host: host,
@@ -1949,7 +1954,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function renderMarketingPreviews() {
     if (!clientId) return; /* panel never shows without a tenant, but stay honest */
-    $('mkGenerate').disabled = false;
     say('mkMsg', '');
     /* Merged content: the same answer the endpoint renders from. no-store so
        a just-saved change shows up on refresh rather than after the CDN TTL.
@@ -1976,6 +1980,9 @@ document.addEventListener('DOMContentLoaded', function () {
           : 'Could not load your saved content for the preview. Reload to try again.', 'bad');
         return;
       }
+      /* Content loaded — the endpoint's is_active gate said yes, so the
+         kit is generatable even if a template fetch below has trouble. */
+      $('mkGenerate').disabled = false;
       var tokens = mkBuildTokens(clientId, content, currentManifest, MK_QR_PLACEHOLDER);
       if (results[1]) $('mkPrevFb').srcdoc = mkFillTemplate(results[1], tokens);
       if (results[2]) $('mkPrevFl').srcdoc = mkFillTemplate(results[2], tokens);

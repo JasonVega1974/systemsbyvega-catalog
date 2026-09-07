@@ -7,7 +7,8 @@
   "functions": {
     "api/marketing-kit.mjs": {
       "memory": 3009,
-      "maxDuration": 300
+      "maxDuration": 300,
+      "includeFiles": "node_modules/@sparticuz/chromium/bin/**"
     }
   },
   "redirects": [

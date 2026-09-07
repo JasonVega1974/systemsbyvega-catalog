@@ -86,6 +86,17 @@ function str(v) {
   return (v === null || v === undefined) ? '' : String(v).trim();
 }
 
+// Operator-typed strings land inside markup that chromium executes with
+// web security off. Angle brackets are the only characters that can change
+// the document's structure there — strip them rather than entity-encode,
+// so the same value stays legible if a template ever puts it in an
+// attribute. Theme tokens are exempt: they land inside <style> and
+// legitimately carry quotes and commas.
+// keep in sync with mkSafe in admin/index.html
+function safe(v) {
+  return str(v).replace(/[<>]/g, '');
+}
+
 function themeTokens(manifest) {
   const src = (manifest && manifest.theme && typeof manifest.theme === 'object'
     && !Array.isArray(manifest.theme)) ? manifest.theme : {};
@@ -213,7 +224,7 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
   const brand = (c.brand && typeof c.brand === 'object') ? c.brand : {};
   const photos = (c.photos && typeof c.photos === 'object') ? c.photos : {};
 
-  const phone = str(brand.phone);
+  const phone = safe(brand.phone);
   const digits = phone.replace(/[^0-9]/g, '');
   let phoneHref = '';
   if (digits.length === 10) phoneHref = 'tel:+1' + digits;
@@ -223,8 +234,8 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
   // brand.city is often already the display pair ("Nampa, ID") — the overlay
   // writes op.city + ', ' + op.state_code into it. A separate brand.state is
   // honored when a niche carries one; otherwise whichever half exists stands.
-  const city = str(brand.city);
-  const state = str(brand.state);
+  const city = safe(brand.city);
+  const state = safe(brand.state);
   const cityState = (city && state) ? city + ', ' + state : (city || state);
 
   // The logo must be an ABSOLUTE URL: page.setContent renders with no base
@@ -238,11 +249,11 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
   const host = tenant + '.systemsbyvega.com';
 
   return Object.assign({
-    business_name: str(brand.name),
+    business_name: safe(brand.name),
     phone: phone,
     phone_href: phoneHref,
     city_state: cityState,
-    tagline: str(brand.tagline),
+    tagline: safe(brand.tagline),
     price_headline: priceHeadline(manifest, c),
     site_url: 'https://' + host + '/',
     site_host: host,
@@ -462,23 +473,40 @@ async function handler(request) {
     let facebookPng = null;
     let flyerPdf = null;
     let flyerPng = null;
+    // @sparticuz/chromium's stock args include --single-process and
+    // --no-zygote (memory savers for tiny lambdas) plus its own --headless
+    // variant. Playwright's target attachment assumes out-of-process
+    // renderers — the --single-process pairing is the classic
+    // works-with-puppeteer, hangs-with-playwright failure — and Playwright
+    // sends its own headless flag. This function has 3GB; the savers buy
+    // nothing and risk everything, so they are stripped.
+    const launchArgs = chromium.args.filter(function (a) {
+      return a !== '--single-process' && a !== '--no-zygote'
+        && a.indexOf('--headless') !== 0;
+    });
     const browser = await pw.launch({
-      args: chromium.args,
+      args: launchArgs,
       executablePath: await chromium.executablePath(),
       headless: true,
     });
     try {
+      // waitUntil 'load' (not 'networkidle'): the capture is actually gated
+      // by the document.fonts.ready await below, and networkidle's own 30s
+      // default timeout would turn one slow font host into an opaque
+      // render_failed. fonts.ready resolves to a FontFaceSet Playwright
+      // cannot serialize — the .then(true) keeps the await meaningful
+      // without the serialization ambiguity.
       const fbPage = await browser.newPage();
       await fbPage.setViewportSize({ width: 1080, height: 1350 });
-      await fbPage.setContent(facebookHtml, { waitUntil: 'networkidle' });
-      await fbPage.evaluate(function () { return document.fonts.ready; });
+      await fbPage.setContent(facebookHtml, { waitUntil: 'load' });
+      await fbPage.evaluate(function () { return document.fonts.ready.then(function () { return true; }); });
       facebookPng = await fbPage.screenshot({ type: 'png' });
       await fbPage.close();
 
       const flyPage = await browser.newPage();
       await flyPage.setViewportSize({ width: 816, height: 1056 });
-      await flyPage.setContent(flyerHtml, { waitUntil: 'networkidle' });
-      await flyPage.evaluate(function () { return document.fonts.ready; });
+      await flyPage.setContent(flyerHtml, { waitUntil: 'load' });
+      await flyPage.evaluate(function () { return document.fonts.ready.then(function () { return true; }); });
       flyerPdf = await flyPage.pdf({ format: 'Letter', printBackground: true });
       flyerPng = await flyPage.screenshot({ type: 'png' });
       await flyPage.close();
@@ -495,11 +523,15 @@ async function handler(request) {
       { format: 'flyer-pdf', name: 'flyer-letter.pdf', bytes: flyerPdf, type: 'application/pdf' },
       { format: 'flyer-png', name: 'flyer-letter.png', bytes: flyerPng, type: 'image/png' },
     ];
-    const files = [];
+    // Validate ALL artifacts before uploading ANY: a zero-byte flyer must
+    // not leave a fresh facebook PNG behind with the caller told 500.
     for (const a of artifacts) {
       if (!a.bytes || !a.bytes.length) {
         throw new Error('render produced no bytes for ' + a.format);
       }
+    }
+    const files = [];
+    for (const a of artifacts) {
       await uploadToBucket(tenant, a.name, a.bytes, a.type);
       files.push({ format: a.format, url: publicUrl(tenant, a.name) });
     }
