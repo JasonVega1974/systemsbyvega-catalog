@@ -487,11 +487,31 @@ async function handler(request) {
     // initialization is the documented crash-at-page-create culprit for
     // this binary on non-Lambda serverless runtimes.
     chromium.setGraphicsMode = false;
+    const exePath = await chromium.executablePath();
+    // TEMPORARY DIAGNOSTIC (remove once a live render succeeds): run the
+    // binary directly first. Its loader errors — a missing shared library,
+    // a bad extraction — are invisible through playwright, whose own error
+    // is always some flavor of "browser closed". This makes them readable
+    // in the render_failed reason.
+    let binProbe = '';
+    try {
+      const { execFile } = await import('node:child_process');
+      binProbe = await new Promise(function (res) {
+        execFile(exePath, ['--version'], { timeout: 20000 }, function (pe, stdout, stderr) {
+          if (pe) res('probe-failed: ' + String(pe.message || '').split('\n')[0].slice(0, 200)
+            + ' | stderr: ' + String(stderr || '').split('\n')[0].slice(0, 300));
+          else res('probe-ok: ' + String(stdout || '').trim().slice(0, 80));
+        });
+      });
+    } catch (pe) { binProbe = 'probe-threw: ' + String(pe && pe.message).slice(0, 200); }
     const browser = await pw.launch({
       args: launchArgs,
-      executablePath: await chromium.executablePath(),
+      executablePath: exePath,
       headless: true,
+    }).catch(function (le) {
+      throw new Error('launch: ' + String(le && le.message).split('\n')[0] + ' [' + binProbe + ']');
     });
+    globalThis.__mkBinProbe = binProbe;
     try {
       // waitUntil 'load' (not 'networkidle'): the capture is actually gated
       // by the document.fonts.ready await below, and networkidle's own 30s
@@ -555,6 +575,7 @@ async function handler(request) {
       .slice(0, 140);
     // Build marker so a live retry is attributable to the deploy it hit.
     const build = String(process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7);
-    return json({ ok: false, error: 'render_failed@' + build + ': ' + reason }, 500);
+    const probe = globalThis.__mkBinProbe ? ' [' + String(globalThis.__mkBinProbe).slice(0, 300) + ']' : '';
+    return json({ ok: false, error: 'render_failed@' + build + ': ' + reason + probe }, 500);
   }
 }
