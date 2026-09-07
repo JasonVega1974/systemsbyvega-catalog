@@ -40,24 +40,24 @@
   ],
   "services": [
     {
-      "title": "Solo walks",
+      "label": "Solo walks",
       "desc": "One dog (or one household), one walker, zero distractions. For shy pups, seniors, and dogs who like the trail to themselves.",
-      "price": "from $18 / walk"
+      "price_label": "from $18 / walk"
     },
     {
-      "title": "Pack walks",
+      "label": "Pack walks",
       "desc": "Small matched groups of up to four. Your dog gets friends; you get a tired dog.",
-      "price": "from $14 / walk"
+      "price_label": "from $14 / walk"
     },
     {
-      "title": "Drop-in visits",
+      "label": "Drop-in visits",
       "desc": "A potty break, fresh water, dinner served, and fifteen minutes of undivided attention while you're stuck at work.",
-      "price": "from $16 / visit"
+      "price_label": "from $16 / visit"
     },
     {
-      "title": "Overnight sitting",
+      "label": "Overnight sitting",
       "desc": "We stay at your place so the routine stays theirs — same bed, same bowl, same 6 a.m. staring contest.",
-      "price": "from $85 / night"
+      "price_label": "from $85 / night"
     }
   ],
   "testimonials": [
@@ -128,7 +128,7 @@
     "walkSettings": {
       "threeDayPct": "5",
       "fiveDayPct": "10",
-      "note": "Demo pricing — set your real rates in the admin. Every plan starts with a free meet & greet, and you can pause or change days with a text."
+      "note": "Demo pricing shown here. Every plan starts with a free meet & greet, and you can pause or change days with a text."
     },
     "howItWorks": [
       {

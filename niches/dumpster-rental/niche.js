@@ -25,7 +25,7 @@
 
   function applyRuntime(c){
     PRICING = { base: {}, duration: {}, rush: num((c.terms||{}).rushFee), includedTons: num((c.terms||{}).includedTons) };
-    (c.sizes||[]).forEach(function(s){ PRICING.base[String(s.yd)] = num(s.price); });
+    (c.sizes||[]).forEach(function(s){ PRICING.base[String(s.yd)] = num(s.price_label); });
     (c.durations||[]).forEach(function(d){ PRICING.duration[String(d.days)] = num(d.addon); });
     LEAD.email = (c.brand||{}).leadEmail || LEAD.email;
     LEAD.sms = telHref((c.brand||{}).phone);
@@ -346,7 +346,7 @@
   function renderContent(c){
     applyRuntime(c);
     var brand = c.brand || {}, terms = c.terms || {}, area = c.serviceArea || {}, owner = c.owner || {};
-    var sizes = c.sizes || [], durations = c.durations || [], social = c.social || [];
+    var sizes = c.sizes || [], durations = c.durations || [];
     var e164 = telHref(brand.phone);
     var smsBody = encodeURIComponent("Hi " + brand.name + "! I'd like to book a roll-off.");
 
@@ -368,12 +368,8 @@
       + ' and everything in between — <b>the whole ' + esc(area.short) + '.</b>'
       + " Outside that ring? Text us your address anyway; if a route works we'll make it work.";
 
-    // ----- social links (footer; hidden when empty) -----
-    document.getElementById('footSocial').innerHTML = social.length
-      ? social.map(function(s){
-          return '<a href="' + esc(s.url) + '" target="_blank" rel="noopener noreferrer" style="color:var(--safety-bright)">' + esc(s.n) + '</a>';
-        }).join(' · ') + '<br />'
-      : '';
+    // (hand-built footSocial removed — the shared footer-contact component
+    //  renders social alongside hours/address now, the bin-cleaning call.)
 
     // ----- sizes: picker cards, "what fits" cards, booking select -----
     if(sizes.length){
@@ -386,7 +382,7 @@
         return '<label class="size-card"><input type="radio" name="size" value="' + esc(s.yd) + '"' + (String(s.yd) === checkedYd ? ' checked' : '') + ' />'
           + '<span class="size-card__in">'
           + '<span class="size-card__svg" aria-hidden="true">' + sizeSvg(s.lengthFt, s.heightFt) + '</span>'
-          + '<span class="size-card__name">' + esc(s.yd) + ' yard <small>from $' + num(s.price) + '</small></span>'
+          + '<span class="size-card__name">' + esc(s.label) + ' <small>from $' + num(s.price_label) + '</small></span>'
           + '<span class="size-card__dims">' + esc(s.dims) + '</span>'
           + '<span class="size-card__loads">' + esc(s.loads) + '</span>'
           + '<span class="size-card__best">' + esc(s.best) + '</span>'
@@ -399,7 +395,7 @@
             + '<span class="meter__track"><span class="meter__bar" style="--w:' + m.pct + '%"></span></span></div>';
         }).join('');
         return '<div class="fit-card reveal in" data-delay="' + ((i % 3) + 1) + '">'
-          + '<div class="fit-card__size"><b>' + esc(s.yd) + '</b> yard</div>'
+          + '<div class="fit-card__size"><b>' + esc(s.label) + '</b></div>'
           + '<div class="fit-card__tag">' + esc(s.dims) + ' · ' + esc(String(s.loads || '').replace(/^Fits\s*/i, '')) + '</div>'
           + meters
           + (s.note ? '<p class="fit-card__note">' + esc(s.note) + '</p>' : '')
@@ -408,7 +404,7 @@
 
       var prevSel = bSize.value;
       bSize.innerHTML = sizes.map(function(s){
-        return '<option value="' + esc(s.yd) + '">' + esc(s.yd) + ' yard — from $' + num(s.price) + '</option>';
+        return '<option value="' + esc(s.yd) + '">' + esc(s.label) + ' — from $' + num(s.price_label) + '</option>';
       }).join('') + '<option value="unsure">Not sure — help me pick</option>';
       bSize.value = (prevSel === 'unsure' || sizes.some(function(s){ return String(s.yd) === prevSel; })) ? prevSel : checkedYd;
     }

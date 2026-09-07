@@ -58,13 +58,13 @@ var DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>'
     ];
     document.getElementById('svcGrid').innerHTML = c.services.map(function(s, i){
-      return '<div class="scard"><span class="s-ico">' + icos[i % icos.length] + '</span><h3>' + esc(s.title) + '</h3><p>' + esc(s.desc) + '</p><div class="s-price">' + esc(s.price) + '</div></div>';
+      return '<div class="scard"><span class="s-ico">' + icos[i % icos.length] + '</span><h3>' + esc(s.label) + '</h3><p>' + esc(s.desc) + '</p><div class="s-price">' + esc(s.price_label) + '</div></div>';
     }).join('');
 
     // service select in booking form
     var svcSel = document.getElementById('qSvc');
     svcSel.innerHTML = c.services.map(function(s){
-      return '<option value="' + esc(s.title) + '">' + esc(s.title) + '</option>';
+      return '<option value="' + esc(s.label) + '">' + esc(s.label) + '</option>';
     }).join('') + '<option value="Not sure yet">Not sure yet</option>';
 
     // walk week builder

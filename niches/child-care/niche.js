@@ -71,12 +71,14 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var photoWrap = document.getElementById('ownerPhotoWrap');
     photoWrap.innerHTML = c.owner.photo ? '<img src="' + esc(c.owner.photo) + '" alt="' + esc(c.owner.name) + '">' : '';
 
-    // rates
-    var r = c.rates || {};
-    document.getElementById('rateGrid').innerHTML =
-      '<div class="rcard"><div class="rnum">$' + esc(r.base) + '/hr</div><div class="rlbl">the base rate — one kid, one evening</div></div>' +
-      '<div class="rcard"><div class="rnum">+$' + esc(r.perExtraKid) + '/hr</div><div class="rlbl">for each additional kid</div></div>' +
-      '<div class="rcard"><div class="rnum">+$' + esc(r.weekendBump) + '/hr</div><div class="rlbl">on weekend evenings</div></div>';
+    // rates — rows of {label, rate, unit}, the admin's hourly save shape
+    // (merged onto niche.rates by index), so an operator's pricing edit
+    // renders here with no key translation. Row order carries meaning:
+    // row 0 is the base rate, every later row renders as a "+$" add-on.
+    var rates = c.rates || [];
+    document.getElementById('rateGrid').innerHTML = rates.map(function(row, i){
+      return '<div class="rcard"><div class="rnum">' + (i ? '+' : '') + '$' + esc(row.rate) + esc(row.unit || '/hr') + '</div><div class="rlbl">' + esc(row.label) + '</div></div>';
+    }).join('');
     document.getElementById('ratesNote').textContent = c.ratesNote || '';
 
     // when-select in booking form
@@ -194,15 +196,16 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       return;
     }
     var time = (c.careTimes || []).filter(function(t){ return t.id === plState.time; })[0] || null;
-    var r = c.rates || {};
-    var rate = num(r.base) + num(r.perExtraKid) * (kids - 1) + (time ? num(time.bump) : 0);
+    var rates = c.rates || [];
+    var baseRow = rates[0] || {}, extraRow = rates[1] || {};
+    var rate = num(baseRow.rate) + num(extraRow.rate) * (kids - 1) + (time ? num(time.bump) : 0);
 
     var crew = (c.ageBands || []).filter(function(b){ return (plState.counts[b.id] || 0) > 0; })
       .map(function(b){ return esc(b.label) + ' ×' + plState.counts[b.id]; }).join(', ');
 
     var steps = (c.rundown || []).filter(function(s){ return !s.need || plState.needs[s.need]; });
 
-    var html = '<div class="est"><span class="num">$' + rate + '/hr</span>' +
+    var html = '<div class="est"><span class="num">$' + rate + esc(baseRow.unit || '/hr') + '</span>' +
       '<span class="meta">estimated for ' + kids + (kids === 1 ? ' kid' : ' kids') +
       (time ? ' · ' + esc(time.label).toLowerCase() : '') + '</span></div>' +
       '<p class="est-note">' + crew + '. We confirm the exact rate together before your first booking — every family\'s evening looks a little different.</p>';

@@ -64,8 +64,8 @@
         <circle cx="19.5" cy="19" r="5.4" fill="url(#gWarm)"/>
         <path d="M20 24 C19.6 13 41 10.5 45 18.6" fill="none" stroke="var(--ink-max)" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
         <rect x="16.4" y="23" width="1.8" height="25" rx="1" fill="var(--ink-max)" opacity=".5"/>
-        <!-- forming drop at the spout tip -->
-        <ellipse cx="46" cy="44" rx="2.6" ry="3.4" fill="url(#gDrop)"/>
+        <!-- forming drop at the spout tip — swells, lets go and fades on a slow CSS loop (.spout-drop); static under reduced motion -->
+        <ellipse class="spout-drop" cx="46" cy="44" rx="2.6" ry="3.4" fill="url(#gDrop)"/>
       </svg>
     </div>
   </div>
@@ -144,6 +144,8 @@
     <div class="p-grid" id="priceGrid"></div>
   </div>
 </section>
+
+<!-- COMPONENT:job-details -->
 
 <section id="area">
   <div class="wrap reveal">
@@ -227,6 +229,7 @@
     </div>
     <div>
       Call or text <a href="tel:+12085550195" data-phone-tel>(208) 555-0195</a> · <a href="mailto:hello@cascadecopperplumbing.com" id="footEmail">hello@cascadecopperplumbing.com</a><br>
+      <!-- COMPONENT:footer-contact -->
       &copy; <span id="yr"></span> <span data-brand>Cascade &amp; Copper Plumbing</span>
     </div>
   </div>

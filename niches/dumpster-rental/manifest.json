@@ -12,16 +12,16 @@
   "photoSlots": ["hero", "owner"],
   "sections": {
     "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": false, "social": true, "footerContact": false, "ownerBlock": true
+    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
   },
   "pricing": {
     "model": "calculator",
-    "editableFields": ["yd", "price", "dims", "loads", "best", "note"],
+    "editableFields": ["label", "price_label"],
     "mergePath": "sizes"
   },
   "merge": {
     "beforeAfter": "none",
-    "reviews": "none",
+    "reviews": "testimonials",
     "ownerShape": "owner"
   }
 }

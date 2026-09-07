@@ -12,7 +12,7 @@
   "photoSlots": ["hero"],
   "sections": {
     "pricing": false, "beforeAfter": false, "jobDetails": false,
-    "reviews": false, "social": true, "footerContact": false, "ownerBlock": false
+    "reviews": false, "social": true, "footerContact": true, "ownerBlock": false
   },
   "pricing": {
     "model": "none",

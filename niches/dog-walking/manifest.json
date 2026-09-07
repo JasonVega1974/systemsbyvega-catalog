@@ -11,13 +11,13 @@
   },
   "photoSlots": ["hero", "owner"],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+    "pricing": true, "beforeAfter": false, "jobDetails": true,
+    "reviews": true, "social": false, "footerContact": true, "ownerBlock": true
   },
   "pricing": {
     "model": "calculator",
-    "editableFields": ["label", "rate20", "rate30", "rate45"],
-    "mergePath": "niche.walkServices"
+    "editableFields": ["label", "price_label"],
+    "mergePath": "services"
   },
   "merge": {
     "beforeAfter": "none",
