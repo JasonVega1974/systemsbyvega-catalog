@@ -101,3 +101,28 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
   X-Robots-Tag from middleware when operator row exists. Costs if wrong:
   serverless-chromium weight (fallback documented), pricing validator loosening
   (plan carries exact SQL). Next: Phase A implementation plan, then SDD.
+- PHASE A-CORE COMPLETE AND PUSHED (949c66d..413d939, 12 commits; SQL applied
+  live before push: PRICING-MODELS.sql 8/8 verify, HERO-SLOT.sql 3/3,
+  HAS-CONTENT.sql smoked primetest->true/startest->false as anon). Delivered:
+  23 validated manifests + built index (single-writer tool); admin fully
+  manifest-driven (theme, photo zones from photoSlots, sections gating, 7
+  pricing-model editors incl. hidden/caption for none); endpoint manifest-
+  driven merge (field maps both dialects, contracting projects[0], legacy
+  path byte-identical); 5 shared components (DOM-property escaping) wired in
+  bin-cleaning + landscaping; qa-site realBrand allowlist (bin-cleaning green
+  first time); X-Robots-Tag live-verified post-deploy (primetest all,
+  startest noindex; likely inert vs baked meta noindex until Phase B —
+  ticketed). Final review (opus) FIX FIRST -> 8 findings fixed + re-review
+  clean; blocking one was controller's own stale index (single-writer rule
+  broken by its writer — rebuilt, now verified byte-stable).
+- Phase A-core rulings needing Jason's eyeball (none blocking): roofing admin
+  onAccent flipped to black + accent nudged, dog-walking onAccent -> dark navy
+  (largest admin-theme visual swaps); demo jobDetails uses generic scope copy.
+- Phase A-core residuals ticketed to Phase B/C: dumpster + dog-walking
+  (calculator) and child-care (hourly) pricing editors still partially/fully
+  no-op until those niches' Phase B key reconciliation (captions are honest
+  about it); hero photo uploads saved + served but no template renders
+  niche.heroImg until Phase B wires the hero-photo component; percentage
+  model unverifiable until estate-sale (Phase C); electrician/auto-repair/
+  hvac/contracting demo-side content mismatches (pre-existing, grep-found).
+- Next: Phase A-kit plan (marketing kit pipeline), then Phase B rollout waves.
