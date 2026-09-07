@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{business_name}} — Flyer 8.5x11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="{{fonts_href}}" rel="stylesheet" />
+<style>
+  @page{ size:8.5in 11in; margin:0; }
+  :root{
+    --ground:{{ground}}; --surface:{{surface}};
+    --accent:{{accent}}; --accent-bright:{{accent_bright}};
+    --text:{{text}}; --text-soft:{{text_soft}}; --on-accent:{{on_accent}};
+    --font-display:{{font_display}}; --font-label:{{font_label}}; --font-body:{{font_body}};
+    --paper:#f7f5f0; --paper-2:#ece8dd; --ink:#1c1f24; --ink-soft:#5b6270;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#ffffff}
+  body{font-family:var(--font-body),sans-serif;color:var(--ink)}
+
+  .flyer{
+    width:816px;height:1056px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;
+    background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);
+  }
+  /* faint dotted texture — generic print backdrop */
+  .dots{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(0,0,0,.08) 1px, transparent 1px);
+    background-size:26px 26px;
+  }
+
+  /* ---- top bar ---- */
+  .top{position:relative;z-index:2;padding:46px 56px 0;
+    display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--accent);
+    padding-bottom:22px}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);
+    font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.12em;font-size:20px;
+    text-transform:uppercase}
+  .brand img{display:block;height:36px;width:auto;max-width:180px;object-fit:contain}
+  .locale{font-family:var(--font-label),sans-serif;font-weight:600;color:var(--accent);
+    letter-spacing:.16em;font-size:15px;text-transform:uppercase}
+
+  /* ---- hero ---- */
+  .hero{position:relative;z-index:2;padding:40px 56px 0}
+  .kicker{font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.2em;font-size:15px;
+    color:var(--ink-soft);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+  .kicker::before{content:"";display:block;width:40px;height:2px;background:var(--accent)}
+  h1{font-family:var(--font-display),sans-serif;font-weight:800;font-size:60px;line-height:1.04;
+    letter-spacing:-.01em;color:var(--ink);word-break:break-word}
+  .tagline{font-family:var(--font-body),sans-serif;font-weight:500;font-size:19px;line-height:1.5;
+    color:var(--ink-soft);margin-top:16px;max-width:600px}
+
+  .price-badge{margin-top:24px;display:inline-flex;align-items:center;gap:10px;
+    background:color-mix(in srgb, var(--accent) 12%, #fff);
+    border:1.5px solid var(--accent);padding:12px 24px;border-radius:999px}
+  .price-badge .lab{font-family:var(--font-label),sans-serif;font-weight:700;letter-spacing:.06em;
+    font-size:22px;color:var(--ink);text-transform:uppercase}
+
+  /* ---- service strip ---- */
+  .strip{position:relative;z-index:2;margin:36px 56px 0;flex:1;
+    border-top:1px solid rgba(0,0,0,.14);border-bottom:1px solid rgba(0,0,0,.14);
+    padding:26px 0;display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .strip-label{font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.18em;
+    font-size:13px;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
+  .strip p{font-family:var(--font-body),sans-serif;font-size:17px;line-height:1.6;color:var(--ink-soft);
+    max-width:640px}
+
+  /* ---- tear-off bottom strip ---- */
+  .tearoff{position:relative;z-index:2;margin-top:auto;flex-shrink:0;
+    background:var(--ink);color:#fff;
+    padding:28px 56px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .tearoff::before{content:"";position:absolute;top:0;left:0;right:0;height:0;
+    border-top:2px dashed rgba(255,255,255,.35)}
+  .tearoff .who{font-family:var(--font-label),sans-serif;text-transform:uppercase;letter-spacing:.1em;
+    font-size:14px;color:rgba(255,255,255,.65)}
+  .tearoff .phone{margin-top:6px;font-family:var(--font-display),sans-serif;font-weight:800;font-size:32px;
+    color:#fff;display:flex;align-items:center;gap:12px;text-decoration:none}
+  .tearoff .phone svg{width:24px;height:24px;color:var(--accent-bright);flex-shrink:0}
+  .tearoff .site{margin-top:6px;font-family:var(--font-body),sans-serif;font-weight:600;font-size:16px;
+    color:rgba(255,255,255,.8)}
+  .qr-block{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .qr-block img{display:block;width:110px;height:110px;border-radius:8px;background:#fff;padding:6px}
+  .qr-block .qr-cta{font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.08em;
+    font-size:11px;color:rgba(255,255,255,.65);text-transform:uppercase;text-align:center}
+  .fineprint{grid-column:1 / -1;margin-top:4px;font-family:var(--font-label),sans-serif;font-size:11px;
+    letter-spacing:.04em;color:rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="dots"></div>
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo-slot" data-optional="logo_src"><img src="{{logo_src}}" alt="" /></div><!--data-optional-end-->
+      {{business_name}}
+    </div>
+    <div class="locale">{{city_state}}</div>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Local &amp; independent</div>
+    <h1>{{business_name}}</h1>
+    <p class="tagline">{{tagline}}</p>
+    <div class="price-badge" data-optional="price_headline"><span class="lab">{{price_headline}}</span></div><!--data-optional-end-->
+  </div>
+
+  <div class="strip">
+    <div class="strip-label">Serving {{city_state}}</div>
+    <p>Call, text, or scan the code below to get on the schedule. Straightforward service, no surprises.</p>
+  </div>
+
+  <div class="tearoff">
+    <div>
+      <div class="who">Contact</div>
+      <a class="phone" href="{{phone_href}}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        {{phone}}
+      </a>
+      <div class="site">{{site_host}}</div>
+    </div>
+    <div class="qr-block">
+      <img src="{{qr_src}}" width="110" height="110" alt="QR code to {{site_host}}" />
+      <span class="qr-cta">Scan to book</span>
+    </div>
+    <div class="fineprint">&copy; {{year}} {{business_name}}</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{business_name}} — Facebook Post</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="{{fonts_href}}" rel="stylesheet" />
+<style>
+  :root{
+    --ground:{{ground}}; --surface:{{surface}};
+    --accent:{{accent}}; --accent-bright:{{accent_bright}};
+    --text:{{text}}; --text-soft:{{text_soft}}; --on-accent:{{on_accent}};
+    --font-display:{{font_display}}; --font-label:{{font_label}}; --font-body:{{font_body}};
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#000}
+  body{font-family:var(--font-body),sans-serif;color:var(--text)}
+
+  .post{
+    width:1080px;height:1350px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;
+    background:
+      radial-gradient(1100px 760px at 85% -12%, color-mix(in srgb, var(--accent) 16%, var(--ground)) 0%, transparent 58%),
+      radial-gradient(820px 640px at -8% 30%, color-mix(in srgb, var(--surface) 70%, var(--ground)) 0%, transparent 55%),
+      linear-gradient(180deg, var(--ground) 0%, var(--surface) 55%, var(--ground) 100%);
+  }
+  /* faint grid texture — generic backdrop, no niche-specific art */
+  .grid{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size:72px 72px;
+    -webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.25) 60%, transparent 85%);
+            mask-image:linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.25) 60%, transparent 85%);
+  }
+  .nodes{position:absolute;inset:0;pointer-events:none;
+    background-image:
+      radial-gradient(3px 3px at 216px 144px, var(--accent-bright), transparent 60%),
+      radial-gradient(2.5px 2.5px at 792px 72px, var(--accent), transparent 60%),
+      radial-gradient(2px 2px at 1008px 288px, var(--text-soft), transparent 60%),
+      radial-gradient(2.5px 2.5px at 72px 432px, var(--text-soft), transparent 60%),
+      radial-gradient(3px 3px at 936px 504px, var(--accent), transparent 60%);
+    opacity:.6;
+  }
+
+  /* ---- top bar ---- */
+  .top{position:relative;z-index:2;padding:54px 72px 0;
+    display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:16px;color:var(--text);
+    font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.14em;font-size:24px;
+    text-transform:uppercase}
+  .brand img{display:block;height:44px;width:auto;max-width:220px;object-fit:contain}
+  .locale{font-family:var(--font-label),sans-serif;font-weight:500;color:var(--accent-bright);
+    letter-spacing:.2em;font-size:18px;text-transform:uppercase}
+
+  /* ---- hero ---- */
+  .hero{position:relative;z-index:2;padding:44px 72px 0;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .kicker{font-family:var(--font-label),sans-serif;font-weight:500;letter-spacing:.24em;font-size:19px;
+    color:var(--text-soft);text-transform:uppercase;margin-bottom:22px;display:flex;align-items:center;gap:18px}
+  .kicker::before{content:"";display:block;width:56px;height:2px;background:var(--accent)}
+  h1{font-family:var(--font-display),sans-serif;font-weight:800;font-size:88px;line-height:1.03;
+    letter-spacing:-.01em;color:var(--text);text-shadow:0 4px 40px rgba(0,0,0,.4);
+    word-break:break-word}
+  .tagline{font-family:var(--font-body),sans-serif;font-weight:500;font-size:26px;line-height:1.45;
+    color:var(--text-soft);margin-top:24px;max-width:680px}
+
+  .price-badge{margin-top:32px;display:inline-flex;align-items:center;gap:14px;align-self:flex-start;
+    background:color-mix(in srgb, var(--accent) 16%, transparent);
+    border:1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    padding:16px 30px;border-radius:999px}
+  .price-badge .lab{font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.12em;
+    font-size:30px;color:var(--text);text-transform:uppercase}
+
+  /* ---- phone CTA bar ---- */
+  .phonebar{position:relative;z-index:2;margin:40px 72px 0;flex-shrink:0;
+    background:linear-gradient(90deg, var(--accent) 0%, var(--accent-bright) 100%);
+    border-radius:18px;padding:26px 40px;
+    display:flex;align-items:center;justify-content:space-between;
+    box-shadow:0 18px 46px rgba(0,0,0,.35)}
+  .phonebar .cta-label{font-family:var(--font-label),sans-serif;font-weight:700;letter-spacing:.16em;
+    font-size:19px;color:var(--on-accent);text-transform:uppercase;opacity:.85}
+  .phonebar a{font-family:var(--font-display),sans-serif;font-weight:800;font-size:40px;
+    color:var(--on-accent);text-decoration:none;letter-spacing:-.01em;display:flex;align-items:center;gap:14px}
+  .phonebar a svg{width:32px;height:32px;flex-shrink:0}
+
+  /* ---- footer card ---- */
+  .card{position:relative;z-index:2;margin:36px 60px 48px;background:var(--surface);color:var(--text);
+    padding:34px 44px;flex-shrink:0;border-radius:20px;
+    border:1px solid color-mix(in srgb, var(--text) 10%, transparent);
+    display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
+  .card .who{font-family:var(--font-label),sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:17px;color:var(--text-soft)}
+  .card .who b{color:var(--text);font-weight:600}
+  .card .site{margin-top:8px;font-family:var(--font-body),sans-serif;font-weight:600;font-size:24px;color:var(--text)}
+  .card .fineprint{margin-top:14px;font-family:var(--font-label),sans-serif;font-size:14px;
+    letter-spacing:.06em;color:var(--text-soft);opacity:.7}
+  .qr-block{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .qr-block img{display:block;width:132px;height:132px;border-radius:10px;background:#fff;padding:8px}
+  .qr-block .qr-cta{font-family:var(--font-label),sans-serif;font-weight:600;letter-spacing:.1em;
+    font-size:13px;color:var(--text-soft);text-transform:uppercase;text-align:center}
+</style>
+</head>
+<body>
+<div class="post">
+  <div class="grid"></div>
+  <div class="nodes"></div>
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo-slot" data-optional="logo_src"><img src="{{logo_src}}" alt="" /></div><!--data-optional-end-->
+      {{business_name}}
+    </div>
+    <div class="locale">{{city_state}}</div>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Local &amp; independent</div>
+    <h1>{{business_name}}</h1>
+    <p class="tagline">{{tagline}}</p>
+    <div class="price-badge" data-optional="price_headline"><span class="lab">{{price_headline}}</span></div><!--data-optional-end-->
+  </div>
+
+  <div class="phonebar">
+    <span class="cta-label">Call or text</span>
+    <a href="{{phone_href}}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      {{phone}}
+    </a>
+  </div>
+
+  <div class="card">
+    <div class="details">
+      <div class="who">Serving <b>{{city_state}}</b></div>
+      <div class="site">{{site_host}}</div>
+      <div class="fineprint">&copy; {{year}} {{business_name}}</div>
+    </div>
+    <div class="qr-block">
+      <img src="{{qr_src}}" width="132" height="132" alt="QR code to {{site_host}}" />
+      <span class="qr-cta">Scan to book</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>{{business_name}} — Flyer 8.5x11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="{{fonts_href}}" rel="stylesheet" />
+<style>
+  @page{ size:8.5in 11in; margin:0; }
+  :root{
+    --ink:#050f1c; --ink-2:#0b1a30; --ink-soft:#2a3f60;
+    --gold:#f5c14b; --gold-2:#e8ac2c;
+    --cyan:#0f6fa8;
+    --paper:#f4f0e6; --paper-2:#ece6d4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:#ffffff}
+  body{font-family:'Inter',sans-serif;color:var(--ink)}
+
+  .flyer{
+    width:816px;height:1056px;position:relative;overflow:hidden;
+    display:flex;flex-direction:column;
+    background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);
+  }
+  .dots{position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(5,15,28,.08) 1px, transparent 1px);
+    background-size:24px 24px;
+  }
+
+  /* ---- top bar ---- */
+  .top{position:relative;z-index:2;padding:44px 54px 20px;
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:500;
+    border-bottom:2px solid var(--gold-2)}
+  .brand{display:flex;align-items:center;gap:12px;color:var(--ink);letter-spacing:.14em;font-size:19px}
+  .brand-dot{width:11px;height:11px;border-radius:50%;background:var(--gold-2)}
+  .brand .logo-slot img{display:block;height:32px;width:auto;max-width:160px;object-fit:contain}
+  .locale{color:var(--cyan);letter-spacing:.18em;font-size:15px}
+
+  /* ---- hero ---- */
+  .hero{position:relative;z-index:2;padding:36px 54px 0}
+  .kicker{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.24em;font-size:15px;
+    color:var(--cyan);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+  .kicker::before{content:"";display:block;width:40px;height:2px;background:var(--gold-2)}
+  h1{font-family:'Oswald',sans-serif;font-weight:700;font-size:60px;line-height:1.02;
+    letter-spacing:-.005em;text-transform:uppercase;color:var(--ink);word-break:break-word}
+  h1 .dot{color:var(--gold-2)}
+  .tagline{font-family:'Newsreader',serif;font-style:italic;font-weight:400;font-size:19px;
+    line-height:1.5;color:var(--ink-soft);margin-top:16px;max-width:560px}
+
+  /* ---- promises strip ---- */
+  .promises{position:relative;z-index:2;margin:30px 54px 0;display:flex;
+    font-family:'Oswald',sans-serif;text-transform:uppercase;
+    border-top:1px solid rgba(5,15,28,.16);border-bottom:1px solid rgba(5,15,28,.16);
+    padding:20px 0;flex-shrink:0}
+  .promise{flex:1;display:flex;flex-direction:column;gap:4px;padding:0 20px;
+    border-right:1px solid rgba(5,15,28,.12)}
+  .promise:first-child{padding-left:0}
+  .promise:last-child{border-right:none}
+  .promise .num{font-family:'Newsreader',serif;font-style:italic;color:var(--gold-2);font-size:17px;font-weight:500}
+  .promise .lab{font-weight:600;letter-spacing:.1em;color:var(--ink);font-size:16px;line-height:1.18}
+  .promise .sub{font-family:'Inter',sans-serif;text-transform:none;letter-spacing:0;
+    color:var(--ink-soft);font-size:12px;font-weight:400;line-height:1.35;margin-top:3px}
+
+  /* ---- price block ---- */
+  .price-wrap{position:relative;z-index:2;margin:28px 54px 0}
+  .price-block{display:inline-flex;align-items:baseline;gap:16px;background:#fff;
+    border:1.5px solid var(--gold-2);border-radius:14px;padding:16px 26px}
+  .price-eyebrow{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.2em;
+    font-size:13px;color:var(--ink-soft);text-transform:uppercase}
+  .price-hero{font-family:'Oswald',sans-serif;font-weight:700;font-size:34px;color:var(--ink)}
+
+  /* ---- tear-off bottom strip ---- */
+  .tearoff{position:relative;z-index:2;margin-top:auto;flex-shrink:0;
+    background:var(--ink);color:#fff;
+    padding:28px 54px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .tearoff .who{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.14em;
+    font-size:13px;color:rgba(255,255,255,.6)}
+  .tearoff .phone{margin-top:6px;font-family:'Oswald',sans-serif;font-weight:700;font-size:29px;
+    color:#fff;display:flex;align-items:center;gap:12px;text-decoration:none}
+  .tearoff .phone svg{width:22px;height:22px;color:var(--gold);flex-shrink:0}
+  .tearoff .site{margin-top:6px;font-family:'Inter',sans-serif;font-weight:600;font-size:15px;
+    color:rgba(255,255,255,.75)}
+  .qr-block{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .qr-block img{display:block;width:104px;height:104px;border-radius:8px;background:#fff;padding:6px}
+  .qr-block .qr-cta{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.08em;
+    font-size:10.5px;color:rgba(255,255,255,.6);text-transform:uppercase;text-align:center}
+  .fineprint{grid-column:1 / -1;margin-top:2px;font-family:'Oswald',sans-serif;font-size:10.5px;
+    letter-spacing:.04em;color:rgba(255,255,255,.38)}
+</style>
+</head>
+<body>
+<div class="flyer">
+  <div class="dots"></div>
+
+  <div class="top">
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span class="logo-slot" data-optional="logo_src"><img src="{{logo_src}}" alt="" /></div><!--data-optional-end-->
+      {{business_name}}
+    </div>
+    <div class="locale">{{city_state}}</div>
+  </div>
+
+  <div class="hero">
+    <div class="kicker">Curbside &bull; Sanitized &bull; Local</div>
+    <h1>{{business_name}}<span class="dot">.</span></h1>
+    <p class="tagline">{{tagline}}</p>
+  </div>
+
+  <div class="promises">
+    <div class="promise"><span class="num">01</span><span class="lab">High-Pressure Wash</span><span class="sub">Blasts caked-on grime in seconds.</span></div>
+    <div class="promise"><span class="num">02</span><span class="lab">Sanitize &amp; Deodorize</span><span class="sub">Eco-friendly. Kills odor at the source.</span></div>
+    <div class="promise"><span class="num">03</span><span class="lab">No Mess Left Behind</span><span class="sub">Wastewater captured. Driveway clean.</span></div>
+  </div>
+
+  <div class="price-wrap" data-optional="price_headline">
+    <div class="price-block">
+      <span class="price-eyebrow">Pricing</span>
+      <span class="price-hero">{{price_headline}}</span>
+    </div>
+  </div><!--data-optional-end-->
+
+  <div class="tearoff">
+    <div>
+      <div class="who">Contact</div>
+      <a class="phone" href="{{phone_href}}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        {{phone}}
+      </a>
+      <div class="site">{{site_host}}</div>
+    </div>
+    <div class="qr-block">
+      <img src="{{qr_src}}" width="104" height="104" alt="QR code to {{site_host}}" />
+      <span class="qr-cta">Scan to Book</span>
+    </div>
+    <div class="fineprint">&copy; {{year}} {{business_name}}</div>
+  </div>
+</div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     "accent": "#4ea4e6", "accentBright": "#67baf5",
     "text": "#e6f4ff", "textSoft": "#bfe3fb",
     "ok": "#4FD695", "bad": "#FF8A75", "onAccent": "#050f1c",
-    "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Newsreader:ital,wght@1,400;1,500&display=swap",
     "display": "'Anton',sans-serif", "label": "'Oswald',sans-serif", "body": "'Inter',sans-serif",
     "logo": "/sites/bin-cleaning/photos/logo.png"
   },
