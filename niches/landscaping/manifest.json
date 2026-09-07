@@ -1,22 +1,42 @@
 {
   "v": 1,
   "theme": {
-    "ground": "#101A13", "surface": "#17251C", "card": "#213424",
-    "accent": "#8177F2", "accentBright": "#9C93FF",
-    "text": "#F2F0E6", "textSoft": "#B9C2B4",
-    "ok": "#58D8A0", "bad": "#FF8F76", "onAccent": "#12101F",
+    "ground": "#101A13",
+    "surface": "#17251C",
+    "card": "#213424",
+    "accent": "#8177F2",
+    "accentBright": "#9C93FF",
+    "text": "#F2F0E6",
+    "textSoft": "#B9C2B4",
+    "ok": "#58D8A0",
+    "bad": "#FF8F76",
+    "onAccent": "#12101F",
     "fontsHref": "https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap",
-    "display": "'Oswald',sans-serif", "label": "'Space Mono',monospace", "body": "'Work Sans',sans-serif",
+    "display": "'Oswald',sans-serif",
+    "label": "'Space Mono',monospace",
+    "body": "'Work Sans',sans-serif",
     "logo": ""
   },
-  "photoSlots": ["hero", "owner"],
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
   "sections": {
-    "pricing": true, "beforeAfter": false, "jobDetails": false,
-    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": true,
+    "social": true,
+    "footerContact": true,
+    "ownerBlock": true
   },
   "pricing": {
     "model": "tiers",
-    "editableFields": ["label", "price_label", "note"],
+    "editableFields": [
+      "label",
+      "price_label",
+      "note"
+    ],
     "mergePath": "plans"
   },
   "merge": {
@@ -24,5 +44,7 @@
     "reviews": "testimonials",
     "ownerShape": "owner"
   },
-  "heroDefault": "/sites/landscaping/photos/hero-garden-path.jpg"
+  "heroDefault": "/sites/landscaping/photos/hero-garden-path.jpg",
+  "heroAlt": "A freshly kept garden path bordered by dense green hedges",
+  "heroWired": true
 }

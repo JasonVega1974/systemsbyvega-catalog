@@ -41,7 +41,8 @@
       "beforeAfter": "niche.beforeImg/afterImg",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "auto-repair": {
     "theme": {
@@ -87,7 +88,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "bbq-food-truck": {
     "theme": {
@@ -132,7 +134,8 @@
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "none"
-    }
+    },
+    "heroWired": false
   },
   "bin-cleaning": {
     "theme": {
@@ -180,7 +183,8 @@
       "beforeAfter": "niche.beforeImg/afterImg",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "car-detailing": {
     "theme": {
@@ -228,7 +232,8 @@
       "beforeAfter": "niche.beforeImg/afterImg",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "caregiving": {
     "theme": {
@@ -274,7 +279,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "child-care": {
     "theme": {
@@ -320,7 +326,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "contracting": {
     "theme": {
@@ -368,7 +375,8 @@
       "beforeAfter": "projects[0]",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "delivery": {
     "theme": {
@@ -413,7 +421,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "dj": {
     "theme": {
@@ -454,7 +463,8 @@
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "none"
-    }
+    },
+    "heroWired": false
   },
   "dog-walking": {
     "theme": {
@@ -501,7 +511,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "dumpster-rental": {
     "theme": {
@@ -550,7 +561,8 @@
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "electrician": {
     "theme": {
@@ -595,7 +607,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "hvac": {
     "theme": {
@@ -641,7 +654,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "landscaping": {
     "theme": {
@@ -687,7 +701,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": true
   },
   "metal-fabrication": {
     "theme": {
@@ -729,7 +744,8 @@
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "moving": {
     "theme": {
@@ -775,7 +791,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "painting": {
     "theme": {
@@ -823,7 +840,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "personal-trainer": {
     "theme": {
@@ -869,7 +887,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "none"
-    }
+    },
+    "heroWired": false
   },
   "plumbing": {
     "theme": {
@@ -915,7 +934,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "pressure-washing": {
     "theme": {
@@ -963,7 +983,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "roofing": {
     "theme": {
@@ -1009,7 +1030,8 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
-    }
+    },
+    "heroWired": false
   },
   "tattoo-studio": {
     "theme": {
@@ -1054,6 +1076,7 @@
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "none"
-    }
+    },
+    "heroWired": false
   }
 }

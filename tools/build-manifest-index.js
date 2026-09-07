@@ -74,7 +74,11 @@ for (const slug of slugs) {
       /* T7 prep: the merge endpoint resolves the overlay target from here. */
       mergePath: manifest.pricing.mergePath
     },
-    merge: manifest.merge
+    merge: manifest.merge,
+    /* Phase B0: the admin's hero-upload caption reads this — true means the
+       niche's built page actually renders the hero-photo component, so the
+       "shows after its hero update lands" honesty caption must NOT show. */
+    heroWired: manifest.heroWired === true
   };
 }
 

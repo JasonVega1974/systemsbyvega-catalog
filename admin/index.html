@@ -768,13 +768,14 @@ document.addEventListener('DOMContentLoaded', function () {
           + '</div>';
       }
       /* hero (Phase A-core F2 fix): fully functional zone — upload/save both
-         work, and the saved photo now SERVES via content.json's
-         niche.heroImg (see applyOperator in api/operator-content.mjs) — but
-         no template renders that key yet, same stored-only state
-         job_details is already honest about below. Reuses the jd-caption
-         convention for that honesty rather than leaving the zone silent
-         about it. */
-      var zoneCaption = slot === 'hero'
+         work, and the saved photo SERVES via content.json's niche.heroImg
+         (see applyOperator in api/operator-content.mjs). Whether the SITE
+         renders it is per-niche now: manifests carry heroWired (true once
+         the niche's built page includes the hero-photo component — Phase
+         B0, landscaping first), so the honesty caption only shows where it
+         is still true. No manifest reads as not-wired — conservative. */
+      var heroWired = !!(currentManifest && currentManifest.heroWired);
+      var zoneCaption = (slot === 'hero' && !heroWired)
         ? '<p class="jd-caption">Uploads save now &mdash; your site shows this photo after its hero update lands.</p>'
         : '';
       return '<div class="up" data-slot="' + escAttr(slot) + '">'
@@ -1841,6 +1842,18 @@ document.addEventListener('DOMContentLoaded', function () {
     return '';
   }
 
+  /* keep in sync with formatPhoneDisplay in api/marketing-kit.mjs */
+  function mkFormatPhoneDisplay(v) {
+    var s = mkStr(v);
+    if (!s) return s;
+    var stripped = s.replace(/[\s().-]/g, '');
+    if (!/^[0-9]+$/.test(stripped)) return s;
+    var d = stripped;
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    if (d.length !== 10) return s;
+    return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+  }
+
   /* keep in sync with priceHeadline in api/marketing-kit.mjs */
   function mkPriceHeadline(manifest, content) {
     try {
@@ -1902,7 +1915,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var host = tenant + '.systemsbyvega.com';
     var out = {
       business_name: mkSafe(brand.name),
-      phone: phone,
+      phone: mkFormatPhoneDisplay(phone),
       phone_href: phoneHref,
       city_state: cityState,
       tagline: mkSafe(brand.tagline),

@@ -189,6 +189,14 @@ if (manifest) {
          name. Absent falls back to the convention, unchanged. */
       const heroDefault = manifest.heroDefault || ('/sites/' + slug + '/photos/hero.jpg');
       markup = markup.split('{{HERO_DEFAULT}}').join(heroDefault);
+      /* Static alt beside the static src: a JS-only alt left crawlers and
+         no-JS renders with an image that had no accessible name at all.
+         heroAlt is authored per niche (landscaping keeps the descriptive
+         sentence its old hand-built figure carried); absent, the demo
+         brand name is honest enough. Escaped for the attribute position. */
+      const heroAlt = String(manifest.heroAlt || ((content.brand && content.brand.name) ? content.brand.name + ' — hero photo' : 'Hero photo'))
+        .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      markup = markup.split('{{HERO_ALT}}').join(heroAlt);
     }
     sections = sections.split(slot).join(markup.trim());
 

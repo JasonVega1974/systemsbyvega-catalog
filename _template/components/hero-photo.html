@@ -1,10 +1,14 @@
 <!-- _template/components/hero-photo.html
      figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
-     (see .hero__photo in its sections.css). data-hero-default is stamped by
-     tools/build-site.js to this niche's own default photo path -- absolute,
-     since on a tenant subdomain the document is served at "/" and a relative
-     photos/ URL would 404. hero-photo.js prefers c.niche.heroImg over the
-     default, and shows a dashed slot-empty state when neither one loads. -->
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
 <figure class="hero-photo-cmp" data-hero-default="{{HERO_DEFAULT}}">
-  <img class="hero-photo-cmp__img" alt="" fetchpriority="high" decoding="async">
+  <img class="hero-photo-cmp__img" src="{{HERO_DEFAULT}}" alt="{{HERO_ALT}}" fetchpriority="high" decoding="async">
 </figure>

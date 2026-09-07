@@ -72,7 +72,7 @@ function validate(m) {
 
   // Closed top-level key set — defense-in-depth before 21 hand-authored
   // manifests: a typo'd optional key must fail loudly, not silently no-op.
-  const KNOWN_TOP = ['v', 'theme', 'photoSlots', 'sections', 'pricing', 'merge', 'realBrand', 'heroDefault'];
+  const KNOWN_TOP = ['v', 'theme', 'photoSlots', 'sections', 'pricing', 'merge', 'realBrand', 'heroDefault', 'heroAlt', 'heroWired'];
   for (const k of Object.keys(m)) {
     if (!KNOWN_TOP.includes(k)) errs.push('unknown top-level key: ' + k);
   }
@@ -86,6 +86,17 @@ function validate(m) {
   // site-relative path string overriding build-site.js's stamped default of
   // /sites/<slug>/photos/hero.jpg for a niche whose real hero file has a
   // different name (e.g. landscaping's photos/hero-garden-path.jpg).
+  // heroAlt (Phase B0 LCP fix) — optional; the descriptive alt text the
+  // build stamps beside the static hero src. heroWired — optional boolean;
+  // true once the niche's sections.html carries the hero-photo slot AND the
+  // built page renders it, which is what lets the admin drop its
+  // "shows after its hero update lands" caption for that niche.
+  if ('heroAlt' in m && (typeof m.heroAlt !== 'string' || !m.heroAlt)) {
+    errs.push('heroAlt must be a non-empty string when present');
+  }
+  if ('heroWired' in m && typeof m.heroWired !== 'boolean') {
+    errs.push('heroWired must be a boolean, got ' + typeof m.heroWired);
+  }
   if ('heroDefault' in m && (typeof m.heroDefault !== 'string' || !m.heroDefault)) {
     errs.push('heroDefault must be a non-empty string, got ' + JSON.stringify(m.heroDefault));
   }

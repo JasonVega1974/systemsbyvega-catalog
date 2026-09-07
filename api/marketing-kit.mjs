@@ -97,6 +97,27 @@ function safe(v) {
   return str(v).replace(/[<>]/g, '');
 }
 
+// A bare 10-digit number (or 11 with a leading 1) whose only non-digit
+// characters are separators (space/dash/dot/paren) is treated as UNFORMATTED
+// and gets normalized to "(XXX) XXX-XXXX" for display. Anything carrying a
+// character outside that separator set (a leading "+", an extension, letters)
+// is left exactly as the operator typed it — reformatting risks mangling a
+// deliberate international or extension format we don't understand. Any
+// other digit count (7-digit, 12-digit, …) also passes through unchanged.
+// phone_href is untouched by this — it already normalizes independently from
+// the fully-stripped digit string.
+// keep in sync with mkFormatPhoneDisplay in admin/index.html
+function formatPhoneDisplay(v) {
+  const s = str(v);
+  if (!s) return s;
+  const stripped = s.replace(/[\s().-]/g, '');
+  if (!/^[0-9]+$/.test(stripped)) return s;
+  let d = stripped;
+  if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+  if (d.length !== 10) return s;
+  return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+}
+
 function themeTokens(manifest) {
   const src = (manifest && manifest.theme && typeof manifest.theme === 'object'
     && !Array.isArray(manifest.theme)) ? manifest.theme : {};
@@ -250,7 +271,7 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
 
   return Object.assign({
     business_name: safe(brand.name),
-    phone: phone,
+    phone: formatPhoneDisplay(phone),
     phone_href: phoneHref,
     city_state: cityState,
     tagline: safe(brand.tagline),

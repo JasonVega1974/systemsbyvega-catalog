@@ -17,14 +17,21 @@
 
     var n = (c && c.niche) || {};
     var brand = (c && c.brand) || {};
-    var src = n.heroImg || fig.getAttribute('data-hero-default') || '';
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
 
-    if (!src) { fig.classList.add('slot-empty'); return; }
+    if (!target) { fig.classList.add('slot-empty'); return; }
 
     img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
     img.onload = function () { fig.classList.remove('slot-empty'); };
-    img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
-    img.src = src;
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
   }
 
   if (window.SLComponents && typeof window.SLComponents.register === 'function') {
