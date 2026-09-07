@@ -34,8 +34,8 @@
     "model": "tiers",
     "editableFields": [
       "label",
-      "price",
-      "per"
+      "price_label",
+      "note"
     ],
     "mergePath": "pricing"
   },

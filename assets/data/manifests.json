@@ -38,7 +38,7 @@
       "mergePath": "none"
     },
     "merge": {
-      "beforeAfter": "niche.beforeImg/afterImg",
+      "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
@@ -229,7 +229,7 @@
       "mergePath": "pricing"
     },
     "merge": {
-      "beforeAfter": "niche.beforeImg/afterImg",
+      "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
@@ -639,8 +639,8 @@
       "model": "tiers",
       "editableFields": [
         "label",
-        "price",
-        "per"
+        "price_label",
+        "note"
       ],
       "mergePath": "pricing"
     },
