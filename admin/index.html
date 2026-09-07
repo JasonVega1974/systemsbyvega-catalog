@@ -168,6 +168,22 @@
   .save-bar-inner .msg{margin:0;min-height:0}
   .save-bar-inner .go{min-width:140px}
   body.savebar-open .wrap{padding-bottom:120px}
+  /* Marketing previews. Each iframe renders the real template at its native
+     frame size (1080×1350 / 816×1056) and is scaled down with transform;
+     the wrapper's fixed box is the scaled footprint, so the card lays out
+     around the preview instead of the untransformed giant. */
+  .mk-previews{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 6px}
+  .mk-fig{margin:0}
+  .mk-fig figcaption{font-size:12px;color:var(--adm-soft);margin-top:6px}
+  .mk-frame{overflow:hidden;border:1px solid var(--adm-hair);border-radius:8px;background:#0b0d11}
+  .mk-frame iframe{border:0;transform-origin:top left;pointer-events:none}
+  .mk-frame-fb{width:270px;height:337.5px}
+  .mk-frame-fb iframe{width:1080px;height:1350px;transform:scale(.25)}
+  .mk-frame-fl{width:244.8px;height:316.8px}
+  .mk-frame-fl iframe{width:816px;height:1056px;transform:scale(.3)}
+  .mk-files{list-style:none;padding:0;margin:10px 0 0}
+  .mk-files li{margin:4px 0}
+  .mk-files a{color:var(--adm-accent);word-break:break-all}
 </style>
 </head>
 <body>
@@ -202,6 +218,7 @@
       <a href="#sec-pricing" class="nav-pill" data-target="sec-pricing">Pricing</a>
       <a href="#sec-reviews" class="nav-pill" data-target="sec-reviews">Reviews</a>
       <a href="#sec-details" class="nav-pill" data-target="sec-details">Details</a>
+      <a href="#sec-marketing" class="nav-pill" data-target="sec-marketing">Marketing</a>
     </div>
   </nav>
 
@@ -334,6 +351,34 @@
       site shows the example content it was built with. Nothing is broken &mdash;
       fill in what you want and save, and those parts become yours.
     </div>
+
+    <!-- MARKETING. Read-only: this section renders previews from SAVED site
+         content (the same merged answer the download endpoint uses) and never
+         touches dirty-tracking, Save, or Reset. The previews are the real
+         templates in sandboxed iframes; the QR is a placeholder here — the
+         generated downloads embed a working code. -->
+    <section class="card" id="sec-marketing">
+      <p class="sec-h">Marketing</p>
+      <p class="sub">Ready-to-post artwork built from your site&rsquo;s saved
+        content &mdash; a social post and a printable flyer, each with a QR
+        code that opens your site.</p>
+      <p class="msg" id="mkMsg" role="status"></p>
+      <div class="mk-previews">
+        <figure class="mk-fig">
+          <div class="mk-frame mk-frame-fb"><iframe id="mkPrevFb" sandbox="" title="Social post preview"></iframe></div>
+          <figcaption>Facebook / Instagram &mdash; 1080&times;1350</figcaption>
+        </figure>
+        <figure class="mk-fig">
+          <div class="mk-frame mk-frame-fl"><iframe id="mkPrevFl" sandbox="" title="Flyer preview"></iframe></div>
+          <figcaption>Flyer &mdash; prints on Letter paper</figcaption>
+        </figure>
+      </div>
+      <p class="sub" id="mkQrNote">The download embeds a working QR code to your live site.
+        Previews show what you have <strong>saved</strong> &mdash; save your changes first,
+        then <a href="#sec-marketing" id="mkRefresh">refresh the preview</a>.</p>
+      <button type="button" class="go" id="mkGenerate" disabled>Generate downloads</button>
+      <ul class="mk-files" id="mkFiles"></ul>
+    </section>
 
     <!-- DANGER ZONE. Deliberately outside the section nav (no pill points
          here — you reach it by scrolling with intent) and nowhere near the
@@ -522,6 +567,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var photoUrls = {};        /* slot -> public URL, committed on Save */
   var themeLogoUrl = null;   /* theme-provided logo, takes priority over a saved logo_url */
   var currentManifest = null;      /* the resolved niche's manifest entry, or null (regression path) */
+  var currentNicheSlug = null;     /* resolved niche slug — the Marketing tab's template lookup key */
   var currentPricingModel = 'tiers';
   var currentPriceFieldKeys = ['label', 'price_label', 'note'];
   var PRICE_ROWS = 3;
@@ -1331,6 +1377,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var manifest = (nicheSlug && Object.prototype.hasOwnProperty.call(manifestIndex, nicheSlug))
         ? manifestIndex[nicheSlug] : null;
       currentManifest = manifest;
+      currentNicheSlug = nicheSlug || null;
 
       /* See pricesShapeUnknownGuard's declaration above for why this check
          exists. Recomputed on every load(), not just once, since the
@@ -1388,6 +1435,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $('topbarName').textContent = clientId;
       }
       updateTopbarLogo();
+      renderMarketingPreviews();
 
       snapshot = JSON.stringify(collectRow());
       markSaved();
@@ -1713,6 +1761,301 @@ document.addEventListener('DOMContentLoaded', function () {
   bindBlurValidation('state_code', validateState);
   bindBlurValidation('postal_code', validatePostal);
   bindBlurValidation('phone', validatePhone);
+
+  /* ============================================================ marketing
+     Read-only tab. Previews are built from the tenant's MERGED content —
+     one fetch of /api/operator-content?tenant=, the exact answer the
+     download endpoint renders from — so preview and download cannot drift
+     apart by construction. The token/template logic below mirrors
+     api/marketing-kit.mjs; each mirrored function carries a sync comment
+     naming its canonical twin. Nothing in here writes: no dirty-tracking,
+     no Save, no Reset interaction. */
+
+  var MK_NEUTRAL_THEME = {
+    ground: '#101318', surface: '#171c24',
+    accent: '#d9a441', accent_bright: '#e6b95c',
+    text: '#f2f4f8', text_soft: '#aeb6c2', on_accent: '#101318',
+    fonts_href: 'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap',
+    font_display: "'Oswald',sans-serif",
+    font_label: "'Oswald',sans-serif",
+    font_body: "'Inter',sans-serif"
+  };
+  var MK_THEME_KEY_MAP = {
+    ground: 'ground', surface: 'surface', accent: 'accent',
+    accentBright: 'accent_bright', text: 'text', textSoft: 'text_soft',
+    onAccent: 'on_accent', fontsHref: 'fonts_href', display: 'font_display',
+    label: 'font_label', body: 'font_body'
+  };
+  /* Gray square, same footprint as the real QR. The generated downloads
+     embed a working code; the preview never needs one. */
+  var MK_QR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132'%3E%3Crect width='132' height='132' fill='%23c9ced6'/%3E%3C/svg%3E";
+
+  function mkStr(v) { return (v === null || v === undefined) ? '' : String(v).trim(); }
+
+  /* keep in sync with getPath in api/marketing-kit.mjs */
+  function mkGetPath(obj, dotPath) {
+    if (!obj || typeof obj !== 'object' || !dotPath || typeof dotPath !== 'string') return undefined;
+    var cur = obj, parts = dotPath.split('.');
+    for (var i = 0; i < parts.length; i++) {
+      if (cur === null || typeof cur !== 'object') return undefined;
+      if (!Object.prototype.hasOwnProperty.call(cur, parts[i])) return undefined;
+      cur = cur[parts[i]];
+    }
+    return cur;
+  }
+
+  /* keep in sync with themeTokens in api/marketing-kit.mjs */
+  function mkThemeTokens(manifest) {
+    var src = (manifest && manifest.theme && typeof manifest.theme === 'object'
+      && !Array.isArray(manifest.theme)) ? manifest.theme : {};
+    var out = {};
+    Object.keys(MK_THEME_KEY_MAP).forEach(function (from) {
+      var to = MK_THEME_KEY_MAP[from];
+      var v = mkStr(src[from]);
+      out[to] = v || MK_NEUTRAL_THEME[to];
+    });
+    return out;
+  }
+
+  function mkDisplayPrice(v) {
+    var s = mkStr(v);
+    if (!s) return '';
+    return /^[0-9]+(\.[0-9]+)?$/.test(s) ? '$' + s : s;
+  }
+  function mkPriceNumber(v) {
+    var m = String(v == null ? '' : v).replace(/,/g, '').match(/[0-9]+(\.[0-9]+)?/);
+    return m ? parseFloat(m[0]) : NaN;
+  }
+  function mkRowPriceLabel(row) {
+    if (!row || typeof row !== 'object') return '';
+    var keys = ['price_label', 'blurb', 'price', 'range'];
+    for (var i = 0; i < keys.length; i++) {
+      var s = mkStr(row[keys[i]]);
+      if (s) return s;
+    }
+    return '';
+  }
+
+  /* keep in sync with priceHeadline in api/marketing-kit.mjs */
+  function mkPriceHeadline(manifest, content) {
+    try {
+      var cfg = (manifest && manifest.pricing && typeof manifest.pricing === 'object')
+        ? manifest.pricing : {};
+      var model = mkStr(cfg.model) || 'none';
+      if (model === 'calculator' || model === 'none') return '';
+      var data = mkGetPath(content, mkStr(cfg.mergePath));
+      if (data === null || data === undefined) return '';
+      if (model === 'tiers' || model === 'flash') {
+        if (!Array.isArray(data)) return '';
+        var bestLabel = '', bestN = Infinity;
+        for (var i = 0; i < data.length; i++) {
+          var label = mkRowPriceLabel(data[i]);
+          if (!label) continue;
+          var n = mkPriceNumber(label);
+          if (isFinite(n) && n < bestN) { bestN = n; bestLabel = label; }
+        }
+        return bestLabel ? 'From ' + mkDisplayPrice(bestLabel) : '';
+      }
+      if (model === 'hourly') {
+        var row = Array.isArray(data) ? data[0] : data;
+        if (!row || typeof row !== 'object') return '';
+        var rate = mkStr(row.rate) || mkStr(row.base);
+        if (!rate) return '';
+        var unit = mkStr(row.unit);
+        return mkDisplayPrice(rate) + (unit ? ' ' + unit : '');
+      }
+      if (model === 'quote') {
+        if (typeof data !== 'object' || Array.isArray(data)) return '';
+        var q = mkStr(data.starting_at) || mkStr(data.minimum);
+        return q ? 'From ' + mkDisplayPrice(q) : '';
+      }
+      if (model === 'percentage') {
+        if (typeof data !== 'object' || Array.isArray(data)) return '';
+        var p = mkStr(data.commission);
+        if (!p) return '';
+        return /^[0-9]+(\.[0-9]+)?$/.test(p) ? p + '%' : p;
+      }
+      return '';
+    } catch (e) { return ''; }
+  }
+
+  /* keep in sync with buildTokens in api/marketing-kit.mjs */
+  function mkBuildTokens(tenant, content, manifest, qrSrc) {
+    var c = (content && typeof content === 'object') ? content : {};
+    var brand = (c.brand && typeof c.brand === 'object') ? c.brand : {};
+    var photos = (c.photos && typeof c.photos === 'object') ? c.photos : {};
+    var phone = mkStr(brand.phone);
+    var digits = phone.replace(/[^0-9]/g, '');
+    var phoneHref = '';
+    if (digits.length === 10) phoneHref = 'tel:+1' + digits;
+    else if (digits.length === 11 && digits.charAt(0) === '1') phoneHref = 'tel:+' + digits;
+    else if (digits) phoneHref = 'tel:' + digits;
+    var city = mkStr(brand.city), state = mkStr(brand.state);
+    var cityState = (city && state) ? city + ', ' + state : (city || state);
+    var logoCand = mkStr(photos.logo) || mkStr(brand.logo);
+    var logoSrc = /^https?:\/\//i.test(logoCand) ? logoCand : '';
+    var host = tenant + '.systemsbyvega.com';
+    var out = {
+      business_name: mkStr(brand.name),
+      phone: phone,
+      phone_href: phoneHref,
+      city_state: cityState,
+      tagline: mkStr(brand.tagline),
+      price_headline: mkPriceHeadline(manifest, c),
+      site_url: 'https://' + host + '/',
+      site_host: host,
+      qr_src: mkStr(qrSrc),
+      logo_src: logoSrc,
+      year: String(new Date().getFullYear())
+    };
+    var theme = mkThemeTokens(manifest);
+    Object.keys(theme).forEach(function (k) { out[k] = theme[k]; });
+    return out;
+  }
+
+  /* keep in sync with fillTemplate in api/marketing-kit.mjs */
+  function mkFillTemplate(html, tokens) {
+    var out = html.replace(
+      /<[^>]*data-optional="([a-z_.]+)"[\s\S]*?data-optional-end-->/g,
+      function (block, name) { return tokens[name] ? block : ''; }
+    );
+    out = out.replace(/\{\{([a-z_.]+)\}\}/g, function (_, name) {
+      return Object.prototype.hasOwnProperty.call(tokens, name) ? tokens[name] : '';
+    });
+    return out;
+  }
+
+  /* Override first, master on any non-2xx — the same order the endpoint
+     resolves. Cached per slug+format for the page's lifetime; templates are
+     static build artifacts and cannot change under an open admin. */
+  var mkTemplateCache = {};
+  function mkFetchTemplate(slug, fmt) {
+    var key = (slug || '') + ':' + fmt;
+    if (mkTemplateCache[key]) return mkTemplateCache[key];
+    var tryUrls = [];
+    if (slug) tryUrls.push('/niches/' + encodeURIComponent(slug) + '/marketing/' + fmt + '.html');
+    tryUrls.push('/_template/marketing/' + fmt + '.html');
+    var p = tryUrls.reduce(function (chain, url) {
+      return chain.then(function (found) {
+        if (found !== null) return found;
+        return Promise.resolve(fetch(url, { cache: 'no-store' }))
+          .then(function (r) { return r.ok ? r.text() : null; })
+          .catch(function () { return null; });
+      });
+    }, Promise.resolve(null));
+    mkTemplateCache[key] = p;
+    return p;
+  }
+
+  function renderMarketingPreviews() {
+    if (!clientId) return; /* panel never shows without a tenant, but stay honest */
+    $('mkGenerate').disabled = false;
+    say('mkMsg', '');
+    /* Merged content: the same answer the endpoint renders from. no-store so
+       a just-saved change shows up on refresh rather than after the CDN TTL.
+       Status travels with the failure: a 404 here means the endpoint's
+       is_active gate said no (deactivated or not-yet-provisioned storefront)
+       — a state no reload fixes, so the message must not suggest one. */
+    var contentFetch = Promise.resolve(
+      fetch('/api/operator-content?tenant=' + encodeURIComponent(clientId), { cache: 'no-store' }))
+      .then(function (r) {
+        if (r.ok) return r.json();
+        return { __mkFetchFailed: r.status };
+      })
+      .catch(function () { return { __mkFetchFailed: 0 }; });
+    Promise.all([
+      contentFetch,
+      mkFetchTemplate(currentNicheSlug, 'facebook'),
+      mkFetchTemplate(currentNicheSlug, 'flyer')
+    ]).then(function (results) {
+      var content = results[0];
+      if (!content || content.__mkFetchFailed !== undefined) {
+        var status = content ? content.__mkFetchFailed : 0;
+        say('mkMsg', status === 404
+          ? 'Your storefront is not active right now, so the marketing kit is unavailable. If you believe this is wrong, email info@kingdom-creatives.com.'
+          : 'Could not load your saved content for the preview. Reload to try again.', 'bad');
+        return;
+      }
+      var tokens = mkBuildTokens(clientId, content, currentManifest, MK_QR_PLACEHOLDER);
+      if (results[1]) $('mkPrevFb').srcdoc = mkFillTemplate(results[1], tokens);
+      if (results[2]) $('mkPrevFl').srcdoc = mkFillTemplate(results[2], tokens);
+      if (!results[1] || !results[2]) {
+        say('mkMsg', (!results[1] && !results[2])
+          ? 'Preview templates did not load. The downloads may still work.'
+          : 'One of the two previews could not be built. The downloads may still work.', 'bad');
+      }
+    }).catch(function (e) {
+      console.error('[admin] marketing preview:', e);
+      say('mkMsg', 'The preview could not be built. Reload to try again.', 'bad');
+    });
+  }
+
+  function mkGenerate() {
+    var btn = $('mkGenerate');
+    if (!clientId) return;
+    btn.disabled = true; btn.textContent = 'Generating… this can take a minute';
+    say('mkMsg', '');
+    var settled = false;
+    var done = function (msg, cls) {
+      if (settled) return; /* first outcome wins; the watchdog cannot double-report */
+      settled = true;
+      btn.disabled = false; btn.textContent = 'Generate downloads';
+      if (msg) say('mkMsg', msg, cls);
+    };
+    /* The render really does take tens of seconds (cold chromium). The 150s
+       watchdog both aborts the fetch AND releases the button itself — so
+       even a stall outside the fetch (getSession refreshing a token with no
+       timeout of its own) cannot pin the button forever. */
+    var stop = new AbortController();
+    var timer = setTimeout(function () {
+      stop.abort();
+      done('That took too long and was cancelled. Give it a minute and try again.', 'bad');
+    }, 150000);
+    Promise.resolve(sb.auth.getSession()).then(function (res) {
+      var s = res && res.data && res.data.session;
+      if (!s || !s.access_token) { done('Your sign-in expired. Reload and sign in again.', 'bad'); return null; }
+      return Promise.resolve(fetch('/api/marketing-kit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + s.access_token },
+        body: JSON.stringify({ tenant: clientId }),
+        signal: stop.signal
+      })).then(function (r) { return r.json().then(function (j) { return { status: r.status, body: j }; }); });
+    }).then(function (r) {
+      if (!r) return; /* session path already reported */
+      if (!r.body || r.body.ok !== true || !Array.isArray(r.body.files)) {
+        done('That did not work (' + ((r.body && r.body.error) || r.status) + '). Try again in a minute.', 'bad');
+        return;
+      }
+      var list = $('mkFiles');
+      list.textContent = '';
+      var names = {
+        'facebook-png': 'Social post (PNG, 1080×1350)',
+        'flyer-pdf': 'Flyer (PDF, prints on Letter)',
+        'flyer-png': 'Flyer (PNG)'
+      };
+      r.body.files.forEach(function (f) {
+        if (!f || typeof f.url !== 'string' || !/^https:\/\//.test(f.url)) return;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = f.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = names[f.format] || f.format || 'Download';
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+      done('Done — your files are ready below. Generate again any time your site changes.', 'ok');
+    }).catch(function (e) {
+      console.error('[admin] marketing generate:', e);
+      done('That did not finish. Give it a minute and try again.', 'bad');
+    }).then(function () { clearTimeout(timer); });
+  }
+
+  $('mkGenerate').addEventListener('click', mkGenerate);
+  $('mkRefresh').addEventListener('click', function (e) {
+    e.preventDefault();
+    renderMarketingPreviews();
+  });
 
   initSectionNav();
   resolve().then(paint);
