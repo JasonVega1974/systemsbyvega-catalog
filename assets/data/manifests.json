@@ -1,4 +1,136 @@
 {
+  "auto-body": {
+    "theme": {
+      "ground": "#16121A",
+      "surface": "#1C1622",
+      "card": "#211A29",
+      "accent": "#B02E58",
+      "accentBright": "#C94670",
+      "text": "#F2EDF6",
+      "textSoft": "#C9D1D9",
+      "ok": "#D3507B",
+      "bad": "#FFD3C2",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Sora',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Inter Tight',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner",
+      "before",
+      "after"
+    ],
+    "sections": {
+      "pricing": false,
+      "beforeAfter": true,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "none",
+      "editableFields": []
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "auto-repair": {
+    "theme": {
+      "ground": "#F5EFE2",
+      "surface": "#FBF7EC",
+      "card": "#FFFDF6",
+      "accent": "#B3271E",
+      "accentBright": "#C93A30",
+      "text": "#2A2118",
+      "textSoft": "#6E6152",
+      "ok": "#1F3A5F",
+      "bad": "#B4453A",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Zilla Slab',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Source Sans 3',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "bbq-food-truck": {
+    "theme": {
+      "ground": "#171310",
+      "surface": "#221710",
+      "card": "#1F1913",
+      "accent": "#E8590C",
+      "accentBright": "#FF7A2F",
+      "text": "#F6EBD9",
+      "textSoft": "#E4D4BC",
+      "ok": "#6FCF7B",
+      "bad": "#E0616B",
+      "onAccent": "#180B04",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap",
+      "display": "'Alfa Slab One',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Nunito Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": false,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": false
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "none",
+      "ownerShape": "none"
+    }
+  },
   "bin-cleaning": {
     "theme": {
       "ground": "#050f1c",
@@ -46,6 +178,457 @@
       "ownerShape": "owner"
     }
   },
+  "car-detailing": {
+    "theme": {
+      "ground": "#0E131A",
+      "surface": "#161E28",
+      "card": "#1E2A38",
+      "accent": "#2DD4CE",
+      "accentBright": "#5CE8E2",
+      "text": "#D9E6EF",
+      "textSoft": "#9DB1C0",
+      "ok": "#5CE6A0",
+      "bad": "#E0616B",
+      "onAccent": "#062522",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap",
+      "display": "'Saira Condensed',sans-serif",
+      "label": "'Space Mono',monospace",
+      "body": "'Manrope',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner",
+      "before",
+      "after"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "caregiving": {
+    "theme": {
+      "ground": "#FAF3E7",
+      "surface": "#FEFBF5",
+      "card": "#FCF6EA",
+      "accent": "#7C9473",
+      "accentBright": "#96AC8B",
+      "text": "#3A342C",
+      "textSoft": "#5C7355",
+      "ok": "#5C7355",
+      "bad": "#B4453A",
+      "onAccent": "#221D17",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Nunito+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Lora',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Nunito Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "child-care": {
+    "theme": {
+      "ground": "#FDF7EF",
+      "surface": "#FFFDF9",
+      "card": "#FFFFFF",
+      "accent": "#7A5BA6",
+      "accentBright": "#8767B2",
+      "text": "#3A3128",
+      "textSoft": "#7A6E5F",
+      "ok": "#7A5BA6",
+      "bad": "#B4453A",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Fredoka',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Atkinson Hyperlegible',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "hourly",
+      "editableFields": [
+        "base",
+        "perExtraKid",
+        "weekendBump"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "contracting": {
+    "theme": {
+      "ground": "#151109",
+      "surface": "#1c160d",
+      "card": "#241c10",
+      "accent": "#f5a623",
+      "accentBright": "#ffbe45",
+      "text": "#f5efe3",
+      "textSoft": "#b9bec2",
+      "ok": "#ffbe45",
+      "bad": "#e0616b",
+      "onAccent": "#1a1408",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap",
+      "display": "'Big Shoulders Display',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Barlow',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner",
+      "before",
+      "after"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "projects[0]",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "delivery": {
+    "theme": {
+      "ground": "#0B0E14",
+      "surface": "#10151E",
+      "card": "#131926",
+      "accent": "#C8F31D",
+      "accentBright": "#D3F54A",
+      "text": "#F2F5F9",
+      "textSoft": "#93A0B1",
+      "ok": "#C8F31D",
+      "bad": "#FFB4A3",
+      "onAccent": "#10140A",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Syne',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Inter Tight',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "quote",
+      "editableFields": [
+        "minimum",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "dj": {
+    "theme": {
+      "ground": "#000000",
+      "surface": "#050B1E",
+      "card": "#0C1844",
+      "accent": "#3D8BFF",
+      "accentBright": "#9CC7FF",
+      "text": "#EAF2FF",
+      "textSoft": "#9FB2D9",
+      "ok": "#57E7FF",
+      "bad": "#FF9AA2",
+      "onAccent": "#000000",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap",
+      "display": "'Montserrat',sans-serif",
+      "label": "'Montserrat',sans-serif",
+      "body": "'Montserrat',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero"
+    ],
+    "sections": {
+      "pricing": false,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": false,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": false
+    },
+    "pricing": {
+      "model": "none",
+      "editableFields": []
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "none",
+      "ownerShape": "none"
+    }
+  },
+  "dog-walking": {
+    "theme": {
+      "ground": "#F7FAFD",
+      "surface": "#FDFEFF",
+      "card": "#FFFFFF",
+      "accent": "#3B9AE1",
+      "accentBright": "#5FB2EF",
+      "text": "#22364A",
+      "textSoft": "#5A6B7B",
+      "ok": "#497E34",
+      "bad": "#B4453A",
+      "onAccent": "#1D2E40",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Varela+Round&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Baloo 2',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Varela Round',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "calculator",
+      "editableFields": [
+        "label",
+        "rate20",
+        "rate30",
+        "rate45"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "dumpster-rental": {
+    "theme": {
+      "ground": "#0e1f18",
+      "surface": "#0a1812",
+      "card": "#132a20",
+      "accent": "#FFC400",
+      "accentBright": "#FFD34D",
+      "text": "#F2E9D8",
+      "textSoft": "#A79C86",
+      "ok": "#FFC400",
+      "bad": "#ff9aa2",
+      "onAccent": "#161105",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@62.5,700;62.5,800;62.5,900&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap",
+      "display": "'Anybody',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Inter',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": false,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "calculator",
+      "editableFields": [
+        "yd",
+        "price",
+        "dims",
+        "loads",
+        "best",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "none",
+      "ownerShape": "owner"
+    }
+  },
+  "electrician": {
+    "theme": {
+      "ground": "#0A0D1C",
+      "surface": "#070915",
+      "card": "#11162B",
+      "accent": "#6C63FF",
+      "accentBright": "#8B7FFF",
+      "text": "#EAF0FF",
+      "textSoft": "#8590B8",
+      "ok": "#7DF9FF",
+      "bad": "#ff9aa2",
+      "onAccent": "#050414",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap",
+      "display": "'Rajdhani',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Inter',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "range"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "hvac": {
+    "theme": {
+      "ground": "#F2F7FB",
+      "surface": "#FBFDFE",
+      "card": "#FFFFFF",
+      "accent": "#1E6FB0",
+      "accentBright": "#2A7ABE",
+      "text": "#152435",
+      "textSoft": "#4E6072",
+      "ok": "#1E6FB0",
+      "bad": "#B4453A",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Kanit:wght@500;600;700;800&family=Albert+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Kanit',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Albert Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price",
+        "per"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
   "landscaping": {
     "theme": {
       "ground": "#101A13",
@@ -89,6 +672,365 @@
       "beforeAfter": "none",
       "reviews": "testimonials",
       "ownerShape": "owner"
+    }
+  },
+  "metal-fabrication": {
+    "theme": {
+      "ground": "#14181d",
+      "surface": "#1a2027",
+      "card": "#222a33",
+      "accent": "#FF6B1A",
+      "accentBright": "#FFC53D",
+      "text": "#EDF1F5",
+      "textSoft": "#96A3B1",
+      "ok": "#FFC53D",
+      "bad": "#ff9aa2",
+      "onAccent": "#160b04",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap",
+      "display": "'Saira Condensed',sans-serif",
+      "label": "'JetBrains Mono',monospace",
+      "body": "'Inter',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": false,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "quote",
+      "editableFields": []
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "none",
+      "ownerShape": "owner"
+    }
+  },
+  "moving": {
+    "theme": {
+      "ground": "#F0E7D8",
+      "surface": "#F8F3E9",
+      "card": "#FDFCFA",
+      "accent": "#2F6B4F",
+      "accentBright": "#3C8362",
+      "text": "#2E2A24",
+      "textSoft": "#6B6353",
+      "ok": "#2F6B4F",
+      "bad": "#B04439",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Bevan&family=Mulish:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Bevan',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Mulish',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "hourly",
+      "editableFields": [
+        "label",
+        "rate",
+        "unit"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "painting": {
+    "theme": {
+      "ground": "#131110",
+      "surface": "#1B1815",
+      "card": "#1C1916",
+      "accent": "#C97B63",
+      "accentBright": "#DE9880",
+      "text": "#F4EDE3",
+      "textSoft": "#C4B8AA",
+      "ok": "#9CAF88",
+      "bad": "#FF9AA2",
+      "onAccent": "#221208",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Fraunces',serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Karla',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "personal-trainer": {
+    "theme": {
+      "ground": "#14181c",
+      "surface": "#20262c",
+      "card": "#1B2025",
+      "accent": "#FF5A2E",
+      "accentBright": "#FF7A47",
+      "text": "#EDEDE6",
+      "textSoft": "#9B9B92",
+      "ok": "#4FD8C4",
+      "bad": "#FFAB8F",
+      "onAccent": "#14181C",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap",
+      "display": "'Bebas Neue',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Inter',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": false
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "none"
+    }
+  },
+  "plumbing": {
+    "theme": {
+      "ground": "#080B12",
+      "surface": "#141C29",
+      "card": "#0F141F",
+      "accent": "#2E6FF2",
+      "accentBright": "#5C93FF",
+      "text": "#EAF0FB",
+      "textSoft": "#8CA0BC",
+      "ok": "#2FBE7A",
+      "bad": "#FF8A75",
+      "onAccent": "#010509",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Chivo:wght@500;700;800;900&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+      "display": "'Chivo',sans-serif",
+      "label": "'IBM Plex Mono',monospace",
+      "body": "'Public Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "pressure-washing": {
+    "theme": {
+      "ground": "#071e29",
+      "surface": "#0c2c3a",
+      "card": "#0A2632",
+      "accent": "#22D3EE",
+      "accentBright": "#7FF0FF",
+      "text": "#EAF7FB",
+      "textSoft": "#CFE7EE",
+      "ok": "#2FBE7A",
+      "bad": "#FF9AA2",
+      "onAccent": "#04222B",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap",
+      "display": "'Space Grotesk',sans-serif",
+      "label": "'Space Mono',monospace",
+      "body": "'Manrope',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "roofing": {
+    "theme": {
+      "ground": "#0A0F14",
+      "surface": "#1A2733",
+      "card": "#141D27",
+      "accent": "#B85B28",
+      "accentBright": "#D97539",
+      "text": "#EDF2F6",
+      "textSoft": "#8CA0B3",
+      "ok": "#2FA36B",
+      "bad": "#E8836A",
+      "onAccent": "#000000",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Anton&family=Rubik:wght@400;500;600;700;800&family=Overpass+Mono:wght@400;500;600&display=swap",
+      "display": "'Anton',sans-serif",
+      "label": "'Overpass Mono',monospace",
+      "body": "'Rubik',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": false,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    }
+  },
+  "tattoo-studio": {
+    "theme": {
+      "ground": "#0a0a0d",
+      "surface": "#101014",
+      "card": "#111014",
+      "accent": "#c42b3d",
+      "accentBright": "#d04254",
+      "text": "#ede4d3",
+      "textSoft": "#a89d8d",
+      "ok": "#c9a86a",
+      "bad": "#FF9AA2",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+      "display": "'Cormorant Unicase',serif",
+      "label": "ui-monospace,monospace",
+      "body": "'Space Grotesk',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": false,
+      "social": true,
+      "footerContact": false,
+      "ownerBlock": false
+    },
+    "pricing": {
+      "model": "flash",
+      "editableFields": [
+        "label",
+        "price_label"
+      ]
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "none",
+      "ownerShape": "none"
     }
   }
 }

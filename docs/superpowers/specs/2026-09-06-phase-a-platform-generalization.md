@@ -31,7 +31,7 @@ One file per niche, read by three consumers: the admin (theme + which editors to
   },
   "merge": {
     "beforeAfter": "niche.beforeImg/afterImg | projects[0] | none",
-    "reviews": "testimonials",
+    "reviews": "testimonials | none",
     "ownerShape": "owner | none"
   }
 }

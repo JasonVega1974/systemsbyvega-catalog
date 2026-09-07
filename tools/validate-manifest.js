@@ -54,7 +54,7 @@ const PRICING_MODELS = ['tiers', 'hourly', 'quote', 'percentage', 'calculator', 
 
 // merge.* enums.
 const MERGE_BEFORE_AFTER = ['niche.beforeImg/afterImg', 'projects[0]', 'none'];
-const MERGE_REVIEWS = ['testimonials'];
+const MERGE_REVIEWS = ['testimonials', 'none'];
 const MERGE_OWNER_SHAPE = ['owner', 'none'];
 
 /* ---- validation ---------------------------------------------------------- */

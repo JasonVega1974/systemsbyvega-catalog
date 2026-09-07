@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#0e1f18", "surface": "#0a1812", "card": "#132a20",
+    "accent": "#FFC400", "accentBright": "#FFD34D",
+    "text": "#F2E9D8", "textSoft": "#A79C86",
+    "ok": "#FFC400", "bad": "#ff9aa2", "onAccent": "#161105",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@62.5,700;62.5,800;62.5,900&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap",
+    "display": "'Anybody',sans-serif", "label": "'IBM Plex Mono',monospace", "body": "'Inter',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": false, "social": true, "footerContact": false, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "calculator",
+    "editableFields": ["yd", "price", "dims", "loads", "best", "note"],
+    "mergePath": "sizes"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "none",
+    "ownerShape": "owner"
+  }
+}

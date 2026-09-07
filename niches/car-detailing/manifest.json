@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#0E131A", "surface": "#161E28", "card": "#1E2A38",
+    "accent": "#2DD4CE", "accentBright": "#5CE8E2",
+    "text": "#D9E6EF", "textSoft": "#9DB1C0",
+    "ok": "#5CE6A0", "bad": "#E0616B", "onAccent": "#062522",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800;900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap",
+    "display": "'Saira Condensed',sans-serif", "label": "'Space Mono',monospace", "body": "'Manrope',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero", "owner", "before", "after"],
+  "sections": {
+    "pricing": true, "beforeAfter": true, "jobDetails": false,
+    "reviews": true, "social": true, "footerContact": false, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  }
+}

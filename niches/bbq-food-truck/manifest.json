@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#171310", "surface": "#221710", "card": "#1F1913",
+    "accent": "#E8590C", "accentBright": "#FF7A2F",
+    "text": "#F6EBD9", "textSoft": "#E4D4BC",
+    "ok": "#6FCF7B", "bad": "#E0616B", "onAccent": "#180B04",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap",
+    "display": "'Alfa Slab One',serif", "label": "'IBM Plex Mono',monospace", "body": "'Nunito Sans',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": false, "social": true, "footerContact": false, "ownerBlock": false
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "none",
+    "ownerShape": "none"
+  }
+}

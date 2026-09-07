@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#F7FAFD", "surface": "#FDFEFF", "card": "#FFFFFF",
+    "accent": "#3B9AE1", "accentBright": "#5FB2EF",
+    "text": "#22364A", "textSoft": "#5A6B7B",
+    "ok": "#497E34", "bad": "#B4453A", "onAccent": "#1D2E40",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Varela+Round&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+    "display": "'Baloo 2',sans-serif", "label": "'IBM Plex Mono',monospace", "body": "'Varela Round',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "calculator",
+    "editableFields": ["label", "rate20", "rate30", "rate45"],
+    "mergePath": "niche.walkServices"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  }
+}

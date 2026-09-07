@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#FDF7EF", "surface": "#FFFDF9", "card": "#FFFFFF",
+    "accent": "#7A5BA6", "accentBright": "#8767B2",
+    "text": "#3A3128", "textSoft": "#7A6E5F",
+    "ok": "#7A5BA6", "bad": "#B4453A", "onAccent": "#FFFFFF",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap",
+    "display": "'Fredoka',sans-serif", "label": "'IBM Plex Mono',monospace", "body": "'Atkinson Hyperlegible',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": true, "social": false, "footerContact": false, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "hourly",
+    "editableFields": ["base", "perExtraKid", "weekendBump"],
+    "mergePath": "niche.rates"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  }
+}

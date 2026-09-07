@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#000000", "surface": "#050B1E", "card": "#0C1844",
+    "accent": "#3D8BFF", "accentBright": "#9CC7FF",
+    "text": "#EAF2FF", "textSoft": "#9FB2D9",
+    "ok": "#57E7FF", "bad": "#FF9AA2", "onAccent": "#000000",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap",
+    "display": "'Montserrat',sans-serif", "label": "'Montserrat',sans-serif", "body": "'Montserrat',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero"],
+  "sections": {
+    "pricing": false, "beforeAfter": false, "jobDetails": false,
+    "reviews": false, "social": true, "footerContact": false, "ownerBlock": false
+  },
+  "pricing": {
+    "model": "none",
+    "editableFields": [],
+    "mergePath": "none"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "none",
+    "ownerShape": "none"
+  }
+}

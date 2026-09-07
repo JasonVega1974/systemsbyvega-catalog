@@ -1,0 +1,27 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#14181c", "surface": "#20262c", "card": "#1B2025",
+    "accent": "#FF5A2E", "accentBright": "#FF7A47",
+    "text": "#EDEDE6", "textSoft": "#9B9B92",
+    "ok": "#4FD8C4", "bad": "#FFAB8F", "onAccent": "#14181C",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap",
+    "display": "'Bebas Neue',sans-serif", "label": "'IBM Plex Mono',monospace", "body": "'Inter',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["hero", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": true, "social": true, "footerContact": false, "ownerBlock": false
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "testimonials",
+    "ownerShape": "none"
+  }
+}
