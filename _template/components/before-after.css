@@ -1,0 +1,52 @@
+/* _template/components/before-after.css
+   Namespaced ba-cmp-* copy of bin-cleaning's .ba rules (sections.css), minus
+   the water-spray decoration -- that was bin-cleaning's own flourish, not
+   the reusable behavior. Relies only on the platform-wide token set every
+   niche.css defines (--card-brd, --shadow, --ink-dim, --accent-2,
+   --accent-deep, --accent-ink, --mono, --ground-deep, --hair). */
+.ba-cmp-wrap { max-width: 820px; margin: 0 auto; }
+.ba-cmp {
+  position: relative; aspect-ratio: 581 / 376;
+  border-radius: 20px; overflow: hidden; user-select: none; touch-action: pan-y;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow);
+  background: var(--ground-deep);
+}
+.ba-cmp__panel { position: absolute; inset: 0; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: var(--ground-deep); }
+.ba-cmp__after { background-image: var(--after-img, none); }
+.ba-cmp__before { background-image: var(--before-img, none); z-index: 2; clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+
+.ba-cmp__handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px;
+  background: linear-gradient(180deg, transparent, var(--ink-dim), var(--accent-2), var(--ink-dim), transparent);
+  transform: translateX(-1px); z-index: 5; box-shadow: 0 0 18px rgba(90, 180, 255, .5); }
+.ba-cmp__grip { position: absolute; top: 50%; left: var(--pos, 50%); transform: translate(-50%, -50%); z-index: 6;
+  width: 52px; height: 52px; border-radius: 50%; cursor: ew-resize;
+  background: radial-gradient(circle at 35% 30%, #cfeafe, var(--accent-2) 60%, var(--accent-deep));
+  border: 2px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, .7), 0 0 22px rgba(90, 180, 255, .5);
+  display: grid; place-items: center; color: var(--accent-ink); }
+.ba-cmp__grip svg { width: 24px; height: 24px; }
+.ba-cmp__hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-dim); background: rgba(6, 17, 32, .6); padding: .3rem .7rem; border-radius: 20px;
+  border: 1px solid var(--hair); transition: opacity .4s; pointer-events: none; }
+.ba-cmp.touched .ba-cmp__hint { opacity: 0; }
+
+.ba-cmp-labels { display: flex; justify-content: space-between; align-items: center;
+  max-width: 820px; margin: 0 auto 14px; padding: 0 4px; gap: 16px; }
+.ba-cmp-label { font-family: var(--mono); font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; font-size: .85rem; padding: .45rem 1rem; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: .5rem; }
+.ba-cmp-label--b { background: rgba(10, 10, 6, .72); color: #e9d9a6; border: 1px solid rgba(200, 170, 90, .45); }
+.ba-cmp-label--a { background: rgba(8, 26, 40, .72); color: var(--ink-dim); border: 1px solid rgba(120, 180, 230, .55); }
+.ba-cmp-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .75; }
+@media (max-width: 520px) { .ba-cmp-label { font-size: .72rem; letter-spacing: .16em; padding: .35rem .7rem; } }
+
+/* dashed placeholder when the operator has fewer than a real before+after
+   pair -- own copy, self-contained (this component brings its own
+   slot-empty rule rather than depending on a niche defining one). */
+.ba-cmp-wrap.slot-empty { border: 2px dashed var(--accent-2); border-radius: 20px; background: rgba(120, 180, 230, .06); }
+.ba-cmp-wrap.slot-empty .ba-cmp-ui { display: none; }
+.ba-cmp-wrap.slot-empty .ba-cmp::after { content: "Before / after photos appear here -- add them in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }

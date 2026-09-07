@@ -1,0 +1,14 @@
+/* _template/components/job-details.css
+   .section/.section__head/.reveal/.eyebrow/.section-title are all shared
+   chrome from _template/base.css -- only the two-column list layout needs a
+   rule of its own here. */
+.jd-cmp__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 640px) { .jd-cmp__cols { grid-template-columns: 1fr; } }
+.jd-cmp__col { background: var(--card); border: 1px solid var(--card-brd); border-radius: 16px; padding: 22px 24px; }
+.jd-cmp__col h3 { margin: 0 0 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; font-size: .95rem; }
+.jd-cmp__col--yes h3 { color: var(--accent-2); }
+.jd-cmp__col--no h3 { color: var(--ink-dim); }
+.jd-cmp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.jd-cmp__list li { position: relative; padding-left: 26px; color: var(--ink-dim); line-height: 1.5; }
+.jd-cmp__col--yes li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; }
+.jd-cmp__col--no li::before { content: "\2715"; position: absolute; left: 0; color: var(--ink-dim); opacity: .6; }

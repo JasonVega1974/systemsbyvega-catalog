@@ -133,13 +133,76 @@ catch (e) { console.error('content.json does not parse: ' + e.message); process.
  * half-wired niche; this tool does NOT write assets/data/manifests.json
  * (that is tools/build-manifest-index.js's job alone — single-writer rule).
  */
+let manifest = null;
 if (fs.existsSync(path.join(SRC, 'manifest.json'))) {
   const { validateFile } = require('./validate-manifest');
-  const { errors } = validateFile(slug);
-  if (errors.length) {
+  const result = validateFile(slug);
+  if (result.errors.length) {
     console.error('niches/' + slug + '/manifest.json is invalid:');
-    for (const e of errors) console.error('  ' + e);
+    for (const e of result.errors) console.error('  ' + e);
     process.exit(1);
+  }
+  manifest = result.manifest;
+}
+
+/* ---- shared component inclusion (Decision 4) ----------------------------
+ * _template/components/<name>.{html,css,js} are OPTIONAL build-time includes.
+ * A niche picks one up only when ALL of:
+ *   1. it has a valid manifest.json (validated just above)
+ *   2. the manifest flags the matching condition true (see COMPONENT_DEFS)
+ *   3. its sections.html literally contains that component's slot comment,
+ *      authored by hand per niche (a separate task, not this build step)
+ * Missing any one of the three leaves sections/sectionCss/nicheJs untouched,
+ * so a niche with a manifest but no slot comments rebuilds byte-identical to
+ * a build without this mechanism at all.
+ *
+ * hero-photo has no matching boolean in the sections schema (Decision 1) --
+ * a hero photo is a photography choice, not a content-section toggle -- so
+ * its signal is photoSlots including 'hero' instead.
+ */
+const COMPONENTS_DIR = path.join(TPL, 'components');
+const COMPONENT_DEFS = [
+  { name: 'footer-contact', enabled: m => !!(m.sections && m.sections.footerContact) },
+  { name: 'before-after',   enabled: m => !!(m.sections && m.sections.beforeAfter) },
+  { name: 'job-details',    enabled: m => !!(m.sections && m.sections.jobDetails) },
+  { name: 'reviews',        enabled: m => !!(m.sections && m.sections.reviews) },
+  { name: 'hero-photo',     enabled: m => Array.isArray(m.photoSlots) && m.photoSlots.includes('hero') }
+];
+let componentsCss = '';
+let componentsJs = '';
+if (manifest) {
+  const included = [];
+  for (const def of COMPONENT_DEFS) {
+    const slot = '<!-- COMPONENT:' + def.name + ' -->';
+    if (!def.enabled(manifest) || sections.indexOf(slot) === -1) continue;
+
+    let markup = read(path.join(COMPONENTS_DIR, def.name + '.html'));
+    if (def.name === 'before-after') {
+      const mergeSpec = (manifest.merge && manifest.merge.beforeAfter) || 'niche.beforeImg/afterImg';
+      markup = markup.split('{{BEFORE_AFTER_MERGE}}').join(mergeSpec);
+    }
+    if (def.name === 'hero-photo') {
+      markup = markup.split('{{HERO_DEFAULT}}').join('/sites/' + slug + '/photos/hero.jpg');
+    }
+    sections = sections.split(slot).join(markup.trim());
+
+    const cssPath = path.join(COMPONENTS_DIR, def.name + '.css');
+    if (fs.existsSync(cssPath)) {
+      componentsCss += '\n/* -- component: ' + def.name + ' -- */\n' + fs.readFileSync(cssPath, 'utf8').trim() + '\n';
+    }
+    const jsPath = path.join(COMPONENTS_DIR, def.name + '.js');
+    if (fs.existsSync(jsPath)) {
+      componentsJs += '\n/* -- component: ' + def.name + ' -- */\n' + fs.readFileSync(jsPath, 'utf8').trim() + '\n';
+    }
+    included.push(def.name);
+  }
+  /* The wiring mechanism (runtime.js) hooks window.renderContent; ship it
+     (once, ahead of any component's own registration) only when at least
+     one component actually got included for this niche. */
+  if (included.length) {
+    componentsJs = '\n/* -- component runtime -- */\n' +
+      fs.readFileSync(path.join(COMPONENTS_DIR, 'runtime.js'), 'utf8').trim() + '\n' + componentsJs;
+    console.log('  components included: ' + included.join(', '));
   }
 }
 
@@ -274,11 +337,11 @@ const subs = {
   JSON_LD: buildJsonLd(),
   NICHE_CSS: nicheCss.trim(),
   BASE_CSS: baseCss.trim(),
-  SECTIONS_CSS: sectionCss.trim(),
+  SECTIONS_CSS: sectionCss.trim() + componentsCss,
   SCENE_SVG: sceneSvg.trim(),
   SECTIONS: sections.trim(),
   DEFAULT_CONTENT: JSON.stringify(content, null, 2),
-  NICHE_JS: nicheJs.trim(),
+  NICHE_JS: nicheJs.trim() + componentsJs,
   SCENE_JS: sceneJs.trim(),
   BASE_JS: baseJs.trim()
 };

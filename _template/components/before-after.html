@@ -1,0 +1,27 @@
+<!-- _template/components/before-after.html
+     Signature before/after slider, extracted VERBATIM in behavior from
+     niches/bin-cleaning (pointer + touch + keyboard drag, --pos CSS var, a
+     gentle one-time auto-nudge on first view). Namespaced ba-cmp-* so it
+     never collides with a niche's own hand-authored .ba rules (bin-cleaning
+     still has one until it is converted separately).
+     data-merge is stamped by tools/build-site.js from the niche's manifest
+     merge.beforeAfter -- "niche.beforeImg/afterImg" (read c.niche.beforeImg/
+     afterImg) or "projects[0]" (read c.projects[0].beforeImg/afterImg,
+     contracting's shape). Both-or-neither fallback: a lone real photo is
+     never paired with the other side missing -- the wrap gets a dashed
+     slot-empty state instead of a fabricated pair. -->
+<div class="ba-cmp-labels reveal" aria-hidden="true">
+  <span class="ba-cmp-label ba-cmp-label--b">Before</span>
+  <span class="ba-cmp-label ba-cmp-label--a">After</span>
+</div>
+<div class="ba-cmp-wrap reveal" data-merge="{{BEFORE_AFTER_MERGE}}">
+  <div class="ba-cmp" tabindex="0" role="slider" aria-label="Before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="--pos:50%">
+    <div class="ba-cmp__panel ba-cmp__after"></div>
+    <div class="ba-cmp__panel ba-cmp__before"></div>
+    <div class="ba-cmp__handle ba-cmp-ui" aria-hidden="true"></div>
+    <div class="ba-cmp__grip ba-cmp-ui" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
+    </div>
+    <div class="ba-cmp__hint ba-cmp-ui">&#9668; Drag &#9658;</div>
+  </div>
+</div>

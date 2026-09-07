@@ -1,0 +1,23 @@
+<!-- _template/components/job-details.html
+     Two-column "what's included / not included" block, from c.jobDetails =
+     { included: [...strings], notIncluded: [...strings] }. Starts hidden;
+     job-details.js unhides the whole section only when at least one list has
+     an item, and hides either column on its own if that list is empty. -->
+<section class="section jd-cmp" id="jobDetails" hidden>
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fine print, upfront</span>
+      <h2 class="section-title">What's included</h2>
+    </div>
+    <div class="jd-cmp__cols">
+      <div class="jd-cmp__col jd-cmp__col--yes reveal">
+        <h3>Included</h3>
+        <ul class="jd-cmp__list" id="jdIncluded"></ul>
+      </div>
+      <div class="jd-cmp__col jd-cmp__col--no reveal">
+        <h3>Not included</h3>
+        <ul class="jd-cmp__list" id="jdNotIncluded"></ul>
+      </div>
+    </div>
+  </div>
+</section>
