@@ -35,7 +35,7 @@
     "pricing": {
       "model": "none",
       "editableFields": [],
-      "mergePath": "pricing"
+      "mergePath": "none"
     },
     "merge": {
       "beforeAfter": "niche.beforeImg/afterImg",
@@ -161,10 +161,10 @@
     "sections": {
       "pricing": true,
       "beforeAfter": true,
-      "jobDetails": false,
+      "jobDetails": true,
       "reviews": true,
       "social": true,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {
@@ -671,7 +671,7 @@
       "jobDetails": false,
       "reviews": true,
       "social": true,
-      "footerContact": false,
+      "footerContact": true,
       "ownerBlock": true
     },
     "pricing": {

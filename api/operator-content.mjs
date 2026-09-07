@@ -109,7 +109,13 @@ async function handler(request) {
   let manifest = null;
   if (op) {
     const index = await manifestIndex();
-    manifest = (index && index[tenantRow.niche_slug]) || null;
+    /* hasOwnProperty guard, not a bare `index[slug]`: niche_slug is
+       operator-controlled data flowing into a plain-object lookup, and a
+       slug that happened to collide with an inherited Object.prototype key
+       (e.g. "constructor") would otherwise resolve to that instead of
+       undefined — null is the only acceptable "not found" here. */
+    manifest = (index && Object.prototype.hasOwnProperty.call(index, tenantRow.niche_slug))
+      ? index[tenantRow.niche_slug] : null;
   }
   const body = op ? applyOperator(defaults, op, manifest) : defaults;
 
@@ -395,6 +401,20 @@ function applyOperator(base, op, manifest) {
     }
     /* "none" (auto-body, dj, and every quote/calculator/flash niche without a
        before/after slot): no-op by design — there is nothing to merge. */
+
+    /* ── hero photo (Phase A-core F2 fix) ─────────────────────────────────
+       Manifest-present only, deliberately: renderPhotoZones() in admin/
+       index.html only renders a hero upload zone when manifest.photoSlots
+       includes 'hero' (tools/build-site.js gates its hero-photo module the
+       same way), so a legacy/no-manifest niche can never produce ph.hero in
+       the first place — there is no "before" to keep this consistent with
+       there. Writing it into out.niche.heroImg here is the same
+       stored-now-render-later pattern as jobDetails below: no template
+       reads niche.heroImg yet, but the day one does, saved hero uploads
+       show up with no backend change needed. Before this fix, an
+       operator's hero upload landed in sbv_operator_content.photos.hero and
+       simply never left this function. */
+    set(out.niche, 'heroImg', ph.hero);
   }
 
   /* ── owner photo/name/bio ───────────────────────────────────────────── */

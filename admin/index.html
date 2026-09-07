@@ -484,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     calculator: {
-      kind: 'rows', caption: "Feeds your site's calculator.",
+      kind: 'rows', caption: "Saved with your site's content — the calculator isn't connected to these yet.",
       fields: [
         { key: 'label', maxlen: 60, ph: 'Option (e.g. 20 yard)' },
         { key: 'price_label', maxlen: 20, ph: '$20' }
@@ -535,6 +535,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var snapshot = null;       /* JSON.stringify(collectRow()) as of the last load/save */
   var dirty = false;
+
+  /* F7 (null-manifest object-prices wipe): true when load() saw NO resolved
+     manifest for this niche AND the row's already-saved prices are a plain
+     object (a quote/percentage operator's real settings) rather than an
+     array. With no manifest, initPricing() falls back to the tiers ('rows')
+     editor by default — an object doesn't fit that editor's saved[i] shape,
+     so every row reads back empty and readPriceRows() returns null. Left
+     alone, ANY save while in this state (even one only touching, say, the
+     phone number) would send prices:null and silently erase that
+     operator's real pricing. collectRow() checks this flag and omits the
+     prices key entirely instead. */
+  var pricesShapeUnknownGuard = false;
 
   function $(id) { return document.getElementById(id); }
   function show(id, on) { $(id).hidden = !on; }
@@ -709,6 +721,16 @@ document.addEventListener('DOMContentLoaded', function () {
           + '<p class="up-msg">Coming soon &mdash; needs a one-line database update.</p>'
           + '</div>';
       }
+      /* hero (Phase A-core F2 fix): fully functional zone — upload/save both
+         work, and the saved photo now SERVES via content.json's
+         niche.heroImg (see applyOperator in api/operator-content.mjs) — but
+         no template renders that key yet, same stored-only state
+         job_details is already honest about below. Reuses the jd-caption
+         convention for that honesty rather than leaving the zone silent
+         about it. */
+      var zoneCaption = slot === 'hero'
+        ? '<p class="jd-caption">Uploads save now &mdash; your site shows this photo after its hero update lands.</p>'
+        : '';
       return '<div class="up" data-slot="' + escAttr(slot) + '">'
         + '<span>' + escHtml(label) + '</span><img alt="" hidden>'
         + '<input type="file" accept="image/jpeg,image/png,image/webp">'
@@ -717,6 +739,7 @@ document.addEventListener('DOMContentLoaded', function () {
         + '<button type="button" class="up-remove">Remove</button>'
         + '</div>'
         + '<p class="up-msg"></p>'
+        + zoneCaption
         + '</div>';
     }).join('');
     $('photoZones').innerHTML = html;
@@ -815,9 +838,23 @@ document.addEventListener('DOMContentLoaded', function () {
      .pr-card of flat labeled fields; "none" hides the whole editor and shows
      pricingCaption instead. Sets currentPricingModel/currentPriceFieldKeys,
      read by readPricesForModel()/updatePricePreviews() below. */
-  function initPricing(model, saved) {
-    var def = PRICE_MODEL_FIELDS[model] || PRICE_MODEL_FIELDS.tiers;
-    currentPricingModel = PRICE_MODEL_FIELDS[model] ? model : 'tiers';
+  function initPricing(model, saved, pricingCfg) {
+    /* F3 (metal-fab inert-editor ruling): a manifest can name a real
+       pricing.model (metal-fabrication says "quote") while ALSO saying
+       mergePath "none" or leaving editableFields empty — meaning nothing
+       the operator types here ever reaches the merge endpoint (see
+       overlayPricingManifest's early `if (!mergePath || mergePath ===
+       'none') return;` in api/operator-content.mjs). Rendering the quote
+       editor there is worse than rendering nothing: it invites an operator
+       to fill in fields that quietly go nowhere. Forcing the 'none' caption
+       state here, regardless of what pricing.model says, is the honest
+       call — same treatment as a model that is genuinely 'none'. A real
+       mergePath with a non-empty editableFields (delivery's quote editor)
+       is unaffected. */
+    var forcedNone = !!(pricingCfg && (pricingCfg.mergePath === 'none' ||
+      (Array.isArray(pricingCfg.editableFields) && pricingCfg.editableFields.length === 0)));
+    var def = forcedNone ? PRICE_MODEL_FIELDS.none : (PRICE_MODEL_FIELDS[model] || PRICE_MODEL_FIELDS.tiers);
+    currentPricingModel = forcedNone ? 'none' : (PRICE_MODEL_FIELDS[model] ? model : 'tiers');
     var host = $('priceRows');
     var caption = $('pricingCaption');
 
@@ -1115,7 +1152,18 @@ document.addEventListener('DOMContentLoaded', function () {
     var jobDetailsOn = s.jobDetails !== false;
     $('jobDetailsEditor').hidden = !jobDetailsOn;
     $('jobDetailsHiddenCaption').hidden = jobDetailsOn;
-    $('jobDetailsShownCaption').hidden = !jobDetailsOn;
+    /* F-caption: "Saved — appears when your site's next update adds this
+       section" is only true when we DON'T actually know whether the site
+       renders it — i.e. no manifest resolved at all, so DEFAULT_SECTIONS'
+       jobDetails:true default is a guess, not a confirmed render (see
+       `sections` param below — this is the ONLY branch where it is falsy
+       while jobDetailsOn is still true). A resolved manifest whose own
+       sections.jobDetails is true (bin-cleaning) means the section is
+       already live on that niche's real template right now — showing this
+       caption there would be false advertising, exactly what F-caption
+       flagged. A resolved manifest with jobDetails:false hides the editor
+       entirely already, so the caption is moot there regardless. */
+    $('jobDetailsShownCaption').hidden = !(jobDetailsOn && !sections);
 
     var ownerOn = s.ownerBlock !== false;
     $('ownerEditor').hidden = !ownerOn;
@@ -1275,8 +1323,22 @@ document.addEventListener('DOMContentLoaded', function () {
       var rows = (rt && rt.data || []).filter(function (t) { return t.client_id === clientId; });
       var row = rows[0];
       var nicheSlug = row && row.niche_slug;
-      var manifest = (nicheSlug && manifestIndex[nicheSlug]) || null;
+      /* hasOwnProperty guard, not a bare `manifestIndex[nicheSlug]`:
+         niche_slug ultimately comes from the database, and a slug that
+         collided with an inherited Object.prototype key (e.g.
+         "constructor") would otherwise resolve to that function instead of
+         falling through to the null/regression path. */
+      var manifest = (nicheSlug && Object.prototype.hasOwnProperty.call(manifestIndex, nicheSlug))
+        ? manifestIndex[nicheSlug] : null;
       currentManifest = manifest;
+
+      /* See pricesShapeUnknownGuard's declaration above for why this check
+         exists. Recomputed on every load(), not just once, since the
+         manifest index can resolve differently across page loads (e.g. it
+         failed to fetch last time and succeeds now). */
+      var savedPrices = r.data && r.data.prices;
+      pricesShapeUnknownGuard = !manifest && !!savedPrices &&
+        typeof savedPrices === 'object' && !Array.isArray(savedPrices);
 
       renderPhotoZones(manifest && manifest.photoSlots);
       initUploads();
@@ -1291,7 +1353,8 @@ document.addEventListener('DOMContentLoaded', function () {
         if (actions) actions.hidden = false;
       });
 
-      initPricing((manifest && manifest.pricing && manifest.pricing.model) || 'tiers', r.data && r.data.prices);
+      initPricing((manifest && manifest.pricing && manifest.pricing.model) || 'tiers', r.data && r.data.prices,
+        manifest && manifest.pricing);
       applySectionsGating(manifest && manifest.sections);
 
       initReviewRows(r.data && r.data.reviews);
@@ -1391,7 +1454,15 @@ document.addEventListener('DOMContentLoaded', function () {
       if (photoUrls[s]) ph[s] = photoUrls[s];
     });
     row.photos = Object.keys(ph).length ? ph : null;
-    row.prices = readPricesForModel(currentPricingModel);
+    /* F7 guard: an unresolved manifest sitting on top of already-saved
+       object-shaped prices (a quote/percentage operator's row, read before
+       their niche's manifest loaded) — omit the key entirely rather than
+       run it through the tiers-editor fallback, which would read back null
+       and wipe those settings on any unrelated-field save. See
+       pricesShapeUnknownGuard's declaration. */
+    if (!pricesShapeUnknownGuard) {
+      row.prices = readPricesForModel(currentPricingModel);
+    }
 
     var social = readSocial();
     maybeClearable(row, 'social', social.length ? social : null);

@@ -140,6 +140,16 @@ function validate(m) {
     if (!PRICING_MODELS.includes(m.pricing.model)) {
       errs.push('pricing.model must be one of ' + PRICING_MODELS.join('|') + ', got ' + JSON.stringify(m.pricing.model));
     }
+    // editableFields is DESCRIPTIVE-ONLY: shape-validated here for schema
+    // hygiene. Its CONTENTS never drive rendering or merging —
+    // PRICE_MODEL_FIELDS (admin/index.html) is the real authority on what a
+    // save can contain, and pricing.mergePath/model are what the endpoint and
+    // admin key off of. One deliberate exception: the admin's initPricing
+    // treats an EMPTY editableFields array (alongside mergePath 'none') as
+    // "force the hidden/none editor" (Phase A-core F3) — an emptiness check,
+    // not a field-list read. api/operator-content.mjs never reads it at all.
+    // Do not trust a populated editableFields array as a save-shape signal;
+    // see Phase A-core F3/F8.
     if (!Array.isArray(m.pricing.editableFields) || m.pricing.editableFields.some(f => typeof f !== 'string')) {
       errs.push('pricing.editableFields must be an array of strings');
     }

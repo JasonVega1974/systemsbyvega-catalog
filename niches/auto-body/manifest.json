@@ -17,7 +17,7 @@
   "pricing": {
     "model": "none",
     "editableFields": [],
-    "mergePath": "pricing"
+    "mergePath": "none"
   },
   "merge": {
     "beforeAfter": "niche.beforeImg/afterImg",
