@@ -483,6 +483,10 @@ async function handler(request) {
     // work instead: playwright-core is pinned to the release whose CDP
     // driver matches the shipped Chromium major (see package.json).
     const launchArgs = chromium.args;
+    // Graphics off: nothing in these templates needs WebGL, and swiftshader
+    // initialization is the documented crash-at-page-create culprit for
+    // this binary on non-Lambda serverless runtimes.
+    chromium.setGraphicsMode = false;
     const browser = await pw.launch({
       args: launchArgs,
       executablePath: await chromium.executablePath(),
@@ -549,6 +553,8 @@ async function handler(request) {
       .split('\n')[0]
       .replace(/[\\/][^\s]*/g, '')
       .slice(0, 140);
-    return json({ ok: false, error: 'render_failed: ' + reason }, 500);
+    // Build marker so a live retry is attributable to the deploy it hit.
+    const build = String(process.env.VERCEL_GIT_COMMIT_SHA || '').slice(0, 7);
+    return json({ ok: false, error: 'render_failed@' + build + ': ' + reason }, 500);
   }
 }
