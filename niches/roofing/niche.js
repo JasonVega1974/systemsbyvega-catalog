@@ -73,8 +73,8 @@ var LEAD = { provider: 'formsubmit', email: '', sms: '' };
     // pricing
     var pg = document.getElementById('priceGrid');
     pg.innerHTML = (c.pricing||[]).map(function(p){
-      return '<div class="pcard'+(p.featured?' feat':'')+'">'+(p.featured?'<span class="tag">Most common</span>':'')+
-        '<h3>'+esc(p.label)+'</h3><div class="price">'+esc(p.price)+'</div>'+(p.per?'<div class="per">'+esc(p.per)+'</div>':'<div class="per">&nbsp;</div>')+
+      return '<div class="pcard'+(p.highlight?' feat':'')+'">'+(p.highlight?'<span class="tag">Most common</span>':'')+
+        '<h3>'+esc(p.label)+'</h3><div class="price">'+esc(p.blurb)+'</div>'+(p.per?'<div class="per">'+esc(p.per)+'</div>':'<div class="per">&nbsp;</div>')+
         '<ul>'+(p.features||[]).map(function(f){return '<li>'+esc(f)+'</li>';}).join('')+'</ul></div>';
     }).join('');
 

@@ -27,7 +27,6 @@
   "pricing": [
     {
       "label": "Driveway Refresh",
-      "price": 149,
       "per": "flat, up to 600 sq ft",
       "note": "Extra square footage past 600 ft² is billed at $0.18/ft² — quoted before we start, never after.",
       "features": [
@@ -36,11 +35,11 @@
         "Eco-conscious detergent",
         "Before/after photos texted"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$149"
     },
     {
       "label": "Full Exterior Wash",
-      "price": 329,
       "per": "flat, most single-story homes",
       "note": "Two-story homes or heavy staining get a confirmed adjusted price before booking — never a surprise on the invoice.",
       "features": [
@@ -49,11 +48,11 @@
         "Windows rinsed (exterior)",
         "Driveway approach included"
       ],
-      "highlight": true
+      "highlight": true,
+      "blurb": "$329"
     },
     {
       "label": "Deck & Fence Restore",
-      "price": 219,
       "per": "flat, up to 400 sq ft of deck",
       "note": "Bigger deck or a full privacy fence? Text a photo and we'll quote the real number in minutes.",
       "features": [
@@ -62,7 +61,8 @@
         "Sealant-ready rinse",
         "Railings & stairs included"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$219"
     }
   ],
   "testimonials": [

@@ -218,6 +218,21 @@ if (manifest) {
       fs.readFileSync(path.join(COMPONENTS_DIR, 'runtime.js'), 'utf8').trim() + '\n' + componentsJs;
     console.log('  components included: ' + included.join(', '));
   }
+  /* heroWired is a hand-maintained manifest boolean the ADMIN trusts to
+     suppress its "shows after its hero update lands" honesty caption. A
+     manifest claiming wired while the build did not actually inject the
+     component would silently hide that caption while uploads still render
+     nowhere — the exact defect the flag exists to prevent — so the build
+     fails loudly on the lie rather than shipping it. (Wired-in-build but
+     flagged false only leaves a stale-but-honest caption; warn, don't fail.) */
+  const heroInjected = included.includes('hero-photo');
+  if (manifest.heroWired === true && !heroInjected) {
+    console.error(slug + ': manifest.heroWired is true but the hero-photo component was not injected (missing photoSlots "hero" or the sections.html slot comment)');
+    process.exit(1);
+  }
+  if (heroInjected && manifest.heroWired !== true) {
+    console.warn('  warning: hero-photo injected but manifest.heroWired is not true — the admin will show a stale "not yet wired" caption');
+  }
 }
 
 const seo = content.seo || {};

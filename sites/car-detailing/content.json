@@ -28,9 +28,7 @@
   "pricing": [
     {
       "label": "Express Refresh",
-      "price": 89,
       "per": "~1 hour",
-      "blurb": "A fast reset between details — dust, crumbs and a clean exterior.",
       "features": [
         "Hand wash & dry",
         "Wheels & tires cleaned",
@@ -38,13 +36,13 @@
         "Windows in & out",
         "Dash & console wiped down"
       ],
-      "highlight": false
+      "highlight": false,
+      "tagline": "A fast reset between details — dust, crumbs and a clean exterior.",
+      "blurb": "$89"
     },
     {
       "label": "Full Detail",
-      "price": 189,
       "per": "~3 hours",
-      "blurb": "Our most-booked service — inside and out, top to bottom.",
       "features": [
         "Everything in Express Refresh",
         "Interior deep-clean & shampoo",
@@ -53,13 +51,13 @@
         "Door jambs & trim dressed",
         "Streak-free glass treatment"
       ],
-      "highlight": true
+      "highlight": true,
+      "tagline": "Our most-booked service — inside and out, top to bottom.",
+      "blurb": "$189"
     },
     {
       "label": "Showroom Detail",
-      "price": 329,
       "per": "~5 hours",
-      "blurb": "The full reset — for sale-ready cars or once-a-year deep love.",
       "features": [
         "Everything in Full Detail",
         "Machine paint decon & polish",
@@ -68,7 +66,9 @@
         "Headliner & vents detailed",
         "Engine bay cleaned & dressed"
       ],
-      "highlight": false
+      "highlight": false,
+      "tagline": "The full reset — for sale-ready cars or once-a-year deep love.",
+      "blurb": "$329"
     }
   ],
   "testimonials": [],

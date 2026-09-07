@@ -311,8 +311,8 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         + (p.highlight ? '<span class="pkg__flag">Most booked</span>' : '')
         + '<div class="pkg__name">' + esc(p.label) + '</div>'
         + (p.per ? '<div class="pkg__dur">' + esc(p.per) + '</div>' : '')
-        + '<div class="pkg__price">$' + num(p.price) + '<small>flat</small></div>'
-        + (p.blurb ? '<p class="pkg__best">' + esc(p.blurb) + '</p>' : '')
+        + '<div class="pkg__price">$' + num(p.blurb) + '<small>flat</small></div>'
+        + (p.tagline ? '<p class="pkg__best">' + esc(p.tagline) + '</p>' : '')
         + '<ul class="pkg__list">' + items.map(function(it){ return '<li>' + checkIcon + '<span>' + esc(it) + '</span></li>'; }).join('') + '</ul>'
         + '<button class="btn' + (p.highlight ? '' : ' btn--ghost') + '" type="button" data-book-package="' + esc(p.label) + '">Book ' + esc(p.label) + '</button>'
         + '</div>';

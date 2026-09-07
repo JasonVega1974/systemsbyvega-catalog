@@ -27,8 +27,6 @@
   "pricing": [
     {
       "label": "Room Refresh",
-      "price": 450,
-      "priceHigh": 900,
       "per": "one-time",
       "features": [
         "One or two rooms",
@@ -36,12 +34,11 @@
         "Two coats, color-matched",
         "Furniture moved & covered"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$450–$900"
     },
     {
       "label": "Full Repaint",
-      "price": 2800,
-      "priceHigh": 6500,
       "per": "one-time",
       "features": [
         "Whole interior — walls, trim, ceilings",
@@ -49,12 +46,11 @@
         "Two coats minimum, low-odor option",
         "Walkthrough before we call it done"
       ],
-      "highlight": true
+      "highlight": true,
+      "blurb": "$2,800–$6,500"
     },
     {
       "label": "Whole Exterior",
-      "price": 4200,
-      "priceHigh": 9800,
       "per": "one-time",
       "features": [
         "Siding, trim & fascia",
@@ -62,7 +58,8 @@
         "Weather-rated exterior coating",
         "Multi-day crew, not a solo job"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$4,200–$9,800"
     }
   ],
   "services": [

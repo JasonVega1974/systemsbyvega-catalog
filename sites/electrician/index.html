@@ -1607,7 +1607,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // ---------- pricing ----------
   function renderPricing(){
-    /* pricing is the canonical root ARRAY [{label, range}] (manifest
+    /* pricing is the canonical root ARRAY [{label, blurb}] (manifest
        mergePath "pricing"); the service-call card lives under niche.serviceCall,
        which base.js's SLflat exposes as CONTENT.serviceCall. */
     var sc = CONTENT.serviceCall || {};

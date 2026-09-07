@@ -155,12 +155,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderPricing(){
     var grid = document.getElementById('plansGrid');
     grid.innerHTML = (CONTENT.pricing || []).map(function(p){
-      var pill = p.best ? '<span class="plan-card__pill">Most booked</span>' : '';
+      var pill = p.highlight ? '<span class="plan-card__pill">Most booked</span>' : '';
       var feats = (p.features || []).map(function(f){ return '<li>' + CHECK + '<span>' + esc(f) + '</span></li>'; }).join('');
-      return '<div class="plan-card' + (p.best ? ' plan-card--best' : '') + '">' + pill +
-        '<div class="plan-card__tier">' + esc(p.tier) + '</div>' +
-        '<div class="plan-card__freq">' + esc(p.unit || '') + '</div>' +
-        '<div class="plan-card__price">' + money(p.priceLow) + '&ndash;' + money(p.priceHigh) + '<small>typical range, confirmed before we start</small></div>' +
+      return '<div class="plan-card' + (p.highlight ? ' plan-card--best' : '') + '">' + pill +
+        '<div class="plan-card__tier">' + esc(p.label) + '</div>' +
+        '<div class="plan-card__freq">' + esc(p.per || '') + '</div>' +
+        '<div class="plan-card__price">' + esc(p.blurb) + '<small>typical range, confirmed before we start</small></div>' +
         '<ul class="plan-card__features">' + feats + '</ul>' +
         '<a class="btn" href="#book">Get quoted</a></div>';
     }).join('');
@@ -171,7 +171,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
      ===================================================== */
   function renderBookingSelect(){
     var sel = document.getElementById('b-service');
-    var opts = (CONTENT.pricing || []).map(function(p){ return p.tier; })
+    var opts = (CONTENT.pricing || []).map(function(p){ return p.label; })
       .concat((CONTENT.services || []).map(function(s){ return s.title; }));
     sel.innerHTML = '<option value="" disabled selected>Choose one…</option>' +
       opts.map(function(o){ return '<option value="' + esc(o) + '">' + esc(o) + '</option>'; }).join('');

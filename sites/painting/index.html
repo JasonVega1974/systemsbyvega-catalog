@@ -33,27 +33,7 @@
   "email": "hello@bristleconepaint.com",
   "areaServed": "Treasure Valley, Idaho",
   "priceRange": "$450-$9800",
-  "slogan": "Every wall, exactly right.",
-  "makesOffer": [
-    {
-      "@type": "Offer",
-      "name": "Room Refresh",
-      "price": "450",
-      "priceCurrency": "USD"
-    },
-    {
-      "@type": "Offer",
-      "name": "Full Repaint",
-      "price": "2800",
-      "priceCurrency": "USD"
-    },
-    {
-      "@type": "Offer",
-      "name": "Whole Exterior",
-      "price": "4200",
-      "priceCurrency": "USD"
-    }
-  ]
+  "slogan": "Every wall, exactly right."
 }
 </script>
 
@@ -1391,8 +1371,6 @@ var DEFAULT_CONTENT = {
   "pricing": [
     {
       "label": "Room Refresh",
-      "price": 450,
-      "priceHigh": 900,
       "per": "one-time",
       "features": [
         "One or two rooms",
@@ -1400,12 +1378,11 @@ var DEFAULT_CONTENT = {
         "Two coats, color-matched",
         "Furniture moved & covered"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$450–$900"
     },
     {
       "label": "Full Repaint",
-      "price": 2800,
-      "priceHigh": 6500,
       "per": "one-time",
       "features": [
         "Whole interior — walls, trim, ceilings",
@@ -1413,12 +1390,11 @@ var DEFAULT_CONTENT = {
         "Two coats minimum, low-odor option",
         "Walkthrough before we call it done"
       ],
-      "highlight": true
+      "highlight": true,
+      "blurb": "$2,800–$6,500"
     },
     {
       "label": "Whole Exterior",
-      "price": 4200,
-      "priceHigh": 9800,
       "per": "one-time",
       "features": [
         "Siding, trim & fascia",
@@ -1426,7 +1402,8 @@ var DEFAULT_CONTENT = {
         "Weather-rated exterior coating",
         "Multi-day crew, not a solo job"
       ],
-      "highlight": false
+      "highlight": false,
+      "blurb": "$4,200–$9,800"
     }
   ],
   "services": [
@@ -1846,12 +1823,12 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderPricing(){
     var grid = document.getElementById('plansGrid');
     grid.innerHTML = (CONTENT.pricing || []).map(function(p){
-      var pill = p.best ? '<span class="plan-card__pill">Most booked</span>' : '';
+      var pill = p.highlight ? '<span class="plan-card__pill">Most booked</span>' : '';
       var feats = (p.features || []).map(function(f){ return '<li>' + CHECK + '<span>' + esc(f) + '</span></li>'; }).join('');
-      return '<div class="plan-card' + (p.best ? ' plan-card--best' : '') + '">' + pill +
-        '<div class="plan-card__tier">' + esc(p.tier) + '</div>' +
-        '<div class="plan-card__freq">' + esc(p.unit || '') + '</div>' +
-        '<div class="plan-card__price">' + money(p.priceLow) + '&ndash;' + money(p.priceHigh) + '<small>typical range, confirmed before we start</small></div>' +
+      return '<div class="plan-card' + (p.highlight ? ' plan-card--best' : '') + '">' + pill +
+        '<div class="plan-card__tier">' + esc(p.label) + '</div>' +
+        '<div class="plan-card__freq">' + esc(p.per || '') + '</div>' +
+        '<div class="plan-card__price">' + esc(p.blurb) + '<small>typical range, confirmed before we start</small></div>' +
         '<ul class="plan-card__features">' + feats + '</ul>' +
         '<a class="btn" href="#book">Get quoted</a></div>';
     }).join('');
@@ -1862,7 +1839,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
      ===================================================== */
   function renderBookingSelect(){
     var sel = document.getElementById('b-service');
-    var opts = (CONTENT.pricing || []).map(function(p){ return p.tier; })
+    var opts = (CONTENT.pricing || []).map(function(p){ return p.label; })
       .concat((CONTENT.services || []).map(function(s){ return s.title; }));
     sel.innerHTML = '<option value="" disabled selected>Choose one…</option>' +
       opts.map(function(o){ return '<option value="' + esc(o) + '">' + esc(o) + '</option>'; }).join('');

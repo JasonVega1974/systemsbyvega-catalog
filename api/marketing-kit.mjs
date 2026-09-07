@@ -157,10 +157,16 @@ function displayPrice(v) {
 
 // First number found in a price label, for picking the LOWEST tier.
 // "$1,800 – $3,200" parses as 1800; a label with no number parses as NaN
-// and that row simply cannot win.
+// and that row simply cannot win. K/M suffixes normalize BEFORE comparison:
+// contracting's "$2.5K–$15K" must parse as 2500, or it "wins" against a
+// $500 entry tier and the flyer overstates the starting price fivefold.
+// keep in sync with mkPriceNumber in admin/index.html
 function priceNumber(v) {
-  const m = String(v == null ? '' : v).replace(/,/g, '').match(/[0-9]+(\.[0-9]+)?/);
-  return m ? parseFloat(m[0]) : NaN;
+  const m = String(v == null ? '' : v).replace(/,/g, '').match(/([0-9]+(\.[0-9]+)?)\s*([kKmM])?/);
+  if (!m || !m[1]) return NaN;
+  const n = parseFloat(m[1]);
+  const suffix = (m[3] || '').toLowerCase();
+  return suffix === 'k' ? n * 1000 : suffix === 'm' ? n * 1000000 : n;
 }
 
 // A pricing row's display label lives under different keys per niche:

@@ -33,27 +33,7 @@
   "email": "hello@kestreldetail.com",
   "areaServed": "Boise & the Treasure Valley",
   "priceRange": "$89-$329",
-  "slogan": "Showroom shine, curbside.",
-  "makesOffer": [
-    {
-      "@type": "Offer",
-      "name": "Express Refresh",
-      "price": "89",
-      "priceCurrency": "USD"
-    },
-    {
-      "@type": "Offer",
-      "name": "Full Detail",
-      "price": "189",
-      "priceCurrency": "USD"
-    },
-    {
-      "@type": "Offer",
-      "name": "Showroom Detail",
-      "price": "329",
-      "priceCurrency": "USD"
-    }
-  ]
+  "slogan": "Showroom shine, curbside."
 }
 </script>
 
@@ -1366,9 +1346,7 @@ var DEFAULT_CONTENT = {
   "pricing": [
     {
       "label": "Express Refresh",
-      "price": 89,
       "per": "~1 hour",
-      "blurb": "A fast reset between details — dust, crumbs and a clean exterior.",
       "features": [
         "Hand wash & dry",
         "Wheels & tires cleaned",
@@ -1376,13 +1354,13 @@ var DEFAULT_CONTENT = {
         "Windows in & out",
         "Dash & console wiped down"
       ],
-      "highlight": false
+      "highlight": false,
+      "tagline": "A fast reset between details — dust, crumbs and a clean exterior.",
+      "blurb": "$89"
     },
     {
       "label": "Full Detail",
-      "price": 189,
       "per": "~3 hours",
-      "blurb": "Our most-booked service — inside and out, top to bottom.",
       "features": [
         "Everything in Express Refresh",
         "Interior deep-clean & shampoo",
@@ -1391,13 +1369,13 @@ var DEFAULT_CONTENT = {
         "Door jambs & trim dressed",
         "Streak-free glass treatment"
       ],
-      "highlight": true
+      "highlight": true,
+      "tagline": "Our most-booked service — inside and out, top to bottom.",
+      "blurb": "$189"
     },
     {
       "label": "Showroom Detail",
-      "price": 329,
       "per": "~5 hours",
-      "blurb": "The full reset — for sale-ready cars or once-a-year deep love.",
       "features": [
         "Everything in Full Detail",
         "Machine paint decon & polish",
@@ -1406,7 +1384,9 @@ var DEFAULT_CONTENT = {
         "Headliner & vents detailed",
         "Engine bay cleaned & dressed"
       ],
-      "highlight": false
+      "highlight": false,
+      "tagline": "The full reset — for sale-ready cars or once-a-year deep love.",
+      "blurb": "$329"
     }
   ],
   "testimonials": [],
@@ -1938,8 +1918,8 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         + (p.highlight ? '<span class="pkg__flag">Most booked</span>' : '')
         + '<div class="pkg__name">' + esc(p.label) + '</div>'
         + (p.per ? '<div class="pkg__dur">' + esc(p.per) + '</div>' : '')
-        + '<div class="pkg__price">$' + num(p.price) + '<small>flat</small></div>'
-        + (p.blurb ? '<p class="pkg__best">' + esc(p.blurb) + '</p>' : '')
+        + '<div class="pkg__price">$' + num(p.blurb) + '<small>flat</small></div>'
+        + (p.tagline ? '<p class="pkg__best">' + esc(p.tagline) + '</p>' : '')
         + '<ul class="pkg__list">' + items.map(function(it){ return '<li>' + checkIcon + '<span>' + esc(it) + '</span></li>'; }).join('') + '</ul>'
         + '<button class="btn' + (p.highlight ? '' : ' btn--ghost') + '" type="button" data-book-package="' + esc(p.label) + '">Book ' + esc(p.label) + '</button>'
         + '</div>';

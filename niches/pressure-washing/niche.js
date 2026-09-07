@@ -292,21 +292,21 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }).join('');
 
     // ----- pricing tiers -----
-    var minPrice = pricing.length ? Math.min.apply(null, pricing.map(function(p){ return num(p.price); })) : null;
+    var minPrice = pricing.length ? Math.min.apply(null, pricing.map(function(p){ return num(p.blurb); })) : null;
     if(minPrice != null) document.getElementById('statFrom').textContent = 'From $' + minPrice;
 
     document.getElementById('pricingGrid').innerHTML = pricing.map(function(p, i){
       var feats = parseFeatures(p.features).map(function(f){
         return '<li>' + CHECK_ICON + '<span>' + esc(f) + '</span></li>';
       }).join('');
-      return '<div class="price-card reveal in' + (p.best ? ' price-card--best' : '') + '" data-delay="' + ((i % 3) + 1) + '">'
-        + (p.best ? '<span class="price-card__pill">Most requested</span>' : '')
-        + '<div class="price-card__name">' + esc(p.name) + '</div>'
-        + '<div class="price-card__amt">$' + num(p.price) + '<small>flat</small></div>'
-        + '<div class="price-card__unit">' + esc(p.unit) + '</div>'
+      return '<div class="price-card reveal in' + (p.highlight ? ' price-card--best' : '') + '" data-delay="' + ((i % 3) + 1) + '">'
+        + (p.highlight ? '<span class="price-card__pill">Most requested</span>' : '')
+        + '<div class="price-card__name">' + esc(p.label) + '</div>'
+        + '<div class="price-card__amt">$' + num(p.blurb) + '<small>flat</small></div>'
+        + '<div class="price-card__unit">' + esc(p.per) + '</div>'
         + '<ul class="price-card__feats">' + feats + '</ul>'
         + (p.note ? '<p class="price-card__note">' + esc(p.note) + '</p>' : '')
-        + '<button type="button" class="btn' + (p.best ? '' : ' btn--ghost') + '" data-pkg="' + i + '">Book this package</button>'
+        + '<button type="button" class="btn' + (p.highlight ? '' : ' btn--ghost') + '" data-pkg="' + i + '">Book this package</button>'
         + '</div>';
     }).join('');
 
@@ -314,16 +314,16 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('#pricingGrid [data-pkg]').forEach(function(btn){
       btn.addEventListener('click', function(){
         var p = pricing[Number(btn.getAttribute('data-pkg'))];
-        if(p) pickPackage(p.name, p.price);
+        if(p) pickPackage(p.label, num(p.blurb));
       });
     });
 
     // keep the booking select's options in sync with the live tiers
     var prevSel = bService.value;
     bService.innerHTML = pricing.map(function(p){
-      return '<option value="' + esc(p.name) + '">' + esc(p.name) + ' — $' + num(p.price) + '</option>';
+      return '<option value="' + esc(p.label) + '">' + esc(p.label) + ' — $' + num(p.blurb) + '</option>';
     }).join('') + '<option value="unsure">Not sure — help me pick</option>';
-    bService.value = (prevSel === 'unsure' || pricing.some(function(p){ return p.name === prevSel; })) ? prevSel : 'unsure';
+    bService.value = (prevSel === 'unsure' || pricing.some(function(p){ return p.label === prevSel; })) ? prevSel : 'unsure';
 
     // ----- owner -----
     document.getElementById('ownerDesc').textContent = owner.bio || '';

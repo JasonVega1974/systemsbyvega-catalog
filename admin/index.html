@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var currentNicheSlug = null;     /* resolved niche slug — the Marketing tab's template lookup key */
   var currentPricingModel = 'tiers';
   var currentPriceFieldKeys = ['label', 'price_label', 'note'];
-  var PRICE_ROWS = 3;
+  var PRICE_ROWS = 6;
   var REVIEW_MAX = 6;
   var SOCIAL_MAX = 6;
 
@@ -781,9 +781,20 @@ document.addEventListener('DOMContentLoaded', function () {
          B0, landscaping first), so the honesty caption only shows where it
          is still true. No manifest reads as not-wired — conservative. */
       var heroWired = !!(currentManifest && currentManifest.heroWired);
-      var zoneCaption = (slot === 'hero' && !heroWired)
-        ? '<p class="jd-caption">Uploads save now &mdash; your site shows this photo after its hero update lands.</p>'
-        : '';
+      /* Before/after zones get the same honesty when the niche's merge map
+         says nothing consumes those photos (merge.beforeAfter "none" or
+         absent) — uploads still save, the site just has nowhere to show
+         them until a wiring pass lands. Same conservative default as hero:
+         no manifest reads as not-wired. */
+      var baWired = !!(currentManifest && currentManifest.merge
+        && currentManifest.merge.beforeAfter
+        && currentManifest.merge.beforeAfter !== 'none');
+      var zoneCaption = '';
+      if (slot === 'hero' && !heroWired) {
+        zoneCaption = '<p class="jd-caption">Uploads save now &mdash; your site shows this photo after its hero update lands.</p>';
+      } else if ((slot === 'before' || slot === 'after') && !baWired) {
+        zoneCaption = '<p class="jd-caption">Uploads save now &mdash; your site shows before/after photos after that section is wired up.</p>';
+      }
       return '<div class="up" data-slot="' + escAttr(slot) + '">'
         + '<span>' + escHtml(label) + '</span><img alt="" hidden>'
         + '<input type="file" accept="image/jpeg,image/png,image/webp">'
@@ -1834,9 +1845,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!s) return '';
     return /^[0-9]+(\.[0-9]+)?$/.test(s) ? '$' + s : s;
   }
+  /* keep in sync with priceNumber in api/marketing-kit.mjs (K/M suffixes
+     normalize before comparison — "$2.5K" is 2500, not 2.5) */
   function mkPriceNumber(v) {
-    var m = String(v == null ? '' : v).replace(/,/g, '').match(/[0-9]+(\.[0-9]+)?/);
-    return m ? parseFloat(m[0]) : NaN;
+    var m = String(v == null ? '' : v).replace(/,/g, '').match(/([0-9]+(\.[0-9]+)?)\s*([kKmM])?/);
+    if (!m || !m[1]) return NaN;
+    var n = parseFloat(m[1]);
+    var suffix = (m[3] || '').toLowerCase();
+    return suffix === 'k' ? n * 1000 : suffix === 'm' ? n * 1000000 : n;
   }
   function mkRowPriceLabel(row) {
     if (!row || typeof row !== 'object') return '';

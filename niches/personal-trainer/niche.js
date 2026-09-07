@@ -188,7 +188,7 @@ var currentGoal = 'strength';
       return '<div class="price-card' + (p.highlight ? ' price-card--best' : '') + '">'
         + (p.highlight ? '<span class="price-card__badge">' + esc(p.note || 'Most popular') + '</span>' : '')
         + '<div class="price-card__name">' + esc(p.label) + '</div>'
-        + '<div class="price-card__price"><b>$' + esc(p.price) + '</b><span>' + esc(p.per || '') + '</span></div>'
+        + '<div class="price-card__price"><b>' + esc(p.blurb) + '</b><span>' + esc(p.per || '') + '</span></div>'
         + '<ul>' + feats.map(function(f){ return '<li>' + CHECK_SVG + '<span>' + esc(f) + '</span></li>'; }).join('') + '</ul>'
         + (!p.highlight && p.note ? '<div class="price-card__note">' + esc(p.note) + '</div>' : '')
         + '</div>';

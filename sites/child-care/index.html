@@ -1652,7 +1652,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // row 0 is the base rate, every later row renders as a "+$" add-on.
     var rates = c.rates || [];
     document.getElementById('rateGrid').innerHTML = rates.map(function(row, i){
-      return '<div class="rcard"><div class="rnum">' + (i ? '+' : '') + '$' + esc(row.rate) + esc(row.unit || '/hr') + '</div><div class="rlbl">' + esc(row.label) + '</div></div>';
+      return '<div class="rcard"><div class="rnum">' + (i ? '+' : '') + '$' + esc(row.rate) + ' ' + esc(row.unit || '/hr') + '</div><div class="rlbl">' + esc(row.label) + '</div></div>';
     }).join('');
     document.getElementById('ratesNote').textContent = c.ratesNote || '';
 

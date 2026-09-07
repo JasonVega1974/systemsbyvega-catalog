@@ -118,7 +118,6 @@
   "pricing": [
     {
       "label": "Small Group",
-      "price": 65,
       "per": "/session",
       "features": [
         "4–6 person class cap",
@@ -126,11 +125,11 @@
         "Text-based coaching between sessions"
       ],
       "note": "",
-      "highlight": false
+      "highlight": false,
+      "blurb": "$65"
     },
     {
       "label": "1:1 Coaching",
-      "price": 95,
       "per": "/session",
       "features": [
         "Fully individualized programming",
@@ -138,11 +137,11 @@
         "Direct text line to Cora"
       ],
       "note": "",
-      "highlight": true
+      "highlight": true,
+      "blurb": "$95"
     },
     {
       "label": "Online Programming",
-      "price": 149,
       "per": "/month",
       "features": [
         "Custom plan in your lifting app",
@@ -150,7 +149,8 @@
         "Form-check video review"
       ],
       "note": "",
-      "highlight": false
+      "highlight": false,
+      "blurb": "$149"
     }
   ],
   "niche": {

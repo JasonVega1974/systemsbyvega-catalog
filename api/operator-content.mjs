@@ -418,9 +418,9 @@ function applyOperator(base, op, manifest) {
        same way), so a legacy/no-manifest niche can never produce ph.hero in
        the first place — there is no "before" to keep this consistent with
        there. Writing it into out.niche.heroImg here is the same
-       stored-now-render-later pattern as jobDetails below: no template
-       reads niche.heroImg yet, but the day one does, saved hero uploads
-       show up with no backend change needed. Before this fix, an
+       stored-now-render-later pattern as jobDetails below — and as of
+       Phase B, _template/components/hero-photo.js DOES read niche.heroImg
+       on every heroWired niche, so saved hero uploads render there. Before this fix, an
        operator's hero upload landed in sbv_operator_content.photos.hero and
        simply never left this function. */
     set(out.niche, 'heroImg', ph.hero);
