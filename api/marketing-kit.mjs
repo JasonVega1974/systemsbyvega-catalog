@@ -473,17 +473,16 @@ async function handler(request) {
     let facebookPng = null;
     let flyerPdf = null;
     let flyerPng = null;
-    // @sparticuz/chromium's stock args include --single-process and
-    // --no-zygote (memory savers for tiny lambdas) plus its own --headless
-    // variant. Playwright's target attachment assumes out-of-process
-    // renderers — the --single-process pairing is the classic
-    // works-with-puppeteer, hangs-with-playwright failure — and Playwright
-    // sends its own headless flag. This function has 3GB; the savers buy
-    // nothing and risk everything, so they are stripped.
-    const launchArgs = chromium.args.filter(function (a) {
-      return a !== '--single-process' && a !== '--no-zygote'
-        && a.indexOf('--headless') !== 0;
-    });
+    // chromium.args passes UNFILTERED, on live evidence. A review-prescribed
+    // filter stripped --single-process/--no-zygote (the general playwright
+    // wisdom), but on this runtime the multi-process browser dies at
+    // newPage ("Target crashed" on skewed versions, "browser has been
+    // closed" on matched ones) — the sparticuz binary is built to run
+    // single-process on serverless filesystems and its own playwright
+    // example passes args verbatim. Version pairing does the compatibility
+    // work instead: playwright-core is pinned to the release whose CDP
+    // driver matches the shipped Chromium major (see package.json).
+    const launchArgs = chromium.args;
     const browser = await pw.launch({
       args: launchArgs,
       executablePath: await chromium.executablePath(),
