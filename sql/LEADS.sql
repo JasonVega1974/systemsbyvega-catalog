@@ -20,23 +20,28 @@
 -- mis-tap is worse than keeping a hidden row forever, and the same reasoning
 -- already governs sbv_operator_content.
 --
--- Idempotent: create-if-not-exists, and every policy is dropped before it is
--- recreated. Run against SystemsByVega (newjbexmvltvtmxollca) ONLY.
+-- Idempotent: create-if-not-exists, and every constraint and policy is dropped
+-- or guarded before it is created, so this is safe to re-run against a table
+-- that already holds real leads. Run against SystemsByVega
+-- (newjbexmvltvtmxollca) ONLY.
 --
--- ONE TRANSACTION, on purpose, and this is not cosmetic. The verify block at
--- the bottom uses a temp table and `set local role`, both of which are session
--- state. Run as loose statements they are auto-committed one at a time and the
--- runner is free to hand each one a different pooled session — which is
--- exactly what happened on the first attempt: the temp table vanished between
--- being created and being read, and the file died with 42P01.
+-- WHAT THE VERIFY BLOCK PROVES, AND WHAT IT DOES NOT. It is plain schema
+-- inspection: no temp tables, no role switching, no transaction. Two earlier
+-- versions used those and both died with 42P01, because the SQL editor
+-- auto-commits each statement and is free to run them on different pooled
+-- sessions, so session state does not survive from one statement to the next.
 --
--- So everything lives inside a single begin/commit. Postgres has transactional
--- DDL, so this also makes the migration atomic: it applies completely or not
--- at all. A savepoint separates the two halves — the schema commits, the
--- verify's staged rows are rolled back to the savepoint and never persist.
+-- The consequence is worth stating plainly rather than glossing. These rows
+-- prove the policies exist, are attached to the right commands, and are scoped
+-- by sbv_is_tenant(client_id) — and that every grant is exactly what was
+-- intended, including the ones deliberately withheld. They do NOT execute a
+-- query as an operator, so on their own they cannot prove RLS filters at
+-- runtime. That proof belongs to a live request carrying a real operator JWT
+-- against PostgREST, which is the better test anyway because it exercises the
+-- path the admin actually uses. It runs while the Leads tab is built, and its
+-- result goes in the progress ledger.
+--
 -- ============================================================================
-
-begin;
 
 create table if not exists public.sbv_leads (
   id          uuid primary key default gen_random_uuid(),
@@ -133,111 +138,80 @@ grant select, insert on public.sbv_leads to service_role;
 revoke all on public.sbv_leads from anon;
 
 -- ================================================ VERIFY ==
--- The isolation rows are the ones that matter. They do not merely assert that
--- a policy exists — they impersonate a real operator by setting the JWT claim
--- sbv_is_tenant() reads, switch to the `authenticated` role so RLS actually
--- applies, and then try to read another tenant's lead. No user id is written
--- into this file; it is looked up from sbv_client_users at run time.
---
--- Results accumulate in a temp table so a single result set comes back at the
--- end — a client that shows only the last statement would otherwise hide every
--- check but one.
---
--- Everything runs inside a transaction that is rolled back. No lead row, and
--- no change of any kind, survives this file.
-savepoint before_verify;
+-- One statement, one result set, catalog reads only. Run it on its own at any
+-- time: it changes nothing and depends on no session state.
+select 'table exists' as check_name,
+       (to_regclass('public.sbv_leads') is not null)::text as got
 
-create temp table _leads_verify (ord int, check_name text, got text) on commit drop;
--- The role switch below changes who is inserting, so the temp table has to be
--- writable by that role too.
-grant all on _leads_verify to public;
+union all select 'rls is enabled',
+       (select relrowsecurity::text
+          from pg_class where oid = 'public.sbv_leads'::regclass)
 
--- Two leads owned by two different tenants, staged as the table owner. RLS does
--- not apply to us here, which is the point: we are setting up the test, and the
--- interesting question is what the OPERATOR can see afterwards.
---
--- 'testy' specifically, and this matters: every OTHER test tenant
--- (primetest, startest, testerson, testy2) is mapped to the SAME operator
--- account in sbv_client_users, so sbv_is_tenant() is legitimately true for all
--- of them and a lead staged under any of them would be visible here. That
--- would look like an RLS failure and would not be one. 'testy' and 'test2'
--- have no operator mapping at all, which makes 'testy' the only honest choice
--- of "a tenant this operator does not own".
-insert into public.sbv_leads (client_id, name, phone, message, source)
-values ('primetest', 'Verify Mine',   '208-555-0000', 'belongs to primetest', 'manual'),
-       ('testy',     'Verify Theirs', '208-555-1111', 'belongs to a tenant this operator does not own', 'manual');
-
-insert into _leads_verify
-select 1, 'table exists',
-       (to_regclass('public.sbv_leads') is not null)::text
-union all select 2, 'rls is enabled',
-       (select relrowsecurity::text from pg_class where oid = 'public.sbv_leads'::regclass)
-union all select 3, 'three policies, none of them DELETE',
+union all select 'exactly three policies, none of them DELETE',
        (select (count(*) = 3 and count(*) filter (where cmd = 'DELETE') = 0)::text
-          from pg_policies where schemaname = 'public' and tablename = 'sbv_leads')
-union all select 4, 'anon has no privilege at all',
-       (select (count(*) = 0)::text from information_schema.table_privileges
-         where table_schema = 'public' and table_name = 'sbv_leads' and grantee = 'anon')
-union all select 5, 'operator cannot edit what the visitor typed',
-       (select (not bool_or(has_column_privilege('authenticated', 'public.sbv_leads', c, 'update')))::text
-          from unnest(array['name','phone','email','message','client_id','created_at']) c)
-union all select 6, 'operator can triage (status, note, deleted_at)',
-       (select bool_and(has_column_privilege('authenticated', 'public.sbv_leads', c, 'update'))::text
+          from pg_policies
+         where schemaname = 'public' and tablename = 'sbv_leads')
+
+-- The row that carries the most weight. A policy can exist and still be scoped
+-- to something useless, so read the predicate text and confirm all three are
+-- gated on sbv_is_tenant(client_id) rather than merely present.
+union all select 'every policy is scoped by sbv_is_tenant(client_id)',
+       (select (count(*) = 3)::text
+          from pg_policies
+         where schemaname = 'public' and tablename = 'sbv_leads'
+           and coalesce(qual, '') || coalesce(with_check, '')
+               like '%sbv_is_tenant(client_id)%')
+
+-- sbv_is_tenant reads sbv_client_users, which authenticated cannot read
+-- directly. If it ever stopped being SECURITY DEFINER, every policy above
+-- would quietly evaluate false and operators would open an empty lead list
+-- with no error to explain it.
+union all select 'sbv_is_tenant is SECURITY DEFINER and stable',
+       (select (p.prosecdef and p.provolatile = 's')::text
+          from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+         where n.nspname = 'public' and p.proname = 'sbv_is_tenant')
+
+union all select 'anon holds no privilege of any kind',
+       (select (not bool_or(has_table_privilege('anon', 'public.sbv_leads', pr)))::text
+          from unnest(array['select','insert','update','delete']) pr)
+
+union all select 'operator cannot edit what the visitor typed',
+       (select (not bool_or(
+                  has_column_privilege('authenticated', 'public.sbv_leads', c, 'update')))::text
+          from unnest(array['id','client_id','created_at',
+                            'name','phone','email','message']) c)
+
+union all select 'operator can triage (status, note, deleted_at)',
+       (select bool_and(
+                 has_column_privilege('authenticated', 'public.sbv_leads', c, 'update'))::text
           from unnest(array['status','note','deleted_at']) c)
-union all select 7, 'status vocabulary enforced',
-       (select (count(*) = 1)::text from pg_constraint
-         where conrelid = 'public.sbv_leads'::regclass and conname = 'sbv_leads_status_ck');
 
--- ---- become a real operator ------------------------------------------------
-select set_config('request.jwt.claims',
-                  json_build_object('sub', cu.user_id, 'role', 'authenticated')::text,
-                  true)
-  from public.sbv_client_users cu
- where cu.client_id = 'primetest'
- limit 1;
+union all select 'operator can read and insert, but never delete',
+       (has_table_privilege('authenticated', 'public.sbv_leads', 'select')
+        and has_table_privilege('authenticated', 'public.sbv_leads', 'insert')
+        and not has_table_privilege('authenticated', 'public.sbv_leads', 'delete'))::text
 
-set local role authenticated;
+union all select 'service_role can insert (the public submit path)',
+       has_table_privilege('service_role', 'public.sbv_leads', 'insert')::text
 
-insert into _leads_verify
-select 8, 'operator sees their own lead',
-       (select (count(*) = 1)::text from public.sbv_leads where name = 'Verify Mine')
-union all select 9, 'operator CANNOT see the other tenant''s lead',
-       (select (count(*) = 0)::text from public.sbv_leads where name = 'Verify Theirs')
-union all select 10, 'operator sees NO row belonging to another tenant',
-       -- Scoped to the other tenant rather than counting the whole table: this
-       -- file is idempotent and will be re-run once real leads exist, and an
-       -- absolute count would then fail for a reason that has nothing to do
-       -- with isolation.
-       (select (count(*) = 0)::text from public.sbv_leads where client_id = 'testy');
+union all select 'all four check constraints present',
+       (select (count(*) = 4)::text
+          from pg_constraint
+         where conrelid = 'public.sbv_leads'::regclass and contype = 'c'
+           and conname in ('sbv_leads_status_ck', 'sbv_leads_source_ck',
+                           'sbv_leads_lengths_ck', 'sbv_leads_contactable_ck'))
 
-update public.sbv_leads set deleted_at = now() where name = 'Verify Mine';
+union all select 'client_id is a real tenant, and cascades on delete',
+       (select (count(*) = 1)::text
+          from pg_constraint
+         where conrelid = 'public.sbv_leads'::regclass and contype = 'f'
+           and confrelid = 'public.sbv_tenants'::regclass
+           and confdeltype = 'c')
 
-insert into _leads_verify
-select 11, 'operator can soft-delete their own',
-       (select (count(*) = 1)::text from public.sbv_leads
-         where name = 'Verify Mine' and deleted_at is not null);
-
-reset role;
-
--- ---- and now somebody who is nobody ---------------------------------------
--- A well-formed session whose subject is mapped to no tenant at all. This is
--- the shape of a stolen or stale token, and it must see nothing.
-select set_config('request.jwt.claims',
-                  json_build_object('sub', '00000000-0000-0000-0000-000000000000',
-                                    'role', 'authenticated')::text,
-                  true);
-set local role authenticated;
-
-insert into _leads_verify
-select 12, 'a session mapped to no tenant sees nothing',
-       (select (count(*) = 0)::text from public.sbv_leads);
-
-reset role;
-
-select check_name, got from _leads_verify order by ord;
-
--- The staged leads and the temp table are discarded here. The schema above the
--- savepoint is untouched by this and is what commits.
-rollback to savepoint before_verify;
-
-commit;
+union all select 'all three query indexes present',
+       (select (count(*) = 3)::text
+          from pg_indexes
+         where schemaname = 'public' and tablename = 'sbv_leads'
+           and indexname in ('sbv_leads_client_recent_idx',
+                             'sbv_leads_client_status_idx',
+                             'sbv_leads_client_created_idx'));
