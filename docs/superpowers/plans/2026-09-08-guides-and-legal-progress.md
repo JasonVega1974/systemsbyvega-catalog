@@ -80,4 +80,70 @@ Same class as the niche-favicon backlog item.
 
 ---
 
-## Step 2 — operator template legal pages · IN PROGRESS
+## Step 2 — operator template legal pages · BUILT, one blocker
+
+Shipped in `042b674`. `/terms` and `/privacy` on every operator subdomain,
+built per niche so they carry that niche's palette and demo brand, overlaid at
+runtime with the operator's saved details.
+
+**The drafting position, because it explains why the copy reads as it does.**
+These pages are a contract between the OPERATOR and THEIR customer, generated
+from a template. Every concrete commercial term the template states is a term
+the operator never agreed to — so it states none. It describes the shape of
+the relationship and defers notice periods, deposits, cancellation fees and
+guarantees to what the operator actually agreed, or to the clauses they add
+themselves. Nothing claims they are licensed, insured, bonded, or that they
+guarantee their work; only they can truthfully say that. This is the same trap
+as the fabricated certificate-of-insurance line caught on christmas-lights,
+except here it would have been replicated across all 32 niches at once.
+
+**Rulings made while building:**
+- *Relative hrefs, not root-relative.* One built `index.html` is served both at
+  `/sites/<slug>/` on the catalog and at `/` on a tenant, so there is one file
+  and one href. `terms.html` resolves correctly in both; `/terms` would break
+  the demo. Middleware therefore matches four paths, the bare and `.html`
+  spellings of each.
+- *Footer links injected by the build, not by footer-contact.* Only 18 of 32
+  niches enable that component and these pages exist for all of them. The
+  build now fails loudly if a niche has no `</footer>`.
+- *Custom clauses go through `maybeClearable()`, not `FIELDS`.* `FIELDS` sends
+  its column on every save, so adding these to it would have taken the entire
+  save down with PGRST204 until the SQL was applied. This is house rule 4 and
+  it very nearly caught me.
+- *"Last updated" is a pinned constant, not the build date.* Deriving it from
+  the build would restamp all 32 niches on any unrelated rebuild and tell every
+  operator's customers the policy changed when it had not.
+
+**Verified:** 34 builds, 0 qa failures across all niches, all 62 legal pages
+return 200, custom clauses render with correct per-document field and preserved
+line breaks, and an `<img onerror>` + inline `<script>` payload in the operator
+text renders as literal characters and does not execute.
+
+**NOT APPLIED, waiting on Jason:** `sql/LEGAL-COLUMNS.sql`. The brief says
+"Jason runs it" for this one, which overrides the standing SQL grant, so I
+wrote it and stopped. Until it runs, the columns are absent, the admin omits
+them from the payload, and every operator sees the template alone — no error,
+no half state. Say the word and I will apply it; the verify rows are in the
+file.
+
+### BLOCKER, needs a decision — dj has no root build
+
+`dj` is claimable (`website_offer` and `is_listed` both true) but it is a
+*themed* niche: `tools/build-site.js dj` refuses without `--theme`, and
+`sites/dj/index.html` is a hand-authored theme-picker page, not build output.
+Middleware rewrites a tenant to `/sites/<niche>/` with no theme segment, so a
+dj tenant's storefront is the picker and their `/terms` would 404.
+
+The legal pages did not cause this and cannot fix it — the three themed builds
+(`sites/dj/{blue,green,pink}/`) each got both pages correctly. I deliberately
+did not paper over it by hand-copying one theme's pages into `sites/dj/`,
+because that artifact would not be reproducible by a rebuild and would drift.
+
+This wants its own small fix: either middleware resolves a dj tenant's chosen
+theme, or dj stops being sold until it does. Flagging rather than deciding,
+because it changes what a buyer of that niche receives.
+
+---
+
+## Step 3 — per-niche guides · NOT STARTED
+
