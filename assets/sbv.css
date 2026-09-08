@@ -312,7 +312,7 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.grid{grid-template-columns:1fr;gap:30px}}
 @media (max-width:760px){.ledger-bar{grid-template-columns:repeat(2,1fr)}.ledger-cell:nth-child(2n){border-right:0}}
-@media (max-width:420px){.ledger-bar{grid-template-columns:1fr}}
+@media (max-width:420px){.ledger-bar{grid-template-columns:1fr}.ledger-cell{border-right:0}}
 
 /* the plate */
 .entry.sheet{

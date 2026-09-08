@@ -106,7 +106,7 @@ environments. Get the values from Supabase → your project → **Settings → A
 
 - [ ] `/` — catalog renders, all 6 plates, 29 entries
 - [ ] The masthead reads **29 businesses listed / 2 open today**
-- [ ] `/sites/` loads and lists 23 sites
+- [ ] `/sites/` loads and lists 32 sites
 - [ ] Spot-check five demos: `/sites/plumbing/`, `/sites/dj/blue/`,
       `/sites/bbq-food-truck/`, `/sites/pressure-washing/`, `/sites/tattoo-studio/`
 - [ ] `/showcase/` — the territory map draws (proves `us-states.json` resolved)
