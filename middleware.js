@@ -26,7 +26,8 @@
 import { next, rewrite } from '@vercel/functions';
 import { THEMED_NICHES } from './assets/data/themes.mjs';
 
-export const config = { matcher: ['/', '/content.json', '/terms', '/terms.html', '/privacy', '/privacy.html'] };
+export const config = { matcher: ['/', '/content.json', '/terms', '/terms/', '/terms.html',
+                                 '/privacy', '/privacy/', '/privacy.html'] };
 
 const APEX = 'systemsbyvega.com';
 
@@ -228,7 +229,13 @@ export default async function middleware(request) {
      catalog and at / on a tenant, so a relative "terms.html" resolves to
      /sites/<slug>/terms.html in one place and /terms.html in the other. The
      bare /terms is what an operator would type or print on a card. */
-  const legal = path.replace(/\.html$/, '');
+  /* vercel.json sets trailingSlash:true, so a visitor typing /terms is
+     308'd to /terms/ before this ever runs. Comparing the raw path meant
+     /terms/ missed the branch below and fell through to the storefront
+     rewrite -- the tenant's own site served under the Terms URL, 200 and
+     all. Normalise BOTH decorations, and leave '/' alone so stripping does
+     not turn the storefront path into an empty string. */
+  const legal = path === '/' ? '/' : path.replace(/\/+$/, '').replace(/\.html$/, '');
   if (legal === '/terms' || legal === '/privacy') {
     return rewrite(new URL('/sites/' + niche + themeSegment(niche, theme)
                            + legal + '.html', request.url), {
