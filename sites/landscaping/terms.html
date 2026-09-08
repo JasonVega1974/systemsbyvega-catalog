@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en" data-legal-doc="terms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms of Service — Larkspur & Ledge Landscape Co.</title>
+<meta name="description" content="Terms of Service for Larkspur & Ledge Landscape Co..">
+<meta name="theme-color" content="#0E1712">
+<!-- These are the operator's own policy pages. They are for their customers to
+     read, not for search: the page a search engine should rank is the
+     storefront, and 32 near-identical template documents competing with it
+     would be the opposite of helpful. The X-Robots-Tag on tenant traffic is
+     set by middleware; this covers the demo build served from the catalog. -->
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238177F2'/%3E%3Cpath d='M6 44 L58 44 L52 55 L12 55 Z' fill='%2318261B'/%3E%3Cpath d='M32 44 C30 32 34 24 30 12' stroke='%2318261B' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='30' cy='12' r='4.2' fill='%23F2F0E6'/%3E%3Ccircle cx='24.5' cy='20' r='3.4' fill='%23F2F0E6'/%3E%3Ccircle cx='36' cy='22' r='3.1' fill='%23F2F0E6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --lg-ground:#101A13;
+  --lg-sunk:#17251C;
+  --lg-line:#17251C;
+  --lg-line:color-mix(in srgb, #F2F0E6 18%, transparent);
+  --lg-ink:#F2F0E6;
+  --lg-soft:#B9C2B4;
+  --lg-accent:#8177F2;
+  --lg-display:'Oswald',sans-serif;
+  --lg-body:'Work Sans',sans-serif;
+  --lg-mono:'Space Mono',monospace;
+}
+/* _template/legal/legal.css
+   Styling for the operator's own customer-facing legal pages. Deliberately
+   plain: these are documents, not marketing. The niche's theme tokens are
+   stamped in by tools/build-site.js so the page reads as part of the
+   operator's site, but nothing here animates, reveals, or decorates.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so there is no shared stylesheet to link and this file is
+   inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--lg-ground);
+  color: var(--lg-ink);
+  font-family: var(--lg-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.lg-wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.lg-top { padding: 40px 0 26px; border-bottom: 1px solid var(--lg-line); }
+.lg-back {
+  display: inline-block; font-family: var(--lg-mono); font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--lg-accent);
+  text-decoration: none; margin: 0 0 20px;
+}
+.lg-back:hover { text-decoration: underline; }
+.lg-biz {
+  font-family: var(--lg-display); font-weight: 700; font-size: 20px;
+  letter-spacing: -.01em; margin: 0 0 4px; color: var(--lg-ink);
+}
+.lg-sub {
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--lg-soft); margin: 0;
+}
+
+h1 {
+  font-family: var(--lg-display); font-weight: 700;
+  font-size: clamp(28px, 5vw, 38px); line-height: 1.12; letter-spacing: -.015em;
+  margin: 38px 0 10px; text-wrap: balance;
+}
+.lg-updated {
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--lg-soft); margin: 0 0 4px;
+}
+
+h2 {
+  font-family: var(--lg-display); font-weight: 700; font-size: 20px;
+  letter-spacing: -.008em; margin: 36px 0 10px; color: var(--lg-ink);
+}
+p { margin: 0 0 14px; color: var(--lg-soft); }
+p strong, li strong { color: var(--lg-ink); font-weight: 600; }
+ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin: 0 0 8px; color: var(--lg-soft); }
+a { color: var(--lg-accent); }
+
+/* ── the disclaimer, and the operator's own additions ─────────────────── */
+.lg-note {
+  background: var(--lg-sunk); border: 1px solid var(--lg-line);
+  border-radius: 8px; padding: 16px 20px; margin: 26px 0;
+}
+.lg-note p { margin: 0; font-size: 15.5px; }
+
+/* Operator-supplied clauses. Starts hidden; legal.js unhides it only when
+   the operator has actually saved text, so a tenant who has added nothing
+   shows the template alone rather than an empty heading. */
+.lg-custom[hidden] { display: none; }
+.lg-custom h2 { margin-top: 34px; }
+.lg-custom-body { white-space: pre-wrap; }
+
+.lg-foot {
+  margin: 46px 0 0; padding: 22px 0 56px; border-top: 1px solid var(--lg-line);
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .04em;
+  line-height: 1.9; color: var(--lg-soft);
+}
+.lg-foot a { color: var(--lg-soft); }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .lg-wrap { padding: 0 18px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .lg-back { display: none; }
+  a { color: #000; text-decoration: underline; }
+}
+</style>
+</head>
+<body>
+<div class="lg-wrap">
+  <header class="lg-top">
+    <a class="lg-back" href="./">&larr; Back to the site</a>
+    <p class="lg-biz" data-lg-name>Larkspur & Ledge Landscape Co.</p>
+    <p class="lg-sub" data-lg-city>Meridian, ID</p>
+  </header>
+
+  <!-- _template/legal/terms.html
+     The operator's own customer-facing Terms of Service. Assembled into
+     sites/<slug>/terms.html by tools/build-site.js and served at
+     <tenant>.systemsbyvega.com/terms by middleware.js.
+
+     DRAFTING RULE, and the reason this document reads the way it does: these
+     terms are a contract between the OPERATOR and THEIR customer. We are
+     generating them from a template, which means every concrete commercial
+     term we state is a term the operator never actually agreed to. So the
+     template states none. It describes the shape of the relationship and
+     defers the specifics — notice periods, cancellation fees, guarantees —
+     to whatever the operator has actually agreed with that customer, or to
+     the clauses they add themselves in the admin. A template that invented
+     "48 hours notice or you forfeit the deposit" would be writing someone's
+     contract for them.
+
+     For the same reason nothing here claims the operator is licensed,
+     insured, bonded, background-checked, or guarantees their work. Those are
+     assertions only the operator can truthfully make. -->
+<section class="lg-block">
+  <p class="lg-updated">Last updated <span data-lg-updated>8 September 2026</span></p>
+  <h1>Terms of Service</h1>
+
+  <p>These terms cover the work <strong data-lg-name>Larkspur & Ledge Landscape Co.</strong> does for you. Booking a
+  job, accepting a quote, or letting us start work means you accept them.</p>
+
+  <h2>1. Who you are dealing with</h2>
+  <p>This agreement is between you and <strong data-lg-name>Larkspur & Ledge Landscape Co.</strong>, an independent
+  business operating in <span data-lg-city>Meridian, ID</span>. You can reach us on
+  <a data-lg-tel href="tel:2085550134"><span data-lg-phone>(208) 555-0134</span></a>
+  or at <a data-lg-mailto href="mailto:hello@larkspurledge.com"><span data-lg-email>hello@larkspurledge.com</span></a>.</p>
+  <p>Our website is provided by Systems by Vega, which is a software supplier and nothing more.
+  They are not a party to this agreement, they do not perform the work, and any question about a
+  job, a price, or a booking comes to us.</p>
+
+  <h2>2. What we do</h2>
+  <p>Flat-rate maintenance plans and seasonal yard services — spring cleanups, summer mowing, fall leaf haul-away and winter snow removal. Serving the Treasure Valley. Pick your season, see what's next, and get a real price. Call or text (208) 555-0134.</p>
+  <p>We work in Treasure Valley, Idaho. If you are outside that area, ask &mdash; we will tell you
+  honestly whether we can reach you.</p>
+
+  <h2>3. Quotes and prices</h2>
+  <p>Any price we publish is a starting point, not a binding quote for your specific job. What a
+  job actually costs depends on its size and condition, and we will tell you the figure before we
+  start. If we find something once we are on site that changes the price, we stop and tell you
+  before doing the extra work. You are never charged for work you did not agree to.</p>
+  <p>Prices exclude any tax we are required to collect.</p>
+
+  <h2>4. Booking, rescheduling and cancelling</h2>
+  <p>If you need to move or cancel a booking, tell us as early as you reasonably can. Where we have
+  agreed a specific notice period, deposit, or cancellation fee with you, that is what applies to
+  your job.</p>
+  <p>We may need to move a booking ourselves &mdash; weather, a vehicle breakdown, an earlier job
+  overrunning. If that happens we will contact you the same day and offer you the next slot we have.</p>
+
+  <h2>5. Access, and your property</h2>
+  <p>We need safe and lawful access to do the work. That usually means somewhere to park, a clear
+  route to the work, and any gate, code, or key we have agreed you will provide. If we cannot get
+  access when we arrive, we may have to rebook.</p>
+  <p>Please tell us in advance about anything on the property we should know about &mdash; a dog, a
+  fragile surface, a hidden pipe or cable, a neighbour's boundary. We take care, but we cannot avoid
+  a hazard nobody told us was there.</p>
+
+  <h2>6. Payment</h2>
+  <p>Payment is due as agreed when you booked. If you believe an invoice is wrong, tell us before it
+  falls due and we will look at it with you.</p>
+
+  <h2>7. If something goes wrong</h2>
+  <p>Tell us. Contact us as soon as you notice the problem and give us a fair chance to put it right
+  ourselves &mdash; that is almost always the fastest way to a decent outcome for both of us. Where
+  we have given you a specific guarantee or warranty for your job, that is what applies to it.</p>
+
+  <h2>8. Limits</h2>
+  <p>We are responsible for damage we actually cause through our own carelessness. We are not
+  responsible for pre-existing damage, for wear that our work simply reveals, for problems caused by
+  something we were not told about, or for indirect losses such as lost income or lost time. Nothing
+  in these terms limits any liability that cannot lawfully be limited, including for death or
+  personal injury caused by negligence, or for fraud.</p>
+
+  <h2>9. Your information</h2>
+  <p>What we collect from you and what we do with it is set out in our
+  <a href="privacy.html">Privacy Policy</a>.</p>
+
+  <h2>10. Changes</h2>
+  <p>We may update these terms. The version on this page when you book is the version that applies
+  to that job.</p>
+
+  <h2>11. Governing law</h2>
+  <p>These terms are governed by the law of the state in which we operate, and any dispute is dealt
+  with by the courts of that state.</p>
+
+  <section class="lg-custom" data-lg-custom hidden>
+    <h2>Additional terms</h2>
+    <div class="lg-custom-body" data-lg-custom-body></div>
+  </section>
+
+  <div class="lg-note">
+    <p>This page was generated from a template by Systems by Vega and is provided for convenience.
+    It is not legal advice, and it has not been reviewed by a lawyer for your business. Consult a
+    licensed attorney about your specific situation.</p>
+  </div>
+</section>
+
+
+  <footer class="lg-foot">
+    <p><a href="terms.html">Terms of Service</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+    <p>Site by <a href="https://systemsbyvega.com" rel="noopener">Systems by Vega</a>.</p>
+  </footer>
+</div>
+<script>
+/* _template/legal/legal.js
+   Overlays the operator's saved details onto the generated legal page.
+
+   Same mechanism the storefront uses: the build stamps the niche's demo
+   values into the markup, and this fetches content.json RELATIVE so the one
+   file works in both places. On the demo (/sites/<slug>/terms.html) that
+   resolves to the niche's own content.json; on a tenant subdomain the page is
+   served at /terms, so it resolves to /content.json, which middleware.js
+   sends to /api/operator-content. Neither case needs to know which it is in.
+
+   If the fetch fails the page keeps the stamped defaults, which is the same
+   fail-open behaviour as base.js. A legal page that renders the wrong
+   business name is bad; one that renders nothing is worse. */
+(function () {
+  'use strict';
+
+  var set = function (sel, value) {
+    if (value === null || value === undefined || String(value).trim() === '') return;
+    var nodes = document.querySelectorAll(sel);
+    for (var i = 0; i < nodes.length; i++) nodes[i].textContent = String(value);
+  };
+
+  var attr = function (sel, name, value) {
+    if (!value) return;
+    var nodes = document.querySelectorAll(sel);
+    for (var i = 0; i < nodes.length; i++) nodes[i].setAttribute(name, value);
+  };
+
+  /* Which document this is, so we pick the matching custom-clause field. */
+  var doc = document.documentElement.getAttribute('data-legal-doc') === 'privacy'
+    ? 'privacyCustom' : 'termsCustom';
+
+  fetch('content.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (c) {
+      if (!c) return;
+      var brand = c.brand || {};
+
+      set('[data-lg-name]',  brand.name);
+      set('[data-lg-phone]', brand.phone);
+      set('[data-lg-email]', brand.email);
+      set('[data-lg-city]',  brand.city);
+
+      /* tel: needs the digits, not the display formatting. */
+      if (brand.phone) attr('[data-lg-tel]', 'href', 'tel:' + String(brand.phone).replace(/[^\d+]/g, ''));
+      if (brand.email) attr('[data-lg-mailto]', 'href', 'mailto:' + brand.email);
+
+      /* Operator-added clauses. textContent, never innerHTML — this is
+         operator-supplied text arriving over the network, and the CSS carries
+         white-space:pre-wrap so their line breaks survive without markup. */
+      var extra = (c.legal || {})[doc];
+      if (extra && String(extra).trim() !== '') {
+        var body = document.querySelector('[data-lg-custom-body]');
+        var wrap = document.querySelector('[data-lg-custom]');
+        if (body && wrap) {
+          body.textContent = String(extra);
+          wrap.removeAttribute('hidden');
+        }
+      }
+    })
+    .catch(function () { /* keep the stamped defaults */ });
+}());
+</script>
+</body>
+</html>

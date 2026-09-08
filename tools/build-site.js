@@ -356,6 +356,29 @@ const DEMO_BANNER = `<div id="svDemoBanner" role="note" aria-label="Demo site no
 </style>`;
 
 /* ---- assemble ---------------------------------------------------------- */
+
+/* The operator's own legal links, in every niche footer.
+
+   Not in the footer-contact component: only 18 of 32 niches enable it, and
+   these two pages exist for all of them. Injected immediately before the
+   footer's closing tag, which every generated niche has -- the build fails
+   loudly rather than silently shipping a niche without them.
+
+   Relative hrefs, for the same both-contexts reason as the pages themselves:
+   the one built index.html is served at /sites/<slug>/ on the catalog and at /
+   on a tenant subdomain, so "terms.html" resolves correctly in both. */
+if (!/<\/footer>/i.test(sections)) {
+  console.error(slug + ': no </footer> to attach the legal links to');
+  process.exit(1);
+}
+if (!/fc-legal/.test(sections)) {
+  const legalLinks = '<p class="fc-legal">'
+    + '<a href="terms.html">Terms of Service</a>'
+    + ' &middot; '
+    + '<a href="privacy.html">Privacy Policy</a></p>';
+  sections = sections.replace(/<\/footer>/i, () => legalLinks + '\n</footer>');
+}
+
 const subs = {
   SLUG: slug,
   /* Robots moved from baked meta to HTTP headers (Phase B). One artifact
@@ -414,6 +437,90 @@ if (leftover) { console.error('unresolved placeholders: ' + [...new Set(leftover
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'index.html'), out, 'utf8');
 fs.writeFileSync(path.join(OUT, 'content.json'), contentRaw, 'utf8');
+
+/* -- the operator's own legal pages ---------------------------------------
+   terms.html and privacy.html are the OPERATOR's documents for THEIR
+   customers, not SystemsByVega's. They are built per niche so they carry the
+   niche's palette and demo brand, then overlaid at runtime with the
+   operator's saved details by _template/legal/legal.js. middleware.js serves
+   them at <tenant>.systemsbyvega.com/terms and /privacy.
+
+   Their content.json fetch is RELATIVE, which is what lets one file work in
+   both places: from /sites/<slug>/terms.html it resolves to the niche's own
+   content.json, and from a tenant's /terms it resolves to /content.json,
+   which middleware sends on to the operator endpoint. */
+const LEGAL_SRC = path.join(TPL, 'legal');
+if (fs.existsSync(LEGAL_SRC)) {
+  const legalShell = read(path.join(LEGAL_SRC, 'shell.html'));
+  const legalCss   = read(path.join(LEGAL_SRC, 'legal.css'));
+  const legalJs    = read(path.join(LEGAL_SRC, 'legal.js'));
+  const lgTheme    = (manifest && manifest.theme) || {};
+  const lgBrand    = content.brand || {};
+
+  /* The date the TEMPLATE COPY last changed, not the build date. Deriving it
+     from the build would restamp "Last updated" on all 32 niches every time
+     any unrelated rebuild ran, telling every operator's customers the policy
+     changed when it did not. Bump this by hand when the wording in
+     _template/legal/{terms,privacy}.html actually changes. */
+  const LEGAL_UPDATED = '8 September 2026';
+
+  /* A tel: href needs digits; the display string keeps its formatting. */
+  const telHref = String(lgBrand.phone || '').replace(/[^0-9+]/g, '');
+
+  /* What the business does, in one sentence, for section 2 of the Terms. The
+     hero subtitle is the only line in content.json written to be read cold by
+     someone who has not already seen the rest of the page. */
+  const svcLine = (content.niche && content.niche.hero && content.niche.hero.subtitle)
+    || (content.seo && content.seo.description) || '';
+  const svcArea = (content.serviceArea
+      && (content.serviceArea.region || content.serviceArea.short))
+    || lgBrand.city || 'the area we serve';
+
+  for (const doc of ['terms', 'privacy']) {
+    const legalSubs = {
+      LEGAL_DOC:        doc,
+      LEGAL_TITLE:      doc === 'terms' ? 'Terms of Service' : 'Privacy Policy',
+      LEGAL_BODY:       read(path.join(LEGAL_SRC, doc + '.html')),
+      LEGAL_CSS:        legalCss.trim(),
+      LEGAL_JS:         legalJs.trim(),
+      LEGAL_FONTS:      seo.fontsHref
+                          ? '<link rel="stylesheet" href="' + seo.fontsHref + '">' : '',
+      UPDATED:          LEGAL_UPDATED,
+      BRAND_NAME:       lgBrand.name || '',
+      BRAND_CITY:       lgBrand.city || '',
+      BRAND_PHONE:      lgBrand.phone || '',
+      BRAND_PHONE_HREF: telHref,
+      BRAND_EMAIL:      lgBrand.email || '',
+      SERVICE_LINE:     svcLine,
+      SERVICE_AREA:     svcArea,
+      SEO_THEME_COLOR:  seo.themeColor || lgTheme.ground || '#ffffff',
+      SEO_FAVICON:      seo.favicon || '',
+      THEME_GROUND:     lgTheme.ground   || '#ffffff',
+      THEME_SURFACE:    lgTheme.surface  || '#f3f4f6',
+      THEME_TEXT:       lgTheme.text     || '#111827',
+      THEME_TEXT_SOFT:  lgTheme.textSoft || '#4b5563',
+      THEME_ACCENT:     lgTheme.accent   || '#1f4e79',
+      THEME_DISPLAY:    lgTheme.display  || 'Georgia, serif',
+      THEME_BODY:       lgTheme.body     || 'system-ui, sans-serif',
+      THEME_MONO:       lgTheme.label    || 'ui-monospace, monospace',
+    };
+    /* split/join, for the same $-in-replacement reason as the shell above. */
+    let page = legalShell;
+    for (const [k, v] of Object.entries(legalSubs)) {
+      page = page.split('{{' + k + '}}').join(v == null ? '' : String(v));
+    }
+    const stray = page.match(/\{\{[A-Z_]+\}\}/g);
+    if (stray) {
+      console.error(doc + '.html unresolved placeholders: '
+        + [...new Set(stray)].join(', '));
+      process.exit(1);
+    }
+    fs.writeFileSync(path.join(OUT, doc + '.html'), page, 'utf8');
+  }
+  console.log('  ' + path.relative(REPO, OUT).replace(/\\/g, '/')
+    + '/{terms,privacy}.html');
+}
+
 
 /* The share card. og.png is a COMMITTED ARTIFACT rasterised from og.svg — see
    SITELAB_TEMPLATE.md §8.1. Facebook, X and LinkedIn do not render SVG for

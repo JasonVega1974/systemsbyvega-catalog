@@ -388,6 +388,17 @@ function applyOperator(base, op, manifest) {
      column deliberately cannot redirect the lead flow. */
   set(out.brand, 'leadEmail', op.lead_email);
 
+  /* Operator-added legal clauses (brief 2026-09-07 §2). These are ADDITIONS
+     to the generated template, never replacements: the admin labels them that
+     way and the rendered page keeps the whole template above them. The row is
+     selected with select=*, so these arrive automatically once the columns
+     exist and are simply absent until then — set() skips undefined, so a
+     deploy before sql/LEGAL-COLUMNS.sql is applied behaves as if no operator
+     had written any. */
+  out.legal = Object.assign({}, base.legal || {});
+  set(out.legal, 'termsCustom',   op.terms_custom);
+  set(out.legal, 'privacyCustom', op.privacy_custom);
+
   const ph = (op.photos && typeof op.photos === 'object') ? op.photos : {};
 
   /* ── beforeAfter photos ─────────────────────────────────────────────── */

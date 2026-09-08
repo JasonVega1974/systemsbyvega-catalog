@@ -219,6 +219,7 @@
       <a href="#sec-reviews" class="nav-pill" data-target="sec-reviews">Reviews</a>
       <a href="#sec-details" class="nav-pill" data-target="sec-details">Details</a>
       <a href="#sec-marketing" class="nav-pill" data-target="sec-marketing">Marketing</a>
+      <a href="#sec-legal" class="nav-pill" data-target="sec-legal">Legal</a>
     </div>
   </nav>
 
@@ -384,6 +385,30 @@
          here — you reach it by scrolling with intent) and nowhere near the
          Save bar. The type-to-confirm gate is what justified adding the
          own-row DELETE policy this uses (sql/ADMIN-RESET.sql). -->
+    <!-- The operator's own customer-facing policies, served at
+         <tenant>.systemsbyvega.com/terms and /privacy. These boxes ADD to the
+         generated template; they never replace it, which is why the labels say
+         so and why the rendered page always keeps the template above them. -->
+    <section class="card" id="sec-legal">
+      <p class="sec-h">Legal</p>
+      <p class="hint">Your site has a Terms of Service and a Privacy Policy for your customers, at
+        <a id="legalTermsLink" href="/terms" target="_blank" rel="noopener">/terms</a> and
+        <a id="legalPrivacyLink" href="/privacy" target="_blank" rel="noopener">/privacy</a>.
+        They are written from a template and filled in with your business details.</p>
+      <p class="hint">Anything you type below is <strong>added to</strong> the template, at the end of
+        the page. It does not replace it. Leave both empty and your customers just see the
+        template.</p>
+      <label><span>Add to your Terms of Service
+        <span class="hint">&mdash; deposits, notice periods, a guarantee you offer</span></span>
+        <textarea id="terms_custom" maxlength="3000" rows="6"></textarea></label>
+      <label><span>Add to your Privacy Policy
+        <span class="hint">&mdash; anything else you do with customer information</span></span>
+        <textarea id="privacy_custom" maxlength="3000" rows="6"></textarea></label>
+      <p class="hint">These pages are generated for convenience and are not legal advice. If your
+        trade is licensed, or you take deposits, ask a lawyer to read them before you rely on
+        them.</p>
+    </section>
+
     <section class="card danger" id="sec-danger">
       <p class="sec-h">Danger zone</p>
       <p class="sub">Start over from the example content.</p>
@@ -587,7 +612,8 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Task 3 / PGRST204 ruling: whether load() actually saw a non-null value
      for each of the three new jsonb columns. Read by maybeClearable() below —
      see the comment on that function for why this is not just "is it empty". */
-  var seenInLoad = { social: false, reviews: false, job_details: false };
+  var seenInLoad = { social: false, reviews: false, job_details: false,
+                     terms_custom: false, privacy_custom: false };
 
   var snapshot = null;       /* JSON.stringify(collectRow()) as of the last load/save */
   var dirty = false;
@@ -1399,6 +1425,9 @@ document.addEventListener('DOMContentLoaded', function () {
       hadRow = !!r.data;
       if (r.data) {
         FIELDS.forEach(function (f) { el(f).value = r.data[f] == null ? '' : r.data[f]; });
+        /* Not in FIELDS on purpose — see collectRow(). Absent column reads as undefined and leaves the box empty. */
+        $('terms_custom').value = r.data.terms_custom == null ? '' : r.data.terms_custom;
+        $('privacy_custom').value = r.data.privacy_custom == null ? '' : r.data.privacy_custom;
       }
       show('defaultNote', !hadRow);
 
@@ -1467,6 +1496,8 @@ document.addEventListener('DOMContentLoaded', function () {
       seenInLoad.social = !!(r.data && r.data.social != null);
       seenInLoad.reviews = !!(r.data && r.data.reviews != null);
       seenInLoad.job_details = !!(r.data && r.data.job_details != null);
+      seenInLoad.terms_custom = !!(r.data && r.data.terms_custom != null);
+      seenInLoad.privacy_custom = !!(r.data && r.data.privacy_custom != null);
 
       if (row) {
         if (!hadRow && !el('business_name').value) {
@@ -1536,6 +1567,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     row.lead_email = $('lead_email').value.trim() || null;
+    /* Legal clauses go through maybeClearable, NOT FIELDS: these columns do not exist
+       until sql/LEGAL-COLUMNS.sql is applied, and FIELDS would send them as explicit
+       null on every save and take the whole save down with PGRST204. */
+    maybeClearable(row, 'terms_custom', $('terms_custom').value.trim() || null);
+    maybeClearable(row, 'privacy_custom', $('privacy_custom').value.trim() || null);
     row.logo_url = photoUrls.logo || null;
     /* Slots to consider come from the resolved manifest's photoSlots, falling
        back to today's fixed four when no manifest resolved (regression

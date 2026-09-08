@@ -1,0 +1,92 @@
+/* _template/legal/legal.css
+   Styling for the operator's own customer-facing legal pages. Deliberately
+   plain: these are documents, not marketing. The niche's theme tokens are
+   stamped in by tools/build-site.js so the page reads as part of the
+   operator's site, but nothing here animates, reveals, or decorates.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so there is no shared stylesheet to link and this file is
+   inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--lg-ground);
+  color: var(--lg-ink);
+  font-family: var(--lg-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.lg-wrap { max-width: 760px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.lg-top { padding: 40px 0 26px; border-bottom: 1px solid var(--lg-line); }
+.lg-back {
+  display: inline-block; font-family: var(--lg-mono); font-size: 12px;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--lg-accent);
+  text-decoration: none; margin: 0 0 20px;
+}
+.lg-back:hover { text-decoration: underline; }
+.lg-biz {
+  font-family: var(--lg-display); font-weight: 700; font-size: 20px;
+  letter-spacing: -.01em; margin: 0 0 4px; color: var(--lg-ink);
+}
+.lg-sub {
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--lg-soft); margin: 0;
+}
+
+h1 {
+  font-family: var(--lg-display); font-weight: 700;
+  font-size: clamp(28px, 5vw, 38px); line-height: 1.12; letter-spacing: -.015em;
+  margin: 38px 0 10px; text-wrap: balance;
+}
+.lg-updated {
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--lg-soft); margin: 0 0 4px;
+}
+
+h2 {
+  font-family: var(--lg-display); font-weight: 700; font-size: 20px;
+  letter-spacing: -.008em; margin: 36px 0 10px; color: var(--lg-ink);
+}
+p { margin: 0 0 14px; color: var(--lg-soft); }
+p strong, li strong { color: var(--lg-ink); font-weight: 600; }
+ul { margin: 0 0 14px; padding-left: 22px; }
+li { margin: 0 0 8px; color: var(--lg-soft); }
+a { color: var(--lg-accent); }
+
+/* ── the disclaimer, and the operator's own additions ─────────────────── */
+.lg-note {
+  background: var(--lg-sunk); border: 1px solid var(--lg-line);
+  border-radius: 8px; padding: 16px 20px; margin: 26px 0;
+}
+.lg-note p { margin: 0; font-size: 15.5px; }
+
+/* Operator-supplied clauses. Starts hidden; legal.js unhides it only when
+   the operator has actually saved text, so a tenant who has added nothing
+   shows the template alone rather than an empty heading. */
+.lg-custom[hidden] { display: none; }
+.lg-custom h2 { margin-top: 34px; }
+.lg-custom-body { white-space: pre-wrap; }
+
+.lg-foot {
+  margin: 46px 0 0; padding: 22px 0 56px; border-top: 1px solid var(--lg-line);
+  font-family: var(--lg-mono); font-size: 12px; letter-spacing: .04em;
+  line-height: 1.9; color: var(--lg-soft);
+}
+.lg-foot a { color: var(--lg-soft); }
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .lg-wrap { padding: 0 18px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .lg-back { display: none; }
+  a { color: #000; text-decoration: underline; }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" data-legal-doc="{{LEGAL_DOC}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{LEGAL_TITLE}} — {{BRAND_NAME}}</title>
+<meta name="description" content="{{LEGAL_TITLE}} for {{BRAND_NAME}}.">
+<meta name="theme-color" content="{{SEO_THEME_COLOR}}">
+<!-- These are the operator's own policy pages. They are for their customers to
+     read, not for search: the page a search engine should rank is the
+     storefront, and 32 near-identical template documents competing with it
+     would be the opposite of helpful. The X-Robots-Tag on tenant traffic is
+     set by middleware; this covers the demo build served from the catalog. -->
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="{{SEO_FAVICON}}">
+{{LEGAL_FONTS}}
+<style>
+:root{
+  --lg-ground:{{THEME_GROUND}};
+  --lg-sunk:{{THEME_SURFACE}};
+  --lg-line:{{THEME_SURFACE}};
+  --lg-line:color-mix(in srgb, {{THEME_TEXT}} 18%, transparent);
+  --lg-ink:{{THEME_TEXT}};
+  --lg-soft:{{THEME_TEXT_SOFT}};
+  --lg-accent:{{THEME_ACCENT}};
+  --lg-display:{{THEME_DISPLAY}};
+  --lg-body:{{THEME_BODY}};
+  --lg-mono:{{THEME_MONO}};
+}
+{{LEGAL_CSS}}
+</style>
+</head>
+<body>
+<div class="lg-wrap">
+  <header class="lg-top">
+    <a class="lg-back" href="./">&larr; Back to the site</a>
+    <p class="lg-biz" data-lg-name>{{BRAND_NAME}}</p>
+    <p class="lg-sub" data-lg-city>{{BRAND_CITY}}</p>
+  </header>
+
+  {{LEGAL_BODY}}
+
+  <footer class="lg-foot">
+    <p><a href="terms.html">Terms of Service</a> &middot; <a href="privacy.html">Privacy Policy</a></p>
+    <p>Site by <a href="https://systemsbyvega.com" rel="noopener">Systems by Vega</a>.</p>
+  </footer>
+</div>
+<script>
+{{LEGAL_JS}}
+</script>
+</body>
+</html>

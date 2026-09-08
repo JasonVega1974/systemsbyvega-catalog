@@ -1,0 +1,101 @@
+<!-- _template/legal/terms.html
+     The operator's own customer-facing Terms of Service. Assembled into
+     sites/<slug>/terms.html by tools/build-site.js and served at
+     <tenant>.systemsbyvega.com/terms by middleware.js.
+
+     DRAFTING RULE, and the reason this document reads the way it does: these
+     terms are a contract between the OPERATOR and THEIR customer. We are
+     generating them from a template, which means every concrete commercial
+     term we state is a term the operator never actually agreed to. So the
+     template states none. It describes the shape of the relationship and
+     defers the specifics — notice periods, cancellation fees, guarantees —
+     to whatever the operator has actually agreed with that customer, or to
+     the clauses they add themselves in the admin. A template that invented
+     "48 hours notice or you forfeit the deposit" would be writing someone's
+     contract for them.
+
+     For the same reason nothing here claims the operator is licensed,
+     insured, bonded, background-checked, or guarantees their work. Those are
+     assertions only the operator can truthfully make. -->
+<section class="lg-block">
+  <p class="lg-updated">Last updated <span data-lg-updated>{{UPDATED}}</span></p>
+  <h1>Terms of Service</h1>
+
+  <p>These terms cover the work <strong data-lg-name>{{BRAND_NAME}}</strong> does for you. Booking a
+  job, accepting a quote, or letting us start work means you accept them.</p>
+
+  <h2>1. Who you are dealing with</h2>
+  <p>This agreement is between you and <strong data-lg-name>{{BRAND_NAME}}</strong>, an independent
+  business operating in <span data-lg-city>{{BRAND_CITY}}</span>. You can reach us on
+  <a data-lg-tel href="tel:{{BRAND_PHONE_HREF}}"><span data-lg-phone>{{BRAND_PHONE}}</span></a>
+  or at <a data-lg-mailto href="mailto:{{BRAND_EMAIL}}"><span data-lg-email>{{BRAND_EMAIL}}</span></a>.</p>
+  <p>Our website is provided by Systems by Vega, which is a software supplier and nothing more.
+  They are not a party to this agreement, they do not perform the work, and any question about a
+  job, a price, or a booking comes to us.</p>
+
+  <h2>2. What we do</h2>
+  <p>{{SERVICE_LINE}}</p>
+  <p>We work in {{SERVICE_AREA}}. If you are outside that area, ask &mdash; we will tell you
+  honestly whether we can reach you.</p>
+
+  <h2>3. Quotes and prices</h2>
+  <p>Any price we publish is a starting point, not a binding quote for your specific job. What a
+  job actually costs depends on its size and condition, and we will tell you the figure before we
+  start. If we find something once we are on site that changes the price, we stop and tell you
+  before doing the extra work. You are never charged for work you did not agree to.</p>
+  <p>Prices exclude any tax we are required to collect.</p>
+
+  <h2>4. Booking, rescheduling and cancelling</h2>
+  <p>If you need to move or cancel a booking, tell us as early as you reasonably can. Where we have
+  agreed a specific notice period, deposit, or cancellation fee with you, that is what applies to
+  your job.</p>
+  <p>We may need to move a booking ourselves &mdash; weather, a vehicle breakdown, an earlier job
+  overrunning. If that happens we will contact you the same day and offer you the next slot we have.</p>
+
+  <h2>5. Access, and your property</h2>
+  <p>We need safe and lawful access to do the work. That usually means somewhere to park, a clear
+  route to the work, and any gate, code, or key we have agreed you will provide. If we cannot get
+  access when we arrive, we may have to rebook.</p>
+  <p>Please tell us in advance about anything on the property we should know about &mdash; a dog, a
+  fragile surface, a hidden pipe or cable, a neighbour's boundary. We take care, but we cannot avoid
+  a hazard nobody told us was there.</p>
+
+  <h2>6. Payment</h2>
+  <p>Payment is due as agreed when you booked. If you believe an invoice is wrong, tell us before it
+  falls due and we will look at it with you.</p>
+
+  <h2>7. If something goes wrong</h2>
+  <p>Tell us. Contact us as soon as you notice the problem and give us a fair chance to put it right
+  ourselves &mdash; that is almost always the fastest way to a decent outcome for both of us. Where
+  we have given you a specific guarantee or warranty for your job, that is what applies to it.</p>
+
+  <h2>8. Limits</h2>
+  <p>We are responsible for damage we actually cause through our own carelessness. We are not
+  responsible for pre-existing damage, for wear that our work simply reveals, for problems caused by
+  something we were not told about, or for indirect losses such as lost income or lost time. Nothing
+  in these terms limits any liability that cannot lawfully be limited, including for death or
+  personal injury caused by negligence, or for fraud.</p>
+
+  <h2>9. Your information</h2>
+  <p>What we collect from you and what we do with it is set out in our
+  <a href="privacy.html">Privacy Policy</a>.</p>
+
+  <h2>10. Changes</h2>
+  <p>We may update these terms. The version on this page when you book is the version that applies
+  to that job.</p>
+
+  <h2>11. Governing law</h2>
+  <p>These terms are governed by the law of the state in which we operate, and any dispute is dealt
+  with by the courts of that state.</p>
+
+  <section class="lg-custom" data-lg-custom hidden>
+    <h2>Additional terms</h2>
+    <div class="lg-custom-body" data-lg-custom-body></div>
+  </section>
+
+  <div class="lg-note">
+    <p>This page was generated from a template by Systems by Vega and is provided for convenience.
+    It is not legal advice, and it has not been reviewed by a lawyer for your business. Consult a
+    licensed attorney about your specific situation.</p>
+  </div>
+</section>

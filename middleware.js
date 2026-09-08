@@ -25,7 +25,7 @@
    ========================================================================== */
 import { next, rewrite } from '@vercel/functions';
 
-export const config = { matcher: ['/', '/content.json'] };
+export const config = { matcher: ['/', '/content.json', '/terms', '/terms.html', '/privacy', '/privacy.html'] };
 
 const APEX = 'systemsbyvega.com';
 
@@ -185,6 +185,29 @@ export default async function middleware(request) {
      other case — no row, lookup failure, RPC not yet deployed — stays
      `noindex`. See sql/HAS-CONTENT.sql and nicheFor() above for how
      hasContent is resolved and why it fails closed. */
+  /* The operator's own legal pages. Built per niche by tools/build-site.js and
+     served from the same directory as the storefront, so the tenant sees them
+     at /terms and /privacy. Always noindex: these are 32 near-identical
+     template documents, and letting them compete with the storefront in search
+     would be the opposite of useful. Unlike the storefront rewrite there is no
+     hasContent condition — a template policy is not something a tenant opts
+     into publishing, it is just there. */
+  /* Both spellings are matched because the built page links to these
+     RELATIVELY. That same index.html is served at /sites/<slug>/ on the
+     catalog and at / on a tenant, so a relative "terms.html" resolves to
+     /sites/<slug>/terms.html in one place and /terms.html in the other. The
+     bare /terms is what an operator would type or print on a card. */
+  const legal = path.replace(/\.html$/, '');
+  if (legal === '/terms' || legal === '/privacy') {
+    return rewrite(new URL('/sites/' + niche + legal + '.html', request.url), {
+      headers: {
+        'x-niche-slug': niche,
+        'x-tenant': label,
+        'X-Robots-Tag': 'noindex',
+      },
+    });
+  }
+
   return rewrite(new URL('/sites/' + niche + '/', request.url), {
     headers: {
       'x-niche-slug': niche,
