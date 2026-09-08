@@ -1928,7 +1928,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if(bPackage){
       var prevPkg = bPackage.value;
       bPackage.innerHTML = packages.map(function(p){
-        return '<option value="' + esc(p.label) + '">' + esc(p.label) + ' — $' + num(p.price) + '</option>';
+        return '<option value="' + esc(p.label) + '">' + esc(p.label) + ' — $' + num(p.blurb) + '</option>';
       }).join('') + '<option value="Not sure — help me pick">Not sure — help me pick</option>';
       var names = packages.map(function(p){ return p.label; });
       bPackage.value = (prevPkg && (names.indexOf(prevPkg) >= 0 || prevPkg === 'Not sure — help me pick'))
@@ -1983,19 +1983,25 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // ----- testimonials (empty-state when none) -----
     var tg = document.getElementById('testimonialGrid');
     if(testimonials.length){
+      /* Stars render the review's OWN rating, never a flat five: flattening
+         a real customer's 3-star words into 5 stars misrepresents them, and
+         a missing rating shows no stars rather than an invented one. */
       tg.innerHTML = testimonials.map(function(t){
+        var n = Math.max(0, Math.min(5, parseInt(t.rating, 10) || 0));
+        var stars = n ? '<div class="quote__stars" aria-hidden="true">' + new Array(n + 1).join(starIcon) + '</div>' : '';
         return '<figure class="quote">'
-          + '<div class="quote__stars" aria-hidden="true">' + starIcon + starIcon + starIcon + starIcon + starIcon + '</div>'
+          + stars
           + '<blockquote class="quote__body">' + esc(t.quote || '') + '</blockquote>'
           + '<figcaption class="quote__who">' + esc(t.name || '') + '</figcaption>'
           + '</figure>';
       }).join('');
     } else {
+      /* Empty state carries NO stars and no invented reviewer — a rating
+         with nothing behind it is fabricated proof, even on a placeholder. */
       tg.innerHTML = [1,2,3].map(function(){
         return '<figure class="quote">'
-          + '<div class="quote__stars" aria-hidden="true">' + starIcon + starIcon + starIcon + starIcon + starIcon + '</div>'
           + '<blockquote class="quote__body"></blockquote>'
-          + '<figcaption class="quote__who">A happy driver</figcaption>'
+          + '<figcaption class="quote__who">&mdash; Add a real review here</figcaption>'
           + '</figure>';
       }).join('');
     }

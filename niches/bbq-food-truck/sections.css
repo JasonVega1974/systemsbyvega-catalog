@@ -325,7 +325,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{
 .pkg--best{border-color:rgba(227,179,65,.55);
   box-shadow:0 0 0 1px rgba(227,179,65,.3), 0 30px 60px -24px rgba(232,89,12,.5);
   background:linear-gradient(180deg,rgba(54,36,18,.72),rgba(28,19,12,.72))}
-.pkg--best::before{content:"★ Most Booked";position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+.pkg--best::before{content:"Our pick";position:absolute;top:-14px;left:50%;transform:translateX(-50%);
   font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:.64rem;
   color:var(--accent-ink);background:linear-gradient(135deg,var(--sheen-accent),var(--accent-alt));padding:.35rem .9rem;border-radius:20px;
   box-shadow:0 8px 20px -8px rgba(227,179,65,.8);white-space:nowrap}
