@@ -1028,3 +1028,25 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
 /* Below this the row would squeeze the CTA to an unusable width, so it wraps
    to its own full-width line instead. */
 @media(max-width:520px){.cbar{flex-wrap:wrap}.cbar-go{width:100%;justify-content:center}}
+
+/* ------------------------------------------------- related products --- */
+/* The three platforms are a different purchase from a territory website:
+   you run the whole business, not a site for one. They sit BELOW the board
+   and deliberately do not borrow the entry-card look, so nothing here reads
+   as another niche to claim. */
+.related{margin-top:44px;padding-top:30px;border-top:1px dashed var(--rule)}
+.related-head{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tx-3);margin:0 0 6px}
+.related h2{font-family:var(--display);font-size:22px;margin:0 0 8px;color:var(--tx-1)}
+.related-note{font-size:14.5px;color:var(--tx-2);margin:0 0 22px;max-width:66ch}
+.related-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.related-card{display:block;padding:18px 20px;border:1px solid var(--rule);border-radius:4px;
+  background:var(--bg-2);text-decoration:none;transition:border-color .18s ease,transform .18s ease}
+.related-card:hover{border-color:var(--acc);transform:translateY(-2px)}
+.related-card:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.related-card b{display:block;font-family:var(--display);font-size:17px;color:var(--tx-1);margin-bottom:5px}
+.related-card span{display:block;font-size:13.5px;line-height:1.55;color:var(--tx-2)}
+.related-card em{display:block;margin-top:10px;font-family:var(--mono);font-size:11px;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);font-style:normal}
+@media (prefers-reduced-motion:reduce){.related-card{transition:none}
+  .related-card:hover{transform:none}}
