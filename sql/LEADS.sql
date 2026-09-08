@@ -22,7 +22,21 @@
 --
 -- Idempotent: create-if-not-exists, and every policy is dropped before it is
 -- recreated. Run against SystemsByVega (newjbexmvltvtmxollca) ONLY.
+--
+-- ONE TRANSACTION, on purpose, and this is not cosmetic. The verify block at
+-- the bottom uses a temp table and `set local role`, both of which are session
+-- state. Run as loose statements they are auto-committed one at a time and the
+-- runner is free to hand each one a different pooled session — which is
+-- exactly what happened on the first attempt: the temp table vanished between
+-- being created and being read, and the file died with 42P01.
+--
+-- So everything lives inside a single begin/commit. Postgres has transactional
+-- DDL, so this also makes the migration atomic: it applies completely or not
+-- at all. A savepoint separates the two halves — the schema commits, the
+-- verify's staged rows are rolled back to the savepoint and never persist.
 -- ============================================================================
+
+begin;
 
 create table if not exists public.sbv_leads (
   id          uuid primary key default gen_random_uuid(),
@@ -131,7 +145,7 @@ revoke all on public.sbv_leads from anon;
 --
 -- Everything runs inside a transaction that is rolled back. No lead row, and
 -- no change of any kind, survives this file.
-begin;
+savepoint before_verify;
 
 create temp table _leads_verify (ord int, check_name text, got text) on commit drop;
 -- The role switch below changes who is inserting, so the temp table has to be
@@ -189,8 +203,12 @@ select 8, 'operator sees their own lead',
        (select (count(*) = 1)::text from public.sbv_leads where name = 'Verify Mine')
 union all select 9, 'operator CANNOT see the other tenant''s lead',
        (select (count(*) = 0)::text from public.sbv_leads where name = 'Verify Theirs')
-union all select 10, 'operator sees exactly one row in total',
-       (select (count(*) = 1)::text from public.sbv_leads);
+union all select 10, 'operator sees NO row belonging to another tenant',
+       -- Scoped to the other tenant rather than counting the whole table: this
+       -- file is idempotent and will be re-run once real leads exist, and an
+       -- absolute count would then fail for a reason that has nothing to do
+       -- with isolation.
+       (select (count(*) = 0)::text from public.sbv_leads where client_id = 'testy');
 
 update public.sbv_leads set deleted_at = now() where name = 'Verify Mine';
 
@@ -218,6 +236,8 @@ reset role;
 
 select check_name, got from _leads_verify order by ord;
 
--- Nothing above is kept. The two verify leads exist only inside this
--- transaction and are gone the moment it ends.
-rollback;
+-- The staged leads and the temp table are discarded here. The schema above the
+-- savepoint is untouched by this and is what commits.
+rollback to savepoint before_verify;
+
+commit;
