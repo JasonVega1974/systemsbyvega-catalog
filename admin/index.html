@@ -1922,11 +1922,20 @@ document.addEventListener('DOMContentLoaded', function () {
          can mix per-unit and per-job rows; without the gate, deleting the
          unit-priced row prints a false unit on the operator's flyer). */
       var suffix = mkStr(cfg.headlineSuffix);
-      var mkAlnum = function (v) { return mkStr(v).toLowerCase().replace(/[^a-z0-9]/g, ''); };
-      var suffixKey = mkAlnum(suffix);
+      /* whole words in sequence, never a substring — see priceHeadline */
+      var mkWords = function (v) { return mkStr(v).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean); };
+      var suffixWords = mkWords(suffix);
       var withUnit = function (v, row) {
-        if (!v || !suffix || !suffixKey) return v;
-        return mkAlnum(row && row.per).indexOf(suffixKey) !== -1 ? v + suffix : v;
+        if (!v || !suffix || !suffixWords.length) return v;
+        var perWords = mkWords(row && row.per);
+        for (var i = 0; i + suffixWords.length <= perWords.length; i++) {
+          var hit = true;
+          for (var j = 0; j < suffixWords.length; j++) {
+            if (perWords[i + j] !== suffixWords[j]) { hit = false; break; }
+          }
+          if (hit) return v + suffix;
+        }
+        return v;
       };
       var model = mkStr(cfg.model) || 'none';
       if (model === 'calculator' || model === 'none') return '';

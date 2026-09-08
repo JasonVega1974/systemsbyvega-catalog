@@ -208,13 +208,23 @@ export function priceHeadline(manifest, content) {
        so it always comes from the niche, never from an operator). Anything
        else falls back to the bare number. */
     const suffix = str(cfg.headlineSuffix);
-    const alnum = (v) => str(v).toLowerCase().replace(/[^a-z0-9]/g, '');
-    const suffixKey = alnum(suffix);
+    /* Match WHOLE WORDS in sequence, never a substring: "/four hours" must
+       not satisfy a "/hour" suffix (a per-four-hour block is not an hourly
+       rate — that printed "From $160/hour" before this was tightened), while
+       "per sq ft, monthly" must still satisfy "/sq ft". */
+    const words = (v) => str(v).toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+    const suffixWords = words(suffix);
     const withUnit = (v, row) => {
-      if (!v || !suffix) return v;
-      if (!suffixKey) return v;
-      const per = alnum(row && row.per);
-      return per.includes(suffixKey) ? v + suffix : v;
+      if (!v || !suffix || !suffixWords.length) return v;
+      const perWords = words(row && row.per);
+      for (let i = 0; i + suffixWords.length <= perWords.length; i++) {
+        let hit = true;
+        for (let j = 0; j < suffixWords.length; j++) {
+          if (perWords[i + j] !== suffixWords[j]) { hit = false; break; }
+        }
+        if (hit) return v + suffix;
+      }
+      return v;
     };
     const model = str(cfg.model) || 'none';
     if (model === 'calculator' || model === 'none') return '';
