@@ -43,7 +43,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "auto-repair": {
     "theme": {
@@ -91,7 +92,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "bbq-food-truck": {
     "theme": {
@@ -138,7 +140,8 @@
       "reviews": "none",
       "ownerShape": "none"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "bin-cleaning": {
     "theme": {
@@ -188,7 +191,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "car-detailing": {
     "theme": {
@@ -238,7 +242,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "caregiving": {
     "theme": {
@@ -286,7 +291,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "child-care": {
     "theme": {
@@ -334,7 +340,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "christmas-lights": {
     "theme": {
@@ -382,7 +389,8 @@
       "ownerShape": "owner",
       "beforeAfter": "none"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "commercial-cleaning": {
     "theme": {
@@ -432,7 +440,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "contracting": {
     "theme": {
@@ -482,7 +491,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "delivery": {
     "theme": {
@@ -529,7 +539,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "dj": {
     "theme": {
@@ -572,7 +583,12 @@
       "reviews": "none",
       "ownerShape": "none"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": [
+      "blue",
+      "green",
+      "pink"
+    ]
   },
   "dog-walking": {
     "theme": {
@@ -619,7 +635,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "dumpster-rental": {
     "theme": {
@@ -666,7 +683,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "electrician": {
     "theme": {
@@ -713,7 +731,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "estate-sale": {
     "theme": {
@@ -761,7 +780,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "garage-sale": {
     "theme": {
@@ -809,7 +829,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "hvac": {
     "theme": {
@@ -857,7 +878,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "landscaping": {
     "theme": {
@@ -905,7 +927,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "mechanic": {
     "theme": {
@@ -956,7 +979,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "metal-fabrication": {
     "theme": {
@@ -1000,7 +1024,8 @@
       "reviews": "none",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "moving": {
     "theme": {
@@ -1048,7 +1073,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "painting": {
     "theme": {
@@ -1098,7 +1124,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "personal-assistant": {
     "theme": {
@@ -1147,7 +1174,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "personal-trainer": {
     "theme": {
@@ -1195,7 +1223,8 @@
       "reviews": "testimonials",
       "ownerShape": "none"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "plumbing": {
     "theme": {
@@ -1243,7 +1272,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "pressure-washing": {
     "theme": {
@@ -1293,7 +1323,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": false
+    "heroWired": false,
+    "themes": null
   },
   "residential-cleaning": {
     "theme": {
@@ -1343,7 +1374,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "roofing": {
     "theme": {
@@ -1391,7 +1423,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "sprinkler": {
     "theme": {
@@ -1441,7 +1474,8 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "tattoo-studio": {
     "theme": {
@@ -1488,7 +1522,8 @@
       "reviews": "none",
       "ownerShape": "none"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   },
   "window-cleaning": {
     "theme": {
@@ -1538,6 +1573,7 @@
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
-    "heroWired": true
+    "heroWired": true,
+    "themes": null
   }
 }

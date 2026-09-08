@@ -287,6 +287,17 @@
       <div class="note"><strong>One-time step when you change this:</strong> our form
         service (FormSubmit) emails the new inbox an activation link on the first
         request. Click it, or inquiries will not arrive.</div>
+      <!-- Only rendered for a niche that HAS design variants; hidden for the
+           other 31. The options come from the manifest index the admin already
+           fetches, so there is no second list of theme names to keep in step
+           with the niches/<slug>/themes/ directories. -->
+      <div id="themePicker" hidden>
+        <p class="sec-h" style="margin-top:26px">Site design</p>
+        <label><span>Design <span class="hint">&mdash; changes how your whole site looks</span></span>
+          <select id="site_theme"></select></label>
+        <p class="hint">Your address and everything you have written stay exactly as they are.
+          Only the design changes, and you can switch back any time.</p>
+      </div>
     </section>
 
     <section class="card" id="sec-photos">
@@ -615,7 +626,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var seenInLoad = { social: false, reviews: false, job_details: false,
                      terms_custom: false, privacy_custom: false };
 
-  var snapshot = null;       /* JSON.stringify(collectRow()) as of the last load/save */
+  var snapshot = null;       /* collectState() as of the last load/save */
+  /* The theme lives on sbv_tenants, not sbv_operator_content, so it is not part of
+     collectRow() and needs its own before-value to know whether to write at all.
+     null means "this niche has no variants", which is every niche but dj. */
+  var loadedTheme = null;
   var dirty = false;
 
   /* F7 (null-manifest object-prices wipe): true when load() saw NO resolved
@@ -755,12 +770,25 @@ document.addEventListener('DOMContentLoaded', function () {
     dot.className = 'topbar-dot ' + (dirty ? 'dot-unsaved' : 'dot-saved');
     refreshSaveDisabled();
   }
+  /* Dirty-tracking spans two tables. collectRow() is the operator-content
+     upsert payload; the theme is a separate column on sbv_tenants. Comparing
+     only collectRow() would leave a theme change silently unsaved, with the
+     Save bar never appearing. */
+  function currentTheme() {
+    var el = document.getElementById('site_theme');
+    return (el && !document.getElementById('themePicker').hidden) ? el.value : null;
+  }
+
+  function collectState() {
+    return JSON.stringify({ content: collectRow(), theme: currentTheme() });
+  }
+
   function markDirty() { if (!dirty) setDirtyUI(true); }
   function markSaved() { setDirtyUI(false); }
 
   function checkDirty() {
     if (snapshot === null) return; /* not loaded yet */
-    var cur = JSON.stringify(collectRow());
+    var cur = collectState();
     if (cur !== snapshot) markDirty(); else markSaved();
     /* markDirty() early-returns (no-op) when already dirty, so removing an
        invalid row while already dirty would otherwise never re-evaluate
@@ -1452,6 +1480,30 @@ document.addEventListener('DOMContentLoaded', function () {
       var manifest = (nicheSlug && Object.prototype.hasOwnProperty.call(manifestIndex, nicheSlug))
         ? manifestIndex[nicheSlug] : null;
       currentManifest = manifest;
+
+      /* Design variants, for the niches that have them. row.theme comes from
+         sbv_public_tenants, which returns it since sql/DJ-THEME.sql. A tenant
+         with no recorded theme shows the same fallback the router would serve,
+         so the picker never disagrees with the live site. */
+      var themeNames = manifest && manifest.themes;
+      var picker = $('themePicker');
+      if (themeNames && themeNames.length) {
+        var sel = $('site_theme');
+        sel.innerHTML = '';
+        themeNames.forEach(function (t) {
+          var o = document.createElement('option');
+          o.value = t;
+          o.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+          sel.appendChild(o);
+        });
+        var saved = row && row.theme;
+        loadedTheme = (themeNames.indexOf(saved) > -1) ? saved : themeNames[0];
+        sel.value = loadedTheme;
+        picker.hidden = false;
+      } else {
+        picker.hidden = true;
+        loadedTheme = null;
+      }
       currentNicheSlug = nicheSlug || null;
 
       /* See pricesShapeUnknownGuard's declaration above for why this check
@@ -1513,7 +1565,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       updateTopbarLogo();
 
-      snapshot = JSON.stringify(collectRow());
+      snapshot = collectState();
       markSaved();
       /* AFTER the save baseline on purpose: this pane is read-only and
          optional, and nothing optional belongs where a throw could leave
@@ -1627,6 +1679,31 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         hadRow = true;
         show('defaultNote', false);
+
+        /* The theme is a column on sbv_tenants, so it cannot ride in the
+           upsert above. Written only when it actually changed: every other
+           niche has no picker and no grant to exercise, and a needless write
+           would be a 42501 on 31 of 32 niches. Failure is reported but does
+           not undo the content save, which has already succeeded. */
+        if (loadedTheme !== null && currentTheme() !== loadedTheme) {
+          var wanted = currentTheme();
+          Promise.resolve(
+            sb.from('sbv_tenants').update({ theme: wanted }).eq('client_id', clientId)
+          ).then(function (tr) {
+            if (tr && tr.error) {
+              say('saveMsg', 'Your details saved, but the design did not. '
+                  + (tr.error.message || ''), 'bad');
+              console.error('[admin] theme save:', tr.error);
+              return;
+            }
+            loadedTheme = wanted;
+            snapshot = collectState();
+            say('saveMsg', 'Saved. Your site is updated.', 'ok');
+          }).catch(function (e) {
+            say('saveMsg', 'Your details saved, but the design did not.', 'bad');
+            console.error('[admin] theme save:', e);
+          });
+        }
         /* A save that carried social/reviews/job_details proves the column
            exists on this row now — the maybeClearable() clear path (an
            explicit null instead of an omitted key) depends on seenInLoad
@@ -1638,7 +1715,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ['social', 'reviews', 'job_details'].forEach(function (k) {
           if (Object.prototype.hasOwnProperty.call(row, k)) seenInLoad[k] = true;
         });
-        snapshot = JSON.stringify(collectRow());
+        snapshot = collectState();
         markSaved();
         say('saveMsg', 'Saved. Your site is updated.', 'ok');
         /* Keep the bar visible long enough for the success message to be

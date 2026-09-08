@@ -80,7 +80,14 @@ for (const slug of slugs) {
     /* Phase B0: the admin's hero-upload caption reads this — true means the
        niche's built page actually renders the hero-photo component, so the
        "shows after its hero update lands" honesty caption must NOT show. */
-    heroWired: manifest.heroWired === true
+    heroWired: manifest.heroWired === true,
+    /* Theme variant names for a themed niche, from the same niches/<slug>/themes/
+       directories that produce themes.mjs below. The admin already fetches this
+       index, so putting them here avoids a second source of truth for the one
+       question it needs answered: does this niche have variants, and what are
+       they called. Absent for every unthemed niche rather than an empty array,
+       so the admin's check is a plain truthiness test. */
+    themes: themeNamesFor(slug)
   };
 }
 
@@ -111,10 +118,14 @@ fs.writeFileSync(OUT_PATH, out, 'utf8');
    middleware. Generated rather than hand-listed on purpose: writing "dj" into
    the router by hand is exactly what silently misroutes the day a second
    themed niche appears. */
-const themed = {};
-for (const slug of slugs) {
+/* Shared by the manifest index entries above and the themed map below, so the
+   two can never disagree about what a niche's variants are. A function
+   declaration, so it is hoisted above the index that calls it. Returns null
+   rather than [] for an unthemed niche, which keeps the admin's check a plain
+   truthiness test and keeps the key out of 31 of 32 index entries. */
+function themeNamesFor(slug) {
   const themeDir = path.join(REPO, 'niches', slug, 'themes');
-  if (!fs.existsSync(themeDir)) continue;
+  if (!fs.existsSync(themeDir)) return null;
   const names = fs.readdirSync(themeDir, { withFileTypes: true })
     .filter((e) => e.isDirectory())
     .map((e) => e.name)
@@ -123,6 +134,13 @@ for (const slug of slugs) {
     console.error('build-manifest-index: ' + slug + ' has an empty themes/ directory');
     process.exit(1);
   }
+  return names;
+}
+
+const themed = {};
+for (const slug of slugs) {
+  const names = themeNamesFor(slug);
+  if (!names) continue;
   /* The fallback is first-alphabetically rather than a hand-picked favourite,
      so it stays stable and needs no second source of truth. It is only ever
      used for a tenant whose theme was never recorded. */
