@@ -1,0 +1,48 @@
+/* christmas-lights — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "warm light against a cold evening" — the subject is literally a
+   filament burning on a roofline at dusk, so the ground is a deep winter
+   blue-green and every accent is the bulb itself.
+   Contrast (WCAG, computed against the tokens below): ink on ground 16.1:1;
+   ink-dim on ground 12.1:1; muted on ground 8.5:1 and on card 6.4:1; accent
+   on ground 9.3:1; accent-ink on accent 8.9:1 and on accent-deep 5.8:1.
+   muted (#9DB4BE) is a DARK-GROUND token only — it drops to 1.1:1 on the
+   accent, so nothing here ever puts it on a light or gold surface. */
+:root{
+  --scheme: dark;
+  --ground:       #0C1A20;   /* winter dusk, the hour the timers come on */
+  --ground-2:     #12262F;   /* the sky still holding light at the top of the page */
+  --ground-deep:  #071216;   /* full dark at the foot */
+  --panel:        #12262F;
+  --panel-2:      #173039;
+  --accent:       #E8B04B;   /* the bulb — a warm C9 filament */
+  --accent-2:     #FFD98A;   /* the halo around it */
+  --accent-deep:  #C0892E;   /* the shaded side of the same glass */
+  --accent-alt:   #8FBFC9;   /* frost blue, the cold half of the picture */
+  --accent-ink:   #241703;   /* type on gold */
+  --ink:          #EAF2F5;
+  --ink-bright:   #F7FBFC;
+  --ink-max:      #FFFFFF;
+  --ink-dim:      #C3D5DC;
+  --muted:        #9DB4BE;
+  --hair:         rgba(234,242,245,.12);
+  --hair-accent:  rgba(232,176,75,.22);
+  --card:         rgba(23,48,57,.74);
+  --card-solid:   #173039;
+  --card-brd:     rgba(234,242,245,.11);
+  --shadow:       0 26px 60px -26px rgba(0,0,0,.72);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFFFFF;
+  --sheen-lo:     #8FA9B3;
+  --sheen-accent: var(--accent);
+  --placeholder:  #7E97A2;
+  --ok:           #63C08D;
+  --ok-ink:       #63C08D;
+  --err:          #E4736A;
+  --err-ink:      #F0958D;
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}

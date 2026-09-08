@@ -1,0 +1,51 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#0C1A20",
+    "surface": "#12262F",
+    "card": "#173039",
+    "accent": "#E8B04B",
+    "accentBright": "#FFD98A",
+    "text": "#EAF2F5",
+    "textSoft": "#9DB4BE",
+    "ok": "#63C08D",
+    "bad": "#E4736A",
+    "onAccent": "#241703",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap",
+    "display": "'Fraunces',Georgia,serif",
+    "label": "'IBM Plex Mono',monospace",
+    "body": "'Source Sans 3',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": [
+    "hero",
+    "owner"
+  ],
+  "sections": {
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": true,
+    "reviews": true,
+    "social": true,
+    "footerContact": true,
+    "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": [
+      "label",
+      "price_label",
+      "note"
+    ],
+    "mergePath": "pricing",
+    "headlineSuffix": "/season"
+  },
+  "merge": {
+    "reviews": "testimonials",
+    "ownerShape": "owner",
+    "beforeAfter": "none"
+  },
+  "heroDefault": "/sites/christmas-lights/photos/hero-roofline.jpg",
+  "heroAlt": "A shingled two-storey cottage at night with warm bulbs run along every roofline and porch cornice, lit garland swagged along a white picket fence and net lights over the hedges",
+  "heroWired": true
+}

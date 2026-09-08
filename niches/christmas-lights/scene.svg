@@ -1,0 +1,59 @@
+<!-- christmas-lights/scene.svg — the shared <defs> block for this niche.
+     The page draws the same two objects in four places (the brand mark, the
+     hero garland, the section rules, the footer mark), so the gradients and
+     the bulb glow live here once and every inline <svg> in sections.html
+     points at them by id. Ids are cl- prefixed (SITELAB_TEMPLATE.md 6.2)
+     because this block is inlined into the same document as the markup.
+     The element is zero-sized and aria-hidden: it paints nothing itself. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- the glass of an unlit C9 lamp, seen against the dusk -->
+    <radialGradient id="cl-bulb-glass" cx=".36" cy=".3" r=".78">
+      <stop offset="0" stop-color="#FFF3D2"/>
+      <stop offset=".45" stop-color="#E8B04B"/>
+      <stop offset="1" stop-color="#8A5C15"/>
+    </radialGradient>
+    <!-- the filament itself: hot centre falling away to nothing, so the same
+         circle can be faded in and out to read as a lamp warming up -->
+    <radialGradient id="cl-bulb-core" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFF6DE" stop-opacity=".95"/>
+      <stop offset=".38" stop-color="#FFD98A" stop-opacity=".62"/>
+      <stop offset="1" stop-color="#E8B04B" stop-opacity="0"/>
+    </radialGradient>
+    <!-- the lead wire, dark at the ends where it leaves the frame -->
+    <linearGradient id="cl-wire" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0C1A20"/>
+      <stop offset=".22" stop-color="#2E4750"/>
+      <stop offset=".78" stop-color="#2E4750"/>
+      <stop offset="1" stop-color="#0C1A20"/>
+    </linearGradient>
+    <!-- the sky behind the garland: still blue overhead, gone at the eaves -->
+    <linearGradient id="cl-dusk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1B3A46"/>
+      <stop offset=".55" stop-color="#12262F"/>
+      <stop offset="1" stop-color="#0C1A20"/>
+    </linearGradient>
+    <!-- brand mark: gable line, lit -->
+    <linearGradient id="cl-mark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD98A"/>
+      <stop offset=".55" stop-color="#E8B04B"/>
+      <stop offset="1" stop-color="#C0892E"/>
+    </linearGradient>
+    <!-- section rule: a short run of wire that fades out both ways -->
+    <linearGradient id="cl-rule" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6">
+      <stop offset="0" stop-color="#E8B04B" stop-opacity="0"/>
+      <stop offset=".5" stop-color="#E8B04B"/>
+      <stop offset="1" stop-color="#E8B04B" stop-opacity="0"/>
+    </linearGradient>
+    <!-- bulbs bloom rather than sit flat on the dark; used on the glow layer
+         only, never on the lamp body, so the shapes keep their edges -->
+    <filter id="cl-glow" x="-70%" y="-70%" width="240%" height="240%">
+      <feGaussianBlur stdDeviation="3.4"/>
+    </filter>
+    <!-- a little air in the sky panel: cold nights photograph grainy -->
+    <filter id="cl-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.82  0 0 0 0 0.88  0 0 0 0 0.92  0 0 0 0.42 0"/>
+    </filter>
+  </defs>
+</svg>

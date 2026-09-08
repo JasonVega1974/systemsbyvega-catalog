@@ -1,0 +1,184 @@
+{
+  "brand": {
+    "name": "Cedar & Filament Holiday Lighting",
+    "tagline": "Hung in November. Serviced all season. Gone by mid-January.",
+    "phone": "(208) 555-0164",
+    "email": "hello@cedarandfilament.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Sandpoint, ID"
+  },
+  "owner": {
+    "name": "",
+    "heading": "Who is on your roof",
+    "bio": "",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Sandpoint and the Bonner County lakeshore",
+    "short": "Sandpoint & Bonner County",
+    "cities": [
+      "Sandpoint",
+      "Ponderay",
+      "Kootenai",
+      "Dover",
+      "Sagle",
+      "Hope"
+    ]
+  },
+  "testimonials": [],
+  "pricing": [
+    {
+      "label": "Small home",
+      "blurb": "$695",
+      "per": "for the season",
+      "note": "Single-storey rooflines up to roughly 120 feet, reachable from a ladder",
+      "features": [
+        "Commercial-grade C9 bulbs on custom-cut runs",
+        "All clips, timers and extension runs supplied",
+        "Mid-season service calls included",
+        "Takedown in January and storage until next year"
+      ]
+    },
+    {
+      "label": "Large home",
+      "blurb": "$1,285",
+      "per": "for the season",
+      "note": "Two storeys, several roof planes, or a yard tree wrapped as well",
+      "highlight": true,
+      "features": [
+        "Everything in the small-home package",
+        "Upper rooflines, peaks, dormers and gable runs",
+        "One tree or entry feature wrapped to about 12 feet",
+        "Photocell timer set to your porch light"
+      ]
+    },
+    {
+      "label": "Commercial",
+      "blurb": "Quoted",
+      "per": "after a site walk",
+      "note": "Storefronts, HOA entries and downtown blocks — the figure is in writing before anything is ordered",
+      "features": [
+        "Walked and measured with you before a quote is written",
+        "Scheduled outside your business hours",
+        "Certificate of insurance sent to your property manager",
+        "Multi-year pricing held when the same design comes back"
+      ]
+    }
+  ],
+  "jobDetails": {
+    "included": [
+      "Design walk, roofline measurement and a written figure before anything is ordered",
+      "Commercial-grade C9 bulbs, clips, timers and extension runs — all supplied by us",
+      "Installation on rooflines, peaks, dormers, porches and entry columns",
+      "Every service call between install and takedown: outages, wind damage, timer drift",
+      "Takedown by mid-January",
+      "Off-season storage, coiled and labelled by roofline"
+    ],
+    "notIncluded": [
+      "Interior decorating, trees indoors, or anything past the front door",
+      "Roofs we cannot stand on safely — steep slate, tile, or anything above two storeys without staging",
+      "Electrical work beyond plugging into an existing exterior outlet",
+      "Inflatables, projectors and yard displays we did not supply",
+      "Snow removal, gutter cleaning or any repair to the roof itself"
+    ]
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Seasonal roofline & tree lighting · Sandpoint, Idaho",
+      "title": "Nobody should spend December on a frozen ladder.",
+      "subtitle": "Cedar & Filament designs, hangs, services and removes holiday lighting across Sandpoint and Bonner County. One price covers the whole season — the install in November, every service call in December, and the takedown in January.",
+      "ctaPrimary": "Get my lighting quote",
+      "ctaSecondary": "See what a season includes"
+    },
+    "heroImg": "/sites/christmas-lights/photos/hero-roofline.jpg",
+    "about": {
+      "heading": "A season, not an afternoon",
+      "body": "Most people who hang their own lights do it once, in the cold, and then live with whatever went up. We measure the rooflines in the fall, cut the runs to fit your house, and store them labelled so the second year goes up in a morning. When a run goes dark in the middle of December, that is ours to come out and fix, not yours."
+    },
+    "howItWorks": [
+      {
+        "title": "Book in the fall",
+        "desc": "We walk the house, measure the rooflines and put the design and the figure in writing. Nothing is ordered until you say yes."
+      },
+      {
+        "title": "Install in November",
+        "desc": "Runs are cut to your measurements, clipped to the shingle line or gutter edge, and set on a timer before we leave."
+      },
+      {
+        "title": "Serviced through December",
+        "desc": "A bulb out, a run down after a windstorm, a timer drifting — call and we come out. It is already in the price."
+      },
+      {
+        "title": "Down in January",
+        "desc": "We pull everything by mid-January, coil it labelled by roofline, and store it until next season."
+      }
+    ],
+    "included": [
+      {
+        "title": "Commercial-grade bulbs",
+        "desc": "C9 and C7 lamps on heavy lead wire — the same stock that goes up downtown, not the strands that turn brittle at ten below."
+      },
+      {
+        "title": "Cut to your house",
+        "desc": "Every run is measured and cut for one roofline, so there is no slack looped over the gutter and no dark gap at the peak."
+      },
+      {
+        "title": "Clips, never staples",
+        "desc": "Shingle and gutter clips carry the wire. Nothing is stapled, nailed or screwed into your roof."
+      },
+      {
+        "title": "Timers set on site",
+        "desc": "A photocell or programmed timer goes in at install, so the display comes on at dusk without anyone touching a switch."
+      },
+      {
+        "title": "Service calls included",
+        "desc": "Outages, wind damage and timer drift are covered from install through takedown. No trip charge in season."
+      },
+      {
+        "title": "Takedown and storage",
+        "desc": "Removed by mid-January and stored labelled by roofline, so a second season is an install and not a redesign."
+      }
+    ],
+    "pricingNote": "Every figure above covers the whole season — design, install, all in-season service calls, takedown and storage. Roof pitch, height above two storeys and any custom colour run are quoted separately, and always in writing before anything is ordered.",
+    "faq": [
+      {
+        "q": "When do you book up?",
+        "a": "Installs run from the first week of November until the week before Christmas, and the calendar is usually full by mid-November. Booking in September or October gets you a date you actually want."
+      },
+      {
+        "q": "Whose lights are they?",
+        "a": "Ours. The price is a seasonal package rather than a purchase — we supply, install, maintain, remove and store the material. If you would rather own the lights outright, ask and we will quote that separately."
+      },
+      {
+        "q": "What happens if a section goes dark?",
+        "a": "Call us and we come out. In-season service is part of the package, so there is no trip charge between install and takedown."
+      },
+      {
+        "q": "Do you put holes in the roof?",
+        "a": "No. Everything hangs on shingle tabs and gutter clips. Nothing is stapled, nailed or screwed into the roof or the fascia."
+      },
+      {
+        "q": "What if it snows on install day?",
+        "a": "We work through normal winter weather but not on iced roofs or in high wind — that is a safety call, not a preference. If we push a date we tell you the same day and rebook you at the front of the line."
+      }
+    ]
+  },
+  "seo": {
+    "title": "Cedar & Filament Holiday Lighting — Christmas light installation in Sandpoint, Idaho",
+    "description": "Seasonal Christmas light design, installation, service, takedown and storage across Sandpoint and Bonner County. One price covers the whole season.",
+    "ogTitle": "Cedar & Filament Holiday Lighting",
+    "ogDescription": "Roofline and tree lighting, hung in November and gone by mid-January. Service calls, takedown and storage included in the season price.",
+    "priceRange": "$$",
+    "schemaType": "HomeAndConstructionBusiness",
+    "canonical": "https://christmas-lights.systemsbyvega.com/",
+    "themeColor": "#0C1A20",
+    "favicon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230C1A20'/%3E%3Cpath d='M10 41 32 21 54 41' fill='none' stroke='%23E8B04B' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='42' r='3.4' fill='%23FFD98A'/%3E%3Ccircle cx='32' cy='28' r='3.4' fill='%23FFD98A'/%3E%3Ccircle cx='48' cy='42' r='3.4' fill='%23FFD98A'/%3E%3C/svg%3E",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600;700&display=swap",
+    "ogImage": "/sites/christmas-lights/og.png"
+  },
+  "contact": {
+    "hours": "Mon–Sat, 8am–6pm · install season runs November through mid-January",
+    "address": "",
+    "postal": ""
+  }
+}

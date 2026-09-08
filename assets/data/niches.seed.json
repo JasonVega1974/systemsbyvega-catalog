@@ -307,6 +307,19 @@
       "website_offer": true
     },
     {
+      "slug": "christmas-lights",
+      "catalog_no": "CE-10",
+      "name": "Christmas Lights",
+      "family": "curb-exterior",
+      "sort": 29,
+      "status": "website_only",
+      "open_url": null,
+      "price_label": null,
+      "job_line": "Hang the lights in November, service them through December, and take them down in January.",
+      "demo_path": "/sites/christmas-lights/",
+      "website_offer": true
+    },
+    {
       "slug": "car-detailing",
       "catalog_no": "AU-01",
       "name": "Car Detailing",

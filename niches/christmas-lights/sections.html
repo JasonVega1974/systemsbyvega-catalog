@@ -1,0 +1,412 @@
+<!-- christmas-lights/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md 3.1), so this is per-niche.
+     Visual language: "warm light against a cold evening" — a winter-dusk
+     blue-green ground with the bulb itself as the only accent.
+     Static copy below mirrors content.json verbatim (the no-JS fallback);
+     niche.js re-renders every hooked region from the merged CONTENT.
+     Illustration gradients and filters live in scene.svg, inlined ahead of
+     this file, and are referenced by their cl- prefixed ids (6.2).
+     There is deliberately NO before/after slider here: no honest same-house
+     pair exists for a lit roofline, so the section was dropped rather than
+     captioned around. See photos/CREDITS.md. -->
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Cedar &amp; Filament Holiday Lighting home">
+      <span class="brand__mark" role="img" aria-label="Cedar &amp; Filament mark: a lit gable">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
+          <path d="M8 34 32 12l24 22" stroke="url(#cl-mark)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 40h36" stroke="#2E4750" stroke-width="2"/>
+          <circle cx="18" cy="43" r="3.2" fill="url(#cl-bulb-glass)"/>
+          <circle cx="32" cy="45" r="3.2" fill="url(#cl-bulb-glass)"/>
+          <circle cx="46" cy="43" r="3.2" fill="url(#cl-bulb-glass)"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Cedar &amp; Filament</span><span id="brandLocale">Holiday lighting · Sandpoint, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#included">Included</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#faq">FAQ</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550164" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0164</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Seasonal roofline &amp; tree lighting · Sandpoint, Idaho</span></div>
+        <h1 id="heroTitle">Nobody should spend December on a frozen ladder.</h1>
+        <p class="hero__sub" id="heroSub">Cedar &amp; Filament designs, hangs, services and removes holiday lighting across Sandpoint and Bonner County. One price covers the whole season — the install in November, every service call in December, and the takedown in January.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Get my lighting quote</a>
+          <a class="btn btn--ghost btn--lg" href="#included" id="heroCtaSecondary">See what a season includes</a>
+        </div>
+        <p class="cl-tagline" id="heroTagline">Hung in November. Serviced all season. Gone by mid-January.</p>
+      </div>
+
+      <div class="hero__stage">
+        <!-- soft warm bloom behind the photo, as if the display were lighting
+             the yard it stands in -->
+        <div class="cl-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers
+             an operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-roofline.jpg).
+             Credit: Unsplash, see photos/CREDITS.md. -->
+        <!-- COMPONENT:hero-photo -->
+        <!-- Signature motif: a C9 garland swagged across the top of the photo.
+             Each lamp's filament glow warms and fades in turn (cl-twinkle in
+             sections.css) — opacity only, reduced-motion safe. -->
+        <svg class="cl-garland" viewBox="0 0 460 160" aria-hidden="true" focusable="false">
+          <path d="M6 20 C120 120, 340 120, 454 20" stroke="url(#cl-wire)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <g class="cl-lamp" transform="translate(36.6,42.9)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(70.9,61.7)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(108.1,76.3)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(147.5,86.7)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(188.4,92.9)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(230,95)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(271.6,92.9)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(312.5,86.7)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(351.9,76.3)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(389.1,61.7)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+          <g class="cl-lamp" transform="translate(423.4,42.9)"><rect x="-2.6" y="0" width="5.2" height="4.6" rx="1.4" fill="#2E4750"/><path d="M-4.4 4.6h8.8l-1.2 6.2q-.9 4.6 -3.2 4.6t-3.2 -4.6Z" fill="url(#cl-bulb-glass)"/><circle class="cl-lamp__glow" cx="0" cy="10" r="9" fill="url(#cl-bulb-core)" filter="url(#cl-glow)"/></g>
+        </svg>
+        <!-- a little weather in front of the photo; transform only -->
+        <div class="cl-snow" aria-hidden="true">
+          <span class="cl-flake"></span><span class="cl-flake"></span><span class="cl-flake"></span>
+          <span class="cl-flake"></span><span class="cl-flake"></span><span class="cl-flake"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="cl-rule" viewBox="0 0 160 12" aria-hidden="true" focusable="false">
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#cl-rule)" stroke-width="1.4"/>
+        <circle cx="80" cy="6" r="4" fill="url(#cl-bulb-glass)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">A season, not an afternoon</h2>
+      <p class="about__body" id="aboutBody">Most people who hang their own lights do it once, in the cold, and then live with whatever went up. We measure the rooflines in the fall, cut the runs to fit your house, and store them labelled so the second year goes up in a morning. When a run goes dark in the middle of December, that is ours to come out and fix, not yours.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <h2 class="section-title">How it works</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.howItWorks -->
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Book in the fall</h3>
+        <p>We walk the house, measure the rooflines and put the design and the figure in writing. Nothing is ordered until you say yes.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Install in November</h3>
+        <p>Runs are cut to your measurements, clipped to the shingle line or gutter edge, and set on a timer before we leave.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Serviced through December</h3>
+        <p>A bulb out, a run down after a windstorm, a timer drifting — call and we come out. It is already in the price.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Down in January</h3>
+        <p>We pull everything by mid-January, coil it labelled by roofline, and store it until next season.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT A SEASON INCLUDES ============ -->
+<section class="section included" id="included">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <h2 class="section-title">What a season includes</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.included; every value lands via
+         textContent (DOM-property sinks only). -->
+    <div class="inc__grid" id="incGrid">
+      <div class="inc reveal" data-delay="1"><h3>Commercial-grade bulbs</h3><p>C9 and C7 lamps on heavy lead wire — the same stock that goes up downtown, not the strands that turn brittle at ten below.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Cut to your house</h3><p>Every run is measured and cut for one roofline, so there is no slack looped over the gutter and no dark gap at the peak.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Clips, never staples</h3><p>Shingle and gutter clips carry the wire. Nothing is stapled, nailed or screwed into your roof.</p></div>
+      <div class="inc reveal" data-delay="1"><h3>Timers set on site</h3><p>A photocell or programmed timer goes in at install, so the display comes on at dusk without anyone touching a switch.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Service calls included</h3><p>Outages, wind damage and timer drift are covered from install through takedown. No trip charge in season.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Takedown and storage</h3><p>Removed by mid-January and stored labelled by roofline, so a second season is an install and not a redesign.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (tiers model) ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <h2 class="section-title">Pricing</h2>
+      <svg class="cl-rule" viewBox="0 0 160 12" aria-hidden="true" focusable="false">
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#cl-rule)" stroke-width="1.4"/>
+        <circle cx="80" cy="6" r="4" fill="url(#cl-bulb-glass)"/>
+      </svg>
+    </div>
+
+    <!-- House picker. It SELECTS which published tier applies — it never
+         computes a figure of its own, so an operator's saved price_label
+         (which lands on blurb) is the only money on screen. -->
+    <div class="picker reveal" id="picker">
+      <div class="picker__label">Which package fits your house?</div>
+      <div class="picker__pills" id="pickerPills" role="group" aria-label="Package"></div>
+      <p class="picker__read" id="pickerRead" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- Tier cards render from CONTENT.pricing: {label, blurb, per, note,
+         highlight, features}. blurb IS the price display string — the admin's
+         price_label save lands there and nowhere else, and the third tier's
+         reads "Quoted", so nothing here prefixes a currency symbol or assumes
+         numeric content. note renders on the card and hides when cleared. -->
+    <div class="tiers" id="tiersGrid">
+      <div class="tier reveal" data-delay="1">
+        <span class="tier__label">Small home</span>
+        <div class="tier__price">$695</div>
+        <div class="tier__per">for the season</div>
+        <div class="tier__note">Single-storey rooflines up to roughly 120 feet, reachable from a ladder</div>
+        <ul class="tier__features">
+          <li>Commercial-grade C9 bulbs on custom-cut runs</li>
+          <li>All clips, timers and extension runs supplied</li>
+          <li>Mid-season service calls included</li>
+          <li>Takedown in January and storage until next year</li>
+        </ul>
+        <a class="btn btn--ghost" href="#book">Get this quote</a>
+      </div>
+      <div class="tier tier--best reveal" data-delay="2">
+        <span class="tier__label">Large home</span>
+        <div class="tier__price">$1,285</div>
+        <div class="tier__per">for the season</div>
+        <div class="tier__note">Two storeys, several roof planes, or a yard tree wrapped as well</div>
+        <ul class="tier__features">
+          <li>Everything in the small-home package</li>
+          <li>Upper rooflines, peaks, dormers and gable runs</li>
+          <li>One tree or entry feature wrapped to about 12 feet</li>
+          <li>Photocell timer set to your porch light</li>
+        </ul>
+        <a class="btn" href="#book">Get this quote</a>
+      </div>
+      <div class="tier reveal" data-delay="3">
+        <span class="tier__label">Commercial</span>
+        <div class="tier__price">Quoted</div>
+        <div class="tier__per">after a site walk</div>
+        <div class="tier__note">Storefronts, HOA entries and downtown blocks — the figure is in writing before anything is ordered</div>
+        <ul class="tier__features">
+          <li>Walked and measured with you before a quote is written</li>
+          <li>Scheduled outside your business hours</li>
+          <li>Certificate of insurance sent to your property manager</li>
+          <li>Multi-year pricing held when the same design comes back</li>
+        </ul>
+        <a class="btn btn--ghost" href="#book">Get this quote</a>
+      </div>
+    </div>
+
+    <p class="tiers__note reveal" id="pricingNote">Every figure above covers the whole season — design, install, all in-season service calls, takedown and storage. Roof pitch, height above two storeys and any custom colour run are quoted separately, and always in writing before anything is ordered.</p>
+  </div>
+</section>
+
+<!-- ============ WHAT IS AND IS NOT IN SCOPE ============ -->
+<!-- COMPONENT:job-details -->
+
+<!-- ============ REVIEWS ============ -->
+<!-- testimonials is [] and stays that way: this is a fictional business with
+     no customers. The component renders its own honest empty state; nothing
+     here supplies a quote, a name, a star or a count. -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <h2 class="section-title">Reviews</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <h2 class="section-title">Questions</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq reveal">
+        <summary>When do you book up?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Installs run from the first week of November until the week before Christmas, and the calendar is usually full by mid-November. Booking in September or October gets you a date you actually want.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>Whose lights are they?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Ours. The price is a seasonal package rather than a purchase — we supply, install, maintain, remove and store the material. If you would rather own the lights outright, ask and we will quote that separately.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>What happens if a section goes dark?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Call us and we come out. In-season service is part of the package, so there is no trip charge between install and takedown.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>Do you put holes in the roof?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">No. Everything hangs on shingle tabs and gutter clips. Nothing is stapled, nailed or screwed into the roof or the fascia.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>What if it snows on install day?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">We work through normal winter weather but not on iced roofs or in high wind — that is a safety call, not a preference. If we push a date we tell you the same day and rebook you at the front of the line.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <!-- the heading IS serviceArea.region; niche.js keeps it in step with
+           whatever the operator saves, so no second copy is authored here -->
+      <h2 class="section-title" id="areaRegion">Sandpoint and the Bonner County lakeshore</h2>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Sandpoint</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ponderay</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Kootenai</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Dover</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Sagle</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hope</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GET A QUOTE ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <h2 class="section-title" style="margin:0 0 14px">Get a quote</h2>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550164" data-tel data-phone-text>(208) 555-0164</a></p>
+      <p class="cta__hours" id="ctaHours"></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Sandpoint" required />
+        </div>
+        <div class="field">
+          <label for="q-package">Which package fits?</label>
+          <select id="q-package" name="package"></select>
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything we should know? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two-storey with dormers on the lake side, a spruce by the driveway we would like wrapped, and one outdoor outlet on the porch."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me my quote and to schedule. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Send me a quote</button>
+        <a class="book__alt" href="sms:+12085550164?body=Hi%20Cedar%20%26%20Filament!%20I%27d%20like%20a%20holiday%20lighting%20quote." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — your quote is on its way</h3>
+      <p id="doneMsg">We'll text you shortly with a figure and the next open install date.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO IS ON YOUR ROOF ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="owner__grid">
+      <!-- Photo renders from owner.photo (admin upload); empty falls through
+           to base.css's own add-a-photo placeholder rather than a broken img. -->
+      <div class="owner__photo reveal" id="ownerPhoto"></div>
+      <div class="owner__body reveal" data-delay="1">
+        <h2 class="section-title" id="ownerHeading">Who is on your roof</h2>
+        <!-- owner.name and owner.bio are both empty in content.json — nothing
+             is invented to fill them. The name line stays hidden until an
+             operator saves one; the bio falls through to base.css's
+             .owner__desc:empty placeholder. -->
+        <div class="owner__name" id="ownerName" hidden></div>
+        <div class="owner__desc" id="ownerDesc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Cedar &amp; Filament Holiday Lighting">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" focusable="false">
+          <path d="M8 34 32 12l24 22" stroke="url(#cl-mark)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 40h36" stroke="#2E4750" stroke-width="2"/>
+          <circle cx="18" cy="43" r="3.2" fill="url(#cl-bulb-glass)"/>
+          <circle cx="32" cy="45" r="3.2" fill="url(#cl-bulb-glass)"/>
+          <circle cx="46" cy="43" r="3.2" fill="url(#cl-bulb-glass)"/>
+        </svg>
+      </span>
+      <div><b data-brand>Cedar &amp; Filament Holiday Lighting</b><span id="footTagline">Hung in November. Serviced all season. Gone by mid-January.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550164" data-tel data-phone-text>(208) 555-0164</a><br />
+      <span id="areaLine">Serving Sandpoint and the Bonner County lakeshore</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Cedar &amp; Filament Holiday Lighting</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Cedar &amp; Filament Holiday Lighting</span> is a fictional business created to demonstrate this website design.
+    The phone number, email and pricing shown are placeholders — no real holiday lighting services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550164" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550164?body=Hi%20Cedar%20%26%20Filament!%20I%27d%20like%20a%20holiday%20lighting%20quote." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
