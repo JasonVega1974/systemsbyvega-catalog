@@ -1,0 +1,47 @@
+/* mechanic — tokens only. Structure lives in _template/base.css; this niche's
+   own section rules live in sections.css.
+   Identity: "shop floor at the curb" — a graphite-and-gravel ground, a
+   diagnostic go-green accent, and a hazard amber used sparingly for the
+   warning voice. Deliberately unlike the two auto siblings: auto-repair is
+   cream + red, auto-body is plum + magenta.
+   Contrast (WCAG, computed by tools scratch/contrast.js):
+   accent-ink on accent 6.07:1, on accent-2 9.01:1, on accent-alt 8.19:1;
+   ink on ground 16.97:1, on panel 15.17:1, on panel-2 13.36:1;
+   ink-dim on ground 10.30:1, on panel-2 8.11:1;
+   muted on ground 6.29:1, on panel-2 4.95:1;
+   accent on ground 6.23:1, accent-2 on panel-2 7.28:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #070A09;   /* under the truck */
+  --ground:       #0D1110;   /* graphite shop floor */
+  --ground-2:     #131917;
+  --panel:        #161E1B;
+  --panel-2:      #1F2926;
+  --accent:       #2FA85D;   /* go-green — the light on the scan tool */
+  --accent-2:     #4ACC7C;   /* brighter green, hover and highlights */
+  --accent-deep:  #14663A;   /* shadowed green */
+  --accent-alt:   #E2A02A;   /* hazard amber, used sparingly */
+  --accent-ink:   #05170C;   /* type on green */
+  --ink:          #EFF3F0;
+  --ink-bright:   #FAFDFB;
+  --ink-dim:      #B4C2BB;
+  --ink-max:      #FFFFFF;
+  --muted:        #889892;
+  --hair:         rgba(239,243,240,.10);
+  --hair-accent:  rgba(47,168,93,.22);
+  --card:         rgba(31,41,38,.58);
+  --card-brd:     rgba(239,243,240,.13);
+  --shadow:       0 26px 62px -22px rgba(0,0,0,.78);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFFFFF;
+  --sheen-lo:     #9FB0A8;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #FF7A6B;
+  --err-ink:      #FF9C90;
+
+  --display: 'Archivo Black', Impact, sans-serif;
+  --body:    'Barlow', system-ui, -apple-system, sans-serif;
+  --mono:    'Space Mono', ui-monospace, Consolas, monospace;
+}

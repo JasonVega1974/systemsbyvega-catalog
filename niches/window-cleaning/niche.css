@@ -1,0 +1,49 @@
+/* window-cleaning — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "daylight through clean glass" — a high-key, near-white cool
+   ground, clear-water cyan accent, deep slate-teal ink, and a sparing brass
+   drawn from the squeegee handle in the hero photograph.
+   Contrast (WCAG, computed): accent-ink #04262C on accent 5.89:1, on
+   accent-2 8.97:1, on accent-deep 4.60:1; ink on ground 14.48:1 and on the
+   white card 15.40:1; ink-dim on ground 7.16:1; muted on ground 5.15:1;
+   accent-text on ground 5.72:1 and on panel 5.33:1; accent-alt (brass) on
+   ground 4.57:1. */
+:root{
+  --scheme: light;
+  --ground-deep:  #DFECF1;   /* the cool settled light at the page's foot */
+  --ground:       #F3F9FB;   /* pale north-facing daylight */
+  --ground-2:     #FCFEFF;   /* near-white sky at the top of the page */
+  --panel:        #E7F2F6;
+  --panel-2:      #FFFFFF;
+  --accent:       #22ACC4;   /* clear-water cyan — the glass accent */
+  --accent-2:     #5FD2E4;   /* light catching the wet edge */
+  --accent-deep:  #1197AF;   /* the shaded side of the same water */
+  --accent-text:  #0B6C7D;   /* cyan dark enough to READ on daylight */
+  --accent-alt:   #96690F;   /* squeegee brass, used sparingly */
+  --accent-ink:   #04262C;   /* type on cyan */
+  --ink:          #16272E;   /* deep slate-teal */
+  --ink-bright:   #0D1B21;
+  --ink-dim:      #42575F;
+  --ink-max:      #081217;
+  --muted:        #566D74;
+  --hair:         rgba(22,39,46,.13);
+  --hair-accent:  rgba(34,172,196,.26);
+  --card:         rgba(255,255,255,.82);
+  --card-solid:   #FFFFFF;
+  --card-brd:     rgba(22,39,46,.10);
+  --shadow:       0 24px 55px -24px rgba(16,72,88,.30);
+  --maxw:         1140px;
+
+  --sheen-hi:     #2C5B68;
+  --sheen-lo:     #16272E;
+  --sheen-accent: var(--accent);
+  --placeholder:  #5F767D;
+  --ok:           #177A50;
+  --ok-ink:       #177A50;
+  --err:          #B0362F;
+  --err-ink:      #8E2A24;
+
+  --display: 'Outfit', 'Trebuchet MS', sans-serif;
+  --body:    'Figtree', system-ui, -apple-system, sans-serif;
+  --mono:    'DM Mono', ui-monospace, Consolas, monospace;
+}

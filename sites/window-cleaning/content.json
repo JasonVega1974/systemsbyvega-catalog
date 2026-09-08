@@ -1,0 +1,184 @@
+{
+  "brand": {
+    "name": "Pane & Prairie Window Co.",
+    "tagline": "Glass you forget is there.",
+    "phone": "(208) 555-0247",
+    "email": "hello@paneandprairie.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Post Falls, ID"
+  },
+  "owner": {
+    "name": "Delia Rhoades",
+    "heading": "The person on the ladder",
+    "bio": "Delia Rhoades started out washing storefronts along Seltice Way before sunrise, because that is the only hour a shop owner will let you block the door. She built Pane & Prairie around the two things those mornings taught her: a window is only clean if it is clean from the inside too, and the crew that made the mess is the crew that should carry it out. Delia still runs the pole on most jobs and answers the phone on all of them.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Kootenai County, Idaho",
+    "short": "Kootenai County",
+    "cities": [
+      "Post Falls",
+      "Coeur d'Alene",
+      "Rathdrum",
+      "Hayden",
+      "Dalton Gardens",
+      "Huetter"
+    ]
+  },
+  "testimonials": [],
+  "pricing": [
+    {
+      "label": "Up to 15 panes",
+      "blurb": "$149",
+      "per": "inside & out",
+      "note": "Condos, townhomes and small single-story homes",
+      "features": [
+        "Interior and exterior glass",
+        "Screens washed and re-set",
+        "Sills and tracks vacuumed, then wiped dry",
+        "Frames hand-detailed"
+      ]
+    },
+    {
+      "label": "16 to 30 panes",
+      "blurb": "$249",
+      "per": "inside & out",
+      "note": "The typical Post Falls two-story",
+      "highlight": true,
+      "features": [
+        "Everything in the first tier",
+        "Second-story exteriors from pole or ladder",
+        "Skylights reachable from the roofline",
+        "One touch-up return within seven days"
+      ]
+    },
+    {
+      "label": "31 to 50 panes",
+      "blurb": "$379",
+      "per": "inside & out",
+      "note": "Larger homes, sunrooms and daylight basements",
+      "features": [
+        "Everything in the middle tier",
+        "Sunroom and transom glass included",
+        "French-pane grids counted as one pane per sash",
+        "Scheduled in a single half-day block"
+      ]
+    },
+    {
+      "label": "Over 50 panes, and all storefront glass",
+      "blurb": "$6.50",
+      "per": "per pane",
+      "note": "Quoted in writing before we start — no deposit, nothing owed until the walk-through at the end",
+      "features": [
+        "Exterior-only route work billed at $4.25 per pane",
+        "Storefronts, offices and multi-unit buildings",
+        "Weekly, monthly or quarterly routes",
+        "Invoiced after the job, net fifteen"
+      ]
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "Residential & commercial glass · Post Falls, Idaho",
+      "title": "Let the daylight all the way in.",
+      "subtitle": "Pane & Prairie cleans windows inside and out across Post Falls and Kootenai County — glass, screens, tracks and sills, finished streak-free and dried by hand. Flat pricing by pane count, agreed before we unload a ladder.",
+      "ctaPrimary": "Get my window quote",
+      "ctaSecondary": "See what a pass includes"
+    },
+    "heroImg": "",
+    "beforeImg": "/sites/window-cleaning/photos/before-soaped.jpg",
+    "afterImg": "/sites/window-cleaning/photos/after-clear.jpg",
+    "about": {
+      "heading": "Most windows are half-cleaned, and everybody can tell",
+      "body": "The outside gets a hose and the inside gets a paper towel, and the glass still hazes the second the sun hits it. We treat a window as four surfaces, not one: the exterior pane, the interior pane, the screen that has been filtering road dust all summer, and the track full of grit that dirties both again the next time you slide the sash. Do all four in one visit and the light comes through the way the builder intended."
+    },
+    "howItWorks": [
+      {
+        "title": "Count and quote",
+        "desc": "Tell us roughly how many panes you have, or send a couple of photos. We give you a flat number off the tier list before anyone shows up, and it does not move on the day."
+      },
+      {
+        "title": "Set up clean",
+        "desc": "Drop cloths under every interior sill, ladder standoffs so nothing rests on your gutters or siding, and shoes off or booties on for the inside pass."
+      },
+      {
+        "title": "Wash, squeegee, detail",
+        "desc": "Soap and scrub the pane, pull the squeegee in overlapping passes, then hand-dry the edges and corners with a dedicated cloth. Screens come out, get washed, and go back in the opening they came from."
+      },
+      {
+        "title": "Walk it with you",
+        "desc": "We walk the house with you at low sun, which is when streaks show. Anything you point at gets redone right then. You pay when you are happy with the glass, not before."
+      }
+    ],
+    "included": [
+      {
+        "title": "Exterior glass",
+        "desc": "Washed from ground level, water-fed pole or ladder, whichever the elevation calls for. No pressure washer anywhere near a seal."
+      },
+      {
+        "title": "Interior glass",
+        "desc": "Cloths and drop sheets in every room, blinds lifted and returned to where you had them, no drips on the sill."
+      },
+      {
+        "title": "Screens",
+        "desc": "Pulled, washed on both faces, dried and re-set in the same opening — screens are numbered as they come out so nothing ends up in the wrong window."
+      },
+      {
+        "title": "Tracks and sills",
+        "desc": "Vacuumed first, then wiped out wet and dried. This is the step most quotes skip, and it is the one that keeps the glass clean longer."
+      },
+      {
+        "title": "Frames and mullions",
+        "desc": "Hand-detailed so the white vinyl actually reads white, and the grid bars do not leave a dusty shadow across the pane."
+      },
+      {
+        "title": "Hard-water and paint spots",
+        "desc": "Mineral etching from a sprinkler and construction overspray both come off with a separate process. We flag them at the quote so the price is honest before we begin."
+      }
+    ],
+    "countHelp": "Count a pane as one piece of glass you can see through. A double-hung window is two. A slider is two. A french-grid sash counts as one, not nine — the grid bars are frame, not glass.",
+    "beforeAfterHeading": "The same window, ten minutes apart",
+    "beforeAfterBlurb": "Drag the handle. Left is the pane soaped and still streaking; right is the same sash squeegeed, edged and dried — the tree and the brickwork outside are back.",
+    "pricingNote": "Every figure above is a flat rate for the whole visit, inside and out, screens and tracks included. Storey height, hard-water treatment and construction cleanup are quoted separately and always in writing first.",
+    "faq": [
+      {
+        "q": "Do I need to be home?",
+        "a": "For an exterior-only visit, no — leave the gate unlocked and we will text you when we are done. For an inside-and-out visit somebody needs to let us in, and we would rather you were there at the end for the walk-through anyway."
+      },
+      {
+        "q": "How high will you go?",
+        "a": "Second-story exteriors are routine, from a water-fed pole where the ground allows and a ladder with standoffs where it does not. Third storey and anything over a roofline gets looked at in person before we quote it."
+      },
+      {
+        "q": "Will you get the hard-water spots off?",
+        "a": "Usually. Sprinkler overspray leaves mineral deposits that a normal wash will not touch, so they get a separate restoration pass. If the glass is etched past the point where that works, we will tell you rather than charge you to find out."
+      },
+      {
+        "q": "What about the weather?",
+        "a": "We work through most of the North Idaho year. Below freezing the water sheets and re-freezes on the glass, so winter jobs get rescheduled to the next workable day at no charge — you never lose a deposit, because we do not take one."
+      },
+      {
+        "q": "How often should this happen?",
+        "a": "Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year."
+      }
+    ],
+    "contact": {
+      "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
+      "address": "",
+      "postal": ""
+    }
+  },
+  "seo": {
+    "title": "Pane &amp; Prairie Window Co. — Window Cleaning, Inside &amp; Out | Post Falls, ID",
+    "description": "Residential and commercial window cleaning in Post Falls and Kootenai County, Idaho. Glass, screens, tracks and sills — streak-free and hand-dried. Flat pricing by pane count. Call or text (208) 555-0247.",
+    "ogTitle": "Pane &amp; Prairie Window Co. — Glass you forget is there.",
+    "ogDescription": "Inside-and-out window cleaning across Post Falls and Kootenai County, Idaho. Screens, tracks and sills included. Flat quotes: (208) 555-0247.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/window-cleaning/",
+    "themeColor": "#22ACC4",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/window-cleaning/og.png"
+  }
+}

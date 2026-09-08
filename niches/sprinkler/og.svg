@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Riserline Irrigation Co. — Built zone by zone. Tuned head by head.">
+  <title>Riserline Irrigation Co.</title>
+  <defs>
+    <linearGradient id="sprinkler-og-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0A1B21"/>
+      <stop offset="0.55" stop-color="#081419"/>
+      <stop offset="1" stop-color="#050D11"/>
+    </linearGradient>
+    <radialGradient id="sprinkler-og-glow" cx="0.86" cy="-0.08" r="0.75">
+      <stop offset="0" stop-color="#2FB37A" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2FB37A" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="sprinkler-og-glow2" cx="0.04" cy="1.05" r="0.6">
+      <stop offset="0" stop-color="#2FB37A" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#2FB37A" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#sprinkler-og-ground)"/>
+  <rect width="1200" height="630" fill="url(#sprinkler-og-glow)"/>
+  <rect width="1200" height="630" fill="url(#sprinkler-og-glow2)"/>
+
+  <!-- accent spine, left edge -->
+  <rect x="0" y="0" width="10" height="630" fill="#2FB37A"/>
+
+  <!-- eyebrow: where they work -->
+  <text x="90" y="140" font-family="Azeret Mono, ui-monospace, monospace" font-size="21"
+        letter-spacing="4.6" fill="#8CA3A5">THE PAYETTE VALLEY, IDAHO</text>
+
+  <!-- headline: the business -->
+  <text x="90" y="300" font-family="Archivo, Georgia, serif" font-size="78" font-weight="800" fill="#EAF4F1">Riserline Irrigation</text>
+  <text x="90" y="382.68" font-family="Archivo, Georgia, serif" font-size="78" font-weight="800" fill="#EAF4F1">Co.</text>
+
+  <!-- accent rule -->
+  <rect x="90" y="426.68" width="132" height="7" fill="#2FB37A"/>
+
+  <!-- tagline -->
+  <text x="90" y="498.68" font-family="Instrument Sans, system-ui, sans-serif" font-size="34" fill="#B3C7C6">Built zone by zone. Tuned head by head.</text>
+
+  <!-- footer rule -->
+  <rect x="90" y="536" width="1020" height="1" fill="#EAF4F1" opacity="0.16"/>
+
+  <!-- wordmark -->
+  <circle cx="97" cy="577" r="7" fill="#2FB37A"/>
+  <text x="116" y="584" font-family="Azeret Mono, ui-monospace, monospace" font-size="20"
+        letter-spacing="3.4" fill="#8CA3A5">SYSTEMS BY VEGA</text>
+
+  
+</svg>

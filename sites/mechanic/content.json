@@ -1,0 +1,244 @@
+{
+  "brand": {
+    "name": "Gravel & Gasket Mobile Mechanic",
+    "tagline": "The shop comes to your driveway.",
+    "phone": "(208) 555-0258",
+    "email": "hello@gravelandgasket.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Payette, ID"
+  },
+  "owner": {
+    "name": "Silas Renner",
+    "heading": "The guy in the driveway",
+    "bio": "Silas Renner learned the trade the way a lot of small-town mechanics do: fixing whatever showed up in the yard, because the nearest shop was forty minutes and a tow bill away. Gravel & Gasket started as a toolbox in the back of a pickup and a habit of saying yes to neighbors, and it still runs on the same rule — if it can be done properly where it sits, it gets done where it sits, and if it cannot, you get told that plainly instead of expensively.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Payette and Washington counties, Idaho",
+    "short": "lower Payette valley",
+    "cities": [
+      "Payette",
+      "Fruitland",
+      "New Plymouth",
+      "Weiser",
+      "Midvale",
+      "Cambridge"
+    ]
+  },
+  "contact": {
+    "hours": "Mon–Sat, 7am to 6pm · after-hours by arrangement"
+  },
+  "testimonials": [],
+  "social": [],
+  "pricing": [
+    {
+      "label": "Oil & filter change",
+      "blurb": "$95 – $155",
+      "per": "flat rate, at your address",
+      "features": [
+        "Full synthetic or conventional, your call",
+        "New filter, level set and top-off",
+        "Drip mat down — your concrete stays your concrete"
+      ],
+      "note": "Diesels and large-sump engines get their own number before we come out."
+    },
+    {
+      "label": "Brake pads & rotors",
+      "blurb": "$290 – $480",
+      "per": "per axle, parts and labor",
+      "highlight": true,
+      "features": [
+        "Pads, rotors and fresh hardware",
+        "Torqued to spec, bedded in on a road test",
+        "Old parts left with you if you want them"
+      ],
+      "note": "We measure the corner and text you the number before a single part gets ordered."
+    },
+    {
+      "label": "Battery — tested, then replaced",
+      "blurb": "$185 – $295",
+      "per": "flat rate, installed",
+      "features": [
+        "Battery, alternator output and parasitic drain tested first",
+        "Terminals cleaned, hold-down replaced if it is rotten",
+        "Old battery hauled away"
+      ],
+      "note": "If the battery tests healthy, you pay the diagnostic and nothing else."
+    },
+    {
+      "label": "Starter or alternator",
+      "blurb": "$320 – $640",
+      "per": "flat rate, parts and labor",
+      "features": [
+        "Bolt-on replacement in your own parking space",
+        "Charging system re-checked after the swap",
+        "Belt and tensioner inspected while we are in there"
+      ],
+      "note": "Some engine bays are a two-hour job and some are a five. Your quote says which one yours is."
+    },
+    {
+      "label": "Serpentine belt & tensioner",
+      "blurb": "$150 – $275",
+      "per": "flat rate, parts and labor",
+      "features": [
+        "Squeal traced before anything gets replaced",
+        "Belt, tensioner and idler pulleys checked together",
+        "Routing photographed for your records"
+      ],
+      "note": "Belt alone, without the tensioner, lands at the bottom of that range."
+    },
+    {
+      "label": "Scan-tool diagnostic",
+      "blurb": "$110",
+      "per": "waived if we do the repair",
+      "features": [
+        "Codes pulled and live data read at the port",
+        "Road test with you in the passenger seat",
+        "Written finding, texted the same day"
+      ],
+      "note": "Book this one when the symptom is a light, a smell or a noise you cannot name."
+    },
+    {
+      "label": "Something not on this list",
+      "blurb": "Text for a flat rate",
+      "per": "",
+      "features": [],
+      "note": "Send the year, make, model and what it is doing. If it is not a driveway job, we say so and point you at a shop with a lift."
+    }
+  ],
+  "services": [
+    {
+      "title": "Brakes at the curb",
+      "desc": "Pads, rotors and hardware, torqued to spec on your own driveway. The squeal you have been ignoring is an afternoon at home, not a week without your vehicle."
+    },
+    {
+      "title": "Batteries & charging",
+      "desc": "We test before we sell: battery health, alternator output, and the parasitic drain that quietly kills a good battery in a month. Then we replace what actually failed."
+    },
+    {
+      "title": "Oil, filters & fluids",
+      "desc": "Full synthetic or conventional, a new filter, and every level checked while the hood is up. The mat goes down first and the old oil leaves with us."
+    },
+    {
+      "title": "Starters, alternators & belts",
+      "desc": "The bolt-on failures that strand people at the worst moment. Most of them come off and go back on right where the vehicle already sits."
+    },
+    {
+      "title": "Scan-tool diagnostics",
+      "desc": "Check-engine lights, misfires, mystery drains. We plug in, road test with you riding along, and tell you the actual fault instead of the most expensive possibility."
+    },
+    {
+      "title": "Workplace & multi-vehicle visits",
+      "desc": "Several vehicles at one address is one trip and one arrival window. Ask about a route stop for a whole work lot instead of booking them one at a time."
+    }
+  ],
+  "faq": [
+    {
+      "q": "What do you need at my house?",
+      "a": "A flat, reasonably level place to work beside the vehicle — a driveway, a carport pad, a parking space. We bring the tools, the jack, the stands, the lighting and a mat for the ground. Power and water are ours too."
+    },
+    {
+      "q": "What if it turns out to need a real shop?",
+      "a": "Then we say so. Anything wanting a lift, an alignment rack, a paint booth or a transmission on a jack is not a driveway job, and pretending otherwise would cost you twice. You get told what it needs and where it should go."
+    },
+    {
+      "q": "Do you work in apartment lots and business lots?",
+      "a": "Usually, with the property manager's blessing. Send the address first and we will tell you honestly whether the spot works before you go asking anyone."
+    },
+    {
+      "q": "Can you do it while I am at work?",
+      "a": "That is a big part of the day. Leave the keys where we agree and you get texts and photos as it goes — most people walk out at the end of a shift to a vehicle that is already fixed."
+    },
+    {
+      "q": "Do you supply the parts, or can I?",
+      "a": "Either way. We usually source them so our workmanship promise covers the whole job. Bring your own and we will still fit them — the promise then covers our labor only, and we put that in writing before starting."
+    },
+    {
+      "q": "What happens if the weather turns?",
+      "a": "Rain and snow move brake and belt work; a battery or a scan handles almost anything. If the forecast would make the job worse, we call and move it rather than doing it badly."
+    },
+    {
+      "q": "How do I pay, and is there a deposit?",
+      "a": "No deposit to book. Card or tap on the phone before we pull away, or an invoice by text if that suits you better."
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "Mobile mechanic · Driveway & workplace service",
+      "title": "Your driveway is the shop bay.",
+      "subtitle": "Gravel & Gasket is a mobile mechanic working out of a loaded truck across Payette and the lower valley. Brakes, batteries, belts, oil and scan-tool diagnostics, done where the vehicle already sits — with a flat rate texted to you before we load up.",
+      "ctaPrimary": "Book a driveway visit",
+      "ctaSecondary": "See the flat rates"
+    },
+    "proof": [
+      { "big": "No tow", "small": "It gets fixed where it sits" },
+      { "big": "No lobby", "small": "Stay home or stay at work" },
+      { "big": "Flat rate", "small": "Texted before we load up" }
+    ],
+    "trust": [
+      { "title": "We drive to the vehicle" },
+      { "title": "Flat rate before the truck loads" },
+      { "title": "Old parts stay with you" },
+      { "title": "Driveways, lots and jobsites" }
+    ],
+    "about": {
+      "heading": "A shop bay is mostly just a floor with a roof over it",
+      "body": "Most of what a vehicle asks for in a normal year — pads, rotors, a battery, a belt, fluids, a scan tool plugged into the port under the dash — does not need a lift, a lobby, or your car sleeping in somebody else's lot for three days. It needs a mechanic, a jack, a torque wrench and a flat patch of ground. That is the whole idea here: the truck comes to the vehicle, and you keep your keys and your day.",
+      "points": [
+        "Nothing gets towed and nothing waits in a queue behind somebody else's transmission.",
+        "Watch the whole job over our shoulder if you want to — the old part goes in your hand or your bin, your call.",
+        "The flat rate arrives by text before we load the truck, and it does not move unless you approve a change.",
+        "Work parking lots count. Plenty of jobs get finished between clock-in and lunch."
+      ]
+    },
+    "process": [
+      {
+        "title": "Text what it is doing",
+        "desc": "Year, make, model and the symptom. A photo, or a ten-second video of the noise, beats a paragraph every single time."
+      },
+      {
+        "title": "Get a flat rate back",
+        "desc": "The price, the parts and roughly how long the truck will be in your driveway. Nothing is booked until you say yes to that number."
+      },
+      {
+        "title": "We roll up to you",
+        "desc": "House, apartment lot, jobsite, work parking space — anywhere we can safely put jack stands on level ground."
+      },
+      {
+        "title": "Fixed, cleaned up, gone",
+        "desc": "Photos of the old part, the drip mat picked up, and the invoice on your phone before we pull off your street."
+      }
+    ],
+    "pricingNote": "Flat rates, not moving targets. The number that arrives by text is the number on the invoice. The ranges cover the honest difference between a small sedan and a three-quarter-ton truck — your vehicle gets one number before we load up, and it only changes if you approve the change.",
+    "pricePickerHint": "Tap a service to load it into the quote line.",
+    "pricePickerEmpty": "Nothing picked yet",
+    "beforeAfter": {
+      "eyebrow": "Brake work",
+      "heading": "The two ends of one brake job",
+      "blurb": "Drag the divider. On the left, a hub carrier crusted over after a winter of road salt and gravel dust. On the right, what a fresh rotor looks like bolted up and ready to bed in on the road test.",
+      "note": "These are two different vehicles, photographed to show the two ends of the same job — not a before and after of one car. A real pair from your own driveway goes here once we have shot one."
+    },
+    "beforeImg": "/sites/mechanic/photos/before-rusted-hub.jpg",
+    "afterImg": "/sites/mechanic/photos/after-new-rotor.jpg",
+    "book": {
+      "eyebrow": "Book a visit",
+      "heading": "Tell us what it is doing",
+      "blurb": "Takes about a minute: year, make, model, the symptom, and where the vehicle is sitting. A flat rate comes back by text, usually the same day, and nothing is booked until you say go.",
+      "buttonLabel": "Send it — get my flat rate",
+      "doneHeading": "Got it — the truck is in the loop"
+    }
+  },
+  "seo": {
+    "title": "Gravel &amp; Gasket Mobile Mechanic — We Come to You | Payette, ID",
+    "description": "Mobile mechanic in Payette, Idaho. Brakes, batteries, belts, oil and scan-tool diagnostics done in your driveway. Flat rates by text: (208) 555-0258.",
+    "ogTitle": "Gravel &amp; Gasket Mobile Mechanic — The shop comes to your driveway.",
+    "ogDescription": "Driveway and workplace auto repair across Payette and the lower valley, Idaho. Flat rates quoted by text before we load the truck.",
+    "priceRange": "$$",
+    "schemaType": "AutomotiveBusiness",
+    "canonical": "https://systemsbyvega.com/sites/mechanic/",
+    "themeColor": "#0D1110",
+    "favicon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230D1110'/%3E%3Cpath d='M32 6 55 19v26L32 58 9 45V19Z' fill='%232FA85D'/%3E%3Cpath d='M32 18 45 25.5v15L32 48 19 40.5v-15Z' fill='%230D1110'/%3E%3Ccircle cx='32' cy='33' r='5.4' fill='%234ACC7C'/%3E%3C/svg%3E",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/mechanic/og.png"
+  }
+}

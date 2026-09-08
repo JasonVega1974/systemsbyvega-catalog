@@ -1,0 +1,47 @@
+/* residential-cleaning — tokens only. Structure lives in _template/base.css;
+   this niche's own section rules live in sections.css.
+   Identity: "line-dry morning" — a LIGHT scheme, deliberately the opposite of
+   estate-sale's dusk. Sunwashed mint-white ground, deep spring-green accent,
+   a citrus-yellow secondary for energy, near-black ink.
+   Contrast, computed (WCAG): accent-ink on accent 6.71:1, on accent-2 4.65:1;
+   ink on ground 15.16:1; muted on ground 5.61:1 and 5.33:1 on panel; accent as
+   text on ground 6.32:1, on panel 6.01:1; err on ground 5.00:1.
+   Note for anyone editing: this file must stay a single :root block —
+   qa-site.js section 5.3 fails on any rule outside it. */
+:root{
+  --scheme: light;
+  --ground-deep:  #FFFFFF;   /* the light under the light: photo plates, wells */
+  --ground:       #F2FAF6;   /* sunwashed mint-white */
+  --ground-2:     #FFFFFF;
+  --panel:        #E7F6EE;
+  --panel-2:      #DCF0E5;
+  --accent:       #08694A;   /* deep spring green — buttons, links, marks */
+  --accent-2:     #0B855B;   /* the brighter green, still safe under white */
+  --accent-deep:  #054E37;   /* pressed / gradient tail */
+  --accent-alt:   #F2A007;   /* citrus — the energy, used in small doses */
+  --accent-alt-deep: #C87F04;
+  --accent-ink:   #FFFFFF;   /* type on green */
+  --ink:          #10251D;
+  --ink-bright:   #0A1A14;
+  --ink-dim:      #37564A;
+  --ink-max:      #061410;
+  --muted:        #4C6A5D;
+  --hair:         rgba(16,37,29,.12);
+  --hair-accent:  rgba(8,105,74,.18);
+  --card:         rgba(255,255,255,.88);
+  --card-brd:     rgba(16,37,29,.11);
+  --shadow:       0 22px 48px -24px rgba(9,58,40,.30);
+  --maxw:         1140px;
+
+  --sheen-hi:     #0A1A14;
+  --sheen-lo:     #2E5443;
+  --sheen-accent: #0B855B;
+  --placeholder:  #7C9488;
+  --err:          #C23B2E;
+  --err-ink:      #9E2C21;
+  --ok:           #0B855B;
+
+  --display: 'Outfit', system-ui, sans-serif;
+  --body:    'Manrope', system-ui, -apple-system, sans-serif;
+  --mono:    'Space Mono', ui-monospace, Consolas, monospace;
+}

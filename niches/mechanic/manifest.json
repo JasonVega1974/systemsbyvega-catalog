@@ -1,0 +1,30 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#0D1110", "surface": "#161E1B", "card": "#1F2926",
+    "accent": "#2FA85D", "accentBright": "#4ACC7C",
+    "text": "#EFF3F0", "textSoft": "#B4C2BB",
+    "ok": "#4ACC7C", "bad": "#FF7A6B", "onAccent": "#05170C",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap",
+    "display": "'Archivo Black',sans-serif", "label": "'Space Mono',monospace", "body": "'Barlow',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["logo", "hero", "before", "after", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": true, "jobDetails": false,
+    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/mechanic/photos/hero-engine-hands.jpg",
+  "heroAlt": "A mechanic's grease-stained hands working a socket wrench down inside an engine bay",
+  "heroWired": true
+}

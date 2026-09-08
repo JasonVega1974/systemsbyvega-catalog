@@ -1,0 +1,13 @@
+<!-- residential-cleaning/scene.svg — the shared <defs> block (SITELAB_TEMPLATE.md
+     section 6.1). Everything else this niche draws lives inline in
+     sections.html; only the suds gradient is referenced from more than one
+     place, so only it lives here. Ids are slug-prefixed (yb-) per section 6.2. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <radialGradient id="yb-grad-suds" cx=".34" cy=".3" r=".8">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset=".55" stop-color="#8FE9C4"/>
+      <stop offset="1" stop-color="#0B855B"/>
+    </radialGradient>
+  </defs>
+</svg>

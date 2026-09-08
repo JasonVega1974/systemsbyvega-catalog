@@ -1,0 +1,54 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#0E1519",
+    "surface": "#162126",
+    "card": "#1D2A31",
+    "accent": "#2F9AAC",
+    "accentBright": "#45B6C8",
+    "text": "#E8EDF0",
+    "textSoft": "#AFBDC4",
+    "ok": "#6FCF9F",
+    "bad": "#E0616B",
+    "onAccent": "#04181C",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap",
+    "display": "'Manrope',sans-serif",
+    "label": "'Roboto Mono',monospace",
+    "body": "'Public Sans',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": [
+    "logo",
+    "hero",
+    "before",
+    "after",
+    "owner"
+  ],
+  "sections": {
+    "pricing": true,
+    "beforeAfter": true,
+    "jobDetails": true,
+    "reviews": true,
+    "social": true,
+    "footerContact": true,
+    "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": [
+      "label",
+      "price_label",
+      "note"
+    ],
+    "mergePath": "pricing",
+    "headlineSuffix": "/sq ft"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/commercial-cleaning/photos/hero-desk-wipe.jpg",
+  "heroAlt": "A gloved hand wiping down an office desk with a microfibre cloth and a spray bottle, workstation cleared behind it",
+  "heroWired": true
+}

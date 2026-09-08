@@ -1,0 +1,53 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#F3F9FB",
+    "surface": "#E7F2F6",
+    "card": "#FFFFFF",
+    "accent": "#22ACC4",
+    "accentBright": "#5FD2E4",
+    "text": "#16272E",
+    "textSoft": "#42575F",
+    "ok": "#177A50",
+    "bad": "#B0362F",
+    "onAccent": "#04262C",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+    "display": "'Outfit',sans-serif",
+    "label": "'DM Mono',monospace",
+    "body": "'Figtree',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": [
+    "hero",
+    "before",
+    "after",
+    "owner"
+  ],
+  "sections": {
+    "pricing": true,
+    "beforeAfter": true,
+    "jobDetails": false,
+    "reviews": true,
+    "social": true,
+    "footerContact": true,
+    "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": [
+      "label",
+      "price_label",
+      "note"
+    ],
+    "mergePath": "pricing",
+    "headlineSuffix": "/pane"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/window-cleaning/photos/hero-squeegee.jpg",
+  "heroAlt": "A gloved hand drawing a brass squeegee down a soaped pane, water beading below the blade and green foliage showing through the clear glass above it",
+  "heroWired": true
+}

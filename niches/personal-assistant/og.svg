@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Wrenfield &amp; Co. — The list, off your desk.">
+  <title>Wrenfield &amp; Co.</title>
+  <defs>
+    <linearGradient id="personal-assistant-og-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FAF9F5"/>
+      <stop offset="0.55" stop-color="#F4F2EC"/>
+      <stop offset="1" stop-color="#EDEAE1"/>
+    </linearGradient>
+    <radialGradient id="personal-assistant-og-glow" cx="0.86" cy="-0.08" r="0.75">
+      <stop offset="0" stop-color="#1C5E59" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#1C5E59" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="personal-assistant-og-glow2" cx="0.04" cy="1.05" r="0.6">
+      <stop offset="0" stop-color="#1C5E59" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#1C5E59" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#personal-assistant-og-ground)"/>
+  <rect width="1200" height="630" fill="url(#personal-assistant-og-glow)"/>
+  <rect width="1200" height="630" fill="url(#personal-assistant-og-glow2)"/>
+
+  <!-- accent spine, left edge -->
+  <rect x="0" y="0" width="10" height="630" fill="#1C5E59"/>
+
+  <!-- eyebrow: where they work -->
+  <text x="90" y="140" font-family="DM Mono, ui-monospace, monospace" font-size="21"
+        letter-spacing="4.6" fill="#5A625E">THE WOOD RIVER VALLEY, IDAHO</text>
+
+  <!-- headline: the business -->
+  <text x="90" y="330" font-family="Newsreader, Georgia, serif" font-size="96" font-weight="800" fill="#22201C">Wrenfield &amp; Co.</text>
+
+  <!-- accent rule -->
+  <rect x="90" y="374" width="132" height="7" fill="#1C5E59"/>
+
+  <!-- tagline -->
+  <text x="90" y="446" font-family="Manrope, system-ui, sans-serif" font-size="34" fill="#4A4740">The list, off your desk.</text>
+
+  <!-- footer rule -->
+  <rect x="90" y="536" width="1020" height="1" fill="#22201C" opacity="0.16"/>
+
+  <!-- wordmark -->
+  <circle cx="97" cy="577" r="7" fill="#1C5E59"/>
+  <text x="116" y="584" font-family="DM Mono, ui-monospace, monospace" font-size="20"
+        letter-spacing="3.4" fill="#5A625E">SYSTEMS BY VEGA</text>
+
+  
+</svg>

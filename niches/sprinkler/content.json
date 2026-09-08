@@ -1,0 +1,219 @@
+{
+  "brand": {
+    "name": "Riserline Irrigation Co.",
+    "tagline": "Built zone by zone. Tuned head by head.",
+    "phone": "(208) 555-0269",
+    "email": "hello@riserline.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Fruitland, ID"
+  },
+  "owner": {
+    "name": "Ezra Mendive",
+    "heading": "The person who walks the property with you",
+    "bio": "Ezra Mendive started out pulling pipe on row-crop ground outside Fruitland, where a bad valve costs a farmer a whole set and nobody has patience for guesswork. He brought that habit to residential work: measure the pressure first, design the zones around what the property actually gives you, and leave behind a map of where everything is buried. Ezra walks every property himself before a quote goes out, and he is the one who runs the zones with you at the end.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "the Payette Valley, Idaho",
+    "short": "Payette Valley",
+    "cities": [
+      "Fruitland",
+      "Payette",
+      "New Plymouth",
+      "Weiser",
+      "Parma",
+      "Ontario"
+    ]
+  },
+  "contact": {
+    "hours": "Mon–Fri 7:00–5:00 · Saturday walks by appointment"
+  },
+  "social": [],
+  "testimonials": [],
+  "pricing": {
+    "starting_at": "$95",
+    "note": "Installs are quoted in writing after a free walk; repairs bill from the service call, then hourly at the quoted rate."
+  },
+  "jobDetails": {
+    "included": [
+      "A static-pressure and flow test at the meter before a single zone is drawn",
+      "Trenching, mainline, valves in labelled boxes and lateral pipe pulled to depth",
+      "Heads set to finish grade and nozzled for the zone they actually sit in",
+      "Valve wire tagged at both ends, with a controller schedule set while you watch",
+      "A marked as-built drawing of what is buried where, photographed trench-open"
+    ],
+    "notIncluded": [
+      "The water purveyor's meter, tap or connection fees",
+      "The annual backflow test itself — the purveyor's own tester performs that",
+      "Sod repair beyond backfilling, tamping and raking the trench line",
+      "Landscape design, planting, mowing or any lawn-care service",
+      "Electrical work beyond plugging the controller into an existing outlet"
+    ]
+  },
+  "faq": [
+    {
+      "q": "Do I need to be home for the walk?",
+      "a": "For the first walk, yes — we need to find the meter, the point of connection and the outlet the controller will live near, and you know your property better than we do. After that, most repair visits happen without you."
+    },
+    {
+      "q": "How deep does the pipe go?",
+      "a": "Lateral lines run below the reach of an aerator and the mainline runs deeper still, so a fall blow-out is what protects the system rather than depth alone. We tell you the depths we pulled on your ground and write them on the as-built."
+    },
+    {
+      "q": "What about the backflow device?",
+      "a": "An irrigation line drawing from a public main needs a backflow assembly, and most valley districts want it tested once a season by a tester on their own list. We install, repair and winterize the assembly, and we will point you at your district's test requirement — the test itself is theirs to run."
+    },
+    {
+      "q": "Can you work on a system somebody else installed?",
+      "a": "Most of our repair work is exactly that. We start by finding the valve boxes and running each zone, because an unlabeled system is a map problem before it is a plumbing problem."
+    },
+    {
+      "q": "When should the system be blown out?",
+      "a": "Before the first hard freeze settles in — in the Payette Valley that usually means late October into November. We start booking blow-outs in September and work the route in order."
+    },
+    {
+      "q": "Do you do drip, or only spray heads?",
+      "a": "Both. Beds and garden rows generally want drip on their own valve, not a rotor borrowed from the turf zone beside them, and converting a bed off spray is one of the more common jobs we do."
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "Installation · Repair · Winterization",
+      "title": "Most brown spots are a coverage problem, not a watering problem.",
+      "subtitle": "Riserline designs, installs and repairs in-ground sprinkler systems across Fruitland and the Payette Valley. We measure what the property will actually give us, group the zones around that number, and program the controller before we pull off the street.",
+      "ctaPrimary": "Book a free walk",
+      "ctaSecondary": "See how a system goes in"
+    },
+    "about": {
+      "heading": "An irrigation system is plumbing, not decoration",
+      "body": "Under the grass, a sprinkler system is pipe, valves, wire and pressure — and it behaves like any other utility: it works when it is sized right, and it fails in ways you can trace. So we start at the meter, measure what the property will actually give us, and build the zones around that number instead of around a catalog page. When something breaks two seasons later, the same map tells us where to dig."
+    },
+    "howItWorks": [
+      {
+        "title": "Walk & measure",
+        "desc": "We meet you on the property, read static pressure at the hose bib, time the flow into a bucket, and sketch the turf, beds and hardscape the zones have to respect."
+      },
+      {
+        "title": "Design the zones",
+        "desc": "Heads get grouped so every zone runs at a pressure it can actually hold. Rotors stay off the drip beds, the shady strip stops sharing a valve with the south lawn, and nothing doubles up just to save a valve."
+      },
+      {
+        "title": "Trench, plumb & wire",
+        "desc": "Mainline in, valves in a box you can find again, lateral pipe pulled to depth, and every valve wire tagged at both ends. We photograph the trenches open, so the as-built we hand you is a record and not a sketch."
+      },
+      {
+        "title": "Tune & program",
+        "desc": "We run each zone with you standing there, adjust arcs and swap nozzles until the spray patterns overlap, then set a seasonal controller schedule and write it inside the door of the box."
+      }
+    ],
+    "services": [
+      {
+        "title": "New system installation",
+        "desc": "A full in-ground system designed off your meter's real numbers — mainline, valve manifold, zones, heads and controller."
+      },
+      {
+        "title": "Zone additions",
+        "desc": "A new bed, a back paddock or a strip the original installer skipped, added onto the existing manifold when the pressure allows it."
+      },
+      {
+        "title": "Drip conversions",
+        "desc": "Beds and garden rows moved off borrowed spray heads and onto their own drip valve, with a filter and regulator ahead of the line."
+      },
+      {
+        "title": "Valve & manifold rebuilds",
+        "desc": "A buried, weeping or unreachable manifold dug up, rebuilt with unions, and set in a box that opens from the surface."
+      },
+      {
+        "title": "Controller upgrades",
+        "desc": "Old mechanical timers swapped for a controller you can actually read, wired to the existing valve field and labelled zone by zone."
+      },
+      {
+        "title": "Backflow assembly service",
+        "desc": "Assemblies installed, rebuilt after a freeze, and drained ahead of winter — the annual district test stays with the purveyor's tester."
+      }
+    ],
+    "repairs": [
+      {
+        "name": "Broken, buried or sunken heads",
+        "blurb": "Mower strikes, settled soil, and heads that stopped popping because the wiper seal packed with grit."
+      },
+      {
+        "name": "Solenoid and valve failures",
+        "blurb": "A zone that will not open, a zone that will not shut, or a manifold that hums and does nothing at all."
+      },
+      {
+        "name": "Cut or corroded valve wire",
+        "blurb": "Traced with a tone and located, then spliced into a waterproof connector rather than tape and hope."
+      },
+      {
+        "name": "Mainline and lateral leaks",
+        "blurb": "The soft green stripe across the yard, the puddle at the manifold, the meter that spins with the system off."
+      },
+      {
+        "name": "Arc, nozzle and pressure tuning",
+        "blurb": "Misting heads, dry corners, and zones fighting each other for pressure at the same hour of the morning."
+      },
+      {
+        "name": "Controller reprogramming",
+        "blurb": "Schedules rebuilt for the season, zone by zone, with the run times written where the next person will find them."
+      }
+    ],
+    "repairsNote": "Repair work is billed hourly after the service call, and we tell you what we found before we keep going. If a repair turns out to be a redesign, we stop and quote it instead of running the clock.",
+    "season": [
+      {
+        "when": "Spring",
+        "title": "Start-up",
+        "desc": "Charge the mainline slowly so the surge does not blow a fitting, then walk every zone looking for what the winter moved."
+      },
+      {
+        "when": "Summer",
+        "title": "Mid-season tune",
+        "desc": "Arcs drift, soil settles and nozzles wear. A pass through the zones in July catches the dry corner before the lawn shows it."
+      },
+      {
+        "when": "Fall",
+        "title": "Blow-out",
+        "desc": "Compressed air pushed through each zone in turn until the heads run dry, valves drained, and the backflow assembly cleared."
+      }
+    ],
+    "planner": {
+      "prompt": "Tell us what we are looking at",
+      "note": "This only writes a summary for us to read — nothing is priced here. Every install is quoted after we walk it.",
+      "property": [
+        "Under a quarter acre",
+        "A quarter to a half acre",
+        "Half an acre to an acre",
+        "More than an acre"
+      ],
+      "system": [
+        "No system yet",
+        "A system that needs repair",
+        "A system I want extended",
+        "Not sure what is out there"
+      ],
+      "surface": [
+        "Turf only",
+        "Turf and planting beds",
+        "Turf, beds and garden rows",
+        "Pasture or paddock"
+      ]
+    },
+    "beforeImg": "/sites/sprinkler/photos/before-parched.jpg",
+    "afterImg": "/sites/sprinkler/photos/after-green.jpg",
+    "beforeAfterLead": "Drag the divider. The left frame is dry ground on a property with nothing in it; the right frame is turf on a property whose zones were laid out and tuned.",
+    "beforeAfterNote": "Two different Payette Valley lawns, shot at the same height and in the same early light — one on ground with no system, one on ground with a tuned system running. They are not the same yard, and we are not going to pretend they are."
+  },
+  "seo": {
+    "title": "Riserline Irrigation Co. — Sprinkler Installation &amp; Repair | Fruitland, ID",
+    "description": "In-ground sprinkler installation, repair and winterization across Fruitland and the Payette Valley. Zones designed off your meter's real pressure, heads tuned before we leave. Free property walk — call or text (208) 555-0269.",
+    "ogTitle": "Riserline Irrigation Co. — Built zone by zone. Tuned head by head.",
+    "ogDescription": "Sprinkler installation, repair and winterization in Fruitland and the Payette Valley, Idaho. Free property walk: (208) 555-0269.",
+    "priceRange": "$$",
+    "schemaType": "HomeAndConstructionBusiness",
+    "canonical": "https://systemsbyvega.com/sites/sprinkler/",
+    "themeColor": "#081419",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/sprinkler/og.png"
+  }
+}

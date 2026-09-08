@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Riserline Irrigation Co. — Sprinkler Installation &amp; Repair | Fruitland, ID</title>
+<meta name="description" content="In-ground sprinkler installation, repair and winterization across Fruitland and the Payette Valley. Zones designed off your meter's real pressure, heads tuned before we leave. Free property walk — call or text (208) 555-0269." />
+<meta name="theme-color" content="#081419" />
+
+<link rel="canonical" href="https://systemsbyvega.com/sites/sprinkler/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://systemsbyvega.com/sites/sprinkler/" />
+<meta property="og:title" content="Riserline Irrigation Co. — Built zone by zone. Tuned head by head." />
+<meta property="og:description" content="Sprinkler installation, repair and winterization in Fruitland and the Payette Valley, Idaho. Free property walk: (208) 555-0269." />
+<meta property="og:image" content="https://systemsbyvega.com/sites/sprinkler/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://systemsbyvega.com/sites/sprinkler/og.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Riserline Irrigation Co.",
+  "description": "In-ground sprinkler installation, repair and winterization across Fruitland and the Payette Valley. Zones designed off your meter's real pressure, heads tuned before we leave. Free property walk — call or text (208) 555-0269.",
+  "telephone": "+12085550269",
+  "email": "hello@riserline.com",
+  "areaServed": "the Payette Valley, Idaho",
+  "priceRange": "$$",
+  "slogan": "Built zone by zone. Tuned head by head."
+}
+</script>
+
+<style>
+/* ── niche tokens ─────────────────────────────────────────────────────── */
+/* sprinkler — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "first light on the valve box" — a cold pre-dawn slate-teal
+   ground (irrigation runs before sunrise), an instrument-green accent for
+   the recovery the system produces, and a water cyan used only on
+   schematic linework and spray. Engineering, not lawn care: the green is
+   the OUTPUT, the cyan and the mono labels are the trade.
+   Contrast (WCAG, computed with the sRGB relative-luminance formula):
+   accent-ink #03150C on accent 7.03:1 and on accent-2 10.32:1; ink on
+   ground 16.64:1; ink-dim on ground 10.58:1; muted on ground 7.02:1 and
+   on panel-2 5.90:1; accent on ground 6.98:1 and on panel-2 5.86:1;
+   accent-alt on ground 9.41:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #050D11;   /* the water under the water */
+  --ground:       #081419;   /* pre-dawn slate-teal */
+  --ground-2:     #0A1B21;
+  --panel:        #0C1D24;
+  --panel-2:      #10262E;
+  --accent:       #2FB37A;   /* instrument green — a controller LED, not turf */
+  --accent-2:     #4FD79A;   /* the same green lit up */
+  --accent-deep:  #1B6E4C;   /* green in shadow */
+  --accent-alt:   #57C7D9;   /* water cyan — schematic lines and spray only */
+  --accent-ink:   #03150C;   /* type on green */
+  --ink:          #EAF4F1;
+  --ink-bright:   #F7FCFA;
+  --ink-dim:      #B3C7C6;
+  --ink-max:      #FFFFFF;
+  --muted:        #8CA3A5;
+  --hair:         rgba(234,244,241,.10);
+  --hair-accent:  rgba(47,179,122,.20);
+  --card:         rgba(12,29,36,.62);
+  --card-brd:     rgba(234,244,241,.12);
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.72);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFFFFF;
+  --sheen-lo:     #A9C2BE;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #F2836F;
+  --err-ink:      #FFA694;
+
+  --display: 'Archivo', system-ui, sans-serif;
+  --body:    'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --mono:    'Azeret Mono', ui-monospace, Consolas, monospace;
+}
+/* ── shared structural CSS ────────────────────────────────────────────── */
+/* _template/base.css — structural CSS shared by every SiteLab niche.
+   A rule lives here when its class/id hooks appear in the markup of two or more
+   deployed sites, or when it targets elements only. A rule used by exactly one
+   niche belongs in that niche's sections.css instead (SITELAB_TEMPLATE.md §3).
+   Colour and type come from niches/<slug>/niche.css. Never put a literal colour
+   in this file: reference a token from the §5 contract. */
+/* =========================================================
+   SAWTOOTH DUMPSTER CO. — tokens
+   High-desert identity: deep pine green base, safety-yellow
+   primary (amber-deep gradient end), warm sand/kraft type.
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ground);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* warm high-desert backdrop for the whole page */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 640px at 82% -10%, rgba(216,155,0,.16), transparent 60%),
+    radial-gradient(900px 700px at 6% 14%, rgba(29,58,44,.55), transparent 62%),
+    radial-gradient(760px 520px at 50% 108%, rgba(255,196,0,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint topographic contour rings */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, transparent 0 52px, rgba(242,233,216,.035) 52px 53px),
+    repeating-radial-gradient(circle at 84% 68%, transparent 0 68px, rgba(255,196,0,.03) 68px 69px),
+    repeating-radial-gradient(circle at 55% -10%, transparent 0 84px, rgba(242,233,216,.022) 84px 85px);
+  opacity:.9;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;
+  font-size:.74rem;color:var(--accent);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;border-radius:2px;flex:none;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.section-title{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  font-size:1rem;padding:1rem 1.7rem;border-radius:12px;border:0;cursor:pointer;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.55), inset 0 1px 0 rgba(255,255,255,.5);
+  overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:active{transform:translateY(0)}
+/* headlight shine sweep */
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .6s ease;
+}
+.btn:hover::after{left:130%}
+.btn--ghost{
+  background:rgba(255,196,0,.07);color:var(--ink-bright);
+  border:1px solid rgba(255,196,0,.35);
+  box-shadow:none;backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{background:var(--hair-accent);box-shadow:0 10px 26px -14px rgba(255,196,0,.5)}
+.btn--lg{font-size:1.12rem;padding:1.15rem 2.2rem}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--accent-2);outline-offset:3px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:16px 0;
+}
+.nav.solid{
+  background:rgba(8,19,14,.86);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--hair), 0 18px 40px -30px #000;
+  padding:10px 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__mark{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.6)}
+.brand__mark svg{width:30px;height:30px}
+.brand__name{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.92rem;line-height:1;color:var(--ink-bright)}
+.brand__name span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.58rem;
+  letter-spacing:.22em;margin-top:4px;color:var(--muted)}
+.nav__links{display:flex;align-items:center;gap:28px}
+.nav__links a.link{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.76rem;color:var(--ink);opacity:.82;transition:opacity .2s,color .2s}
+.nav__links a.link:hover{opacity:1;color:var(--accent-2)}
+.nav__call{display:inline-flex;align-items:center;gap:.5rem;font-family:'Anybody',sans-serif;font-stretch:62.5%;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem;
+  padding:.6rem 1.05rem;border-radius:10px;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 24px -12px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.45);}
+.nav__call svg{width:16px;height:16px}
+@media(max-width:900px){.nav__links a.link{display:none}}
+@media(max-width:520px){.nav__call{font-size:.74rem;padding:.5rem .8rem;gap:.35rem;letter-spacing:.03em}}
+@media(max-width:380px){.nav__call{font-size:.68rem;padding:.45rem .65rem;gap:.3rem}}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:safe center;
+  padding:clamp(120px,15vh,180px) 0 clamp(70px,9vh,96px);overflow:hidden}
+.hero > .wrap{width:100%;position:relative;z-index:2}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+@media(max-height:780px){.hero{align-items:flex-start}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;text-align:center;gap:30px}}
+
+.hero__tag{margin-bottom:20px}
+.hero h1{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.5rem,6.8vw,4.7rem);line-height:.94;letter-spacing:.005em;margin-bottom:8px;
+}
+.hero h1 .l1{
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 50%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(242,233,216,.14));display:block;
+}
+.hero h1 .l2{
+  color:var(--accent);display:block;
+  text-shadow:0 4px 30px rgba(255,196,0,.38);
+}
+.hero__sub{font-size:1.16rem;color:var(--ink-dim);max-width:48ch;margin:18px 0 30px}
+@media(max-width:900px){.hero__sub{margin-inline:auto}}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero__cta{justify-content:center}}
+.hero__proof{display:flex;gap:26px;margin-top:32px;flex-wrap:wrap}
+@media(max-width:900px){.hero__proof{justify-content:center}}
+.proof{display:flex;flex-direction:column;line-height:1.1}
+.proof b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
+.proof span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.proof + .proof{padding-left:26px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* hero art: roll-off box under a mountain ridge, drawn inline */
+.hero__art{position:relative;display:flex;justify-content:center}
+.hero__art .halo{
+  position:absolute;inset:-4% -8% 6%;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,196,0,.22), rgba(255,196,0,.06) 55%, transparent 72%);
+  filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0;
+}
+.hero__art svg{position:relative;z-index:1;width:min(520px,94%);height:auto;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* drifting high-desert dust motes */
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.75}
+  55%{transform:translate3d(26px,-55vh,0)}
+  88%{opacity:.4}
+  100%{transform:translate3d(-14px,-108vh,0);opacity:0}
+}
+
+/* ridge divider under hero */
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--panel);z-index:0;pointer-events:none}
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+.trust{background:linear-gradient(180deg,var(--panel),rgba(19,42,32,.4));border-block:1px solid var(--hair)}
+.trust__in{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;align-items:center;padding:20px 22px}
+.trust__item{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--ink)}
+.trust__item svg{width:20px;height:20px;color:var(--accent);flex:none}
+
+/* =========================================================
+   SECTION base
+   ========================================================= */
+.section{padding:92px 0}
+.section__head{max-width:660px;margin-bottom:44px}
+.section__head.center{margin-inline:auto;text-align:center}
+.section__head .section-title{margin:14px 0 16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.08em;
+  font-size:.84rem;color:var(--ink);padding:.6rem 1.15rem;border-radius:10px;text-transform:uppercase;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5);transition:.15s;user-select:none;white-space:nowrap}
+.pill:hover span{border-color:rgba(255,196,0,.5)}
+.pill input:checked + span{color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -10px rgba(255,196,0,.7)}
+.pill input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
+.price-box .btn{width:100%;margin-top:18px}
+.reveal.in .meter__bar{width:var(--w)}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:30px 26px;background:var(--card);border:1px solid var(--card-brd);
+  border-radius:18px;backdrop-filter:blur(8px)}
+.step__n{counter-increment:step;font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;
+  font-size:2.6rem;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,196,0,.65);
+  display:block;margin-bottom:12px}
+.step__n::before{content:"0" counter(step)}
+.step h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin-bottom:8px;color:var(--ink-max)}
+.step p{color:var(--muted);font-size:.98rem}
+.nogo .section__head{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.8rem;letter-spacing:.04em;color:var(--ink);padding:.5rem 1rem;border-radius:20px;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5)}
+.chip svg{width:14px;height:14px;color:var(--accent);flex:none}
+
+/* =========================================================
+   MEET THE OWNER
+   ========================================================= */
+.owner__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.owner__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.owner__photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,58,44,.6),rgba(10,22,16,.6));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.owner__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.owner__photo > svg{width:100%;height:100%;display:block}
+.owner__photo:not(:has(img,svg))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,196,0,.1), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,233,216,.04) 14px 15px);
+}
+.owner__photo:not(:has(img,svg))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none}
+.owner__body .section-title{margin:14px 0 22px}
+.owner__desc{color:var(--ink);font-size:1.02rem;line-height:1.7;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);min-height:170px;position:relative}
+.owner__desc:empty::before{
+  content:"Short bio goes here — who runs this business, how long they've been at it, and why they care. Replace this placeholder with the real thing.";
+  color:var(--muted);opacity:.7;font-style:italic;display:block}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--card);border:1px solid var(--card-brd);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:700;font-size:1.04rem;color:var(--ink-bright)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,196,0,.4);color:var(--accent);transition:transform .25s ease;font-family:'Inter',sans-serif;font-weight:400}
+.faq[open] summary .plus{transform:rotate(45deg)}
+.faq__body{padding:0 22px 20px;color:var(--muted);font-size:1rem}
+.faq__body b{color:var(--ink)}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.cta{position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 340px at 18% 0%, var(--hair-accent), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(29,58,44,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+  border-block:1px solid var(--hair)}
+.cta__phone{color:var(--muted);font-size:.95rem;margin-top:14px}
+.cta__phone a{color:var(--accent-2);font-weight:600}
+
+.book{max-width:760px;margin:0 auto;background:rgba(8,19,14,.62);
+  border:1px solid var(--card-brd);border-radius:22px;padding:clamp(22px,3vw,34px);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.book__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.book__grid + .book__grid,.book__grid + .field,.field + .book__grid{margin-top:16px}
+@media(max-width:640px){.book__grid{grid-template-columns:1fr}}
+.field{min-width:0}
+.field--wide{grid-column:1 / -1}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.field em{color:var(--accent-2);font-style:normal;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:11px;
+  background:rgba(5,12,9,.7);border:1px solid var(--card-brd);color:var(--ink-bright);
+  font-family:'Inter',sans-serif;font-size:1rem}
+.field textarea{resize:vertical;min-height:74px}
+.field input::placeholder,.field textarea::placeholder{color:var(--placeholder)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:rgba(5,12,9,.9)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD34D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;padding-right:2.6rem}
+.field input[readonly]{background:rgba(255,196,0,.06);border-style:dashed;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:var(--err);box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+/* date input: keep the picker icon visible on dark bg */
+.field input[type="date"]{color-scheme:dark}
+
+.consent{display:flex;gap:.65rem;align-items:flex-start;margin-top:20px;
+  color:var(--muted);font-size:.92rem;line-height:1.5;cursor:pointer}
+.consent input{margin-top:.15rem;width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.book__actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22px}
+.book__actions .btn[disabled]{opacity:.7;cursor:progress}
+.book__alt{font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);opacity:.85;
+  text-transform:uppercase;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+.book__alt:hover{opacity:1;color:var(--accent-2)}
+.book__msg{margin-top:14px;font-size:.94rem;min-height:1.1em}
+.book__msg.err{color:var(--err-ink)}
+.book__msg.ok{color:var(--accent-2)}
+
+.book-done{max-width:600px;margin:0 auto;text-align:center;
+  background:linear-gradient(180deg,rgba(29,58,44,.55),rgba(10,22,16,.6));
+  border:1px solid rgba(255,196,0,.4);border-radius:22px;padding:clamp(32px,5vw,52px) 32px;
+  box-shadow:0 0 0 1px rgba(255,196,0,.2),var(--shadow);backdrop-filter:blur(10px)}
+.book-done__ic{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.8)}
+.book-done__ic svg{width:34px;height:34px}
+.book-done h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.02;margin-bottom:12px;
+  background:linear-gradient(180deg,var(--sheen-hi),var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.book-done p{color:var(--ink-dim);font-size:1.05rem;margin-bottom:22px}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:52px 0 40px;border-top:1px solid var(--hair)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center}
+.footer__brand{display:flex;align-items:center;gap:14px}
+.footer__brand .brand__mark{width:52px;height:52px}
+.footer__brand b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-max);font-size:1rem;display:block}
+.footer__brand span{color:var(--muted);font-size:.8rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.footer__meta{color:var(--muted);font-size:.86rem;text-align:right}
+.footer__meta a{color:var(--accent-2)}
+.footer__credit{display:block;margin-top:10px;font-size:.76rem;opacity:.55;letter-spacing:.02em}
+.footer__credit a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+.footer__credit a:hover{color:var(--accent-2)}
+@media(max-width:640px){.footer__meta{text-align:left}}
+
+/* =========================================================
+   STICKY MOBILE CTA
+   ========================================================= */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,19,14,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair)}
+.mobile-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;font-size:.95rem;padding:.95rem;border-radius:12px}
+.mobile-cta .call{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.7)}
+.mobile-cta .text{color:var(--ink-bright);background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35)}
+.mobile-cta svg{width:20px;height:20px}
+@media(max-width:820px){.mobile-cta{display:flex}.footer{padding-bottom:120px}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn::after{display:none}}
+/* ── this niche's own section rules (may override the above) ─────────── */
+/* sprinkler/sections.css — this niche's own section rules, layered over
+   _template/base.css. Identity: "first light on the valve box" — a cold
+   pre-dawn slate-teal ground, instrument-green accent, water-cyan schematic
+   linework, and a mono label voice that reads like a controller faceplate.
+   Irrigation ENGINEERING, not lawn care: zones, manifolds, valve boxes and
+   run times carry the layout; the green is what the system produces.
+   Signature animation lives here in CSS: sp-sweep (the rotor arc), sp-mist
+   (first-light droplets) and sp-cycle (the controller stepping its zones) —
+   transform and opacity only, neutralised under prefers-reduced-motion at
+   the foot of this file and again by base.css's global override. */
+
+/* ---------- atmosphere: replace the high-desert backdrop ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1000px 620px at 80% -14%, rgba(87,199,217,.12), transparent 62%),
+    radial-gradient(880px 640px at 2% 20%, rgba(47,179,122,.10), transparent 62%),
+    radial-gradient(820px 540px at 52% 110%, rgba(47,179,122,.07), transparent 62%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 46%, var(--ground-deep) 100%);
+}
+/* an irrigation plan grid instead of topographic rings — the drafting motif */
+body::after{
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 63px, rgba(234,244,241,.026) 63px 64px),
+    repeating-linear-gradient(180deg, transparent 0 63px, rgba(234,244,241,.026) 63px 64px),
+    repeating-linear-gradient(90deg, transparent 0 319px, rgba(87,199,217,.03) 319px 320px);
+  opacity:.85;
+}
+
+/* ---------- type voice: technical grotesque over humanist body ---------- */
+.section-title{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.022em;font-size:clamp(1.9rem,4.3vw,3rem);line-height:1.08;
+}
+.lead{font-size:1.05rem}
+.eyebrow{font-family:var(--mono);font-size:.68rem;letter-spacing:.24em}
+.sp-rule{display:block;width:180px;height:12px;margin:20px auto 0}
+
+/* ---------- buttons: a valve handle, squared off ---------- */
+.btn{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em;
+  border-radius:10px;font-size:1rem;
+  box-shadow:0 12px 30px -12px rgba(47,179,122,.55), inset 0 1px 0 rgba(255,255,255,.28);
+}
+.btn:hover{box-shadow:0 18px 40px -12px rgba(47,179,122,.62), inset 0 1px 0 rgba(255,255,255,.32)}
+.btn--ghost{
+  background:rgba(47,179,122,.07);border:1px solid rgba(79,215,154,.38);
+  box-shadow:none;color:var(--ink-bright);
+}
+.btn--ghost:hover{background:rgba(47,179,122,.14);box-shadow:0 10px 26px -14px rgba(47,179,122,.5)}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(6,16,20,.9)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0}
+.brand__mark svg{width:42px;height:42px}
+.brand__name{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em;font-size:1.06rem}
+.brand__name span{font-family:var(--mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase}
+.nav__links a.link{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em}
+.nav__call{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em;
+  border-radius:10px;
+  box-shadow:0 10px 24px -12px rgba(47,179,122,.65), inset 0 1px 0 rgba(255,255,255,.3);
+}
+
+/* ---------- hero ---------- */
+.hero h1{
+  font-family:var(--display);font-weight:800;text-transform:none;
+  font-size:clamp(2.15rem,4.7vw,3.5rem);line-height:1.06;letter-spacing:-.03em;
+  margin-bottom:10px;max-width:17ch;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 58%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.08rem;line-height:1.75;max-width:54ch}
+.hero__proof{gap:20px}
+.proof b{font-family:var(--display);font-weight:700;font-size:1.16rem;text-transform:none;letter-spacing:-.01em;color:var(--accent-2)}
+.proof span{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em}
+.proof + .proof{padding-left:20px}
+
+/* the rig column: photo, sweeping arc, controller strip */
+.hero__rig{position:relative;display:flex;flex-direction:column;align-items:center;padding:34px 6px 6px}
+.hero__rig .hero-photo-cmp{
+  width:min(400px,100%);border-radius:16px;
+  border:1px solid rgba(79,215,154,.28);
+  outline:1px solid rgba(87,199,217,.16);outline-offset:8px;
+  box-shadow:0 34px 80px -26px rgba(0,0,0,.8), 0 6px 18px rgba(0,0,0,.45);
+}
+.sp-halo{
+  position:absolute;inset:2% -8% 16%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(47,179,122,.20), rgba(87,199,217,.08) 55%, transparent 74%);
+  filter:blur(12px);
+}
+/* the arc launches from the frame's top-left corner and throws up and to the
+   right, over the page rather than across the photograph */
+.sp-spray{
+  position:absolute;top:-30px;left:-10px;width:min(300px,74%);height:auto;z-index:3;pointer-events:none;
+  filter:drop-shadow(0 10px 22px rgba(0,0,0,.5));
+}
+.sp-arc{transform-box:view-box;transform-origin:40px 178px;animation:sp-sweep 9s ease-in-out infinite}
+@media(max-width:900px){.sp-spray{left:2%;top:-16px;width:min(230px,58%)}}
+
+/* controller faceplate under the photo, stepping its zones */
+.sp-controller{
+  position:relative;z-index:2;margin-top:16px;display:flex;align-items:center;gap:10px;
+  padding:.5rem .95rem;border-radius:100px;
+  background:rgba(8,20,25,.72);border:1px solid var(--card-brd);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.sp-controller__label{font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.sp-controller__label--r{color:var(--accent-alt)}
+.sp-led{
+  width:9px;height:9px;border-radius:50%;flex:none;
+  background:var(--accent-2);opacity:.22;
+  animation:sp-cycle 4.4s steps(1,end) infinite;
+}
+.sp-led[data-z="2"]{animation-delay:1.1s}
+.sp-led[data-z="3"]{animation-delay:2.2s}
+.sp-led[data-z="4"]{animation-delay:3.3s}
+
+/* first-light mist drifting up out of the spray */
+.sp-mistfield{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.sp-drop{
+  position:absolute;bottom:-20px;width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle, rgba(223,246,251,.85), rgba(87,199,217,0) 70%);
+  opacity:0;animation:sp-mist 17s linear infinite;
+}
+.sp-drop:nth-child(1){left:9%;--dx:26px;animation-duration:15s;animation-delay:-3s}
+.sp-drop:nth-child(2){left:22%;--dx:-20px;animation-duration:19s;animation-delay:-10s;width:4px;height:4px}
+.sp-drop:nth-child(3){left:38%;--dx:16px;animation-duration:14s;animation-delay:-6s}
+.sp-drop:nth-child(4){left:56%;--dx:-26px;animation-duration:21s;animation-delay:-13s;width:6px;height:6px}
+.sp-drop:nth-child(5){left:70%;--dx:22px;animation-duration:16s;animation-delay:-8s;width:4px;height:4px}
+.sp-drop:nth-child(6){left:84%;--dx:-14px;animation-duration:20s;animation-delay:-15s}
+.sp-drop:nth-child(7){left:94%;--dx:18px;animation-duration:18s;animation-delay:-4s;width:4px;height:4px}
+
+/* the signature loops — sweep, mist, cycle (transform and opacity only) */
+@keyframes sp-sweep{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(13deg)}}
+@keyframes sp-cycle{0%{opacity:1;transform:scale(1.25)}25%{opacity:.22;transform:scale(1)}100%{opacity:.22;transform:scale(1)}}
+@keyframes sp-mist{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.65}
+  58%{transform:translate3d(var(--dx,20px),-42vh,0);opacity:.4}
+  100%{transform:translate3d(calc(var(--dx,20px) * -0.5),-78vh,0);opacity:0}
+}
+
+/* trench line along the hero's bottom edge */
+.sp-trench{position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:repeating-linear-gradient(90deg, rgba(79,215,154,.5) 0 18px, transparent 18px 34px)}
+
+/* ---------- about ---------- */
+.about{padding-bottom:62px}
+.about__card{
+  max-width:820px;margin:0 auto;text-align:center;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:20px;
+  padding:clamp(30px,5vw,52px);backdrop-filter:blur(8px);
+}
+.about__card .sp-rule{margin:0 auto 20px}
+.about__card .section-title{margin-bottom:18px}
+.about__body{color:var(--ink-dim);font-size:1.06rem;line-height:1.85;max-width:64ch;margin:0 auto}
+
+/* ---------- how it works ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step{border-radius:16px}
+.step__n{font-family:var(--mono);font-weight:600;font-size:1.9rem;-webkit-text-stroke:0;color:var(--accent);opacity:.85}
+.step h3{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:-.015em;font-size:1.14rem}
+
+/* ---------- install & repair ---------- */
+.sp-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1060px;margin:0 auto;align-items:start}
+@media(max-width:900px){.sp-cols{grid-template-columns:1fr;max-width:640px}}
+.sp-col{background:var(--card);border:1px solid var(--card-brd);border-radius:18px;padding:24px 24px 20px;backdrop-filter:blur(8px)}
+.sp-col__cap{
+  display:flex;align-items:center;gap:.7rem;margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px solid var(--hair);
+  font-family:var(--mono);font-weight:600;font-size:.72rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
+}
+.sp-col__cap svg{width:20px;height:20px;flex:none}
+.sp-col__cap--fix{color:var(--accent-alt)}
+.sp-svc__row,.sp-fix__row{padding:13px 0;border-bottom:1px dashed var(--hair)}
+.sp-svc__row:last-child,.sp-fix__row:last-child{border-bottom:0}
+.sp-svc__row b,.sp-fix__row b{display:block;color:var(--ink-bright);font-weight:700;font-size:1rem;line-height:1.35;margin-bottom:4px}
+.sp-svc__row span,.sp-fix__row span{display:block;color:var(--muted);font-size:.92rem;line-height:1.6}
+.sp-fix__row b{position:relative;padding-left:20px}
+.sp-fix__row b::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;border-radius:2px;
+  border:1.5px solid var(--accent-alt);transform:rotate(45deg)}
+.sp-fix__note{
+  margin-top:18px;padding:16px 18px;border-radius:12px;
+  background:rgba(87,199,217,.06);border:1px dashed rgba(87,199,217,.4);
+  color:var(--ink-dim);font-size:.95rem;line-height:1.65;
+}
+
+/* ---------- the irrigation year ---------- */
+.sp-season{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1020px;margin:0 auto}
+@media(max-width:860px){.sp-season{grid-template-columns:1fr;max-width:540px}}
+.sp-season__card{
+  position:relative;background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
+  padding:26px 24px;backdrop-filter:blur(8px);overflow:hidden;
+}
+.sp-season__card::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent-2),var(--accent-alt));opacity:.65;
+}
+.sp-season__when{
+  display:inline-block;font-family:var(--mono);font-weight:600;font-size:.64rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent-alt);
+  border:1px solid rgba(87,199,217,.35);border-radius:100px;padding:.24rem .7rem;margin-bottom:12px;
+}
+.sp-season__card h3{font-family:var(--display);font-weight:700;font-size:1.22rem;letter-spacing:-.015em;color:var(--ink-max);margin-bottom:8px}
+.sp-season__card p{color:var(--muted);font-size:.96rem;line-height:1.65}
+
+/* ---------- before / after ----------
+   The shipped pair is LANDSCAPE (1500x1000), so this niche re-proportions
+   the shared component's 581:376 frame to 3:2 and fills it rather than
+   letterboxing. These rules are deliberately two levels deep (.sp-ba
+   wrapper in sections.html): build-site.js appends component CSS AFTER this
+   file, so an equal-specificity override would lose. */
+.sp-ba{margin:0 auto}
+.sp-ba .ba-cmp-labels{max-width:960px}
+.sp-ba .ba-cmp-wrap{max-width:960px}
+.sp-ba .ba-cmp{aspect-ratio:3 / 2;border-radius:18px;border-color:rgba(79,215,154,.26)}
+.sp-ba .ba-cmp__panel{background-size:cover}
+.sp-ba .ba-cmp-label--b{background:rgba(24,17,9,.74);color:#E9CFA1;border-color:rgba(200,164,96,.45)}
+.sp-ba .ba-cmp-label--a{background:rgba(7,26,24,.74);color:var(--accent-2);border-color:rgba(79,215,154,.5)}
+.sp-ba .ba-cmp__handle{box-shadow:0 0 18px rgba(87,199,217,.45)}
+.sp-ba .ba-cmp__grip{
+  background:radial-gradient(circle at 35% 30%, #DFF6FB, var(--accent-2) 58%, var(--accent-deep));
+  box-shadow:0 8px 24px -6px rgba(0,0,0,.72), 0 0 22px rgba(87,199,217,.45);
+}
+.sp-ba .ba-cmp__hint{background:rgba(5,13,17,.7)}
+/* the slider is a role="slider" div, which base.css's :focus-visible list
+   (a/button/input/select/textarea/summary) does not reach — without this it
+   falls back to the UA's 1px hairline on a dark photo */
+.sp-ba .ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+@media(max-width:520px){
+  .sp-ba .ba-cmp{border-radius:14px}
+  .sp-ba .ba-cmp__grip{width:44px;height:44px}
+  .sp-ba .ba-cmp__grip svg{width:20px;height:20px}
+}
+.sp-ba__note{
+  display:flex;gap:14px;align-items:flex-start;max-width:820px;margin:26px auto 0;
+  background:rgba(47,179,122,.06);border:2px dashed rgba(47,179,122,.4);border-radius:14px;
+  padding:18px 22px;
+}
+.sp-ba__note svg{width:22px;height:22px;flex:none;color:var(--accent-2);margin-top:2px}
+.sp-ba__note p{color:var(--ink-dim);font-size:.96rem;line-height:1.65}
+
+/* ---------- pricing: the quote model ---------- */
+.sp-quote{
+  position:relative;max-width:820px;margin:0 auto;
+  display:flex;align-items:stretch;justify-content:center;gap:clamp(14px,3vw,34px);
+  background:linear-gradient(168deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(79,215,154,.28);border-radius:20px;
+  padding:clamp(28px,4.5vw,44px) clamp(20px,4vw,42px);
+  box-shadow:0 0 0 1px rgba(47,179,122,.1), var(--shadow);
+}
+.sp-quote__panel{flex:1;text-align:center;min-width:0;display:flex;flex-direction:column;justify-content:center}
+.sp-quote__label{
+  display:block;font-family:var(--mono);font-weight:600;font-size:.66rem;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);margin-bottom:12px;
+}
+.sp-quote__big{
+  font-family:var(--display);font-weight:800;line-height:1;
+  font-size:clamp(3rem,8.5vw,5rem);letter-spacing:-.045em;
+  background:linear-gradient(180deg,#EAFBF2 0%,var(--accent-2) 48%,var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 24px rgba(47,179,122,.22));
+}
+.sp-quote__word{
+  font-family:var(--display);font-weight:700;line-height:1.05;color:var(--ink-max);
+  font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.03em;padding-top:.12em;
+}
+.sp-quote__sub{
+  display:block;margin-top:12px;font-family:var(--mono);font-size:.68rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:1.6;
+}
+/* the run between the two panels: a dashed CSS line that stretches to the
+   panels' height, with the valve symbol seated on it */
+.sp-quote__rule{position:relative;flex:none;width:30px;display:flex;align-items:center;justify-content:center}
+.sp-quote__rule::before{
+  content:"";position:absolute;top:4%;bottom:4%;left:50%;
+  border-left:2px dashed rgba(79,215,154,.34);
+}
+.sp-quote__rule svg{position:relative;width:28px;height:28px;padding:2px 0;background:var(--panel-2)}
+.sp-quote__note{
+  margin:24px auto 0;max-width:58ch;text-align:center;
+  color:var(--ink-dim);font-size:1.02rem;line-height:1.7;
+}
+@media(max-width:620px){
+  .sp-quote{flex-direction:column;gap:20px}
+  .sp-quote__rule{width:auto;height:30px}
+  .sp-quote__rule::before{top:50%;bottom:auto;left:6%;right:6%;border-left:0;border-top:2px dashed rgba(79,215,154,.34)}
+  .sp-quote__rule svg{padding:0 3px}
+}
+
+/* scope builder — writes words, never a price */
+.sp-planner{
+  max-width:820px;margin:32px auto 0;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
+  padding:24px clamp(18px,3vw,28px);backdrop-filter:blur(8px);
+}
+.sp-planner__head{margin-bottom:16px}
+.sp-planner__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.sp-planner__grid{grid-template-columns:1fr}}
+.sp-planner .field{display:block}
+.sp-planner .field > span{
+  display:block;font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px;
+}
+.sp-planner select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234FD79A' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+.sp-planner__out{
+  margin-top:18px;padding:16px 18px;border-radius:12px;min-height:3.4em;
+  background:rgba(47,179,122,.07);border:1px solid rgba(79,215,154,.32);
+  color:var(--ink-bright);font-size:1rem;line-height:1.6;
+}
+.sp-planner__fine{margin-top:12px;color:var(--muted);font-size:.86rem;line-height:1.6}
+
+/* ---------- faq ---------- */
+.faq summary{font-family:var(--display);font-weight:700;font-size:1.02rem;letter-spacing:-.01em}
+.faq summary .plus{border-color:rgba(79,215,154,.4);color:var(--accent-2);font-family:var(--mono)}
+.faq__body{color:var(--muted)}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(16,38,46,.75),rgba(5,13,17,.75));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(47,179,122,.12), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(234,244,241,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 10px}
+.meet__name{
+  font-family:var(--mono);font-weight:600;font-size:.74rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent-2);margin-bottom:20px;
+}
+.meet__desc{
+  color:var(--ink);font-size:1.02rem;line-height:1.75;padding:26px;border-radius:14px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+}
+
+/* ---------- book / footer polish ---------- */
+.book{background:rgba(6,16,20,.66);border-radius:18px}
+.book__grid + .book__grid{margin-top:16px}
+#q-scope{font-family:var(--mono);font-size:.84rem;letter-spacing:.01em}
+.book-done{border-color:rgba(79,215,154,.4);box-shadow:0 0 0 1px rgba(47,179,122,.18),var(--shadow)}
+.book-done h3{font-family:var(--display);font-weight:800;text-transform:none;letter-spacing:-.025em}
+.footer__brand b{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:-.005em}
+.footer__brand span{text-transform:none;letter-spacing:.01em;font-family:var(--body)}
+.disclosure{
+  max-width:900px;font-family:var(--mono);font-size:.72rem;line-height:1.75;
+  color:var(--muted);opacity:.82;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta .call{box-shadow:0 8px 20px -8px rgba(47,179,122,.7)}
+.mobile-cta .text{background:rgba(47,179,122,.1);border:1px solid rgba(79,215,154,.35)}
+.mobile-cta a{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em}
+
+/* the build-injected consent line's privacy link must read as a link
+   (base.css strips all anchor affordances globally) */
+.consent a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+
+/* ---------- narrow-viewport lockup ----------
+   The nav lockup carries brand.city; at 390px the sub-line has to hold one
+   line beside the call button, so it tightens rather than wrapping under the
+   mark. The hero eyebrow tightens with it for the same reason. */
+@media(max-width:640px){
+  .brand__name{font-size:.95rem}
+  .brand__name span{white-space:nowrap;font-size:.48rem;letter-spacing:.11em;margin-top:3px}
+  .hero__tag .eyebrow{font-size:.6rem;letter-spacing:.17em}
+  .hero__tag .eyebrow::before{width:18px}
+}
+
+/* ---------- reduced motion: the system holds still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .sp-arc,.sp-drop,.sp-led,.hero__rig .hero-photo-cmp img{animation:none}
+  .sp-drop{opacity:0}
+  .sp-led{opacity:.55}
+}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: before-after -- */
+/* _template/components/before-after.css
+   Namespaced ba-cmp-* copy of bin-cleaning's .ba rules (sections.css), minus
+   the water-spray decoration -- that was bin-cleaning's own flourish, not
+   the reusable behavior. Relies only on the platform-wide token set every
+   niche.css defines (--card-brd, --shadow, --ink-dim, --accent-2,
+   --accent-deep, --accent-ink, --mono, --ground-deep, --hair). */
+.ba-cmp-wrap { max-width: 820px; margin: 0 auto; }
+.ba-cmp {
+  position: relative; aspect-ratio: 581 / 376;
+  border-radius: 20px; overflow: hidden; user-select: none; touch-action: pan-y;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow);
+  background: var(--ground-deep);
+}
+.ba-cmp__panel { position: absolute; inset: 0; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: var(--ground-deep); }
+.ba-cmp__after { background-image: var(--after-img, none); }
+.ba-cmp__before { background-image: var(--before-img, none); z-index: 2; clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+
+.ba-cmp__handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px;
+  background: linear-gradient(180deg, transparent, var(--ink-dim), var(--accent-2), var(--ink-dim), transparent);
+  transform: translateX(-1px); z-index: 5; box-shadow: 0 0 18px rgba(90, 180, 255, .5); }
+.ba-cmp__grip { position: absolute; top: 50%; left: var(--pos, 50%); transform: translate(-50%, -50%); z-index: 6;
+  width: 52px; height: 52px; border-radius: 50%; cursor: ew-resize;
+  background: radial-gradient(circle at 35% 30%, #cfeafe, var(--accent-2) 60%, var(--accent-deep));
+  border: 2px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, .7), 0 0 22px rgba(90, 180, 255, .5);
+  display: grid; place-items: center; color: var(--accent-ink); }
+.ba-cmp__grip svg { width: 24px; height: 24px; }
+.ba-cmp__hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-dim); background: rgba(6, 17, 32, .6); padding: .3rem .7rem; border-radius: 20px;
+  border: 1px solid var(--hair); transition: opacity .4s; pointer-events: none; }
+.ba-cmp.touched .ba-cmp__hint { opacity: 0; }
+
+.ba-cmp-labels { display: flex; justify-content: space-between; align-items: center;
+  max-width: 820px; margin: 0 auto 14px; padding: 0 4px; gap: 16px; }
+.ba-cmp-label { font-family: var(--mono); font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; font-size: .85rem; padding: .45rem 1rem; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: .5rem; }
+.ba-cmp-label--b { background: rgba(10, 10, 6, .72); color: #e9d9a6; border: 1px solid rgba(200, 170, 90, .45); }
+.ba-cmp-label--a { background: rgba(8, 26, 40, .72); color: var(--ink-dim); border: 1px solid rgba(120, 180, 230, .55); }
+.ba-cmp-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .75; }
+@media (max-width: 520px) { .ba-cmp-label { font-size: .72rem; letter-spacing: .16em; padding: .35rem .7rem; } }
+
+/* dashed placeholder when the operator has fewer than a real before+after
+   pair -- own copy, self-contained (this component brings its own
+   slot-empty rule rather than depending on a niche defining one). */
+.ba-cmp-wrap.slot-empty { border: 2px dashed var(--accent-2); border-radius: 20px; background: rgba(120, 180, 230, .06); }
+.ba-cmp-wrap.slot-empty .ba-cmp-ui { display: none; }
+.ba-cmp-wrap.slot-empty .ba-cmp::after { content: "Before / after photos appear here -- add them in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
+
+/* -- component: job-details -- */
+/* _template/components/job-details.css
+   .section/.section__head/.reveal/.eyebrow/.section-title are all shared
+   chrome from _template/base.css -- only the two-column list layout needs a
+   rule of its own here. */
+.jd-cmp__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 640px) { .jd-cmp__cols { grid-template-columns: 1fr; } }
+.jd-cmp__col { background: var(--card); border: 1px solid var(--card-brd); border-radius: 16px; padding: 22px 24px; }
+.jd-cmp__col h3 { margin: 0 0 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; font-size: .95rem; }
+.jd-cmp__col--yes h3 { color: var(--accent-2); }
+.jd-cmp__col--no h3 { color: var(--ink-dim); }
+.jd-cmp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.jd-cmp__list li { position: relative; padding-left: 26px; color: var(--ink-dim); line-height: 1.5; }
+.jd-cmp__col--yes li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; }
+.jd-cmp__col--no li::before { content: "\2715"; position: absolute; left: 0; color: var(--ink-dim); opacity: .6; }
+
+/* -- component: reviews -- */
+/* _template/components/reviews.css
+   Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
+   contained on the shared token set every niche.css defines. */
+.reviews-cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+@media (max-width: 880px) { .reviews-cmp-grid { grid-template-columns: 1fr; max-width: 520px; } }
+.review-cmp { background: var(--card); border: 1px solid var(--card-brd); border-radius: 18px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s ease, border-color .2s ease; }
+.review-cmp:hover { transform: translateY(-4px); }
+.review-cmp__mark { font-size: 2.2rem; line-height: 1; color: var(--accent-2); opacity: .5; font-family: var(--mono); }
+.review-cmp__quote { color: var(--ink-dim); font-size: 1rem; line-height: 1.65; flex: 1; font-style: italic; }
+.review-cmp__who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; color: var(--accent-2); }
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+<div id="svDemoBanner" role="note" aria-label="Demo site notice">
+  <span class="svDemoBanner__dot" aria-hidden="true"></span>
+  <span>Demo — this site is for sale</span>
+  <a href="/sites/">View all sites →</a>
+</div>
+<script>
+/* Demo chrome removes itself off the catalog: on a tenant subdomain this SAME
+   deployed file is an operator's live site — there is no per-buyer build any
+   more, middleware rewrites the subdomain here. Hostname, not a header or a
+   fetch: a page cannot read its own response headers, and a fetch would flash
+   the banner and fail open on a paid site. Synchronous removal right after the
+   element parses means it never paints. The apex and www keep the banner (that
+   IS the demo); so do vercel.app previews and localhost. */
+(function () {
+  var h = location.hostname;
+  if (h !== 'systemsbyvega.com' && h !== 'www.systemsbyvega.com'
+      && h.slice(-18) === '.systemsbyvega.com') {
+    var b = document.getElementById('svDemoBanner');
+    if (b) b.remove();
+
+    /* Owner login. The tenant IS the hostname's first label — the same value
+       middleware routes on — so nothing needs injecting for the page to know
+       it. ?tenant= is a hint, not authorisation: /admin/ resolves ownership
+       from the sign-in, so a guessed URL gets a login form, nothing more.
+
+       Appended on DOMContentLoaded, not here: this script sits at the TOP of
+       body (so the banner removal above beats first paint), and the footer
+       does not exist yet at this point in the parse. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var a = document.createElement('a');
+      a.id = 'svOwnerLogin';
+      a.href = '/admin/?tenant=' + encodeURIComponent(h.slice(0, -18));
+      a.textContent = 'Owner login →';
+      var f = document.querySelector('footer');
+      if (f) {
+        a.style.cssText = 'display:inline-block;margin-top:12px;' +
+          'font-size:11.5px;color:inherit;opacity:.6;text-decoration:underline';
+        f.appendChild(a);
+      } else {
+        /* No footer in this niche's markup: a discreet fixed corner beats
+           silently having no login path at all. */
+        a.style.cssText = 'position:fixed;right:12px;bottom:10px;z-index:50;' +
+          'font-size:11.5px;color:inherit;opacity:.55;text-decoration:underline';
+        document.body.appendChild(a);
+      }
+    });
+  }
+})();
+</script>
+<style>
+#svDemoBanner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 9px;background:#161B22;color:#fff;font-family:'IBM Plex Mono',ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.01em;padding:9px 16px;border-radius:20px;border:1px solid #323A48;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 24px);text-align:center}
+#svDemoBanner .svDemoBanner__dot{width:7px;height:7px;border-radius:50%;background:#F3922F;flex:none}
+#svDemoBanner a{color:#F3922F;font-weight:700;text-decoration:none}
+#svDemoBanner a:hover{text-decoration:underline}
+@media(max-width:820px){#svDemoBanner{bottom:78px;font-size:11.5px;padding:8px 14px}}
+</style>
+
+<!-- sprinkler/scene.svg — this site keeps its illustrations inline in
+     sections.html (the pop-up-head monogram, the sweeping spray arc, the
+     valve-box rules and the controller strip) rather than in a shared
+     <defs> block. Placeholder so the build slot resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>
+
+<!-- sprinkler/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Visual language: "first light on the valve box" — a pre-dawn slate-teal
+     ground, instrument-green accent, water-cyan schematic linework. The trade
+     is irrigation ENGINEERING (zones, heads, valves, controllers, backflow,
+     winterization), deliberately not lawn care; the brand is fictional.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT.
+     Pricing is the quote model's OBJECT {starting_at, note} at the ROOT of
+     content.json — both keys are operator-editable and both render below. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Riserline Irrigation Co. home">
+      <span class="brand__mark" role="img" aria-label="Riserline mark — a pop-up head throwing a quarter arc">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-mark" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#1B6E4C"/><stop offset=".5" stop-color="#2FB37A"/><stop offset="1" stop-color="#4FD79A"/>
+            </linearGradient>
+            <linearGradient id="sp-grad-water" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#57C7D9"/><stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#sp-grad-mark)" stroke-width="2.5"/>
+          <rect x="29" y="34" width="6" height="16" rx="3" fill="url(#sp-grad-mark)"/>
+          <rect x="22" y="48" width="20" height="4" rx="2" fill="url(#sp-grad-mark)" opacity=".7"/>
+          <path d="M32 33c8 0 14 5 16 12" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c4-6 10-9 16-9" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c-1-7 2-13 8-16" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Riserline</span><span id="brandLocale">Irrigation · Fruitland, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it goes in</a>
+      <a class="link" href="#system">Install &amp; repair</a>
+      <a class="link" href="#proof">Before / after</a>
+      <a class="link" href="#quote">Pricing</a>
+      <a class="link" href="#faq">FAQ</a>
+      <!-- (208) 555-01XX / 02XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550269" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0269</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- first-light mist: droplets lifting off the spray, pure CSS (sp-mist),
+       transform and opacity only -->
+  <div class="sp-mistfield" aria-hidden="true">
+    <span class="sp-drop"></span><span class="sp-drop"></span><span class="sp-drop"></span>
+    <span class="sp-drop"></span><span class="sp-drop"></span><span class="sp-drop"></span>
+    <span class="sp-drop"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Installation · Repair · Winterization</span></div>
+        <h1 id="heroTitle">Most brown spots are a coverage problem, not a watering problem.</h1>
+        <p class="hero__sub" id="heroSub">Riserline designs, installs and repairs in-ground sprinkler systems across Fruitland and the Payette Valley. We measure what the property will actually give us, group the zones around that number, and program the controller before we pull off the street.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free walk</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how a system goes in</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Metered</b><span>Pressure read first</span></div>
+          <div class="proof"><b>Mapped</b><span>As-built you keep</span></div>
+          <div class="proof"><b>Tuned</b><span>Run with you</span></div>
+        </div>
+      </div>
+      <div class="hero__rig">
+        <!-- signature motif: a rotor arc sweeping back and forth over the
+             hero photo (sp-sweep in sections.css — rotate only, reduced-motion
+             safe), with a zone-LED strip cycling underneath (sp-cycle) -->
+        <div class="sp-halo" aria-hidden="true"></div>
+        <svg class="sp-spray" viewBox="0 0 340 190" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-spray" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#57C7D9" stop-opacity=".85"/>
+              <stop offset=".7" stop-color="#57C7D9" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="sp-glow-drop" cx=".4" cy=".35" r=".7">
+              <stop offset="0" stop-color="#DFF6FB"/>
+              <stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g class="sp-arc">
+            <path d="M40 178 C 96 74, 196 42, 300 58" stroke="url(#sp-grad-spray)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M40 178 C 88 96, 172 70, 262 84" stroke="url(#sp-grad-spray)" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".8"/>
+            <path d="M40 178 C 80 118, 148 100, 224 112" stroke="url(#sp-grad-spray)" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".6"/>
+            <circle cx="300" cy="58" r="9" fill="url(#sp-glow-drop)"/>
+            <circle cx="262" cy="84" r="6" fill="url(#sp-glow-drop)"/>
+          </g>
+          <rect x="34" y="176" width="14" height="12" rx="3" fill="#4FD79A" opacity=".85"/>
+        </svg>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-spray-head.jpg).
+             Credit: Qhung999, Pexels (photos/CREDITS.md). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/sprinkler/photos/hero-spray-head.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/sprinkler/photos/hero-spray-head.jpg" alt="An in-ground pop-up sprinkler head fanning a low arc of water across sunlit grass" fetchpriority="high" decoding="async">
+</figure>
+        <div class="sp-controller" role="img" aria-label="Illustration of a four-zone irrigation controller stepping through its zones">
+          <span class="sp-controller__label">Zones</span>
+          <span class="sp-led" data-z="1"></span>
+          <span class="sp-led" data-z="2"></span>
+          <span class="sp-led" data-z="3"></span>
+          <span class="sp-led" data-z="4"></span>
+          <span class="sp-controller__label sp-controller__label--r">Cycling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- trench line between the dark ground and the page -->
+  <div class="sp-trench" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6"/><path d="M12 21a6 6 0 0 0 6-6c0-3-3-6-6-9-3 3-6 6-6 9a6 6 0 0 0 6 6z"/></svg>Pressure read at the meter</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l3 4h9"/><path d="M3 12h5"/><path d="M3 18h9l3-4"/></svg>Zones sized, not guessed</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10"/><path d="M7 9h4M7 13h7"/></svg>Controller programmed with you</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l6-6"/><path d="M14 10l6-6"/><path d="M14 4h6v6"/><circle cx="8" cy="16" r="4"/></svg>Free walk before any quote</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="sp-rule" viewBox="0 0 180 12" aria-hidden="true">
+        <defs><linearGradient id="sp-grad-rule" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="180" y2="6"><stop offset="0" stop-color="#2FB37A" stop-opacity="0"/><stop offset=".5" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="180" y2="6" stroke="url(#sp-grad-rule)" stroke-width="1"/>
+        <circle cx="90" cy="6" r="3.6" fill="none" stroke="url(#sp-grad-rule)" stroke-width="1.6"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">An irrigation system is plumbing, not decoration</h2>
+      <p class="about__body" id="aboutBody">Under the grass, a sprinkler system is pipe, valves, wire and pressure — and it behaves like any other utility: it works when it is sized right, and it fails in ways you can trace. So we start at the meter, measure what the property will actually give us, and build the zones around that number instead of around a catalog page. When something breaks two seasons later, the same map tells us where to dig.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How a system goes in</span>
+      <h2 class="section-title">Meter first, trench last</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk &amp; measure</h3>
+        <p>We meet you on the property, read static pressure at the hose bib, time the flow into a bucket, and sketch the turf, beds and hardscape the zones have to respect.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Design the zones</h3>
+        <p>Heads get grouped so every zone runs at a pressure it can actually hold. Rotors stay off the drip beds, the shady strip stops sharing a valve with the south lawn, and nothing doubles up just to save a valve.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Trench, plumb &amp; wire</h3>
+        <p>Mainline in, valves in a box you can find again, lateral pipe pulled to depth, and every valve wire tagged at both ends. We photograph the trenches open, so the as-built we hand you is a record and not a sketch.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Tune &amp; program</h3>
+        <p>We run each zone with you standing there, adjust arcs and swap nozzles until the spray patterns overlap, then set a seasonal controller schedule and write it inside the door of the box.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL & REPAIR ============ -->
+<section class="section system" id="system">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The work</span>
+      <h2 class="section-title">What we install, and what we fix</h2>
+      <p class="lead" style="margin:0 auto">Installations are quoted after a walk. Repair work is hourly and starts with a diagnosis, because half the calls we take are a map problem before they are a parts problem.</p>
+    </div>
+
+    <div class="sp-cols">
+      <!-- rendered by niche.js from CONTENT.services — textContent sinks only -->
+      <div class="sp-col reveal">
+        <div class="sp-col__cap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7l3 5h8"/><circle cx="7" cy="7" r="2.4"/><circle cx="17" cy="12" r="2.4"/></svg>
+          Installation
+        </div>
+        <div class="sp-svc" id="servicesGrid">
+          <div class="sp-svc__row"><b>New system installation</b><span>A full in-ground system designed off your meter's real numbers — mainline, valve manifold, zones, heads and controller.</span></div>
+          <div class="sp-svc__row"><b>Zone additions</b><span>A new bed, a back paddock or a strip the original installer skipped, added onto the existing manifold when the pressure allows it.</span></div>
+          <div class="sp-svc__row"><b>Drip conversions</b><span>Beds and garden rows moved off borrowed spray heads and onto their own drip valve, with a filter and regulator ahead of the line.</span></div>
+          <div class="sp-svc__row"><b>Valve &amp; manifold rebuilds</b><span>A buried, weeping or unreachable manifold dug up, rebuilt with unions, and set in a box that opens from the surface.</span></div>
+          <div class="sp-svc__row"><b>Controller upgrades</b><span>Old mechanical timers swapped for a controller you can actually read, wired to the existing valve field and labelled zone by zone.</span></div>
+          <div class="sp-svc__row"><b>Backflow assembly service</b><span>Assemblies installed, rebuilt after a freeze, and drained ahead of winter — the annual district test stays with the purveyor's tester.</span></div>
+        </div>
+      </div>
+
+      <!-- rendered by niche.js from CONTENT.repairs -->
+      <div class="sp-col reveal" data-delay="1">
+        <div class="sp-col__cap sp-col__cap--fix">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 12l-8.5 8.5a2.1 2.1 0 0 1-3-3L18 9z"/><path d="M6 6l3 3"/></svg>
+          Repair
+        </div>
+        <div class="sp-fix" id="repairsList">
+          <div class="sp-fix__row"><b>Broken, buried or sunken heads</b><span>Mower strikes, settled soil, and heads that stopped popping because the wiper seal packed with grit.</span></div>
+          <div class="sp-fix__row"><b>Solenoid and valve failures</b><span>A zone that will not open, a zone that will not shut, or a manifold that hums and does nothing at all.</span></div>
+          <div class="sp-fix__row"><b>Cut or corroded valve wire</b><span>Traced with a tone and located, then spliced into a waterproof connector rather than tape and hope.</span></div>
+          <div class="sp-fix__row"><b>Mainline and lateral leaks</b><span>The soft green stripe across the yard, the puddle at the manifold, the meter that spins with the system off.</span></div>
+          <div class="sp-fix__row"><b>Arc, nozzle and pressure tuning</b><span>Misting heads, dry corners, and zones fighting each other for pressure at the same hour of the morning.</span></div>
+          <div class="sp-fix__row"><b>Controller reprogramming</b><span>Schedules rebuilt for the season, zone by zone, with the run times written where the next person will find them.</span></div>
+        </div>
+        <p class="sp-fix__note" id="repairsNote">Repair work is billed hourly after the service call, and we tell you what we found before we keep going. If a repair turns out to be a redesign, we stop and quote it instead of running the clock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEASON ============ -->
+<section class="section season" id="season">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The irrigation year</span>
+      <h2 class="section-title">Three visits the valley actually needs</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.season -->
+    <div class="sp-season" id="seasonGrid">
+      <div class="sp-season__card reveal" data-delay="1">
+        <span class="sp-season__when">Spring</span>
+        <h3>Start-up</h3>
+        <p>Charge the mainline slowly so the surge does not blow a fitting, then walk every zone looking for what the winter moved.</p>
+      </div>
+      <div class="sp-season__card reveal" data-delay="2">
+        <span class="sp-season__when">Summer</span>
+        <h3>Mid-season tune</h3>
+        <p>Arcs drift, soil settles and nozzles wear. A pass through the zones in July catches the dry corner before the lawn shows it.</p>
+      </div>
+      <div class="sp-season__card reveal" data-delay="3">
+        <span class="sp-season__when">Fall</span>
+        <h3>Blow-out</h3>
+        <p>Compressed air pushed through each zone in turn until the heads run dry, valves drained, and the backflow assembly cleared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT AN INSTALL INCLUDES ============ -->
+<!-- _template/components/job-details.html
+     Two-column "what's included / not included" block, from c.jobDetails =
+     { included: [...strings], notIncluded: [...strings] }. Starts hidden;
+     job-details.js unhides the whole section only when at least one list has
+     an item, and hides either column on its own if that list is empty. -->
+<section class="section jd-cmp" id="jobDetails" hidden>
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fine print, upfront</span>
+      <h2 class="section-title">What's included</h2>
+    </div>
+    <div class="jd-cmp__cols">
+      <div class="jd-cmp__col jd-cmp__col--yes reveal">
+        <h3>Included</h3>
+        <ul class="jd-cmp__list" id="jdIncluded"></ul>
+      </div>
+      <div class="jd-cmp__col jd-cmp__col--no reveal">
+        <h3>Not included</h3>
+        <ul class="jd-cmp__list" id="jdNotIncluded"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Dry ground, watered ground</span>
+      <h2 class="section-title">Drag to compare</h2>
+      <p class="lead" style="margin:0 auto" id="baLead">Drag the divider. The left frame is dry ground on a property with nothing in it; the right frame is turf on a property whose zones were laid out and tuned.</p>
+    </div>
+
+    <!-- The shared before-after component. Photos come from the manifest's
+         merge.beforeAfter target (niche.beforeImg / niche.afterImg), which is
+         also where an operator's own uploads land. The pair is LANDSCAPE
+         (1500x1000), so sections.css re-proportions the component's frame. -->
+    <div class="sp-ba">
+      <!-- _template/components/before-after.html
+     Signature before/after slider, extracted VERBATIM in behavior from
+     niches/bin-cleaning (pointer + touch + keyboard drag, --pos CSS var, a
+     gentle one-time auto-nudge on first view). Namespaced ba-cmp-* so it
+     never collides with a niche's own hand-authored .ba rules (bin-cleaning
+     still has one until it is converted separately).
+     data-merge is stamped by tools/build-site.js from the niche's manifest
+     merge.beforeAfter -- "niche.beforeImg/afterImg" (read c.niche.beforeImg/
+     afterImg) or "projects[0]" (read c.projects[0].beforeImg/afterImg,
+     contracting's shape). Both-or-neither fallback: a lone real photo is
+     never paired with the other side missing -- the wrap gets a dashed
+     slot-empty state instead of a fabricated pair. -->
+<div class="ba-cmp-labels reveal" aria-hidden="true">
+  <span class="ba-cmp-label ba-cmp-label--b">Before</span>
+  <span class="ba-cmp-label ba-cmp-label--a">After</span>
+</div>
+<div class="ba-cmp-wrap reveal" data-merge="niche.beforeImg/afterImg">
+  <div class="ba-cmp" tabindex="0" role="slider" aria-label="Before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="--pos:50%">
+    <div class="ba-cmp__panel ba-cmp__after"></div>
+    <div class="ba-cmp__panel ba-cmp__before"></div>
+    <div class="ba-cmp__handle ba-cmp-ui" aria-hidden="true"></div>
+    <div class="ba-cmp__grip ba-cmp-ui" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
+    </div>
+    <div class="ba-cmp__hint ba-cmp-ui">&#9668; Drag &#9658;</div>
+  </div>
+</div>
+    </div>
+
+    <div class="sp-ba__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="baNote">Two different Payette Valley lawns, shot at the same height and in the same early light — one on ground with no system, one on ground with a tuned system running. They are not the same yard, and we are not going to pretend they are.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (quote model) ============ -->
+<section class="section quote" id="quote">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How pricing works</span>
+      <h2 class="section-title">Quoted for installs, hourly for repairs</h2>
+      <svg class="sp-rule" viewBox="0 0 180 12" aria-hidden="true">
+        <defs><linearGradient id="sp-grad-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="180" y2="6"><stop offset="0" stop-color="#2FB37A" stop-opacity="0"/><stop offset=".5" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="180" y2="6" stroke="url(#sp-grad-rule-b)" stroke-width="1"/>
+        <circle cx="90" cy="6" r="3.6" fill="none" stroke="url(#sp-grad-rule-b)" stroke-width="1.6"/>
+      </svg>
+    </div>
+
+    <!-- The quote model's OBJECT pricing: starting_at + note are the admin's
+         two editable fields (PRICE_MODEL_FIELDS.quote); niche.js renders both
+         from CONTENT.pricing. No figure on this page is invented by the
+         renderer — the install panel carries no number at all, because a
+         quote niche has none to carry. -->
+    <div class="sp-quote reveal" id="quoteCard">
+      <div class="sp-quote__panel">
+        <span class="sp-quote__label">Installation</span>
+        <div class="sp-quote__word">Quoted<br>in writing</div>
+        <span class="sp-quote__sub">after a free walk of the property</span>
+      </div>
+      <!-- the schematic valve symbol, sitting on the dashed run between the
+           two panels (the dashed line itself is a CSS border, so it stretches
+           to whatever height the panels take) -->
+      <div class="sp-quote__rule" aria-hidden="true">
+        <svg viewBox="0 0 28 28" aria-hidden="true">
+          <defs><linearGradient id="sp-grad-valve" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A"/></linearGradient></defs>
+          <path d="M4 7 L13 14 L4 21 Z" fill="url(#sp-grad-valve)"/>
+          <path d="M24 7 L15 14 L24 21 Z" fill="url(#sp-grad-valve)"/>
+          <path d="M14 14 V6 M9.5 5 H18.5" stroke="url(#sp-grad-valve)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="sp-quote__panel">
+        <span class="sp-quote__label">Repair visits</span>
+        <div class="sp-quote__big" id="quoteStartingAt">$95</div>
+        <span class="sp-quote__sub">service call — then hourly</span>
+      </div>
+    </div>
+    <p class="sp-quote__note reveal" id="quoteNote">Installs are quoted in writing after a free walk; repairs bill from the service call, then hourly at the quoted rate.</p>
+
+    <!-- Scope builder. It prices NOTHING — it composes a plain-language
+         summary of what we would be looking at and carries it into the
+         request form, so the first call starts from something real. -->
+    <div class="sp-planner reveal" id="plannerCard">
+      <div class="sp-planner__head">
+        <span class="eyebrow" id="plannerPrompt">Tell us what we are looking at</span>
+      </div>
+      <div class="sp-planner__grid">
+        <label class="field">
+          <span>Property size</span>
+          <select id="pl-property"></select>
+        </label>
+        <label class="field">
+          <span>What is out there now</span>
+          <select id="pl-system"></select>
+        </label>
+        <label class="field">
+          <span>What needs water</span>
+          <select id="pl-surface"></select>
+        </label>
+      </div>
+      <p class="sp-planner__out" id="plannerSummary" role="status" aria-live="polite"></p>
+      <p class="sp-planner__fine" id="plannerNote">This only writes a summary for us to read — nothing is priced here. Every install is quoted after we walk it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-section" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Asked at the truck</span>
+      <h2 class="section-title">Questions we get on the first walk</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq">
+        <summary>Do I need to be home for the walk?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">For the first walk, yes — we need to find the meter, the point of connection and the outlet the controller will live near, and you know your property better than we do. After that, most repair visits happen without you.</div>
+      </details>
+      <details class="faq">
+        <summary>How deep does the pipe go?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Lateral lines run below the reach of an aerator and the mainline runs deeper still, so a fall blow-out is what protects the system rather than depth alone. We tell you the depths we pulled on your ground and write them on the as-built.</div>
+      </details>
+      <details class="faq">
+        <summary>What about the backflow device?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">An irrigation line drawing from a public main needs a backflow assembly, and most valley districts want it tested once a season by a tester on their own list. We install, repair and winterize the assembly, and we will point you at your district's test requirement — the test itself is theirs to run.</div>
+      </details>
+      <details class="faq">
+        <summary>Can you work on a system somebody else installed?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Most of our repair work is exactly that. We start by finding the valve boxes and running each zone, because an unlabeled system is a map problem before it is a plumbing problem.</div>
+      </details>
+      <details class="faq">
+        <summary>When should the system be blown out?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Before the first hard freeze settles in — in the Payette Valley that usually means late October into November. We start booking blow-outs in September and work the route in order.</div>
+      </details>
+      <details class="faq">
+        <summary>Do you do drip, or only spray heads?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Both. Beds and garden rows generally want drip on their own valve, not a rotor borrowed from the turf zone beside them, and converting a bed off spray is one of the more common jobs we do.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Neighbors we have worked for</span>
+      <h2 class="section-title">Word from the valley</h2>
+    </div>
+    <!-- _template/components/reviews.html
+     Three review cards filled from c.testimonials. The fallback strings for
+     an empty card live in reviews.js, set via textContent -- NOT a CSS
+     :empty::before pseudo-element (bin-cleaning's original approach): a
+     property assignment is the escaping standard for every new sink in this
+     build, and it means the fallback copy exists in the DOM regardless of
+     what CSS a given niche happens to ship. -->
+<div class="reviews-cmp-grid">
+  <div class="review-cmp reveal" data-delay="1">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="2">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="3">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we run the route</span>
+      <h2 class="section-title">Along the <span id="areaShort">Payette Valley</span></h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">the Payette Valley, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Fruitland</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Payette</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>New Plymouth</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Weiser</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Parma</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ontario</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALK ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free property walk</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the property</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We text you back to set up a walk — we read the pressure, look at what is already in the ground, and you get a written quote after that. No pressure to book, and nothing owed for the visit.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550269" data-tel data-phone-text>(208) 555-0269</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the property <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Whitley Dr" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Fruitland" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred walk date</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-scope">What we are looking at</label>
+          <input id="q-scope" name="scope" type="text" readonly />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything else we should know?</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. The back zone stopped coming on last August and there is a wet patch near the fence. The controller is in the garage and I have no idea what the schedule is set to."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walk. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request my free walk</button>
+        <a class="book__alt" href="sms:+12085550269?body=Hi%20Riserline!%20I%27d%20like%20to%20book%20a%20free%20walk%20of%20my%20property." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — you are on the route</h3>
+      <p id="doneMsg">We will text you shortly to set up your free walk.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who walks the property with you</h2>
+        <p class="meet__name" id="meetName">Ezra Mendive</p>
+        <div class="meet__desc" id="meetDesc">Ezra Mendive started out pulling pipe on row-crop ground outside Fruitland, where a bad valve costs a farmer a whole set and nobody has patience for guesswork. He brought that habit to residential work: measure the pressure first, design the zones around what the property actually gives you, and leave behind a map of where everything is buried. Ezra walks every property himself before a quote goes out, and he is the one who runs the zones with you at the end.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Riserline Irrigation Co.">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-mark2" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#1B6E4C"/><stop offset=".5" stop-color="#2FB37A"/><stop offset="1" stop-color="#4FD79A"/>
+            </linearGradient>
+            <linearGradient id="sp-grad-water2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#57C7D9"/><stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#sp-grad-mark2)" stroke-width="2.5"/>
+          <rect x="29" y="34" width="6" height="16" rx="3" fill="url(#sp-grad-mark2)"/>
+          <rect x="22" y="48" width="20" height="4" rx="2" fill="url(#sp-grad-mark2)" opacity=".7"/>
+          <path d="M32 33c8 0 14 5 16 12" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c4-6 10-9 16-9" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c-1-7 2-13 8-16" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div><b data-brand>Riserline Irrigation Co.</b><span id="footTagline">Built zone by zone. Tuned head by head.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550269" data-tel data-phone-text>(208) 555-0269</a><br />
+      <a href="mailto:hello@riserline.com" id="footEmail" data-email>hello@riserline.com</a><br />
+      <span id="areaLine">Serving the Payette Valley, Idaho</span><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Riserline Irrigation Co.</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Riserline Irrigation Co.</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real irrigation services are offered here.
+    The before and after photographs are two different properties, shown as a material sample, not as one yard before and after our work.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550269" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550269?body=Hi%20Riserline!%20I%27d%20like%20to%20book%20a%20free%20walk%20of%20my%20property." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
+
+<script>
+/* Inlined from niches/sprinkler/content.json by tools/build-site.js.
+   DO NOT EDIT — edit content.json. These two cannot drift: one generates the other. */
+var DEFAULT_CONTENT = {
+  "brand": {
+    "name": "Riserline Irrigation Co.",
+    "tagline": "Built zone by zone. Tuned head by head.",
+    "phone": "(208) 555-0269",
+    "email": "hello@riserline.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Fruitland, ID"
+  },
+  "owner": {
+    "name": "Ezra Mendive",
+    "heading": "The person who walks the property with you",
+    "bio": "Ezra Mendive started out pulling pipe on row-crop ground outside Fruitland, where a bad valve costs a farmer a whole set and nobody has patience for guesswork. He brought that habit to residential work: measure the pressure first, design the zones around what the property actually gives you, and leave behind a map of where everything is buried. Ezra walks every property himself before a quote goes out, and he is the one who runs the zones with you at the end.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "the Payette Valley, Idaho",
+    "short": "Payette Valley",
+    "cities": [
+      "Fruitland",
+      "Payette",
+      "New Plymouth",
+      "Weiser",
+      "Parma",
+      "Ontario"
+    ]
+  },
+  "contact": {
+    "hours": "Mon–Fri 7:00–5:00 · Saturday walks by appointment"
+  },
+  "social": [],
+  "testimonials": [],
+  "pricing": {
+    "starting_at": "$95",
+    "note": "Installs are quoted in writing after a free walk; repairs bill from the service call, then hourly at the quoted rate."
+  },
+  "jobDetails": {
+    "included": [
+      "A static-pressure and flow test at the meter before a single zone is drawn",
+      "Trenching, mainline, valves in labelled boxes and lateral pipe pulled to depth",
+      "Heads set to finish grade and nozzled for the zone they actually sit in",
+      "Valve wire tagged at both ends, with a controller schedule set while you watch",
+      "A marked as-built drawing of what is buried where, photographed trench-open"
+    ],
+    "notIncluded": [
+      "The water purveyor's meter, tap or connection fees",
+      "The annual backflow test itself — the purveyor's own tester performs that",
+      "Sod repair beyond backfilling, tamping and raking the trench line",
+      "Landscape design, planting, mowing or any lawn-care service",
+      "Electrical work beyond plugging the controller into an existing outlet"
+    ]
+  },
+  "faq": [
+    {
+      "q": "Do I need to be home for the walk?",
+      "a": "For the first walk, yes — we need to find the meter, the point of connection and the outlet the controller will live near, and you know your property better than we do. After that, most repair visits happen without you."
+    },
+    {
+      "q": "How deep does the pipe go?",
+      "a": "Lateral lines run below the reach of an aerator and the mainline runs deeper still, so a fall blow-out is what protects the system rather than depth alone. We tell you the depths we pulled on your ground and write them on the as-built."
+    },
+    {
+      "q": "What about the backflow device?",
+      "a": "An irrigation line drawing from a public main needs a backflow assembly, and most valley districts want it tested once a season by a tester on their own list. We install, repair and winterize the assembly, and we will point you at your district's test requirement — the test itself is theirs to run."
+    },
+    {
+      "q": "Can you work on a system somebody else installed?",
+      "a": "Most of our repair work is exactly that. We start by finding the valve boxes and running each zone, because an unlabeled system is a map problem before it is a plumbing problem."
+    },
+    {
+      "q": "When should the system be blown out?",
+      "a": "Before the first hard freeze settles in — in the Payette Valley that usually means late October into November. We start booking blow-outs in September and work the route in order."
+    },
+    {
+      "q": "Do you do drip, or only spray heads?",
+      "a": "Both. Beds and garden rows generally want drip on their own valve, not a rotor borrowed from the turf zone beside them, and converting a bed off spray is one of the more common jobs we do."
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "Installation · Repair · Winterization",
+      "title": "Most brown spots are a coverage problem, not a watering problem.",
+      "subtitle": "Riserline designs, installs and repairs in-ground sprinkler systems across Fruitland and the Payette Valley. We measure what the property will actually give us, group the zones around that number, and program the controller before we pull off the street.",
+      "ctaPrimary": "Book a free walk",
+      "ctaSecondary": "See how a system goes in"
+    },
+    "about": {
+      "heading": "An irrigation system is plumbing, not decoration",
+      "body": "Under the grass, a sprinkler system is pipe, valves, wire and pressure — and it behaves like any other utility: it works when it is sized right, and it fails in ways you can trace. So we start at the meter, measure what the property will actually give us, and build the zones around that number instead of around a catalog page. When something breaks two seasons later, the same map tells us where to dig."
+    },
+    "howItWorks": [
+      {
+        "title": "Walk & measure",
+        "desc": "We meet you on the property, read static pressure at the hose bib, time the flow into a bucket, and sketch the turf, beds and hardscape the zones have to respect."
+      },
+      {
+        "title": "Design the zones",
+        "desc": "Heads get grouped so every zone runs at a pressure it can actually hold. Rotors stay off the drip beds, the shady strip stops sharing a valve with the south lawn, and nothing doubles up just to save a valve."
+      },
+      {
+        "title": "Trench, plumb & wire",
+        "desc": "Mainline in, valves in a box you can find again, lateral pipe pulled to depth, and every valve wire tagged at both ends. We photograph the trenches open, so the as-built we hand you is a record and not a sketch."
+      },
+      {
+        "title": "Tune & program",
+        "desc": "We run each zone with you standing there, adjust arcs and swap nozzles until the spray patterns overlap, then set a seasonal controller schedule and write it inside the door of the box."
+      }
+    ],
+    "services": [
+      {
+        "title": "New system installation",
+        "desc": "A full in-ground system designed off your meter's real numbers — mainline, valve manifold, zones, heads and controller."
+      },
+      {
+        "title": "Zone additions",
+        "desc": "A new bed, a back paddock or a strip the original installer skipped, added onto the existing manifold when the pressure allows it."
+      },
+      {
+        "title": "Drip conversions",
+        "desc": "Beds and garden rows moved off borrowed spray heads and onto their own drip valve, with a filter and regulator ahead of the line."
+      },
+      {
+        "title": "Valve & manifold rebuilds",
+        "desc": "A buried, weeping or unreachable manifold dug up, rebuilt with unions, and set in a box that opens from the surface."
+      },
+      {
+        "title": "Controller upgrades",
+        "desc": "Old mechanical timers swapped for a controller you can actually read, wired to the existing valve field and labelled zone by zone."
+      },
+      {
+        "title": "Backflow assembly service",
+        "desc": "Assemblies installed, rebuilt after a freeze, and drained ahead of winter — the annual district test stays with the purveyor's tester."
+      }
+    ],
+    "repairs": [
+      {
+        "name": "Broken, buried or sunken heads",
+        "blurb": "Mower strikes, settled soil, and heads that stopped popping because the wiper seal packed with grit."
+      },
+      {
+        "name": "Solenoid and valve failures",
+        "blurb": "A zone that will not open, a zone that will not shut, or a manifold that hums and does nothing at all."
+      },
+      {
+        "name": "Cut or corroded valve wire",
+        "blurb": "Traced with a tone and located, then spliced into a waterproof connector rather than tape and hope."
+      },
+      {
+        "name": "Mainline and lateral leaks",
+        "blurb": "The soft green stripe across the yard, the puddle at the manifold, the meter that spins with the system off."
+      },
+      {
+        "name": "Arc, nozzle and pressure tuning",
+        "blurb": "Misting heads, dry corners, and zones fighting each other for pressure at the same hour of the morning."
+      },
+      {
+        "name": "Controller reprogramming",
+        "blurb": "Schedules rebuilt for the season, zone by zone, with the run times written where the next person will find them."
+      }
+    ],
+    "repairsNote": "Repair work is billed hourly after the service call, and we tell you what we found before we keep going. If a repair turns out to be a redesign, we stop and quote it instead of running the clock.",
+    "season": [
+      {
+        "when": "Spring",
+        "title": "Start-up",
+        "desc": "Charge the mainline slowly so the surge does not blow a fitting, then walk every zone looking for what the winter moved."
+      },
+      {
+        "when": "Summer",
+        "title": "Mid-season tune",
+        "desc": "Arcs drift, soil settles and nozzles wear. A pass through the zones in July catches the dry corner before the lawn shows it."
+      },
+      {
+        "when": "Fall",
+        "title": "Blow-out",
+        "desc": "Compressed air pushed through each zone in turn until the heads run dry, valves drained, and the backflow assembly cleared."
+      }
+    ],
+    "planner": {
+      "prompt": "Tell us what we are looking at",
+      "note": "This only writes a summary for us to read — nothing is priced here. Every install is quoted after we walk it.",
+      "property": [
+        "Under a quarter acre",
+        "A quarter to a half acre",
+        "Half an acre to an acre",
+        "More than an acre"
+      ],
+      "system": [
+        "No system yet",
+        "A system that needs repair",
+        "A system I want extended",
+        "Not sure what is out there"
+      ],
+      "surface": [
+        "Turf only",
+        "Turf and planting beds",
+        "Turf, beds and garden rows",
+        "Pasture or paddock"
+      ]
+    },
+    "beforeImg": "/sites/sprinkler/photos/before-parched.jpg",
+    "afterImg": "/sites/sprinkler/photos/after-green.jpg",
+    "beforeAfterLead": "Drag the divider. The left frame is dry ground on a property with nothing in it; the right frame is turf on a property whose zones were laid out and tuned.",
+    "beforeAfterNote": "Two different Payette Valley lawns, shot at the same height and in the same early light — one on ground with no system, one on ground with a tuned system running. They are not the same yard, and we are not going to pretend they are."
+  },
+  "seo": {
+    "title": "Riserline Irrigation Co. — Sprinkler Installation &amp; Repair | Fruitland, ID",
+    "description": "In-ground sprinkler installation, repair and winterization across Fruitland and the Payette Valley. Zones designed off your meter's real pressure, heads tuned before we leave. Free property walk — call or text (208) 555-0269.",
+    "ogTitle": "Riserline Irrigation Co. — Built zone by zone. Tuned head by head.",
+    "ogDescription": "Sprinkler installation, repair and winterization in Fruitland and the Payette Valley, Idaho. Free property walk: (208) 555-0269.",
+    "priceRange": "$$",
+    "schemaType": "HomeAndConstructionBusiness",
+    "canonical": "https://systemsbyvega.com/sites/sprinkler/",
+    "themeColor": "#081419",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/sprinkler/og.png"
+  }
+};
+</script>
+
+<!-- SCRIPT ORDER IS LOAD-BEARING. base.js FIRST.
+     Every niche.js opens with `var SL = window.SL;`, and base.js assigns
+     window.SL at the end of its IIFE. With base.js emitted last, SL was
+     undefined when niche.js ran: every renderer threw on its first line,
+     window.renderContent was never defined, and base.js then skipped it via its
+     own typeof guard — silently, on all 14 converted sites.
+     base.js defers boot() to DOMContentLoaded, so renderContent and initScene
+     are both defined by the time it fires. Do not reorder these. -->
+<script>
+/* _template/base.js — utilities and the content lifecycle.
+   Shared by every niche. Niche-specific rendering lives in niches/<slug>/niche.js,
+   which must define window.renderContent(CONTENT). */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+  function telDigits(p) { return String(p || '').replace(/[^0-9+]/g, ''); }
+  function telHref(p) { return 'tel:' + telDigits(p); }
+  function smsHref(p, body) { return 'sms:' + telDigits(p) + '?&body=' + encodeURIComponent(body || ''); }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  /* reveal-on-scroll. Under reduced motion everything is revealed at once. */
+  function initReveal() {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Form POST. Returns a promise; the niche decides what to render on success. */
+  function postForm(endpoint, payload) {
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+  }
+
+  /* Consent gate (§9.3).
+     Runs in the CAPTURE phase, ahead of the niche's own submit handler, so a
+     checkbox the BUILD injected is enforced even though that niche's JS knows
+     nothing about it.
+
+     It does NOT stopPropagation: the niche handler still runs and sets its own
+     message if it has one. We only supply wording when nobody else did, checked
+     on the next tick — so the 8 sites that already gate keep their own copy and
+     the injected sites get a sensible default. Enforcement is uniform; wording
+     is not overridden. */
+  function consentGate(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+    if (!box || box.checked) return;
+
+    e.preventDefault();
+    box.focus();
+
+    var msg = form.querySelector('[id$="Msg"]');
+    var before = msg ? msg.textContent : null;
+    setTimeout(function () {
+      if (!msg || msg.textContent !== before) return;   // the niche spoke first
+      msg.textContent = 'Please tick the consent box so we can reply to you.';
+      if (msg.className.indexOf('err') < 0) msg.className += ' err';
+    }, 0);
+  }
+  document.addEventListener('submit', consentGate, true);
+
+  /* The content lifecycle.
+     DEFAULT_CONTENT is inlined by the build from content.json, so the two can
+     never disagree. The fetch exists so an operator edit goes live without a
+     rebuild; on failure the inlined copy already rendered. */
+  /* content.json namespaces per-niche data under `niche` (SITELAB_TEMPLATE.md
+     §4.3) so the canonical schema stays clean. But every niche renderer reads
+     those keys FLAT — c.walkServices, c.systemMap, c.rundown — because they were
+     written against the pre-consolidation shape. Nothing ever unpacked the
+     namespace, so after the very first conversion every renderer that touched
+     niche data threw on undefined. Hand the renderer a flattened view; the
+     authored file keeps its namespace. Verified collision-free across all 17
+     sites, and re-checked by qa-site.js on every run. */
+  function SLflat(c) { return c && c.niche ? Object.assign({}, c, c.niche) : (c || {}); }
+
+  /* Flatten the GLOBAL, once, before niche.js parses. Passing a flattened copy
+     to renderContent(c) is not enough: every niche.js opens with
+     `var CONTENT = window.DEFAULT_CONTENT;` and its interactive handlers — drip
+     calculators, quoters, week builders — read that alias directly rather than
+     the render parameter. Those paths would still see the nested shape.
+     This is why base.js must be emitted BEFORE niche.js (see _template/index.html).
+     content.json on disk keeps its namespace; only the runtime view is flat, so
+     DEFAULT_CONTENT still matches the authored file byte for byte. */
+  window.DEFAULT_CONTENT = SLflat(window.DEFAULT_CONTENT);
+
+  function boot() {
+    var CONTENT = SLflat(window.DEFAULT_CONTENT);
+    window.CONTENT = CONTENT;
+    if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+    initReveal();
+    if (typeof window.initScene === 'function') window.initScene(reduce);
+
+    fetch('content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        CONTENT = SLflat(Object.assign({}, window.DEFAULT_CONTENT, d));
+        window.CONTENT = CONTENT;
+        if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+      })
+      .catch(function () { /* offline or 404: the inlined defaults stand */ });
+  }
+
+  /* setErr and showDone are intentionally absent: every niche examined
+     defines its own with a different signature. Sharing them would be a
+     silent behaviour change, not a saving. */
+  window.SL = { esc: esc, num: num, telHref: telHref, telDigits: telDigits,
+                smsHref: smsHref, val: val, postForm: postForm, reduce: reduce };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<script>
+/* sprinkler/niche.js — this niche's renderer and interactive logic.
+   Shared utilities come from _template/base.js via SL. base.js owns the
+   reduced-motion flag, the reveal observer, the content fetch/merge lifecycle,
+   and calling window.renderContent(). Sinks are DOM-property assignments
+   (textContent / element properties) throughout; innerHTML appears only with
+   esc() per the escaping canon, and only over static icon markup.
+
+   Content shape notes: hero/about/howItWorks/services/repairs/season/planner
+   and the before-after image paths live under content.json's `niche`
+   namespace and reach this renderer FLAT (base.js SLflat). brand.city is a
+   COMBINED "City, ST" string, matching every niche but estate-sale.
+
+   pricing is the QUOTE model's OBJECT {starting_at, note} at the root of
+   content.json — never an array. Those two keys are exactly what the admin's
+   quote editor writes (PRICE_MODEL_FIELDS.quote) and what
+   api/operator-content.mjs lays over the demo via overlayObjectKeys, so both
+   are rendered here verbatim and neither is reformatted. Hourly repair
+   pricing is described in COPY (the repairs column and the note), never
+   shipped as a second pricing model — the admin can represent one model per
+   niche. */
+(function () {
+  'use strict';
+
+  var SL = window.SL;
+  var esc = SL.esc, telHref = SL.telHref;
+  var CONTENT = window.DEFAULT_CONTENT;
+
+  /* ---- content helpers ---- */
+  function phoneDigits(p){ var d = String(p || '').replace(/\D/g, ''); if (d.length === 10) d = '1' + d; return d; }
+  function smsHref(p, body){ return 'sms:+' + phoneDigits(p) + (body ? '?body=' + encodeURIComponent(body) : ''); }
+  /* Always read contact details off the LIVE merged view (base.js refreshes
+     window.CONTENT after the content.json fetch) so an admin edit takes
+     effect everywhere — form destination, SMS fallback, toasts — no rebuild. */
+  function cc(){ return window.CONTENT || CONTENT; }
+  function brandName(){ return (cc().brand && cc().brand.name) || DEFAULT_CONTENT.brand.name; }
+  function brandPhone(){ return (cc().brand && cc().brand.phone) || DEFAULT_CONTENT.brand.phone; }
+  function brandEmail(){ return (cc().brand && (cc().brand.leadEmail || cc().brand.email)) || (DEFAULT_CONTENT.brand.leadEmail || DEFAULT_CONTENT.brand.email); }
+  function smsBody(){ return 'Hi ' + brandName() + "! I'd like to book a free walk of my property."; }
+  function setText(id, v){ var el = document.getElementById(id); if (el && v != null && v !== '') el.textContent = v; }
+  function clear(el){ while (el.firstChild) el.removeChild(el.firstChild); }
+
+  /* Re-rendered regions appear instantly once the boot render + reveal
+     observer have run (this listener registers AFTER base.js's, so it fires
+     after boot). Before that, first-paint nodes keep .reveal and get observed. */
+  var revealReady = false;
+  document.addEventListener('DOMContentLoaded', function () { revealReady = true; });
+  function revealCls(){ return revealReady ? 'reveal in' : 'reveal'; }
+
+  var PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+  /* ---- section renderers ---- */
+  function renderHero(h){
+    if (!h) return;
+    setText('heroKicker', h.kicker);
+    setText('heroTitle', h.title);
+    setText('heroSub', h.subtitle);
+    setText('heroCtaPrimary', h.ctaPrimary);
+    setText('heroCtaSecondary', h.ctaSecondary);
+  }
+
+  function renderAbout(a){
+    if (!a) return;
+    setText('aboutHeading', a.heading);
+    setText('aboutBody', a.body);
+  }
+
+  function renderSteps(steps){
+    var g = document.getElementById('stepsGrid');
+    if (!g || !steps || !steps.length) return;
+    clear(g);
+    steps.forEach(function (s, i) {
+      var step = document.createElement('div');
+      step.className = 'step ' + revealCls();
+      step.setAttribute('data-delay', String(i % 3 + 1));
+      var n = document.createElement('span'); n.className = 'step__n';
+      var h3 = document.createElement('h3'); h3.textContent = s.title || '';
+      var p = document.createElement('p'); p.textContent = s.desc || '';
+      step.appendChild(n); step.appendChild(h3); step.appendChild(p);
+      g.appendChild(step);
+    });
+  }
+
+  /* Two title/blurb lists that differ only in their row class and which key
+     carries the heading — services use `title`/`desc`, repairs use
+     `name`/`blurb`. One builder, two calls. */
+  function renderRows(hostId, rows, rowClass, titleKey, bodyKey){
+    var host = document.getElementById(hostId);
+    if (!host || !rows || !rows.length) return;
+    clear(host);
+    rows.forEach(function (r) {
+      if (!r || !r[titleKey]) return;
+      var row = document.createElement('div'); row.className = rowClass;
+      var b = document.createElement('b'); b.textContent = r[titleKey];
+      var s = document.createElement('span'); s.textContent = r[bodyKey] || '';
+      row.appendChild(b); row.appendChild(s);
+      host.appendChild(row);
+    });
+  }
+
+  function renderSeason(rows){
+    var g = document.getElementById('seasonGrid');
+    if (!g || !rows || !rows.length) return;
+    clear(g);
+    rows.forEach(function (r, i) {
+      var card = document.createElement('div');
+      card.className = 'sp-season__card ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      var when = document.createElement('span'); when.className = 'sp-season__when'; when.textContent = r.when || '';
+      var h3 = document.createElement('h3'); h3.textContent = r.title || '';
+      var p = document.createElement('p'); p.textContent = r.desc || '';
+      card.appendChild(when); card.appendChild(h3); card.appendChild(p);
+      g.appendChild(card);
+    });
+  }
+
+  /* The quote model's two editable fields. Rendered verbatim: this file adds
+     no money copy of its own and invents no figure the operator did not
+     type. The installation panel deliberately carries no number — a quote
+     niche has none to carry. */
+  function renderQuote(p){
+    if (!p || typeof p !== 'object' || Array.isArray(p)) return;
+    setText('quoteStartingAt', p.starting_at);
+    setText('quoteNote', p.note);
+  }
+
+  function renderFaq(items){
+    var host = document.getElementById('faqList');
+    if (!host || !items || !items.length) return;
+    clear(host);
+    items.forEach(function (f) {
+      if (!f || !f.q) return;
+      var d = document.createElement('details'); d.className = 'faq';
+      var sm = document.createElement('summary');
+      sm.appendChild(document.createTextNode(f.q));
+      var plus = document.createElement('span');
+      plus.className = 'plus'; plus.setAttribute('aria-hidden', 'true'); plus.textContent = '+';
+      sm.appendChild(plus);
+      var body = document.createElement('div'); body.className = 'faq__body';
+      body.textContent = f.a || '';
+      d.appendChild(sm); d.appendChild(body);
+      host.appendChild(d);
+    });
+  }
+
+  function renderArea(sa){
+    if (!sa) return;
+    setText('areaRegion', sa.region);
+    setText('areaShort', sa.short);
+    var g = document.getElementById('areaChips');
+    if (!g || !sa.cities || !sa.cities.length) return;
+    clear(g);
+    sa.cities.forEach(function (city) {
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = PIN_SVG;          // static icon markup, no content in it
+      chip.appendChild(document.createTextNode(city));
+      g.appendChild(chip);
+    });
+  }
+
+  function renderOwner(o){
+    if (!o) return;
+    setText('meetHeading', o.heading);
+    setText('meetName', o.name);
+    setText('meetDesc', o.bio);
+    var mp = document.getElementById('meetPhoto');
+    if (mp) {
+      clear(mp);
+      if (o.photo) {
+        var img = document.createElement('img');
+        img.src = o.photo;
+        img.alt = 'Photo of the owner';
+        mp.appendChild(img);
+        mp.removeAttribute('aria-label'); mp.removeAttribute('role');
+      }
+    }
+  }
+
+  /* ---- scope builder ----------------------------------------------------
+     Three pickers that compose a plain-language summary of what a walk would
+     be looking at, and nothing else. It never prints, derives or implies a
+     price: this niche's model is `quote`, and the only figure on the page is
+     the operator's own pricing.starting_at. The summary rides along on the
+     lead so the first call starts from something real. */
+  var PLANNER_IDS = { property: 'pl-property', system: 'pl-system', surface: 'pl-surface' };
+
+  function fillSelect(sel, options){
+    if (!sel || !options || !options.length) return;
+    var keep = sel.value;
+    clear(sel);
+    options.forEach(function (label) {
+      var o = document.createElement('option');
+      o.value = label; o.textContent = label;
+      sel.appendChild(o);
+    });
+    if (keep) sel.value = keep;
+  }
+
+  function plannerValue(key){
+    var sel = document.getElementById(PLANNER_IDS[key]);
+    return sel ? (sel.value || '') : '';
+  }
+
+  function updateQuote(){
+    var out = document.getElementById('plannerSummary');
+    var property = plannerValue('property');
+    var system = plannerValue('system');
+    var surface = plannerValue('surface');
+    if (!property && !system && !surface) return '';
+    var summary = [property, system, surface].filter(Boolean).join(' · ');
+    if (out) {
+      out.textContent = summary
+        ? 'We would be walking: ' + summary + '. Bring that up when we call and we will already be on the same page.'
+        : '';
+    }
+    var scope = document.getElementById('q-scope');
+    if (scope) scope.value = summary;
+    return summary;
+  }
+
+  function renderPlanner(pl){
+    if (!pl) return;
+    setText('plannerPrompt', pl.prompt);
+    setText('plannerNote', pl.note);
+    fillSelect(document.getElementById(PLANNER_IDS.property), pl.property);
+    fillSelect(document.getElementById(PLANNER_IDS.system), pl.system);
+    fillSelect(document.getElementById(PLANNER_IDS.surface), pl.surface);
+    updateQuote();
+  }
+
+  function renderContent(c){
+    var b = c.brand || {};
+    /* Full name everywhere; the nav lockup drops a trailing " Irrigation Co."
+       because the line under it already says "Irrigation · <city>". */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function (el) { el.textContent = b.name || ''; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function (el) {
+      el.textContent = String(b.name || '').replace(/\s+Irrigation(\s+Co\.?)?$/i, '');
+    });
+    var bl = document.getElementById('brandLocale');
+    if (bl && b.city) bl.textContent = 'Irrigation · ' + b.city;
+
+    var tel = telHref(b.phone), sms = smsHref(b.phone, smsBody());
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function (a) { a.setAttribute('href', tel); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function (a) { a.setAttribute('href', sms); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-phone-text]'), function (el) { el.textContent = b.phone || ''; });
+    /* The PUBLIC contact address (brand.email), not brand.leadEmail — leads
+       route to the lead inbox through the form POST and are never printed. */
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-email]'), function (a) {
+      if (!b.email) { a.hidden = true; return; }
+      a.hidden = false;
+      a.setAttribute('href', 'mailto:' + b.email);
+      a.textContent = b.email;
+    });
+
+    setText('footTagline', b.tagline);
+    var area = document.getElementById('areaLine');
+    if (area) area.textContent = 'Serving ' + ((c.serviceArea && c.serviceArea.region) || b.city || '');
+
+    renderHero(c.hero);
+    renderAbout(c.about);
+    renderSteps(c.howItWorks);
+    renderRows('servicesGrid', c.services, 'sp-svc__row', 'title', 'desc');
+    renderRows('repairsList', c.repairs, 'sp-fix__row', 'name', 'blurb');
+    setText('repairsNote', c.repairsNote);
+    renderSeason(c.season);
+    setText('baLead', c.beforeAfterLead);
+    setText('baNote', c.beforeAfterNote);
+    renderQuote(c.pricing);
+    renderPlanner(c.planner);
+    renderFaq(c.faq);
+    renderArea(c.serviceArea);
+    renderOwner(c.owner);
+  }
+
+  // year
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  // nav solidify
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  // scope builder: recompose the summary whenever a picker moves
+  var plannerCard = document.getElementById('plannerCard');
+  if (plannerCard) {
+    plannerCard.addEventListener('change', function (e) {
+      if (e.target && e.target.tagName === 'SELECT') updateQuote();
+    });
+  }
+
+  /* ===== walk request form =====
+     Leads deliver without a backend via FormSubmit (house pattern): the FIRST
+     real submission emails an activation link to the lead inbox; the
+     destination email and business number live in CONTENT.brand and are
+     editable from /admin/. Set provider:'web3forms' + a key to switch. */
+  var LEAD = {
+    provider: 'formsubmit',
+    web3formsKey: ''                    // <-- paste a key from web3forms.com to use Web3Forms
+  };
+
+  var form = document.getElementById('bookForm');
+  if (form) {
+    var msgEl = document.getElementById('bookMsg');
+    var submitBtn = document.getElementById('bookSubmit');
+    var val = function (id) { var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+    var setErr = function (fieldEl, on) { if (fieldEl) fieldEl.classList.toggle('invalid', !!on); };
+
+    var buildSms = function (d) {
+      var body = 'Hi ' + brandName() + "! I'd like to book a free walk of my property."
+        + ' Name: ' + d.name + '.'
+        + ' Phone: ' + d.phone + '.'
+        + ' Property: ' + d.address + (d.city ? ', ' + d.city : '') + '.'
+        + (d.scope ? ' Looking at: ' + d.scope + '.' : '')
+        + (d.date ? ' Preferred date: ' + d.date + '.' : '')
+        + (d.notes ? ' Notes: ' + d.notes + '.' : '');
+      return smsHref(brandPhone(), body);
+    };
+
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // Desktop guard: never let sms: or tel: links open the OS "pick an app"
+    // dialog — show a helpful toast instead. Mobile is untouched.
+    if (!isMobile) {
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+        if (!a) return;
+        e.preventDefault();
+        var t = document.getElementById('smsToast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'smsToast';
+          t.setAttribute('role', 'status');
+          t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+            + 'background:#10262E;color:#EAF4F1;padding:14px 22px;border-radius:12px;'
+            + 'box-shadow:0 12px 40px rgba(0,0,0,.6);border:1px solid rgba(79,215,154,.4);'
+            + 'font-family:"Instrument Sans",system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+            + 'opacity:0;transition:opacity .25s ease;';
+          document.body.appendChild(t);
+        }
+        t.innerHTML = 'Call or text us at <strong style="color:#4FD79A;letter-spacing:.02em">' + esc(brandPhone()) + '</strong> from your phone.';
+        requestAnimationFrame(function () { t.style.opacity = '1'; });
+        clearTimeout(window.__smsToastTimer);
+        window.__smsToastTimer = setTimeout(function () { t.style.opacity = '0'; }, 4500);
+      });
+    }
+
+    var showDone = function (phone, smsUrl) {
+      form.hidden = true;
+      var done = document.getElementById('bookDone');
+      var dm = document.getElementById('doneMsg');
+      if (dm) {
+        if (isMobile && smsUrl) {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' to set up your free walk. Opening a text so you can send us a copy too — just hit send.';
+        } else {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' from ' + brandPhone() + ' to set up your free walk. Keep an eye on your messages.';
+        }
+      }
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      // On mobile only, also open the customer's SMS app pre-filled.
+      if (smsUrl && isMobile) { setTimeout(function () { window.location.href = smsUrl; }, 900); }
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // honeypot: bots fill this; treat as done and do nothing real
+      var hp = form.querySelector('.hp');
+      if (hp && hp.value) { showDone(val('q-phone') || 'your phone'); return; }
+
+      // validate
+      var checks = ['q-name', 'q-phone', 'q-addr', 'q-city'];
+      var firstBad = null, ok = true;
+      checks.forEach(function (id) {
+        var el = document.getElementById(id);
+        var bad = !el.value || !el.value.trim();
+        setErr(el.closest('.field'), bad);
+        if (bad) { ok = false; if (!firstBad) firstBad = el; }
+      });
+      var consent = document.getElementById('q-consent');
+      if (!consent.checked) { ok = false; if (!firstBad) firstBad = consent; }
+
+      if (!ok) {
+        msgEl.className = 'book__msg err';
+        msgEl.textContent = consent.checked ? 'Please fill in the highlighted fields.'
+                                            : 'Please complete the required fields and check the consent box.';
+        if (firstBad) firstBad.focus();
+        return;
+      }
+
+      var data = {
+        name: val('q-name'), phone: val('q-phone'),
+        address: val('q-addr'), city: val('q-city'),
+        date: val('q-date'), scope: val('q-scope') || updateQuote(),
+        notes: val('q-notes')
+      };
+
+      // build request per provider
+      var url, payload, headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (LEAD.provider === 'web3forms' && LEAD.web3formsKey) {
+        url = 'https://api.web3forms.com/submit';
+        payload = Object.assign({
+          access_key: LEAD.web3formsKey,
+          subject: 'New walk request: ' + data.name + ' — ' + data.city,
+          from_name: brandName() + ' site'
+        }, data);
+      } else {
+        url = 'https://formsubmit.co/ajax/' + encodeURIComponent(brandEmail());
+        payload = Object.assign({
+          _subject: 'New walk request: ' + data.name + ' — ' + data.city,
+          _template: 'table', _captcha: 'false'
+        }, data);
+      }
+
+      submitBtn.disabled = true;
+      var origText = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      msgEl.className = 'book__msg'; msgEl.textContent = '';
+
+      fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(payload) })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return { ok: true }; }) : Promise.reject(r.status); })
+        .then(function () { showDone(data.phone, buildSms(data)); })
+        .catch(function () {
+          // couldn't reach the lead server — never lose the lead
+          if (isMobile) {
+            msgEl.className = 'book__msg ok';
+            msgEl.textContent = 'Opening a text with your details — just hit send and we\'ll take it from there.';
+            window.location.href = buildSms(data);
+          } else {
+            msgEl.className = 'book__msg err';
+            msgEl.textContent = 'Couldn\'t reach our server. Please text your details to ' + brandPhone() + ' and we\'ll get you scheduled.';
+          }
+        })
+        .then(function () { submitBtn.disabled = false; submitBtn.textContent = origText; });
+    });
+
+    // clear a field's error as the user fixes it
+    form.addEventListener('input', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+    form.addEventListener('change', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+  }
+
+  window.renderContent = renderContent;
+})();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: before-after -- */
+/* _template/components/before-after.js
+   Slider drag/keyboard logic extracted verbatim (behavior) from
+   niches/bin-cleaning/niche.js. Image resolution is generalized: the target
+   keys come from data-merge on .ba-cmp-wrap, stamped by tools/build-site.js
+   from the niche's manifest merge.beforeAfter. */
+(function () {
+  'use strict';
+
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  /* "niche.beforeImg/afterImg" (default/unknown falls back to this shape) or
+     "projects[0]" (contracting's shape: c.projects[0].beforeImg/afterImg). */
+  function resolveImages(c, mergeSpec) {
+    var base = (mergeSpec === 'projects[0]')
+      ? ((c.projects && c.projects[0]) || {})
+      : ((c && c.niche) || {});
+    return { before: base.beforeImg || '', after: base.afterImg || '' };
+  }
+
+  function initBeforeAfter(c) {
+    var wrap = document.querySelector('.ba-cmp-wrap');
+    var ba = document.querySelector('.ba-cmp');
+    if (!wrap || !ba) return;
+
+    var mergeSpec = wrap.getAttribute('data-merge') || 'niche.beforeImg/afterImg';
+    var imgs = resolveImages(c || {}, mergeSpec);
+    /* both-or-neither: a lone real photo is never paired with a placeholder
+       standing in as the other side of a fabricated comparison. */
+    var hasBoth = !!(imgs.before && imgs.after);
+    if (hasBoth) {
+      ba.style.setProperty('--before-img', 'url("' + safeUrl(imgs.before) + '")');
+      ba.style.setProperty('--after-img', 'url("' + safeUrl(imgs.after) + '")');
+    } else {
+      ba.style.removeProperty('--before-img');
+      ba.style.removeProperty('--after-img');
+    }
+    wrap.classList.toggle('slot-empty', !hasBoth);
+
+    if (ba.__slBaWired) return; // wire drag/keyboard once; renderContent may
+                                 // run again after the content.json fetch.
+    ba.__slBaWired = true;
+
+    var pos = 50, dragging = false, touched = false;
+    function setPos(p) {
+      pos = Math.max(0, Math.min(100, p));
+      ba.style.setProperty('--pos', pos + '%');
+      ba.setAttribute('aria-valuenow', Math.round(pos));
+    }
+    function xToPct(clientX) {
+      var r = ba.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    }
+    function start(e) {
+      dragging = true; ba.classList.add('dragging');
+      if (!touched) { touched = true; ba.classList.add('touched'); }
+      move(e);
+    }
+    function move(e) {
+      if (!dragging) return;
+      var x = (e.touches ? e.touches[0].clientX : e.clientX);
+      setPos(xToPct(x));
+      if (e.cancelable) e.preventDefault();
+    }
+    function end() { dragging = false; ba.classList.remove('dragging'); }
+
+    ba.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move, { passive: false });
+    window.addEventListener('mouseup', end);
+    ba.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', end);
+
+    ba.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { setPos(pos - 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+      if (e.key === 'ArrowRight') { setPos(pos + 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+    });
+
+    // gentle auto-nudge on first view to signal it drags
+    var reduce = !!(window.SL && window.SL.reduce);
+    if (!reduce && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (x) {
+          if (x.isIntersecting && !touched) {
+            var seq = [68, 32, 50], k = 0;
+            var t = setInterval(function () {
+              if (touched) { clearInterval(t); return; }
+              setPos(seq[k++]); if (k >= seq.length) clearInterval(t);
+            }, 520);
+            io.unobserve(ba);
+          }
+        });
+      }, { threshold: .5 });
+      io.observe(ba);
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initBeforeAfter);
+  }
+})();
+
+/* -- component: job-details -- */
+/* _template/components/job-details.js
+   Fills the two-column included/not-included lists from c.jobDetails.
+   DOM-property assignment throughout (createElement + textContent), no
+   innerHTML. Hidden entirely when the niche/operator supplies neither list;
+   a column with its own empty list hides independently of its sibling. */
+(function () {
+  'use strict';
+
+  function fill(ul, items) {
+    while (ul.firstChild) ul.removeChild(ul.firstChild);
+    items.forEach(function (t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+    return items.length;
+  }
+
+  function initJobDetails(c) {
+    var section = document.getElementById('jobDetails');
+    var incUl = document.getElementById('jdIncluded');
+    var notUl = document.getElementById('jdNotIncluded');
+    if (!section || !incUl || !notUl) return;
+
+    var jd = (c && c.jobDetails) || {};
+    var included = Array.isArray(jd.included) ? jd.included.filter(Boolean) : [];
+    var notIncluded = Array.isArray(jd.notIncluded) ? jd.notIncluded.filter(Boolean) : [];
+
+    var incCount = fill(incUl, included);
+    var notCount = fill(notUl, notIncluded);
+
+    var incCol = incUl.closest('.jd-cmp__col');
+    var notCol = notUl.closest('.jd-cmp__col');
+    if (incCol) incCol.hidden = !incCount;
+    if (notCol) notCol.hidden = !notCount;
+
+    section.hidden = !(incCount || notCount);
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initJobDetails);
+  }
+})();
+
+/* -- component: reviews -- */
+/* _template/components/reviews.js
+   Fills the three review cards from c.testimonials via element.textContent
+   (DOM-property assignment, the escaping standard for this build). Carries
+   its OWN fallback strings -- the B1 lesson: an empty testimonial must still
+   read as an honest, deliberate placeholder, not blank space or a copied-in
+   assumption about a real customer. Empty-compliant: a fictional demo with
+   no testimonials renders three "coming soon" cards, never a fabricated
+   quote. */
+(function () {
+  'use strict';
+
+  var FALLBACK_QUOTE = 'Real review coming soon.';
+  var FALLBACK_WHO = '— Add a real review here';
+
+  function initReviews(c) {
+    var cards = document.querySelectorAll('.review-cmp');
+    if (!cards.length) return;
+    var testimonials = (c && c.testimonials) || [];
+    cards.forEach(function (card, i) {
+      var t = testimonials[i] || {};
+      var quoteEl = card.querySelector('.review-cmp__quote');
+      var whoEl = card.querySelector('.review-cmp__who');
+      if (quoteEl) quoteEl.textContent = t.quote || FALLBACK_QUOTE;
+      if (whoEl) whoEl.textContent = t.name ? ('— ' + t.name) : FALLBACK_WHO;
+    });
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initReviews);
+  }
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
+</script>
+
+<script>
+/* sprinkler/scene.js — the signature animation is CSS, in sections.css.
+   sweep, mist and cycle: a rotor arc oscillating over the hero photo
+   (sp-sweep), first-light droplets lifting off the spray and drifting up
+   through the hero (sp-mist), and a four-zone controller strip stepping
+   through its zones one at a time (sp-cycle). All of it is transform and
+   opacity only, loops on @keyframes, and is switched off by the
+   prefers-reduced-motion block at the foot of that same file plus base.css's
+   global animation:none override — so there is nothing here for JavaScript
+   to drive (SITELAB_TEMPLATE.md 7.0, D-S). A stub is the correct shape, not
+   a gap. qa-site.js grades the animation wherever it lives. */
+window.initScene = function (reduce) { /* see sections.css */ };
+</script>
+
+</body>
+</html>

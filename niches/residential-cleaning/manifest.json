@@ -1,0 +1,30 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#F2FAF6", "surface": "#FFFFFF", "card": "#E7F6EE",
+    "accent": "#08694A", "accentBright": "#0B855B",
+    "text": "#10251D", "textSoft": "#4C6A5D",
+    "ok": "#0B855B", "bad": "#C23B2E", "onAccent": "#FFFFFF",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
+    "display": "'Outfit',sans-serif", "label": "'Space Mono',monospace", "body": "'Manrope',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["logo", "hero", "before", "after", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": true, "jobDetails": true,
+    "reviews": true, "social": false, "footerContact": true, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "per", "note", "features"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/residential-cleaning/photos/hero-mopping.jpg",
+  "heroAlt": "A cleaner in gloves running a flat microfibre mop across a bright living-room floor, sunlight across the boards",
+  "heroWired": true
+}

@@ -1,0 +1,199 @@
+{
+  "brand": {
+    "name": "Keyholder Facility Care",
+    "tagline": "Same crew. Every night. On the record.",
+    "phone": "(208) 555-0236",
+    "email": "hello@keyholderfacility.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Idaho Falls, ID"
+  },
+  "owner": {
+    "name": "Corinne Ballard",
+    "heading": "The person who answers when the scope slips",
+    "bio": "Corinne Ballard spent her early career on the other side of this contract — running a building for someone else and chasing a cleaning company that never sent the same two people twice. She started Keyholder to be the version she could not hire: a written scope, a crew listed by name, and a sheet in the building that says who was there and what got done. She still walks every new building herself, and her number is the one on the proposal.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Idaho Falls & the Upper Snake Valley",
+    "short": "Upper Snake Valley",
+    "cities": [
+      "Idaho Falls",
+      "Ammon",
+      "Iona",
+      "Ucon",
+      "Shelley",
+      "Rigby"
+    ]
+  },
+  "contact": {
+    "hours": "Office Mon–Fri, 8am to 4pm · crews on site after close"
+  },
+  "testimonials": [],
+  "social": [],
+  "pricing": [
+    {
+      "label": "Nightly janitorial",
+      "blurb": "$0.32",
+      "per": "per sq ft, monthly",
+      "note": "Five nights a week, after close",
+      "features": [
+        "Trash, restrooms, breakroom and floors every night",
+        "Restroom consumables counted and topped up",
+        "Dated sign-off sheet left in the building",
+        "The same named crew on your account"
+      ]
+    },
+    {
+      "label": "Three nights a week",
+      "blurb": "$0.21",
+      "per": "per sq ft, monthly",
+      "note": "The most common office contract",
+      "highlight": true,
+      "features": [
+        "Full nightly scope on the three nights you pick",
+        "Restrooms and breakroom every visit",
+        "Dated sign-off sheet left in the building",
+        "The same named crew on your account"
+      ]
+    },
+    {
+      "label": "Weekly reset",
+      "blurb": "$0.08",
+      "per": "per sq ft, monthly",
+      "note": "For small suites and quiet offices",
+      "features": [
+        "One full clean a week, evening or weekend",
+        "Restrooms, floors, glass and breakroom",
+        "Dated sign-off sheet left in the building",
+        "Consumables itemized at cost, or supply your own"
+      ]
+    },
+    {
+      "label": "Deep clean & post-build",
+      "blurb": "Quoted",
+      "per": "after a walkthrough",
+      "note": "Move-outs, post-construction, one-off resets",
+      "features": [
+        "Written scope before anything starts",
+        "A fixed number, not an hourly meter",
+        "Scheduled around how your building actually runs",
+        "Punch-list walk with you at the end"
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do you clean during business hours?",
+      "a": "Rarely. Most buildings on our route are done after close, between six and midnight, so nobody has to work around a mop bucket. Day-porter coverage during business hours can be added to any contract if your lobby needs it."
+    },
+    {
+      "q": "Who has keys and codes to my building?",
+      "a": "Named people, and only named people. Everyone assigned to your building is listed on the contract, and that list changes in writing, not quietly. Keys and alarm codes are signed in and out each shift."
+    },
+    {
+      "q": "What happens when something gets missed?",
+      "a": "Write it on the sign-off sheet or send us a message, and we are back before the next scheduled visit at no charge. The sheet tells us who was in the building and what they covered, so we can usually answer what happened the same day."
+    },
+    {
+      "q": "Do you bring your own equipment and supplies?",
+      "a": "Yes — machines, chemicals and cloths are ours and stay on our truck. Consumables your building hands to the public, like liners, paper and soap, are itemized at cost, or you can keep buying your own if that is cheaper for you."
+    },
+    {
+      "q": "How long is a contract, and how do I get out of it?",
+      "a": "Month to month after the first ninety days, with thirty days notice either way. We would rather keep a building because the work holds up than because a term said we get to."
+    }
+  ],
+  "jobDetails": {
+    "included": [
+      "Trash and recycling pulled, liners replaced",
+      "Restrooms cleaned, disinfected and restocked",
+      "Breakroom counters, sinks, tables and microwave fronts",
+      "Hard floors dust-mopped and damp-mopped",
+      "Carpet vacuumed, entry mats lifted and cleaned under",
+      "Glass doors, partitions and interior windows within reach",
+      "A dated sign-off sheet left in the building"
+    ],
+    "notIncluded": [
+      "Carpet extraction and hard-floor refinishing — quoted separately",
+      "Exterior windows above the ground floor",
+      "Biohazard, sewage and hoarding cleanup",
+      "Dishes in the sink and desks with paperwork on them",
+      "Snow removal and parking-lot sweeping"
+    ]
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Office & janitorial contracts · Idaho Falls",
+      "title": "The crew holding your keys should be the same crew every night.",
+      "subtitle": "Keyholder Facility Care runs after-hours janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit.",
+      "ctaPrimary": "Request a walkthrough",
+      "ctaSecondary": "See how a contract is priced"
+    },
+    "about": {
+      "heading": "Facilities managers do not need another vendor to chase",
+      "body": "The complaint we hear on every walkthrough is the same one: nobody knows who was in the building last night, the scope drifted six months ago, and the invoice never changed. So we run the boring version on purpose. Every task is written down with a frequency beside it. The people assigned to your building are named on the contract. A dated sheet stays on site so you can see what was covered without calling anyone. If the scope needs to change, it changes in writing and the price moves with it."
+    },
+    "standards": [
+      {
+        "title": "A scope you can hold us to",
+        "blurb": "Every task is written down with a frequency beside it — nightly, weekly, monthly, quarterly — before a price is attached to any of it."
+      },
+      {
+        "title": "The same crew, by name",
+        "blurb": "The people assigned to your building are listed on the contract. Changing that list is a conversation with you, not a surprise on a Tuesday."
+      },
+      {
+        "title": "Keys and codes on a log",
+        "blurb": "Access is issued to named people and signed in and out each shift, so who was in the building last night is never a guess."
+      },
+      {
+        "title": "Paperwork before signatures",
+        "blurb": "Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal."
+      }
+    ],
+    "sectors": [
+      { "name": "Professional offices", "blurb": "Single suites, whole floors, or a building with four tenants and one facilities manager." },
+      { "name": "Medical & dental", "blurb": "Exam rooms, waiting areas and restrooms on a written checklist your office approves first." },
+      { "name": "Banks & credit unions", "blurb": "After-hours access on a logged key, and a crew that stays out of the teller line and the vault corridor." },
+      { "name": "Warehouses & light industrial", "blurb": "Breakrooms, restrooms, front offices and the walkways between them, on the schedule your shifts allow." },
+      { "name": "Fitness & studios", "blurb": "Early-morning turnarounds so the first class of the day walks onto a dry, clean floor." },
+      { "name": "Property management", "blurb": "Lobbies, common areas and turnover cleans handled across a portfolio on one invoice." }
+    ],
+    "process": [
+      {
+        "title": "Walk the building",
+        "desc": "We meet you on site — after hours if that is easier — and measure the cleanable square footage room by room. Restroom count, floor types and trash volume all get written down."
+      },
+      {
+        "title": "Written scope and price",
+        "desc": "You get a task list with a frequency against each line and a price against the whole thing. Nothing is ordered, scheduled or charged until you have read it."
+      },
+      {
+        "title": "Crew assigned by name",
+        "desc": "The people who will be in your building are named on the contract, issued their own access, and walked through the scope with you before the first shift."
+      },
+      {
+        "title": "Sign-off, every visit",
+        "desc": "A dated sheet stays in the building. Anything missed gets written on it, and we are back before the next scheduled visit to close it out."
+      }
+    ],
+    "beforeImg": "/sites/commercial-cleaning/photos/before-cluttered.jpg",
+    "afterImg": "/sites/commercial-cleaning/photos/after-clear.jpg",
+    "heroImg": "",
+    "baNote": "Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim.",
+    "pricingNote": "Rates are per square foot of cleanable space, billed monthly against a written contract. Consumables are itemized at cost unless your building would rather supply its own. Every figure on this page is a starting structure, not a quote — the walkthrough sets the real number.",
+    "estimatorNote": "A starting figure only. Square footage is the biggest single driver of a janitorial price, but restroom count, floor type and how much trash a building makes all move it. Nothing here is a quote."
+  },
+  "seo": {
+    "title": "Keyholder Facility Care — Office &amp; Janitorial Cleaning Contracts | Idaho Falls, ID",
+    "description": "After-hours office and janitorial cleaning contracts across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit. Walkthroughs by appointment — call or text (208) 555-0236.",
+    "ogTitle": "Keyholder Facility Care — Same crew. Every night. On the record.",
+    "ogDescription": "Commercial cleaning and janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls, Idaho. Request a walkthrough: (208) 555-0236.",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/commercial-cleaning/",
+    "themeColor": "#0E1519",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/commercial-cleaning/og.png"
+  }
+}

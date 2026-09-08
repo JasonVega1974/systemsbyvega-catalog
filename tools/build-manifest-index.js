@@ -72,7 +72,9 @@ for (const slug of slugs) {
       model: manifest.pricing.model,
       editableFields: manifest.pricing.editableFields,
       /* T7 prep: the merge endpoint resolves the overlay target from here. */
-      mergePath: manifest.pricing.mergePath
+      mergePath: manifest.pricing.mergePath,
+      /* Optional; the marketing kit appends it to a unit-priced headline. */
+      headlineSuffix: manifest.pricing.headlineSuffix || ''
     },
     merge: manifest.merge,
     /* Phase B0: the admin's hero-upload caption reads this — true means the

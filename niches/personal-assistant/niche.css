@@ -1,0 +1,56 @@
+/* personal-assistant — tokens only. Structure lives in _template/base.css;
+   this niche's own section rules live in sections.css.
+
+   Identity: "a cleared desk, mid-morning". Warm paper ground, graphite ink,
+   and one quiet ribbon of deep petrol green for everything that acts. No
+   second accent competing for attention — the whole point of the design is
+   that nothing on the page is shouting.
+
+   Contrast (WCAG, computed with tools/../scratch checker):
+     onAccent #FFFFFF on accent  #1C5E59 = 7.51:1
+     onAccent #FFFFFF on accent-2 #26766F = 5.38:1   (both clear 4.5:1)
+     ink  #22201C on ground #F4F2EC = 14.53:1
+     muted #5A625E on ground #F4F2EC =  5.61:1
+     accent #1C5E59 on ground #F4F2EC =  6.71:1  (eyebrow / link text) */
+:root{
+  --scheme: light;
+
+  --ground:       #F4F2EC;   /* warm paper */
+  --ground-2:     #FAF9F5;   /* the lit half of the desk */
+  --ground-deep:  #EDEAE1;   /* the shadowed half */
+  --panel:        #FBFAF6;
+  --panel-2:      #FFFFFF;
+  --panel-solid:  #FFFFFF;
+
+  --accent:       #1C5E59;   /* deep petrol — the only colour that acts */
+  --accent-2:     #26766F;   /* the lit face of it */
+  --accent-deep:  #14433F;   /* pressed */
+  --accent-alt:   #8C7A4B;   /* a dry brass hairline, used only as a rule */
+  --accent-ink:   #FFFFFF;   /* type on the accent */
+
+  --ink:          #22201C;   /* graphite */
+  --ink-bright:   #16150F;
+  --ink-max:      #0E0D09;
+  --ink-dim:      #4A4740;
+  --muted:        #5A625E;
+
+  --hair:         rgba(34,32,28,.12);
+  --hair-accent:  rgba(28,94,89,.18);
+  --card:         #FFFFFF;
+  --card-brd:     rgba(34,32,28,.11);
+  --shadow:       0 22px 50px -28px rgba(34,32,28,.34);
+  --maxw:         1140px;
+
+  --sheen-hi:     var(--ink);
+  --sheen-lo:     var(--ink);
+  --sheen-accent: var(--accent-2);
+  --placeholder:  #8B8F89;
+  --ok:           #2F7D5E;
+  --err:          #A63A2F;
+  --err-ink:      #8C2C22;
+  --err-tint:     #F6E3DF;
+
+  --display: 'Newsreader', Georgia, serif;
+  --body:    'Manrope', system-ui, -apple-system, sans-serif;
+  --mono:    'DM Mono', ui-monospace, Consolas, monospace;
+}

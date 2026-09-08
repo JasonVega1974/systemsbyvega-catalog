@@ -1,0 +1,30 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#081419", "surface": "#0C1D24", "card": "#10262E",
+    "accent": "#2FB37A", "accentBright": "#4FD79A",
+    "text": "#EAF4F1", "textSoft": "#B3C7C6",
+    "ok": "#4FD79A", "bad": "#F2836F", "onAccent": "#03150C",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap",
+    "display": "'Archivo',sans-serif", "label": "'Azeret Mono',monospace", "body": "'Instrument Sans',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["logo", "hero", "before", "after", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": true, "jobDetails": true,
+    "reviews": true, "social": true, "footerContact": true, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "quote",
+    "editableFields": ["starting_at", "note"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "niche.beforeImg/afterImg",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/sprinkler/photos/hero-spray-head.jpg",
+  "heroAlt": "An in-ground pop-up sprinkler head fanning a low arc of water across sunlit grass",
+  "heroWired": true
+}

@@ -1,0 +1,467 @@
+<!-- mechanic/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Positioning: a MOBILE mechanic. The shop drives to the vehicle — driveway,
+     apartment lot, jobsite, work parking space. Deliberately not the two auto
+     siblings: auto-repair is a bricks-and-mortar garage, auto-body is collision
+     work. Every hero and service line here has to make the mobile part obvious
+     on the first screen.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Gravel &amp; Gasket Mobile Mechanic home">
+      <span class="brand__mark" role="img" aria-label="Gravel &amp; Gasket hex-socket mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gg-grad-steel" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#DDE6E1"/><stop offset=".5" stop-color="#93A49C"/><stop offset="1" stop-color="#4E5B55"/>
+            </linearGradient>
+            <linearGradient id="gg-grad-bolt" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4ACC7C"/><stop offset="1" stop-color="#14663A"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 4 55 17.5v27L32 58 9 44.5v-27Z" stroke="url(#gg-grad-steel)" stroke-width="3"/>
+          <path d="M32 17 44 24v14l-12 7-12-7V24Z" fill="url(#gg-grad-bolt)"/>
+          <circle cx="32" cy="31" r="5.2" fill="#05170C"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Gravel &amp; Gasket</span><span id="brandLocale">Mobile mechanic · Payette, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#services">Services</a>
+      <a class="link" href="#rates">Flat rates</a>
+      <a class="link" href="#proof">Before / after</a>
+      <a class="link" href="#book">Book</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550258" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0258</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Mobile mechanic · Driveway &amp; workplace service</span></div>
+        <h1 id="heroTitle">Your driveway is the shop bay.</h1>
+        <p class="hero__sub" id="heroSub">Gravel &amp; Gasket is a mobile mechanic working out of a loaded truck across Payette and the lower valley. Brakes, batteries, belts, oil and scan-tool diagnostics, done where the vehicle already sits — with a flat rate texted to you before we load up.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a driveway visit</a>
+          <a class="btn btn--ghost btn--lg" href="#rates" id="heroCtaSecondary">See the flat rates</a>
+        </div>
+        <div class="hero__proof" id="heroProof">
+          <div class="proof"><b>No tow</b><span>It gets fixed where it sits</span></div>
+          <div class="proof"><b>No lobby</b><span>Stay home or stay at work</span></div>
+          <div class="proof"><b>Flat rate</b><span>Texted before we load up</span></div>
+        </div>
+      </div>
+
+      <div class="gg-rig">
+        <!-- signature motifs, all transform/opacity only and neutralised under
+             prefers-reduced-motion in sections.css:
+             gg-spin   a socket ring turning slowly behind the photo
+             gg-sweep  the amber beacon on the truck roof
+             gg-roll   hazard chevrons rolling along the shoulder rail -->
+        <div class="gg-halo" aria-hidden="true"></div>
+        <div class="gg-socket" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none">
+            <defs>
+              <linearGradient id="gg-grad-socket" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#E4ECE7"/><stop offset=".45" stop-color="#8B9C94"/><stop offset="1" stop-color="#3A4642"/>
+              </linearGradient>
+              <radialGradient id="gg-grad-ring" cx=".35" cy=".28" r=".85">
+                <stop offset="0" stop-color="#6FE39C" stop-opacity=".55"/>
+                <stop offset="1" stop-color="#2FA85D" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="92" fill="url(#gg-grad-ring)"/>
+            <path d="M100 16 172 58v84l-72 42-72-42V58Z" stroke="url(#gg-grad-socket)" stroke-width="6" stroke-linejoin="round"/>
+            <path d="M100 44 148 72v56l-48 28-48-28V72Z" stroke="url(#gg-grad-socket)" stroke-width="3" stroke-opacity=".55" stroke-linejoin="round"/>
+            <circle cx="100" cy="100" r="26" stroke="url(#gg-grad-socket)" stroke-width="4"/>
+          </svg>
+        </div>
+        <div class="gg-beacon" aria-hidden="true">
+          <svg viewBox="0 0 120 70" fill="none">
+            <defs>
+              <radialGradient id="gg-grad-beacon" cx=".5" cy="0" r="1">
+                <stop offset="0" stop-color="#FFD37A" stop-opacity=".95"/>
+                <stop offset=".55" stop-color="#E2A02A" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#E2A02A" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="gg-grad-lamp" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFE3A6"/><stop offset="1" stop-color="#C77F12"/>
+              </linearGradient>
+            </defs>
+            <path d="M60 14 4 70h112Z" fill="url(#gg-grad-beacon)"/>
+            <rect x="46" y="2" width="28" height="12" rx="4" fill="url(#gg-grad-lamp)"/>
+          </svg>
+        </div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-engine-hands.jpg).
+             Credit: Lumierestudiomx, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+        <div class="gg-plate" aria-hidden="true">
+          <span class="gg-plate__id">MOBILE UNIT 01</span>
+          <span class="gg-plate__sub">Payette · ID</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- hazard rail: rolling chevrons, the shoulder-of-the-road motif -->
+  <div class="gg-rail" aria-hidden="true"><span class="gg-rail__chevrons"></span></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in" id="trustStrip">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17V7h11v10"/><path d="M14 10h4l3 3v4h-7"/><circle cx="7" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></svg><span class="trust__label">We drive to the vehicle</span></div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg><span class="trust__label">Flat rate before the truck loads</span></div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 7.5 16 12l-4-4 4.5-4.5a5 5 0 0 0-6.4 6.4L3.5 16.5a2 2 0 1 0 2.8 2.8l6.6-6.6a5 5 0 0 0 7.6-5.2z"/></svg><span class="trust__label">Old parts stay with you</span></div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg><span class="trust__label">Driveways, lots and jobsites</span></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="why">
+  <div class="wrap">
+    <div class="gg-about">
+      <div class="gg-about__copy reveal">
+        <span class="eyebrow">Why mobile</span>
+        <h2 class="section-title" id="aboutHeading">A shop bay is mostly just a floor with a roof over it</h2>
+        <p class="gg-about__body" id="aboutBody">Most of what a vehicle asks for in a normal year — pads, rotors, a battery, a belt, fluids, a scan tool plugged into the port under the dash — does not need a lift, a lobby, or your car sleeping in somebody else's lot for three days. It needs a mechanic, a jack, a torque wrench and a flat patch of ground. That is the whole idea here: the truck comes to the vehicle, and you keep your keys and your day.</p>
+      </div>
+      <ul class="gg-points reveal" data-delay="1" id="aboutPoints">
+        <li>Nothing gets towed and nothing waits in a queue behind somebody else's transmission.</li>
+        <li>Watch the whole job over our shoulder if you want to — the old part goes in your hand or your bin, your call.</li>
+        <li>The flat rate arrives by text before we load the truck, and it does not move unless you approve a change.</li>
+        <li>Work parking lots count. Plenty of jobs get finished between clock-in and lunch.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">Text, quote, driveway, done</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Text what it is doing</h3>
+        <p>Year, make, model and the symptom. A photo, or a ten-second video of the noise, beats a paragraph every single time.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Get a flat rate back</h3>
+        <p>The price, the parts and roughly how long the truck will be in your driveway. Nothing is booked until you say yes to that number.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>We roll up to you</h3>
+        <p>House, apartment lot, jobsite, work parking space — anywhere we can safely put jack stands on level ground.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Fixed, cleaned up, gone</h3>
+        <p>Photos of the old part, the drip mat picked up, and the invoice on your phone before we pull off your street.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="section services" id="services">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What travels in the truck</span>
+      <h2 class="section-title">The jobs that do not need a lift</h2>
+      <p class="lead" style="margin:0 auto">Everything below happens at your address. Anything that genuinely needs a rack, a booth or a hoist gets named as such and sent somewhere with one.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.services; textContent sinks only -->
+    <div class="gg-svc__grid" id="serviceGrid">
+      <article class="gg-svc reveal" data-delay="1"><h3 class="gg-svc__title">Brakes at the curb</h3><p class="gg-svc__desc">Pads, rotors and hardware, torqued to spec on your own driveway. The squeal you have been ignoring is an afternoon at home, not a week without your vehicle.</p></article>
+      <article class="gg-svc reveal" data-delay="2"><h3 class="gg-svc__title">Batteries &amp; charging</h3><p class="gg-svc__desc">We test before we sell: battery health, alternator output, and the parasitic drain that quietly kills a good battery in a month. Then we replace what actually failed.</p></article>
+      <article class="gg-svc reveal" data-delay="3"><h3 class="gg-svc__title">Oil, filters &amp; fluids</h3><p class="gg-svc__desc">Full synthetic or conventional, a new filter, and every level checked while the hood is up. The mat goes down first and the old oil leaves with us.</p></article>
+      <article class="gg-svc reveal" data-delay="1"><h3 class="gg-svc__title">Starters, alternators &amp; belts</h3><p class="gg-svc__desc">The bolt-on failures that strand people at the worst moment. Most of them come off and go back on right where the vehicle already sits.</p></article>
+      <article class="gg-svc reveal" data-delay="2"><h3 class="gg-svc__title">Scan-tool diagnostics</h3><p class="gg-svc__desc">Check-engine lights, misfires, mystery drains. We plug in, road test with you riding along, and tell you the actual fault instead of the most expensive possibility.</p></article>
+      <article class="gg-svc reveal" data-delay="3"><h3 class="gg-svc__title">Workplace &amp; multi-vehicle visits</h3><p class="gg-svc__desc">Several vehicles at one address is one trip and one arrival window. Ask about a route stop for a whole work lot instead of booking them one at a time.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FLAT RATES (tiers model) ============ -->
+<section class="section rates" id="rates">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Flat rates</span>
+      <h2 class="section-title">One number, sent before we load up</h2>
+      <p class="lead" style="margin:0 auto" id="pricePickerHint">Tap a service to load it into the quote line.</p>
+    </div>
+
+    <!-- The quote line: the visitor picks a service and this row shows that
+         tier's own display strings. It invents nothing — every value comes
+         straight off CONTENT.pricing, which is where an operator's admin save
+         lands (price_label -> blurb, per, note). -->
+    <div class="gg-quote reveal" id="quoteLine" role="status" aria-live="polite">
+      <div class="gg-quote__left">
+        <span class="gg-quote__cap">Quote line</span>
+        <span class="gg-quote__label" id="quoteLabel">Nothing picked yet</span>
+        <span class="gg-quote__note" id="quoteNote" hidden></span>
+      </div>
+      <div class="gg-quote__right">
+        <span class="gg-quote__price" id="quotePrice">—</span>
+        <span class="gg-quote__per" id="quotePer"></span>
+      </div>
+    </div>
+
+    <!-- rendered by niche.js from CONTENT.pricing. Row contract:
+         label / blurb (the price DISPLAY STRING) / per / note / features /
+         highlight. note is rendered here — ten sibling niches offer the admin
+         that field and drop it on the floor; this one does not. -->
+    <div class="gg-rate__grid" id="priceGrid">
+      <article class="gg-rate reveal" data-delay="1">
+        <h3 class="gg-rate__label">Oil &amp; filter change</h3>
+        <div class="gg-rate__price">$95 – $155</div>
+        <div class="gg-rate__per">flat rate, at your address</div>
+        <ul class="gg-rate__features"><li>Full synthetic or conventional, your call</li><li>New filter, level set and top-off</li><li>Drip mat down — your concrete stays your concrete</li></ul>
+        <p class="gg-rate__note">Diesels and large-sump engines get their own number before we come out.</p>
+        <button class="gg-rate__pick" type="button">Put in quote line</button>
+      </article>
+      <article class="gg-rate gg-rate--hot reveal" data-delay="2">
+        <h3 class="gg-rate__label">Brake pads &amp; rotors</h3>
+        <div class="gg-rate__price">$290 – $480</div>
+        <div class="gg-rate__per">per axle, parts and labor</div>
+        <ul class="gg-rate__features"><li>Pads, rotors and fresh hardware</li><li>Torqued to spec, bedded in on a road test</li><li>Old parts left with you if you want them</li></ul>
+        <p class="gg-rate__note">We measure the corner and text you the number before a single part gets ordered.</p>
+        <button class="gg-rate__pick" type="button">Put in quote line</button>
+      </article>
+      <article class="gg-rate reveal" data-delay="3">
+        <h3 class="gg-rate__label">Battery — tested, then replaced</h3>
+        <div class="gg-rate__price">$185 – $295</div>
+        <div class="gg-rate__per">flat rate, installed</div>
+        <ul class="gg-rate__features"><li>Battery, alternator output and parasitic drain tested first</li><li>Terminals cleaned, hold-down replaced if it is rotten</li><li>Old battery hauled away</li></ul>
+        <p class="gg-rate__note">If the battery tests healthy, you pay the diagnostic and nothing else.</p>
+        <button class="gg-rate__pick" type="button">Put in quote line</button>
+      </article>
+    </div>
+
+    <div class="gg-rates__foot reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="priceNote">Flat rates, not moving targets. The number that arrives by text is the number on the invoice. The ranges cover the honest difference between a small sedan and a three-quarter-ton truck — your vehicle gets one number before we load up, and it only changes if you approve the change.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow" id="baEyebrow">Brake work</span>
+      <h2 class="section-title" id="baHeading">The two ends of one brake job</h2>
+      <p class="lead" style="margin:0 auto" id="baBlurb">Drag the divider. On the left, a hub carrier crusted over after a winter of road salt and gravel dust. On the right, what a fresh rotor looks like bolted up and ready to bed in on the road test.</p>
+    </div>
+    <!-- Slider comes from the shared component; images resolve through the
+         manifest's merge.beforeAfter ("niche.beforeImg/afterImg"), so an
+         operator's own uploads replace these two without a rebuild.
+         Credits: UsbofPhotography and Svjae, Pexels (photos/CREDITS.md). -->
+    <!-- COMPONENT:before-after -->
+    <div class="gg-ba__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.5h.01"/></svg>
+      <p id="baNote">These are two different vehicles, photographed to show the two ends of the same job — not a before and after of one car. A real pair from your own driveway goes here once we have shot one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Word from the neighborhood</span>
+      <h2 class="section-title">Reviews go here as they come in</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where the truck goes</span>
+      <h2 class="section-title">Serving the <span id="areaShort">lower Payette valley</span></h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Payette and Washington counties, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Payette</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Fruitland</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>New Plymouth</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Weiser</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Midvale</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Cambridge</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Straight answers</span>
+      <h2 class="section-title">Questions people ask before they book</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq; textContent sinks only -->
+    <div class="faq-list" id="faqList">
+      <details class="faq reveal">
+        <summary>What do you need at my house?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">A flat, reasonably level place to work beside the vehicle — a driveway, a carport pad, a parking space. We bring the tools, the jack, the stands, the lighting and a mat for the ground. Power and water are ours too.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>What if it turns out to need a real shop?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Then we say so. Anything wanting a lift, an alignment rack, a paint booth or a transmission on a jack is not a driveway job, and pretending otherwise would cost you twice. You get told what it needs and where it should go.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>Do you work in apartment lots and business lots?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Usually, with the property manager's blessing. Send the address first and we will tell you honestly whether the spot works before you go asking anyone.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:680px;margin:0 auto 34px">
+      <span class="eyebrow" id="bookEyebrow">Book a visit</span>
+      <h2 class="section-title" style="margin:14px 0 14px" id="bookHeading">Tell us what it is doing</h2>
+      <p class="lead" style="margin:0 auto" id="bookBlurb">Takes about a minute: year, make, model, the symptom, and where the vehicle is sitting. A flat rate comes back by text, usually the same day, and nothing is booked until you say go.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550258" data-tel data-phone-text>(208) 555-0258</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Your name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (we reply by text) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-vehicle">Year, make and model <em>*</em></label>
+          <input id="q-vehicle" name="vehicle" type="text" placeholder="2012 Ford F-150, 5.0" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Where is the vehicle sitting? <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="Street address, apartment lot, or the work parking lot" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Payette" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Day that suits you</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What is it doing?</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Grinding from the front left when I brake, and it started after the last cold snap. Truck lives in my driveway and I am home after four."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me back about this job. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Send it — get my flat rate</button>
+        <a class="book__alt" href="sms:+12085550258?body=Hi%20Gravel%20%26%20Gasket!%20I%27d%20like%20a%20flat%20rate%20for%20a%20driveway%20visit." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3 id="bookDoneHeading">Got it — the truck is in the loop</h3>
+      <p id="doneMsg">We will text you shortly with a flat rate for the job.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the mechanic</span>
+        <h2 class="section-title" id="meetHeading">The guy in the driveway</h2>
+        <p class="meet__name" id="meetName">Silas Renner</p>
+        <div class="meet__desc" id="meetDesc">Silas Renner learned the trade the way a lot of small-town mechanics do: fixing whatever showed up in the yard, because the nearest shop was forty minutes and a tow bill away. Gravel &amp; Gasket started as a toolbox in the back of a pickup and a habit of saying yes to neighbors, and it still runs on the same rule — if it can be done properly where it sits, it gets done where it sits, and if it cannot, you get told that plainly instead of expensively.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Gravel &amp; Gasket Mobile Mechanic">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gg-grad-steel2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#DDE6E1"/><stop offset=".5" stop-color="#93A49C"/><stop offset="1" stop-color="#4E5B55"/>
+            </linearGradient>
+            <linearGradient id="gg-grad-bolt2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#4ACC7C"/><stop offset="1" stop-color="#14663A"/>
+            </linearGradient>
+          </defs>
+          <path d="M32 4 55 17.5v27L32 58 9 44.5v-27Z" stroke="url(#gg-grad-steel2)" stroke-width="3"/>
+          <path d="M32 17 44 24v14l-12 7-12-7V24Z" fill="url(#gg-grad-bolt2)"/>
+          <circle cx="32" cy="31" r="5.2" fill="#05170C"/>
+        </svg>
+      </span>
+      <div><b data-brand>Gravel &amp; Gasket Mobile Mechanic</b><span id="footTagline">The shop comes to your driveway.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550258" data-tel data-phone-text>(208) 555-0258</a><br />
+      <a id="footEmail" href="mailto:hello@gravelandgasket.com">hello@gravelandgasket.com</a><br />
+      <span id="areaLine">Serving Payette and Washington counties, Idaho</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Gravel &amp; Gasket Mobile Mechanic</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Gravel &amp; Gasket Mobile Mechanic</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real mobile mechanic services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550258" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550258?body=Hi%20Gravel%20%26%20Gasket!%20I%27d%20like%20a%20flat%20rate%20for%20a%20driveway%20visit." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

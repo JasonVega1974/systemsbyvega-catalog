@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Pane &amp; Prairie Window Co. — Window Cleaning, Inside &amp; Out | Post Falls, ID</title>
+<meta name="description" content="Residential and commercial window cleaning in Post Falls and Kootenai County, Idaho. Glass, screens, tracks and sills — streak-free and hand-dried. Flat pricing by pane count. Call or text (208) 555-0247." />
+<meta name="theme-color" content="#22ACC4" />
+
+<link rel="canonical" href="https://systemsbyvega.com/sites/window-cleaning/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://systemsbyvega.com/sites/window-cleaning/" />
+<meta property="og:title" content="Pane &amp; Prairie Window Co. — Glass you forget is there." />
+<meta property="og:description" content="Inside-and-out window cleaning across Post Falls and Kootenai County, Idaho. Screens, tracks and sills included. Flat quotes: (208) 555-0247." />
+<meta property="og:image" content="https://systemsbyvega.com/sites/window-cleaning/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://systemsbyvega.com/sites/window-cleaning/og.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Pane & Prairie Window Co.",
+  "description": "Residential and commercial window cleaning in Post Falls and Kootenai County, Idaho. Glass, screens, tracks and sills — streak-free and hand-dried. Flat pricing by pane count. Call or text (208) 555-0247.",
+  "telephone": "+12085550247",
+  "email": "hello@paneandprairie.com",
+  "areaServed": "Kootenai County, Idaho",
+  "priceRange": "$$",
+  "slogan": "Glass you forget is there."
+}
+</script>
+
+<style>
+/* ── niche tokens ─────────────────────────────────────────────────────── */
+/* window-cleaning — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "daylight through clean glass" — a high-key, near-white cool
+   ground, clear-water cyan accent, deep slate-teal ink, and a sparing brass
+   drawn from the squeegee handle in the hero photograph.
+   Contrast (WCAG, computed): accent-ink #04262C on accent 5.89:1, on
+   accent-2 8.97:1, on accent-deep 4.60:1; ink on ground 14.48:1 and on the
+   white card 15.40:1; ink-dim on ground 7.16:1; muted on ground 5.15:1;
+   accent-text on ground 5.72:1 and on panel 5.33:1; accent-alt (brass) on
+   ground 4.57:1. */
+:root{
+  --scheme: light;
+  --ground-deep:  #DFECF1;   /* the cool settled light at the page's foot */
+  --ground:       #F3F9FB;   /* pale north-facing daylight */
+  --ground-2:     #FCFEFF;   /* near-white sky at the top of the page */
+  --panel:        #E7F2F6;
+  --panel-2:      #FFFFFF;
+  --accent:       #22ACC4;   /* clear-water cyan — the glass accent */
+  --accent-2:     #5FD2E4;   /* light catching the wet edge */
+  --accent-deep:  #1197AF;   /* the shaded side of the same water */
+  --accent-text:  #0B6C7D;   /* cyan dark enough to READ on daylight */
+  --accent-alt:   #96690F;   /* squeegee brass, used sparingly */
+  --accent-ink:   #04262C;   /* type on cyan */
+  --ink:          #16272E;   /* deep slate-teal */
+  --ink-bright:   #0D1B21;
+  --ink-dim:      #42575F;
+  --ink-max:      #081217;
+  --muted:        #566D74;
+  --hair:         rgba(22,39,46,.13);
+  --hair-accent:  rgba(34,172,196,.26);
+  --card:         rgba(255,255,255,.82);
+  --card-solid:   #FFFFFF;
+  --card-brd:     rgba(22,39,46,.10);
+  --shadow:       0 24px 55px -24px rgba(16,72,88,.30);
+  --maxw:         1140px;
+
+  --sheen-hi:     #2C5B68;
+  --sheen-lo:     #16272E;
+  --sheen-accent: var(--accent);
+  --placeholder:  #5F767D;
+  --ok:           #177A50;
+  --ok-ink:       #177A50;
+  --err:          #B0362F;
+  --err-ink:      #8E2A24;
+
+  --display: 'Outfit', 'Trebuchet MS', sans-serif;
+  --body:    'Figtree', system-ui, -apple-system, sans-serif;
+  --mono:    'DM Mono', ui-monospace, Consolas, monospace;
+}
+/* ── shared structural CSS ────────────────────────────────────────────── */
+/* _template/base.css — structural CSS shared by every SiteLab niche.
+   A rule lives here when its class/id hooks appear in the markup of two or more
+   deployed sites, or when it targets elements only. A rule used by exactly one
+   niche belongs in that niche's sections.css instead (SITELAB_TEMPLATE.md §3).
+   Colour and type come from niches/<slug>/niche.css. Never put a literal colour
+   in this file: reference a token from the §5 contract. */
+/* =========================================================
+   SAWTOOTH DUMPSTER CO. — tokens
+   High-desert identity: deep pine green base, safety-yellow
+   primary (amber-deep gradient end), warm sand/kraft type.
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ground);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* warm high-desert backdrop for the whole page */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 640px at 82% -10%, rgba(216,155,0,.16), transparent 60%),
+    radial-gradient(900px 700px at 6% 14%, rgba(29,58,44,.55), transparent 62%),
+    radial-gradient(760px 520px at 50% 108%, rgba(255,196,0,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint topographic contour rings */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, transparent 0 52px, rgba(242,233,216,.035) 52px 53px),
+    repeating-radial-gradient(circle at 84% 68%, transparent 0 68px, rgba(255,196,0,.03) 68px 69px),
+    repeating-radial-gradient(circle at 55% -10%, transparent 0 84px, rgba(242,233,216,.022) 84px 85px);
+  opacity:.9;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;
+  font-size:.74rem;color:var(--accent);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;border-radius:2px;flex:none;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.section-title{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  font-size:1rem;padding:1rem 1.7rem;border-radius:12px;border:0;cursor:pointer;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.55), inset 0 1px 0 rgba(255,255,255,.5);
+  overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:active{transform:translateY(0)}
+/* headlight shine sweep */
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .6s ease;
+}
+.btn:hover::after{left:130%}
+.btn--ghost{
+  background:rgba(255,196,0,.07);color:var(--ink-bright);
+  border:1px solid rgba(255,196,0,.35);
+  box-shadow:none;backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{background:var(--hair-accent);box-shadow:0 10px 26px -14px rgba(255,196,0,.5)}
+.btn--lg{font-size:1.12rem;padding:1.15rem 2.2rem}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--accent-2);outline-offset:3px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:16px 0;
+}
+.nav.solid{
+  background:rgba(8,19,14,.86);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--hair), 0 18px 40px -30px #000;
+  padding:10px 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__mark{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.6)}
+.brand__mark svg{width:30px;height:30px}
+.brand__name{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.92rem;line-height:1;color:var(--ink-bright)}
+.brand__name span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.58rem;
+  letter-spacing:.22em;margin-top:4px;color:var(--muted)}
+.nav__links{display:flex;align-items:center;gap:28px}
+.nav__links a.link{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.76rem;color:var(--ink);opacity:.82;transition:opacity .2s,color .2s}
+.nav__links a.link:hover{opacity:1;color:var(--accent-2)}
+.nav__call{display:inline-flex;align-items:center;gap:.5rem;font-family:'Anybody',sans-serif;font-stretch:62.5%;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem;
+  padding:.6rem 1.05rem;border-radius:10px;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 24px -12px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.45);}
+.nav__call svg{width:16px;height:16px}
+@media(max-width:900px){.nav__links a.link{display:none}}
+@media(max-width:520px){.nav__call{font-size:.74rem;padding:.5rem .8rem;gap:.35rem;letter-spacing:.03em}}
+@media(max-width:380px){.nav__call{font-size:.68rem;padding:.45rem .65rem;gap:.3rem}}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:safe center;
+  padding:clamp(120px,15vh,180px) 0 clamp(70px,9vh,96px);overflow:hidden}
+.hero > .wrap{width:100%;position:relative;z-index:2}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+@media(max-height:780px){.hero{align-items:flex-start}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;text-align:center;gap:30px}}
+
+.hero__tag{margin-bottom:20px}
+.hero h1{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.5rem,6.8vw,4.7rem);line-height:.94;letter-spacing:.005em;margin-bottom:8px;
+}
+.hero h1 .l1{
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 50%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(242,233,216,.14));display:block;
+}
+.hero h1 .l2{
+  color:var(--accent);display:block;
+  text-shadow:0 4px 30px rgba(255,196,0,.38);
+}
+.hero__sub{font-size:1.16rem;color:var(--ink-dim);max-width:48ch;margin:18px 0 30px}
+@media(max-width:900px){.hero__sub{margin-inline:auto}}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero__cta{justify-content:center}}
+.hero__proof{display:flex;gap:26px;margin-top:32px;flex-wrap:wrap}
+@media(max-width:900px){.hero__proof{justify-content:center}}
+.proof{display:flex;flex-direction:column;line-height:1.1}
+.proof b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
+.proof span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.proof + .proof{padding-left:26px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* hero art: roll-off box under a mountain ridge, drawn inline */
+.hero__art{position:relative;display:flex;justify-content:center}
+.hero__art .halo{
+  position:absolute;inset:-4% -8% 6%;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,196,0,.22), rgba(255,196,0,.06) 55%, transparent 72%);
+  filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0;
+}
+.hero__art svg{position:relative;z-index:1;width:min(520px,94%);height:auto;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* drifting high-desert dust motes */
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.75}
+  55%{transform:translate3d(26px,-55vh,0)}
+  88%{opacity:.4}
+  100%{transform:translate3d(-14px,-108vh,0);opacity:0}
+}
+
+/* ridge divider under hero */
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--panel);z-index:0;pointer-events:none}
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+.trust{background:linear-gradient(180deg,var(--panel),rgba(19,42,32,.4));border-block:1px solid var(--hair)}
+.trust__in{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;align-items:center;padding:20px 22px}
+.trust__item{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--ink)}
+.trust__item svg{width:20px;height:20px;color:var(--accent);flex:none}
+
+/* =========================================================
+   SECTION base
+   ========================================================= */
+.section{padding:92px 0}
+.section__head{max-width:660px;margin-bottom:44px}
+.section__head.center{margin-inline:auto;text-align:center}
+.section__head .section-title{margin:14px 0 16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.08em;
+  font-size:.84rem;color:var(--ink);padding:.6rem 1.15rem;border-radius:10px;text-transform:uppercase;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5);transition:.15s;user-select:none;white-space:nowrap}
+.pill:hover span{border-color:rgba(255,196,0,.5)}
+.pill input:checked + span{color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -10px rgba(255,196,0,.7)}
+.pill input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
+.price-box .btn{width:100%;margin-top:18px}
+.reveal.in .meter__bar{width:var(--w)}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:30px 26px;background:var(--card);border:1px solid var(--card-brd);
+  border-radius:18px;backdrop-filter:blur(8px)}
+.step__n{counter-increment:step;font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;
+  font-size:2.6rem;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,196,0,.65);
+  display:block;margin-bottom:12px}
+.step__n::before{content:"0" counter(step)}
+.step h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin-bottom:8px;color:var(--ink-max)}
+.step p{color:var(--muted);font-size:.98rem}
+.nogo .section__head{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.8rem;letter-spacing:.04em;color:var(--ink);padding:.5rem 1rem;border-radius:20px;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5)}
+.chip svg{width:14px;height:14px;color:var(--accent);flex:none}
+
+/* =========================================================
+   MEET THE OWNER
+   ========================================================= */
+.owner__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.owner__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.owner__photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,58,44,.6),rgba(10,22,16,.6));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.owner__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.owner__photo > svg{width:100%;height:100%;display:block}
+.owner__photo:not(:has(img,svg))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,196,0,.1), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,233,216,.04) 14px 15px);
+}
+.owner__photo:not(:has(img,svg))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none}
+.owner__body .section-title{margin:14px 0 22px}
+.owner__desc{color:var(--ink);font-size:1.02rem;line-height:1.7;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);min-height:170px;position:relative}
+.owner__desc:empty::before{
+  content:"Short bio goes here — who runs this business, how long they've been at it, and why they care. Replace this placeholder with the real thing.";
+  color:var(--muted);opacity:.7;font-style:italic;display:block}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--card);border:1px solid var(--card-brd);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:700;font-size:1.04rem;color:var(--ink-bright)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,196,0,.4);color:var(--accent);transition:transform .25s ease;font-family:'Inter',sans-serif;font-weight:400}
+.faq[open] summary .plus{transform:rotate(45deg)}
+.faq__body{padding:0 22px 20px;color:var(--muted);font-size:1rem}
+.faq__body b{color:var(--ink)}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.cta{position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 340px at 18% 0%, var(--hair-accent), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(29,58,44,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+  border-block:1px solid var(--hair)}
+.cta__phone{color:var(--muted);font-size:.95rem;margin-top:14px}
+.cta__phone a{color:var(--accent-2);font-weight:600}
+
+.book{max-width:760px;margin:0 auto;background:rgba(8,19,14,.62);
+  border:1px solid var(--card-brd);border-radius:22px;padding:clamp(22px,3vw,34px);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.book__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.book__grid + .book__grid,.book__grid + .field,.field + .book__grid{margin-top:16px}
+@media(max-width:640px){.book__grid{grid-template-columns:1fr}}
+.field{min-width:0}
+.field--wide{grid-column:1 / -1}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.field em{color:var(--accent-2);font-style:normal;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:11px;
+  background:rgba(5,12,9,.7);border:1px solid var(--card-brd);color:var(--ink-bright);
+  font-family:'Inter',sans-serif;font-size:1rem}
+.field textarea{resize:vertical;min-height:74px}
+.field input::placeholder,.field textarea::placeholder{color:var(--placeholder)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:rgba(5,12,9,.9)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD34D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;padding-right:2.6rem}
+.field input[readonly]{background:rgba(255,196,0,.06);border-style:dashed;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:var(--err);box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+/* date input: keep the picker icon visible on dark bg */
+.field input[type="date"]{color-scheme:dark}
+
+.consent{display:flex;gap:.65rem;align-items:flex-start;margin-top:20px;
+  color:var(--muted);font-size:.92rem;line-height:1.5;cursor:pointer}
+.consent input{margin-top:.15rem;width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.book__actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22px}
+.book__actions .btn[disabled]{opacity:.7;cursor:progress}
+.book__alt{font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);opacity:.85;
+  text-transform:uppercase;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+.book__alt:hover{opacity:1;color:var(--accent-2)}
+.book__msg{margin-top:14px;font-size:.94rem;min-height:1.1em}
+.book__msg.err{color:var(--err-ink)}
+.book__msg.ok{color:var(--accent-2)}
+
+.book-done{max-width:600px;margin:0 auto;text-align:center;
+  background:linear-gradient(180deg,rgba(29,58,44,.55),rgba(10,22,16,.6));
+  border:1px solid rgba(255,196,0,.4);border-radius:22px;padding:clamp(32px,5vw,52px) 32px;
+  box-shadow:0 0 0 1px rgba(255,196,0,.2),var(--shadow);backdrop-filter:blur(10px)}
+.book-done__ic{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.8)}
+.book-done__ic svg{width:34px;height:34px}
+.book-done h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.02;margin-bottom:12px;
+  background:linear-gradient(180deg,var(--sheen-hi),var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.book-done p{color:var(--ink-dim);font-size:1.05rem;margin-bottom:22px}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:52px 0 40px;border-top:1px solid var(--hair)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center}
+.footer__brand{display:flex;align-items:center;gap:14px}
+.footer__brand .brand__mark{width:52px;height:52px}
+.footer__brand b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-max);font-size:1rem;display:block}
+.footer__brand span{color:var(--muted);font-size:.8rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.footer__meta{color:var(--muted);font-size:.86rem;text-align:right}
+.footer__meta a{color:var(--accent-2)}
+.footer__credit{display:block;margin-top:10px;font-size:.76rem;opacity:.55;letter-spacing:.02em}
+.footer__credit a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+.footer__credit a:hover{color:var(--accent-2)}
+@media(max-width:640px){.footer__meta{text-align:left}}
+
+/* =========================================================
+   STICKY MOBILE CTA
+   ========================================================= */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,19,14,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair)}
+.mobile-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;font-size:.95rem;padding:.95rem;border-radius:12px}
+.mobile-cta .call{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.7)}
+.mobile-cta .text{color:var(--ink-bright);background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35)}
+.mobile-cta svg{width:20px;height:20px}
+@media(max-width:820px){.mobile-cta{display:flex}.footer{padding-bottom:120px}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn::after{display:none}}
+/* ── this niche's own section rules (may override the above) ─────────── */
+/* window-cleaning/sections.css — this niche's own section rules, layered over
+   _template/base.css. Identity: "daylight through clean glass" — a high-key
+   cool ground, clear-water cyan, squeegee brass, and a lot of white space
+   standing in for light.
+   base.css was written against dark grounds, so every piece of its chrome
+   that hardcodes a dark rgba() or the amber accent is re-grounded here.
+   Signature animation lives here in CSS: wc-sweep, wc-shaft, wc-bead —
+   transform and opacity only, neutralised under prefers-reduced-motion at the
+   foot of this file (and again by base.css's global block). */
+
+/* ---------- atmosphere: north light instead of the high-desert dark ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1100px 640px at 78% -12%, rgba(95,210,228,.32), transparent 62%),
+    radial-gradient(900px 660px at 4% 10%, rgba(34,172,196,.10), transparent 60%),
+    radial-gradient(820px 520px at 52% 110%, rgba(17,151,175,.10), transparent 62%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 46%, var(--ground-deep) 100%);
+}
+/* the faint grid of a mullioned window laid over the whole page */
+body::after{
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 118px, rgba(22,39,46,.035) 118px 119px),
+    repeating-linear-gradient(180deg, transparent 0 118px, rgba(22,39,46,.026) 118px 119px);
+  opacity:.85;
+}
+
+/* ---------- type voice: clean, wide, unornamented ---------- */
+.section-title{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.02em;font-size:clamp(1.9rem,4.3vw,2.9rem);line-height:1.08;
+  background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--ink-bright);
+}
+.lead{font-size:1.05rem;color:var(--ink-dim)}
+.eyebrow{font-family:var(--mono);color:var(--accent-text);letter-spacing:.2em}
+.eyebrow::before{background:linear-gradient(90deg,var(--accent),transparent)}
+.wc-rule{display:block;width:160px;height:12px;margin:20px auto 0}
+
+/* ---------- buttons: wet-glass cyan ---------- */
+.btn{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em;
+  border-radius:12px;font-size:1rem;
+  box-shadow:0 12px 26px -12px rgba(17,151,175,.55), inset 0 1px 0 rgba(255,255,255,.55);
+}
+.btn:hover{box-shadow:0 18px 36px -12px rgba(17,151,175,.62), inset 0 1px 0 rgba(255,255,255,.6)}
+.btn--ghost{
+  background:rgba(34,172,196,.09);border:1.5px solid rgba(17,151,175,.45);
+  box-shadow:none;color:var(--accent-text);backdrop-filter:none;
+}
+.btn--ghost:hover{background:rgba(34,172,196,.17);box-shadow:0 10px 24px -16px rgba(17,151,175,.5)}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(250,253,254,.92);box-shadow:0 1px 0 var(--hair), 0 14px 34px -28px rgba(16,72,88,.55)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0}
+.brand__mark svg{width:42px;height:42px}
+.brand__name{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.01em;font-size:1.06rem;color:var(--ink-bright);
+}
+.brand__name span{font-family:var(--mono);color:var(--muted);letter-spacing:.14em;font-size:.56rem}
+/* below this the locale sub-line wraps onto three lines and crowds the call
+   button; the city is on the page in four other places, so it goes */
+@media(max-width:600px){.brand__name span{display:none}.brand__name{font-size:1rem}}
+.nav__links a.link{color:var(--ink);opacity:.86;font-family:var(--mono);letter-spacing:.08em}
+.nav__links a.link:hover{opacity:1;color:var(--accent-text)}
+.nav__call{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em;
+  border-radius:12px;
+  box-shadow:0 10px 22px -14px rgba(17,151,175,.7), inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* ---------- hero ---------- */
+.hero h1{
+  font-family:var(--display);font-weight:800;text-transform:none;
+  font-size:clamp(2.4rem,5.4vw,4rem);line-height:1.02;letter-spacing:-.035em;
+  margin-bottom:10px;max-width:15ch;color:var(--ink-max);
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.1rem;line-height:1.75;max-width:52ch;color:var(--ink-dim)}
+.hero__proof{gap:20px}
+.proof b{font-family:var(--display);font-weight:700;font-size:1.14rem;text-transform:none;letter-spacing:-.01em;color:var(--ink-max)}
+.proof span{font-family:var(--mono);font-size:.6rem;letter-spacing:.11em;color:var(--muted)}
+.proof + .proof{padding-left:20px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* the glass column: photo card, a sash leaning on it, light travelling across */
+.hero__glass{position:relative;display:flex;justify-content:center;padding:26px 10px 10px}
+.hero__glass .hero-photo-cmp{
+  width:min(420px,100%);border-radius:22px;
+  border:1px solid rgba(17,151,175,.28);
+  box-shadow:0 34px 64px -26px rgba(16,72,88,.42), 0 6px 18px rgba(16,72,88,.12);
+}
+/* the component's slot-empty caption is tuned for dark grounds; re-ground it */
+.hero__glass .hero-photo-cmp.slot-empty{border-color:var(--accent)}
+.hero__glass .hero-photo-cmp.slot-empty::after{color:var(--accent-text)}
+
+/* a band of light travelling across the photo card — the signature move */
+.wc-sheen{
+  position:absolute;top:26px;bottom:10px;left:50%;width:min(420px,100%);
+  transform:translateX(-50%);border-radius:22px;overflow:hidden;
+  pointer-events:none;z-index:4;
+}
+.wc-sheen::before{
+  content:"";position:absolute;top:-30%;bottom:-30%;left:-40%;width:32%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.72),rgba(215,244,250,.35),transparent);
+  transform:translate3d(-40%,0,0) skewX(-14deg);
+  animation:wc-sweep 9s cubic-bezier(.55,.02,.3,1) infinite;
+}
+@keyframes wc-sweep{
+  0%{transform:translate3d(-60%,0,0) skewX(-14deg);opacity:0}
+  12%{opacity:.95}
+  46%{opacity:.85}
+  62%,100%{transform:translate3d(420%,0,0) skewX(-14deg);opacity:0}
+}
+
+/* the leaning sash, with beads running down the pane */
+.wc-sash{
+  position:absolute;top:-6px;right:1%;width:118px;z-index:5;pointer-events:none;
+  filter:drop-shadow(0 14px 22px rgba(16,72,88,.28));
+}
+.wc-sash svg{width:100%;height:auto;display:block}
+.wc-bead{
+  position:absolute;left:26%;top:16%;width:7px;height:9px;border-radius:50% 50% 55% 55%;
+  background:radial-gradient(circle at 34% 28%, rgba(255,255,255,.95), rgba(143,214,230,.7) 60%, rgba(17,151,175,.35));
+  opacity:0;animation:wc-bead 6.5s ease-in infinite;
+}
+.wc-bead--2{left:52%;top:12%;animation-duration:8.5s;animation-delay:-3s;width:6px;height:8px}
+.wc-bead--3{left:74%;top:20%;animation-duration:7.5s;animation-delay:-5.5s}
+@keyframes wc-bead{
+  0%{transform:translate3d(0,0,0) scale(.7);opacity:0}
+  14%{opacity:.9}
+  70%{transform:translate3d(2px,58px,0) scale(1);opacity:.75}
+  100%{transform:translate3d(-1px,86px,0) scale(.85);opacity:0}
+}
+
+/* soft daylight halo behind the photo */
+.wc-halo{
+  position:absolute;inset:2% -6% 6%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,255,255,.85), rgba(191,233,243,.45) 55%, transparent 74%);
+  filter:blur(14px);
+}
+
+/* two shafts of daylight crossing the hero */
+.wc-shafts{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.wc-shaft{
+  position:absolute;top:-30%;height:170%;width:clamp(90px,13vw,190px);
+  background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(215,244,250,.34) 55%,transparent);
+  transform:rotate(14deg) translate3d(0,0,0);opacity:.55;
+  animation:wc-shaft 15s ease-in-out infinite;
+}
+.wc-shaft:nth-child(1){left:8%}
+.wc-shaft:nth-child(2){left:34%;width:clamp(60px,8vw,120px);animation-duration:19s;animation-delay:-7s;opacity:.4}
+@keyframes wc-shaft{
+  0%,100%{transform:rotate(14deg) translate3d(-10px,0,0);opacity:.34}
+  50%{transform:rotate(14deg) translate3d(24px,0,0);opacity:.62}
+}
+
+/* a clean sill line closing the hero */
+.wc-sill{
+  position:absolute;left:0;right:0;bottom:0;height:12px;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.9));
+  border-bottom:1px solid var(--hair);
+}
+
+/* ---------- trust strip ---------- */
+.trust{background:linear-gradient(180deg,rgba(231,242,246,.9),rgba(243,249,251,.55));border-block:1px solid var(--hair)}
+.trust__item{font-family:var(--mono);color:var(--ink);letter-spacing:.08em}
+.trust__item svg{color:var(--accent-text)}
+
+/* ---------- about ---------- */
+.about{padding-bottom:56px}
+.about__card{
+  max-width:820px;margin:0 auto;text-align:center;
+  background:var(--card-solid);border:1px solid var(--card-brd);border-radius:22px;
+  padding:clamp(30px,5vw,52px);box-shadow:var(--shadow);
+}
+.about__card .wc-rule{margin:0 auto 20px}
+.about__card .section-title{margin-bottom:18px}
+.about__body{color:var(--ink-dim);font-size:1.06rem;line-height:1.85;max-width:62ch;margin:0 auto}
+
+/* ---------- how it works ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step{background:var(--card-solid);border:1px solid var(--card-brd);box-shadow:0 16px 36px -26px rgba(16,72,88,.4);backdrop-filter:none}
+.step__n{
+  font-family:var(--display);font-weight:800;font-size:2.4rem;
+  -webkit-text-stroke:1.8px rgba(17,151,175,.65);
+}
+.step h3{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.015em;font-size:1.14rem;color:var(--ink-bright);
+}
+.step p{color:var(--ink-dim)}
+
+/* ---------- what a pass includes: panes of a window ---------- */
+.inc__grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  max-width:1080px;margin:0 auto;background:var(--hair);
+  border:1px solid var(--hair);border-radius:20px;overflow:hidden;
+  box-shadow:0 22px 50px -30px rgba(16,72,88,.4);
+}
+@media(max-width:900px){.inc__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.inc__grid{grid-template-columns:1fr;max-width:480px}}
+.inc{
+  position:relative;background:var(--card-solid);padding:30px 26px 28px;
+  transition:background .22s ease;
+}
+.inc::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:linear-gradient(150deg,rgba(255,255,255,.9),rgba(191,233,243,.35) 42%,transparent 68%);
+  transition:opacity .3s ease;
+}
+.inc:hover::before{opacity:1}
+.inc h3{
+  position:relative;font-family:var(--display);font-weight:700;font-size:1.1rem;
+  letter-spacing:-.015em;color:var(--ink-bright);margin-bottom:9px;padding-left:26px;
+}
+.inc h3::before{
+  content:"";position:absolute;left:0;top:.18em;width:15px;height:15px;border-radius:3px;
+  border:2px solid var(--accent);
+  background:linear-gradient(135deg,rgba(95,210,228,.55),rgba(255,255,255,.9));
+}
+.inc p{position:relative;color:var(--ink-dim);font-size:.97rem;line-height:1.7}
+
+/* ---------- pricing: the pane-count picker ---------- */
+.counter{
+  max-width:760px;margin:0 auto 34px;text-align:center;
+  background:var(--card-solid);border:1px solid var(--card-brd);border-radius:20px;
+  padding:clamp(22px,3.4vw,32px);box-shadow:0 18px 44px -30px rgba(16,72,88,.42);
+}
+.counter__label{
+  font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent-text);margin-bottom:16px;
+}
+.counter__pills{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.counter__pill{
+  font-family:var(--display);font-weight:600;font-size:.95rem;
+  padding:.6rem 1.15rem;border-radius:11px;cursor:pointer;
+  color:var(--ink);background:var(--panel);border:1.5px solid var(--card-brd);
+  transition:transform .16s ease, border-color .16s ease, background .16s ease;
+}
+.counter__pill:hover{transform:translateY(-2px);border-color:var(--accent)}
+.counter__pill[aria-pressed="true"]{
+  color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 22px -12px rgba(17,151,175,.7);
+}
+.counter__pill:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.counter__read{
+  margin-top:18px;font-family:var(--display);font-weight:700;font-size:1.14rem;
+  letter-spacing:-.01em;color:var(--ink-bright);min-height:1.4em;
+}
+.counter__read b{color:var(--accent-text)}
+.counter__help{
+  margin-top:12px;color:var(--muted);font-size:.92rem;line-height:1.7;
+  max-width:56ch;margin-inline:auto;
+}
+
+/* ---------- pricing: the tier cards ---------- */
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1140px;margin:0 auto}
+@media(max-width:1020px){.tiers{grid-template-columns:repeat(2,1fr);max-width:760px}}
+@media(max-width:600px){.tiers{grid-template-columns:1fr;max-width:420px}}
+.tier{
+  position:relative;display:flex;flex-direction:column;
+  background:var(--card-solid);border:1px solid var(--card-brd);border-radius:20px;
+  padding:28px 24px 26px;box-shadow:0 18px 44px -30px rgba(16,72,88,.42);
+  transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.tier:hover{transform:translateY(-4px);border-color:rgba(17,151,175,.45)}
+.tier--best{border-color:var(--accent);box-shadow:0 0 0 1px rgba(34,172,196,.28), 0 26px 54px -28px rgba(16,72,88,.5)}
+.tier--best::after{
+  content:"Most homes";position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  padding:.28rem .8rem;border-radius:20px;white-space:nowrap;
+}
+.tier.is-match{border-color:var(--accent-alt);box-shadow:0 0 0 2px rgba(150,105,15,.3), 0 26px 54px -28px rgba(16,72,88,.5)}
+.tier__label{
+  font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent-text);display:block;min-height:2.6em;
+}
+.tier__price{
+  font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,4.6vw,2.7rem);
+  line-height:1;letter-spacing:-.035em;color:var(--ink-max);margin-top:8px;
+}
+.tier__per{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.tier__note{
+  margin-top:14px;padding-top:14px;border-top:1px dashed var(--hair);
+  color:var(--ink-dim);font-size:.92rem;line-height:1.6;
+}
+.tier__features{list-style:none;margin:16px 0 20px;display:flex;flex-direction:column;gap:9px;flex:1}
+.tier__features li{
+  display:flex;gap:.55rem;align-items:flex-start;
+  color:var(--ink-dim);font-size:.93rem;line-height:1.55;
+}
+.tier__features svg{width:15px;height:15px;flex:none;margin-top:.28em;color:var(--accent);stroke-width:2.6}
+.tier .btn{width:100%;margin-top:auto}
+.tiers__note{
+  max-width:64ch;margin:32px auto 0;text-align:center;
+  color:var(--muted);font-size:.95rem;line-height:1.75;
+  padding-top:22px;border-top:1px solid var(--hair);
+}
+
+/* ---------- before / after: re-ground the shared slider for daylight ----------
+   Scoped under .proof on purpose: build-site.js appends component CSS AFTER
+   sections.css, so an equal-specificity override here would lose the cascade.
+   before-after.css was lifted from bin-cleaning's dark navy panel — its
+   handle glow, hint chip and label chips all assume a dark ground. */
+/* the pair is a 2:3 PORTRAIT sash; the component's default 581/376 landscape
+   frame cropped away most of the window. A 4/5 frame at a narrower max-width
+   keeps the sash, the sill and the view outside all in shot. */
+.proof .ba-cmp-wrap,.proof .ba-cmp-labels{max-width:600px}
+.proof .ba-cmp{aspect-ratio:4 / 5;background:var(--panel);border-color:rgba(17,151,175,.3);box-shadow:var(--shadow)}
+.proof .ba-cmp__panel{background-color:var(--panel);background-size:cover}
+.proof .ba-cmp__handle{
+  background:linear-gradient(180deg,transparent,rgba(255,255,255,.9),var(--accent),rgba(255,255,255,.9),transparent);
+  box-shadow:0 0 16px rgba(17,151,175,.45);
+}
+.proof .ba-cmp__grip{
+  background:radial-gradient(circle at 35% 30%, #FFFFFF, var(--accent-2) 55%, var(--accent-deep));
+  border-color:rgba(255,255,255,.95);
+  box-shadow:0 10px 26px -8px rgba(16,72,88,.55), 0 0 20px rgba(34,172,196,.4);
+  color:var(--accent-ink);
+}
+.proof .ba-cmp__hint{
+  color:var(--accent-ink);background:rgba(255,255,255,.86);
+  border-color:rgba(17,151,175,.4);font-family:var(--mono);
+}
+.proof .ba-cmp-label{font-family:var(--mono)}
+.proof .ba-cmp-label--b{background:rgba(255,255,255,.9);color:var(--accent-alt);border-color:rgba(150,105,15,.45)}
+.proof .ba-cmp-label--a{background:rgba(255,255,255,.9);color:var(--accent-text);border-color:rgba(17,151,175,.5)}
+.proof .ba-cmp-wrap.slot-empty{border-color:var(--accent);background:rgba(34,172,196,.06)}
+.proof .ba-cmp-wrap.slot-empty .ba-cmp::after{color:var(--accent-text)}
+
+/* ---------- reviews: same cascade note as above ---------- */
+.reviews .review-cmp{background:var(--card-solid);box-shadow:0 16px 36px -26px rgba(16,72,88,.36)}
+.reviews .review-cmp__mark{color:var(--accent);opacity:.6}
+.reviews .review-cmp__who{color:var(--accent-text)}
+
+/* ---------- faq ---------- */
+.faq{background:var(--card-solid);border:1px solid var(--card-brd);box-shadow:0 14px 32px -26px rgba(16,72,88,.4);backdrop-filter:none}
+.faq summary{font-family:var(--display);font-weight:700;letter-spacing:-.01em;color:var(--ink-bright)}
+.faq summary .plus{border-color:rgba(17,151,175,.45);color:var(--accent-text);font-family:var(--body)}
+.faq__body{color:var(--ink-dim)}
+.faq__body b{color:var(--ink)}
+
+/* ---------- service area ---------- */
+.chip{background:var(--card-solid);border:1px solid var(--card-brd);color:var(--ink);font-family:var(--mono)}
+.chip svg{color:var(--accent-text)}
+
+/* ---------- quote form: daylight fields ---------- */
+.cta{
+  background:
+    radial-gradient(700px 340px at 18% 0%, rgba(95,210,228,.24), transparent 60%),
+    radial-gradient(620px 340px at 92% 100%, rgba(255,255,255,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+}
+.cta__phone a{color:var(--accent-text)}
+.cta__hours{margin-top:12px;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.book{background:var(--card-solid);backdrop-filter:none;border-color:var(--card-brd)}
+.field label{color:var(--ink-dim);font-family:var(--mono)}
+.field em{color:var(--accent-text)}
+.field input,.field select,.field textarea{
+  background:#FBFEFF;border:1px solid rgba(22,39,46,.18);color:var(--ink-bright);
+  font-family:var(--body);
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:#FFFFFF}
+/* the rule above uses the `background` SHORTHAND, which resets repeat,
+   position and size — base.css sets those beside its own chevron, so they have
+   to be restated here or the arrow tiles across the whole control. */
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230B6C7D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;
+  padding-right:2.6rem;
+}
+.field input[type="date"]{color-scheme:light}
+.consent{color:var(--ink-dim)}
+.consent a{color:var(--accent-text);text-decoration:underline;text-underline-offset:2px}
+.book__alt{font-family:var(--mono);color:var(--ink-dim);opacity:1}
+.book__alt:hover{color:var(--accent-text)}
+.book__msg.ok{color:var(--ok-ink)}
+.book__msg.err{color:var(--err-ink)}
+.book-done{
+  background:var(--card-solid);border:1.5px solid rgba(17,151,175,.45);
+  box-shadow:0 0 0 1px rgba(34,172,196,.14),var(--shadow);backdrop-filter:none;
+}
+.book-done h3{
+  font-family:var(--display);font-weight:800;text-transform:none;letter-spacing:-.02em;
+  background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--ink-bright);
+}
+.book-done p{color:var(--ink-dim)}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,#EAF6FA,#D5EBF2);
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,255,255,.8), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(22,39,46,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 22px}
+.meet__desc{
+  color:var(--ink);font-size:1.02rem;line-height:1.75;padding:26px;border-radius:16px;
+  background:var(--card-solid);border:1px solid var(--card-brd);box-shadow:0 16px 36px -26px rgba(16,72,88,.36);
+}
+
+/* ---------- footer / chrome ---------- */
+.footer__brand b{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:-.01em;color:var(--ink-max)}
+.footer__brand span{text-transform:none;letter-spacing:.01em;font-family:var(--body);color:var(--muted)}
+.footer__meta a{color:var(--accent-text)}
+/* .footer scope beats footer-contact.css's later-in-bundle .fc-social a */
+.footer .fc-social a{color:var(--accent-text)}
+.footer .fc-hours,.footer .fc-address,.footer .fc-social{color:var(--muted)}
+.disclosure{
+  max-width:880px;font-family:var(--mono);font-size:.73rem;line-height:1.7;
+  color:var(--muted);opacity:.92;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta{background:rgba(250,253,254,.96);border-top:1px solid var(--hair);box-shadow:0 -8px 24px rgba(16,72,88,.12)}
+.mobile-cta .call{box-shadow:0 8px 20px -10px rgba(17,151,175,.7)}
+.mobile-cta .text{background:rgba(34,172,196,.1);border:1.5px solid rgba(17,151,175,.45);color:var(--accent-text)}
+.mobile-cta a{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.005em}
+
+/* ---------- reduced motion: the light holds still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .wc-sheen::before,.wc-bead,.wc-shaft{animation:none}
+  .wc-bead{opacity:0}
+  .wc-sheen::before{opacity:0}
+  .hero__glass .hero-photo-cmp img{animation:none}
+}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: before-after -- */
+/* _template/components/before-after.css
+   Namespaced ba-cmp-* copy of bin-cleaning's .ba rules (sections.css), minus
+   the water-spray decoration -- that was bin-cleaning's own flourish, not
+   the reusable behavior. Relies only on the platform-wide token set every
+   niche.css defines (--card-brd, --shadow, --ink-dim, --accent-2,
+   --accent-deep, --accent-ink, --mono, --ground-deep, --hair). */
+.ba-cmp-wrap { max-width: 820px; margin: 0 auto; }
+.ba-cmp {
+  position: relative; aspect-ratio: 581 / 376;
+  border-radius: 20px; overflow: hidden; user-select: none; touch-action: pan-y;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow);
+  background: var(--ground-deep);
+}
+.ba-cmp__panel { position: absolute; inset: 0; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: var(--ground-deep); }
+.ba-cmp__after { background-image: var(--after-img, none); }
+.ba-cmp__before { background-image: var(--before-img, none); z-index: 2; clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+
+.ba-cmp__handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px;
+  background: linear-gradient(180deg, transparent, var(--ink-dim), var(--accent-2), var(--ink-dim), transparent);
+  transform: translateX(-1px); z-index: 5; box-shadow: 0 0 18px rgba(90, 180, 255, .5); }
+.ba-cmp__grip { position: absolute; top: 50%; left: var(--pos, 50%); transform: translate(-50%, -50%); z-index: 6;
+  width: 52px; height: 52px; border-radius: 50%; cursor: ew-resize;
+  background: radial-gradient(circle at 35% 30%, #cfeafe, var(--accent-2) 60%, var(--accent-deep));
+  border: 2px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, .7), 0 0 22px rgba(90, 180, 255, .5);
+  display: grid; place-items: center; color: var(--accent-ink); }
+.ba-cmp__grip svg { width: 24px; height: 24px; }
+.ba-cmp__hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-dim); background: rgba(6, 17, 32, .6); padding: .3rem .7rem; border-radius: 20px;
+  border: 1px solid var(--hair); transition: opacity .4s; pointer-events: none; }
+.ba-cmp.touched .ba-cmp__hint { opacity: 0; }
+
+.ba-cmp-labels { display: flex; justify-content: space-between; align-items: center;
+  max-width: 820px; margin: 0 auto 14px; padding: 0 4px; gap: 16px; }
+.ba-cmp-label { font-family: var(--mono); font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; font-size: .85rem; padding: .45rem 1rem; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: .5rem; }
+.ba-cmp-label--b { background: rgba(10, 10, 6, .72); color: #e9d9a6; border: 1px solid rgba(200, 170, 90, .45); }
+.ba-cmp-label--a { background: rgba(8, 26, 40, .72); color: var(--ink-dim); border: 1px solid rgba(120, 180, 230, .55); }
+.ba-cmp-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .75; }
+@media (max-width: 520px) { .ba-cmp-label { font-size: .72rem; letter-spacing: .16em; padding: .35rem .7rem; } }
+
+/* dashed placeholder when the operator has fewer than a real before+after
+   pair -- own copy, self-contained (this component brings its own
+   slot-empty rule rather than depending on a niche defining one). */
+.ba-cmp-wrap.slot-empty { border: 2px dashed var(--accent-2); border-radius: 20px; background: rgba(120, 180, 230, .06); }
+.ba-cmp-wrap.slot-empty .ba-cmp-ui { display: none; }
+.ba-cmp-wrap.slot-empty .ba-cmp::after { content: "Before / after photos appear here -- add them in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
+
+/* -- component: reviews -- */
+/* _template/components/reviews.css
+   Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
+   contained on the shared token set every niche.css defines. */
+.reviews-cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+@media (max-width: 880px) { .reviews-cmp-grid { grid-template-columns: 1fr; max-width: 520px; } }
+.review-cmp { background: var(--card); border: 1px solid var(--card-brd); border-radius: 18px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s ease, border-color .2s ease; }
+.review-cmp:hover { transform: translateY(-4px); }
+.review-cmp__mark { font-size: 2.2rem; line-height: 1; color: var(--accent-2); opacity: .5; font-family: var(--mono); }
+.review-cmp__quote { color: var(--ink-dim); font-size: 1rem; line-height: 1.65; flex: 1; font-style: italic; }
+.review-cmp__who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; color: var(--accent-2); }
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+<div id="svDemoBanner" role="note" aria-label="Demo site notice">
+  <span class="svDemoBanner__dot" aria-hidden="true"></span>
+  <span>Demo — this site is for sale</span>
+  <a href="/sites/">View all sites →</a>
+</div>
+<script>
+/* Demo chrome removes itself off the catalog: on a tenant subdomain this SAME
+   deployed file is an operator's live site — there is no per-buyer build any
+   more, middleware rewrites the subdomain here. Hostname, not a header or a
+   fetch: a page cannot read its own response headers, and a fetch would flash
+   the banner and fail open on a paid site. Synchronous removal right after the
+   element parses means it never paints. The apex and www keep the banner (that
+   IS the demo); so do vercel.app previews and localhost. */
+(function () {
+  var h = location.hostname;
+  if (h !== 'systemsbyvega.com' && h !== 'www.systemsbyvega.com'
+      && h.slice(-18) === '.systemsbyvega.com') {
+    var b = document.getElementById('svDemoBanner');
+    if (b) b.remove();
+
+    /* Owner login. The tenant IS the hostname's first label — the same value
+       middleware routes on — so nothing needs injecting for the page to know
+       it. ?tenant= is a hint, not authorisation: /admin/ resolves ownership
+       from the sign-in, so a guessed URL gets a login form, nothing more.
+
+       Appended on DOMContentLoaded, not here: this script sits at the TOP of
+       body (so the banner removal above beats first paint), and the footer
+       does not exist yet at this point in the parse. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var a = document.createElement('a');
+      a.id = 'svOwnerLogin';
+      a.href = '/admin/?tenant=' + encodeURIComponent(h.slice(0, -18));
+      a.textContent = 'Owner login →';
+      var f = document.querySelector('footer');
+      if (f) {
+        a.style.cssText = 'display:inline-block;margin-top:12px;' +
+          'font-size:11.5px;color:inherit;opacity:.6;text-decoration:underline';
+        f.appendChild(a);
+      } else {
+        /* No footer in this niche's markup: a discreet fixed corner beats
+           silently having no login path at all. */
+        a.style.cssText = 'position:fixed;right:12px;bottom:10px;z-index:50;' +
+          'font-size:11.5px;color:inherit;opacity:.55;text-decoration:underline';
+        document.body.appendChild(a);
+      }
+    });
+  }
+})();
+</script>
+<style>
+#svDemoBanner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 9px;background:#161B22;color:#fff;font-family:'IBM Plex Mono',ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.01em;padding:9px 16px;border-radius:20px;border:1px solid #323A48;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 24px);text-align:center}
+#svDemoBanner .svDemoBanner__dot{width:7px;height:7px;border-radius:50%;background:#F3922F;flex:none}
+#svDemoBanner a{color:#F3922F;font-weight:700;text-decoration:none}
+#svDemoBanner a:hover{text-decoration:underline}
+@media(max-width:820px){#svDemoBanner{bottom:78px;font-size:11.5px;padding:8px 14px}}
+</style>
+
+<!-- window-cleaning/scene.svg — this site keeps its illustrations inline in
+     sections.html (the sash mark, the leaning sash-and-squeegee, the section
+     rules) rather than in a shared <defs> block, so all nine gradients live
+     beside the markup that references them. Placeholder so the build slot
+     resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>
+
+<!-- window-cleaning/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md 3.1), so this is per-niche.
+     Visual language: "daylight through clean glass" — a high-key cool ground,
+     clear-water cyan, and the squeegee brass borrowed from the hero photo.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT.
+     Illustration def ids are all wc- prefixed (SITELAB_TEMPLATE.md 6.2). -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Pane &amp; Prairie Window Co. home">
+      <span class="brand__mark" role="img" aria-label="Pane &amp; Prairie sash-and-daylight mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wc-grad-sash" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5FD2E4"/><stop offset=".55" stop-color="#22ACC4"/><stop offset="1" stop-color="#1197AF"/>
+            </linearGradient>
+            <linearGradient id="wc-grad-glasslight" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+              <stop offset=".48" stop-color="#D8F2F8" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#5FD2E4" stop-opacity=".18"/>
+            </linearGradient>
+          </defs>
+          <rect x="9" y="7" width="46" height="50" rx="6" stroke="url(#wc-grad-sash)" stroke-width="3.4"/>
+          <rect x="14.5" y="12.5" width="35" height="39" rx="3" fill="url(#wc-grad-glasslight)"/>
+          <path d="M32 12.5v39M14.5 32h35" stroke="url(#wc-grad-sash)" stroke-width="2.6"/>
+          <path d="M19 46 44 17" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity=".85"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Pane &amp; Prairie</span><span id="brandLocale">Window cleaning · Post Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#included">What's included</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#proof">Before / after</a>
+      <a class="link" href="#book">Get a quote</a>
+      <!-- (208) 555-01XX / 02XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550247" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0247</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- two soft daylight shafts, as if through a mullioned window; opacity and
+       transform only (wc-shaft in sections.css) -->
+  <div class="wc-shafts" aria-hidden="true">
+    <span class="wc-shaft"></span><span class="wc-shaft"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Residential &amp; commercial glass · Post Falls, Idaho</span></div>
+        <h1 id="heroTitle">Let the daylight all the way in.</h1>
+        <p class="hero__sub" id="heroSub">Pane &amp; Prairie cleans windows inside and out across Post Falls and Kootenai County — glass, screens, tracks and sills, finished streak-free and dried by hand. Flat pricing by pane count, agreed before we unload a ladder.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Get my window quote</a>
+          <a class="btn btn--ghost btn--lg" href="#included" id="heroCtaSecondary">See what a pass includes</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Inside &amp; out</b><span>Both sides of the glass</span></div>
+          <div class="proof"><b>Screens &amp; tracks</b><span>Included, not extra</span></div>
+          <div class="proof"><b>Flat quote</b><span>Agreed up front</span></div>
+        </div>
+      </div>
+      <div class="hero__glass">
+        <!-- signature motif: a sash of glass with light sweeping across it and
+             beads running down the pane (wc-sweep / wc-bead in sections.css —
+             transform and opacity only, reduced-motion safe) -->
+        <div class="wc-sash" aria-hidden="true">
+          <svg viewBox="0 0 120 150" fill="none">
+            <defs>
+              <linearGradient id="wc-grad-frame" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#DDEDF3"/><stop offset="1" stop-color="#B9D6E0"/>
+              </linearGradient>
+              <linearGradient id="wc-grad-pane" x1=".1" y1="0" x2=".9" y2="1">
+                <stop offset="0" stop-color="#EAF8FC" stop-opacity=".92"/>
+                <stop offset=".55" stop-color="#BFE9F3" stop-opacity=".62"/>
+                <stop offset="1" stop-color="#8FD6E6" stop-opacity=".38"/>
+              </linearGradient>
+              <linearGradient id="wc-grad-brassbar" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#D8AE55"/><stop offset=".5" stop-color="#96690F"/><stop offset="1" stop-color="#C99C3C"/>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="112" height="142" rx="7" fill="url(#wc-grad-frame)"/>
+            <rect x="12" y="12" width="96" height="126" rx="3" fill="url(#wc-grad-pane)"/>
+            <path d="M60 12v126M12 75h96" stroke="#FFFFFF" stroke-width="4" opacity=".9"/>
+            <!-- the squeegee, resting on the sash -->
+            <rect x="16" y="66" width="88" height="5" rx="2.5" fill="url(#wc-grad-brassbar)"/>
+            <rect x="16" y="71" width="88" height="3" rx="1.5" fill="#1F2A2E" opacity=".8"/>
+          </svg>
+          <span class="wc-bead wc-bead--1"></span>
+          <span class="wc-bead wc-bead--2"></span>
+          <span class="wc-bead wc-bead--3"></span>
+        </div>
+        <div class="wc-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-squeegee.jpg).
+             Credit: Pexels, see photos/CREDITS.md. -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/window-cleaning/photos/hero-squeegee.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/window-cleaning/photos/hero-squeegee.jpg" alt="A gloved hand drawing a brass squeegee down a soaped pane, water beading below the blade and green foliage showing through the clear glass above it" fetchpriority="high" decoding="async">
+</figure>
+        <span class="wc-sheen" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+  <!-- a clean sill line between the hero and the page -->
+  <div class="wc-sill" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18M3 12h18"/></svg>Every pane, both faces</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16"/></svg>Screens washed &amp; re-set</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h18"/><path d="M6 17V7l6-4 6 4v10"/><path d="M9 17v-4h6v4"/></svg>Tracks and sills included</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Nothing owed up front</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="wc-rule" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wc-grad-rule-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#22ACC4" stop-opacity="0"/><stop offset=".5" stop-color="#22ACC4"/><stop offset="1" stop-color="#22ACC4" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wc-grad-rule-a)" stroke-width="1.4"/>
+        <rect x="74" y="2" width="12" height="8" rx="1.6" fill="url(#wc-grad-rule-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Most windows are half-cleaned, and everybody can tell</h2>
+      <p class="about__body" id="aboutBody">The outside gets a hose and the inside gets a paper towel, and the glass still hazes the second the sun hits it. We treat a window as four surfaces, not one: the exterior pane, the interior pane, the screen that has been filtering road dust all summer, and the track full of grit that dirties both again the next time you slide the sash. Do all four in one visit and the light comes through the way the builder intended.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From pane count to low-sun walk-through</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Count and quote</h3>
+        <p>Tell us roughly how many panes you have, or send a couple of photos. We give you a flat number off the tier list before anyone shows up, and it does not move on the day.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Set up clean</h3>
+        <p>Drop cloths under every interior sill, ladder standoffs so nothing rests on your gutters or siding, and shoes off or booties on for the inside pass.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Wash, squeegee, detail</h3>
+        <p>Soap and scrub the pane, pull the squeegee in overlapping passes, then hand-dry the edges and corners with a dedicated cloth. Screens come out, get washed, and go back in the opening they came from.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk it with you</h3>
+        <p>We walk the house with you at low sun, which is when streaks show. Anything you point at gets redone right then. You pay when you are happy with the glass, not before.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT A PASS INCLUDES ============ -->
+<section class="section included" id="included">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What's included</span>
+      <h2 class="section-title">One visit, four surfaces</h2>
+      <p class="lead" style="margin:0 auto">Every item below is inside the flat price. Nothing here is an upsell we spring on you at the door.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.included; every value lands via
+         textContent (DOM-property sinks only). -->
+    <div class="inc__grid" id="incGrid">
+      <div class="inc reveal" data-delay="1"><h3>Exterior glass</h3><p>Washed from ground level, water-fed pole or ladder, whichever the elevation calls for. No pressure washer anywhere near a seal.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Interior glass</h3><p>Cloths and drop sheets in every room, blinds lifted and returned to where you had them, no drips on the sill.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Screens</h3><p>Pulled, washed on both faces, dried and re-set in the same opening — screens are numbered as they come out so nothing ends up in the wrong window.</p></div>
+      <div class="inc reveal" data-delay="1"><h3>Tracks and sills</h3><p>Vacuumed first, then wiped out wet and dried. This is the step most quotes skip, and it is the one that keeps the glass clean longer.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Frames and mullions</h3><p>Hand-detailed so the white vinyl actually reads white, and the grid bars do not leave a dusty shadow across the pane.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Hard-water and paint spots</h3><p>Mineral etching from a sprinkler and construction overspray both come off with a separate process. We flag them at the quote so the price is honest before we begin.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (tiers model) ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Flat pricing</span>
+      <h2 class="section-title">Priced by the pane, not by the hour</h2>
+      <svg class="wc-rule" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wc-grad-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#22ACC4" stop-opacity="0"/><stop offset=".5" stop-color="#22ACC4"/><stop offset="1" stop-color="#22ACC4" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wc-grad-rule-b)" stroke-width="1.4"/>
+        <rect x="74" y="2" width="12" height="8" rx="1.6" fill="url(#wc-grad-rule-b)"/>
+      </svg>
+    </div>
+
+    <!-- Pane-count picker. It selects which PUBLISHED tier applies — it never
+         computes a figure of its own, so an operator's saved price_label
+         (which lands on blurb) is the only money on screen. -->
+    <div class="counter reveal" id="counter">
+      <div class="counter__label" id="counterLabel">Roughly how many panes are we cleaning?</div>
+      <div class="counter__pills" id="counterPills" role="group" aria-label="Pane count"></div>
+      <p class="counter__read" id="counterRead" role="status" aria-live="polite"></p>
+      <p class="counter__help" id="countHelp">Count a pane as one piece of glass you can see through. A double-hung window is two. A slider is two. A french-grid sash counts as one, not nine — the grid bars are frame, not glass.</p>
+    </div>
+
+    <!-- Tier cards render from CONTENT.pricing: {label, blurb, per, note,
+         highlight, features}. blurb IS the price display string — the admin's
+         price_label save lands there and nowhere else. note renders on the
+         card and is hidden when the operator clears it. -->
+    <div class="tiers" id="tiersGrid"></div>
+
+    <p class="tiers__note reveal" id="pricingNote">Every figure above is a flat rate for the whole visit, inside and out, screens and tracks included. Storey height, hard-water treatment and construction cleanup are quoted separately and always in writing first.</p>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Before / after</span>
+      <h2 class="section-title" id="baHeading">The same window, ten minutes apart</h2>
+      <p class="lead" style="margin:0 auto" id="baBlurb">Drag the handle. Left is the pane soaped and still streaking; right is the same sash squeegeed, edged and dried — the tree and the brickwork outside are back.</p>
+    </div>
+    <!-- Shared slider component. Images resolve from c.niche.beforeImg /
+         c.niche.afterImg (manifest merge.beforeAfter), so an operator's own
+         pair replaces ours the moment it is saved — both or neither. -->
+    <!-- _template/components/before-after.html
+     Signature before/after slider, extracted VERBATIM in behavior from
+     niches/bin-cleaning (pointer + touch + keyboard drag, --pos CSS var, a
+     gentle one-time auto-nudge on first view). Namespaced ba-cmp-* so it
+     never collides with a niche's own hand-authored .ba rules (bin-cleaning
+     still has one until it is converted separately).
+     data-merge is stamped by tools/build-site.js from the niche's manifest
+     merge.beforeAfter -- "niche.beforeImg/afterImg" (read c.niche.beforeImg/
+     afterImg) or "projects[0]" (read c.projects[0].beforeImg/afterImg,
+     contracting's shape). Both-or-neither fallback: a lone real photo is
+     never paired with the other side missing -- the wrap gets a dashed
+     slot-empty state instead of a fabricated pair. -->
+<div class="ba-cmp-labels reveal" aria-hidden="true">
+  <span class="ba-cmp-label ba-cmp-label--b">Before</span>
+  <span class="ba-cmp-label ba-cmp-label--a">After</span>
+</div>
+<div class="ba-cmp-wrap reveal" data-merge="niche.beforeImg/afterImg">
+  <div class="ba-cmp" tabindex="0" role="slider" aria-label="Before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="--pos:50%">
+    <div class="ba-cmp__panel ba-cmp__after"></div>
+    <div class="ba-cmp__panel ba-cmp__before"></div>
+    <div class="ba-cmp__handle ba-cmp-ui" aria-hidden="true"></div>
+    <div class="ba-cmp__grip ba-cmp-ui" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
+    </div>
+    <div class="ba-cmp__hint ba-cmp-ui">&#9668; Drag &#9658;</div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Neighbours we've worked for</span>
+      <h2 class="section-title">Word from around Kootenai County</h2>
+    </div>
+    <!-- _template/components/reviews.html
+     Three review cards filled from c.testimonials. The fallback strings for
+     an empty card live in reviews.js, set via textContent -- NOT a CSS
+     :empty::before pseudo-element (bin-cleaning's original approach): a
+     property assignment is the escaping standard for every new sink in this
+     build, and it means the fallback copy exists in the DOM regardless of
+     what CSS a given niche happens to ship. -->
+<div class="reviews-cmp-grid">
+  <div class="review-cmp reveal" data-delay="1">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="2">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="3">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Straight answers</span>
+      <h2 class="section-title">The questions we get on the doorstep</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq reveal">
+        <summary>Do I need to be home?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">For an exterior-only visit, no — leave the gate unlocked and we will text you when we are done. For an inside-and-out visit somebody needs to let us in, and we would rather you were there at the end for the walk-through anyway.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>How high will you go?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Second-story exteriors are routine, from a water-fed pole where the ground allows and a ladder with standoffs where it does not. Third storey and anything over a roofline gets looked at in person before we quote it.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>Will you get the hard-water spots off?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Usually. Sprinkler overspray leaves mineral deposits that a normal wash will not touch, so they get a separate restoration pass. If the glass is etched past the point where that works, we will tell you rather than charge you to find out.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>What about the weather?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">We work through most of the North Idaho year. Below freezing the water sheets and re-freezes on the glass, so winter jobs get rescheduled to the next workable day at no charge — you never lose a deposit, because we do not take one.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>How often should this happen?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving Kootenai County</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Kootenai County, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Post Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Coeur d'Alene</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Rathdrum</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hayden</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Dalton Gardens</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Huetter</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GET A QUOTE ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free quote</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about your windows</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We reply with a flat number off the tier list — no site visit needed for most homes, and no obligation either way.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550247" data-tel data-phone-text>(208) 555-0247</a></p>
+      <p class="cta__hours" id="ctaHours"></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Post Falls" required />
+        </div>
+        <div class="field">
+          <label for="q-panes">Roughly how many panes?</label>
+          <select id="q-panes" name="panes"></select>
+        </div>
+        <div class="field">
+          <label for="q-scope">Inside, outside or both?</label>
+          <select id="q-scope" name="scope">
+            <option value="Inside and out">Inside and out</option>
+            <option value="Exterior only">Exterior only</option>
+            <option value="Interior only">Interior only</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred week</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything we should know? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two-story on a corner lot, sprinkler spots on the south side, and a sunroom off the back. Screens have not been out since we moved in."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me my quote and to schedule. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Send me a flat quote</button>
+        <a class="book__alt" href="sms:+12085550247?body=Hi%20Pane%20%26%20Prairie!%20I%27d%20like%20a%20window%20cleaning%20quote." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — your quote is on its way</h3>
+      <p id="doneMsg">We'll text you shortly with a flat number and the next open slot.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person on the ladder</h2>
+        <div class="meet__desc" id="meetDesc">Delia Rhoades started out washing storefronts along Seltice Way before sunrise, because that is the only hour a shop owner will let you block the door. She built Pane &amp; Prairie around the two things those mornings taught her: a window is only clean if it is clean from the inside too, and the crew that made the mess is the crew that should carry it out. Delia still runs the pole on most jobs and answers the phone on all of them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Pane &amp; Prairie Window Co.">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wc-grad-sash2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5FD2E4"/><stop offset=".55" stop-color="#22ACC4"/><stop offset="1" stop-color="#1197AF"/>
+            </linearGradient>
+            <linearGradient id="wc-grad-glasslight2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+              <stop offset=".48" stop-color="#D8F2F8" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#5FD2E4" stop-opacity=".18"/>
+            </linearGradient>
+          </defs>
+          <rect x="9" y="7" width="46" height="50" rx="6" stroke="url(#wc-grad-sash2)" stroke-width="3.4"/>
+          <rect x="14.5" y="12.5" width="35" height="39" rx="3" fill="url(#wc-grad-glasslight2)"/>
+          <path d="M32 12.5v39M14.5 32h35" stroke="url(#wc-grad-sash2)" stroke-width="2.6"/>
+          <path d="M19 46 44 17" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity=".85"/>
+        </svg>
+      </span>
+      <div><b data-brand>Pane &amp; Prairie Window Co.</b><span id="footTagline">Glass you forget is there.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550247" data-tel data-phone-text>(208) 555-0247</a><br />
+      <span id="areaLine">Serving Kootenai County, Idaho</span><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Pane &amp; Prairie Window Co.</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Pane &amp; Prairie Window Co.</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real window cleaning services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550247" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550247?body=Hi%20Pane%20%26%20Prairie!%20I%27d%20like%20a%20window%20cleaning%20quote." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
+
+<script>
+/* Inlined from niches/window-cleaning/content.json by tools/build-site.js.
+   DO NOT EDIT — edit content.json. These two cannot drift: one generates the other. */
+var DEFAULT_CONTENT = {
+  "brand": {
+    "name": "Pane & Prairie Window Co.",
+    "tagline": "Glass you forget is there.",
+    "phone": "(208) 555-0247",
+    "email": "hello@paneandprairie.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Post Falls, ID"
+  },
+  "owner": {
+    "name": "Delia Rhoades",
+    "heading": "The person on the ladder",
+    "bio": "Delia Rhoades started out washing storefronts along Seltice Way before sunrise, because that is the only hour a shop owner will let you block the door. She built Pane & Prairie around the two things those mornings taught her: a window is only clean if it is clean from the inside too, and the crew that made the mess is the crew that should carry it out. Delia still runs the pole on most jobs and answers the phone on all of them.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Kootenai County, Idaho",
+    "short": "Kootenai County",
+    "cities": [
+      "Post Falls",
+      "Coeur d'Alene",
+      "Rathdrum",
+      "Hayden",
+      "Dalton Gardens",
+      "Huetter"
+    ]
+  },
+  "testimonials": [],
+  "pricing": [
+    {
+      "label": "Up to 15 panes",
+      "blurb": "$149",
+      "per": "inside & out",
+      "note": "Condos, townhomes and small single-story homes",
+      "features": [
+        "Interior and exterior glass",
+        "Screens washed and re-set",
+        "Sills and tracks vacuumed, then wiped dry",
+        "Frames hand-detailed"
+      ]
+    },
+    {
+      "label": "16 to 30 panes",
+      "blurb": "$249",
+      "per": "inside & out",
+      "note": "The typical Post Falls two-story",
+      "highlight": true,
+      "features": [
+        "Everything in the first tier",
+        "Second-story exteriors from pole or ladder",
+        "Skylights reachable from the roofline",
+        "One touch-up return within seven days"
+      ]
+    },
+    {
+      "label": "31 to 50 panes",
+      "blurb": "$379",
+      "per": "inside & out",
+      "note": "Larger homes, sunrooms and daylight basements",
+      "features": [
+        "Everything in the middle tier",
+        "Sunroom and transom glass included",
+        "French-pane grids counted as one pane per sash",
+        "Scheduled in a single half-day block"
+      ]
+    },
+    {
+      "label": "Over 50 panes, and all storefront glass",
+      "blurb": "$6.50",
+      "per": "per pane",
+      "note": "Quoted in writing before we start — no deposit, nothing owed until the walk-through at the end",
+      "features": [
+        "Exterior-only route work billed at $4.25 per pane",
+        "Storefronts, offices and multi-unit buildings",
+        "Weekly, monthly or quarterly routes",
+        "Invoiced after the job, net fifteen"
+      ]
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "Residential & commercial glass · Post Falls, Idaho",
+      "title": "Let the daylight all the way in.",
+      "subtitle": "Pane & Prairie cleans windows inside and out across Post Falls and Kootenai County — glass, screens, tracks and sills, finished streak-free and dried by hand. Flat pricing by pane count, agreed before we unload a ladder.",
+      "ctaPrimary": "Get my window quote",
+      "ctaSecondary": "See what a pass includes"
+    },
+    "heroImg": "",
+    "beforeImg": "/sites/window-cleaning/photos/before-soaped.jpg",
+    "afterImg": "/sites/window-cleaning/photos/after-clear.jpg",
+    "about": {
+      "heading": "Most windows are half-cleaned, and everybody can tell",
+      "body": "The outside gets a hose and the inside gets a paper towel, and the glass still hazes the second the sun hits it. We treat a window as four surfaces, not one: the exterior pane, the interior pane, the screen that has been filtering road dust all summer, and the track full of grit that dirties both again the next time you slide the sash. Do all four in one visit and the light comes through the way the builder intended."
+    },
+    "howItWorks": [
+      {
+        "title": "Count and quote",
+        "desc": "Tell us roughly how many panes you have, or send a couple of photos. We give you a flat number off the tier list before anyone shows up, and it does not move on the day."
+      },
+      {
+        "title": "Set up clean",
+        "desc": "Drop cloths under every interior sill, ladder standoffs so nothing rests on your gutters or siding, and shoes off or booties on for the inside pass."
+      },
+      {
+        "title": "Wash, squeegee, detail",
+        "desc": "Soap and scrub the pane, pull the squeegee in overlapping passes, then hand-dry the edges and corners with a dedicated cloth. Screens come out, get washed, and go back in the opening they came from."
+      },
+      {
+        "title": "Walk it with you",
+        "desc": "We walk the house with you at low sun, which is when streaks show. Anything you point at gets redone right then. You pay when you are happy with the glass, not before."
+      }
+    ],
+    "included": [
+      {
+        "title": "Exterior glass",
+        "desc": "Washed from ground level, water-fed pole or ladder, whichever the elevation calls for. No pressure washer anywhere near a seal."
+      },
+      {
+        "title": "Interior glass",
+        "desc": "Cloths and drop sheets in every room, blinds lifted and returned to where you had them, no drips on the sill."
+      },
+      {
+        "title": "Screens",
+        "desc": "Pulled, washed on both faces, dried and re-set in the same opening — screens are numbered as they come out so nothing ends up in the wrong window."
+      },
+      {
+        "title": "Tracks and sills",
+        "desc": "Vacuumed first, then wiped out wet and dried. This is the step most quotes skip, and it is the one that keeps the glass clean longer."
+      },
+      {
+        "title": "Frames and mullions",
+        "desc": "Hand-detailed so the white vinyl actually reads white, and the grid bars do not leave a dusty shadow across the pane."
+      },
+      {
+        "title": "Hard-water and paint spots",
+        "desc": "Mineral etching from a sprinkler and construction overspray both come off with a separate process. We flag them at the quote so the price is honest before we begin."
+      }
+    ],
+    "countHelp": "Count a pane as one piece of glass you can see through. A double-hung window is two. A slider is two. A french-grid sash counts as one, not nine — the grid bars are frame, not glass.",
+    "beforeAfterHeading": "The same window, ten minutes apart",
+    "beforeAfterBlurb": "Drag the handle. Left is the pane soaped and still streaking; right is the same sash squeegeed, edged and dried — the tree and the brickwork outside are back.",
+    "pricingNote": "Every figure above is a flat rate for the whole visit, inside and out, screens and tracks included. Storey height, hard-water treatment and construction cleanup are quoted separately and always in writing first.",
+    "faq": [
+      {
+        "q": "Do I need to be home?",
+        "a": "For an exterior-only visit, no — leave the gate unlocked and we will text you when we are done. For an inside-and-out visit somebody needs to let us in, and we would rather you were there at the end for the walk-through anyway."
+      },
+      {
+        "q": "How high will you go?",
+        "a": "Second-story exteriors are routine, from a water-fed pole where the ground allows and a ladder with standoffs where it does not. Third storey and anything over a roofline gets looked at in person before we quote it."
+      },
+      {
+        "q": "Will you get the hard-water spots off?",
+        "a": "Usually. Sprinkler overspray leaves mineral deposits that a normal wash will not touch, so they get a separate restoration pass. If the glass is etched past the point where that works, we will tell you rather than charge you to find out."
+      },
+      {
+        "q": "What about the weather?",
+        "a": "We work through most of the North Idaho year. Below freezing the water sheets and re-freezes on the glass, so winter jobs get rescheduled to the next workable day at no charge — you never lose a deposit, because we do not take one."
+      },
+      {
+        "q": "How often should this happen?",
+        "a": "Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year."
+      }
+    ],
+    "contact": {
+      "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
+      "address": "",
+      "postal": ""
+    }
+  },
+  "seo": {
+    "title": "Pane &amp; Prairie Window Co. — Window Cleaning, Inside &amp; Out | Post Falls, ID",
+    "description": "Residential and commercial window cleaning in Post Falls and Kootenai County, Idaho. Glass, screens, tracks and sills — streak-free and hand-dried. Flat pricing by pane count. Call or text (208) 555-0247.",
+    "ogTitle": "Pane &amp; Prairie Window Co. — Glass you forget is there.",
+    "ogDescription": "Inside-and-out window cleaning across Post Falls and Kootenai County, Idaho. Screens, tracks and sills included. Flat quotes: (208) 555-0247.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/window-cleaning/",
+    "themeColor": "#22ACC4",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/window-cleaning/og.png"
+  }
+};
+</script>
+
+<!-- SCRIPT ORDER IS LOAD-BEARING. base.js FIRST.
+     Every niche.js opens with `var SL = window.SL;`, and base.js assigns
+     window.SL at the end of its IIFE. With base.js emitted last, SL was
+     undefined when niche.js ran: every renderer threw on its first line,
+     window.renderContent was never defined, and base.js then skipped it via its
+     own typeof guard — silently, on all 14 converted sites.
+     base.js defers boot() to DOMContentLoaded, so renderContent and initScene
+     are both defined by the time it fires. Do not reorder these. -->
+<script>
+/* _template/base.js — utilities and the content lifecycle.
+   Shared by every niche. Niche-specific rendering lives in niches/<slug>/niche.js,
+   which must define window.renderContent(CONTENT). */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+  function telDigits(p) { return String(p || '').replace(/[^0-9+]/g, ''); }
+  function telHref(p) { return 'tel:' + telDigits(p); }
+  function smsHref(p, body) { return 'sms:' + telDigits(p) + '?&body=' + encodeURIComponent(body || ''); }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  /* reveal-on-scroll. Under reduced motion everything is revealed at once. */
+  function initReveal() {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Form POST. Returns a promise; the niche decides what to render on success. */
+  function postForm(endpoint, payload) {
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+  }
+
+  /* Consent gate (§9.3).
+     Runs in the CAPTURE phase, ahead of the niche's own submit handler, so a
+     checkbox the BUILD injected is enforced even though that niche's JS knows
+     nothing about it.
+
+     It does NOT stopPropagation: the niche handler still runs and sets its own
+     message if it has one. We only supply wording when nobody else did, checked
+     on the next tick — so the 8 sites that already gate keep their own copy and
+     the injected sites get a sensible default. Enforcement is uniform; wording
+     is not overridden. */
+  function consentGate(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+    if (!box || box.checked) return;
+
+    e.preventDefault();
+    box.focus();
+
+    var msg = form.querySelector('[id$="Msg"]');
+    var before = msg ? msg.textContent : null;
+    setTimeout(function () {
+      if (!msg || msg.textContent !== before) return;   // the niche spoke first
+      msg.textContent = 'Please tick the consent box so we can reply to you.';
+      if (msg.className.indexOf('err') < 0) msg.className += ' err';
+    }, 0);
+  }
+  document.addEventListener('submit', consentGate, true);
+
+  /* The content lifecycle.
+     DEFAULT_CONTENT is inlined by the build from content.json, so the two can
+     never disagree. The fetch exists so an operator edit goes live without a
+     rebuild; on failure the inlined copy already rendered. */
+  /* content.json namespaces per-niche data under `niche` (SITELAB_TEMPLATE.md
+     §4.3) so the canonical schema stays clean. But every niche renderer reads
+     those keys FLAT — c.walkServices, c.systemMap, c.rundown — because they were
+     written against the pre-consolidation shape. Nothing ever unpacked the
+     namespace, so after the very first conversion every renderer that touched
+     niche data threw on undefined. Hand the renderer a flattened view; the
+     authored file keeps its namespace. Verified collision-free across all 17
+     sites, and re-checked by qa-site.js on every run. */
+  function SLflat(c) { return c && c.niche ? Object.assign({}, c, c.niche) : (c || {}); }
+
+  /* Flatten the GLOBAL, once, before niche.js parses. Passing a flattened copy
+     to renderContent(c) is not enough: every niche.js opens with
+     `var CONTENT = window.DEFAULT_CONTENT;` and its interactive handlers — drip
+     calculators, quoters, week builders — read that alias directly rather than
+     the render parameter. Those paths would still see the nested shape.
+     This is why base.js must be emitted BEFORE niche.js (see _template/index.html).
+     content.json on disk keeps its namespace; only the runtime view is flat, so
+     DEFAULT_CONTENT still matches the authored file byte for byte. */
+  window.DEFAULT_CONTENT = SLflat(window.DEFAULT_CONTENT);
+
+  function boot() {
+    var CONTENT = SLflat(window.DEFAULT_CONTENT);
+    window.CONTENT = CONTENT;
+    if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+    initReveal();
+    if (typeof window.initScene === 'function') window.initScene(reduce);
+
+    fetch('content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        CONTENT = SLflat(Object.assign({}, window.DEFAULT_CONTENT, d));
+        window.CONTENT = CONTENT;
+        if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+      })
+      .catch(function () { /* offline or 404: the inlined defaults stand */ });
+  }
+
+  /* setErr and showDone are intentionally absent: every niche examined
+     defines its own with a different signature. Sharing them would be a
+     silent behaviour change, not a saving. */
+  window.SL = { esc: esc, num: num, telHref: telHref, telDigits: telDigits,
+                smsHref: smsHref, val: val, postForm: postForm, reduce: reduce };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<script>
+/* window-cleaning/niche.js — this niche's renderer and interactive logic.
+   Shared utilities come from _template/base.js via SL. base.js owns the
+   reduced-motion flag, the reveal observer, the content fetch/merge lifecycle,
+   and calling window.renderContent(). Sinks are DOM-property assignments
+   (textContent / element properties) throughout; esc() is imported for the
+   escaping canon even though nothing here concatenates into markup.
+
+   Content shape notes: hero/about/howItWorks/included/faq/contact and the
+   before/after image paths live under content.json's `niche` namespace and
+   reach this renderer FLAT (base.js SLflat). brand.city carries the combined
+   "City, ST" string, which is what api/operator-content.mjs writes.
+
+   PRICING IS THE TIERS MODEL — a root-level ARRAY of
+   {label, blurb, per, note, highlight, features}. `blurb` IS the price
+   display string: ARRAY_FIELD_MAPS.pricing lands an operator's admin
+   price_label on that key, so reading anything else here would make their
+   save a silent no-op. `note` is offered by the admin too and is rendered on
+   the card below, hidden when the operator clears it. Nothing in this file
+   computes, derives or formats a figure — the strings render verbatim. */
+(function () {
+  'use strict';
+
+  var SL = window.SL;
+  var esc = SL.esc, telHref = SL.telHref;
+  var CONTENT = window.DEFAULT_CONTENT;
+
+  /* ---- content helpers ---- */
+  function phoneDigits(p){ var d = String(p || '').replace(/\D/g, ''); if (d.length === 10) d = '1' + d; return d; }
+  function smsHref(p, body){ return 'sms:+' + phoneDigits(p) + (body ? '?body=' + encodeURIComponent(body) : ''); }
+  /* Always read contact details off the LIVE merged view (base.js refreshes
+     window.CONTENT after the content.json fetch) so an admin edit takes
+     effect everywhere — form destination, SMS fallback, toasts — no rebuild. */
+  function cc(){ return window.CONTENT || CONTENT; }
+  function brandName(){ return (cc().brand && cc().brand.name) || CONTENT.brand.name; }
+  function brandPhone(){ return (cc().brand && cc().brand.phone) || CONTENT.brand.phone; }
+  function brandEmail(){ return (cc().brand && (cc().brand.leadEmail || cc().brand.email)) || (CONTENT.brand.leadEmail || CONTENT.brand.email); }
+  function smsBody(){ return 'Hi ' + brandName() + "! I'd like a window cleaning quote."; }
+  function setText(id, v){ var el = document.getElementById(id); if (el && v != null && v !== '') el.textContent = v; }
+  function clear(el){ while (el && el.firstChild) el.removeChild(el.firstChild); }
+
+  /* Re-rendered regions appear instantly once the boot render + reveal
+     observer have run (this listener registers AFTER base.js's, so it fires
+     after boot). Before that, first-paint nodes keep .reveal and get observed. */
+  var revealReady = false;
+  document.addEventListener('DOMContentLoaded', function () { revealReady = true; });
+  function revealCls(){ return revealReady ? 'reveal in' : 'reveal'; }
+
+  var PIN_D = 'M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z';
+
+  /* Small SVG builders. Icons are static geometry authored here, never content,
+     so they are assembled as elements rather than markup strings. */
+  function svgEl(name){ return document.createElementNS('http://www.w3.org/2000/svg', name); }
+  function iconPin(){
+    var s = svgEl('svg');
+    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', 'none');
+    s.setAttribute('stroke', 'currentColor'); s.setAttribute('stroke-width', '2');
+    s.setAttribute('stroke-linecap', 'round'); s.setAttribute('stroke-linejoin', 'round');
+    s.setAttribute('aria-hidden', 'true');
+    var p = svgEl('path'); p.setAttribute('d', PIN_D);
+    var c = svgEl('circle'); c.setAttribute('cx', '12'); c.setAttribute('cy', '10'); c.setAttribute('r', '3');
+    s.appendChild(p); s.appendChild(c);
+    return s;
+  }
+  function iconTick(){
+    var s = svgEl('svg');
+    s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('fill', 'none');
+    s.setAttribute('stroke', 'currentColor'); s.setAttribute('stroke-linecap', 'round');
+    s.setAttribute('stroke-linejoin', 'round'); s.setAttribute('aria-hidden', 'true');
+    var p = svgEl('path'); p.setAttribute('d', 'M5 12l5 5L20 7');
+    s.appendChild(p);
+    return s;
+  }
+
+  /* ---- section renderers ---- */
+  function renderHero(h){
+    if (!h) return;
+    setText('heroKicker', h.kicker);
+    setText('heroTitle', h.title);
+    setText('heroSub', h.subtitle);
+    setText('heroCtaPrimary', h.ctaPrimary);
+    setText('heroCtaSecondary', h.ctaSecondary);
+  }
+
+  function renderAbout(a){
+    if (!a) return;
+    setText('aboutHeading', a.heading);
+    setText('aboutBody', a.body);
+  }
+
+  function renderSteps(steps){
+    var g = document.getElementById('stepsGrid');
+    if (!g || !steps || !steps.length) return;
+    clear(g);
+    steps.forEach(function (s, i) {
+      var step = document.createElement('div');
+      step.className = 'step ' + revealCls();
+      step.setAttribute('data-delay', String(i % 3 + 1));
+      var n = document.createElement('span'); n.className = 'step__n';
+      var h3 = document.createElement('h3'); h3.textContent = s.title || '';
+      var p = document.createElement('p'); p.textContent = s.desc || '';
+      step.appendChild(n); step.appendChild(h3); step.appendChild(p);
+      g.appendChild(step);
+    });
+  }
+
+  function renderIncluded(rows){
+    var g = document.getElementById('incGrid');
+    if (!g || !rows || !rows.length) return;
+    clear(g);
+    rows.forEach(function (r, i) {
+      var card = document.createElement('div');
+      card.className = 'inc ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      var h3 = document.createElement('h3'); h3.textContent = r.title || '';
+      var p = document.createElement('p'); p.textContent = r.desc || '';
+      card.appendChild(h3); card.appendChild(p);
+      g.appendChild(card);
+    });
+  }
+
+  /* ===== pricing =====
+     The tier cards. Every string on a card comes straight off the row:
+     label, blurb (the price display string), per, note, features. A row with
+     an empty blurb renders no price line at all rather than a bare currency
+     symbol or a fabricated "$0". */
+  var tierCards = [];      // index-aligned with the rendered pricing rows
+
+  function renderTiers(rows){
+    var g = document.getElementById('tiersGrid');
+    if (!g) return;
+    var pricing = Array.isArray(rows) ? rows : [];
+    clear(g);
+    tierCards = [];
+    pricing.forEach(function (p, i) {
+      var card = document.createElement('div');
+      card.className = 'tier' + (p.highlight ? ' tier--best' : '') + ' ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+
+      var label = document.createElement('span');
+      label.className = 'tier__label';
+      label.textContent = p.label || '';
+      card.appendChild(label);
+
+      if (p.blurb) {
+        var price = document.createElement('div');
+        price.className = 'tier__price';
+        price.textContent = p.blurb;
+        card.appendChild(price);
+      }
+      if (p.per) {
+        var per = document.createElement('div');
+        per.className = 'tier__per';
+        per.textContent = p.per;
+        card.appendChild(per);
+      }
+      /* p.note: offered by the admin (PRICE_MODEL_FIELDS tiers) and rendered
+         here. Hidden entirely when the operator clears it, so an emptied note
+         leaves no dangling divider behind. */
+      var note = document.createElement('div');
+      note.className = 'tier__note';
+      note.textContent = p.note || '';
+      note.hidden = !p.note;
+      card.appendChild(note);
+
+      var feats = Array.isArray(p.features) ? p.features : [];
+      if (feats.length) {
+        var ul = document.createElement('ul');
+        ul.className = 'tier__features';
+        feats.forEach(function (f) {
+          var li = document.createElement('li');
+          li.appendChild(iconTick());
+          li.appendChild(document.createTextNode(f == null ? '' : String(f)));
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+      }
+
+      var cta = document.createElement('a');
+      cta.className = 'btn' + (p.highlight ? '' : ' btn--ghost');
+      cta.setAttribute('href', '#book');
+      cta.textContent = 'Get this quote';
+      card.appendChild(cta);
+
+      g.appendChild(card);
+      tierCards.push(card);
+    });
+  }
+
+  /* ===== the pane-count picker =====
+     It SELECTS one of the published tiers; it never computes a figure of its
+     own. The readout echoes that row's own label / blurb / per, so an
+     operator's saved price_label is the only money on screen, and the card it
+     points at gets a .is-match ring. Length follows the saved array. */
+  var paneIdx = -1;
+
+  function renderCounterPills(rows){
+    var box = document.getElementById('counterPills');
+    if (!box) return;
+    var pricing = Array.isArray(rows) ? rows : [];
+    clear(box);
+    if (paneIdx >= pricing.length) paneIdx = -1;
+    pricing.forEach(function (p, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'counter__pill';
+      b.textContent = p.label || ('Option ' + (i + 1));
+      b.setAttribute('aria-pressed', paneIdx === i ? 'true' : 'false');
+      b.setAttribute('data-idx', String(i));
+      box.appendChild(b);
+    });
+  }
+
+  /* Named renderPrice(): the one place the picker's readout is written. */
+  function renderPrice(){
+    var read = document.getElementById('counterRead');
+    var pricing = Array.isArray(cc().pricing) ? cc().pricing : [];
+    var row = paneIdx > -1 ? pricing[paneIdx] : null;
+
+    Array.prototype.forEach.call(document.querySelectorAll('.counter__pill'), function (b) {
+      b.setAttribute('aria-pressed', String(Number(b.getAttribute('data-idx')) === paneIdx));
+    });
+    tierCards.forEach(function (card, i) { card.classList.toggle('is-match', i === paneIdx); });
+
+    if (!read) return;
+    clear(read);
+    if (!row) {
+      read.textContent = 'Pick a range and we’ll point you at the tier it lands in.';
+      return;
+    }
+    read.appendChild(document.createTextNode('That’s the '));
+    var strong = document.createElement('b');
+    strong.textContent = row.label || '';
+    read.appendChild(strong);
+    read.appendChild(document.createTextNode(' tier'));
+    if (row.blurb) {
+      read.appendChild(document.createTextNode(' — '));
+      var money = document.createElement('b');
+      money.textContent = row.blurb + (row.per ? ' ' + row.per : '');
+      read.appendChild(money);
+      read.appendChild(document.createTextNode('.'));
+    } else {
+      read.appendChild(document.createTextNode('.'));
+    }
+  }
+
+  /* The quote form's pane dropdown is rebuilt from the same rows, so an
+     edited tier label shows up in the option text instead of going stale. */
+  function renderPaneSelect(rows){
+    var sel = document.getElementById('q-panes');
+    if (!sel) return;
+    var pricing = Array.isArray(rows) ? rows : [];
+    var prev = sel.value;
+    clear(sel);
+    var first = document.createElement('option');
+    first.value = 'Not counted yet';
+    first.textContent = 'Not counted yet';
+    sel.appendChild(first);
+    pricing.forEach(function (p) {
+      var o = document.createElement('option');
+      o.value = p.label || '';
+      o.textContent = p.label || '';
+      sel.appendChild(o);
+    });
+    var opts = Array.prototype.map.call(sel.options, function (o) { return o.value; });
+    var at = opts.indexOf(prev);
+    sel.selectedIndex = at > -1 ? at : 0;
+  }
+
+  function renderFaq(rows){
+    var g = document.getElementById('faqList');
+    if (!g || !rows || !rows.length) return;
+    clear(g);
+    rows.forEach(function (row) {
+      var d = document.createElement('details');
+      d.className = 'faq ' + revealCls();
+      var s = document.createElement('summary');
+      s.appendChild(document.createTextNode(row.q || ''));
+      var plus = document.createElement('span');
+      plus.className = 'plus';
+      plus.setAttribute('aria-hidden', 'true');
+      plus.textContent = '+';
+      s.appendChild(plus);
+      var body = document.createElement('div');
+      body.className = 'faq__body';
+      body.textContent = row.a || '';
+      d.appendChild(s); d.appendChild(body);
+      g.appendChild(d);
+    });
+  }
+
+  function renderArea(sa){
+    if (!sa) return;
+    setText('areaRegion', sa.region);
+    var g = document.getElementById('areaChips');
+    if (!g || !sa.cities || !sa.cities.length) return;
+    clear(g);
+    sa.cities.forEach(function (city) {
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.appendChild(iconPin());
+      chip.appendChild(document.createTextNode(city));
+      g.appendChild(chip);
+    });
+  }
+
+  function renderOwner(o){
+    if (!o) return;
+    setText('meetHeading', o.heading);
+    setText('meetDesc', o.bio);
+    var mp = document.getElementById('meetPhoto');
+    if (mp) {
+      clear(mp);
+      if (o.photo) {
+        var img = document.createElement('img');
+        img.src = o.photo;
+        img.alt = 'Photo of the owner';
+        mp.appendChild(img);
+        mp.removeAttribute('aria-label'); mp.removeAttribute('role');
+      }
+    }
+  }
+
+  function renderContent(c){
+    var b = c.brand || {};
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function (el) { el.textContent = b.name || ''; });
+    /* The nav lockup drops a trailing " Window Co." — the line beneath it
+       already says "Window cleaning · <city>". */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function (el) {
+      el.textContent = String(b.name || '').replace(/\s+Window Co\.?$/i, '');
+    });
+    var bl = document.getElementById('brandLocale');
+    if (bl && b.city) bl.textContent = 'Window cleaning · ' + b.city;
+
+    var tel = telHref(b.phone), sms = smsHref(b.phone, smsBody());
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function (a) { a.setAttribute('href', tel); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function (a) { a.setAttribute('href', sms); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-phone-text]'), function (el) { el.textContent = b.phone || ''; });
+
+    setText('footTagline', b.tagline);
+    var area = document.getElementById('areaLine');
+    if (area) area.textContent = 'Serving ' + ((c.serviceArea && c.serviceArea.region) || b.city || '');
+
+    var hoursEl = document.getElementById('ctaHours');
+    if (hoursEl) {
+      var hours = (c.contact && c.contact.hours) || '';
+      hoursEl.textContent = hours;
+      hoursEl.hidden = !hours;
+    }
+
+    renderHero(c.hero);
+    renderAbout(c.about);
+    renderSteps(c.howItWorks);
+    renderIncluded(c.included);
+
+    renderTiers(c.pricing);
+    renderCounterPills(c.pricing);
+    renderPaneSelect(c.pricing);
+    renderPrice();
+    setText('countHelp', c.countHelp);
+    setText('pricingNote', c.pricingNote);
+
+    setText('baHeading', c.beforeAfterHeading);
+    setText('baBlurb', c.beforeAfterBlurb);
+
+    renderFaq(c.faq);
+    renderArea(c.serviceArea);
+    renderOwner(c.owner);
+  }
+
+  /* The picker's click handler is delegated once, so it survives every
+     re-render of the pill row (boot, then again after the content fetch). */
+  var pillBox = document.getElementById('counterPills');
+  if (pillBox) {
+    pillBox.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.counter__pill');
+      if (!b) return;
+      var i = Number(b.getAttribute('data-idx'));
+      paneIdx = (paneIdx === i) ? -1 : i;
+      renderPrice();
+      var sel = document.getElementById('q-panes');
+      var pricing = Array.isArray(cc().pricing) ? cc().pricing : [];
+      if (sel && paneIdx > -1 && pricing[paneIdx]) {
+        var want = pricing[paneIdx].label || '';
+        var opts = Array.prototype.map.call(sel.options, function (o) { return o.value; });
+        var at = opts.indexOf(want);
+        if (at > -1) sel.selectedIndex = at;
+      }
+    });
+  }
+
+  // year
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  // nav solidify
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ===== quote request form =====
+     Leads deliver without a backend via FormSubmit (house pattern): the FIRST
+     real submission emails an activation link to the lead inbox; the
+     destination email and business number live in CONTENT.brand and are
+     editable from /admin/. Set provider:'web3forms' + a key to switch. */
+  var LEAD = {
+    provider: 'formsubmit',
+    web3formsKey: ''                    // <-- paste a key from web3forms.com to use Web3Forms
+  };
+
+  var form = document.getElementById('bookForm');
+  if (form) {
+    var msgEl = document.getElementById('bookMsg');
+    var submitBtn = document.getElementById('bookSubmit');
+    var val = function (id) { var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+    var setErr = function (fieldEl, on) { if (fieldEl) fieldEl.classList.toggle('invalid', !!on); };
+
+    var buildSms = function (d) {
+      var body = 'Hi ' + brandName() + "! I'd like a window cleaning quote."
+        + ' Name: ' + d.name + '.'
+        + ' Phone: ' + d.phone + '.'
+        + ' Address: ' + d.address + (d.city ? ', ' + d.city : '') + '.'
+        + (d.panes ? ' Panes: ' + d.panes + '.' : '')
+        + (d.scope ? ' Scope: ' + d.scope + '.' : '')
+        + (d.date ? ' Preferred week: ' + d.date + '.' : '')
+        + (d.notes ? ' Notes: ' + d.notes + '.' : '');
+      return smsHref(brandPhone(), body);
+    };
+
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    /* Desktop guard: never let sms: or tel: links open the OS "pick an app"
+       dialog — show a helpful toast instead. Mobile is untouched. The toast is
+       assembled from nodes, so the phone number lands via textContent. */
+    if (!isMobile) {
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+        if (!a) return;
+        e.preventDefault();
+        var t = document.getElementById('smsToast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'smsToast';
+          t.setAttribute('role', 'status');
+          t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+            + 'background:#FFFFFF;color:#16272E;padding:14px 22px;border-radius:14px;'
+            + 'box-shadow:0 18px 44px rgba(16,72,88,.28);border:1px solid rgba(17,151,175,.4);'
+            + 'font-family:Figtree,system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+            + 'opacity:0;transition:opacity .25s ease;';
+          document.body.appendChild(t);
+        }
+        while (t.firstChild) t.removeChild(t.firstChild);
+        t.appendChild(document.createTextNode('Call or text us at '));
+        var num = document.createElement('strong');
+        num.style.cssText = 'color:#0B6C7D;letter-spacing:.02em';
+        num.textContent = brandPhone();
+        t.appendChild(num);
+        t.appendChild(document.createTextNode(' from your phone.'));
+        requestAnimationFrame(function () { t.style.opacity = '1'; });
+        clearTimeout(window.__smsToastTimer);
+        window.__smsToastTimer = setTimeout(function () { t.style.opacity = '0'; }, 4500);
+      });
+    }
+
+    var showDone = function (phone, smsUrl) {
+      form.hidden = true;
+      var done = document.getElementById('bookDone');
+      var dm = document.getElementById('doneMsg');
+      if (dm) {
+        if (isMobile && smsUrl) {
+          dm.textContent = 'We got your details. We’ll text you at ' + phone + ' with a flat quote. Opening a text so you can send us a copy too — just hit send.';
+        } else {
+          dm.textContent = 'We got your details. We’ll text you at ' + phone + ' from ' + brandPhone() + ' with a flat quote and the next open slot.';
+        }
+      }
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      // On mobile only, also open the customer's SMS app pre-filled.
+      if (smsUrl && isMobile) { setTimeout(function () { window.location.href = smsUrl; }, 900); }
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // honeypot: bots fill this; treat as done and do nothing real
+      var hp = form.querySelector('.hp');
+      if (hp && hp.value) { showDone(val('q-phone') || 'your phone'); return; }
+
+      // validate
+      var checks = ['q-name', 'q-phone', 'q-addr', 'q-city'];
+      var firstBad = null, ok = true;
+      checks.forEach(function (id) {
+        var el = document.getElementById(id);
+        var isBad = !el.value || !el.value.trim();
+        setErr(el.closest('.field'), isBad);
+        if (isBad) { ok = false; if (!firstBad) firstBad = el; }
+      });
+      var consent = document.getElementById('q-consent');
+      if (!consent.checked) { ok = false; if (!firstBad) firstBad = consent; }
+
+      if (!ok) {
+        msgEl.className = 'book__msg err';
+        msgEl.textContent = consent.checked ? 'Please fill in the highlighted fields.'
+                                            : 'Please complete the required fields and check the consent box.';
+        if (firstBad) firstBad.focus();
+        return;
+      }
+
+      var data = {
+        name: val('q-name'), phone: val('q-phone'),
+        address: val('q-addr'), city: val('q-city'),
+        panes: val('q-panes'), scope: val('q-scope'),
+        date: val('q-date'), notes: val('q-notes')
+      };
+
+      // build request per provider
+      var url, payload, headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (LEAD.provider === 'web3forms' && LEAD.web3formsKey) {
+        url = 'https://api.web3forms.com/submit';
+        payload = Object.assign({
+          access_key: LEAD.web3formsKey,
+          subject: 'New window quote request: ' + data.name + ' — ' + data.city,
+          from_name: brandName() + ' site'
+        }, data);
+      } else {
+        url = 'https://formsubmit.co/ajax/' + encodeURIComponent(brandEmail());
+        payload = Object.assign({
+          _subject: 'New window quote request: ' + data.name + ' — ' + data.city,
+          _template: 'table', _captcha: 'false'
+        }, data);
+      }
+
+      submitBtn.disabled = true;
+      var origText = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      msgEl.className = 'book__msg'; msgEl.textContent = '';
+
+      fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(payload) })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return { ok: true }; }) : Promise.reject(r.status); })
+        .then(function () { showDone(data.phone, buildSms(data)); })
+        .catch(function () {
+          // couldn't reach the lead server — never lose the lead
+          if (isMobile) {
+            msgEl.className = 'book__msg ok';
+            msgEl.textContent = 'Opening a text with your details — just hit send and we’ll take it from there.';
+            window.location.href = buildSms(data);
+          } else {
+            msgEl.className = 'book__msg err';
+            msgEl.textContent = 'Couldn’t reach our server. Please text your details to ' + brandPhone() + ' and we’ll get you a quote.';
+          }
+        })
+        .then(function () { submitBtn.disabled = false; submitBtn.textContent = origText; });
+    });
+
+    // clear a field's error as the user fixes it
+    form.addEventListener('input', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+    form.addEventListener('change', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+  }
+
+  /* esc() is part of this build's escaping canon; referenced so the import is
+     never quietly dropped by a future edit that does need a string sink. */
+  void esc;
+
+  window.renderContent = renderContent;
+})();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: before-after -- */
+/* _template/components/before-after.js
+   Slider drag/keyboard logic extracted verbatim (behavior) from
+   niches/bin-cleaning/niche.js. Image resolution is generalized: the target
+   keys come from data-merge on .ba-cmp-wrap, stamped by tools/build-site.js
+   from the niche's manifest merge.beforeAfter. */
+(function () {
+  'use strict';
+
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  /* "niche.beforeImg/afterImg" (default/unknown falls back to this shape) or
+     "projects[0]" (contracting's shape: c.projects[0].beforeImg/afterImg). */
+  function resolveImages(c, mergeSpec) {
+    var base = (mergeSpec === 'projects[0]')
+      ? ((c.projects && c.projects[0]) || {})
+      : ((c && c.niche) || {});
+    return { before: base.beforeImg || '', after: base.afterImg || '' };
+  }
+
+  function initBeforeAfter(c) {
+    var wrap = document.querySelector('.ba-cmp-wrap');
+    var ba = document.querySelector('.ba-cmp');
+    if (!wrap || !ba) return;
+
+    var mergeSpec = wrap.getAttribute('data-merge') || 'niche.beforeImg/afterImg';
+    var imgs = resolveImages(c || {}, mergeSpec);
+    /* both-or-neither: a lone real photo is never paired with a placeholder
+       standing in as the other side of a fabricated comparison. */
+    var hasBoth = !!(imgs.before && imgs.after);
+    if (hasBoth) {
+      ba.style.setProperty('--before-img', 'url("' + safeUrl(imgs.before) + '")');
+      ba.style.setProperty('--after-img', 'url("' + safeUrl(imgs.after) + '")');
+    } else {
+      ba.style.removeProperty('--before-img');
+      ba.style.removeProperty('--after-img');
+    }
+    wrap.classList.toggle('slot-empty', !hasBoth);
+
+    if (ba.__slBaWired) return; // wire drag/keyboard once; renderContent may
+                                 // run again after the content.json fetch.
+    ba.__slBaWired = true;
+
+    var pos = 50, dragging = false, touched = false;
+    function setPos(p) {
+      pos = Math.max(0, Math.min(100, p));
+      ba.style.setProperty('--pos', pos + '%');
+      ba.setAttribute('aria-valuenow', Math.round(pos));
+    }
+    function xToPct(clientX) {
+      var r = ba.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    }
+    function start(e) {
+      dragging = true; ba.classList.add('dragging');
+      if (!touched) { touched = true; ba.classList.add('touched'); }
+      move(e);
+    }
+    function move(e) {
+      if (!dragging) return;
+      var x = (e.touches ? e.touches[0].clientX : e.clientX);
+      setPos(xToPct(x));
+      if (e.cancelable) e.preventDefault();
+    }
+    function end() { dragging = false; ba.classList.remove('dragging'); }
+
+    ba.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move, { passive: false });
+    window.addEventListener('mouseup', end);
+    ba.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', end);
+
+    ba.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { setPos(pos - 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+      if (e.key === 'ArrowRight') { setPos(pos + 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+    });
+
+    // gentle auto-nudge on first view to signal it drags
+    var reduce = !!(window.SL && window.SL.reduce);
+    if (!reduce && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (x) {
+          if (x.isIntersecting && !touched) {
+            var seq = [68, 32, 50], k = 0;
+            var t = setInterval(function () {
+              if (touched) { clearInterval(t); return; }
+              setPos(seq[k++]); if (k >= seq.length) clearInterval(t);
+            }, 520);
+            io.unobserve(ba);
+          }
+        });
+      }, { threshold: .5 });
+      io.observe(ba);
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initBeforeAfter);
+  }
+})();
+
+/* -- component: reviews -- */
+/* _template/components/reviews.js
+   Fills the three review cards from c.testimonials via element.textContent
+   (DOM-property assignment, the escaping standard for this build). Carries
+   its OWN fallback strings -- the B1 lesson: an empty testimonial must still
+   read as an honest, deliberate placeholder, not blank space or a copied-in
+   assumption about a real customer. Empty-compliant: a fictional demo with
+   no testimonials renders three "coming soon" cards, never a fabricated
+   quote. */
+(function () {
+  'use strict';
+
+  var FALLBACK_QUOTE = 'Real review coming soon.';
+  var FALLBACK_WHO = '— Add a real review here';
+
+  function initReviews(c) {
+    var cards = document.querySelectorAll('.review-cmp');
+    if (!cards.length) return;
+    var testimonials = (c && c.testimonials) || [];
+    cards.forEach(function (card, i) {
+      var t = testimonials[i] || {};
+      var quoteEl = card.querySelector('.review-cmp__quote');
+      var whoEl = card.querySelector('.review-cmp__who');
+      if (quoteEl) quoteEl.textContent = t.quote || FALLBACK_QUOTE;
+      if (whoEl) whoEl.textContent = t.name ? ('— ' + t.name) : FALLBACK_WHO;
+    });
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initReviews);
+  }
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
+</script>
+
+<script>
+/* window-cleaning/scene.js — the signature animation is CSS, in sections.css.
+   Light and water: wc-sweep (a band of daylight travelling across the hero
+   photo card), wc-shaft (two soft shafts of light crossing the hero, as if
+   through a mullioned window) and wc-bead (water beads running down the
+   leaning sash). All of it is transform/opacity only, loops on @keyframes,
+   and is switched off by the prefers-reduced-motion block at the foot of that
+   same file plus base.css's global animation:none override — so there is
+   nothing for JavaScript to drive (SITELAB_TEMPLATE.md 7.0, D-S). A stub here
+   is the correct shape, not a gap; qa-site.js grades the animation wherever
+   it lives. The reduce flag is accepted and deliberately unused. */
+window.initScene = function (reduce) { void reduce; /* see sections.css */ };
+</script>
+
+</body>
+</html>

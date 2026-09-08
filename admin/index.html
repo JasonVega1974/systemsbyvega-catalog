@@ -1915,6 +1915,11 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       var cfg = (manifest && manifest.pricing && typeof manifest.pricing === 'object')
         ? manifest.pricing : {};
+      /* keep in sync with priceHeadline in api/marketing-kit.mjs — a
+         unit-priced niche states its unit in the manifest so the flyer reads
+         "From $0.08/sq ft" rather than "From $0.08" */
+      var suffix = mkStr(cfg.headlineSuffix);
+      var withUnit = function (v) { return (v && suffix) ? v + suffix : v; };
       var model = mkStr(cfg.model) || 'none';
       if (model === 'calculator' || model === 'none') return '';
       var data = mkGetPath(content, mkStr(cfg.mergePath));
@@ -1928,7 +1933,7 @@ document.addEventListener('DOMContentLoaded', function () {
           var n = mkPriceNumber(label);
           if (isFinite(n) && n < bestN) { bestN = n; bestLabel = label; }
         }
-        return bestLabel ? 'From ' + mkDisplayPrice(bestLabel) : '';
+        return bestLabel ? withUnit('From ' + mkDisplayPrice(bestLabel)) : '';
       }
       if (model === 'hourly') {
         var row = Array.isArray(data) ? data[0] : data;
@@ -1936,12 +1941,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var rate = mkStr(row.rate) || mkStr(row.base);
         if (!rate) return '';
         var unit = mkStr(row.unit);
-        return mkDisplayPrice(rate) + (unit ? ' ' + unit : '');
+        return withUnit(mkDisplayPrice(rate) + (unit ? ' ' + unit : ''));
       }
       if (model === 'quote') {
         if (typeof data !== 'object' || Array.isArray(data)) return '';
         var q = mkStr(data.starting_at) || mkStr(data.minimum);
-        return q ? 'From ' + mkDisplayPrice(q) : '';
+        return q ? withUnit('From ' + mkDisplayPrice(q)) : '';
       }
       if (model === 'percentage') {
         if (typeof data !== 'object' || Array.isArray(data)) return '';

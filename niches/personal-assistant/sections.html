@@ -1,0 +1,490 @@
+<!-- personal-assistant/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Visual language: "a cleared desk, mid-morning" — warm paper, graphite ink,
+     one ribbon of deep petrol green, ruled-paper and index-tab motifs. The
+     brand is fictional.
+     There is exactly ONE photograph on this site and no gallery, so the
+     STRUCTURE carries it: a grouped services board, a weekday rail, a tier
+     picker that feeds the intake form, and an honest boundaries section.
+     No before/after slider — manifest.sections.beforeAfter is false and there
+     is no before/after slot comment anywhere in this file, deliberately.
+     Static copy below mirrors content.json (the no-JS fallback); niche.js
+     re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Wrenfield &amp; Co. home">
+      <span class="brand__mark" id="navMark" role="img" aria-label="Wrenfield &amp; Co. mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wf-grad-mark" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2E8B83"/><stop offset=".55" stop-color="#1C5E59"/><stop offset="1" stop-color="#14433F"/>
+            </linearGradient>
+          </defs>
+          <rect x="12" y="9" width="40" height="46" rx="7" stroke="url(#wf-grad-mark)" stroke-width="2.6"/>
+          <rect x="26" y="4" width="12" height="10" rx="3" fill="url(#wf-grad-mark)"/>
+          <path d="M21 28h22M21 36h22M21 44h13" stroke="url(#wf-grad-mark)" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+          <path d="M20.5 21.5l3.6 3.6 6.9-7.4" stroke="url(#wf-grad-mark)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand__name"><span data-brand>Wrenfield &amp; Co.</span><span id="brandLocale">Errands &amp; admin · Hailey, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#services">What I do</a>
+      <a class="link" href="#week">A week</a>
+      <a class="link" href="#rates">Rates</a>
+      <a class="link" href="#boundaries">Where I stop</a>
+      <a class="link" href="#book">Start a list</a>
+      <!-- (208) 555-01XX / 02XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550271" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0271</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Errands · Scheduling · Inbox &amp; admin</span></div>
+        <h1 id="heroTitle">The list you keep meaning to get to.</h1>
+        <p class="hero__sub" id="heroSub">Wrenfield &amp; Co. runs the errands, holds the calendar, triages the inbox and chases the vendors who never call back — for busy people and small businesses across Hailey and the Wood River Valley.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Start a list</a>
+          <a class="btn btn--ghost btn--lg" href="#services" id="heroCtaSecondary">See what comes off your plate</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Written</b><span>Summary after every block</span></div>
+          <div class="proof"><b>One person</b><span>The same one, every time</span></div>
+          <div class="proof"><b>No lock-in</b><span>Change or stop monthly</span></div>
+        </div>
+      </div>
+
+      <div class="hero__desk">
+        <!-- signature motif: an index tab clipped to the photo frame, tilting
+             very slightly, over three ruled slips that settle one after
+             another. All of it is transform/opacity only — keyframes
+             wf-tabtilt, wf-settle and wf-breathe in sections.css, neutralised
+             by the reduced-motion block there. -->
+        <div class="wf-halo" aria-hidden="true"></div>
+        <div class="wf-slips" aria-hidden="true">
+          <span class="wf-slip"></span><span class="wf-slip"></span><span class="wf-slip"></span>
+        </div>
+        <div class="wf-tab" aria-hidden="true">
+          <svg viewBox="0 0 92 118" fill="none">
+            <defs>
+              <linearGradient id="wf-grad-tab" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#FFFFFF"/><stop offset=".6" stop-color="#F1EEE4"/><stop offset="1" stop-color="#DFDACB"/>
+              </linearGradient>
+              <radialGradient id="wf-grad-clip" cx=".35" cy=".28" r=".85">
+                <stop offset="0" stop-color="#4E9C95"/><stop offset=".6" stop-color="#1C5E59"/><stop offset="1" stop-color="#14433F"/>
+              </radialGradient>
+            </defs>
+            <path d="M14 26h64a6 6 0 0 1 6 6v72a6 6 0 0 1-6 6H14a6 6 0 0 1-6-6V32a6 6 0 0 1 6-6Z" fill="url(#wf-grad-tab)"/>
+            <path d="M22 56h48M22 70h48M22 84h30" stroke="#1C5E59" stroke-width="3" stroke-linecap="round" opacity=".28"/>
+            <rect x="32" y="6" width="28" height="30" rx="9" stroke="url(#wf-grad-clip)" stroke-width="6"/>
+            <rect x="38" y="30" width="16" height="9" rx="4" fill="url(#wf-grad-clip)"/>
+          </svg>
+        </div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-planner.jpg).
+             Credit: Arina Krasnikova, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+      </div>
+    </div>
+  </div>
+  <div class="wf-ledge" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Everything agreed in writing first</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Receipts attached to every summary</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4.5 8-11V5l-8-3-8 3v6c0 6.5 8 11 8 11z"/></svg>You keep the passwords</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>A short call before anything starts</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="wf-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wf-rule-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#1C5E59" stop-opacity="0"/><stop offset=".5" stop-color="#1C5E59"/><stop offset="1" stop-color="#1C5E59" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wf-rule-a)" stroke-width="1"/>
+        <rect x="76" y="2" width="8" height="8" rx="2" fill="url(#wf-rule-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">The pile is not a character flaw</h2>
+      <p class="about__body" id="aboutBody">Most people who call are good at their actual job and quietly buried under everything around it — the return that never gets made, the important email sitting three weeks down the inbox, the appointment that needed rescheduling twice. None of it is difficult. It is just endless, and it does not fit inside a day that already has a job in it. This is a service for taking the endless part, writing it down, and handing it back finished.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT COMES OFF YOUR PLATE ============ -->
+<section class="section plate" id="services">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What I take on</span>
+      <h2 class="section-title">What comes off your plate</h2>
+      <p class="lead" style="margin:0 auto">Three kinds of work, and they usually arrive mixed together. Most weeks are some of each.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.plate. Every value lands via
+         textContent (DOM-property sinks only). -->
+    <div class="plate__grid" id="plateGrid">
+      <div class="plate-col reveal" data-delay="1">
+        <div class="plate-col__head"><span class="plate-col__tab">Out in the world</span><p class="plate-col__blurb">The trips that quietly eat an afternoon.</p></div>
+        <ul class="plate-col__list">
+          <li>Grocery, pharmacy and hardware runs</li>
+          <li>Returns, exchanges and warranty claims</li>
+          <li>Post office, packaging and shipping</li>
+          <li>Dry cleaning, tailoring and repairs</li>
+          <li>Gift buying, wrapping and sending</li>
+          <li>Waiting at the house for a delivery or a technician</li>
+        </ul>
+      </div>
+      <div class="plate-col reveal" data-delay="2">
+        <div class="plate-col__head"><span class="plate-col__tab">At the desk</span><p class="plate-col__blurb">The admin that piles up where nobody sees it.</p></div>
+        <ul class="plate-col__list">
+          <li>Inbox triage, with replies drafted for your approval</li>
+          <li>Calendar building and conflict clean-up</li>
+          <li>Appointment booking, confirming and rescheduling</li>
+          <li>Chasing quotes, vendors and warranty claims</li>
+          <li>Travel research and a printed itinerary</li>
+          <li>Scanning, filing and paperwork prep</li>
+          <li>Bill and subscription tracking — you approve every payment</li>
+        </ul>
+      </div>
+      <div class="plate-col reveal" data-delay="3">
+        <div class="plate-col__head"><span class="plate-col__tab">For small businesses</span><p class="plate-col__blurb">A back office for the days you do not have one.</p></div>
+        <ul class="plate-col__list">
+          <li>Client scheduling and appointment reminders</li>
+          <li>Invoice prep and polite follow-up on unpaid ones</li>
+          <li>Supplier orders and reorder tracking</li>
+          <li>Meeting notes turned into an action list</li>
+          <li>Inbox cover while you are out on a job</li>
+          <li>Simple spreadsheets kept current</li>
+        </ul>
+      </div>
+    </div>
+    <p class="plate__note reveal" id="plateNote">Not on the list? Ask anyway. If it is not something I do, I can usually tell you who does.</p>
+  </div>
+</section>
+
+<!-- ============ HOW A WEEK ACTUALLY WORKS ============ -->
+<section class="section week" id="week">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The rhythm</span>
+      <h2 class="section-title">How a week actually works</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.week — a five-day rail, not a gallery -->
+    <ol class="week__rail" id="weekRail">
+      <li class="wday reveal" data-delay="1"><span class="wday__day">Monday</span><h3>The list gets set</h3><p>We start the week on the same short call. You talk, I write, and before lunch you have the week's list back in writing — what I am handling, and what still needs a decision from you.</p></li>
+      <li class="wday reveal" data-delay="2"><span class="wday__day">Tuesday</span><h3>Desk day</h3><p>Inbox triage, calendar clean-up, appointments booked and confirmed, quotes chased. The quiet work that never gets done when you are the one who has to do it.</p></li>
+      <li class="wday reveal" data-delay="3"><span class="wday__day">Wednesday</span><h3>Out and about</h3><p>One run through town covers the returns, the shipping, the pharmacy and the pickups, ordered so the driving makes sense rather than the list order.</p></li>
+      <li class="wday reveal" data-delay="1"><span class="wday__day">Thursday</span><h3>Loose ends</h3><p>The things that needed a callback, a second attempt, or someone else to reply first. Most of them close on a Thursday, and the ones that do not get flagged.</p></li>
+      <li class="wday reveal" data-delay="2"><span class="wday__day">Friday</span><h3>Handoff</h3><p>A short written summary: what happened, what is still open, and what has already been carried onto next week's list. Then the weekend is yours.</p></li>
+    </ol>
+    <p class="week__note reveal" id="weekNote">That is the usual shape of it. Retainer clients set their own rhythm — some want a check-in every morning, some would rather not hear from me until Friday.</p>
+  </div>
+</section>
+
+<!-- ============ HOW WE START ============ -->
+<section class="section how" id="start">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Getting going</span>
+      <h2 class="section-title">How we start</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>A short call</h3>
+        <p>Free, and no pressure attached. You describe the pile, I ask a lot of questions, and I tell you honestly whether this is worth paying for in your situation.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>The handover</h3>
+        <p>We sit down once, in person or on a screen share, and I take notes on how you like things done — who to call, what to never touch, and how you want to be asked.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>A first block</h3>
+        <p>We start with a half-day so you can watch the work happen before committing to anything longer. The written summary at the end of it is yours to keep either way.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Then a rhythm</h3>
+        <p>Hourly when you need it, a standing block each week, or a monthly retainer. You can move between them at the end of any month, without a conversation about it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RATES (tiers model) ============ -->
+<section class="section rates" id="rates">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Rates</span>
+      <h2 class="section-title">Three ways to buy the time</h2>
+      <svg class="wf-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wf-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#1C5E59" stop-opacity="0"/><stop offset=".5" stop-color="#1C5E59"/><stop offset="1" stop-color="#1C5E59" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wf-rule-b)" stroke-width="1"/>
+        <rect x="76" y="2" width="8" height="8" rx="2" fill="url(#wf-rule-b)"/>
+      </svg>
+    </div>
+
+    <!-- Tier cards are LABELS wrapping a radio: picking one is the site's
+         interactive pricing control and it carries straight into the intake
+         form below (see syncSummary in niche.js). Each row renders the
+         platform display-string contract — label, blurb (the price string an
+         operator's price_label save lands on), per, note, features — and the
+         note line is rendered here rather than dropped, because the admin
+         offers that field. -->
+    <div class="prices" id="priceGrid" role="radiogroup" aria-label="How you would like to work together">
+      <label class="pcard reveal" data-delay="1">
+        <input class="pcard__in" type="radio" name="wf-tier" value="By the hour">
+        <span class="pcard__body">
+          <span class="pcard__label">By the hour</span>
+          <span class="pcard__price">$42<span class="pcard__per">/hour</span></span>
+          <span class="pcard__feats">
+            <span class="pcard__feat">Two-hour minimum per booking</span>
+            <span class="pcard__feat">Errands, bookings and desk work</span>
+            <span class="pcard__feat">Booked a few days ahead</span>
+            <span class="pcard__feat">Written summary when the block ends</span>
+          </span>
+        </span>
+      </label>
+      <label class="pcard pcard--best reveal" data-delay="2">
+        <input class="pcard__in" type="radio" name="wf-tier" value="Half-day block" checked>
+        <span class="pcard__body">
+          <span class="pcard__flag">Most people start here</span>
+          <span class="pcard__label">Half-day block</span>
+          <span class="pcard__price">$160<span class="pcard__per">/four hours</span></span>
+          <span class="pcard__feats">
+            <span class="pcard__feat">Four uninterrupted hours in one run</span>
+            <span class="pcard__feat">Errands and admin in the same block</span>
+            <span class="pcard__feat">Mileage inside the valley included</span>
+            <span class="pcard__feat">Written summary when the block ends</span>
+          </span>
+        </span>
+      </label>
+      <label class="pcard reveal" data-delay="3">
+        <input class="pcard__in" type="radio" name="wf-tier" value="Monthly retainer">
+        <span class="pcard__body">
+          <span class="pcard__label">Monthly retainer</span>
+          <span class="pcard__price">$1,200<span class="pcard__per">/month</span></span>
+          <span class="pcard__feats">
+            <span class="pcard__feat">32 hours a month, used however you like</span>
+            <span class="pcard__feat">Inbox and calendar kept current between blocks</span>
+            <span class="pcard__feat">First call on short-notice asks</span>
+            <span class="pcard__feat">A written handoff every Friday</span>
+          </span>
+          <span class="pcard__note">Invoiced monthly, cancel with thirty days' notice</span>
+        </span>
+      </label>
+    </div>
+
+    <p class="prices__picked" id="pickedLine" role="status" aria-live="polite"></p>
+    <p class="prices__note reveal" id="pricingNote">Rates cover time on the clock. Purchases, postage, parking and anything else bought on your behalf are passed through at cost with receipts attached to the summary — no markup, no handling fee. Unused retainer hours do not roll over, and I will say so before you buy the retainer rather than after.</p>
+  </div>
+</section>
+
+<!-- ============ WHERE I STOP ============ -->
+<section class="section bounds" id="boundaries">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The edges</span>
+      <h2 class="section-title" id="boundHeading">Where I stop</h2>
+      <p class="lead" style="margin:0 auto" id="boundLead">A service like this only works if the edges are clear. These are the things I do not do — not because they are beneath the job, but because they belong to someone qualified, or to you.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.boundaries.items -->
+    <div class="bounds__grid" id="boundList">
+      <div class="bound reveal" data-delay="1"><h3>I do not give professional advice</h3><p>No legal, tax, medical or financial guidance. I can book the appointment, gather the paperwork and sit in to take notes. The call itself is not mine to make.</p></div>
+      <div class="bound reveal" data-delay="2"><h3>I do not take custody of your money</h3><p>No bank access, no stored card numbers, no signing authority. Purchases go on a card you control, or I front small amounts and invoice them back at cost with receipts.</p></div>
+      <div class="bound reveal" data-delay="3"><h3>I do not do care work</h3><p>I am not a caregiver, a nurse or a nanny. No medications, no personal care, and no supervising children or adults who need supervision. Those are different trades with different training behind them.</p></div>
+      <div class="bound reveal" data-delay="1"><h3>I do not do heavy labour or cleaning</h3><p>No deep cleaning, no moving furniture, no yard work, no hauling. I will find the person who does it, book them, meet them at the door and check the work.</p></div>
+      <div class="bound reveal" data-delay="2"><h3>I do not sign in your name</h3><p>Contracts, forms and anything binding get prepared, explained and put in front of you. The signature stays yours.</p></div>
+      <div class="bound reveal" data-delay="3"><h3>I do not disappear into your systems</h3><p>Access is granted per tool, in your name, and you can pull any of it at any time. You keep the passwords. I keep a written record of what I touched and when.</p></div>
+    </div>
+    <div class="bounds__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="boundNote">If something on your list sits on one of these lines, say so on the first call. It is usually still solvable — just not by me alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">In their words</span>
+      <h2 class="section-title">What clients say</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where I work</span>
+      <h2 class="section-title">Across <span id="areaShort">the Wood River Valley</span></h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">the Wood River Valley, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hailey</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Bellevue</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ketchum</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Sun Valley</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Carey</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Picabo</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ START A LIST ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Start a list</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell me what is piling up</h2>
+      <p class="lead" style="margin:0 auto">A minute or two is plenty. I will call you back to talk it through — the call is free and nothing starts until we have both agreed what is on the list.</p>
+      <p class="cta__phone">Rather talk now? Call or text <a href="tel:+12085550271" data-tel data-phone-text>(208) 555-0271</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Your name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field">
+          <label for="q-email">Email</label>
+          <input id="q-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label for="q-city">Town <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Hailey" required />
+        </div>
+        <div class="field">
+          <label for="q-who">Is this for you, or a business?</label>
+          <select id="q-who" name="who">
+            <option value="Personal">Personal</option>
+            <option value="Small business">Small business</option>
+            <option value="Both">A bit of both</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-start">When would you like to start?</label>
+          <select id="q-start" name="start">
+            <option value="This week">This week</option>
+            <option value="Next couple of weeks">In the next couple of weeks</option>
+            <option value="Just exploring">Just exploring for now</option>
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="q-tier">How you would like to work together</label>
+          <!-- filled by syncSummary() from the tier picker above; readonly so
+               the visitor changes it by picking a card, not by typing -->
+          <input id="q-tier" name="tier" type="text" readonly value="Half-day block — $160 /four hours" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What is on the list? (a few lines is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two returns that keep not happening, a calendar that has double-booked me twice this month, and about forty emails I have been avoiding since August."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Call or text me about this list. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Send my list</button>
+        <a class="book__alt" href="sms:+12085550271?body=Hi%20Wrenfield%20%26%20Co.%21%20I%27d%20like%20to%20start%20a%20list." data-sms>or text instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — the list is with me</h3>
+      <p id="doneMsg">I will be in touch shortly to talk it through.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Who you are hiring</span>
+        <h2 class="section-title" id="meetHeading">The person who actually runs the list</h2>
+        <p class="meet__name" id="meetName">Nell Prentiss</p>
+        <div class="meet__desc" id="meetDesc">Nell Prentiss spent a long stretch running the front desk and the back office of a busy valley practice — the schedule, the phones, the suppliers, and all the paperwork nobody else wanted to touch. What she liked was never the tasks themselves; it was watching people get their afternoons back. She started Wrenfield &amp; Co. to do that work directly, for a small number of clients at a time, in the valley she lives in. She still runs every block herself, and she will tell you plainly when something on your list is not worth paying anyone to do.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" id="footMark" role="img" aria-label="Wrenfield &amp; Co.">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wf-grad-mark2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#2E8B83"/><stop offset=".55" stop-color="#1C5E59"/><stop offset="1" stop-color="#14433F"/>
+            </linearGradient>
+          </defs>
+          <rect x="12" y="9" width="40" height="46" rx="7" stroke="url(#wf-grad-mark2)" stroke-width="2.6"/>
+          <rect x="26" y="4" width="12" height="10" rx="3" fill="url(#wf-grad-mark2)"/>
+          <path d="M21 28h22M21 36h22M21 44h13" stroke="url(#wf-grad-mark2)" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+          <path d="M20.5 21.5l3.6 3.6 6.9-7.4" stroke="url(#wf-grad-mark2)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div><b data-brand>Wrenfield &amp; Co.</b><span id="footTagline">The list, off your desk.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550271" data-tel data-phone-text>(208) 555-0271</a><br />
+      <a href="mailto:hello@wrenfieldco.com" id="footEmail" data-mail>hello@wrenfieldco.com</a><br />
+      <span id="areaLine">Serving the Wood River Valley, Idaho</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Wrenfield &amp; Co.</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Wrenfield &amp; Co.</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, rates and reviews shown are placeholders — no real personal-assistant services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550271" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550271?body=Hi%20Wrenfield%20%26%20Co.%21%20I%27d%20like%20to%20start%20a%20list." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

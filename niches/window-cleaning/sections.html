@@ -1,0 +1,440 @@
+<!-- window-cleaning/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md 3.1), so this is per-niche.
+     Visual language: "daylight through clean glass" — a high-key cool ground,
+     clear-water cyan, and the squeegee brass borrowed from the hero photo.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT.
+     Illustration def ids are all wc- prefixed (SITELAB_TEMPLATE.md 6.2). -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Pane &amp; Prairie Window Co. home">
+      <span class="brand__mark" role="img" aria-label="Pane &amp; Prairie sash-and-daylight mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wc-grad-sash" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5FD2E4"/><stop offset=".55" stop-color="#22ACC4"/><stop offset="1" stop-color="#1197AF"/>
+            </linearGradient>
+            <linearGradient id="wc-grad-glasslight" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+              <stop offset=".48" stop-color="#D8F2F8" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#5FD2E4" stop-opacity=".18"/>
+            </linearGradient>
+          </defs>
+          <rect x="9" y="7" width="46" height="50" rx="6" stroke="url(#wc-grad-sash)" stroke-width="3.4"/>
+          <rect x="14.5" y="12.5" width="35" height="39" rx="3" fill="url(#wc-grad-glasslight)"/>
+          <path d="M32 12.5v39M14.5 32h35" stroke="url(#wc-grad-sash)" stroke-width="2.6"/>
+          <path d="M19 46 44 17" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity=".85"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Pane &amp; Prairie</span><span id="brandLocale">Window cleaning · Post Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#included">What's included</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#proof">Before / after</a>
+      <a class="link" href="#book">Get a quote</a>
+      <!-- (208) 555-01XX / 02XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550247" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0247</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- two soft daylight shafts, as if through a mullioned window; opacity and
+       transform only (wc-shaft in sections.css) -->
+  <div class="wc-shafts" aria-hidden="true">
+    <span class="wc-shaft"></span><span class="wc-shaft"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Residential &amp; commercial glass · Post Falls, Idaho</span></div>
+        <h1 id="heroTitle">Let the daylight all the way in.</h1>
+        <p class="hero__sub" id="heroSub">Pane &amp; Prairie cleans windows inside and out across Post Falls and Kootenai County — glass, screens, tracks and sills, finished streak-free and dried by hand. Flat pricing by pane count, agreed before we unload a ladder.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Get my window quote</a>
+          <a class="btn btn--ghost btn--lg" href="#included" id="heroCtaSecondary">See what a pass includes</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Inside &amp; out</b><span>Both sides of the glass</span></div>
+          <div class="proof"><b>Screens &amp; tracks</b><span>Included, not extra</span></div>
+          <div class="proof"><b>Flat quote</b><span>Agreed up front</span></div>
+        </div>
+      </div>
+      <div class="hero__glass">
+        <!-- signature motif: a sash of glass with light sweeping across it and
+             beads running down the pane (wc-sweep / wc-bead in sections.css —
+             transform and opacity only, reduced-motion safe) -->
+        <div class="wc-sash" aria-hidden="true">
+          <svg viewBox="0 0 120 150" fill="none">
+            <defs>
+              <linearGradient id="wc-grad-frame" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#DDEDF3"/><stop offset="1" stop-color="#B9D6E0"/>
+              </linearGradient>
+              <linearGradient id="wc-grad-pane" x1=".1" y1="0" x2=".9" y2="1">
+                <stop offset="0" stop-color="#EAF8FC" stop-opacity=".92"/>
+                <stop offset=".55" stop-color="#BFE9F3" stop-opacity=".62"/>
+                <stop offset="1" stop-color="#8FD6E6" stop-opacity=".38"/>
+              </linearGradient>
+              <linearGradient id="wc-grad-brassbar" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#D8AE55"/><stop offset=".5" stop-color="#96690F"/><stop offset="1" stop-color="#C99C3C"/>
+              </linearGradient>
+            </defs>
+            <rect x="4" y="4" width="112" height="142" rx="7" fill="url(#wc-grad-frame)"/>
+            <rect x="12" y="12" width="96" height="126" rx="3" fill="url(#wc-grad-pane)"/>
+            <path d="M60 12v126M12 75h96" stroke="#FFFFFF" stroke-width="4" opacity=".9"/>
+            <!-- the squeegee, resting on the sash -->
+            <rect x="16" y="66" width="88" height="5" rx="2.5" fill="url(#wc-grad-brassbar)"/>
+            <rect x="16" y="71" width="88" height="3" rx="1.5" fill="#1F2A2E" opacity=".8"/>
+          </svg>
+          <span class="wc-bead wc-bead--1"></span>
+          <span class="wc-bead wc-bead--2"></span>
+          <span class="wc-bead wc-bead--3"></span>
+        </div>
+        <div class="wc-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-squeegee.jpg).
+             Credit: Pexels, see photos/CREDITS.md. -->
+        <!-- COMPONENT:hero-photo -->
+        <span class="wc-sheen" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+  <!-- a clean sill line between the hero and the page -->
+  <div class="wc-sill" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18M3 12h18"/></svg>Every pane, both faces</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16"/></svg>Screens washed &amp; re-set</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h18"/><path d="M6 17V7l6-4 6 4v10"/><path d="M9 17v-4h6v4"/></svg>Tracks and sills included</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Nothing owed up front</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="wc-rule" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wc-grad-rule-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#22ACC4" stop-opacity="0"/><stop offset=".5" stop-color="#22ACC4"/><stop offset="1" stop-color="#22ACC4" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wc-grad-rule-a)" stroke-width="1.4"/>
+        <rect x="74" y="2" width="12" height="8" rx="1.6" fill="url(#wc-grad-rule-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Most windows are half-cleaned, and everybody can tell</h2>
+      <p class="about__body" id="aboutBody">The outside gets a hose and the inside gets a paper towel, and the glass still hazes the second the sun hits it. We treat a window as four surfaces, not one: the exterior pane, the interior pane, the screen that has been filtering road dust all summer, and the track full of grit that dirties both again the next time you slide the sash. Do all four in one visit and the light comes through the way the builder intended.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From pane count to low-sun walk-through</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Count and quote</h3>
+        <p>Tell us roughly how many panes you have, or send a couple of photos. We give you a flat number off the tier list before anyone shows up, and it does not move on the day.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Set up clean</h3>
+        <p>Drop cloths under every interior sill, ladder standoffs so nothing rests on your gutters or siding, and shoes off or booties on for the inside pass.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Wash, squeegee, detail</h3>
+        <p>Soap and scrub the pane, pull the squeegee in overlapping passes, then hand-dry the edges and corners with a dedicated cloth. Screens come out, get washed, and go back in the opening they came from.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk it with you</h3>
+        <p>We walk the house with you at low sun, which is when streaks show. Anything you point at gets redone right then. You pay when you are happy with the glass, not before.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT A PASS INCLUDES ============ -->
+<section class="section included" id="included">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What's included</span>
+      <h2 class="section-title">One visit, four surfaces</h2>
+      <p class="lead" style="margin:0 auto">Every item below is inside the flat price. Nothing here is an upsell we spring on you at the door.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.included; every value lands via
+         textContent (DOM-property sinks only). -->
+    <div class="inc__grid" id="incGrid">
+      <div class="inc reveal" data-delay="1"><h3>Exterior glass</h3><p>Washed from ground level, water-fed pole or ladder, whichever the elevation calls for. No pressure washer anywhere near a seal.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Interior glass</h3><p>Cloths and drop sheets in every room, blinds lifted and returned to where you had them, no drips on the sill.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Screens</h3><p>Pulled, washed on both faces, dried and re-set in the same opening — screens are numbered as they come out so nothing ends up in the wrong window.</p></div>
+      <div class="inc reveal" data-delay="1"><h3>Tracks and sills</h3><p>Vacuumed first, then wiped out wet and dried. This is the step most quotes skip, and it is the one that keeps the glass clean longer.</p></div>
+      <div class="inc reveal" data-delay="2"><h3>Frames and mullions</h3><p>Hand-detailed so the white vinyl actually reads white, and the grid bars do not leave a dusty shadow across the pane.</p></div>
+      <div class="inc reveal" data-delay="3"><h3>Hard-water and paint spots</h3><p>Mineral etching from a sprinkler and construction overspray both come off with a separate process. We flag them at the quote so the price is honest before we begin.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (tiers model) ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Flat pricing</span>
+      <h2 class="section-title">Priced by the pane, not by the hour</h2>
+      <svg class="wc-rule" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="wc-grad-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#22ACC4" stop-opacity="0"/><stop offset=".5" stop-color="#22ACC4"/><stop offset="1" stop-color="#22ACC4" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#wc-grad-rule-b)" stroke-width="1.4"/>
+        <rect x="74" y="2" width="12" height="8" rx="1.6" fill="url(#wc-grad-rule-b)"/>
+      </svg>
+    </div>
+
+    <!-- Pane-count picker. It selects which PUBLISHED tier applies — it never
+         computes a figure of its own, so an operator's saved price_label
+         (which lands on blurb) is the only money on screen. -->
+    <div class="counter reveal" id="counter">
+      <div class="counter__label" id="counterLabel">Roughly how many panes are we cleaning?</div>
+      <div class="counter__pills" id="counterPills" role="group" aria-label="Pane count"></div>
+      <p class="counter__read" id="counterRead" role="status" aria-live="polite"></p>
+      <p class="counter__help" id="countHelp">Count a pane as one piece of glass you can see through. A double-hung window is two. A slider is two. A french-grid sash counts as one, not nine — the grid bars are frame, not glass.</p>
+    </div>
+
+    <!-- Tier cards render from CONTENT.pricing: {label, blurb, per, note,
+         highlight, features}. blurb IS the price display string — the admin's
+         price_label save lands there and nowhere else. note renders on the
+         card and is hidden when the operator clears it. -->
+    <div class="tiers" id="tiersGrid"></div>
+
+    <p class="tiers__note reveal" id="pricingNote">Every figure above is a flat rate for the whole visit, inside and out, screens and tracks included. Storey height, hard-water treatment and construction cleanup are quoted separately and always in writing first.</p>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Before / after</span>
+      <h2 class="section-title" id="baHeading">The same window, ten minutes apart</h2>
+      <p class="lead" style="margin:0 auto" id="baBlurb">Drag the handle. Left is the pane soaped and still streaking; right is the same sash squeegeed, edged and dried — the tree and the brickwork outside are back.</p>
+    </div>
+    <!-- Shared slider component. Images resolve from c.niche.beforeImg /
+         c.niche.afterImg (manifest merge.beforeAfter), so an operator's own
+         pair replaces ours the moment it is saved — both or neither. -->
+    <!-- COMPONENT:before-after -->
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Neighbours we've worked for</span>
+      <h2 class="section-title">Word from around Kootenai County</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Straight answers</span>
+      <h2 class="section-title">The questions we get on the doorstep</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq reveal">
+        <summary>Do I need to be home?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">For an exterior-only visit, no — leave the gate unlocked and we will text you when we are done. For an inside-and-out visit somebody needs to let us in, and we would rather you were there at the end for the walk-through anyway.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>How high will you go?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Second-story exteriors are routine, from a water-fed pole where the ground allows and a ladder with standoffs where it does not. Third storey and anything over a roofline gets looked at in person before we quote it.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>Will you get the hard-water spots off?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Usually. Sprinkler overspray leaves mineral deposits that a normal wash will not touch, so they get a separate restoration pass. If the glass is etched past the point where that works, we will tell you rather than charge you to find out.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>What about the weather?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">We work through most of the North Idaho year. Below freezing the water sheets and re-freezes on the glass, so winter jobs get rescheduled to the next workable day at no charge — you never lose a deposit, because we do not take one.</div>
+      </details>
+      <details class="faq reveal">
+        <summary>How often should this happen?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving Kootenai County</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Kootenai County, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Post Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Coeur d'Alene</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Rathdrum</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hayden</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Dalton Gardens</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Huetter</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GET A QUOTE ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free quote</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about your windows</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We reply with a flat number off the tier list — no site visit needed for most homes, and no obligation either way.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550247" data-tel data-phone-text>(208) 555-0247</a></p>
+      <p class="cta__hours" id="ctaHours"></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Post Falls" required />
+        </div>
+        <div class="field">
+          <label for="q-panes">Roughly how many panes?</label>
+          <select id="q-panes" name="panes"></select>
+        </div>
+        <div class="field">
+          <label for="q-scope">Inside, outside or both?</label>
+          <select id="q-scope" name="scope">
+            <option value="Inside and out">Inside and out</option>
+            <option value="Exterior only">Exterior only</option>
+            <option value="Interior only">Interior only</option>
+            <option value="Not sure yet">Not sure yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred week</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything we should know? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two-story on a corner lot, sprinkler spots on the south side, and a sunroom off the back. Screens have not been out since we moved in."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me my quote and to schedule. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Send me a flat quote</button>
+        <a class="book__alt" href="sms:+12085550247?body=Hi%20Pane%20%26%20Prairie!%20I%27d%20like%20a%20window%20cleaning%20quote." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — your quote is on its way</h3>
+      <p id="doneMsg">We'll text you shortly with a flat number and the next open slot.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person on the ladder</h2>
+        <div class="meet__desc" id="meetDesc">Delia Rhoades started out washing storefronts along Seltice Way before sunrise, because that is the only hour a shop owner will let you block the door. She built Pane &amp; Prairie around the two things those mornings taught her: a window is only clean if it is clean from the inside too, and the crew that made the mess is the crew that should carry it out. Delia still runs the pole on most jobs and answers the phone on all of them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Pane &amp; Prairie Window Co.">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="wc-grad-sash2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5FD2E4"/><stop offset=".55" stop-color="#22ACC4"/><stop offset="1" stop-color="#1197AF"/>
+            </linearGradient>
+            <linearGradient id="wc-grad-glasslight2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF" stop-opacity=".95"/>
+              <stop offset=".48" stop-color="#D8F2F8" stop-opacity=".55"/>
+              <stop offset="1" stop-color="#5FD2E4" stop-opacity=".18"/>
+            </linearGradient>
+          </defs>
+          <rect x="9" y="7" width="46" height="50" rx="6" stroke="url(#wc-grad-sash2)" stroke-width="3.4"/>
+          <rect x="14.5" y="12.5" width="35" height="39" rx="3" fill="url(#wc-grad-glasslight2)"/>
+          <path d="M32 12.5v39M14.5 32h35" stroke="url(#wc-grad-sash2)" stroke-width="2.6"/>
+          <path d="M19 46 44 17" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" opacity=".85"/>
+        </svg>
+      </span>
+      <div><b data-brand>Pane &amp; Prairie Window Co.</b><span id="footTagline">Glass you forget is there.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550247" data-tel data-phone-text>(208) 555-0247</a><br />
+      <span id="areaLine">Serving Kootenai County, Idaho</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Pane &amp; Prairie Window Co.</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Pane &amp; Prairie Window Co.</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real window cleaning services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550247" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550247?body=Hi%20Pane%20%26%20Prairie!%20I%27d%20like%20a%20window%20cleaning%20quote." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

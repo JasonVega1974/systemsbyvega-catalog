@@ -1,0 +1,2999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Keyholder Facility Care — Office &amp; Janitorial Cleaning Contracts | Idaho Falls, ID</title>
+<meta name="description" content="After-hours office and janitorial cleaning contracts across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit. Walkthroughs by appointment — call or text (208) 555-0236." />
+<meta name="theme-color" content="#0E1519" />
+
+<link rel="canonical" href="https://systemsbyvega.com/sites/commercial-cleaning/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://systemsbyvega.com/sites/commercial-cleaning/" />
+<meta property="og:title" content="Keyholder Facility Care — Same crew. Every night. On the record." />
+<meta property="og:description" content="Commercial cleaning and janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls, Idaho. Request a walkthrough: (208) 555-0236." />
+<meta property="og:image" content="https://systemsbyvega.com/sites/commercial-cleaning/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://systemsbyvega.com/sites/commercial-cleaning/og.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Keyholder Facility Care",
+  "description": "After-hours office and janitorial cleaning contracts across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit. Walkthroughs by appointment — call or text (208) 555-0236.",
+  "telephone": "+12085550236",
+  "email": "hello@keyholderfacility.com",
+  "areaServed": "Idaho Falls & the Upper Snake Valley",
+  "slogan": "Same crew. Every night. On the record."
+}
+</script>
+
+<style>
+/* ── niche tokens ─────────────────────────────────────────────────────── */
+/* commercial-cleaning — tokens only. Structure lives in _template/base.css;
+   this niche's own section rules live in sections.css.
+   Identity: "after hours, on the record" — a cool graphite building at night,
+   a muted petrol blue-teal for the hardware and the sign-off marks, and a
+   steel-grey secondary. Deliberately corporate and quiet: the buyer is a
+   facilities manager reading a proposal, not a homeowner. The accent is
+   pointedly NOT the eco-green a cleaning site reaches for by reflex, which
+   also keeps it clear of the sibling green-on-dark niches in this wave.
+   Contrast (WCAG, computed): accent-ink on accent 5.50:1 and on accent-2
+   7.62:1; ink on ground 15.62:1; ink-dim on ground 9.56:1 and 7.63:1 on
+   panel-2; muted on ground 6.01:1; accent on ground 5.56:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #070B0D;   /* the street below the lit floors */
+  --ground:       #0E1519;   /* cool graphite ground */
+  --ground-2:     #121B20;
+  --panel:        #162126;
+  --panel-2:      #1D2A31;
+  --accent:       #2F9AAC;   /* petrol blue-teal — the sign-off mark */
+  --accent-2:     #45B6C8;   /* brighter tick, for type and rules */
+  --accent-deep:  #1B6875;   /* pressed state / gradient floor */
+  --accent-alt:   #7C93A6;   /* steel grey-blue, the hardware colour */
+  --accent-ink:   #04181C;   /* type on the accent */
+  --ink:          #E8EDF0;   /* cool paper white */
+  --ink-bright:   #F6F9FA;
+  --ink-dim:      #AFBDC4;
+  --ink-max:      #FFFFFF;
+  --muted:        #8496A0;
+  --hair:         rgba(232,237,240,.10);
+  --hair-accent:  rgba(47,154,172,.18);
+  --card:         rgba(22,33,38,.62);
+  --card-brd:     rgba(232,237,240,.12);
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.72);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFFFFF;
+  --sheen-lo:     #A9BAC3;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #E0616B;
+  --err-ink:      #FF9AA2;
+
+  --display: 'Manrope', system-ui, sans-serif;
+  --body:    'Public Sans', system-ui, -apple-system, sans-serif;
+  --mono:    'Roboto Mono', ui-monospace, Consolas, monospace;
+}
+/* ── shared structural CSS ────────────────────────────────────────────── */
+/* _template/base.css — structural CSS shared by every SiteLab niche.
+   A rule lives here when its class/id hooks appear in the markup of two or more
+   deployed sites, or when it targets elements only. A rule used by exactly one
+   niche belongs in that niche's sections.css instead (SITELAB_TEMPLATE.md §3).
+   Colour and type come from niches/<slug>/niche.css. Never put a literal colour
+   in this file: reference a token from the §5 contract. */
+/* =========================================================
+   SAWTOOTH DUMPSTER CO. — tokens
+   High-desert identity: deep pine green base, safety-yellow
+   primary (amber-deep gradient end), warm sand/kraft type.
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ground);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* warm high-desert backdrop for the whole page */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 640px at 82% -10%, rgba(216,155,0,.16), transparent 60%),
+    radial-gradient(900px 700px at 6% 14%, rgba(29,58,44,.55), transparent 62%),
+    radial-gradient(760px 520px at 50% 108%, rgba(255,196,0,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint topographic contour rings */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, transparent 0 52px, rgba(242,233,216,.035) 52px 53px),
+    repeating-radial-gradient(circle at 84% 68%, transparent 0 68px, rgba(255,196,0,.03) 68px 69px),
+    repeating-radial-gradient(circle at 55% -10%, transparent 0 84px, rgba(242,233,216,.022) 84px 85px);
+  opacity:.9;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;
+  font-size:.74rem;color:var(--accent);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;border-radius:2px;flex:none;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.section-title{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  font-size:1rem;padding:1rem 1.7rem;border-radius:12px;border:0;cursor:pointer;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.55), inset 0 1px 0 rgba(255,255,255,.5);
+  overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:active{transform:translateY(0)}
+/* headlight shine sweep */
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .6s ease;
+}
+.btn:hover::after{left:130%}
+.btn--ghost{
+  background:rgba(255,196,0,.07);color:var(--ink-bright);
+  border:1px solid rgba(255,196,0,.35);
+  box-shadow:none;backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{background:var(--hair-accent);box-shadow:0 10px 26px -14px rgba(255,196,0,.5)}
+.btn--lg{font-size:1.12rem;padding:1.15rem 2.2rem}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--accent-2);outline-offset:3px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:16px 0;
+}
+.nav.solid{
+  background:rgba(8,19,14,.86);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--hair), 0 18px 40px -30px #000;
+  padding:10px 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__mark{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.6)}
+.brand__mark svg{width:30px;height:30px}
+.brand__name{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.92rem;line-height:1;color:var(--ink-bright)}
+.brand__name span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.58rem;
+  letter-spacing:.22em;margin-top:4px;color:var(--muted)}
+.nav__links{display:flex;align-items:center;gap:28px}
+.nav__links a.link{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.76rem;color:var(--ink);opacity:.82;transition:opacity .2s,color .2s}
+.nav__links a.link:hover{opacity:1;color:var(--accent-2)}
+.nav__call{display:inline-flex;align-items:center;gap:.5rem;font-family:'Anybody',sans-serif;font-stretch:62.5%;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem;
+  padding:.6rem 1.05rem;border-radius:10px;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 24px -12px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.45);}
+.nav__call svg{width:16px;height:16px}
+@media(max-width:900px){.nav__links a.link{display:none}}
+@media(max-width:520px){.nav__call{font-size:.74rem;padding:.5rem .8rem;gap:.35rem;letter-spacing:.03em}}
+@media(max-width:380px){.nav__call{font-size:.68rem;padding:.45rem .65rem;gap:.3rem}}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:safe center;
+  padding:clamp(120px,15vh,180px) 0 clamp(70px,9vh,96px);overflow:hidden}
+.hero > .wrap{width:100%;position:relative;z-index:2}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+@media(max-height:780px){.hero{align-items:flex-start}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;text-align:center;gap:30px}}
+
+.hero__tag{margin-bottom:20px}
+.hero h1{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.5rem,6.8vw,4.7rem);line-height:.94;letter-spacing:.005em;margin-bottom:8px;
+}
+.hero h1 .l1{
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 50%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(242,233,216,.14));display:block;
+}
+.hero h1 .l2{
+  color:var(--accent);display:block;
+  text-shadow:0 4px 30px rgba(255,196,0,.38);
+}
+.hero__sub{font-size:1.16rem;color:var(--ink-dim);max-width:48ch;margin:18px 0 30px}
+@media(max-width:900px){.hero__sub{margin-inline:auto}}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero__cta{justify-content:center}}
+.hero__proof{display:flex;gap:26px;margin-top:32px;flex-wrap:wrap}
+@media(max-width:900px){.hero__proof{justify-content:center}}
+.proof{display:flex;flex-direction:column;line-height:1.1}
+.proof b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
+.proof span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.proof + .proof{padding-left:26px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* hero art: roll-off box under a mountain ridge, drawn inline */
+.hero__art{position:relative;display:flex;justify-content:center}
+.hero__art .halo{
+  position:absolute;inset:-4% -8% 6%;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,196,0,.22), rgba(255,196,0,.06) 55%, transparent 72%);
+  filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0;
+}
+.hero__art svg{position:relative;z-index:1;width:min(520px,94%);height:auto;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* drifting high-desert dust motes */
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.75}
+  55%{transform:translate3d(26px,-55vh,0)}
+  88%{opacity:.4}
+  100%{transform:translate3d(-14px,-108vh,0);opacity:0}
+}
+
+/* ridge divider under hero */
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--panel);z-index:0;pointer-events:none}
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+.trust{background:linear-gradient(180deg,var(--panel),rgba(19,42,32,.4));border-block:1px solid var(--hair)}
+.trust__in{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;align-items:center;padding:20px 22px}
+.trust__item{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--ink)}
+.trust__item svg{width:20px;height:20px;color:var(--accent);flex:none}
+
+/* =========================================================
+   SECTION base
+   ========================================================= */
+.section{padding:92px 0}
+.section__head{max-width:660px;margin-bottom:44px}
+.section__head.center{margin-inline:auto;text-align:center}
+.section__head .section-title{margin:14px 0 16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.08em;
+  font-size:.84rem;color:var(--ink);padding:.6rem 1.15rem;border-radius:10px;text-transform:uppercase;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5);transition:.15s;user-select:none;white-space:nowrap}
+.pill:hover span{border-color:rgba(255,196,0,.5)}
+.pill input:checked + span{color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -10px rgba(255,196,0,.7)}
+.pill input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
+.price-box .btn{width:100%;margin-top:18px}
+.reveal.in .meter__bar{width:var(--w)}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:30px 26px;background:var(--card);border:1px solid var(--card-brd);
+  border-radius:18px;backdrop-filter:blur(8px)}
+.step__n{counter-increment:step;font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;
+  font-size:2.6rem;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,196,0,.65);
+  display:block;margin-bottom:12px}
+.step__n::before{content:"0" counter(step)}
+.step h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin-bottom:8px;color:var(--ink-max)}
+.step p{color:var(--muted);font-size:.98rem}
+.nogo .section__head{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.8rem;letter-spacing:.04em;color:var(--ink);padding:.5rem 1rem;border-radius:20px;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5)}
+.chip svg{width:14px;height:14px;color:var(--accent);flex:none}
+
+/* =========================================================
+   MEET THE OWNER
+   ========================================================= */
+.owner__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.owner__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.owner__photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,58,44,.6),rgba(10,22,16,.6));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.owner__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.owner__photo > svg{width:100%;height:100%;display:block}
+.owner__photo:not(:has(img,svg))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,196,0,.1), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,233,216,.04) 14px 15px);
+}
+.owner__photo:not(:has(img,svg))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none}
+.owner__body .section-title{margin:14px 0 22px}
+.owner__desc{color:var(--ink);font-size:1.02rem;line-height:1.7;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);min-height:170px;position:relative}
+.owner__desc:empty::before{
+  content:"Short bio goes here — who runs this business, how long they've been at it, and why they care. Replace this placeholder with the real thing.";
+  color:var(--muted);opacity:.7;font-style:italic;display:block}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--card);border:1px solid var(--card-brd);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:700;font-size:1.04rem;color:var(--ink-bright)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,196,0,.4);color:var(--accent);transition:transform .25s ease;font-family:'Inter',sans-serif;font-weight:400}
+.faq[open] summary .plus{transform:rotate(45deg)}
+.faq__body{padding:0 22px 20px;color:var(--muted);font-size:1rem}
+.faq__body b{color:var(--ink)}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.cta{position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 340px at 18% 0%, var(--hair-accent), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(29,58,44,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+  border-block:1px solid var(--hair)}
+.cta__phone{color:var(--muted);font-size:.95rem;margin-top:14px}
+.cta__phone a{color:var(--accent-2);font-weight:600}
+
+.book{max-width:760px;margin:0 auto;background:rgba(8,19,14,.62);
+  border:1px solid var(--card-brd);border-radius:22px;padding:clamp(22px,3vw,34px);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.book__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.book__grid + .book__grid,.book__grid + .field,.field + .book__grid{margin-top:16px}
+@media(max-width:640px){.book__grid{grid-template-columns:1fr}}
+.field{min-width:0}
+.field--wide{grid-column:1 / -1}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.field em{color:var(--accent-2);font-style:normal;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:11px;
+  background:rgba(5,12,9,.7);border:1px solid var(--card-brd);color:var(--ink-bright);
+  font-family:'Inter',sans-serif;font-size:1rem}
+.field textarea{resize:vertical;min-height:74px}
+.field input::placeholder,.field textarea::placeholder{color:var(--placeholder)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:rgba(5,12,9,.9)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD34D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;padding-right:2.6rem}
+.field input[readonly]{background:rgba(255,196,0,.06);border-style:dashed;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:var(--err);box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+/* date input: keep the picker icon visible on dark bg */
+.field input[type="date"]{color-scheme:dark}
+
+.consent{display:flex;gap:.65rem;align-items:flex-start;margin-top:20px;
+  color:var(--muted);font-size:.92rem;line-height:1.5;cursor:pointer}
+.consent input{margin-top:.15rem;width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.book__actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22px}
+.book__actions .btn[disabled]{opacity:.7;cursor:progress}
+.book__alt{font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);opacity:.85;
+  text-transform:uppercase;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+.book__alt:hover{opacity:1;color:var(--accent-2)}
+.book__msg{margin-top:14px;font-size:.94rem;min-height:1.1em}
+.book__msg.err{color:var(--err-ink)}
+.book__msg.ok{color:var(--accent-2)}
+
+.book-done{max-width:600px;margin:0 auto;text-align:center;
+  background:linear-gradient(180deg,rgba(29,58,44,.55),rgba(10,22,16,.6));
+  border:1px solid rgba(255,196,0,.4);border-radius:22px;padding:clamp(32px,5vw,52px) 32px;
+  box-shadow:0 0 0 1px rgba(255,196,0,.2),var(--shadow);backdrop-filter:blur(10px)}
+.book-done__ic{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.8)}
+.book-done__ic svg{width:34px;height:34px}
+.book-done h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.02;margin-bottom:12px;
+  background:linear-gradient(180deg,var(--sheen-hi),var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.book-done p{color:var(--ink-dim);font-size:1.05rem;margin-bottom:22px}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:52px 0 40px;border-top:1px solid var(--hair)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center}
+.footer__brand{display:flex;align-items:center;gap:14px}
+.footer__brand .brand__mark{width:52px;height:52px}
+.footer__brand b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-max);font-size:1rem;display:block}
+.footer__brand span{color:var(--muted);font-size:.8rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.footer__meta{color:var(--muted);font-size:.86rem;text-align:right}
+.footer__meta a{color:var(--accent-2)}
+.footer__credit{display:block;margin-top:10px;font-size:.76rem;opacity:.55;letter-spacing:.02em}
+.footer__credit a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+.footer__credit a:hover{color:var(--accent-2)}
+@media(max-width:640px){.footer__meta{text-align:left}}
+
+/* =========================================================
+   STICKY MOBILE CTA
+   ========================================================= */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,19,14,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair)}
+.mobile-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;font-size:.95rem;padding:.95rem;border-radius:12px}
+.mobile-cta .call{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.7)}
+.mobile-cta .text{color:var(--ink-bright);background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35)}
+.mobile-cta svg{width:20px;height:20px}
+@media(max-width:820px){.mobile-cta{display:flex}.footer{padding-bottom:120px}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn::after{display:none}}
+/* ── this niche's own section rules (may override the above) ─────────── */
+/* commercial-cleaning/sections.css — this niche's own section rules, layered
+   over _template/base.css. Identity: "after hours, on the record" — a cool
+   graphite building at night, a muted petrol blue-teal, squared corporate
+   hardware and a grotesque/mono type pairing that reads like a facilities
+   proposal rather than a consumer flyer.
+
+   base.css hard-codes 'Anybody', 'IBM Plex Mono' and 'Inter' family names in a
+   number of rules (it grew out of the dumpster build). This niche uses none of
+   those three, so every one of those rules is re-pointed at the token below;
+   skipping any of them would silently render that element in a system fallback.
+
+   Signature animation lives here in CSS: kf-lamp (floors lighting and going
+   dark as the crew works up the building) and kf-sweep (a slow band of light
+   crossing the hero bay). Opacity and transform only, and both are neutralised
+   by the prefers-reduced-motion block at the end of this file. */
+
+/* ---------- atmosphere: replace the high-desert backdrop ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1000px 620px at 82% -12%, rgba(47,154,172,.12), transparent 62%),
+    radial-gradient(900px 640px at 2% 18%, rgba(29,42,49,.62), transparent 64%),
+    radial-gradient(820px 520px at 55% 108%, rgba(124,147,166,.07), transparent 62%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 46%, var(--ground-deep) 100%);
+}
+/* a faint floor-plan grid instead of topographic rings */
+body::after{
+  background-image:
+    repeating-linear-gradient(90deg, transparent 0 63px, rgba(232,237,240,.030) 63px 64px),
+    repeating-linear-gradient(180deg, transparent 0 63px, rgba(232,237,240,.022) 63px 64px);
+  opacity:.85;
+}
+
+/* ---------- type voice: grotesque headings, mono labels ---------- */
+.section-title{
+  font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;
+  letter-spacing:-.02em;font-size:clamp(1.85rem,4.1vw,2.85rem);line-height:1.1;
+}
+.lead{font-size:1.04rem;color:var(--ink-dim)}
+.eyebrow,.proof span,.trust__item,.pill span,.chip,.field label,.book__alt,
+.footer__brand span,.nav__links a.link,.brand__name span,.disclosure{font-family:var(--mono)}
+.field input[readonly]{font-family:var(--mono)}
+.owner__photo:not(:has(img,svg))::after{font-family:var(--mono)}
+.field input,.field select,.field textarea{font-family:var(--body)}
+.faq summary .plus{font-family:var(--body)}
+.kf-rule{display:block;width:180px;height:10px;margin:20px auto 0}
+
+/* ---------- buttons: squared, corporate, no shine ---------- */
+.btn{
+  font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;
+  letter-spacing:.005em;border-radius:8px;font-size:1rem;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 28px -12px rgba(47,154,172,.55), inset 0 1px 0 rgba(255,255,255,.28);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px -12px rgba(47,154,172,.65), inset 0 1px 0 rgba(255,255,255,.32)}
+.btn::after{display:none}
+.btn--ghost{
+  background:rgba(47,154,172,.07);border:1px solid rgba(69,182,200,.38);
+  box-shadow:none;color:var(--ink-bright);
+}
+.btn--ghost:hover{background:rgba(47,154,172,.14);box-shadow:0 10px 24px -16px rgba(47,154,172,.5)}
+/* padding tuned so the hero's two CTAs sit on ONE row inside the 1.05fr copy
+   column at the 1140px wrap width — at the inherited 1.9rem they overflowed it
+   by three pixels and wrapped, which read as a mistake rather than a choice */
+.btn--lg{font-size:1.02rem;padding:1.02rem 1.6rem}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(11,17,20,.9)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0;width:42px;height:42px}
+.brand__mark svg{width:38px;height:38px}
+/* base.css styles EVERY span inside .brand__name as the small mono sub-line,
+   which flattens the wordmark and the locale into one another. Address the two
+   children separately so the name reads as a wordmark and the locale reads as
+   a caption under it. */
+.brand__name{
+  font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;
+  letter-spacing:.01em;font-size:1.05rem;
+}
+.brand__name [data-brand-short]{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  font-size:1.06rem;letter-spacing:.005em;color:var(--ink-bright);margin-top:0;line-height:1.05;
+}
+.brand__name #brandLocale{
+  font-family:var(--mono);font-weight:500;font-size:.55rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);margin-top:5px;
+}
+.nav__call{
+  font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 22px -14px rgba(47,154,172,.7), inset 0 1px 0 rgba(255,255,255,.25);
+}
+.nav__links a.link{font-size:.72rem;letter-spacing:.13em}
+/* On a 390px screen the lockup and the call button share one row, and the
+   locale line cannot fit beside it at a legible size. Drop the locale rather
+   than shrink it into unreadability — the hero kicker directly below and the
+   footer both name the city, so nothing is lost. */
+@media(max-width:440px){
+  .nav__in{gap:10px}
+  .brand{gap:9px}
+  .brand__mark{width:34px;height:34px}
+  .brand__mark svg{width:32px;height:32px}
+  .brand__name [data-brand-short]{font-size:1rem}
+  .brand__name #brandLocale{display:none}
+}
+
+/* ---------- hero: the building after close ---------- */
+.hero h1{
+  font-family:var(--display);font-stretch:normal;font-weight:800;text-transform:none;
+  font-size:clamp(2.15rem,4.7vw,3.5rem);line-height:1.08;letter-spacing:-.028em;
+  margin-bottom:10px;max-width:16ch;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 58%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.06rem;line-height:1.75;max-width:54ch}
+.proof b{font-family:var(--display);font-stretch:normal;font-weight:700;font-size:1.22rem;letter-spacing:.01em}
+.proof span{font-size:.6rem;letter-spacing:.13em}
+
+.hero__bay{position:relative;display:flex;justify-content:center;align-items:center;padding:22px 8px 8px;min-height:1px}
+.hero__bay .hero-photo-cmp{
+  position:relative;z-index:2;width:min(400px,100%);border-radius:10px;
+  border:1px solid rgba(69,182,200,.28);
+  outline:1px solid rgba(232,237,240,.08);outline-offset:8px;
+  box-shadow:0 34px 78px -26px rgba(0,0,0,.8), 0 6px 18px rgba(0,0,0,.42);
+}
+/* the tower sits behind the photo and never affects layout height */
+.kf-tower{position:absolute;top:-3%;right:-2%;width:132px;z-index:0;pointer-events:none;opacity:.9}
+.kf-tower svg{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 34px rgba(0,0,0,.55))}
+.kf-bayglow{
+  position:absolute;inset:-6% -8% 2%;z-index:0;pointer-events:none;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(47,154,172,.16), rgba(124,147,166,.05) 58%, transparent 76%);
+  filter:blur(12px);
+}
+/* the slow band of light crossing the bay */
+.kf-beam{
+  position:absolute;top:-8%;bottom:-8%;left:0;width:34%;z-index:1;pointer-events:none;
+  background:linear-gradient(100deg, transparent, rgba(127,217,230,.14) 45%, transparent);
+  transform:translateX(-140%);
+  animation:kf-sweep 13s linear infinite;
+}
+.kf-win{opacity:.14;animation:kf-lamp 11s ease-in-out infinite}
+.kf-win:nth-child(1){animation-delay:-.4s}
+.kf-win:nth-child(2){animation-delay:-6.2s}
+.kf-win:nth-child(3){animation-delay:-2.9s}
+.kf-win:nth-child(4){animation-delay:-8.1s}
+.kf-win:nth-child(5){animation-delay:-1.6s}
+.kf-win:nth-child(6){animation-delay:-4.7s}
+.kf-win:nth-child(7){animation-delay:-9.4s}
+.kf-win:nth-child(8){animation-delay:-3.3s}
+.kf-win:nth-child(9){animation-delay:-7.1s}
+.kf-win:nth-child(10){animation-delay:-.9s}
+.kf-win:nth-child(11){animation-delay:-5.5s}
+.kf-win:nth-child(12){animation-delay:-10.2s}
+.kf-win:nth-child(13){animation-delay:-2.2s}
+.kf-win:nth-child(14){animation-delay:-6.8s}
+.kf-win:nth-child(15){animation-delay:-4.1s}
+.kf-win:nth-child(16){animation-delay:-9.9s}
+.kf-win:nth-child(17){animation-delay:-3.8s}
+.kf-win:nth-child(18){animation-delay:-7.6s}
+@keyframes kf-lamp{0%,100%{opacity:.09}42%{opacity:.86}62%{opacity:.72}}
+@keyframes kf-sweep{0%{transform:translateX(-140%)}100%{transform:translateX(420%)}}
+
+/* the datum line the hero sits on */
+.kf-baseline{position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,rgba(69,182,200,.45),transparent)}
+
+@media(max-width:900px){
+  .hero__bay{padding-top:8px}
+  .kf-tower{width:96px;top:-6%;right:2%;opacity:.55}
+  .kf-beam{display:none}
+}
+@media(max-width:420px){.kf-tower{width:76px;opacity:.4}}
+
+/* ---------- about: the plain statement ---------- */
+.about{padding-bottom:56px}
+.about__card{
+  max-width:820px;margin:0 auto;text-align:center;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:14px;
+  padding:clamp(28px,5vw,48px);backdrop-filter:blur(8px);
+}
+.about__card .kf-rule{margin:0 auto 18px}
+.about__card .section-title{margin-bottom:16px}
+.about__body{color:var(--ink-dim);font-size:1.05rem;line-height:1.82;max-width:64ch;margin:0 auto;text-align:left}
+@media(max-width:640px){.about__body{text-align:left}}
+
+/* ---------- standards: the four written things ---------- */
+.std__grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:960px;margin:0 auto}
+@media(max-width:820px){.std__grid{grid-template-columns:1fr;max-width:560px}}
+.std{
+  position:relative;padding:24px 26px 24px 62px;border-radius:12px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+  border-left:3px solid rgba(69,182,200,.55);
+}
+.std__tick{
+  position:absolute;left:20px;top:26px;width:24px;height:24px;border-radius:5px;
+  border:1.5px solid rgba(69,182,200,.55);display:block;
+}
+.std__tick::after{
+  content:"";position:absolute;left:6px;top:2px;width:8px;height:14px;
+  border-right:2.4px solid var(--accent-2);border-bottom:2.4px solid var(--accent-2);
+  transform:rotate(42deg);
+}
+.std h3{
+  font-family:var(--display);font-weight:700;font-size:1.1rem;letter-spacing:-.01em;
+  color:var(--ink-bright);margin-bottom:8px;
+}
+.std p{color:var(--ink-dim);font-size:.97rem;line-height:1.62}
+
+/* ---------- sectors ---------- */
+.sector__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1040px;margin:0 auto}
+@media(max-width:960px){.sector__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.sector__grid{grid-template-columns:1fr;max-width:520px}}
+.sector{
+  padding:22px 22px 20px;border-radius:12px;background:rgba(22,33,38,.5);
+  border:1px solid var(--card-brd);border-top:2px solid rgba(69,182,200,.34);
+}
+.sector h3{
+  font-family:var(--mono);font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  font-size:.78rem;color:var(--accent-2);margin-bottom:10px;
+}
+.sector p{color:var(--ink-dim);font-size:.96rem;line-height:1.6}
+
+/* ---------- how it starts ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step{border-radius:12px}
+.step__n{
+  font-family:var(--mono);font-weight:600;font-size:1.5rem;letter-spacing:.06em;
+  color:var(--accent-2);-webkit-text-stroke:0;margin-bottom:10px;
+}
+.step h3{
+  font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;
+  letter-spacing:-.01em;font-size:1.12rem;
+}
+.step p{color:var(--ink-dim)}
+
+/* ---------- pricing: the contract structure ---------- */
+.price__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1120px;margin:0 auto;align-items:stretch}
+@media(max-width:1040px){.price__grid{grid-template-columns:1fr 1fr;max-width:760px}}
+@media(max-width:620px){.price__grid{grid-template-columns:1fr;max-width:440px}}
+.price-card{
+  display:flex;flex-direction:column;padding:26px 22px 24px;border-radius:12px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+}
+.price-card--hi{
+  border-color:rgba(69,182,200,.55);
+  background:linear-gradient(180deg,rgba(29,42,49,.85),rgba(22,33,38,.7));
+  box-shadow:0 0 0 1px rgba(69,182,200,.16), var(--shadow);
+}
+.price-card--hi::before{
+  content:"Most contracts";position:absolute;top:-11px;left:22px;
+  font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent));
+  padding:3px 10px;border-radius:4px;
+}
+.price-card{position:relative}
+.price-card__label{
+  font-family:var(--display);font-weight:700;font-size:1.08rem;letter-spacing:-.01em;
+  color:var(--ink-bright);margin-bottom:14px;
+}
+.price-card__figure{display:flex;flex-direction:column;gap:4px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+.price-card__blurb{
+  font-family:var(--display);font-weight:800;line-height:1;font-size:clamp(2rem,4.4vw,2.5rem);
+  letter-spacing:-.03em;color:var(--accent-2);
+}
+.price-card__per{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.price-card__note{
+  margin-top:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;
+  color:var(--ink-dim);line-height:1.5;
+}
+.price-card__note[hidden]{display:none}
+.price-card__features{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
+.price-card__features li{position:relative;padding-left:22px;color:var(--ink-dim);font-size:.92rem;line-height:1.5}
+.price-card__features li::before{
+  content:"";position:absolute;left:2px;top:.42em;width:5px;height:9px;
+  border-right:2px solid var(--accent-2);border-bottom:2px solid var(--accent-2);
+  transform:rotate(42deg);
+}
+
+/* ---------- the square-foot estimator ---------- */
+#estimator[hidden]{display:none}
+.est{
+  max-width:900px;margin:32px auto 0;padding:26px clamp(20px,3vw,32px) 22px;border-radius:14px;
+  background:linear-gradient(170deg,rgba(29,42,49,.8),rgba(14,21,25,.7));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.est__head{margin-bottom:18px}
+.est__head h3{
+  font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:-.015em;
+  color:var(--ink-bright);margin-top:10px;
+}
+.est__row{display:grid;grid-template-columns:1.2fr .9fr 1fr;gap:18px;align-items:end}
+@media(max-width:780px){.est__row{grid-template-columns:1fr 1fr}.est__out{grid-column:1 / -1}}
+@media(max-width:460px){.est__row{grid-template-columns:1fr}}
+.est__out{
+  display:flex;flex-direction:column;gap:4px;padding:10px 16px;border-radius:10px;
+  border:1px dashed rgba(69,182,200,.4);background:rgba(47,154,172,.06);min-width:0;
+}
+.est__big{
+  font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,4.2vw,2.2rem);line-height:1.1;
+  letter-spacing:-.03em;color:var(--accent-2);
+}
+.est__sub{font-family:var(--mono);font-size:.66rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);line-height:1.5}
+.est__note{
+  margin-top:18px;padding-top:16px;border-top:1px solid var(--hair);
+  color:var(--muted);font-size:.9rem;line-height:1.65;
+}
+
+.price__note{
+  display:flex;gap:14px;align-items:flex-start;max-width:820px;margin:28px auto 0;
+  background:rgba(47,154,172,.06);border:1px solid rgba(69,182,200,.32);border-radius:12px;
+  padding:18px 22px;
+}
+.price__note svg{width:22px;height:22px;flex:none;color:var(--accent-2);margin-top:2px}
+.price__note p{color:var(--ink-dim);font-size:.96rem;line-height:1.65}
+
+/* ---------- proof: the before/after slider ----------
+   The shipped pair is 4:3 LANDSCAPE, where the component's own rule assumes a
+   581/376 frame. Component CSS is appended AFTER this file by the build, so
+   these overrides are scoped by the section id to win on specificity rather
+   than order. With the frame and the photo at the same ratio, cover and
+   contain agree and there is no pillarboxing at any width. */
+#proof .ba-cmp-wrap{max-width:760px}
+#proof .ba-cmp{aspect-ratio:4 / 3;border-radius:12px}
+#proof .ba-cmp__panel{background-size:cover}
+#proof .ba-cmp-labels{max-width:760px}
+#proof .ba-cmp__grip{background:radial-gradient(circle at 35% 30%, #D6F2F8, var(--accent-2) 58%, var(--accent-deep));box-shadow:0 8px 24px -6px rgba(0,0,0,.7), 0 0 20px rgba(69,182,200,.45)}
+#proof .ba-cmp__handle{box-shadow:0 0 16px rgba(69,182,200,.5)}
+#proof .ba-cmp__hint{background:rgba(7,11,13,.68)}
+#proof .ba-cmp-label--b{background:rgba(7,11,13,.75);color:var(--ink-dim);border:1px solid rgba(232,237,240,.28)}
+#proof .ba-cmp-label--a{background:rgba(47,154,172,.16);color:var(--accent-2);border:1px solid rgba(69,182,200,.5)}
+@media(max-width:520px){#proof .ba-cmp{border-radius:10px}}
+.proof__note{
+  max-width:760px;margin:20px auto 0;text-align:center;
+  color:var(--muted);font-size:.9rem;line-height:1.7;font-family:var(--mono);
+}
+
+/* ---------- scope detail (shared job-details component) ---------- */
+.jd-cmp__col{border-radius:12px}
+.jd-cmp__col h3{font-size:.78rem;letter-spacing:.14em}
+
+/* ---------- reviews ---------- */
+.review-cmp{border-radius:12px}
+
+/* ---------- FAQ ---------- */
+.faq{border-radius:12px}
+.faq summary{
+  font-family:var(--display);font-stretch:normal;font-weight:700;font-size:1rem;
+  letter-spacing:-.005em;
+}
+.faq summary .plus{border-color:rgba(69,182,200,.45);color:var(--accent-2)}
+.faq__body{color:var(--ink-dim);font-size:.98rem;line-height:1.7}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(26px,4vw,50px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:30px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,42,49,.8),rgba(7,11,13,.7));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(47,154,172,.12), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(232,237,240,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 6px}
+.meet__name{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:20px;
+}
+.meet__name:empty{display:none}
+.meet__desc{
+  color:var(--ink);font-size:1rem;line-height:1.78;padding:26px;border-radius:12px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+}
+
+/* ---------- form / footer polish ---------- */
+.book{background:rgba(14,21,25,.66);border-radius:14px}
+.field input,.field select,.field textarea{background-color:rgba(7,11,13,.72);border-radius:8px}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background-color:rgba(7,11,13,.92)}
+/* background-COLOR above, not the shorthand: base.css paints the select's
+   chevron with background-image plus its own repeat/position/size longhands,
+   and a `background:` shorthand here resets those three — which tiled the
+   chevron across the control. Restated alongside the recoloured icon so the
+   pairing cannot come apart again. */
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2345B6C8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;
+}
+.consent a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+.book-done{border-radius:14px;border-color:rgba(69,182,200,.4);background:linear-gradient(180deg,rgba(29,42,49,.7),rgba(14,21,25,.7))}
+.book-done h3{font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;letter-spacing:-.02em}
+.book-done__ic{box-shadow:0 12px 28px -12px rgba(47,154,172,.8)}
+.footer__brand b{font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;letter-spacing:.01em}
+.footer__brand span{text-transform:none;letter-spacing:.02em;font-size:.78rem}
+.disclosure{
+  max-width:880px;font-size:.72rem;line-height:1.75;
+  color:var(--muted);opacity:.82;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta{background:rgba(11,17,20,.95)}
+.mobile-cta a{font-family:var(--display);font-stretch:normal;font-weight:700;text-transform:none;letter-spacing:.01em;border-radius:8px}
+.mobile-cta .call{box-shadow:0 8px 18px -10px rgba(47,154,172,.75)}
+.mobile-cta .text{background:rgba(47,154,172,.1);border:1px solid rgba(69,182,200,.35)}
+
+/* ---------- reduced motion: the building stays lit and still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .kf-win,.kf-beam{animation:none}
+  .kf-win{opacity:.5}
+  .kf-beam{opacity:0}
+  .hero__bay .hero-photo-cmp img{animation:none}
+}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: before-after -- */
+/* _template/components/before-after.css
+   Namespaced ba-cmp-* copy of bin-cleaning's .ba rules (sections.css), minus
+   the water-spray decoration -- that was bin-cleaning's own flourish, not
+   the reusable behavior. Relies only on the platform-wide token set every
+   niche.css defines (--card-brd, --shadow, --ink-dim, --accent-2,
+   --accent-deep, --accent-ink, --mono, --ground-deep, --hair). */
+.ba-cmp-wrap { max-width: 820px; margin: 0 auto; }
+.ba-cmp {
+  position: relative; aspect-ratio: 581 / 376;
+  border-radius: 20px; overflow: hidden; user-select: none; touch-action: pan-y;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow);
+  background: var(--ground-deep);
+}
+.ba-cmp__panel { position: absolute; inset: 0; background-size: contain; background-repeat: no-repeat; background-position: center; background-color: var(--ground-deep); }
+.ba-cmp__after { background-image: var(--after-img, none); }
+.ba-cmp__before { background-image: var(--before-img, none); z-index: 2; clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+
+.ba-cmp__handle { position: absolute; top: 0; bottom: 0; left: var(--pos, 50%); width: 2px;
+  background: linear-gradient(180deg, transparent, var(--ink-dim), var(--accent-2), var(--ink-dim), transparent);
+  transform: translateX(-1px); z-index: 5; box-shadow: 0 0 18px rgba(90, 180, 255, .5); }
+.ba-cmp__grip { position: absolute; top: 50%; left: var(--pos, 50%); transform: translate(-50%, -50%); z-index: 6;
+  width: 52px; height: 52px; border-radius: 50%; cursor: ew-resize;
+  background: radial-gradient(circle at 35% 30%, #cfeafe, var(--accent-2) 60%, var(--accent-deep));
+  border: 2px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, .7), 0 0 22px rgba(90, 180, 255, .5);
+  display: grid; place-items: center; color: var(--accent-ink); }
+.ba-cmp__grip svg { width: 24px; height: 24px; }
+.ba-cmp__hint { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6;
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-dim); background: rgba(6, 17, 32, .6); padding: .3rem .7rem; border-radius: 20px;
+  border: 1px solid var(--hair); transition: opacity .4s; pointer-events: none; }
+.ba-cmp.touched .ba-cmp__hint { opacity: 0; }
+
+.ba-cmp-labels { display: flex; justify-content: space-between; align-items: center;
+  max-width: 820px; margin: 0 auto 14px; padding: 0 4px; gap: 16px; }
+.ba-cmp-label { font-family: var(--mono); font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; font-size: .85rem; padding: .45rem 1rem; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: .5rem; }
+.ba-cmp-label--b { background: rgba(10, 10, 6, .72); color: #e9d9a6; border: 1px solid rgba(200, 170, 90, .45); }
+.ba-cmp-label--a { background: rgba(8, 26, 40, .72); color: var(--ink-dim); border: 1px solid rgba(120, 180, 230, .55); }
+.ba-cmp-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; opacity: .75; }
+@media (max-width: 520px) { .ba-cmp-label { font-size: .72rem; letter-spacing: .16em; padding: .35rem .7rem; } }
+
+/* dashed placeholder when the operator has fewer than a real before+after
+   pair -- own copy, self-contained (this component brings its own
+   slot-empty rule rather than depending on a niche defining one). */
+.ba-cmp-wrap.slot-empty { border: 2px dashed var(--accent-2); border-radius: 20px; background: rgba(120, 180, 230, .06); }
+.ba-cmp-wrap.slot-empty .ba-cmp-ui { display: none; }
+.ba-cmp-wrap.slot-empty .ba-cmp::after { content: "Before / after photos appear here -- add them in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
+
+/* -- component: job-details -- */
+/* _template/components/job-details.css
+   .section/.section__head/.reveal/.eyebrow/.section-title are all shared
+   chrome from _template/base.css -- only the two-column list layout needs a
+   rule of its own here. */
+.jd-cmp__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; max-width: 900px; margin: 0 auto; }
+@media (max-width: 640px) { .jd-cmp__cols { grid-template-columns: 1fr; } }
+.jd-cmp__col { background: var(--card); border: 1px solid var(--card-brd); border-radius: 16px; padding: 22px 24px; }
+.jd-cmp__col h3 { margin: 0 0 14px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .08em; font-size: .95rem; }
+.jd-cmp__col--yes h3 { color: var(--accent-2); }
+.jd-cmp__col--no h3 { color: var(--ink-dim); }
+.jd-cmp__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.jd-cmp__list li { position: relative; padding-left: 26px; color: var(--ink-dim); line-height: 1.5; }
+.jd-cmp__col--yes li::before { content: "\2713"; position: absolute; left: 0; color: var(--accent-2); font-weight: 700; }
+.jd-cmp__col--no li::before { content: "\2715"; position: absolute; left: 0; color: var(--ink-dim); opacity: .6; }
+
+/* -- component: reviews -- */
+/* _template/components/reviews.css
+   Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
+   contained on the shared token set every niche.css defines. */
+.reviews-cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+@media (max-width: 880px) { .reviews-cmp-grid { grid-template-columns: 1fr; max-width: 520px; } }
+.review-cmp { background: var(--card); border: 1px solid var(--card-brd); border-radius: 18px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s ease, border-color .2s ease; }
+.review-cmp:hover { transform: translateY(-4px); }
+.review-cmp__mark { font-size: 2.2rem; line-height: 1; color: var(--accent-2); opacity: .5; font-family: var(--mono); }
+.review-cmp__quote { color: var(--ink-dim); font-size: 1rem; line-height: 1.65; flex: 1; font-style: italic; }
+.review-cmp__who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; color: var(--accent-2); }
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+<div id="svDemoBanner" role="note" aria-label="Demo site notice">
+  <span class="svDemoBanner__dot" aria-hidden="true"></span>
+  <span>Demo — this site is for sale</span>
+  <a href="/sites/">View all sites →</a>
+</div>
+<script>
+/* Demo chrome removes itself off the catalog: on a tenant subdomain this SAME
+   deployed file is an operator's live site — there is no per-buyer build any
+   more, middleware rewrites the subdomain here. Hostname, not a header or a
+   fetch: a page cannot read its own response headers, and a fetch would flash
+   the banner and fail open on a paid site. Synchronous removal right after the
+   element parses means it never paints. The apex and www keep the banner (that
+   IS the demo); so do vercel.app previews and localhost. */
+(function () {
+  var h = location.hostname;
+  if (h !== 'systemsbyvega.com' && h !== 'www.systemsbyvega.com'
+      && h.slice(-18) === '.systemsbyvega.com') {
+    var b = document.getElementById('svDemoBanner');
+    if (b) b.remove();
+
+    /* Owner login. The tenant IS the hostname's first label — the same value
+       middleware routes on — so nothing needs injecting for the page to know
+       it. ?tenant= is a hint, not authorisation: /admin/ resolves ownership
+       from the sign-in, so a guessed URL gets a login form, nothing more.
+
+       Appended on DOMContentLoaded, not here: this script sits at the TOP of
+       body (so the banner removal above beats first paint), and the footer
+       does not exist yet at this point in the parse. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var a = document.createElement('a');
+      a.id = 'svOwnerLogin';
+      a.href = '/admin/?tenant=' + encodeURIComponent(h.slice(0, -18));
+      a.textContent = 'Owner login →';
+      var f = document.querySelector('footer');
+      if (f) {
+        a.style.cssText = 'display:inline-block;margin-top:12px;' +
+          'font-size:11.5px;color:inherit;opacity:.6;text-decoration:underline';
+        f.appendChild(a);
+      } else {
+        /* No footer in this niche's markup: a discreet fixed corner beats
+           silently having no login path at all. */
+        a.style.cssText = 'position:fixed;right:12px;bottom:10px;z-index:50;' +
+          'font-size:11.5px;color:inherit;opacity:.55;text-decoration:underline';
+        document.body.appendChild(a);
+      }
+    });
+  }
+})();
+</script>
+<style>
+#svDemoBanner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 9px;background:#161B22;color:#fff;font-family:'IBM Plex Mono',ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.01em;padding:9px 16px;border-radius:20px;border:1px solid #323A48;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 24px);text-align:center}
+#svDemoBanner .svDemoBanner__dot{width:7px;height:7px;border-radius:50%;background:#F3922F;flex:none}
+#svDemoBanner a{color:#F3922F;font-weight:700;text-decoration:none}
+#svDemoBanner a:hover{text-decoration:underline}
+@media(max-width:820px){#svDemoBanner{bottom:78px;font-size:11.5px;padding:8px 14px}}
+</style>
+
+<!-- commercial-cleaning/scene.svg — this site keeps its illustrations inline
+     in sections.html (key-tag mark, the after-hours tower, section rules)
+     rather than in a shared <defs> block. Placeholder so the build slot
+     resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>
+
+<!-- commercial-cleaning/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md 3.1), so this is per-niche.
+     Voice is B2B: the reader is a facilities manager or a small-business owner
+     signing a recurring contract, not a homeowner booking a visit. Every claim
+     on this page is about process (a written scope, a named crew, a sign-off
+     sheet), never about credentials or results.
+     Static copy below mirrors content.json (the no-JS fallback, decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Keyholder Facility Care home">
+      <span class="brand__mark" role="img" aria-label="Keyholder key-tag mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="cc-grad-mark" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FD9E6"/><stop offset=".55" stop-color="#45B6C8"/><stop offset="1" stop-color="#1B6875"/>
+            </linearGradient>
+          </defs>
+          <rect x="9.5" y="9.5" width="45" height="45" rx="12" stroke="url(#cc-grad-mark)" stroke-width="3"/>
+          <circle cx="27" cy="27" r="7" stroke="url(#cc-grad-mark)" stroke-width="3.4"/>
+          <path d="M27 34v13" stroke="url(#cc-grad-mark)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M27 41h6" stroke="url(#cc-grad-mark)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M35 24.5l4.6 4.6L48 20.6" stroke="url(#cc-grad-mark)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Keyholder</span><span id="brandLocale">Facility care · Idaho Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#standards">Standards</a>
+      <a class="link" href="#program">How it starts</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#proof">Proof</a>
+      <a class="link" href="#faq">FAQ</a>
+      <!-- (208) 555-01XX and 555-02XX are reserved fictional ranges. Editable via admin (brand.phone in content.json). -->
+      <a class="nav__call" href="tel:+12085550236" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0236</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Office &amp; janitorial contracts · Idaho Falls</span></div>
+        <h1 id="heroTitle">The crew holding your keys should be the same crew every night.</h1>
+        <p class="hero__sub" id="heroSub">Keyholder Facility Care runs after-hours janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Request a walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#pricing" id="heroCtaSecondary">See how a contract is priced</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Written</b><span>Scope before day one</span></div>
+          <div class="proof"><b>Named</b><span>Crew on the contract</span></div>
+          <div class="proof"><b>Dated</b><span>Sign-off every visit</span></div>
+        </div>
+      </div>
+      <div class="hero__bay">
+        <!-- Signature motif: the building after close. Windows go dark and light
+             again as the crew works its way up the floors (kf-lamp), and a slow
+             band of light crosses the bay (kf-sweep). Both are opacity and
+             transform only, and both are switched off under reduced motion by
+             the block at the end of sections.css. -->
+        <div class="kf-tower" aria-hidden="true">
+          <svg viewBox="0 0 130 300" fill="none">
+            <defs>
+              <linearGradient id="cc-tower-face" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1D2A31"/><stop offset=".6" stop-color="#162126"/><stop offset="1" stop-color="#0E1519"/>
+              </linearGradient>
+              <linearGradient id="cc-tower-lit" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7FD9E6"/><stop offset="1" stop-color="#2F9AAC"/>
+              </linearGradient>
+              <radialGradient id="cc-bay-glow" cx=".5" cy=".18" r=".8">
+                <stop offset="0" stop-color="#45B6C8" stop-opacity=".26"/>
+                <stop offset="1" stop-color="#45B6C8" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="8" y="26" width="114" height="266" rx="6" fill="url(#cc-tower-face)" stroke="rgba(232,237,240,.14)"/>
+            <rect x="46" y="14" width="38" height="14" rx="3" fill="url(#cc-tower-face)" stroke="rgba(232,237,240,.12)"/>
+            <g class="kf-wins">
+              <rect class="kf-win" x="20" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+            </g>
+            <rect x="8" y="278" width="114" height="14" rx="4" fill="rgba(7,11,13,.7)"/>
+          </svg>
+        </div>
+        <div class="kf-bayglow" aria-hidden="true"></div>
+        <div class="kf-beam" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's uploaded c.niche.heroImg and falls back to manifest.json's
+             heroDefault (photos/hero-desk-wipe.jpg).
+             Credit: Ron Lach, Pexels (photos/CREDITS.md). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/commercial-cleaning/photos/hero-desk-wipe.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/commercial-cleaning/photos/hero-desk-wipe.jpg" alt="A gloved hand wiping down an office desk with a microfibre cloth and a spray bottle, workstation cleared behind it" fetchpriority="high" decoding="async">
+</figure>
+      </div>
+    </div>
+  </div>
+  <div class="kf-baseline" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Written scope, priced line by line</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>The same crew, named on the contract</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="10" r="4"/><path d="M12 10h9"/><path d="M17 10v4"/><path d="M20.5 10v3"/></svg>Keys and codes signed in and out</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Dated sign-off left on site</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="kf-rule" viewBox="0 0 180 10" aria-hidden="true">
+        <defs><linearGradient id="cc-rule-a" gradientUnits="userSpaceOnUse" x1="0" y1="5" x2="180" y2="5"><stop offset="0" stop-color="#2F9AAC" stop-opacity="0"/><stop offset=".5" stop-color="#45B6C8"/><stop offset="1" stop-color="#2F9AAC" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="5" x2="180" y2="5" stroke="url(#cc-rule-a)" stroke-width="1"/>
+        <rect x="86" y="1" width="8" height="8" rx="1.5" fill="url(#cc-rule-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Facilities managers do not need another vendor to chase</h2>
+      <p class="about__body" id="aboutBody">The complaint we hear on every walkthrough is the same one: nobody knows who was in the building last night, the scope drifted six months ago, and the invoice never changed. So we run the boring version on purpose. Every task is written down with a frequency beside it. The people assigned to your building are named on the contract. A dated sheet stays on site so you can see what was covered without calling anyone. If the scope needs to change, it changes in writing and the price moves with it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STANDARDS (the accountability block) ============ -->
+<section class="section standards" id="standards">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What goes in the contract</span>
+      <h2 class="section-title">Four things we put in writing</h2>
+      <p class="lead" style="margin:0 auto">None of these are extras. They are the reason a building leaves whoever it was with and calls us instead.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.standards; textContent sinks only -->
+    <div class="std__grid" id="stdGrid">
+      <article class="std reveal" data-delay="1">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>A scope you can hold us to</h3>
+        <p>Every task is written down with a frequency beside it — nightly, weekly, monthly, quarterly — before a price is attached to any of it.</p>
+      </article>
+      <article class="std reveal" data-delay="2">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>The same crew, by name</h3>
+        <p>The people assigned to your building are listed on the contract. Changing that list is a conversation with you, not a surprise on a Tuesday.</p>
+      </article>
+      <article class="std reveal" data-delay="3">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>Keys and codes on a log</h3>
+        <p>Access is issued to named people and signed in and out each shift, so who was in the building last night is never a guess.</p>
+      </article>
+      <article class="std reveal" data-delay="1">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>Paperwork before signatures</h3>
+        <p>Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTORS ============ -->
+<section class="section sectors" id="sectors">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Buildings we are set up for</span>
+      <h2 class="section-title">Who is on the route</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.sectors -->
+    <div class="sector__grid" id="sectorGrid">
+      <div class="sector reveal" data-delay="1"><h3>Professional offices</h3><p>Single suites, whole floors, or a building with four tenants and one facilities manager.</p></div>
+      <div class="sector reveal" data-delay="2"><h3>Medical &amp; dental</h3><p>Exam rooms, waiting areas and restrooms on a written checklist your office approves first.</p></div>
+      <div class="sector reveal" data-delay="3"><h3>Banks &amp; credit unions</h3><p>After-hours access on a logged key, and a crew that stays out of the teller line and the vault corridor.</p></div>
+      <div class="sector reveal" data-delay="1"><h3>Warehouses &amp; light industrial</h3><p>Breakrooms, restrooms, front offices and the walkways between them, on the schedule your shifts allow.</p></div>
+      <div class="sector reveal" data-delay="2"><h3>Fitness &amp; studios</h3><p>Early-morning turnarounds so the first class of the day walks onto a dry, clean floor.</p></div>
+      <div class="sector reveal" data-delay="3"><h3>Property management</h3><p>Lobbies, common areas and turnover cleans handled across a portfolio on one invoice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW A CONTRACT STARTS ============ -->
+<section class="section how" id="program">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it starts</span>
+      <h2 class="section-title">From a walkthrough to a signed scope</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk the building</h3>
+        <p>We meet you on site — after hours if that is easier — and measure the cleanable square footage room by room. Restroom count, floor types and trash volume all get written down.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Written scope and price</h3>
+        <p>You get a task list with a frequency against each line and a price against the whole thing. Nothing is ordered, scheduled or charged until you have read it.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Crew assigned by name</h3>
+        <p>The people who will be in your building are named on the contract, issued their own access, and walked through the scope with you before the first shift.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Sign-off, every visit</h3>
+        <p>A dated sheet stays in the building. Anything missed gets written on it, and we are back before the next scheduled visit to close it out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (tiers model) ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Contract structure</span>
+      <h2 class="section-title">What a janitorial contract costs</h2>
+      <svg class="kf-rule" viewBox="0 0 180 10" aria-hidden="true">
+        <defs><linearGradient id="cc-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="5" x2="180" y2="5"><stop offset="0" stop-color="#2F9AAC" stop-opacity="0"/><stop offset=".5" stop-color="#45B6C8"/><stop offset="1" stop-color="#2F9AAC" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="5" x2="180" y2="5" stroke="url(#cc-rule-b)" stroke-width="1"/>
+        <rect x="86" y="1" width="8" height="8" rx="1.5" fill="url(#cc-rule-b)"/>
+      </svg>
+    </div>
+
+    <!-- The tier cards are rendered by niche.js from CONTENT.pricing, which is
+         the array the admin writes back to (manifest pricing.mergePath). Each
+         row is {label, blurb, per, note, highlight, features}: blurb is the
+         DISPLAY STRING and is where an operator's price_label save lands, so
+         it is the key the renderer reads. note renders under the price and
+         hides itself when the operator clears it. -->
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+      <defs>
+        <linearGradient id="cc-badge-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7FD9E6"/><stop offset="1" stop-color="#2F9AAC"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="price__grid" id="priceGrid">
+      <article class="price-card reveal" data-delay="1">
+        <h3 class="price-card__label">Nightly janitorial</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.32</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">Five nights a week, after close</p>
+        <ul class="price-card__features">
+          <li>Trash, restrooms, breakroom and floors every night</li>
+          <li>Restroom consumables counted and topped up</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>The same named crew on your account</li>
+        </ul>
+      </article>
+      <article class="price-card price-card--hi reveal" data-delay="2">
+        <h3 class="price-card__label">Three nights a week</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.21</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">The most common office contract</p>
+        <ul class="price-card__features">
+          <li>Full nightly scope on the three nights you pick</li>
+          <li>Restrooms and breakroom every visit</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>The same named crew on your account</li>
+        </ul>
+      </article>
+      <article class="price-card reveal" data-delay="3">
+        <h3 class="price-card__label">Weekly reset</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.08</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">For small suites and quiet offices</p>
+        <ul class="price-card__features">
+          <li>One full clean a week, evening or weekend</li>
+          <li>Restrooms, floors, glass and breakroom</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>Consumables itemized at cost, or supply your own</li>
+        </ul>
+      </article>
+      <article class="price-card reveal" data-delay="1">
+        <h3 class="price-card__label">Deep clean &amp; post-build</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">Quoted</span><span class="price-card__per">after a walkthrough</span></div>
+        <p class="price-card__note">Move-outs, post-construction, one-off resets</p>
+        <ul class="price-card__features">
+          <li>Written scope before anything starts</li>
+          <li>A fixed number, not an hourly meter</li>
+          <li>Scheduled around how your building actually runs</li>
+          <li>Punch-list walk with you at the end</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- Square-footage estimator. Every rate it uses is parsed out of the tier
+         card's own blurb, so an operator's price_label edit moves this figure
+         too — there is no second copy of the numbers to fall out of step. Rows
+         whose per-unit is not a square-foot rate are left out of the picker,
+         and a blurb that is not a number (a quoted tier) simply never appears
+         here. The block hides itself when no row qualifies. -->
+    <div class="est reveal" id="estimator" hidden>
+      <div class="est__head">
+        <span class="eyebrow">Rough it out</span>
+        <h3>What would my building be?</h3>
+      </div>
+      <div class="est__row">
+        <div class="field">
+          <label for="estPlan">Service level</label>
+          <select id="estPlan"></select>
+        </div>
+        <div class="field">
+          <label for="estSqft">Cleanable square feet</label>
+          <input id="estSqft" type="number" inputmode="numeric" min="100" step="100" value="5000" />
+        </div>
+        <div class="est__out">
+          <span class="est__big" id="estOut">&mdash;</span>
+          <span class="est__sub" id="estSub">estimated monthly</span>
+        </div>
+      </div>
+      <p class="est__note" id="estNote">A starting figure only. Square footage is the biggest single driver of a janitorial price, but restroom count, floor type and how much trash a building makes all move it. Nothing here is a quote.</p>
+    </div>
+
+    <div class="price__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="priceNote">Rates are per square foot of cleanable space, billed monthly against a written contract. Consumables are itemized at cost unless your building would rather supply its own. Every figure on this page is a starting structure, not a quote — the walkthrough sets the real number.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The comparison</span>
+      <h2 class="section-title">Drag the handle</h2>
+      <p class="lead" style="margin:0 auto">The same desk, photographed cluttered and photographed clear. Drag the handle to wipe between the two frames.</p>
+    </div>
+
+    <!-- The shared before-after component. Its images resolve from
+         c.niche.beforeImg and c.niche.afterImg (manifest merge.beforeAfter),
+         which is exactly where the admin's before/after uploads land, and it
+         shows a dashed slot-empty state rather than pairing one real photo
+         with a missing one. The pair shipped here is landscape (4:3), so
+         sections.css re-sets the slider's aspect ratio to match it. -->
+    <!-- _template/components/before-after.html
+     Signature before/after slider, extracted VERBATIM in behavior from
+     niches/bin-cleaning (pointer + touch + keyboard drag, --pos CSS var, a
+     gentle one-time auto-nudge on first view). Namespaced ba-cmp-* so it
+     never collides with a niche's own hand-authored .ba rules (bin-cleaning
+     still has one until it is converted separately).
+     data-merge is stamped by tools/build-site.js from the niche's manifest
+     merge.beforeAfter -- "niche.beforeImg/afterImg" (read c.niche.beforeImg/
+     afterImg) or "projects[0]" (read c.projects[0].beforeImg/afterImg,
+     contracting's shape). Both-or-neither fallback: a lone real photo is
+     never paired with the other side missing -- the wrap gets a dashed
+     slot-empty state instead of a fabricated pair. -->
+<div class="ba-cmp-labels reveal" aria-hidden="true">
+  <span class="ba-cmp-label ba-cmp-label--b">Before</span>
+  <span class="ba-cmp-label ba-cmp-label--a">After</span>
+</div>
+<div class="ba-cmp-wrap reveal" data-merge="niche.beforeImg/afterImg">
+  <div class="ba-cmp" tabindex="0" role="slider" aria-label="Before and after comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" style="--pos:50%">
+    <div class="ba-cmp__panel ba-cmp__after"></div>
+    <div class="ba-cmp__panel ba-cmp__before"></div>
+    <div class="ba-cmp__handle ba-cmp-ui" aria-hidden="true"></div>
+    <div class="ba-cmp__grip ba-cmp-ui" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l-5 6 5 6"/><path d="M15 6l5 6-5 6"/></svg>
+    </div>
+    <div class="ba-cmp__hint ba-cmp-ui">&#9668; Drag &#9658;</div>
+  </div>
+</div>
+
+    <p class="proof__note reveal" id="baNote">Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim.</p>
+  </div>
+</section>
+
+<!-- ============ SCOPE DETAIL ============ -->
+<!-- _template/components/job-details.html
+     Two-column "what's included / not included" block, from c.jobDetails =
+     { included: [...strings], notIncluded: [...strings] }. Starts hidden;
+     job-details.js unhides the whole section only when at least one list has
+     an item, and hides either column on its own if that list is empty. -->
+<section class="section jd-cmp" id="jobDetails" hidden>
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fine print, upfront</span>
+      <h2 class="section-title">What's included</h2>
+    </div>
+    <div class="jd-cmp__cols">
+      <div class="jd-cmp__col jd-cmp__col--yes reveal">
+        <h3>Included</h3>
+        <ul class="jd-cmp__list" id="jdIncluded"></ul>
+      </div>
+      <div class="jd-cmp__col jd-cmp__col--no reveal">
+        <h3>Not included</h3>
+        <ul class="jd-cmp__list" id="jdNotIncluded"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">From the buildings we hold keys to</span>
+      <h2 class="section-title">What the managers say</h2>
+    </div>
+    <!-- _template/components/reviews.html
+     Three review cards filled from c.testimonials. The fallback strings for
+     an empty card live in reviews.js, set via textContent -- NOT a CSS
+     :empty::before pseudo-element (bin-cleaning's original approach): a
+     property assignment is the escaping standard for every new sink in this
+     build, and it means the fallback copy exists in the DOM regardless of
+     what CSS a given niche happens to ship. -->
+<div class="reviews-cmp-grid">
+  <div class="review-cmp reveal" data-delay="1">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="2">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="3">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where the route runs</span>
+      <h2 class="section-title">Idaho Falls and out</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Idaho Falls &amp; the Upper Snake Valley</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Idaho Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ammon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Iona</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ucon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Shelley</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Rigby</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Before you ask us</span>
+      <h2 class="section-title">The questions managers actually ask</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq">
+        <summary>Do you clean during business hours?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Rarely. Most buildings on our route are done after close, between six and midnight, so nobody has to work around a mop bucket. Day-porter coverage during business hours can be added to any contract if your lobby needs it.</div>
+      </details>
+      <details class="faq">
+        <summary>Who has keys and codes to my building?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Named people, and only named people. Everyone assigned to your building is listed on the contract, and that list changes in writing, not quietly. Keys and alarm codes are signed in and out each shift.</div>
+      </details>
+      <details class="faq">
+        <summary>What happens when something gets missed?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Write it on the sign-off sheet or send us a message, and we are back before the next scheduled visit at no charge. The sheet tells us who was in the building and what they covered, so we can usually answer what happened the same day.</div>
+      </details>
+      <details class="faq">
+        <summary>Do you bring your own equipment and supplies?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Yes — machines, chemicals and cloths are ours and stay on our truck. Consumables your building hands to the public, like liners, paper and soap, are itemized at cost, or you can keep buying your own if that is cheaper for you.</div>
+      </details>
+      <details class="faq">
+        <summary>How long is a contract, and how do I get out of it?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Month to month after the first ninety days, with thirty days notice either way. We would rather keep a building because the work holds up than because a term said we get to.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REQUEST A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Walkthrough request</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the building</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We walk it with you, measure it, and send a written scope with a price against it. No obligation and no auto-renewal to read past.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550236" data-tel data-phone-text>(208) 555-0236</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Your name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Dana Whitfield" required />
+        </div>
+        <div class="field">
+          <label for="q-company">Company or building <em>*</em></label>
+          <input id="q-company" name="company" type="text" autocomplete="organization" placeholder="Riverbend Professional Plaza" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field">
+          <label for="q-email">Work email</label>
+          <input id="q-email" name="email" type="email" autocomplete="email" placeholder="dana@example.com" />
+        </div>
+        <div class="field">
+          <label for="q-sqft">Approximate square feet</label>
+          <input id="q-sqft" name="sqft" type="number" inputmode="numeric" min="100" step="100" placeholder="5000" />
+        </div>
+        <div class="field">
+          <label for="q-freq">Cleaning frequency you have in mind</label>
+          <select id="q-freq" name="frequency">
+            <option value="">Not sure yet</option>
+            <option value="Five nights a week">Five nights a week</option>
+            <option value="Three nights a week">Three nights a week</option>
+            <option value="Once a week">Once a week</option>
+            <option value="One-off deep clean">One-off deep clean</option>
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything we should know? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two-storey suite, eleven staff, four restrooms, mostly carpet with a tile entry. Current company keeps missing the breakroom and we need to be out of the contract by the end of next month."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Contact me about a walkthrough by phone, text or email. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request the walkthrough</button>
+        <a class="book__alt" href="sms:+12085550236?body=Hi%20Keyholder!%20I%27d%20like%20to%20set%20up%20a%20walkthrough%20for%20our%20building." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — the building is on the list</h3>
+      <p id="doneMsg">We will be in touch to set a walkthrough time.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Who you are dealing with</span>
+        <h2 class="section-title" id="meetHeading">The person who answers when the scope slips</h2>
+        <p class="meet__name" id="meetName">Corinne Ballard</p>
+        <div class="meet__desc" id="meetDesc">Corinne Ballard spent her early career on the other side of this contract — running a building for someone else and chasing a cleaning company that never sent the same two people twice. She started Keyholder to be the version she could not hire: a written scope, a crew listed by name, and a sheet in the building that says who was there and what got done. She still walks every new building herself, and her number is the one on the proposal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Keyholder Facility Care">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="cc-grad-mark2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FD9E6"/><stop offset=".55" stop-color="#45B6C8"/><stop offset="1" stop-color="#1B6875"/>
+            </linearGradient>
+          </defs>
+          <rect x="9.5" y="9.5" width="45" height="45" rx="12" stroke="url(#cc-grad-mark2)" stroke-width="3"/>
+          <circle cx="27" cy="27" r="7" stroke="url(#cc-grad-mark2)" stroke-width="3.4"/>
+          <path d="M27 34v13" stroke="url(#cc-grad-mark2)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M27 41h6" stroke="url(#cc-grad-mark2)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M35 24.5l4.6 4.6L48 20.6" stroke="url(#cc-grad-mark2)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div><b data-brand>Keyholder Facility Care</b><span id="footTagline">Same crew. Every night. On the record.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550236" data-tel data-phone-text>(208) 555-0236</a><br />
+      <span id="areaLine">Serving Idaho Falls &amp; the Upper Snake Valley</span><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Keyholder Facility Care</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Keyholder Facility Care</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing, photography and reviews shown are placeholders — no real cleaning services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550236" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550236?body=Hi%20Keyholder!%20I%27d%20like%20to%20set%20up%20a%20walkthrough%20for%20our%20building." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
+
+<script>
+/* Inlined from niches/commercial-cleaning/content.json by tools/build-site.js.
+   DO NOT EDIT — edit content.json. These two cannot drift: one generates the other. */
+var DEFAULT_CONTENT = {
+  "brand": {
+    "name": "Keyholder Facility Care",
+    "tagline": "Same crew. Every night. On the record.",
+    "phone": "(208) 555-0236",
+    "email": "hello@keyholderfacility.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Idaho Falls, ID"
+  },
+  "owner": {
+    "name": "Corinne Ballard",
+    "heading": "The person who answers when the scope slips",
+    "bio": "Corinne Ballard spent her early career on the other side of this contract — running a building for someone else and chasing a cleaning company that never sent the same two people twice. She started Keyholder to be the version she could not hire: a written scope, a crew listed by name, and a sheet in the building that says who was there and what got done. She still walks every new building herself, and her number is the one on the proposal.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Idaho Falls & the Upper Snake Valley",
+    "short": "Upper Snake Valley",
+    "cities": [
+      "Idaho Falls",
+      "Ammon",
+      "Iona",
+      "Ucon",
+      "Shelley",
+      "Rigby"
+    ]
+  },
+  "contact": {
+    "hours": "Office Mon–Fri, 8am to 4pm · crews on site after close"
+  },
+  "testimonials": [],
+  "social": [],
+  "pricing": [
+    {
+      "label": "Nightly janitorial",
+      "blurb": "$0.32",
+      "per": "per sq ft, monthly",
+      "note": "Five nights a week, after close",
+      "features": [
+        "Trash, restrooms, breakroom and floors every night",
+        "Restroom consumables counted and topped up",
+        "Dated sign-off sheet left in the building",
+        "The same named crew on your account"
+      ]
+    },
+    {
+      "label": "Three nights a week",
+      "blurb": "$0.21",
+      "per": "per sq ft, monthly",
+      "note": "The most common office contract",
+      "highlight": true,
+      "features": [
+        "Full nightly scope on the three nights you pick",
+        "Restrooms and breakroom every visit",
+        "Dated sign-off sheet left in the building",
+        "The same named crew on your account"
+      ]
+    },
+    {
+      "label": "Weekly reset",
+      "blurb": "$0.08",
+      "per": "per sq ft, monthly",
+      "note": "For small suites and quiet offices",
+      "features": [
+        "One full clean a week, evening or weekend",
+        "Restrooms, floors, glass and breakroom",
+        "Dated sign-off sheet left in the building",
+        "Consumables itemized at cost, or supply your own"
+      ]
+    },
+    {
+      "label": "Deep clean & post-build",
+      "blurb": "Quoted",
+      "per": "after a walkthrough",
+      "note": "Move-outs, post-construction, one-off resets",
+      "features": [
+        "Written scope before anything starts",
+        "A fixed number, not an hourly meter",
+        "Scheduled around how your building actually runs",
+        "Punch-list walk with you at the end"
+      ]
+    }
+  ],
+  "faq": [
+    {
+      "q": "Do you clean during business hours?",
+      "a": "Rarely. Most buildings on our route are done after close, between six and midnight, so nobody has to work around a mop bucket. Day-porter coverage during business hours can be added to any contract if your lobby needs it."
+    },
+    {
+      "q": "Who has keys and codes to my building?",
+      "a": "Named people, and only named people. Everyone assigned to your building is listed on the contract, and that list changes in writing, not quietly. Keys and alarm codes are signed in and out each shift."
+    },
+    {
+      "q": "What happens when something gets missed?",
+      "a": "Write it on the sign-off sheet or send us a message, and we are back before the next scheduled visit at no charge. The sheet tells us who was in the building and what they covered, so we can usually answer what happened the same day."
+    },
+    {
+      "q": "Do you bring your own equipment and supplies?",
+      "a": "Yes — machines, chemicals and cloths are ours and stay on our truck. Consumables your building hands to the public, like liners, paper and soap, are itemized at cost, or you can keep buying your own if that is cheaper for you."
+    },
+    {
+      "q": "How long is a contract, and how do I get out of it?",
+      "a": "Month to month after the first ninety days, with thirty days notice either way. We would rather keep a building because the work holds up than because a term said we get to."
+    }
+  ],
+  "jobDetails": {
+    "included": [
+      "Trash and recycling pulled, liners replaced",
+      "Restrooms cleaned, disinfected and restocked",
+      "Breakroom counters, sinks, tables and microwave fronts",
+      "Hard floors dust-mopped and damp-mopped",
+      "Carpet vacuumed, entry mats lifted and cleaned under",
+      "Glass doors, partitions and interior windows within reach",
+      "A dated sign-off sheet left in the building"
+    ],
+    "notIncluded": [
+      "Carpet extraction and hard-floor refinishing — quoted separately",
+      "Exterior windows above the ground floor",
+      "Biohazard, sewage and hoarding cleanup",
+      "Dishes in the sink and desks with paperwork on them",
+      "Snow removal and parking-lot sweeping"
+    ]
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Office & janitorial contracts · Idaho Falls",
+      "title": "The crew holding your keys should be the same crew every night.",
+      "subtitle": "Keyholder Facility Care runs after-hours janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit.",
+      "ctaPrimary": "Request a walkthrough",
+      "ctaSecondary": "See how a contract is priced"
+    },
+    "about": {
+      "heading": "Facilities managers do not need another vendor to chase",
+      "body": "The complaint we hear on every walkthrough is the same one: nobody knows who was in the building last night, the scope drifted six months ago, and the invoice never changed. So we run the boring version on purpose. Every task is written down with a frequency beside it. The people assigned to your building are named on the contract. A dated sheet stays on site so you can see what was covered without calling anyone. If the scope needs to change, it changes in writing and the price moves with it."
+    },
+    "standards": [
+      {
+        "title": "A scope you can hold us to",
+        "blurb": "Every task is written down with a frequency beside it — nightly, weekly, monthly, quarterly — before a price is attached to any of it."
+      },
+      {
+        "title": "The same crew, by name",
+        "blurb": "The people assigned to your building are listed on the contract. Changing that list is a conversation with you, not a surprise on a Tuesday."
+      },
+      {
+        "title": "Keys and codes on a log",
+        "blurb": "Access is issued to named people and signed in and out each shift, so who was in the building last night is never a guess."
+      },
+      {
+        "title": "Paperwork before signatures",
+        "blurb": "Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal."
+      }
+    ],
+    "sectors": [
+      {
+        "name": "Professional offices",
+        "blurb": "Single suites, whole floors, or a building with four tenants and one facilities manager."
+      },
+      {
+        "name": "Medical & dental",
+        "blurb": "Exam rooms, waiting areas and restrooms on a written checklist your office approves first."
+      },
+      {
+        "name": "Banks & credit unions",
+        "blurb": "After-hours access on a logged key, and a crew that stays out of the teller line and the vault corridor."
+      },
+      {
+        "name": "Warehouses & light industrial",
+        "blurb": "Breakrooms, restrooms, front offices and the walkways between them, on the schedule your shifts allow."
+      },
+      {
+        "name": "Fitness & studios",
+        "blurb": "Early-morning turnarounds so the first class of the day walks onto a dry, clean floor."
+      },
+      {
+        "name": "Property management",
+        "blurb": "Lobbies, common areas and turnover cleans handled across a portfolio on one invoice."
+      }
+    ],
+    "process": [
+      {
+        "title": "Walk the building",
+        "desc": "We meet you on site — after hours if that is easier — and measure the cleanable square footage room by room. Restroom count, floor types and trash volume all get written down."
+      },
+      {
+        "title": "Written scope and price",
+        "desc": "You get a task list with a frequency against each line and a price against the whole thing. Nothing is ordered, scheduled or charged until you have read it."
+      },
+      {
+        "title": "Crew assigned by name",
+        "desc": "The people who will be in your building are named on the contract, issued their own access, and walked through the scope with you before the first shift."
+      },
+      {
+        "title": "Sign-off, every visit",
+        "desc": "A dated sheet stays in the building. Anything missed gets written on it, and we are back before the next scheduled visit to close it out."
+      }
+    ],
+    "beforeImg": "/sites/commercial-cleaning/photos/before-cluttered.jpg",
+    "afterImg": "/sites/commercial-cleaning/photos/after-clear.jpg",
+    "heroImg": "",
+    "baNote": "Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim.",
+    "pricingNote": "Rates are per square foot of cleanable space, billed monthly against a written contract. Consumables are itemized at cost unless your building would rather supply its own. Every figure on this page is a starting structure, not a quote — the walkthrough sets the real number.",
+    "estimatorNote": "A starting figure only. Square footage is the biggest single driver of a janitorial price, but restroom count, floor type and how much trash a building makes all move it. Nothing here is a quote."
+  },
+  "seo": {
+    "title": "Keyholder Facility Care — Office &amp; Janitorial Cleaning Contracts | Idaho Falls, ID",
+    "description": "After-hours office and janitorial cleaning contracts across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit. Walkthroughs by appointment — call or text (208) 555-0236.",
+    "ogTitle": "Keyholder Facility Care — Same crew. Every night. On the record.",
+    "ogDescription": "Commercial cleaning and janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls, Idaho. Request a walkthrough: (208) 555-0236.",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/commercial-cleaning/",
+    "themeColor": "#0E1519",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/commercial-cleaning/og.png"
+  }
+};
+</script>
+
+<!-- SCRIPT ORDER IS LOAD-BEARING. base.js FIRST.
+     Every niche.js opens with `var SL = window.SL;`, and base.js assigns
+     window.SL at the end of its IIFE. With base.js emitted last, SL was
+     undefined when niche.js ran: every renderer threw on its first line,
+     window.renderContent was never defined, and base.js then skipped it via its
+     own typeof guard — silently, on all 14 converted sites.
+     base.js defers boot() to DOMContentLoaded, so renderContent and initScene
+     are both defined by the time it fires. Do not reorder these. -->
+<script>
+/* _template/base.js — utilities and the content lifecycle.
+   Shared by every niche. Niche-specific rendering lives in niches/<slug>/niche.js,
+   which must define window.renderContent(CONTENT). */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+  function telDigits(p) { return String(p || '').replace(/[^0-9+]/g, ''); }
+  function telHref(p) { return 'tel:' + telDigits(p); }
+  function smsHref(p, body) { return 'sms:' + telDigits(p) + '?&body=' + encodeURIComponent(body || ''); }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  /* reveal-on-scroll. Under reduced motion everything is revealed at once. */
+  function initReveal() {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Form POST. Returns a promise; the niche decides what to render on success. */
+  function postForm(endpoint, payload) {
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+  }
+
+  /* Consent gate (§9.3).
+     Runs in the CAPTURE phase, ahead of the niche's own submit handler, so a
+     checkbox the BUILD injected is enforced even though that niche's JS knows
+     nothing about it.
+
+     It does NOT stopPropagation: the niche handler still runs and sets its own
+     message if it has one. We only supply wording when nobody else did, checked
+     on the next tick — so the 8 sites that already gate keep their own copy and
+     the injected sites get a sensible default. Enforcement is uniform; wording
+     is not overridden. */
+  function consentGate(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+    if (!box || box.checked) return;
+
+    e.preventDefault();
+    box.focus();
+
+    var msg = form.querySelector('[id$="Msg"]');
+    var before = msg ? msg.textContent : null;
+    setTimeout(function () {
+      if (!msg || msg.textContent !== before) return;   // the niche spoke first
+      msg.textContent = 'Please tick the consent box so we can reply to you.';
+      if (msg.className.indexOf('err') < 0) msg.className += ' err';
+    }, 0);
+  }
+  document.addEventListener('submit', consentGate, true);
+
+  /* The content lifecycle.
+     DEFAULT_CONTENT is inlined by the build from content.json, so the two can
+     never disagree. The fetch exists so an operator edit goes live without a
+     rebuild; on failure the inlined copy already rendered. */
+  /* content.json namespaces per-niche data under `niche` (SITELAB_TEMPLATE.md
+     §4.3) so the canonical schema stays clean. But every niche renderer reads
+     those keys FLAT — c.walkServices, c.systemMap, c.rundown — because they were
+     written against the pre-consolidation shape. Nothing ever unpacked the
+     namespace, so after the very first conversion every renderer that touched
+     niche data threw on undefined. Hand the renderer a flattened view; the
+     authored file keeps its namespace. Verified collision-free across all 17
+     sites, and re-checked by qa-site.js on every run. */
+  function SLflat(c) { return c && c.niche ? Object.assign({}, c, c.niche) : (c || {}); }
+
+  /* Flatten the GLOBAL, once, before niche.js parses. Passing a flattened copy
+     to renderContent(c) is not enough: every niche.js opens with
+     `var CONTENT = window.DEFAULT_CONTENT;` and its interactive handlers — drip
+     calculators, quoters, week builders — read that alias directly rather than
+     the render parameter. Those paths would still see the nested shape.
+     This is why base.js must be emitted BEFORE niche.js (see _template/index.html).
+     content.json on disk keeps its namespace; only the runtime view is flat, so
+     DEFAULT_CONTENT still matches the authored file byte for byte. */
+  window.DEFAULT_CONTENT = SLflat(window.DEFAULT_CONTENT);
+
+  function boot() {
+    var CONTENT = SLflat(window.DEFAULT_CONTENT);
+    window.CONTENT = CONTENT;
+    if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+    initReveal();
+    if (typeof window.initScene === 'function') window.initScene(reduce);
+
+    fetch('content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        CONTENT = SLflat(Object.assign({}, window.DEFAULT_CONTENT, d));
+        window.CONTENT = CONTENT;
+        if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+      })
+      .catch(function () { /* offline or 404: the inlined defaults stand */ });
+  }
+
+  /* setErr and showDone are intentionally absent: every niche examined
+     defines its own with a different signature. Sharing them would be a
+     silent behaviour change, not a saving. */
+  window.SL = { esc: esc, num: num, telHref: telHref, telDigits: telDigits,
+                smsHref: smsHref, val: val, postForm: postForm, reduce: reduce };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<script>
+/* commercial-cleaning/niche.js — this niche's renderer and interactive logic.
+   Shared utilities come from _template/base.js via SL. base.js owns the
+   reduced-motion flag, the reveal observer, the content fetch/merge lifecycle,
+   and calling window.renderContent(). Sinks are DOM-property assignments
+   (textContent / element properties) throughout; innerHTML appears only with
+   static markup that carries no content value, per the escaping canon.
+
+   Content shape notes: hero/about/standards/sectors/process and the before-
+   after image paths live under content.json's `niche` namespace and reach this
+   renderer FLAT (base.js SLflat). brand.city is a single combined "City, ST"
+   string, matching what operator-content.mjs composes.
+
+   Pricing is the TIER ARRAY. Each row is
+     { label, blurb, per, note, highlight, features }
+   and `blurb` is the DISPLAY STRING — it is where ARRAY_FIELD_MAPS.pricing
+   lands an operator's saved price_label, so it is the only key this file may
+   read for a price. `note` is the third admin-editable field and renders on
+   the card, hidden when the operator clears it. The saved array is
+   authoritative for length, so every card is built from the array rather than
+   assumed to be four. */
+(function () {
+  'use strict';
+
+  var SL = window.SL;
+  var esc = SL.esc, telHref = SL.telHref, num = SL.num;
+  var CONTENT = window.DEFAULT_CONTENT;
+
+  /* ---- content helpers ---- */
+  function phoneDigits(p){ var d = String(p || '').replace(/\D/g, ''); if (d.length === 10) d = '1' + d; return d; }
+  function smsHref(p, body){ return 'sms:+' + phoneDigits(p) + (body ? '?body=' + encodeURIComponent(body) : ''); }
+  /* Always read contact details off the LIVE merged view (base.js refreshes
+     window.CONTENT after the content.json fetch) so an admin edit takes
+     effect everywhere — form destination, SMS fallback, toasts — no rebuild. */
+  function cc(){ return window.CONTENT || CONTENT; }
+  function brandName(){ return (cc().brand && cc().brand.name) || DEFAULT_CONTENT.brand.name; }
+  function brandPhone(){ return (cc().brand && cc().brand.phone) || DEFAULT_CONTENT.brand.phone; }
+  function brandEmail(){ return (cc().brand && (cc().brand.leadEmail || cc().brand.email)) || (DEFAULT_CONTENT.brand.leadEmail || DEFAULT_CONTENT.brand.email); }
+  function smsBody(){ return 'Hi ' + brandName() + '! I would like to set up a walkthrough for our building.'; }
+  function setText(id, v){ var el = document.getElementById(id); if (el && v != null && v !== '') el.textContent = v; }
+
+  /* Re-rendered regions appear instantly once the boot render + reveal
+     observer have run (this listener registers AFTER base.js's, so it fires
+     after boot). Before that, first-paint nodes keep .reveal and get observed. */
+  var revealReady = false;
+  document.addEventListener('DOMContentLoaded', function () { revealReady = true; });
+  function revealCls(){ return revealReady ? 'reveal in' : 'reveal'; }
+
+  var PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+  function clear(el){ while (el.firstChild) el.removeChild(el.firstChild); }
+  function add(parent, tag, cls, text){
+    var el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (text != null) el.textContent = text;
+    parent.appendChild(el);
+    return el;
+  }
+
+  /* ---- section renderers ---- */
+  function renderHero(h){
+    if (!h) return;
+    setText('heroKicker', h.kicker);
+    setText('heroTitle', h.title);
+    setText('heroSub', h.subtitle);
+    setText('heroCtaPrimary', h.ctaPrimary);
+    setText('heroCtaSecondary', h.ctaSecondary);
+  }
+
+  function renderAbout(a){
+    if (!a) return;
+    setText('aboutHeading', a.heading);
+    setText('aboutBody', a.body);
+  }
+
+  function renderStandards(rows){
+    var g = document.getElementById('stdGrid');
+    if (!g || !rows || !rows.length) return;
+    clear(g);
+    rows.forEach(function (s, i) {
+      var card = document.createElement('article');
+      card.className = 'std ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      var tick = add(card, 'span', 'std__tick');
+      tick.setAttribute('aria-hidden', 'true');
+      add(card, 'h3', '', s.title || '');
+      add(card, 'p', '', s.blurb || '');
+      g.appendChild(card);
+    });
+  }
+
+  function renderSectors(rows){
+    var g = document.getElementById('sectorGrid');
+    if (!g || !rows || !rows.length) return;
+    clear(g);
+    rows.forEach(function (s, i) {
+      var card = document.createElement('div');
+      card.className = 'sector ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      add(card, 'h3', '', s.name || '');
+      add(card, 'p', '', s.blurb || '');
+      g.appendChild(card);
+    });
+  }
+
+  function renderProcess(steps){
+    var g = document.getElementById('stepsGrid');
+    if (!g || !steps || !steps.length) return;
+    clear(g);
+    steps.forEach(function (s, i) {
+      var step = document.createElement('div');
+      step.className = 'step ' + revealCls();
+      step.setAttribute('data-delay', String(i % 3 + 1));
+      var n = add(step, 'span', 'step__n');
+      n.setAttribute('aria-hidden', 'true');
+      add(step, 'h3', '', s.title || '');
+      add(step, 'p', '', s.desc || '');
+      g.appendChild(step);
+    });
+  }
+
+  /* ---- pricing: the tier cards ----
+     Rows come from the operator-authoritative pricing array. blurb is the
+     display string and is rendered verbatim; a row with an empty blurb hides
+     the figure block entirely rather than printing a bare currency symbol or
+     a zero. note is rendered on the card and hidden when empty — the admin
+     offers that field, so ignoring it would make an operator's save a silent
+     no-op. highlight is a base-only boolean the admin never edits. */
+  function renderPricing(rows){
+    var g = document.getElementById('priceGrid');
+    if (!g || !Array.isArray(rows) || !rows.length) return;
+    clear(g);
+    rows.forEach(function (p, i) {
+      p = p || {};
+      var card = document.createElement('article');
+      card.className = 'price-card ' + (p.highlight ? 'price-card--hi ' : '') + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      card.setAttribute('data-idx', String(i));
+
+      add(card, 'h3', 'price-card__label', p.label || '');
+
+      var blurb = String(p.blurb == null ? '' : p.blurb).trim();
+      if (blurb) {
+        var fig = add(card, 'div', 'price-card__figure');
+        add(fig, 'span', 'price-card__blurb', blurb);
+        if (p.per) add(fig, 'span', 'price-card__per', p.per);
+      }
+
+      var note = add(card, 'p', 'price-card__note', p.note || '');
+      note.hidden = !p.note;
+
+      var feats = Array.isArray(p.features) ? p.features.filter(Boolean) : [];
+      if (feats.length) {
+        var ul = add(card, 'ul', 'price-card__features');
+        feats.forEach(function (f) { add(ul, 'li', '', f); });
+      }
+      g.appendChild(card);
+    });
+  }
+
+  /* ---- the square-foot estimator ----
+     Every rate is parsed out of a tier's OWN blurb, so an operator's
+     price_label save moves this figure with the card and there is no second
+     copy of the numbers to drift. A tier only qualifies when its per-unit
+     reads as a square-foot rate AND its blurb parses to a positive number, so
+     a quoted tier ("Quoted", "after a walkthrough") never appears here. With
+     no qualifying tier the whole block hides rather than showing an empty
+     picker. */
+  function estimableRows(rows){
+    return (Array.isArray(rows) ? rows : []).map(function (p, i) {
+      p = p || {};
+      return { i: i, label: String(p.label || ''), per: String(p.per || ''), rate: num(p.blurb) };
+    }).filter(function (r) {
+      return /sq\s*\.?\s*(ft|foot|feet)/i.test(r.per) && r.rate > 0;
+    });
+  }
+
+  function money(n){
+    return '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  /* Named recalc so both the select and the tier cards drive one code path. */
+  function recalc(){
+    var sel = document.getElementById('estPlan');
+    var sq = document.getElementById('estSqft');
+    var out = document.getElementById('estOut');
+    var sub = document.getElementById('estSub');
+    if (!sel || !sq || !out) return;
+
+    var opt = sel.options[sel.selectedIndex];
+    var rate = opt ? parseFloat(opt.value) : 0;
+    var area = Math.round(num(sq.value));
+
+    if (!(rate > 0) || !(area >= 100)) {
+      out.textContent = '—';
+      if (sub) sub.textContent = 'enter at least 100 square feet';
+      return;
+    }
+    /* Nearest five dollars: a janitorial contract is never quoted to the cent,
+       and rounding here keeps the figure reading as the estimate it is. */
+    var monthly = Math.round(rate * area / 5) * 5;
+    if (monthly < 5) monthly = 5;
+    out.textContent = money(monthly);
+    if (sub) {
+      sub.textContent = 'estimated monthly · ' + money(area).slice(1) + ' sq ft at '
+        + (opt.getAttribute('data-blurb') || '');
+    }
+  }
+
+  function renderEstimator(rows){
+    var box = document.getElementById('estimator');
+    var sel = document.getElementById('estPlan');
+    if (!box || !sel) return;
+
+    var options = estimableRows(rows);
+    if (!options.length) { box.hidden = true; return; }
+
+    var wanted = sel.getAttribute('data-idx');
+    clear(sel);
+    options.forEach(function (o) {
+      var el = document.createElement('option');
+      el.value = String(o.rate);
+      el.textContent = o.label;
+      el.setAttribute('data-idx', String(o.i));
+      el.setAttribute('data-blurb', String(rows[o.i] && rows[o.i].blurb || ''));
+      el.setAttribute('data-per', o.per);
+      sel.appendChild(el);
+    });
+    /* Keep the visitor's pick across a re-render; otherwise start on the
+       highlighted tier when there is one. */
+    var start = 0;
+    options.forEach(function (o, k) {
+      if (wanted != null && String(o.i) === wanted) start = k;
+      else if (wanted == null && rows[o.i] && rows[o.i].highlight) start = k;
+    });
+    sel.selectedIndex = start;
+    sel.setAttribute('data-idx', String(options[start].i));
+    box.hidden = false;
+    recalc();
+  }
+
+  function selectPlanByIndex(idx){
+    var sel = document.getElementById('estPlan');
+    if (!sel) return false;
+    for (var k = 0; k < sel.options.length; k++) {
+      if (sel.options[k].getAttribute('data-idx') === String(idx)) {
+        sel.selectedIndex = k;
+        sel.setAttribute('data-idx', String(idx));
+        recalc();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function renderFaq(rows){
+    var g = document.getElementById('faqList');
+    if (!g || !Array.isArray(rows) || !rows.length) return;
+    clear(g);
+    rows.forEach(function (f) {
+      if (!f || !f.q) return;
+      var d = document.createElement('details');
+      d.className = 'faq';
+      var s = document.createElement('summary');
+      s.appendChild(document.createTextNode(f.q));
+      var plus = document.createElement('span');
+      plus.className = 'plus';
+      plus.setAttribute('aria-hidden', 'true');
+      plus.textContent = '+';
+      s.appendChild(plus);
+      d.appendChild(s);
+      add(d, 'div', 'faq__body', f.a || '');
+      g.appendChild(d);
+    });
+  }
+
+  function renderArea(sa){
+    if (!sa) return;
+    setText('areaRegion', sa.region);
+    var g = document.getElementById('areaChips');
+    if (!g || !sa.cities || !sa.cities.length) return;
+    clear(g);
+    sa.cities.forEach(function (city) {
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = PIN_SVG;          // static icon markup, no content in it
+      chip.appendChild(document.createTextNode(city));
+      g.appendChild(chip);
+    });
+  }
+
+  function renderOwner(o){
+    if (!o) return;
+    setText('meetHeading', o.heading);
+    setText('meetName', o.name);
+    setText('meetDesc', o.bio);
+    var mp = document.getElementById('meetPhoto');
+    if (mp) {
+      clear(mp);
+      if (o.photo) {
+        var img = document.createElement('img');
+        img.src = o.photo;
+        img.alt = 'Photo of the owner';
+        mp.appendChild(img);
+        mp.removeAttribute('aria-label'); mp.removeAttribute('role');
+      }
+    }
+  }
+
+  function renderContent(c){
+    var b = c.brand || {};
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function (el) { el.textContent = b.name || ''; });
+    /* The nav lockup drops a trailing " Facility Care" — the line under it
+       already reads "Facility care · <city>". */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function (el) {
+      el.textContent = String(b.name || '').replace(/\s+Facility\s+Care$/i, '');
+    });
+    var bl = document.getElementById('brandLocale');
+    if (bl && b.city) bl.textContent = 'Facility care · ' + b.city;
+
+    var tel = telHref(b.phone), sms = smsHref(b.phone, smsBody());
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function (a) { a.setAttribute('href', tel); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function (a) { a.setAttribute('href', sms); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-phone-text]'), function (el) { el.textContent = b.phone || ''; });
+
+    setText('footTagline', b.tagline);
+    var area = document.getElementById('areaLine');
+    if (area) area.textContent = 'Serving ' + ((c.serviceArea && c.serviceArea.region) || b.city || '');
+
+    renderHero(c.hero);
+    renderAbout(c.about);
+    renderStandards(c.standards);
+    renderSectors(c.sectors);
+    renderProcess(c.process);
+    renderPricing(c.pricing);
+    renderEstimator(c.pricing);
+    setText('priceNote', c.pricingNote);
+    setText('estNote', c.estimatorNote);
+    setText('baNote', c.baNote);
+    renderFaq(c.faq);
+    renderArea(c.serviceArea);
+    renderOwner(c.owner);
+  }
+
+  /* ---- estimator wiring (delegated, so a re-render never loses it) ---- */
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (!t || t.id !== 'estPlan') return;
+    var opt = t.options[t.selectedIndex];
+    if (opt) t.setAttribute('data-idx', opt.getAttribute('data-idx') || '');
+    recalc();
+  });
+  document.addEventListener('input', function (e) {
+    if (e.target && (e.target.id === 'estSqft' || e.target.id === 'estPlan')) recalc();
+  });
+  /* Clicking a tier card points the estimator at that tier — the cards ARE the
+     picker for anyone who never notices the select. */
+  document.addEventListener('click', function (e) {
+    var card = e.target.closest && e.target.closest('.price-card');
+    if (!card) return;
+    var idx = card.getAttribute('data-idx');
+    if (idx == null) return;
+    if (selectPlanByIndex(idx)) {
+      var box = document.getElementById('estimator');
+      if (box && !box.hidden) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
+
+  // year
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  // nav solidify
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ===== walkthrough request form =====
+     Leads deliver without a backend via FormSubmit (house pattern): the FIRST
+     real submission emails an activation link to the lead inbox; the
+     destination email and business number live in CONTENT.brand and are
+     editable from /admin/. Set provider:'web3forms' + a key to switch. */
+  var LEAD = {
+    provider: 'formsubmit',
+    web3formsKey: ''                    // <-- paste a key from web3forms.com to use Web3Forms
+  };
+
+  var form = document.getElementById('bookForm');
+  if (form) {
+    var msgEl = document.getElementById('bookMsg');
+    var submitBtn = document.getElementById('bookSubmit');
+    var val = function (id) { var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+    var setErr = function (fieldEl, on) { if (fieldEl) fieldEl.classList.toggle('invalid', !!on); };
+
+    var buildSms = function (d) {
+      var body = 'Hi ' + brandName() + '! I would like to set up a walkthrough for our building.'
+        + ' Name: ' + d.name + '.'
+        + ' Company: ' + d.company + '.'
+        + ' Phone: ' + d.phone + '.'
+        + (d.email ? ' Email: ' + d.email + '.' : '')
+        + (d.sqft ? ' Approx sq ft: ' + d.sqft + '.' : '')
+        + (d.frequency ? ' Frequency: ' + d.frequency + '.' : '')
+        + (d.notes ? ' Notes: ' + d.notes + '.' : '');
+      return smsHref(brandPhone(), body);
+    };
+
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // Desktop guard: never let sms: or tel: links open the OS "pick an app"
+    // dialog — show a helpful toast instead. Mobile is untouched.
+    if (!isMobile) {
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+        if (!a) return;
+        e.preventDefault();
+        var t = document.getElementById('smsToast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'smsToast';
+          t.setAttribute('role', 'status');
+          t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+            + 'background:#1D2A31;color:#E8EDF0;padding:14px 22px;border-radius:10px;'
+            + 'box-shadow:0 12px 40px rgba(0,0,0,.6);border:1px solid rgba(69,182,200,.4);'
+            + 'font-family:"Public Sans",system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+            + 'opacity:0;transition:opacity .25s ease;';
+          document.body.appendChild(t);
+        }
+        t.innerHTML = 'Call or text us at <strong style="color:#45B6C8;letter-spacing:.02em">' + esc(brandPhone()) + '</strong> from your phone.';
+        requestAnimationFrame(function () { t.style.opacity = '1'; });
+        clearTimeout(window.__smsToastTimer);
+        window.__smsToastTimer = setTimeout(function () { t.style.opacity = '0'; }, 4500);
+      });
+    }
+
+    var showDone = function (phone, smsUrl) {
+      form.hidden = true;
+      var done = document.getElementById('bookDone');
+      var dm = document.getElementById('doneMsg');
+      if (dm) {
+        if (isMobile && smsUrl) {
+          dm.textContent = 'We have it. We will call or text ' + phone + ' to set a walkthrough time. '
+            + 'Opening a text so you can send us a copy too — just hit send.';
+        } else {
+          dm.textContent = 'We have it. We will call or text ' + phone + ' from ' + brandPhone()
+            + ' to set a walkthrough time, and you will have the written scope in your inbox after we have walked the building.';
+        }
+      }
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      // On mobile only, also open the sender's SMS app pre-filled.
+      if (smsUrl && isMobile) { setTimeout(function () { window.location.href = smsUrl; }, 900); }
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // honeypot: bots fill this; treat as done and do nothing real
+      var hp = form.querySelector('.hp');
+      if (hp && hp.value) { showDone(val('q-phone') || 'your phone'); return; }
+
+      // validate
+      var checks = ['q-name', 'q-company', 'q-phone'];
+      var firstBad = null, ok = true;
+      checks.forEach(function (id) {
+        var el = document.getElementById(id);
+        var bad = !el.value || !el.value.trim();
+        setErr(el.closest('.field'), bad);
+        if (bad) { ok = false; if (!firstBad) firstBad = el; }
+      });
+      var consent = document.getElementById('q-consent');
+      if (!consent.checked) { ok = false; if (!firstBad) firstBad = consent; }
+
+      if (!ok) {
+        msgEl.className = 'book__msg err';
+        msgEl.textContent = consent.checked ? 'Please fill in the highlighted fields.'
+                                            : 'Please complete the required fields and check the consent box.';
+        if (firstBad) firstBad.focus();
+        return;
+      }
+
+      var data = {
+        name: val('q-name'), company: val('q-company'),
+        phone: val('q-phone'), email: val('q-email'),
+        sqft: val('q-sqft'), frequency: val('q-freq'), notes: val('q-notes')
+      };
+
+      // build request per provider
+      var url, payload, headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (LEAD.provider === 'web3forms' && LEAD.web3formsKey) {
+        url = 'https://api.web3forms.com/submit';
+        payload = Object.assign({
+          access_key: LEAD.web3formsKey,
+          subject: 'Walkthrough request: ' + data.company + ' — ' + data.name,
+          from_name: brandName() + ' site'
+        }, data);
+      } else {
+        url = 'https://formsubmit.co/ajax/' + encodeURIComponent(brandEmail());
+        payload = Object.assign({
+          _subject: 'Walkthrough request: ' + data.company + ' — ' + data.name,
+          _template: 'table', _captcha: 'false'
+        }, data);
+      }
+
+      submitBtn.disabled = true;
+      var origText = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      msgEl.className = 'book__msg'; msgEl.textContent = '';
+
+      fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(payload) })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return { ok: true }; }) : Promise.reject(r.status); })
+        .then(function () { showDone(data.phone, buildSms(data)); })
+        .catch(function () {
+          // couldn't reach the lead server — never lose the lead
+          if (isMobile) {
+            msgEl.className = 'book__msg ok';
+            msgEl.textContent = 'Opening a text with your details — just hit send and we will take it from there.';
+            window.location.href = buildSms(data);
+          } else {
+            msgEl.className = 'book__msg err';
+            msgEl.textContent = 'Could not reach our server. Please text your details to ' + brandPhone() + ' and we will get the walkthrough booked.';
+          }
+        })
+        .then(function () { submitBtn.disabled = false; submitBtn.textContent = origText; });
+    });
+
+    // clear a field's error as the user fixes it
+    form.addEventListener('input', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+    form.addEventListener('change', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+  }
+
+  window.renderContent = renderContent;
+})();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: before-after -- */
+/* _template/components/before-after.js
+   Slider drag/keyboard logic extracted verbatim (behavior) from
+   niches/bin-cleaning/niche.js. Image resolution is generalized: the target
+   keys come from data-merge on .ba-cmp-wrap, stamped by tools/build-site.js
+   from the niche's manifest merge.beforeAfter. */
+(function () {
+  'use strict';
+
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  /* "niche.beforeImg/afterImg" (default/unknown falls back to this shape) or
+     "projects[0]" (contracting's shape: c.projects[0].beforeImg/afterImg). */
+  function resolveImages(c, mergeSpec) {
+    var base = (mergeSpec === 'projects[0]')
+      ? ((c.projects && c.projects[0]) || {})
+      : ((c && c.niche) || {});
+    return { before: base.beforeImg || '', after: base.afterImg || '' };
+  }
+
+  function initBeforeAfter(c) {
+    var wrap = document.querySelector('.ba-cmp-wrap');
+    var ba = document.querySelector('.ba-cmp');
+    if (!wrap || !ba) return;
+
+    var mergeSpec = wrap.getAttribute('data-merge') || 'niche.beforeImg/afterImg';
+    var imgs = resolveImages(c || {}, mergeSpec);
+    /* both-or-neither: a lone real photo is never paired with a placeholder
+       standing in as the other side of a fabricated comparison. */
+    var hasBoth = !!(imgs.before && imgs.after);
+    if (hasBoth) {
+      ba.style.setProperty('--before-img', 'url("' + safeUrl(imgs.before) + '")');
+      ba.style.setProperty('--after-img', 'url("' + safeUrl(imgs.after) + '")');
+    } else {
+      ba.style.removeProperty('--before-img');
+      ba.style.removeProperty('--after-img');
+    }
+    wrap.classList.toggle('slot-empty', !hasBoth);
+
+    if (ba.__slBaWired) return; // wire drag/keyboard once; renderContent may
+                                 // run again after the content.json fetch.
+    ba.__slBaWired = true;
+
+    var pos = 50, dragging = false, touched = false;
+    function setPos(p) {
+      pos = Math.max(0, Math.min(100, p));
+      ba.style.setProperty('--pos', pos + '%');
+      ba.setAttribute('aria-valuenow', Math.round(pos));
+    }
+    function xToPct(clientX) {
+      var r = ba.getBoundingClientRect();
+      return ((clientX - r.left) / r.width) * 100;
+    }
+    function start(e) {
+      dragging = true; ba.classList.add('dragging');
+      if (!touched) { touched = true; ba.classList.add('touched'); }
+      move(e);
+    }
+    function move(e) {
+      if (!dragging) return;
+      var x = (e.touches ? e.touches[0].clientX : e.clientX);
+      setPos(xToPct(x));
+      if (e.cancelable) e.preventDefault();
+    }
+    function end() { dragging = false; ba.classList.remove('dragging'); }
+
+    ba.addEventListener('mousedown', start);
+    window.addEventListener('mousemove', move, { passive: false });
+    window.addEventListener('mouseup', end);
+    ba.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('touchend', end);
+
+    ba.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { setPos(pos - 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+      if (e.key === 'ArrowRight') { setPos(pos + 4); e.preventDefault(); if (!touched) { touched = true; ba.classList.add('touched'); } }
+    });
+
+    // gentle auto-nudge on first view to signal it drags
+    var reduce = !!(window.SL && window.SL.reduce);
+    if (!reduce && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (x) {
+          if (x.isIntersecting && !touched) {
+            var seq = [68, 32, 50], k = 0;
+            var t = setInterval(function () {
+              if (touched) { clearInterval(t); return; }
+              setPos(seq[k++]); if (k >= seq.length) clearInterval(t);
+            }, 520);
+            io.unobserve(ba);
+          }
+        });
+      }, { threshold: .5 });
+      io.observe(ba);
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initBeforeAfter);
+  }
+})();
+
+/* -- component: job-details -- */
+/* _template/components/job-details.js
+   Fills the two-column included/not-included lists from c.jobDetails.
+   DOM-property assignment throughout (createElement + textContent), no
+   innerHTML. Hidden entirely when the niche/operator supplies neither list;
+   a column with its own empty list hides independently of its sibling. */
+(function () {
+  'use strict';
+
+  function fill(ul, items) {
+    while (ul.firstChild) ul.removeChild(ul.firstChild);
+    items.forEach(function (t) {
+      var li = document.createElement('li');
+      li.textContent = t;
+      ul.appendChild(li);
+    });
+    return items.length;
+  }
+
+  function initJobDetails(c) {
+    var section = document.getElementById('jobDetails');
+    var incUl = document.getElementById('jdIncluded');
+    var notUl = document.getElementById('jdNotIncluded');
+    if (!section || !incUl || !notUl) return;
+
+    var jd = (c && c.jobDetails) || {};
+    var included = Array.isArray(jd.included) ? jd.included.filter(Boolean) : [];
+    var notIncluded = Array.isArray(jd.notIncluded) ? jd.notIncluded.filter(Boolean) : [];
+
+    var incCount = fill(incUl, included);
+    var notCount = fill(notUl, notIncluded);
+
+    var incCol = incUl.closest('.jd-cmp__col');
+    var notCol = notUl.closest('.jd-cmp__col');
+    if (incCol) incCol.hidden = !incCount;
+    if (notCol) notCol.hidden = !notCount;
+
+    section.hidden = !(incCount || notCount);
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initJobDetails);
+  }
+})();
+
+/* -- component: reviews -- */
+/* _template/components/reviews.js
+   Fills the three review cards from c.testimonials via element.textContent
+   (DOM-property assignment, the escaping standard for this build). Carries
+   its OWN fallback strings -- the B1 lesson: an empty testimonial must still
+   read as an honest, deliberate placeholder, not blank space or a copied-in
+   assumption about a real customer. Empty-compliant: a fictional demo with
+   no testimonials renders three "coming soon" cards, never a fabricated
+   quote. */
+(function () {
+  'use strict';
+
+  var FALLBACK_QUOTE = 'Real review coming soon.';
+  var FALLBACK_WHO = '— Add a real review here';
+
+  function initReviews(c) {
+    var cards = document.querySelectorAll('.review-cmp');
+    if (!cards.length) return;
+    var testimonials = (c && c.testimonials) || [];
+    cards.forEach(function (card, i) {
+      var t = testimonials[i] || {};
+      var quoteEl = card.querySelector('.review-cmp__quote');
+      var whoEl = card.querySelector('.review-cmp__who');
+      if (quoteEl) quoteEl.textContent = t.quote || FALLBACK_QUOTE;
+      if (whoEl) whoEl.textContent = t.name ? ('— ' + t.name) : FALLBACK_WHO;
+    });
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initReviews);
+  }
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
+</script>
+
+<script>
+/* commercial-cleaning/scene.js — the signature animation is CSS, in
+   sections.css. Two loops, both restrained on purpose because the buyer here
+   is reading a proposal rather than being sold to: kf-lamp, the tower's floors
+   lighting and going dark again as the crew works its way up the building, and
+   kf-sweep, a slow band of light crossing the hero bay. Both are opacity and
+   transform only, both loop on @keyframes, and both are switched off by the
+   prefers-reduced-motion block in that same file plus base.css's global
+   animation:none override — so there is nothing for JavaScript to drive
+   (SITELAB_TEMPLATE.md 7.0, D-S). A stub here is the correct shape, not a gap.
+   qa-site.js grades the animation wherever it lives. */
+window.initScene = function (reduce) { /* see sections.css */ };
+</script>
+
+</body>
+</html>

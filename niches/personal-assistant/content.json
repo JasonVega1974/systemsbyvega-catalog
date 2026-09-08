@@ -1,0 +1,218 @@
+{
+  "brand": {
+    "name": "Wrenfield & Co.",
+    "tagline": "The list, off your desk.",
+    "phone": "(208) 555-0271",
+    "email": "hello@wrenfieldco.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Hailey, ID",
+    "logo": ""
+  },
+  "owner": {
+    "name": "Nell Prentiss",
+    "heading": "The person who actually runs the list",
+    "bio": "Nell Prentiss spent a long stretch running the front desk and the back office of a busy valley practice — the schedule, the phones, the suppliers, and all the paperwork nobody else wanted to touch. What she liked was never the tasks themselves; it was watching people get their afternoons back. She started Wrenfield & Co. to do that work directly, for a small number of clients at a time, in the valley she lives in. She still runs every block herself, and she will tell you plainly when something on your list is not worth paying anyone to do.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "the Wood River Valley, Idaho",
+    "short": "the Wood River Valley",
+    "cities": [
+      "Hailey",
+      "Bellevue",
+      "Ketchum",
+      "Sun Valley",
+      "Carey",
+      "Picabo"
+    ]
+  },
+  "contact": {
+    "hours": "Weekdays, 8am to 5pm — messages answered the same day"
+  },
+  "testimonials": [],
+  "pricing": [
+    {
+      "label": "By the hour",
+      "blurb": "$42",
+      "per": "/hour",
+      "note": "",
+      "features": [
+        "Two-hour minimum per booking",
+        "Errands, bookings and desk work",
+        "Booked a few days ahead",
+        "Written summary when the block ends"
+      ],
+      "highlight": false
+    },
+    {
+      "label": "Half-day block",
+      "blurb": "$160",
+      "per": "/four hours",
+      "note": "Most people start here",
+      "features": [
+        "Four uninterrupted hours in one run",
+        "Errands and admin in the same block",
+        "Mileage inside the valley included",
+        "Written summary when the block ends"
+      ],
+      "highlight": true
+    },
+    {
+      "label": "Monthly retainer",
+      "blurb": "$1,200",
+      "per": "/month",
+      "note": "Invoiced monthly, cancel with thirty days' notice",
+      "features": [
+        "32 hours a month, used however you like",
+        "Inbox and calendar kept current between blocks",
+        "First call on short-notice asks",
+        "A written handoff every Friday"
+      ],
+      "highlight": false
+    }
+  ],
+  "pricingNote": "Rates cover time on the clock. Purchases, postage, parking and anything else bought on your behalf are passed through at cost with receipts attached to the summary — no markup, no handling fee. Unused retainer hours do not roll over, and I will say so before you buy the retainer rather than after.",
+  "niche": {
+    "hero": {
+      "kicker": "Errands · Scheduling · Inbox & admin",
+      "title": "The list you keep meaning to get to.",
+      "subtitle": "Wrenfield & Co. runs the errands, holds the calendar, triages the inbox and chases the vendors who never call back — for busy people and small businesses across Hailey and the Wood River Valley.",
+      "ctaPrimary": "Start a list",
+      "ctaSecondary": "See what comes off your plate"
+    },
+    "about": {
+      "heading": "The pile is not a character flaw",
+      "body": "Most people who call are good at their actual job and quietly buried under everything around it — the return that never gets made, the important email sitting three weeks down the inbox, the appointment that needed rescheduling twice. None of it is difficult. It is just endless, and it does not fit inside a day that already has a job in it. This is a service for taking the endless part, writing it down, and handing it back finished."
+    },
+    "plate": [
+      {
+        "group": "Out in the world",
+        "blurb": "The trips that quietly eat an afternoon.",
+        "items": [
+          "Grocery, pharmacy and hardware runs",
+          "Returns, exchanges and warranty claims",
+          "Post office, packaging and shipping",
+          "Dry cleaning, tailoring and repairs",
+          "Gift buying, wrapping and sending",
+          "Waiting at the house for a delivery or a technician"
+        ]
+      },
+      {
+        "group": "At the desk",
+        "blurb": "The admin that piles up where nobody sees it.",
+        "items": [
+          "Inbox triage, with replies drafted for your approval",
+          "Calendar building and conflict clean-up",
+          "Appointment booking, confirming and rescheduling",
+          "Chasing quotes, vendors and warranty claims",
+          "Travel research and a printed itinerary",
+          "Scanning, filing and paperwork prep",
+          "Bill and subscription tracking — you approve every payment"
+        ]
+      },
+      {
+        "group": "For small businesses",
+        "blurb": "A back office for the days you do not have one.",
+        "items": [
+          "Client scheduling and appointment reminders",
+          "Invoice prep and polite follow-up on unpaid ones",
+          "Supplier orders and reorder tracking",
+          "Meeting notes turned into an action list",
+          "Inbox cover while you are out on a job",
+          "Simple spreadsheets kept current"
+        ]
+      }
+    ],
+    "plateNote": "Not on the list? Ask anyway. If it is not something I do, I can usually tell you who does.",
+    "week": [
+      {
+        "day": "Monday",
+        "title": "The list gets set",
+        "desc": "We start the week on the same short call. You talk, I write, and before lunch you have the week's list back in writing — what I am handling, and what still needs a decision from you."
+      },
+      {
+        "day": "Tuesday",
+        "title": "Desk day",
+        "desc": "Inbox triage, calendar clean-up, appointments booked and confirmed, quotes chased. The quiet work that never gets done when you are the one who has to do it."
+      },
+      {
+        "day": "Wednesday",
+        "title": "Out and about",
+        "desc": "One run through town covers the returns, the shipping, the pharmacy and the pickups, ordered so the driving makes sense rather than the list order."
+      },
+      {
+        "day": "Thursday",
+        "title": "Loose ends",
+        "desc": "The things that needed a callback, a second attempt, or someone else to reply first. Most of them close on a Thursday, and the ones that do not get flagged."
+      },
+      {
+        "day": "Friday",
+        "title": "Handoff",
+        "desc": "A short written summary: what happened, what is still open, and what has already been carried onto next week's list. Then the weekend is yours."
+      }
+    ],
+    "weekNote": "That is the usual shape of it. Retainer clients set their own rhythm — some want a check-in every morning, some would rather not hear from me until Friday.",
+    "howItWorks": [
+      {
+        "title": "A short call",
+        "desc": "Free, and no pressure attached. You describe the pile, I ask a lot of questions, and I tell you honestly whether this is worth paying for in your situation."
+      },
+      {
+        "title": "The handover",
+        "desc": "We sit down once, in person or on a screen share, and I take notes on how you like things done — who to call, what to never touch, and how you want to be asked."
+      },
+      {
+        "title": "A first block",
+        "desc": "We start with a half-day so you can watch the work happen before committing to anything longer. The written summary at the end of it is yours to keep either way."
+      },
+      {
+        "title": "Then a rhythm",
+        "desc": "Hourly when you need it, a standing block each week, or a monthly retainer. You can move between them at the end of any month, without a conversation about it."
+      }
+    ],
+    "boundaries": {
+      "heading": "Where I stop",
+      "lead": "A service like this only works if the edges are clear. These are the things I do not do — not because they are beneath the job, but because they belong to someone qualified, or to you.",
+      "items": [
+        {
+          "title": "I do not give professional advice",
+          "desc": "No legal, tax, medical or financial guidance. I can book the appointment, gather the paperwork and sit in to take notes. The call itself is not mine to make."
+        },
+        {
+          "title": "I do not take custody of your money",
+          "desc": "No bank access, no stored card numbers, no signing authority. Purchases go on a card you control, or I front small amounts and invoice them back at cost with receipts."
+        },
+        {
+          "title": "I do not do care work",
+          "desc": "I am not a caregiver, a nurse or a nanny. No medications, no personal care, and no supervising children or adults who need supervision. Those are different trades with different training behind them."
+        },
+        {
+          "title": "I do not do heavy labour or cleaning",
+          "desc": "No deep cleaning, no moving furniture, no yard work, no hauling. I will find the person who does it, book them, meet them at the door and check the work."
+        },
+        {
+          "title": "I do not sign in your name",
+          "desc": "Contracts, forms and anything binding get prepared, explained and put in front of you. The signature stays yours."
+        },
+        {
+          "title": "I do not disappear into your systems",
+          "desc": "Access is granted per tool, in your name, and you can pull any of it at any time. You keep the passwords. I keep a written record of what I touched and when."
+        }
+      ],
+      "note": "If something on your list sits on one of these lines, say so on the first call. It is usually still solvable — just not by me alone."
+    }
+  },
+  "seo": {
+    "title": "Wrenfield &amp; Co. — Personal Assistant, Errands &amp; Admin | Hailey, ID",
+    "description": "A personal assistant for errands, scheduling, inbox triage and admin in Hailey and the Wood River Valley. Hourly, half-day or monthly — (208) 555-0271.",
+    "ogTitle": "Wrenfield &amp; Co. — The list, off your desk.",
+    "ogDescription": "Errands, scheduling, inbox and calendar triage for busy people and small businesses in Hailey, Idaho. Call or text (208) 555-0271.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/personal-assistant/",
+    "themeColor": "#F4F2EC",
+    "favicon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231C5E59'/%3E%3Crect x='16' y='13' width='32' height='38' rx='5' fill='%23F4F2EC'/%3E%3Crect x='25' y='9' width='14' height='9' rx='3' fill='%2326766F'/%3E%3Cpath d='M23 33h18M23 41h11' stroke='%231C5E59' stroke-width='3' stroke-linecap='round' opacity='0.45'/%3E%3Cpath d='M23 25.5l3.4 3.4 6.4-7' stroke='%231C5E59' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/personal-assistant/og.png"
+  }
+}

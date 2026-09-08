@@ -1,0 +1,46 @@
+/* commercial-cleaning — tokens only. Structure lives in _template/base.css;
+   this niche's own section rules live in sections.css.
+   Identity: "after hours, on the record" — a cool graphite building at night,
+   a muted petrol blue-teal for the hardware and the sign-off marks, and a
+   steel-grey secondary. Deliberately corporate and quiet: the buyer is a
+   facilities manager reading a proposal, not a homeowner. The accent is
+   pointedly NOT the eco-green a cleaning site reaches for by reflex, which
+   also keeps it clear of the sibling green-on-dark niches in this wave.
+   Contrast (WCAG, computed): accent-ink on accent 5.50:1 and on accent-2
+   7.62:1; ink on ground 15.62:1; ink-dim on ground 9.56:1 and 7.63:1 on
+   panel-2; muted on ground 6.01:1; accent on ground 5.56:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #070B0D;   /* the street below the lit floors */
+  --ground:       #0E1519;   /* cool graphite ground */
+  --ground-2:     #121B20;
+  --panel:        #162126;
+  --panel-2:      #1D2A31;
+  --accent:       #2F9AAC;   /* petrol blue-teal — the sign-off mark */
+  --accent-2:     #45B6C8;   /* brighter tick, for type and rules */
+  --accent-deep:  #1B6875;   /* pressed state / gradient floor */
+  --accent-alt:   #7C93A6;   /* steel grey-blue, the hardware colour */
+  --accent-ink:   #04181C;   /* type on the accent */
+  --ink:          #E8EDF0;   /* cool paper white */
+  --ink-bright:   #F6F9FA;
+  --ink-dim:      #AFBDC4;
+  --ink-max:      #FFFFFF;
+  --muted:        #8496A0;
+  --hair:         rgba(232,237,240,.10);
+  --hair-accent:  rgba(47,154,172,.18);
+  --card:         rgba(22,33,38,.62);
+  --card-brd:     rgba(232,237,240,.12);
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.72);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFFFFF;
+  --sheen-lo:     #A9BAC3;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #E0616B;
+  --err-ink:      #FF9AA2;
+
+  --display: 'Manrope', system-ui, sans-serif;
+  --body:    'Public Sans', system-ui, -apple-system, sans-serif;
+  --mono:    'Roboto Mono', ui-monospace, Consolas, monospace;
+}

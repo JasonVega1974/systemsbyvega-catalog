@@ -167,6 +167,18 @@ function validate(m) {
     if (typeof m.pricing.mergePath !== 'string' || !m.pricing.mergePath) {
       errs.push('pricing.mergePath must be a non-empty string');
     }
+    /* headlineSuffix is OPTIONAL and opt-in: the marketing kit's price
+       headline is a bare number ("From $0.08"), which is honest for a niche
+       priced by the job and misleading for one priced by the unit — a flyer
+       reading "From $0.08" for office cleaning invites the wrong reading.
+       The rows' own `per` text cannot be appended generically (it ranges from
+       "/hour" to "trip fee — waived if you book the repair"), so a niche
+       priced per unit states the suffix here instead. */
+    if ('headlineSuffix' in m.pricing
+        && (typeof m.pricing.headlineSuffix !== 'string' || !m.pricing.headlineSuffix
+            || m.pricing.headlineSuffix.length > 16)) {
+      errs.push('pricing.headlineSuffix must be a non-empty string of at most 16 characters');
+    }
   }
 
   // merge

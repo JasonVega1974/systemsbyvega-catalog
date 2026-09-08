@@ -1,0 +1,6 @@
+<!-- window-cleaning/scene.svg — this site keeps its illustrations inline in
+     sections.html (the sash mark, the leaning sash-and-squeegee, the section
+     rules) rather than in a shared <defs> block, so all nine gradients live
+     beside the markup that references them. Placeholder so the build slot
+     resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>

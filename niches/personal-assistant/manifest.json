@@ -1,0 +1,30 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#F4F2EC", "surface": "#FAF9F5", "card": "#FFFFFF",
+    "accent": "#1C5E59", "accentBright": "#26766F",
+    "text": "#22201C", "textSoft": "#5A625E",
+    "ok": "#2F7D5E", "bad": "#A63A2F", "onAccent": "#FFFFFF",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap",
+    "display": "'Newsreader',serif", "label": "'DM Mono',monospace", "body": "'Manrope',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": ["logo", "hero", "owner"],
+  "sections": {
+    "pricing": true, "beforeAfter": false, "jobDetails": false,
+    "reviews": true, "social": false, "footerContact": true, "ownerBlock": true
+  },
+  "pricing": {
+    "model": "tiers",
+    "editableFields": ["label", "price_label", "per", "note", "features"],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/personal-assistant/photos/hero-planner.jpg",
+  "heroAlt": "An open ring planner with a pen resting across the page, beside a closed laptop on an otherwise cleared desk",
+  "heroWired": true
+}

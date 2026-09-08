@@ -1,0 +1,187 @@
+{
+  "brand": {
+    "name": "Yarrow & Broom Cleaning Co.",
+    "tagline": "A house that feels like a fresh start.",
+    "phone": "(208) 555-0224",
+    "email": "hello@yarrowandbroom.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Mountain Home, ID"
+  },
+  "owner": {
+    "name": "Nell Prescott",
+    "heading": "The person who sets your checklist",
+    "bio": "Nell Prescott started cleaning houses between shifts at a diner on American Legion Boulevard, and kept doing it because she liked the part where somebody walks in the door and exhales. Yarrow & Broom grew out of that — a small crew that shows up on the same weekday, works from a checklist the household actually wrote, and would rather quote a fair flat price than pad an hourly clock. Nell still walks every new house herself before a price is given.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Elmore County, Idaho",
+    "short": "Elmore County",
+    "cities": [
+      "Mountain Home",
+      "Glenns Ferry",
+      "Hammett",
+      "King Hill",
+      "Grand View",
+      "Bruneau"
+    ]
+  },
+  "contact": {
+    "hours": "Cleaning Monday to Friday, 8am to 5pm · Saturdays by request"
+  },
+  "testimonials": [],
+  "social": [],
+  "pricing": [
+    {
+      "label": "Standard Clean",
+      "blurb": "$149",
+      "per": "per visit",
+      "note": "Priced around a three-bedroom, two-bath home. Larger floor plans get their own number at the walkthrough.",
+      "features": [
+        "Kitchen and every bathroom, top to bottom",
+        "All floors vacuumed, hard floors mopped",
+        "Dusting, sills, baseboards and mirrors",
+        "Trash out, liners replaced"
+      ]
+    },
+    {
+      "label": "First Deep Clean",
+      "blurb": "$289",
+      "per": "one-time",
+      "note": "Booked once, before any recurring plan begins — it is the reset every later visit is priced against.",
+      "features": [
+        "Everything in the standard visit, slower",
+        "Inside the oven and the refrigerator",
+        "Cabinet fronts, door frames, vents and fans",
+        "Grout, tracks, and behind what moves"
+      ]
+    },
+    {
+      "label": "Every Other Week",
+      "blurb": "$129",
+      "per": "per visit",
+      "highlight": true,
+      "note": "Same crew, same weekday. No contract — pause or stop whenever you need to.",
+      "features": [
+        "Twenty dollars under the one-off rate",
+        "Your checklist, kept and adjusted",
+        "First pick of the schedule each month",
+        "Weekly and monthly cadences priced the same way"
+      ]
+    },
+    {
+      "label": "Move-In / Move-Out",
+      "blurb": "Flat quote",
+      "per": "after a walkthrough",
+      "note": "Empty homes only, so the number is set by the floor plan rather than by what is still in the way.",
+      "features": [
+        "Cabinets and drawers inside and out",
+        "Appliances pulled where the hookups allow",
+        "Walls spot-cleaned, switch plates wiped",
+        "Written for a landlord or a closing file"
+      ]
+    }
+  ],
+  "jobDetails": {
+    "included": [
+      "Kitchen — counters, sink, stovetop and appliance exteriors",
+      "Bathrooms — tub, shower, toilet, sink and mirrors",
+      "Every floor vacuumed; hard floors mopped after",
+      "Dusting of reachable surfaces, sills and baseboards",
+      "Trash carried out and liners replaced",
+      "Beds made up with linens you leave out"
+    ],
+    "notIncluded": [
+      "Dishes, laundry, and putting away personal belongings",
+      "Inside the oven or refrigerator, unless added to that visit",
+      "Anything needing a tall ladder or a roof",
+      "Pet waste, biohazard, mold remediation or construction debris",
+      "Exterior window glass and window tracks"
+    ]
+  },
+  "faq": [
+    {
+      "q": "How long does a visit take?",
+      "a": "A standard clean on a three-bedroom house usually runs a morning with two cleaners. The price does not move with the clock, though — you agreed to a flat number before we started, and that is the number."
+    },
+    {
+      "q": "Do I need to be home?",
+      "a": "No. Most clients leave a key, a lockbox or a door code and come home to it done. If you would rather be there the first time, that is completely normal and we will book it that way."
+    },
+    {
+      "q": "What should I do before you arrive?",
+      "a": "Nothing you would dread. Clearing counters and floors of the personal things you would not want moved helps us spend the visit cleaning instead of sorting, but we work around whatever is there."
+    },
+    {
+      "q": "Do you bring supplies?",
+      "a": "Yes — cloths, machines and products all come with the crew. If your household needs a specific product or wants something left off the shelf entirely, tell us at the walkthrough and it goes on your checklist."
+    },
+    {
+      "q": "Is the deep clean really required first?",
+      "a": "For a recurring plan, yes. The recurring rate assumes the house starts from a reset; without it the first visits cost more than they should and never quite catch up. One-off standard cleans do not need it."
+    },
+    {
+      "q": "How do I pay, and can I cancel?",
+      "a": "Card or cash after each visit. There is no contract and no cancellation fee — a text the day before is plenty, and the slot goes back on the board."
+    }
+  ],
+  "niche": {
+    "hero": {
+      "kicker": "House cleaning · Apartments · Recurring visits",
+      "title": "Come home to a house that has already been handled.",
+      "subtitle": "Yarrow & Broom cleans houses and apartments across Mountain Home and Elmore County. A flat price per visit, agreed before we start, and the same crew on the same weekday.",
+      "ctaPrimary": "Book a free walkthrough",
+      "ctaSecondary": "See what a visit costs"
+    },
+    "about": {
+      "heading": "A standing appointment, not a favor you have to chase",
+      "body": "Most people do not want a cleaning service so much as they want one evening a week back. So we run this like a standing appointment: a set weekday, a set crew, a checklist your household wrote, and a price that was settled at the walkthrough instead of at the door. If something is not right, you tell us and it is on the list from then on — that is the whole arrangement.",
+      "signoff": "Nell Prescott · Yarrow & Broom"
+    },
+    "howItWorks": [
+      {
+        "title": "Walk the house",
+        "desc": "We come see the place first, room by room, and ask what actually bothers you. The walkthrough is free and there is nothing to sign at the end of it."
+      },
+      {
+        "title": "Get a flat price",
+        "desc": "You get the per-visit number in writing before anything starts — set by the rooms and the cadence you pick, never by how long the day happens to run."
+      },
+      {
+        "title": "We clean, you carry on",
+        "desc": "Same crew, same weekday. Leave a key or a door code; most households are at work while we work and walk into it finished."
+      },
+      {
+        "title": "Tell us what to shift",
+        "desc": "After a visit we ask what to do more of. Your checklist changes that day and stays changed, so the fourth visit fits better than the first."
+      }
+    ],
+    "promises": [
+      { "title": "Flat per-visit price", "blurb": "Agreed at the walkthrough, in writing, before a cloth comes out." },
+      { "title": "The same crew", "blurb": "The people who learned your house are the people who come back." },
+      { "title": "Your checklist", "blurb": "Written by your household, adjusted whenever you say so." },
+      { "title": "No contract", "blurb": "Pause, move or stop a visit with a text the day before." }
+    ],
+    "pricingNote": "Most homes land between $129–$289 a visit. Whatever the number is, it is set before we start — nothing gets added on afterwards, and there is no charge for driving out to look.",
+    "beforeAfter": {
+      "kicker": "Before and after",
+      "heading": "The same corner, one visit apart",
+      "blurb": "Drag the handle. This is an ordinary Friday clean in an ordinary rented flat — floor cleared, laundry racked, the room handed back usable."
+    },
+    "beforeImg": "/sites/residential-cleaning/photos/before-clutter.jpg",
+    "afterImg": "/sites/residential-cleaning/photos/after-tidy.jpg",
+    "areaNote": "Out past Hammett or down toward Bruneau? Call and ask — the route reaches further some weeks than others, and we would rather tell you straight than take a booking we cannot keep."
+  },
+  "seo": {
+    "title": "Yarrow &amp; Broom Cleaning Co. — House &amp; Apartment Cleaning | Mountain Home, ID",
+    "description": "House and apartment cleaning in Mountain Home and Elmore County, Idaho. Flat per-visit pricing agreed before we start, the same crew every time, no contract. Free walkthrough — call or text (208) 555-0224.",
+    "ogTitle": "Yarrow &amp; Broom Cleaning Co. — A house that feels like a fresh start.",
+    "ogDescription": "Recurring and one-time house cleaning across Mountain Home and Elmore County, Idaho. Flat prices, same crew, no contract: (208) 555-0224.",
+    "priceRange": "$129–$289",
+    "schemaType": "HomeAndConstructionBusiness",
+    "canonical": "https://systemsbyvega.com/sites/residential-cleaning/",
+    "themeColor": "#F2FAF6",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/residential-cleaning/og.png"
+  }
+}

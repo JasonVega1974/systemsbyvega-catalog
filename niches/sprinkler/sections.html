@@ -1,0 +1,546 @@
+<!-- sprinkler/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Visual language: "first light on the valve box" — a pre-dawn slate-teal
+     ground, instrument-green accent, water-cyan schematic linework. The trade
+     is irrigation ENGINEERING (zones, heads, valves, controllers, backflow,
+     winterization), deliberately not lawn care; the brand is fictional.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT.
+     Pricing is the quote model's OBJECT {starting_at, note} at the ROOT of
+     content.json — both keys are operator-editable and both render below. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Riserline Irrigation Co. home">
+      <span class="brand__mark" role="img" aria-label="Riserline mark — a pop-up head throwing a quarter arc">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-mark" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#1B6E4C"/><stop offset=".5" stop-color="#2FB37A"/><stop offset="1" stop-color="#4FD79A"/>
+            </linearGradient>
+            <linearGradient id="sp-grad-water" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#57C7D9"/><stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#sp-grad-mark)" stroke-width="2.5"/>
+          <rect x="29" y="34" width="6" height="16" rx="3" fill="url(#sp-grad-mark)"/>
+          <rect x="22" y="48" width="20" height="4" rx="2" fill="url(#sp-grad-mark)" opacity=".7"/>
+          <path d="M32 33c8 0 14 5 16 12" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c4-6 10-9 16-9" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c-1-7 2-13 8-16" stroke="url(#sp-grad-water)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Riserline</span><span id="brandLocale">Irrigation · Fruitland, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it goes in</a>
+      <a class="link" href="#system">Install &amp; repair</a>
+      <a class="link" href="#proof">Before / after</a>
+      <a class="link" href="#quote">Pricing</a>
+      <a class="link" href="#faq">FAQ</a>
+      <!-- (208) 555-01XX / 02XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550269" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0269</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- first-light mist: droplets lifting off the spray, pure CSS (sp-mist),
+       transform and opacity only -->
+  <div class="sp-mistfield" aria-hidden="true">
+    <span class="sp-drop"></span><span class="sp-drop"></span><span class="sp-drop"></span>
+    <span class="sp-drop"></span><span class="sp-drop"></span><span class="sp-drop"></span>
+    <span class="sp-drop"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Installation · Repair · Winterization</span></div>
+        <h1 id="heroTitle">Most brown spots are a coverage problem, not a watering problem.</h1>
+        <p class="hero__sub" id="heroSub">Riserline designs, installs and repairs in-ground sprinkler systems across Fruitland and the Payette Valley. We measure what the property will actually give us, group the zones around that number, and program the controller before we pull off the street.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free walk</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how a system goes in</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Metered</b><span>Pressure read first</span></div>
+          <div class="proof"><b>Mapped</b><span>As-built you keep</span></div>
+          <div class="proof"><b>Tuned</b><span>Run with you</span></div>
+        </div>
+      </div>
+      <div class="hero__rig">
+        <!-- signature motif: a rotor arc sweeping back and forth over the
+             hero photo (sp-sweep in sections.css — rotate only, reduced-motion
+             safe), with a zone-LED strip cycling underneath (sp-cycle) -->
+        <div class="sp-halo" aria-hidden="true"></div>
+        <svg class="sp-spray" viewBox="0 0 340 190" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-spray" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#57C7D9" stop-opacity=".85"/>
+              <stop offset=".7" stop-color="#57C7D9" stop-opacity=".22"/>
+              <stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+            <radialGradient id="sp-glow-drop" cx=".4" cy=".35" r=".7">
+              <stop offset="0" stop-color="#DFF6FB"/>
+              <stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <g class="sp-arc">
+            <path d="M40 178 C 96 74, 196 42, 300 58" stroke="url(#sp-grad-spray)" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M40 178 C 88 96, 172 70, 262 84" stroke="url(#sp-grad-spray)" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".8"/>
+            <path d="M40 178 C 80 118, 148 100, 224 112" stroke="url(#sp-grad-spray)" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".6"/>
+            <circle cx="300" cy="58" r="9" fill="url(#sp-glow-drop)"/>
+            <circle cx="262" cy="84" r="6" fill="url(#sp-glow-drop)"/>
+          </g>
+          <rect x="34" y="176" width="14" height="12" rx="3" fill="#4FD79A" opacity=".85"/>
+        </svg>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-spray-head.jpg).
+             Credit: Qhung999, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+        <div class="sp-controller" role="img" aria-label="Illustration of a four-zone irrigation controller stepping through its zones">
+          <span class="sp-controller__label">Zones</span>
+          <span class="sp-led" data-z="1"></span>
+          <span class="sp-led" data-z="2"></span>
+          <span class="sp-led" data-z="3"></span>
+          <span class="sp-led" data-z="4"></span>
+          <span class="sp-controller__label sp-controller__label--r">Cycling</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- trench line between the dark ground and the page -->
+  <div class="sp-trench" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v6"/><path d="M12 21a6 6 0 0 0 6-6c0-3-3-6-6-9-3 3-6 6-6 9a6 6 0 0 0 6 6z"/></svg>Pressure read at the meter</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h6l3 4h9"/><path d="M3 12h5"/><path d="M3 18h9l3-4"/></svg>Zones sized, not guessed</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 20h10"/><path d="M7 9h4M7 13h7"/></svg>Controller programmed with you</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l6-6"/><path d="M14 10l6-6"/><path d="M14 4h6v6"/><circle cx="8" cy="16" r="4"/></svg>Free walk before any quote</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="sp-rule" viewBox="0 0 180 12" aria-hidden="true">
+        <defs><linearGradient id="sp-grad-rule" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="180" y2="6"><stop offset="0" stop-color="#2FB37A" stop-opacity="0"/><stop offset=".5" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="180" y2="6" stroke="url(#sp-grad-rule)" stroke-width="1"/>
+        <circle cx="90" cy="6" r="3.6" fill="none" stroke="url(#sp-grad-rule)" stroke-width="1.6"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">An irrigation system is plumbing, not decoration</h2>
+      <p class="about__body" id="aboutBody">Under the grass, a sprinkler system is pipe, valves, wire and pressure — and it behaves like any other utility: it works when it is sized right, and it fails in ways you can trace. So we start at the meter, measure what the property will actually give us, and build the zones around that number instead of around a catalog page. When something breaks two seasons later, the same map tells us where to dig.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How a system goes in</span>
+      <h2 class="section-title">Meter first, trench last</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk &amp; measure</h3>
+        <p>We meet you on the property, read static pressure at the hose bib, time the flow into a bucket, and sketch the turf, beds and hardscape the zones have to respect.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Design the zones</h3>
+        <p>Heads get grouped so every zone runs at a pressure it can actually hold. Rotors stay off the drip beds, the shady strip stops sharing a valve with the south lawn, and nothing doubles up just to save a valve.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Trench, plumb &amp; wire</h3>
+        <p>Mainline in, valves in a box you can find again, lateral pipe pulled to depth, and every valve wire tagged at both ends. We photograph the trenches open, so the as-built we hand you is a record and not a sketch.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Tune &amp; program</h3>
+        <p>We run each zone with you standing there, adjust arcs and swap nozzles until the spray patterns overlap, then set a seasonal controller schedule and write it inside the door of the box.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTALL & REPAIR ============ -->
+<section class="section system" id="system">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The work</span>
+      <h2 class="section-title">What we install, and what we fix</h2>
+      <p class="lead" style="margin:0 auto">Installations are quoted after a walk. Repair work is hourly and starts with a diagnosis, because half the calls we take are a map problem before they are a parts problem.</p>
+    </div>
+
+    <div class="sp-cols">
+      <!-- rendered by niche.js from CONTENT.services — textContent sinks only -->
+      <div class="sp-col reveal">
+        <div class="sp-col__cap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7l3 5h8"/><circle cx="7" cy="7" r="2.4"/><circle cx="17" cy="12" r="2.4"/></svg>
+          Installation
+        </div>
+        <div class="sp-svc" id="servicesGrid">
+          <div class="sp-svc__row"><b>New system installation</b><span>A full in-ground system designed off your meter's real numbers — mainline, valve manifold, zones, heads and controller.</span></div>
+          <div class="sp-svc__row"><b>Zone additions</b><span>A new bed, a back paddock or a strip the original installer skipped, added onto the existing manifold when the pressure allows it.</span></div>
+          <div class="sp-svc__row"><b>Drip conversions</b><span>Beds and garden rows moved off borrowed spray heads and onto their own drip valve, with a filter and regulator ahead of the line.</span></div>
+          <div class="sp-svc__row"><b>Valve &amp; manifold rebuilds</b><span>A buried, weeping or unreachable manifold dug up, rebuilt with unions, and set in a box that opens from the surface.</span></div>
+          <div class="sp-svc__row"><b>Controller upgrades</b><span>Old mechanical timers swapped for a controller you can actually read, wired to the existing valve field and labelled zone by zone.</span></div>
+          <div class="sp-svc__row"><b>Backflow assembly service</b><span>Assemblies installed, rebuilt after a freeze, and drained ahead of winter — the annual district test stays with the purveyor's tester.</span></div>
+        </div>
+      </div>
+
+      <!-- rendered by niche.js from CONTENT.repairs -->
+      <div class="sp-col reveal" data-delay="1">
+        <div class="sp-col__cap sp-col__cap--fix">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0 5 5L21 12l-8.5 8.5a2.1 2.1 0 0 1-3-3L18 9z"/><path d="M6 6l3 3"/></svg>
+          Repair
+        </div>
+        <div class="sp-fix" id="repairsList">
+          <div class="sp-fix__row"><b>Broken, buried or sunken heads</b><span>Mower strikes, settled soil, and heads that stopped popping because the wiper seal packed with grit.</span></div>
+          <div class="sp-fix__row"><b>Solenoid and valve failures</b><span>A zone that will not open, a zone that will not shut, or a manifold that hums and does nothing at all.</span></div>
+          <div class="sp-fix__row"><b>Cut or corroded valve wire</b><span>Traced with a tone and located, then spliced into a waterproof connector rather than tape and hope.</span></div>
+          <div class="sp-fix__row"><b>Mainline and lateral leaks</b><span>The soft green stripe across the yard, the puddle at the manifold, the meter that spins with the system off.</span></div>
+          <div class="sp-fix__row"><b>Arc, nozzle and pressure tuning</b><span>Misting heads, dry corners, and zones fighting each other for pressure at the same hour of the morning.</span></div>
+          <div class="sp-fix__row"><b>Controller reprogramming</b><span>Schedules rebuilt for the season, zone by zone, with the run times written where the next person will find them.</span></div>
+        </div>
+        <p class="sp-fix__note" id="repairsNote">Repair work is billed hourly after the service call, and we tell you what we found before we keep going. If a repair turns out to be a redesign, we stop and quote it instead of running the clock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SEASON ============ -->
+<section class="section season" id="season">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The irrigation year</span>
+      <h2 class="section-title">Three visits the valley actually needs</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.season -->
+    <div class="sp-season" id="seasonGrid">
+      <div class="sp-season__card reveal" data-delay="1">
+        <span class="sp-season__when">Spring</span>
+        <h3>Start-up</h3>
+        <p>Charge the mainline slowly so the surge does not blow a fitting, then walk every zone looking for what the winter moved.</p>
+      </div>
+      <div class="sp-season__card reveal" data-delay="2">
+        <span class="sp-season__when">Summer</span>
+        <h3>Mid-season tune</h3>
+        <p>Arcs drift, soil settles and nozzles wear. A pass through the zones in July catches the dry corner before the lawn shows it.</p>
+      </div>
+      <div class="sp-season__card reveal" data-delay="3">
+        <span class="sp-season__when">Fall</span>
+        <h3>Blow-out</h3>
+        <p>Compressed air pushed through each zone in turn until the heads run dry, valves drained, and the backflow assembly cleared.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT AN INSTALL INCLUDES ============ -->
+<!-- COMPONENT:job-details -->
+
+<!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Dry ground, watered ground</span>
+      <h2 class="section-title">Drag to compare</h2>
+      <p class="lead" style="margin:0 auto" id="baLead">Drag the divider. The left frame is dry ground on a property with nothing in it; the right frame is turf on a property whose zones were laid out and tuned.</p>
+    </div>
+
+    <!-- The shared before-after component. Photos come from the manifest's
+         merge.beforeAfter target (niche.beforeImg / niche.afterImg), which is
+         also where an operator's own uploads land. The pair is LANDSCAPE
+         (1500x1000), so sections.css re-proportions the component's frame. -->
+    <div class="sp-ba">
+      <!-- COMPONENT:before-after -->
+    </div>
+
+    <div class="sp-ba__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="baNote">Two different Payette Valley lawns, shot at the same height and in the same early light — one on ground with no system, one on ground with a tuned system running. They are not the same yard, and we are not going to pretend they are.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (quote model) ============ -->
+<section class="section quote" id="quote">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How pricing works</span>
+      <h2 class="section-title">Quoted for installs, hourly for repairs</h2>
+      <svg class="sp-rule" viewBox="0 0 180 12" aria-hidden="true">
+        <defs><linearGradient id="sp-grad-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="180" y2="6"><stop offset="0" stop-color="#2FB37A" stop-opacity="0"/><stop offset=".5" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="180" y2="6" stroke="url(#sp-grad-rule-b)" stroke-width="1"/>
+        <circle cx="90" cy="6" r="3.6" fill="none" stroke="url(#sp-grad-rule-b)" stroke-width="1.6"/>
+      </svg>
+    </div>
+
+    <!-- The quote model's OBJECT pricing: starting_at + note are the admin's
+         two editable fields (PRICE_MODEL_FIELDS.quote); niche.js renders both
+         from CONTENT.pricing. No figure on this page is invented by the
+         renderer — the install panel carries no number at all, because a
+         quote niche has none to carry. -->
+    <div class="sp-quote reveal" id="quoteCard">
+      <div class="sp-quote__panel">
+        <span class="sp-quote__label">Installation</span>
+        <div class="sp-quote__word">Quoted<br>in writing</div>
+        <span class="sp-quote__sub">after a free walk of the property</span>
+      </div>
+      <!-- the schematic valve symbol, sitting on the dashed run between the
+           two panels (the dashed line itself is a CSS border, so it stretches
+           to whatever height the panels take) -->
+      <div class="sp-quote__rule" aria-hidden="true">
+        <svg viewBox="0 0 28 28" aria-hidden="true">
+          <defs><linearGradient id="sp-grad-valve" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FD79A"/><stop offset="1" stop-color="#2FB37A"/></linearGradient></defs>
+          <path d="M4 7 L13 14 L4 21 Z" fill="url(#sp-grad-valve)"/>
+          <path d="M24 7 L15 14 L24 21 Z" fill="url(#sp-grad-valve)"/>
+          <path d="M14 14 V6 M9.5 5 H18.5" stroke="url(#sp-grad-valve)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="sp-quote__panel">
+        <span class="sp-quote__label">Repair visits</span>
+        <div class="sp-quote__big" id="quoteStartingAt">$95</div>
+        <span class="sp-quote__sub">service call — then hourly</span>
+      </div>
+    </div>
+    <p class="sp-quote__note reveal" id="quoteNote">Installs are quoted in writing after a free walk; repairs bill from the service call, then hourly at the quoted rate.</p>
+
+    <!-- Scope builder. It prices NOTHING — it composes a plain-language
+         summary of what we would be looking at and carries it into the
+         request form, so the first call starts from something real. -->
+    <div class="sp-planner reveal" id="plannerCard">
+      <div class="sp-planner__head">
+        <span class="eyebrow" id="plannerPrompt">Tell us what we are looking at</span>
+      </div>
+      <div class="sp-planner__grid">
+        <label class="field">
+          <span>Property size</span>
+          <select id="pl-property"></select>
+        </label>
+        <label class="field">
+          <span>What is out there now</span>
+          <select id="pl-system"></select>
+        </label>
+        <label class="field">
+          <span>What needs water</span>
+          <select id="pl-surface"></select>
+        </label>
+      </div>
+      <p class="sp-planner__out" id="plannerSummary" role="status" aria-live="polite"></p>
+      <p class="sp-planner__fine" id="plannerNote">This only writes a summary for us to read — nothing is priced here. Every install is quoted after we walk it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-section" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Asked at the truck</span>
+      <h2 class="section-title">Questions we get on the first walk</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq">
+        <summary>Do I need to be home for the walk?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">For the first walk, yes — we need to find the meter, the point of connection and the outlet the controller will live near, and you know your property better than we do. After that, most repair visits happen without you.</div>
+      </details>
+      <details class="faq">
+        <summary>How deep does the pipe go?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Lateral lines run below the reach of an aerator and the mainline runs deeper still, so a fall blow-out is what protects the system rather than depth alone. We tell you the depths we pulled on your ground and write them on the as-built.</div>
+      </details>
+      <details class="faq">
+        <summary>What about the backflow device?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">An irrigation line drawing from a public main needs a backflow assembly, and most valley districts want it tested once a season by a tester on their own list. We install, repair and winterize the assembly, and we will point you at your district's test requirement — the test itself is theirs to run.</div>
+      </details>
+      <details class="faq">
+        <summary>Can you work on a system somebody else installed?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Most of our repair work is exactly that. We start by finding the valve boxes and running each zone, because an unlabeled system is a map problem before it is a plumbing problem.</div>
+      </details>
+      <details class="faq">
+        <summary>When should the system be blown out?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Before the first hard freeze settles in — in the Payette Valley that usually means late October into November. We start booking blow-outs in September and work the route in order.</div>
+      </details>
+      <details class="faq">
+        <summary>Do you do drip, or only spray heads?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Both. Beds and garden rows generally want drip on their own valve, not a rotor borrowed from the turf zone beside them, and converting a bed off spray is one of the more common jobs we do.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Neighbors we have worked for</span>
+      <h2 class="section-title">Word from the valley</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we run the route</span>
+      <h2 class="section-title">Along the <span id="areaShort">Payette Valley</span></h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">the Payette Valley, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Fruitland</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Payette</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>New Plymouth</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Weiser</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Parma</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ontario</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALK ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free property walk</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the property</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We text you back to set up a walk — we read the pressure, look at what is already in the ground, and you get a written quote after that. No pressure to book, and nothing owed for the visit.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550269" data-tel data-phone-text>(208) 555-0269</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the property <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Whitley Dr" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Fruitland" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred walk date</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-scope">What we are looking at</label>
+          <input id="q-scope" name="scope" type="text" readonly />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything else we should know?</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. The back zone stopped coming on last August and there is a wet patch near the fence. The controller is in the garage and I have no idea what the schedule is set to."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walk. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request my free walk</button>
+        <a class="book__alt" href="sms:+12085550269?body=Hi%20Riserline!%20I%27d%20like%20to%20book%20a%20free%20walk%20of%20my%20property." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — you are on the route</h3>
+      <p id="doneMsg">We will text you shortly to set up your free walk.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who walks the property with you</h2>
+        <p class="meet__name" id="meetName">Ezra Mendive</p>
+        <div class="meet__desc" id="meetDesc">Ezra Mendive started out pulling pipe on row-crop ground outside Fruitland, where a bad valve costs a farmer a whole set and nobody has patience for guesswork. He brought that habit to residential work: measure the pressure first, design the zones around what the property actually gives you, and leave behind a map of where everything is buried. Ezra walks every property himself before a quote goes out, and he is the one who runs the zones with you at the end.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Riserline Irrigation Co.">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="sp-grad-mark2" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#1B6E4C"/><stop offset=".5" stop-color="#2FB37A"/><stop offset="1" stop-color="#4FD79A"/>
+            </linearGradient>
+            <linearGradient id="sp-grad-water2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#57C7D9"/><stop offset="1" stop-color="#57C7D9" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#sp-grad-mark2)" stroke-width="2.5"/>
+          <rect x="29" y="34" width="6" height="16" rx="3" fill="url(#sp-grad-mark2)"/>
+          <rect x="22" y="48" width="20" height="4" rx="2" fill="url(#sp-grad-mark2)" opacity=".7"/>
+          <path d="M32 33c8 0 14 5 16 12" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c4-6 10-9 16-9" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+          <path d="M32 33c-1-7 2-13 8-16" stroke="url(#sp-grad-water2)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <div><b data-brand>Riserline Irrigation Co.</b><span id="footTagline">Built zone by zone. Tuned head by head.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550269" data-tel data-phone-text>(208) 555-0269</a><br />
+      <a href="mailto:hello@riserline.com" id="footEmail" data-email>hello@riserline.com</a><br />
+      <span id="areaLine">Serving the Payette Valley, Idaho</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Riserline Irrigation Co.</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Riserline Irrigation Co.</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real irrigation services are offered here.
+    The before and after photographs are two different properties, shown as a material sample, not as one yard before and after our work.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550269" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550269?body=Hi%20Riserline!%20I%27d%20like%20to%20book%20a%20free%20walk%20of%20my%20property." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

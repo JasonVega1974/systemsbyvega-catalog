@@ -194,6 +194,12 @@ export function priceHeadline(manifest, content) {
   try {
     const cfg = (manifest && manifest.pricing && typeof manifest.pricing === 'object')
       ? manifest.pricing : {};
+    /* A unit-priced niche states its unit here (see validate-manifest):
+       "From $0.08" on a printed flyer reads as the price of the whole job,
+       "From $0.08/sq ft" reads as what it is. Appended to whatever the model
+       resolves, never invented. */
+    const suffix = str(cfg.headlineSuffix);
+    const withUnit = (v) => (v && suffix) ? v + suffix : v;
     const model = str(cfg.model) || 'none';
     if (model === 'calculator' || model === 'none') return '';
 
@@ -210,7 +216,7 @@ export function priceHeadline(manifest, content) {
         const n = priceNumber(label);
         if (Number.isFinite(n) && n < bestN) { bestN = n; bestLabel = label; }
       }
-      return bestLabel ? 'From ' + displayPrice(bestLabel) : '';
+      return bestLabel ? withUnit('From ' + displayPrice(bestLabel)) : '';
     }
 
     if (model === 'hourly') {
@@ -222,7 +228,7 @@ export function priceHeadline(manifest, content) {
       const rate = str(row.rate) || str(row.base);
       if (!rate) return '';
       const unit = str(row.unit);
-      return displayPrice(rate) + (unit ? ' ' + unit : '');
+      return withUnit(displayPrice(rate) + (unit ? ' ' + unit : ''));
     }
 
     if (model === 'quote') {
@@ -230,7 +236,7 @@ export function priceHeadline(manifest, content) {
       // starting_at is the validator's key; minimum is where the overlay
       // lands it for niches whose quoter speaks that dialect (delivery).
       const v = str(data.starting_at) || str(data.minimum);
-      return v ? 'From ' + displayPrice(v) : '';
+      return v ? withUnit('From ' + displayPrice(v)) : '';
     }
 
     if (model === 'percentage') {

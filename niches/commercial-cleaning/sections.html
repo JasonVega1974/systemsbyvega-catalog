@@ -1,0 +1,555 @@
+<!-- commercial-cleaning/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md 3.1), so this is per-niche.
+     Voice is B2B: the reader is a facilities manager or a small-business owner
+     signing a recurring contract, not a homeowner booking a visit. Every claim
+     on this page is about process (a written scope, a named crew, a sign-off
+     sheet), never about credentials or results.
+     Static copy below mirrors content.json (the no-JS fallback, decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Keyholder Facility Care home">
+      <span class="brand__mark" role="img" aria-label="Keyholder key-tag mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="cc-grad-mark" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FD9E6"/><stop offset=".55" stop-color="#45B6C8"/><stop offset="1" stop-color="#1B6875"/>
+            </linearGradient>
+          </defs>
+          <rect x="9.5" y="9.5" width="45" height="45" rx="12" stroke="url(#cc-grad-mark)" stroke-width="3"/>
+          <circle cx="27" cy="27" r="7" stroke="url(#cc-grad-mark)" stroke-width="3.4"/>
+          <path d="M27 34v13" stroke="url(#cc-grad-mark)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M27 41h6" stroke="url(#cc-grad-mark)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M35 24.5l4.6 4.6L48 20.6" stroke="url(#cc-grad-mark)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Keyholder</span><span id="brandLocale">Facility care · Idaho Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#standards">Standards</a>
+      <a class="link" href="#program">How it starts</a>
+      <a class="link" href="#pricing">Pricing</a>
+      <a class="link" href="#proof">Proof</a>
+      <a class="link" href="#faq">FAQ</a>
+      <!-- (208) 555-01XX and 555-02XX are reserved fictional ranges. Editable via admin (brand.phone in content.json). -->
+      <a class="nav__call" href="tel:+12085550236" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0236</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Office &amp; janitorial contracts · Idaho Falls</span></div>
+        <h1 id="heroTitle">The crew holding your keys should be the same crew every night.</h1>
+        <p class="hero__sub" id="heroSub">Keyholder Facility Care runs after-hours janitorial contracts for offices, clinics and light industrial buildings across Idaho Falls and the Upper Snake Valley. A written scope, a crew listed by name, and a sign-off sheet in the building every visit.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Request a walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#pricing" id="heroCtaSecondary">See how a contract is priced</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Written</b><span>Scope before day one</span></div>
+          <div class="proof"><b>Named</b><span>Crew on the contract</span></div>
+          <div class="proof"><b>Dated</b><span>Sign-off every visit</span></div>
+        </div>
+      </div>
+      <div class="hero__bay">
+        <!-- Signature motif: the building after close. Windows go dark and light
+             again as the crew works its way up the floors (kf-lamp), and a slow
+             band of light crosses the bay (kf-sweep). Both are opacity and
+             transform only, and both are switched off under reduced motion by
+             the block at the end of sections.css. -->
+        <div class="kf-tower" aria-hidden="true">
+          <svg viewBox="0 0 130 300" fill="none">
+            <defs>
+              <linearGradient id="cc-tower-face" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1D2A31"/><stop offset=".6" stop-color="#162126"/><stop offset="1" stop-color="#0E1519"/>
+              </linearGradient>
+              <linearGradient id="cc-tower-lit" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#7FD9E6"/><stop offset="1" stop-color="#2F9AAC"/>
+              </linearGradient>
+              <radialGradient id="cc-bay-glow" cx=".5" cy=".18" r=".8">
+                <stop offset="0" stop-color="#45B6C8" stop-opacity=".26"/>
+                <stop offset="1" stop-color="#45B6C8" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="8" y="26" width="114" height="266" rx="6" fill="url(#cc-tower-face)" stroke="rgba(232,237,240,.14)"/>
+            <rect x="46" y="14" width="38" height="14" rx="3" fill="url(#cc-tower-face)" stroke="rgba(232,237,240,.12)"/>
+            <g class="kf-wins">
+              <rect class="kf-win" x="20" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="40" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="68" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="96" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="124" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="152" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="20" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="48" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+              <rect class="kf-win" x="76" y="180" width="20" height="14" rx="2" fill="url(#cc-tower-lit)"/>
+            </g>
+            <rect x="8" y="278" width="114" height="14" rx="4" fill="rgba(7,11,13,.7)"/>
+          </svg>
+        </div>
+        <div class="kf-bayglow" aria-hidden="true"></div>
+        <div class="kf-beam" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's uploaded c.niche.heroImg and falls back to manifest.json's
+             heroDefault (photos/hero-desk-wipe.jpg).
+             Credit: Ron Lach, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+      </div>
+    </div>
+  </div>
+  <div class="kf-baseline" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Written scope, priced line by line</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>The same crew, named on the contract</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="10" r="4"/><path d="M12 10h9"/><path d="M17 10v4"/><path d="M20.5 10v3"/></svg>Keys and codes signed in and out</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Dated sign-off left on site</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="kf-rule" viewBox="0 0 180 10" aria-hidden="true">
+        <defs><linearGradient id="cc-rule-a" gradientUnits="userSpaceOnUse" x1="0" y1="5" x2="180" y2="5"><stop offset="0" stop-color="#2F9AAC" stop-opacity="0"/><stop offset=".5" stop-color="#45B6C8"/><stop offset="1" stop-color="#2F9AAC" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="5" x2="180" y2="5" stroke="url(#cc-rule-a)" stroke-width="1"/>
+        <rect x="86" y="1" width="8" height="8" rx="1.5" fill="url(#cc-rule-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Facilities managers do not need another vendor to chase</h2>
+      <p class="about__body" id="aboutBody">The complaint we hear on every walkthrough is the same one: nobody knows who was in the building last night, the scope drifted six months ago, and the invoice never changed. So we run the boring version on purpose. Every task is written down with a frequency beside it. The people assigned to your building are named on the contract. A dated sheet stays on site so you can see what was covered without calling anyone. If the scope needs to change, it changes in writing and the price moves with it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STANDARDS (the accountability block) ============ -->
+<section class="section standards" id="standards">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">What goes in the contract</span>
+      <h2 class="section-title">Four things we put in writing</h2>
+      <p class="lead" style="margin:0 auto">None of these are extras. They are the reason a building leaves whoever it was with and calls us instead.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.standards; textContent sinks only -->
+    <div class="std__grid" id="stdGrid">
+      <article class="std reveal" data-delay="1">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>A scope you can hold us to</h3>
+        <p>Every task is written down with a frequency beside it — nightly, weekly, monthly, quarterly — before a price is attached to any of it.</p>
+      </article>
+      <article class="std reveal" data-delay="2">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>The same crew, by name</h3>
+        <p>The people assigned to your building are listed on the contract. Changing that list is a conversation with you, not a surprise on a Tuesday.</p>
+      </article>
+      <article class="std reveal" data-delay="3">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>Keys and codes on a log</h3>
+        <p>Access is issued to named people and signed in and out each shift, so who was in the building last night is never a guess.</p>
+      </article>
+      <article class="std reveal" data-delay="1">
+        <span class="std__tick" aria-hidden="true"></span>
+        <h3>Paperwork before signatures</h3>
+        <p>Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTORS ============ -->
+<section class="section sectors" id="sectors">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Buildings we are set up for</span>
+      <h2 class="section-title">Who is on the route</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.sectors -->
+    <div class="sector__grid" id="sectorGrid">
+      <div class="sector reveal" data-delay="1"><h3>Professional offices</h3><p>Single suites, whole floors, or a building with four tenants and one facilities manager.</p></div>
+      <div class="sector reveal" data-delay="2"><h3>Medical &amp; dental</h3><p>Exam rooms, waiting areas and restrooms on a written checklist your office approves first.</p></div>
+      <div class="sector reveal" data-delay="3"><h3>Banks &amp; credit unions</h3><p>After-hours access on a logged key, and a crew that stays out of the teller line and the vault corridor.</p></div>
+      <div class="sector reveal" data-delay="1"><h3>Warehouses &amp; light industrial</h3><p>Breakrooms, restrooms, front offices and the walkways between them, on the schedule your shifts allow.</p></div>
+      <div class="sector reveal" data-delay="2"><h3>Fitness &amp; studios</h3><p>Early-morning turnarounds so the first class of the day walks onto a dry, clean floor.</p></div>
+      <div class="sector reveal" data-delay="3"><h3>Property management</h3><p>Lobbies, common areas and turnover cleans handled across a portfolio on one invoice.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW A CONTRACT STARTS ============ -->
+<section class="section how" id="program">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it starts</span>
+      <h2 class="section-title">From a walkthrough to a signed scope</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk the building</h3>
+        <p>We meet you on site — after hours if that is easier — and measure the cleanable square footage room by room. Restroom count, floor types and trash volume all get written down.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Written scope and price</h3>
+        <p>You get a task list with a frequency against each line and a price against the whole thing. Nothing is ordered, scheduled or charged until you have read it.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Crew assigned by name</h3>
+        <p>The people who will be in your building are named on the contract, issued their own access, and walked through the scope with you before the first shift.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Sign-off, every visit</h3>
+        <p>A dated sheet stays in the building. Anything missed gets written on it, and we are back before the next scheduled visit to close it out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING (tiers model) ============ -->
+<section class="section pricing" id="pricing">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Contract structure</span>
+      <h2 class="section-title">What a janitorial contract costs</h2>
+      <svg class="kf-rule" viewBox="0 0 180 10" aria-hidden="true">
+        <defs><linearGradient id="cc-rule-b" gradientUnits="userSpaceOnUse" x1="0" y1="5" x2="180" y2="5"><stop offset="0" stop-color="#2F9AAC" stop-opacity="0"/><stop offset=".5" stop-color="#45B6C8"/><stop offset="1" stop-color="#2F9AAC" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="5" x2="180" y2="5" stroke="url(#cc-rule-b)" stroke-width="1"/>
+        <rect x="86" y="1" width="8" height="8" rx="1.5" fill="url(#cc-rule-b)"/>
+      </svg>
+    </div>
+
+    <!-- The tier cards are rendered by niche.js from CONTENT.pricing, which is
+         the array the admin writes back to (manifest pricing.mergePath). Each
+         row is {label, blurb, per, note, highlight, features}: blurb is the
+         DISPLAY STRING and is where an operator's price_label save lands, so
+         it is the key the renderer reads. note renders under the price and
+         hides itself when the operator clears it. -->
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+      <defs>
+        <linearGradient id="cc-badge-grad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#7FD9E6"/><stop offset="1" stop-color="#2F9AAC"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="price__grid" id="priceGrid">
+      <article class="price-card reveal" data-delay="1">
+        <h3 class="price-card__label">Nightly janitorial</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.32</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">Five nights a week, after close</p>
+        <ul class="price-card__features">
+          <li>Trash, restrooms, breakroom and floors every night</li>
+          <li>Restroom consumables counted and topped up</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>The same named crew on your account</li>
+        </ul>
+      </article>
+      <article class="price-card price-card--hi reveal" data-delay="2">
+        <h3 class="price-card__label">Three nights a week</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.21</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">The most common office contract</p>
+        <ul class="price-card__features">
+          <li>Full nightly scope on the three nights you pick</li>
+          <li>Restrooms and breakroom every visit</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>The same named crew on your account</li>
+        </ul>
+      </article>
+      <article class="price-card reveal" data-delay="3">
+        <h3 class="price-card__label">Weekly reset</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">$0.08</span><span class="price-card__per">per sq ft, monthly</span></div>
+        <p class="price-card__note">For small suites and quiet offices</p>
+        <ul class="price-card__features">
+          <li>One full clean a week, evening or weekend</li>
+          <li>Restrooms, floors, glass and breakroom</li>
+          <li>Dated sign-off sheet left in the building</li>
+          <li>Consumables itemized at cost, or supply your own</li>
+        </ul>
+      </article>
+      <article class="price-card reveal" data-delay="1">
+        <h3 class="price-card__label">Deep clean &amp; post-build</h3>
+        <div class="price-card__figure"><span class="price-card__blurb">Quoted</span><span class="price-card__per">after a walkthrough</span></div>
+        <p class="price-card__note">Move-outs, post-construction, one-off resets</p>
+        <ul class="price-card__features">
+          <li>Written scope before anything starts</li>
+          <li>A fixed number, not an hourly meter</li>
+          <li>Scheduled around how your building actually runs</li>
+          <li>Punch-list walk with you at the end</li>
+        </ul>
+      </article>
+    </div>
+
+    <!-- Square-footage estimator. Every rate it uses is parsed out of the tier
+         card's own blurb, so an operator's price_label edit moves this figure
+         too — there is no second copy of the numbers to fall out of step. Rows
+         whose per-unit is not a square-foot rate are left out of the picker,
+         and a blurb that is not a number (a quoted tier) simply never appears
+         here. The block hides itself when no row qualifies. -->
+    <div class="est reveal" id="estimator" hidden>
+      <div class="est__head">
+        <span class="eyebrow">Rough it out</span>
+        <h3>What would my building be?</h3>
+      </div>
+      <div class="est__row">
+        <div class="field">
+          <label for="estPlan">Service level</label>
+          <select id="estPlan"></select>
+        </div>
+        <div class="field">
+          <label for="estSqft">Cleanable square feet</label>
+          <input id="estSqft" type="number" inputmode="numeric" min="100" step="100" value="5000" />
+        </div>
+        <div class="est__out">
+          <span class="est__big" id="estOut">&mdash;</span>
+          <span class="est__sub" id="estSub">estimated monthly</span>
+        </div>
+      </div>
+      <p class="est__note" id="estNote">A starting figure only. Square footage is the biggest single driver of a janitorial price, but restroom count, floor type and how much trash a building makes all move it. Nothing here is a quote.</p>
+    </div>
+
+    <div class="price__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="priceNote">Rates are per square foot of cleanable space, billed monthly against a written contract. Consumables are itemized at cost unless your building would rather supply its own. Every figure on this page is a starting structure, not a quote — the walkthrough sets the real number.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE: BEFORE / AFTER ============ -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The comparison</span>
+      <h2 class="section-title">Drag the handle</h2>
+      <p class="lead" style="margin:0 auto">The same desk, photographed cluttered and photographed clear. Drag the handle to wipe between the two frames.</p>
+    </div>
+
+    <!-- The shared before-after component. Its images resolve from
+         c.niche.beforeImg and c.niche.afterImg (manifest merge.beforeAfter),
+         which is exactly where the admin's before/after uploads land, and it
+         shows a dashed slot-empty state rather than pairing one real photo
+         with a missing one. The pair shipped here is landscape (4:3), so
+         sections.css re-sets the slider's aspect ratio to match it. -->
+    <!-- COMPONENT:before-after -->
+
+    <p class="proof__note reveal" id="baNote">Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim.</p>
+  </div>
+</section>
+
+<!-- ============ SCOPE DETAIL ============ -->
+<!-- COMPONENT:job-details -->
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">From the buildings we hold keys to</span>
+      <h2 class="section-title">What the managers say</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where the route runs</span>
+      <h2 class="section-title">Idaho Falls and out</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Idaho Falls &amp; the Upper Snake Valley</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Idaho Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ammon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Iona</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Ucon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Shelley</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Rigby</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section faq-sec" id="faq">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Before you ask us</span>
+      <h2 class="section-title">The questions managers actually ask</h2>
+    </div>
+    <!-- rendered by niche.js from CONTENT.faq -->
+    <div class="faq-list" id="faqList">
+      <details class="faq">
+        <summary>Do you clean during business hours?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Rarely. Most buildings on our route are done after close, between six and midnight, so nobody has to work around a mop bucket. Day-porter coverage during business hours can be added to any contract if your lobby needs it.</div>
+      </details>
+      <details class="faq">
+        <summary>Who has keys and codes to my building?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Named people, and only named people. Everyone assigned to your building is listed on the contract, and that list changes in writing, not quietly. Keys and alarm codes are signed in and out each shift.</div>
+      </details>
+      <details class="faq">
+        <summary>What happens when something gets missed?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Write it on the sign-off sheet or send us a message, and we are back before the next scheduled visit at no charge. The sheet tells us who was in the building and what they covered, so we can usually answer what happened the same day.</div>
+      </details>
+      <details class="faq">
+        <summary>Do you bring your own equipment and supplies?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Yes — machines, chemicals and cloths are ours and stay on our truck. Consumables your building hands to the public, like liners, paper and soap, are itemized at cost, or you can keep buying your own if that is cheaper for you.</div>
+      </details>
+      <details class="faq">
+        <summary>How long is a contract, and how do I get out of it?<span class="plus" aria-hidden="true">+</span></summary>
+        <div class="faq__body">Month to month after the first ninety days, with thirty days notice either way. We would rather keep a building because the work holds up than because a term said we get to.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REQUEST A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Walkthrough request</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the building</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We walk it with you, measure it, and send a written scope with a price against it. No obligation and no auto-renewal to read past.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550236" data-tel data-phone-text>(208) 555-0236</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Your name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Dana Whitfield" required />
+        </div>
+        <div class="field">
+          <label for="q-company">Company or building <em>*</em></label>
+          <input id="q-company" name="company" type="text" autocomplete="organization" placeholder="Riverbend Professional Plaza" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field">
+          <label for="q-email">Work email</label>
+          <input id="q-email" name="email" type="email" autocomplete="email" placeholder="dana@example.com" />
+        </div>
+        <div class="field">
+          <label for="q-sqft">Approximate square feet</label>
+          <input id="q-sqft" name="sqft" type="number" inputmode="numeric" min="100" step="100" placeholder="5000" />
+        </div>
+        <div class="field">
+          <label for="q-freq">Cleaning frequency you have in mind</label>
+          <select id="q-freq" name="frequency">
+            <option value="">Not sure yet</option>
+            <option value="Five nights a week">Five nights a week</option>
+            <option value="Three nights a week">Three nights a week</option>
+            <option value="Once a week">Once a week</option>
+            <option value="One-off deep clean">One-off deep clean</option>
+          </select>
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">Anything we should know? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. Two-storey suite, eleven staff, four restrooms, mostly carpet with a tile entry. Current company keeps missing the breakroom and we need to be out of the contract by the end of next month."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Contact me about a walkthrough by phone, text or email. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request the walkthrough</button>
+        <a class="book__alt" href="sms:+12085550236?body=Hi%20Keyholder!%20I%27d%20like%20to%20set%20up%20a%20walkthrough%20for%20our%20building." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — the building is on the list</h3>
+      <p id="doneMsg">We will be in touch to set a walkthrough time.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Who you are dealing with</span>
+        <h2 class="section-title" id="meetHeading">The person who answers when the scope slips</h2>
+        <p class="meet__name" id="meetName">Corinne Ballard</p>
+        <div class="meet__desc" id="meetDesc">Corinne Ballard spent her early career on the other side of this contract — running a building for someone else and chasing a cleaning company that never sent the same two people twice. She started Keyholder to be the version she could not hire: a written scope, a crew listed by name, and a sheet in the building that says who was there and what got done. She still walks every new building herself, and her number is the one on the proposal.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Keyholder Facility Care">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="cc-grad-mark2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#7FD9E6"/><stop offset=".55" stop-color="#45B6C8"/><stop offset="1" stop-color="#1B6875"/>
+            </linearGradient>
+          </defs>
+          <rect x="9.5" y="9.5" width="45" height="45" rx="12" stroke="url(#cc-grad-mark2)" stroke-width="3"/>
+          <circle cx="27" cy="27" r="7" stroke="url(#cc-grad-mark2)" stroke-width="3.4"/>
+          <path d="M27 34v13" stroke="url(#cc-grad-mark2)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M27 41h6" stroke="url(#cc-grad-mark2)" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M35 24.5l4.6 4.6L48 20.6" stroke="url(#cc-grad-mark2)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div><b data-brand>Keyholder Facility Care</b><span id="footTagline">Same crew. Every night. On the record.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550236" data-tel data-phone-text>(208) 555-0236</a><br />
+      <span id="areaLine">Serving Idaho Falls &amp; the Upper Snake Valley</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Keyholder Facility Care</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Keyholder Facility Care</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing, photography and reviews shown are placeholders — no real cleaning services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550236" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550236?body=Hi%20Keyholder!%20I%27d%20like%20to%20set%20up%20a%20walkthrough%20for%20our%20building." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

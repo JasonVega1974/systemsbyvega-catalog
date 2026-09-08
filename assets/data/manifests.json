@@ -35,7 +35,8 @@
     "pricing": {
       "model": "none",
       "editableFields": [],
-      "mergePath": "none"
+      "mergePath": "none",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -82,7 +83,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -128,7 +130,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -177,7 +180,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "niche.beforeImg/afterImg",
@@ -226,7 +230,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -273,7 +278,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -320,7 +326,8 @@
         "rate",
         "unit"
       ],
-      "mergePath": "niche.rates"
+      "mergePath": "niche.rates",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -328,6 +335,57 @@
       "ownerShape": "owner"
     },
     "heroWired": false
+  },
+  "commercial-cleaning": {
+    "theme": {
+      "ground": "#0E1519",
+      "surface": "#162126",
+      "card": "#1D2A31",
+      "accent": "#2F9AAC",
+      "accentBright": "#45B6C8",
+      "text": "#E8EDF0",
+      "textSoft": "#AFBDC4",
+      "ok": "#6FCF9F",
+      "bad": "#E0616B",
+      "onAccent": "#04181C",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap",
+      "display": "'Manrope',sans-serif",
+      "label": "'Roboto Mono',monospace",
+      "body": "'Public Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": true,
+      "reviews": true,
+      "social": true,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": "/sq ft"
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
   },
   "contracting": {
     "theme": {
@@ -369,7 +427,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "projects[0]",
@@ -415,7 +474,8 @@
         "minimum",
         "note"
       ],
-      "mergePath": "niche.quoterSettings"
+      "mergePath": "niche.quoterSettings",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -457,7 +517,8 @@
     "pricing": {
       "model": "none",
       "editableFields": [],
-      "mergePath": "none"
+      "mergePath": "none",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -503,7 +564,8 @@
         "label",
         "price_label"
       ],
-      "mergePath": "services"
+      "mergePath": "services",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -549,7 +611,8 @@
         "label",
         "price_label"
       ],
-      "mergePath": "sizes"
+      "mergePath": "sizes",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -595,7 +658,8 @@
         "label",
         "price_label"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -642,7 +706,8 @@
         "commission",
         "minimum"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -689,7 +754,8 @@
         "commission",
         "minimum"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -736,7 +802,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -783,10 +850,62 @@
         "price_label",
         "note"
       ],
-      "mergePath": "plans"
+      "mergePath": "plans",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
+  },
+  "mechanic": {
+    "theme": {
+      "ground": "#0D1110",
+      "surface": "#161E1B",
+      "card": "#1F2926",
+      "accent": "#2FA85D",
+      "accentBright": "#4ACC7C",
+      "text": "#EFF3F0",
+      "textSoft": "#B4C2BB",
+      "ok": "#4ACC7C",
+      "bad": "#FF7A6B",
+      "onAccent": "#05170C",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo+Black&family=Barlow:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap",
+      "display": "'Archivo Black',sans-serif",
+      "label": "'Space Mono',monospace",
+      "body": "'Barlow',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": ""
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
@@ -826,7 +945,8 @@
     "pricing": {
       "model": "quote",
       "editableFields": [],
-      "mergePath": "none"
+      "mergePath": "none",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -873,7 +993,8 @@
         "rate",
         "unit"
       ],
-      "mergePath": "niche.crewTiers"
+      "mergePath": "niche.crewTiers",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -922,7 +1043,59 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
+    },
+    "merge": {
+      "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
+  },
+  "personal-assistant": {
+    "theme": {
+      "ground": "#F4F2EC",
+      "surface": "#FAF9F5",
+      "card": "#FFFFFF",
+      "accent": "#1C5E59",
+      "accentBright": "#26766F",
+      "text": "#22201C",
+      "textSoft": "#5A625E",
+      "ok": "#2F7D5E",
+      "bad": "#A63A2F",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap",
+      "display": "'Newsreader',serif",
+      "label": "'DM Mono',monospace",
+      "body": "'Manrope',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": false,
+      "jobDetails": false,
+      "reviews": true,
+      "social": false,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "per",
+        "note",
+        "features"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -969,7 +1142,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -1016,7 +1190,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -1065,7 +1240,8 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
@@ -1073,6 +1249,59 @@
       "ownerShape": "owner"
     },
     "heroWired": false
+  },
+  "residential-cleaning": {
+    "theme": {
+      "ground": "#F2FAF6",
+      "surface": "#FFFFFF",
+      "card": "#E7F6EE",
+      "accent": "#08694A",
+      "accentBright": "#0B855B",
+      "text": "#10251D",
+      "textSoft": "#4C6A5D",
+      "ok": "#0B855B",
+      "bad": "#C23B2E",
+      "onAccent": "#FFFFFF",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=Space+Mono:wght@400;700&display=swap",
+      "display": "'Outfit',sans-serif",
+      "label": "'Space Mono',monospace",
+      "body": "'Manrope',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": true,
+      "reviews": true,
+      "social": false,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "per",
+        "note",
+        "features"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": ""
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
   },
   "roofing": {
     "theme": {
@@ -1112,10 +1341,61 @@
         "price_label",
         "note"
       ],
-      "mergePath": "pricing"
+      "mergePath": "pricing",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
+    },
+    "heroWired": true
+  },
+  "sprinkler": {
+    "theme": {
+      "ground": "#081419",
+      "surface": "#0C1D24",
+      "card": "#10262E",
+      "accent": "#2FB37A",
+      "accentBright": "#4FD79A",
+      "text": "#EAF4F1",
+      "textSoft": "#B3C7C6",
+      "ok": "#4FD79A",
+      "bad": "#F2836F",
+      "onAccent": "#03150C",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap",
+      "display": "'Archivo',sans-serif",
+      "label": "'Azeret Mono',monospace",
+      "body": "'Instrument Sans',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "logo",
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": true,
+      "reviews": true,
+      "social": true,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "quote",
+      "editableFields": [
+        "starting_at",
+        "note"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": ""
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
       "reviews": "testimonials",
       "ownerShape": "owner"
     },
@@ -1158,12 +1438,63 @@
         "label",
         "price_label"
       ],
-      "mergePath": "niche.flash"
+      "mergePath": "niche.flash",
+      "headlineSuffix": ""
     },
     "merge": {
       "beforeAfter": "none",
       "reviews": "none",
       "ownerShape": "none"
+    },
+    "heroWired": true
+  },
+  "window-cleaning": {
+    "theme": {
+      "ground": "#F3F9FB",
+      "surface": "#E7F2F6",
+      "card": "#FFFFFF",
+      "accent": "#22ACC4",
+      "accentBright": "#5FD2E4",
+      "text": "#16272E",
+      "textSoft": "#42575F",
+      "ok": "#177A50",
+      "bad": "#B0362F",
+      "onAccent": "#04262C",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+      "display": "'Outfit',sans-serif",
+      "label": "'DM Mono',monospace",
+      "body": "'Figtree',sans-serif",
+      "logo": ""
+    },
+    "photoSlots": [
+      "hero",
+      "before",
+      "after",
+      "owner"
+    ],
+    "sections": {
+      "pricing": true,
+      "beforeAfter": true,
+      "jobDetails": false,
+      "reviews": true,
+      "social": true,
+      "footerContact": true,
+      "ownerBlock": true
+    },
+    "pricing": {
+      "model": "tiers",
+      "editableFields": [
+        "label",
+        "price_label",
+        "note"
+      ],
+      "mergePath": "pricing",
+      "headlineSuffix": "/pane"
+    },
+    "merge": {
+      "beforeAfter": "niche.beforeImg/afterImg",
+      "reviews": "testimonials",
+      "ownerShape": "owner"
     },
     "heroWired": true
   }
