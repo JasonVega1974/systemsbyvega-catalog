@@ -3,9 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F3922F'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' text-anchor='middle' fill='%231a1206'%3EV%3C/text%3E%3C/svg%3E">
 <meta name="robots" content="noindex,nofollow">
 <title>Your site — Systems by Vega</title>
 <style>
+  /* Leads. Rows, not a <table>: the same markup has to stack on a phone, and a
+     table that reflows is more trouble than divs that were always going to. */
+  .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .lead-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 18px}
+  .lead-kpi{background:var(--card);border:1px solid var(--card-brd);border-radius:10px;
+    padding:12px 14px;text-align:center}
+  .lead-kpi b{display:block;font-size:22px;color:var(--ink);line-height:1.2}
+  .lead-kpi span{font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .lead-bar{display:flex;gap:10px;align-items:center;justify-content:space-between;margin:0 0 14px}
+  .lead-filter select{min-height:44px}
+  .lead-add{background:var(--card);border:1px solid var(--card-brd);border-radius:10px;
+    padding:16px;margin:0 0 16px}
+  .lead-add__grid{display:grid;gap:12px}
+  .lead-add__actions{display:flex;gap:10px;margin-top:12px}
+  @media(min-width:720px){.lead-add__grid{grid-template-columns:repeat(4,1fr)}}
+
+  .lead-row{border:1px solid var(--card-brd);border-radius:10px;background:var(--card);
+    margin:0 0 8px;overflow:hidden}
+  .lead-row__head{display:grid;gap:4px 14px;align-items:center;padding:12px 14px;
+    cursor:pointer;min-height:44px;position:relative}
+  .lead-row__head:hover{background:var(--surface)}
+  .lead-row__name{color:var(--ink);font-weight:600}
+  .lead-row__meta{color:var(--muted);font-size:14px;word-break:break-word}
+  .lead-row__when{color:var(--muted);font-size:13px}
+  .lead-row__note{color:var(--muted);font-size:14px;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap}
+  @media(min-width:820px){
+    .lead-row__head{grid-template-columns:1.1fr 1.3fr .8fr auto 1.2fr 34px}
+    .lead-row__note{white-space:nowrap}
+  }
+  .lead-badge{display:inline-block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    padding:4px 10px;border-radius:20px;white-space:nowrap;font-weight:600;border:1px solid}
+  /* Status colours are semantic and separate from the niche accent, so a
+     booked lead reads as booked whatever palette the niche ships. */
+  .lead-badge.is-new{color:#5FB0F0;border-color:rgba(95,176,240,.45);background:rgba(95,176,240,.12)}
+  .lead-badge.is-contacted{color:#E0A83A;border-color:rgba(224,168,58,.45);background:rgba(224,168,58,.12)}
+  .lead-badge.is-booked{color:#5FC08A;border-color:rgba(95,192,138,.45);background:rgba(95,192,138,.12)}
+  .lead-badge.is-closed{color:var(--muted);border-color:var(--card-brd);background:transparent}
+  .lead-del{background:none;border:0;color:var(--muted);font-size:20px;line-height:1;
+    cursor:pointer;padding:6px 8px;min-width:34px;min-height:34px;border-radius:8px}
+  .lead-del:hover{color:var(--bad);background:var(--surface)}
+  .lead-body{border-top:1px solid var(--card-brd);padding:14px;display:none}
+  .lead-row.is-open .lead-body{display:block}
+  .lead-body__msg{white-space:pre-wrap;color:var(--muted);font-size:14.5px;margin:0 0 12px}
+  .lead-body__row{display:grid;gap:12px}
+  @media(min-width:720px){.lead-body__row{grid-template-columns:200px 1fr}}
+  .lead-pager{display:flex;gap:10px;align-items:center;justify-content:center;margin:14px 0 0;
+    color:var(--muted);font-size:14px}
+
   /* Start-here tab. Numbered list and three link cards; nothing interactive
      beyond the links, because this tab exists to point somewhere else. */
   .start-steps{list-style:none;counter-reset:s;margin:14px 0 0;padding:0}
@@ -234,6 +284,7 @@
       <a href="#sec-pricing" class="nav-pill" data-target="sec-pricing">Pricing</a>
       <a href="#sec-reviews" class="nav-pill" data-target="sec-reviews">Reviews</a>
       <a href="#sec-details" class="nav-pill" data-target="sec-details">Details</a>
+      <a href="#sec-leads" class="nav-pill" data-target="sec-leads">Leads</a>
       <a href="#sec-marketing" class="nav-pill" data-target="sec-marketing">Marketing</a>
       <a href="#sec-legal" class="nav-pill" data-target="sec-legal">Legal</a>
     </div>
@@ -411,6 +462,58 @@
          touches dirty-tracking, Save, or Reset. The previews are the real
          templates in sandboxed iframes; the QR is a placeholder here — the
          generated downloads embed a working code. -->
+    <!-- Leads. Every booking-form submission on the live site is recorded here
+         as well as emailed, so an enquiry is not lost when an inbox gets busy.
+         Read and written under RLS as the operator: sbv_leads scopes every
+         policy by sbv_is_tenant(client_id), and the UPDATE grant is
+         column-level on status/note/deleted_at only — an operator triages a
+         lead, they do not rewrite what the visitor typed. -->
+    <section class="card" id="sec-leads">
+      <p class="sec-h">Leads</p>
+
+      <div class="lead-kpis" id="leadKpis" hidden></div>
+
+      <div class="lead-bar">
+        <button type="button" class="add-row" id="leadAddBtn">+ Add lead</button>
+        <label class="lead-filter"><span class="vh">Filter</span>
+          <select id="leadFilter">
+            <option value="all">All</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="booked">Booked</option>
+            <option value="closed">Closed</option>
+          </select></label>
+      </div>
+
+      <div class="lead-add" id="leadAddForm" hidden>
+        <div class="lead-add__grid">
+          <label><span>Name</span><input type="text" id="leadNewName" maxlength="120"></label>
+          <label><span>Phone</span><input type="tel" id="leadNewPhone" maxlength="40"></label>
+          <label><span>Email</span><input type="email" id="leadNewEmail" maxlength="200"></label>
+          <label><span>Status</span><select id="leadNewStatus">
+            <option value="new">New</option><option value="contacted">Contacted</option>
+            <option value="booked">Booked</option><option value="closed">Closed</option>
+          </select></label>
+        </div>
+        <label><span>Note</span><textarea id="leadNewNote" maxlength="2000" rows="2"></textarea></label>
+        <p class="hint">A phone number or an email is required — without one there is no lead to follow up.</p>
+        <div class="lead-add__actions">
+          <button type="button" class="go" id="leadSaveNew">Add lead</button>
+          <button type="button" class="add-row" id="leadCancelNew">Cancel</button>
+        </div>
+      </div>
+
+      <p class="hint" id="leadEmpty" hidden></p>
+      <div id="leadRows"></div>
+
+      <div class="lead-pager" id="leadPager" hidden>
+        <button type="button" class="add-row" id="leadPrev">Newer</button>
+        <span id="leadPageLabel"></span>
+        <button type="button" class="add-row" id="leadNext">Older</button>
+      </div>
+
+      <p class="msg" id="leadMsg" role="status"></p>
+    </section>
     <section class="card" id="sec-marketing">
       <p class="sec-h">Marketing</p>
       <p class="sub">Ready-to-post artwork built from your site&rsquo;s saved
@@ -1546,6 +1649,11 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       /* Hidden rather than empty: a niche whose guide has not been written yet
          should show the links and no orphan heading. */
+      /* Leads load on their own, after the tenant is known. They are not part
+         of the content row and must not delay it. */
+      if (!window.__leadsWired) { window.__leadsWired = true; wireLeads(); }
+      loadLeads();
+
       $('startStepsWrap').hidden = steps.length === 0;
       $('startGuide').hidden = steps.length === 0;
 
@@ -1738,6 +1846,290 @@ document.addEventListener('DOMContentLoaded', function () {
     maybeClearable(row, 'job_details', readJobDetails());
 
     return row;
+  }
+
+  /* ------------------------------------------------------------------ leads
+     The operator's inbound list. Read and written under RLS as them: every
+     sbv_leads policy is scoped by sbv_is_tenant(client_id), so the client_id
+     filter below is for the query planner and for clarity, not for security —
+     the database would refuse another tenant's row with or without it.
+
+     Deliberately NOT part of the Save bar. Everything else in this admin is a
+     draft the operator composes and then commits; a lead's status is a fact
+     about a phone call that already happened, and making somebody remember to
+     press Save after marking a job booked is how a list stops being trusted.
+     Each change writes immediately and says so. */
+
+  var LEAD_PAGE = 25;
+  var leadPage = 0;
+  var leadFilterVal = 'all';
+  var leadRowsCache = [];
+
+  var LEAD_STATUSES = ['new', 'contacted', 'booked', 'closed'];
+
+  function leadWhen(iso) {
+    var t = Date.parse(iso);
+    if (!t) return '';
+    var mins = Math.floor((Date.now() - t) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + 'm ago';
+    var hrs = Math.floor(mins / 60);
+    if (hrs < 24) return hrs + 'h ago';
+    var days = Math.floor(hrs / 24);
+    if (days === 1) return 'yesterday';
+    if (days < 7) return days + ' days ago';
+    return new Date(t).toLocaleDateString();
+  }
+
+  /* textContent everywhere below, never innerHTML: every value here was typed
+     by a stranger into a public form. */
+  function leadEl(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function leadKpis(rows) {
+    var box = $('leadKpis');
+    box.innerHTML = '';
+    if (!rows.length) { box.hidden = true; return; }
+    var counts = { new: 0, contacted: 0, booked: 0, closed: 0 };
+    rows.forEach(function (r) {
+      if (Object.prototype.hasOwnProperty.call(counts, r.status)) counts[r.status]++;
+    });
+    [['New', counts.new], ['Contacted', counts.contacted],
+     ['Booked', counts.booked], ['Total', rows.length]].forEach(function (pair) {
+      var chip = leadEl('div', 'lead-kpi');
+      chip.appendChild(leadEl('b', '', String(pair[1])));
+      chip.appendChild(leadEl('span', '', pair[0]));
+      box.appendChild(chip);
+    });
+    box.hidden = false;
+  }
+
+  function leadWriteStatus(id, patch, done) {
+    Promise.resolve(sb.from('sbv_leads').update(patch).eq('id', id))
+      .then(function (r) {
+        if (r && r.error) {
+          say('leadMsg', 'That did not save. ' + (r.error.message || ''), 'bad');
+          console.error('[admin] lead update:', r.error);
+          return;
+        }
+        say('leadMsg', 'Saved.', 'ok');
+        if (done) done();
+      })
+      .catch(function (e) {
+        say('leadMsg', 'That did not save.', 'bad');
+        console.error('[admin] lead update:', e);
+      });
+  }
+
+  function leadRow(r) {
+    var row = leadEl('div', 'lead-row');
+    var head = leadEl('div', 'lead-row__head');
+    head.setAttribute('role', 'button');
+    head.setAttribute('tabindex', '0');
+
+    head.appendChild(leadEl('div', 'lead-row__name', r.name || 'No name given'));
+    head.appendChild(leadEl('div', 'lead-row__meta', r.phone || r.email || ''));
+    head.appendChild(leadEl('div', 'lead-row__when', leadWhen(r.created_at)));
+
+    var badge = leadEl('span', 'lead-badge is-' + r.status, r.status);
+    var badgeWrap = leadEl('div');
+    badgeWrap.appendChild(badge);
+    head.appendChild(badgeWrap);
+
+    head.appendChild(leadEl('div', 'lead-row__note', r.note || '—'));
+
+    var del = leadEl('button', 'lead-del', '\u00d7');
+    del.type = 'button';
+    del.title = 'Remove from the list';
+    del.setAttribute('aria-label', 'Remove ' + (r.name || 'this lead') + ' from the list');
+    del.addEventListener('click', function (ev) {
+      ev.stopPropagation();
+      /* Soft delete. The row stays in the database — a lead is a record of
+         somebody who asked for work, and there is no undo button here yet. */
+      leadWriteStatus(r.id, { deleted_at: new Date().toISOString() }, loadLeads);
+    });
+    head.appendChild(del);
+
+    var body = leadEl('div', 'lead-body');
+    if (r.message) body.appendChild(leadEl('p', 'lead-body__msg', r.message));
+
+    var grid = leadEl('div', 'lead-body__row');
+
+    var statusLabel = leadEl('label');
+    statusLabel.appendChild(leadEl('span', '', 'Status'));
+    var sel = document.createElement('select');
+    LEAD_STATUSES.forEach(function (v) {
+      var o = document.createElement('option');
+      o.value = v;
+      o.textContent = v.charAt(0).toUpperCase() + v.slice(1);
+      sel.appendChild(o);
+    });
+    sel.value = r.status;
+    sel.addEventListener('change', function () {
+      leadWriteStatus(r.id, { status: sel.value }, function () {
+        badge.textContent = sel.value;
+        badge.className = 'lead-badge is-' + sel.value;
+        r.status = sel.value;
+        leadKpis(leadRowsCache);
+      });
+    });
+    statusLabel.appendChild(sel);
+    grid.appendChild(statusLabel);
+
+    var noteLabel = leadEl('label');
+    noteLabel.appendChild(leadEl('span', '', 'Note'));
+    var ta = document.createElement('textarea');
+    ta.rows = 2;
+    ta.maxLength = 2000;
+    ta.value = r.note || '';
+    /* Written on blur rather than per keystroke. */
+    ta.addEventListener('blur', function () {
+      var v = ta.value.trim();
+      if (v === (r.note || '')) return;
+      leadWriteStatus(r.id, { note: v || null }, function () {
+        r.note = v;
+        head.querySelector('.lead-row__note').textContent = v || '—';
+      });
+    });
+    noteLabel.appendChild(ta);
+    grid.appendChild(noteLabel);
+
+    body.appendChild(grid);
+
+    function toggle() { row.classList.toggle('is-open'); }
+    head.addEventListener('click', toggle);
+    head.addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); toggle(); }
+    });
+
+    row.appendChild(head);
+    row.appendChild(body);
+    return row;
+  }
+
+  function renderLeads(rows, total) {
+    var box = $('leadRows');
+    box.innerHTML = '';
+    rows.forEach(function (r) { box.appendChild(leadRow(r)); });
+
+    var empty = $('leadEmpty');
+    if (!rows.length) {
+      empty.textContent = leadFilterVal === 'all'
+        ? 'No leads yet. When someone fills out your booking form, they will appear here. You can also add one yourself with the button above.'
+        : 'No leads with that status.';
+      empty.hidden = false;
+    } else {
+      empty.hidden = true;
+    }
+
+    var pager = $('leadPager');
+    var pages = Math.ceil(total / LEAD_PAGE);
+    pager.hidden = pages <= 1;
+    $('leadPageLabel').textContent = 'Page ' + (leadPage + 1) + ' of ' + Math.max(pages, 1);
+    $('leadPrev').disabled = leadPage === 0;
+    $('leadNext').disabled = leadPage >= pages - 1;
+  }
+
+  function loadLeads() {
+    if (!clientId) return;
+    var q = sb.from('sbv_leads')
+      .select('*', { count: 'exact' })
+      .eq('client_id', clientId)
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false })
+      .range(leadPage * LEAD_PAGE, leadPage * LEAD_PAGE + LEAD_PAGE - 1);
+    if (leadFilterVal !== 'all') q = q.eq('status', leadFilterVal);
+
+    Promise.resolve(q).then(function (r) {
+      if (r && r.error) {
+        /* A missing table is the expected state until sql/LEADS.sql is run.
+           Say so plainly instead of showing a raw PostgREST error. */
+        var msg = (r.error.message || '');
+        say('leadMsg', /relation .* does not exist/i.test(msg)
+          ? 'Leads are not switched on for your site yet.'
+          : 'Could not load your leads. ' + msg, 'bad');
+        console.error('[admin] leads load:', r.error);
+        return;
+      }
+      leadRowsCache = r.data || [];
+      say('leadMsg', '');
+      renderLeads(leadRowsCache, typeof r.count === 'number' ? r.count : leadRowsCache.length);
+      leadKpis(leadRowsCache);
+    }).catch(function (e) {
+      say('leadMsg', 'Could not load your leads.', 'bad');
+      console.error('[admin] leads load:', e);
+    });
+  }
+
+  function wireLeads() {
+    $('leadFilter').addEventListener('change', function () {
+      leadFilterVal = $('leadFilter').value;
+      leadPage = 0;
+      loadLeads();
+    });
+    $('leadPrev').addEventListener('click', function () {
+      if (leadPage > 0) { leadPage--; loadLeads(); }
+    });
+    $('leadNext').addEventListener('click', function () { leadPage++; loadLeads(); });
+
+    $('leadAddBtn').addEventListener('click', function () {
+      var f = $('leadAddForm');
+      f.hidden = !f.hidden;
+      if (!f.hidden) $('leadNewName').focus();
+    });
+    $('leadCancelNew').addEventListener('click', function () {
+      $('leadAddForm').hidden = true;
+      say('leadMsg', '');
+    });
+
+    $('leadSaveNew').addEventListener('click', function () {
+      var phone = $('leadNewPhone').value.trim();
+      var email = $('leadNewEmail').value.trim();
+      /* Same rule as sbv_leads_contactable_ck, checked here so the operator
+         gets a sentence rather than a 23514. */
+      if (!phone && !email) {
+        say('leadMsg', 'Add a phone number or an email so you can follow this up.', 'bad');
+        return;
+      }
+      var btn = $('leadSaveNew');
+      btn.disabled = true;
+      /* Inserted directly under RLS, not through /api/submit-lead: that route
+         exists for unauthenticated visitors and runs on the service key. An
+         operator is already authenticated and sbv_leads has an INSERT policy
+         for exactly this. */
+      Promise.resolve(sb.from('sbv_leads').insert({
+        client_id: clientId,
+        name: $('leadNewName').value.trim() || null,
+        phone: phone || null,
+        email: email || null,
+        note: $('leadNewNote').value.trim() || null,
+        status: $('leadNewStatus').value,
+        source: 'manual',
+      })).then(function (r) {
+        btn.disabled = false;
+        if (r && r.error) {
+          say('leadMsg', 'That did not save. ' + (r.error.message || ''), 'bad');
+          console.error('[admin] lead insert:', r.error);
+          return;
+        }
+        ['leadNewName', 'leadNewPhone', 'leadNewEmail', 'leadNewNote'].forEach(function (id) {
+          $(id).value = '';
+        });
+        $('leadNewStatus').value = 'new';
+        $('leadAddForm').hidden = true;
+        leadPage = 0;
+        say('leadMsg', 'Lead added.', 'ok');
+        loadLeads();
+      }).catch(function (e) {
+        btn.disabled = false;
+        say('leadMsg', 'That did not save.', 'bad');
+        console.error('[admin] lead insert:', e);
+      });
+    });
   }
 
   function save() {
