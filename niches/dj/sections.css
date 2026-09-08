@@ -400,11 +400,14 @@ section{ position:relative; padding:clamp(72px,11vh,140px) 0 }
 .field{ display:flex; flex-direction:column; gap:7px }
 .field.full{ grid-column:1/-1 }
 .field label{ font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted) }
+/* background-COLOR, not the background shorthand: base.css draws the
+   select chevron with background-image, and a shorthand here silently
+   resets it, leaving the select with no affordance at all. */
 .field input, .field select, .field textarea{
-  background:var(--sheen-a04); border:1px solid var(--hair); border-radius:11px; padding:13px 15px;
+  background-color:var(--sheen-a04); border:1px solid var(--hair); border-radius:11px; padding:13px 15px;
   color:var(--ink); font-family:var(--body); font-size:15px; transition:border-color .2s, background .2s;
 }
-.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); background:var(--accent-a05) }
+.field input:focus, .field select:focus, .field textarea:focus{ outline:none; border-color:var(--accent); background-color:var(--accent-a05) }
 .field textarea{ resize:vertical; min-height:96px }
 .field select option{ background:var(--ground-2) }
 .book-submit{ grid-column:1/-1 }
