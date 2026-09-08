@@ -1,0 +1,410 @@
+<!-- garage-sale/sections.html — this niche's body markup.
+     The morning-light sibling of estate-sale (SITELAB_TEMPLATE.md §3.1):
+     same platform skeleton, opposite hour of day — cream sunrise ground,
+     sale-sticker orange, cardboard-sign and pennant motifs. Brand fictional.
+     Static copy below mirrors content.json (the no-JS fallback);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Sunup Garage Sales home">
+      <span class="brand__mark" role="img" aria-label="Sunup rising-sun mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="gs-grad-sun" cx=".5" cy=".42" r=".62">
+              <stop offset="0" stop-color="#FFD98A"/><stop offset=".55" stop-color="#FFAD42"/><stop offset="1" stop-color="#EF8A1F"/>
+            </radialGradient>
+            <linearGradient id="gs-grad-ray" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFAD42"/><stop offset="1" stop-color="#DD7708"/>
+            </linearGradient>
+          </defs>
+          <path d="M14 38a18 18 0 0 1 36 0Z" fill="url(#gs-grad-sun)"/>
+          <g stroke="url(#gs-grad-ray)" stroke-width="3.4" stroke-linecap="round">
+            <path d="M32 8v6"/><path d="M14.5 15.5 19 20"/><path d="M49.5 15.5 45 20"/>
+            <path d="M7 32h6"/><path d="M51 32h6"/>
+          </g>
+          <path d="M8 44h48" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M16 52h32" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Sunup</span><span id="brandLocale">Garage sales · Pocatello, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#fee">The fee</a>
+      <a class="link" href="#tips">Prep tips</a>
+      <a class="link" href="#reviews">Reviews</a>
+      <a class="link" href="#book">Walkthrough</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550158" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0158</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- morning dust motes in the low sun — pure CSS drift, transform/opacity only (gs-drift) -->
+  <div class="gs-motes" aria-hidden="true">
+    <span class="gs-mote"></span><span class="gs-mote"></span><span class="gs-mote"></span>
+    <span class="gs-mote"></span><span class="gs-mote"></span><span class="gs-mote"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Garage sales · Moving sales · Downsizing days</span></div>
+        <h1 id="heroTitle">You don't want a garage sale. You want the garage back.</h1>
+        <p class="hero__sub" id="heroSub">Sunup runs garage and moving sales across Pocatello and the Portneuf Valley. We sort, stage, price and sign everything, staff the whole sale day, and haul or donate whatever's left. You don't even have to be home.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free driveway walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how it works</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Free</b><span>Driveway walkthrough</span></div>
+          <div class="proof"><b>Staffed</b><span>Whole sale day</span></div>
+          <div class="proof"><b>Swept</b><span>Garage handed back</span></div>
+        </div>
+      </div>
+      <div class="hero__morning">
+        <!-- signature motif: a hand-lettered cardboard sale sign hanging on
+             twine, swaying in the morning air (gs-signsway in sections.css —
+             transform only, reduced-motion safe) -->
+        <div class="gs-sign" aria-hidden="true">
+          <svg viewBox="0 0 150 130" fill="none">
+            <defs>
+              <linearGradient id="gs-grad-card" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#D8B084"/><stop offset=".5" stop-color="#C79A6B"/><stop offset="1" stop-color="#B0824F"/>
+              </linearGradient>
+              <radialGradient id="gs-grad-doodle" cx=".5" cy=".5" r=".55">
+                <stop offset="0" stop-color="#FFD98A"/><stop offset="1" stop-color="#EF8A1F"/>
+              </radialGradient>
+            </defs>
+            <path d="M40 2 73 34M110 2 77 34" stroke="rgba(51,36,26,.4)" stroke-width="1.6"/>
+            <g transform="rotate(-3 75 78)">
+              <rect x="15" y="34" width="120" height="86" rx="6" fill="url(#gs-grad-card)"/>
+              <rect x="20.5" y="39.5" width="109" height="75" rx="3.5" stroke="rgba(51,36,26,.35)" stroke-width="1.6" stroke-dasharray="6 5"/>
+              <circle cx="75" cy="38" r="3" fill="#5C4326"/>
+              <text x="75" y="70" text-anchor="middle" font-family="'Bricolage Grotesque','Trebuchet MS',sans-serif" font-weight="800" font-size="23" letter-spacing="1.5" fill="#3B2A16">GARAGE</text>
+              <text x="63" y="98" text-anchor="middle" font-family="'Bricolage Grotesque','Trebuchet MS',sans-serif" font-weight="800" font-size="23" letter-spacing="1.5" fill="#3B2A16">SALE</text>
+              <circle cx="110" cy="91" r="10" fill="url(#gs-grad-doodle)"/>
+              <path d="M110 78v-4M110 108v-4M97 91h-4M127 91h-4M100.5 81.5l-2.6-2.6M122 103l-2.6-2.6M119.5 81.5l2.6-2.6M98 103l2.6-2.6" stroke="#DD7708" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="gs-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-sunup-clocks.jpg).
+             Credit: Beyzaa Yurtkuran, Pexels (photos/CREDITS.md). -->
+        <!-- COMPONENT:hero-photo -->
+      </div>
+    </div>
+  </div>
+  <!-- pennant string between the morning sky and the page -->
+  <div class="gs-bunting" aria-hidden="true">
+    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
+      <path d="M0 2h1200" stroke="rgba(51,36,26,.25)" stroke-width="2"/>
+      <path d="M20 2 50 30 80 2Z" fill="#EF8A1F"/><path d="M140 2l30 28 30-28Z" fill="#2F6DA8"/>
+      <path d="M260 2l30 28 30-28Z" fill="#FFAD42"/><path d="M380 2l30 28 30-28Z" fill="#1E7A48"/>
+      <path d="M500 2l30 28 30-28Z" fill="#EF8A1F"/><path d="M620 2l30 28 30-28Z" fill="#2F6DA8"/>
+      <path d="M740 2l30 28 30-28Z" fill="#FFAD42"/><path d="M860 2l30 28 30-28Z" fill="#1E7A48"/>
+      <path d="M980 2l30 28 30-28Z" fill="#EF8A1F"/><path d="M1100 2l30 28 30-28Z" fill="#2F6DA8"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18"/><path d="M5 9v10M19 9v10"/><path d="M3 9l2-4h14l2 4"/></svg>We bring the tables &amp; signs</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Staffed from early birds to close</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Cash &amp; card checkout</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Itemized settlement sheet</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="gs-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="gs-fl-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#EF8A1F" stop-opacity="0"/><stop offset=".5" stop-color="#DD7708"/><stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#gs-fl-a)" stroke-width="1.6"/>
+        <circle cx="80" cy="6" r="4" fill="url(#gs-fl-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Nobody actually wants to run a garage sale</h2>
+      <p class="about__body" id="aboutBody">The pricing decisions, the 6 a.m. start, the haggling, the pile of unsold stuff at 4 p.m. — that's the part people dread, and that's the part we take. We run the sale on your driveway, on your behalf: your things stay yours until a shopper pays for them, and everything ends with an itemized settlement sheet and an empty garage. One thing we'll never do is guess out loud what your sale will bring — nobody honestly can. What we promise is the work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From cluttered to swept in one weekend</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Sort &amp; stage</h3>
+        <p>We walk the garage with you and flag anything the family keeps. Then the crew sorts the rest into categories and stages the driveway — everything up on tables, best items nearest the street.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Price &amp; sign</h3>
+        <p>Every category gets priced to actually sell, small items get bundled, and our corner signs go up around the neighborhood the night before — big letters, driver height.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Sale day, staffed</h3>
+        <p>We work the sale from early birds to the last hour: greeting, haggling, cash and card checkout. You can watch from the kitchen window or leave town entirely.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Leftovers hauled or donated</h3>
+        <p>Whatever hasn't sold by close gets donated or hauled away by arrangement. You get the garage back swept, with an itemized settlement sheet of everything that sold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEE STRUCTURE (percentage model) ============ -->
+<section class="section fee" id="fee">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fee</span>
+      <h2 class="section-title">How the fee works</h2>
+      <svg class="gs-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="gs-fl-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#EF8A1F" stop-opacity="0"/><stop offset=".5" stop-color="#DD7708"/><stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#gs-fl-b)" stroke-width="1.6"/>
+        <circle cx="80" cy="6" r="4" fill="url(#gs-fl-b)"/>
+      </svg>
+    </div>
+
+    <!-- The sale-sticker card. commission + minimum are the percentage
+         model's two editable fields (admin PRICE_MODEL_FIELDS.percentage);
+         niche.js renders them from CONTENT.pricing — no invented figures. -->
+    <div class="fee__card reveal" id="feeCard">
+      <div class="fee__cols">
+        <div class="fee__col">
+          <span class="fee__label">Commission</span>
+          <div class="fee__sticker"><div class="fee__big" id="feeCommission">40%</div></div>
+          <span class="fee__sub">of what sells</span>
+        </div>
+        <div class="fee__rule" aria-hidden="true"></div>
+        <div class="fee__col">
+          <span class="fee__label">Sale minimum</span>
+          <div class="fee__tag"><div class="fee__big fee__big--min" id="feeMinimum">$200</div></div>
+          <span class="fee__sub">per sale</span>
+        </div>
+      </div>
+      <p class="fee__note" id="feeNote">One commission on what sells, agreed in writing before we book your date — nothing to pay up front.</p>
+      <div class="fee__cta">
+        <a class="btn" href="#book">Book a free driveway walkthrough</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREP TIPS ============ -->
+<section class="section tips" id="tips">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Prep tips</span>
+      <h2 class="section-title">How a good sale day gets set up</h2>
+      <p class="lead" style="margin:0 auto">Six things our crew does on every driveway — worth stealing even if you'd rather run your own.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.prepTips.
+         Every value lands via textContent (DOM-property sinks only). -->
+    <div class="tips__grid" id="tipsGrid">
+      <div class="tip reveal" data-delay="1">
+        <span class="tip__dot"></span>
+        <h3>Everything off the ground</h3>
+        <p>Items on the floor don't sell. We bring folding tables and raise everything to waist height — even a sheet of plywood on sawhorses outsells a tarp on the lawn.</p>
+      </div>
+      <div class="tip reveal" data-delay="2">
+        <span class="tip__dot"></span>
+        <h3>Best things face the street</h3>
+        <p>A driver decides in two seconds whether to stop. The furniture, tools and big pieces go nearest the curb, where they do the advertising for everything behind them.</p>
+      </div>
+      <div class="tip reveal" data-delay="3">
+        <span class="tip__dot"></span>
+        <h3>Make a walkway, not a wall</h3>
+        <p>Tables form a corridor shoppers walk through, so they end up seeing everything — a single line of tables across the driveway is a barricade, not a sale.</p>
+      </div>
+      <div class="tip reveal" data-delay="1">
+        <span class="tip__dot"></span>
+        <h3>Signs get four words</h3>
+        <p>A driver thirty feet away has time for about four big words and an arrow. Our signs go up on the corners the night before, at eye height for a driver — not knee height on a fence.</p>
+      </div>
+      <div class="tip reveal" data-delay="2">
+        <span class="tip__dot"></span>
+        <h3>Price by category, then bundle</h3>
+        <p>We sort first and price whole categories at once instead of agonizing item by item. Small stuff gets bundled — 'fill a bag' moves volume and saves hours of tagging.</p>
+      </div>
+      <div class="tip reveal" data-delay="3">
+        <span class="tip__dot"></span>
+        <h3>A markdown plan empties the garage</h3>
+        <p>The point of the last day is a clear garage, not a full one. We set the markdown schedule with you in advance, so the sale ends on purpose instead of fizzling out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="section-title">Word from the driveway</h2>
+    </div>
+    <!-- COMPONENT:reviews -->
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving the Portneuf Valley</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Pocatello &amp; the Portneuf Valley</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Pocatello</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Chubbuck</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Inkom</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>American Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>McCammon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Lava Hot Springs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free walkthrough</span>
+      <h2 class="section-title" style="margin:14px 0 14px" id="contactHeading">Get your Saturday back</h2>
+      <p class="lead" style="margin:0 auto" id="contactBody">Call or text and we'll set up a free driveway walkthrough — usually a weekday evening, about twenty minutes. We'll look at what you've got, explain the fee structure, and if it's a fit, put a sale date on the calendar in writing.</p>
+      <p class="cta__hours" id="contactHours">Walkthroughs weekday evenings · Sale days Friday &amp; Saturday, 8 AM – 4 PM</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550158" data-tel data-phone-text>(208) 555-0158</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the sale <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Pocatello" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred sale weekend</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What's in the garage? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. We're moving at the end of next month. A garage full of tools and camping gear, some furniture, lots of kid stuff. Hoping for a sale before the move."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walkthrough. Message &amp; data rates may apply.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Book my free walkthrough</button>
+        <a class="book__alt" href="sms:+12085550158?body=Hi%20Sunup%20Garage%20Sales!%20I%27d%20like%20to%20book%20a%20free%20driveway%20walkthrough." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — consider the driveway ours</h3>
+      <p id="doneMsg">We'll text you shortly to set up your free walkthrough.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who works your driveway</h2>
+        <div class="meet__desc" id="meetDesc">Ramona Pike has been the first car at Saturday-morning sales since she was tall enough to see over a card table. After years of running sales for moving neighbors and downsizing friends, she made it official — a small crew, a trailer full of folding tables, and one simple promise: you hand us the garage, and we hand it back empty. Ramona still prices every sale herself and works every sale day from the first early bird to the last box on the donation truck.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Sunup Garage Sales">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="gs-grad-sun2" cx=".5" cy=".42" r=".62">
+              <stop offset="0" stop-color="#FFD98A"/><stop offset=".55" stop-color="#FFAD42"/><stop offset="1" stop-color="#EF8A1F"/>
+            </radialGradient>
+          </defs>
+          <path d="M14 38a18 18 0 0 1 36 0Z" fill="url(#gs-grad-sun2)"/>
+          <g stroke="#DD7708" stroke-width="3.4" stroke-linecap="round">
+            <path d="M32 8v6"/><path d="M14.5 15.5 19 20"/><path d="M49.5 15.5 45 20"/>
+            <path d="M7 32h6"/><path d="M51 32h6"/>
+          </g>
+          <path d="M8 44h48" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M16 52h32" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </span>
+      <div><b data-brand>Sunup Garage Sales</b><span id="footTagline">Your garage back by Sunday night.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550158" data-tel data-phone-text>(208) 555-0158</a><br />
+      <span id="areaLine">Serving Pocatello &amp; the Portneuf Valley</span><br />
+      <!-- COMPONENT:footer-contact -->
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Sunup Garage Sales</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Sunup Garage Sales</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real garage-sale services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550158" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550158?body=Hi%20Sunup%20Garage%20Sales!%20I%27d%20like%20to%20book%20a%20free%20driveway%20walkthrough." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>

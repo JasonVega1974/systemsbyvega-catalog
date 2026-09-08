@@ -1,0 +1,47 @@
+/* garage-sale — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "sunup on the driveway" — the morning-light sibling of
+   estate-sale's parlor at dusk. Warm cream ground, sunrise-orange accent,
+   espresso ink, a sparing morning-sky blue. Contrast (WCAG, computed):
+   accent-ink on accent 6.80:1, on accent-2 9.23:1, on accent-deep 5.48:1;
+   ink on ground 13.93:1, on white card 14.91:1; ink-dim on ground 7.58:1;
+   muted on ground 5.03:1; accent-text on ground 5.14:1. */
+:root{
+  --scheme: light;
+  --ground-deep:  #FFEED6;   /* the warm low glow at the page's foot */
+  --ground:       #FFF6E9;   /* cream morning light */
+  --ground-2:     #FFFBF2;   /* near-white sky at the top */
+  --panel:        #FFEFDA;
+  --panel-2:      #FFFFFF;
+  --accent:       #EF8A1F;   /* sunrise orange — the sale-sticker accent */
+  --accent-2:     #FFAD42;   /* high sun highlight */
+  --accent-deep:  #DD7708;   /* late-golden shadow (gradient end) */
+  --accent-text:  #A8500A;   /* orange dark enough to READ on cream */
+  --accent-alt:   #2F6DA8;   /* morning-sky blue, used sparingly */
+  --accent-ink:   #2E1503;   /* type on orange */
+  --ink:          #33241A;   /* warm espresso */
+  --ink-bright:   #241609;
+  --ink-dim:      #5F4C3C;
+  --ink-max:      #1C0F05;
+  --muted:        #7A6754;
+  --hair:         rgba(51,36,26,.14);
+  --hair-accent:  rgba(239,138,31,.28);
+  --card:         rgba(255,255,255,.82);
+  --card-solid:   #FFFFFF;
+  --card-brd:     rgba(51,36,26,.10);
+  --shadow:       0 24px 55px -24px rgba(140,75,10,.30);
+  --maxw:         1140px;
+
+  --sheen-hi:     #6B4A28;
+  --sheen-lo:     #33241A;
+  --sheen-accent: var(--accent);
+  --placeholder: #7A6754;
+  --ok:           #1E7A48;
+  --ok-ink:       #1E7A48;
+  --err:          #B23A34;
+  --err-ink:      #8F2B26;
+
+  --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  --body:    'Public Sans', system-ui, -apple-system, sans-serif;
+  --mono:    ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}

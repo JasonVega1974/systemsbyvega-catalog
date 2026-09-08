@@ -202,7 +202,7 @@ body::after{
 }
 
 /* ---------- what-sells: the pricing ledger ---------- */
-.ws__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto}
+.ws__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto;align-items:start}
 @media(max-width:860px){.ws__grid{grid-template-columns:1fr;max-width:620px}}
 .ws-group{
   background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
@@ -279,3 +279,7 @@ body::after{
   .mm-mote{opacity:0}
   .hero__estate .hero-photo-cmp img{animation:none}
 }
+
+/* the build-injected consent line's privacy link must read as a link
+   (base.css strips all anchor affordances globally) */
+.consent a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}

@@ -1,0 +1,50 @@
+{
+  "v": 1,
+  "theme": {
+    "ground": "#FFF6E9",
+    "surface": "#FFEFDA",
+    "card": "#FFFFFF",
+    "accent": "#EF8A1F",
+    "accentBright": "#FFAD42",
+    "text": "#33241A",
+    "textSoft": "#6D5847",
+    "ok": "#1E7A48",
+    "bad": "#B23A34",
+    "onAccent": "#2E1503",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap",
+    "display": "'Bricolage Grotesque',sans-serif",
+    "label": "ui-monospace,'Cascadia Mono',Consolas,monospace",
+    "body": "'Public Sans',sans-serif",
+    "logo": ""
+  },
+  "photoSlots": [
+    "logo",
+    "hero",
+    "owner"
+  ],
+  "sections": {
+    "pricing": true,
+    "beforeAfter": false,
+    "jobDetails": false,
+    "reviews": true,
+    "social": true,
+    "footerContact": true,
+    "ownerBlock": true
+  },
+  "pricing": {
+    "model": "percentage",
+    "editableFields": [
+      "commission",
+      "minimum"
+    ],
+    "mergePath": "pricing"
+  },
+  "merge": {
+    "beforeAfter": "none",
+    "reviews": "testimonials",
+    "ownerShape": "owner"
+  },
+  "heroDefault": "/sites/garage-sale/photos/hero-sunup-clocks.jpg",
+  "heroAlt": "A table of vintage alarm clocks and brass odds and ends on a striped cloth, lit by low morning sun",
+  "heroWired": true
+}

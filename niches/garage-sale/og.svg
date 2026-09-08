@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Sunup Garage Sales — Your garage back by Sunday night.">
+  <title>Sunup Garage Sales</title>
+  <defs>
+    <linearGradient id="garage-sale-og-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFBF2"/>
+      <stop offset="0.55" stop-color="#FFF6E9"/>
+      <stop offset="1" stop-color="#FFEED6"/>
+    </linearGradient>
+    <radialGradient id="garage-sale-og-glow" cx="0.86" cy="-0.08" r="0.75">
+      <stop offset="0" stop-color="#EF8A1F" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="garage-sale-og-glow2" cx="0.04" cy="1.05" r="0.6">
+      <stop offset="0" stop-color="#EF8A1F" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#garage-sale-og-ground)"/>
+  <rect width="1200" height="630" fill="url(#garage-sale-og-glow)"/>
+  <rect width="1200" height="630" fill="url(#garage-sale-og-glow2)"/>
+
+  <!-- accent spine, left edge -->
+  <rect x="0" y="0" width="10" height="630" fill="#EF8A1F"/>
+
+  <!-- eyebrow: where they work -->
+  <text x="90" y="140" font-family="ui-monospace, ui-monospace, monospace" font-size="21"
+        letter-spacing="4.6" fill="#7A6754">POCATELLO &amp; THE PORTNEUF VALLEY</text>
+
+  <!-- headline: the business -->
+  <text x="90" y="330" font-family="Bricolage Grotesque, Georgia, serif" font-size="96" font-weight="800" fill="#33241A">Sunup Garage Sales</text>
+
+  <!-- accent rule -->
+  <rect x="90" y="374" width="132" height="7" fill="#EF8A1F"/>
+
+  <!-- tagline -->
+  <text x="90" y="446" font-family="Public Sans, system-ui, sans-serif" font-size="34" fill="#5F4C3C">Your garage back by Sunday night.</text>
+
+  <!-- footer rule -->
+  <rect x="90" y="536" width="1020" height="1" fill="#33241A" opacity="0.16"/>
+
+  <!-- wordmark -->
+  <circle cx="97" cy="577" r="7" fill="#EF8A1F"/>
+  <text x="116" y="584" font-family="ui-monospace, ui-monospace, monospace" font-size="20"
+        letter-spacing="3.4" fill="#7A6754">SYSTEMS BY VEGA</text>
+
+  
+</svg>
