@@ -12,3 +12,6 @@ node_modules/
 # them; a bare numeric PNG in the repo root is one that escaped a scratch dir,
 # and `git add -A` would otherwise commit megabytes of it.
 /[0-9]*.png
+
+# Supabase CLI local link state — machine-specific, not shared config.
+supabase/.temp/

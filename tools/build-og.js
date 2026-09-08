@@ -102,6 +102,16 @@ function card(slug) {
   const mono = firstFamily(T['--mono']) || 'monospace';
   const body = firstFamily(T['--body']) || 'sans-serif';
 
+  /* An unquoted CSS font family must be a sequence of identifiers, and an
+     identifier cannot start with a digit. "Source Sans 3" and "Baloo 2" are
+     therefore INVALID unquoted, and the browser drops the whole font-family
+     declaration rather than just that name — the card silently rasterised in
+     Times New Roman. Quote only what actually needs it, so every niche whose
+     families are already valid regenerates byte-identically. Single quotes,
+     because this lands inside a double-quoted SVG attribute. */
+  const needsQuotes = (n) => !/^[A-Za-z_-][\w-]*(?:\s+[A-Za-z_-][\w-]*)*$/.test(String(n).trim());
+  const fam = (n) => (needsQuotes(n) ? "'" + String(n).replace(/'/g, '') + "'" : n);
+
   const brand = (c.brand || {}).name || slug;
   const tagline = (c.brand || {}).tagline || '';
   const area = (c.serviceArea || {}).region || (c.brand || {}).city || '';
@@ -117,6 +127,15 @@ function card(slug) {
   const nameY = nameLines.length > 1 ? 300 : 330;
 
   const tagLines = wrap(tagline, 46, 2);
+
+  /* The footer rule used to sit at a fixed y=536 while everything above it
+     flows from the headline's height, so a two-line brand name AND a two-line
+     tagline put the second tagline baseline at 544.68 — the rule struck it
+     through. Follow the content instead, with 536 as a floor so every
+     shorter combination renders byte-identically, and a 564 ceiling so the
+     rule never reaches the wordmark circle (top edge y=570). */
+  const tagBottom = nameY + (nameLines.length - 1) * lead + 116 + (tagLines.length - 1) * 46;
+  const footerY = Math.min(564, Math.max(536, Math.round(tagBottom + 18)));
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="${esc(brand)} — ${esc(tagline)}">
   <title>${esc(brand)}</title>
@@ -144,27 +163,27 @@ function card(slug) {
   <rect x="0" y="0" width="10" height="630" fill="${accent}"/>
 
   <!-- eyebrow: where they work -->
-  <text x="90" y="140" font-family="${mono}, ui-monospace, monospace" font-size="21"
+  <text x="90" y="140" font-family="${fam(mono)}, ui-monospace, monospace" font-size="21"
         letter-spacing="4.6" fill="${muted}">${esc(area.toUpperCase())}</text>
 
   <!-- headline: the business -->
-  ${nameLines.map((l, i) => `<text x="90" y="${nameY + i * lead}" font-family="${display}, Georgia, serif" font-size="${size}" font-weight="800" fill="${ink}">${esc(l)}</text>`).join('\n  ')}
+  ${nameLines.map((l, i) => `<text x="90" y="${nameY + i * lead}" font-family="${fam(display)}, Georgia, serif" font-size="${size}" font-weight="800" fill="${ink}">${esc(l)}</text>`).join('\n  ')}
 
   <!-- accent rule -->
   <rect x="90" y="${nameY + (nameLines.length - 1) * lead + 44}" width="132" height="7" fill="${accent}"/>
 
   <!-- tagline -->
-  ${tagLines.map((l, i) => `<text x="90" y="${nameY + (nameLines.length - 1) * lead + 116 + i * 46}" font-family="${body}, system-ui, sans-serif" font-size="34" fill="${inkDim}">${esc(l)}</text>`).join('\n  ')}
+  ${tagLines.map((l, i) => `<text x="90" y="${nameY + (nameLines.length - 1) * lead + 116 + i * 46}" font-family="${fam(body)}, system-ui, sans-serif" font-size="34" fill="${inkDim}">${esc(l)}</text>`).join('\n  ')}
 
   <!-- footer rule -->
-  <rect x="90" y="536" width="1020" height="1" fill="${ink}" opacity="0.16"/>
+  <rect x="90" y="${footerY}" width="1020" height="1" fill="${ink}" opacity="0.16"/>
 
   <!-- wordmark -->
   <circle cx="97" cy="577" r="7" fill="${accent}"/>
-  <text x="116" y="584" font-family="${mono}, ui-monospace, monospace" font-size="20"
+  <text x="116" y="584" font-family="${fam(mono)}, ui-monospace, monospace" font-size="20"
         letter-spacing="3.4" fill="${muted}">SYSTEMS BY VEGA</text>
 
-  ${price ? `<text x="1110" y="584" text-anchor="end" font-family="${mono}, ui-monospace, monospace" font-size="20"
+  ${price ? `<text x="1110" y="584" text-anchor="end" font-family="${fam(mono)}, ui-monospace, monospace" font-size="20"
         letter-spacing="1.6" fill="${accent}">${esc(price)}</text>` : ''}
 </svg>
 `;

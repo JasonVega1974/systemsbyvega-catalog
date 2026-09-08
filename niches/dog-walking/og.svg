@@ -28,8 +28,8 @@
         letter-spacing="4.6" fill="#5A6B7B">TREASURE VALLEY, IDAHO</text>
 
   <!-- headline: the business -->
-  <text x="90" y="300" font-family="Baloo 2, Georgia, serif" font-size="78" font-weight="800" fill="#22364A">Bluebird &amp; Biscuit Pet</text>
-  <text x="90" y="382.68" font-family="Baloo 2, Georgia, serif" font-size="78" font-weight="800" fill="#22364A">Care</text>
+  <text x="90" y="300" font-family="'Baloo 2', Georgia, serif" font-size="78" font-weight="800" fill="#22364A">Bluebird &amp; Biscuit Pet</text>
+  <text x="90" y="382.68" font-family="'Baloo 2', Georgia, serif" font-size="78" font-weight="800" fill="#22364A">Care</text>
 
   <!-- accent rule -->
   <rect x="90" y="426.68" width="132" height="7" fill="#3B9AE1"/>

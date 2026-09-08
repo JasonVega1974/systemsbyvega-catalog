@@ -34,7 +34,7 @@
   <rect x="90" y="374" width="132" height="7" fill="#B3271E"/>
 
   <!-- tagline -->
-  <text x="90" y="446" font-family="Source Sans 3, system-ui, sans-serif" font-size="34" fill="#6E6152">Fixed right. Explained first.</text>
+  <text x="90" y="446" font-family="'Source Sans 3', system-ui, sans-serif" font-size="34" fill="#6E6152">Fixed right. Explained first.</text>
 
   <!-- footer rule -->
   <rect x="90" y="536" width="1020" height="1" fill="#2A2118" opacity="0.16"/>
