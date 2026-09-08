@@ -171,5 +171,27 @@ a cosmetic variant of their own niche that restriction is arguable.
 
 ---
 
+## PAUSED 2026-09-08 — where this stands
+
+Jason went offline here. Work resumed under a third brief in the meantime, so
+the live position is split across two ledgers:
+
+- **This file** — platform legal pages (done), operator legal pages (done), dj
+  themed routing (done).
+- **`2026-09-07-leads-crm-progress.md`** — the Leads CRM. `sql/LEADS.sql` is
+  written, verified and **already applied**; `api/submit-lead.mjs` is the next
+  thing to write. That file also carries the resume point for the two items
+  below.
+
+Two things Jason agreed on 2026-09-08 that are queued and NOT started:
+
+1. **DJ theme selector in the admin — option B**, chosen explicitly over
+   capturing the choice at checkout. Requirements are listed in the leads
+   ledger.
+2. **Guides + mini-course content for all 32 niches** — step 3 below, still
+   not started.
+
+---
+
 ## Step 3 — per-niche guides · NOT STARTED
 
