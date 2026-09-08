@@ -472,8 +472,20 @@ function applyOperator(base, op, manifest) {
   if (op.job_details && typeof op.job_details === 'object') out.jobDetails = op.job_details;
 
   /* brand.city is a single display string in the template — "Meridian, ID". */
-  if (op.city && op.state_code) out.brand.city = op.city + ', ' + op.state_code;
-  else set(out.brand, 'city', op.city);
+  /* estate-sale/garage-sale carry a SPLIT brand.city + brand.state and
+     compose the pair themselves (niche.js locale, marketing-kit cityState).
+     Writing the combined string into brand.city there would render
+     "Boise, ID, ID" on the site AND the kit — so a niche whose defaults
+     declare brand.state gets the split write; everyone else keeps the
+     combined form their pages were built around. */
+  if (base.brand && base.brand.state) {
+    set(out.brand, 'city',  op.city);
+    set(out.brand, 'state', op.state_code);
+  } else if (op.city && op.state_code) {
+    out.brand.city = op.city + ', ' + op.state_code;
+  } else {
+    set(out.brand, 'city', op.city);
+  }
 
   if (ownerShape !== 'none') {
     set(out.owner, 'name', op.owner_name);
