@@ -185,3 +185,30 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
   vs 20-char operator cap edge.
 - Next: Phase C (estate-sale — validates percentage pricing — then
   garage-sale), Phase D turnkey verification table, final platform review.
+- PHASE C COMPLETE AND LIVE (5c6845d..947988d, 9 commits). Two new niches at
+  full platform standard, built and LIVE-BUT-UNLISTED: /sites/estate-sale/
+  ("Magpie & Mantel Estate Sales", Twin Falls — parlor-at-dusk design, the
+  percentage pricing model's flagship: settlement-sheet fee card, what-sells
+  ledger with an explicit no-promise disclaimer) and /sites/garage-sale/
+  ("Sunup Garage Sales", Pocatello — morning-light sibling; percentage per
+  the GSB source's own commission teaching, overriding the plan's quote
+  lean). Percentage model proven END TO END on both: admin editor -> live
+  sbv_prices_valid (true) -> merge round-trip -> site render -> kit
+  headline ("35%"/"40%") with zero unresolved tokens. Compliance reviewed
+  per-string on both (the family's most claim-prone niches): zero income
+  claims, explicit anti-claim sentences, empty testimonials, fictional
+  brands web-collision-checked. C8 opus gate caught+fixed a MAJOR before
+  push: operator city saves on the split-state niches would have rendered
+  "Boise, ID, ID" on site and kit. Bonus platform fix: the template's
+  empty-owner-bio placeholder leaked "Sawtooth Dumpster Co." onto all 29
+  pages — neutralized.
+- CATALOG EXPOSURE AWAITS JASON'S EXPLICIT GO (the phase's defining ruling:
+  building is in scope, flipping purchasable touches catalog/Stripe stop
+  conditions). Both demos are reviewable at their direct URLs now; the flip
+  is genuinely a one-line follow-up once given.
+- New platform tickets from C8 residuals: favicon gap (16/29 pages ship
+  href="" — worse than absent); owner-photo caption contrast (template twin
+  of a C6 fix, 7 niches); *.vercel.app previews carry no noindex
+  (header-side fix only — never bake meta); dj needs --theme in sweep
+  scripts.
+- Next: Phase D turnkey verification table + final whole-platform review.
