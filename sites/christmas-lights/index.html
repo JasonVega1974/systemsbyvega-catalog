@@ -545,10 +545,18 @@ body::after{
   font-family:var(--display);font-weight:700;text-transform:none;
   letter-spacing:-.005em;font-size:1.06rem;color:var(--ink-bright);
 }
-.brand__name span{font-family:var(--mono);color:var(--muted);letter-spacing:.14em;font-size:.56rem}
+/* base.css styles EVERY span inside .brand__name as the small mono sub-line,
+   so an unscoped rule here flattens the business name into the locale caption
+   AND hides the name with it at 600px. Address the two children separately. */
+.brand__name [data-brand-short]{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.005em;font-size:1.06rem;color:var(--ink-bright);line-height:1.05;
+}
+.brand__name #brandLocale{font-family:var(--mono);color:var(--muted);letter-spacing:.14em;font-size:.56rem}
 /* below this the locale sub-line wraps onto three lines and crowds the call
-   button; the city is on the page in four other places, so it goes */
-@media(max-width:600px){.brand__name span{display:none}.brand__name{font-size:1rem}}
+   button; the city is on the page in four other places, so it goes. The
+   business name stays. */
+@media(max-width:600px){.brand__name #brandLocale{display:none}.brand__name [data-brand-short]{font-size:1rem}}
 .nav__links a.link{color:var(--ink);opacity:.86;font-family:var(--mono);letter-spacing:.08em}
 .nav__links a.link:hover{opacity:1;color:var(--accent-2)}
 .nav__call{
@@ -1286,7 +1294,7 @@ body::after{
         <ul class="tier__features">
           <li>Walked and measured with you before a quote is written</li>
           <li>Scheduled outside your business hours</li>
-          <li>Certificate of insurance sent to your property manager</li>
+          <li>Ask us &mdash; and every other bidder &mdash; for a current certificate of insurance</li>
           <li>Multi-year pricing held when the same design comes back</li>
         </ul>
         <a class="btn btn--ghost" href="#book">Get this quote</a>
@@ -1368,7 +1376,7 @@ body::after{
     <div class="faq-list" id="faqList">
       <details class="faq reveal">
         <summary>When do you book up?<span class="plus" aria-hidden="true">+</span></summary>
-        <div class="faq__body">Installs run from the first week of November until the week before Christmas, and the calendar is usually full by mid-November. Booking in September or October gets you a date you actually want.</div>
+        <div class="faq__body">Installs run from the first week of November until the week before Christmas. Booking in September or October gets you a date you actually want.</div>
       </details>
       <details class="faq reveal">
         <summary>Whose lights are they?<span class="plus" aria-hidden="true">+</span></summary>
@@ -1606,7 +1614,7 @@ var DEFAULT_CONTENT = {
       "features": [
         "Walked and measured with you before a quote is written",
         "Scheduled outside your business hours",
-        "Certificate of insurance sent to your property manager",
+        "Ask us — and every other bidder — for a current certificate of insurance",
         "Multi-year pricing held when the same design comes back"
       ]
     }
@@ -1689,7 +1697,7 @@ var DEFAULT_CONTENT = {
     "faq": [
       {
         "q": "When do you book up?",
-        "a": "Installs run from the first week of November until the week before Christmas, and the calendar is usually full by mid-November. Booking in September or October gets you a date you actually want."
+        "a": "Installs run from the first week of November until the week before Christmas. Booking in September or October gets you a date you actually want."
       },
       {
         "q": "Whose lights are they?",

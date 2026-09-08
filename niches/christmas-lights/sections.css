@@ -60,10 +60,18 @@ body::after{
   font-family:var(--display);font-weight:700;text-transform:none;
   letter-spacing:-.005em;font-size:1.06rem;color:var(--ink-bright);
 }
-.brand__name span{font-family:var(--mono);color:var(--muted);letter-spacing:.14em;font-size:.56rem}
+/* base.css styles EVERY span inside .brand__name as the small mono sub-line,
+   so an unscoped rule here flattens the business name into the locale caption
+   AND hides the name with it at 600px. Address the two children separately. */
+.brand__name [data-brand-short]{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.005em;font-size:1.06rem;color:var(--ink-bright);line-height:1.05;
+}
+.brand__name #brandLocale{font-family:var(--mono);color:var(--muted);letter-spacing:.14em;font-size:.56rem}
 /* below this the locale sub-line wraps onto three lines and crowds the call
-   button; the city is on the page in four other places, so it goes */
-@media(max-width:600px){.brand__name span{display:none}.brand__name{font-size:1rem}}
+   button; the city is on the page in four other places, so it goes. The
+   business name stays. */
+@media(max-width:600px){.brand__name #brandLocale{display:none}.brand__name [data-brand-short]{font-size:1rem}}
 .nav__links a.link{color:var(--ink);opacity:.86;font-family:var(--mono);letter-spacing:.08em}
 .nav__links a.link:hover{opacity:1;color:var(--accent-2)}
 .nav__call{

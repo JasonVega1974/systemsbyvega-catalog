@@ -89,6 +89,7 @@
     var f = R.figures(state.niches);
     set('lg-total', f.total);
     set('lg-open', f.open);
+    set('lg-sites', f.sites);
     set('lg-per-city', f.perCity);
     var t = el('thesis-open');
     if (t) t.textContent = R.thesisOpen(f.open);
