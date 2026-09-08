@@ -449,6 +449,71 @@ fs.writeFileSync(path.join(OUT, 'content.json'), contentRaw, 'utf8');
    both places: from /sites/<slug>/terms.html it resolves to the niche's own
    content.json, and from a tenant's /terms it resolves to /content.json,
    which middleware sends on to the operator endpoint. */
+
+/* -- the operator's own how-to guide ---------------------------------------
+   niches/<slug>/guide.html is the BODY only: six <section class="gd-sec">
+   blocks with the ids the shell's contents rail links to. The shell, the CSS
+   and the niche's palette are added here.
+
+   Built only when the niche actually has one, so the guides can land niche by
+   niche without breaking the 20-odd builds that do not have one yet.
+
+   Not linked from the storefront, by design: it is reached from the admin and
+   from a direct URL. middleware.js serves it at <tenant>.systemsbyvega.com/guide. */
+const GUIDE_SRC = path.join(TPL, 'guide');
+const nicheGuide = path.join(SRC, 'guide.html');
+if (fs.existsSync(GUIDE_SRC) && fs.existsSync(nicheGuide)) {
+  const gTheme = (manifest && manifest.theme) || {};
+  const gBrand = content.brand || {};
+  const guideBody = read(nicheGuide);
+
+  /* The six ids the shell's contents rail points at. A guide missing one would
+     render a dead link in the rail, which is the kind of thing nobody notices
+     until an operator does. */
+  const wantIds = ['start', 'pricing', 'finding', 'running', 'site', 'legal'];
+  const missing = wantIds.filter((id) => !guideBody.includes('id="' + id + '"'));
+  if (missing.length) {
+    console.error(slug + '/guide.html is missing section id(s): ' + missing.join(', '));
+    process.exit(1);
+  }
+
+  const guideSubs = {
+    GUIDE_BODY:       guideBody,
+    GUIDE_CSS:        read(path.join(GUIDE_SRC, 'guide.css')).trim(),
+    GUIDE_FONTS:      seo.fontsHref
+                        ? '<link rel="stylesheet" href="' + seo.fontsHref + '">' : '',
+    GUIDE_LEDE:       'Everything here is about the work itself: what to do first, what to '
+                      + 'charge, where the customers actually are, and how to use the site '
+                      + 'you now own.',
+    NICHE_LABEL:      slug.replace(/-/g, ' '),
+    BRAND_NAME:       gBrand.name || '',
+    SEO_THEME_COLOR:  seo.themeColor || gTheme.ground || '#ffffff',
+    SEO_FAVICON:      seo.favicon || '',
+    THEME_GROUND:     gTheme.ground    || '#ffffff',
+    THEME_SURFACE:    gTheme.surface   || '#f3f4f6',
+    THEME_TEXT:       gTheme.text      || '#111827',
+    THEME_TEXT_SOFT:  gTheme.textSoft  || '#4b5563',
+    THEME_ACCENT:     gTheme.accent    || '#1f4e79',
+    THEME_ON_ACCENT:  gTheme.onAccent  || '#ffffff',
+    THEME_DISPLAY:    gTheme.display   || 'Georgia, serif',
+    THEME_BODY:       gTheme.body      || 'system-ui, sans-serif',
+    THEME_MONO:       gTheme.label     || 'ui-monospace, monospace',
+  };
+  let guidePage = read(path.join(GUIDE_SRC, 'shell.html'));
+  /* split/join for the same $-in-replacement reason as the shell above. */
+  for (const [k, v] of Object.entries(guideSubs)) {
+    guidePage = guidePage.split('{{' + k + '}}').join(v == null ? '' : String(v));
+  }
+  const gStray = guidePage.match(/\{\{[A-Z_]+\}\}/g);
+  if (gStray) {
+    console.error('guide.html unresolved placeholders: '
+      + [...new Set(gStray)].join(', '));
+    process.exit(1);
+  }
+  fs.writeFileSync(path.join(OUT, 'guide.html'), guidePage, 'utf8');
+  console.log('  ' + path.relative(REPO, OUT).replace(/\\/g, '/') + '/guide.html');
+}
+
 const LEGAL_SRC = path.join(TPL, 'legal');
 if (fs.existsSync(LEGAL_SRC)) {
   const legalShell = read(path.join(LEGAL_SRC, 'shell.html'));

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — {{BRAND_NAME}}</title>
+<meta name="description" content="Getting started guide for the owner of {{BRAND_NAME}}.">
+<meta name="theme-color" content="{{SEO_THEME_COLOR}}">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="{{SEO_FAVICON}}">
+{{GUIDE_FONTS}}
+<style>
+:root{
+  --gd-ground:{{THEME_GROUND}};
+  --gd-sunk:{{THEME_SURFACE}};
+  --gd-line:{{THEME_SURFACE}};
+  --gd-line:color-mix(in srgb, {{THEME_TEXT}} 18%, transparent);
+  --gd-ink:{{THEME_TEXT}};
+  --gd-soft:{{THEME_TEXT_SOFT}};
+  --gd-dim:{{THEME_TEXT_SOFT}};
+  --gd-dim:color-mix(in srgb, {{THEME_TEXT_SOFT}} 78%, transparent);
+  --gd-accent:{{THEME_ACCENT}};
+  --gd-on-accent:{{THEME_ON_ACCENT}};
+  --gd-display:{{THEME_DISPLAY}};
+  --gd-body:{{THEME_BODY}};
+  --gd-mono:{{THEME_MONO}};
+}
+{{GUIDE_CSS}}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">{{NICHE_LABEL}} &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">{{GUIDE_LEDE}}</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      {{GUIDE_BODY}}
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

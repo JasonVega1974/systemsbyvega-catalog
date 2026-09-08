@@ -27,7 +27,8 @@ import { next, rewrite } from '@vercel/functions';
 import { THEMED_NICHES } from './assets/data/themes.mjs';
 
 export const config = { matcher: ['/', '/content.json', '/terms', '/terms/', '/terms.html',
-                                 '/privacy', '/privacy/', '/privacy.html'] };
+                                 '/privacy', '/privacy/', '/privacy.html',
+                                 '/guide', '/guide/', '/guide.html'] };
 
 const APEX = 'systemsbyvega.com';
 
@@ -236,7 +237,7 @@ export default async function middleware(request) {
      all. Normalise BOTH decorations, and leave '/' alone so stripping does
      not turn the storefront path into an empty string. */
   const legal = path === '/' ? '/' : path.replace(/\/+$/, '').replace(/\.html$/, '');
-  if (legal === '/terms' || legal === '/privacy') {
+  if (legal === '/terms' || legal === '/privacy' || legal === '/guide') {
     return rewrite(new URL('/sites/' + niche + themeSegment(niche, theme)
                            + legal + '.html', request.url), {
       headers: {
