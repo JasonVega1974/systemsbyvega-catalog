@@ -24,6 +24,7 @@
    as an Edge Function and is unaffected either way.
    ========================================================================== */
 import { next, rewrite } from '@vercel/functions';
+import { THEMED_NICHES } from './assets/data/themes.mjs';
 
 export const config = { matcher: ['/', '/content.json', '/terms', '/terms.html', '/privacy', '/privacy.html'] };
 
@@ -50,6 +51,31 @@ const LABEL = /^[a-z0-9]+(-[a-z0-9]+)*$/;
    home-page visit costs one cache slot and one 1.5s budget, not two. */
 const TTL_MS = 60000;
 const cache = new Map();
+
+
+/* -- theme resolution --------------------------------------------------------
+   A themed niche has no storefront at sites/<slug>/ -- dj's is a hand-authored
+   theme picker -- so a tenant has to be routed to sites/<slug>/<theme>/ or
+   they get the picker, and their /terms and /privacy 404 because only the
+   themed directories carry those files.
+
+   THEMED_NICHES is generated from the niches/<slug>/themes/ directories by
+   tools/build-manifest-index.js, so it is the same list the build itself uses.
+   It is a WHITELIST, not a hint: the value comes from the database and is
+   pasted into a filesystem path, so anything not in the list is discarded
+   rather than sanitised. The column's CHECK in sql/DJ-THEME.sql already bars
+   slashes and dots; this is the second of the two locks, and the one that
+   matters if the first is ever loosened.
+
+   An unthemed niche returns '' and every existing route is byte-identical to
+   before. A themed niche with no recorded theme falls back rather than 404s,
+   so a tenant provisioned before the column existed still gets a working
+   site. */
+function themeSegment(niche, theme) {
+  const spec = THEMED_NICHES[niche];
+  if (!spec) return '';
+  return '/' + (spec.themes.includes(theme) ? theme : spec.fallback);
+}
 
 async function nicheFor(label) {
   const hit = cache.get(label);
@@ -83,7 +109,7 @@ async function nicheFor(label) {
       fetch(
         SUPABASE_URL + '/rest/v1/rpc/sbv_public_tenants'
           + '?client_id=eq.' + encodeURIComponent(label)
-          + '&select=niche_slug&limit=1',
+          + '&select=niche_slug,theme&limit=1',
         { headers: authHeaders, signal: stop.signal }
       ),
       fetch(
@@ -98,10 +124,14 @@ async function nicheFor(label) {
        through to the funnel and the NEXT request gets a fresh try rather than
        being stuck behind a bad cache entry. This is the routing-critical
        answer — nothing here should make it worse than before this task. */
-    if (nicheRes.status !== 'fulfilled' || !nicheRes.value.ok) return { niche: null, hasContent: false };
+    if (nicheRes.status !== 'fulfilled' || !nicheRes.value.ok)
+      return { niche: null, theme: null, hasContent: false };
 
     const rows = await nicheRes.value.json();
     const niche = (Array.isArray(rows) && rows.length) ? rows[0].niche_slug : null;
+    /* Validated against the generated whitelist at use, not here — this is
+       just the raw column. */
+    const theme = (Array.isArray(rows) && rows.length) ? rows[0].theme : null;
 
     /* hasContent fails CLOSED, on purpose, and independently of the niche
        result above: any missing function, timeout, non-2xx, or malformed body
@@ -120,14 +150,15 @@ async function nicheFor(label) {
        mistyped hostname the most expensive traffic on the site. Same logic
        covers hasContent: a transient failure is cached as noindex for one TTL
        window rather than retried on every request. */
-    const result = { niche: niche, hasContent: hasContent };
-    cache.set(label, { niche: result.niche, hasContent: result.hasContent, at: Date.now() });
+    const result = { niche: niche, theme: theme, hasContent: hasContent };
+    cache.set(label, { niche: result.niche, theme: result.theme,
+                       hasContent: result.hasContent, at: Date.now() });
     return result;
   } catch (e) {
     /* Fail open on the niche (caller falls through to the funnel, a far
        better failure for a real visitor than a 500) and closed on
        hasContent (noindex), uncached either way so the next request retries. */
-    return { niche: null, hasContent: false };
+    return { niche: null, theme: null, hasContent: false };
   } finally {
     clearTimeout(timer);
   }
@@ -159,7 +190,7 @@ export default async function middleware(request) {
     return rewrite(new URL('/api/operator-content?tenant=' + label, request.url));
   }
 
-  const { niche, hasContent } = await nicheFor(label);
+  const { niche, theme, hasContent } = await nicheFor(label);
 
   /* NO DEFAULT TENANT, EVER. An unresolved hostname shows the funnel; it must
      never fall back to some other operator's storefront. */
@@ -199,7 +230,8 @@ export default async function middleware(request) {
      bare /terms is what an operator would type or print on a card. */
   const legal = path.replace(/\.html$/, '');
   if (legal === '/terms' || legal === '/privacy') {
-    return rewrite(new URL('/sites/' + niche + legal + '.html', request.url), {
+    return rewrite(new URL('/sites/' + niche + themeSegment(niche, theme)
+                           + legal + '.html', request.url), {
       headers: {
         'x-niche-slug': niche,
         'x-tenant': label,
@@ -208,7 +240,7 @@ export default async function middleware(request) {
     });
   }
 
-  return rewrite(new URL('/sites/' + niche + '/', request.url), {
+  return rewrite(new URL('/sites/' + niche + themeSegment(niche, theme) + '/', request.url), {
     headers: {
       'x-niche-slug': niche,
       'x-tenant': label,

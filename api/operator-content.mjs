@@ -42,6 +42,7 @@
    regression guard for the rollout, not a re-implementation of it.
    ========================================================================== */
 import { json, preflight, pgSelectOne, SITE_URL, assertConfigured } from './_shared.mjs';
+import { THEMED_NICHES } from '../assets/data/themes.mjs';
 
 export const config = { runtime: 'nodejs' };
 
@@ -76,14 +77,14 @@ async function handler(request) {
   try {
     tenantRow = await pgSelectOne('sbv_tenants',
       'client_id=eq.' + encodeURIComponent(tenant) +
-      '&is_active=eq.true&select=client_id,niche_slug');
+      '&is_active=eq.true&select=client_id,niche_slug,theme');
   } catch (e) {
     console.error('operator-content: tenant lookup failed:', e.message);
     return json({ ok: false, error: 'lookup_failed' }, 503);
   }
   if (!tenantRow) return json({ ok: false, error: 'unknown_tenant' }, 404);
 
-  const defaults = await nicheDefaults(tenantRow.niche_slug);
+  const defaults = await nicheDefaults(tenantRow.niche_slug, tenantRow.theme);
   if (!defaults) {
     /* Without the defaults there is nothing to lay operator fields over, and a
        partial object would blank out every key the page had already rendered.
@@ -133,11 +134,27 @@ async function handler(request) {
    import nor require — it would be absent at runtime. Over HTTP it is a static
    CDN asset, always matching the deployment that is serving it, with no
    includeFiles config to keep in step as niches are added. */
-async function nicheDefaults(niche) {
+/* A themed niche's real content lives under sites/<slug>/<theme>/, not at
+   sites/<slug>/ -- dj's root is a hand-authored theme picker. Serving the root
+   file to a themed tenant would hand their storefront the wrong copy under the
+   right palette, which is worse than an obvious failure because it looks fine.
+
+   Same generated whitelist the router uses, and for the same reason: this
+   value comes from the database and is pasted into a URL path. An unknown or
+   missing theme falls back rather than 404s. Unthemed niches get '' and their
+   fetch is byte-identical to before. */
+function themePath(niche, theme) {
+  const spec = THEMED_NICHES[niche];
+  if (!spec) return '';
+  return '/' + encodeURIComponent(spec.themes.includes(theme) ? theme : spec.fallback);
+}
+
+async function nicheDefaults(niche, theme) {
   const stop = new AbortController();
   const timer = setTimeout(function () { stop.abort(); }, 2000);
   try {
-    const res = await fetch(SITE_URL + '/sites/' + encodeURIComponent(niche) + '/content.json',
+    const res = await fetch(SITE_URL + '/sites/' + encodeURIComponent(niche)
+      + themePath(niche, theme) + '/content.json',
       { signal: stop.signal });
     if (!res.ok) return null;
     return await res.json();
