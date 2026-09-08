@@ -1535,7 +1535,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
          already means, so it was dropped and the badge text is literal now. */
       var feats = (p.features || []).map(function(f){ return '<li>' + esc(f) + '</li>'; }).join('');
       return '<div class="pcard' + (p.highlight ? ' best' : '') + '">' +
-        (p.highlight ? '<span class="pnote">Most popular</span>' : '') +
+        (p.highlight ? '<span class="pnote">Our pick</span>' : '') +
         '<h3>' + esc(p.label) + '</h3>' +
         '<div class="pnum">' + esc(p.blurb) + '<span> ' + esc(p.per) + '</span></div>' +
         '<ul>' + feats + '</ul></div>';

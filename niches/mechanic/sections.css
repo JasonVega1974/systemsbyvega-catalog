@@ -227,7 +227,7 @@ body::after{
 .gg-rate.is-picked{border-color:var(--accent-2);box-shadow:0 0 0 1px var(--accent-2) inset, var(--shadow)}
 .gg-rate--hot{border-color:rgba(74,204,124,.4)}
 .gg-rate--hot::after{
-  content:"Most booked";position:absolute;top:-11px;right:16px;
+  content:"Our pick";position:absolute;top:-11px;right:16px;
   font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;padding:.32rem .6rem;border-radius:5px;
   background:var(--accent);color:var(--accent-ink);

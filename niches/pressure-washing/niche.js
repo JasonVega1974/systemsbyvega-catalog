@@ -300,7 +300,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         return '<li>' + CHECK_ICON + '<span>' + esc(f) + '</span></li>';
       }).join('');
       return '<div class="price-card reveal in' + (p.highlight ? ' price-card--best' : '') + '" data-delay="' + ((i % 3) + 1) + '">'
-        + (p.highlight ? '<span class="price-card__pill">Most requested</span>' : '')
+        + (p.highlight ? '<span class="price-card__pill">Our pick</span>' : '')
         + '<div class="price-card__name">' + esc(p.label) + '</div>'
         + '<div class="price-card__amt">$' + num(p.blurb) + '<small>flat</small></div>'
         + '<div class="price-card__unit">' + esc(p.per) + '</div>'

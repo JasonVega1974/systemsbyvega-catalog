@@ -964,6 +964,12 @@ body::after{
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
 
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+
 /* -- component: job-details -- */
 /* _template/components/job-details.css
    .section/.section__head/.reveal/.eyebrow/.section-title are all shared
@@ -1268,7 +1274,7 @@ body::after{
       <article class="std reveal" data-delay="1">
         <span class="std__tick" aria-hidden="true"></span>
         <h3>Paperwork before signatures</h3>
-        <p>Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal.</p>
+        <p>Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ask us for ours before you sign anything.</p>
       </article>
     </div>
   </div>
@@ -1890,7 +1896,7 @@ var DEFAULT_CONTENT = {
       },
       {
         "title": "Paperwork before signatures",
-        "blurb": "Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ours go out with the proposal."
+        "blurb": "Ask any cleaning company — us included — for a current coverage certificate and a W-9 before you sign anything. Ask us for ours before you sign anything."
       }
     ],
     "sectors": [

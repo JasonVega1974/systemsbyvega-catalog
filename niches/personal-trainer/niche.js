@@ -186,7 +186,7 @@ var currentGoal = 'strength';
     document.getElementById('pricingGrid').innerHTML = (list || []).map(function(p){
       var feats = (p.features || []).map(function(x){ return String(x).trim(); }).filter(Boolean);
       return '<div class="price-card' + (p.highlight ? ' price-card--best' : '') + '">'
-        + (p.highlight ? '<span class="price-card__badge">' + esc(p.note || 'Most popular') + '</span>' : '')
+        + (p.highlight ? '<span class="price-card__badge">' + esc(p.note || 'Our pick') + '</span>' : '')
         + '<div class="price-card__name">' + esc(p.label) + '</div>'
         + '<div class="price-card__price"><b>' + esc(p.blurb) + '</b><span>' + esc(p.per || '') + '</span></div>'
         + '<ul>' + feats.map(function(f){ return '<li>' + CHECK_SVG + '<span>' + esc(f) + '</span></li>'; }).join('') + '</ul>'

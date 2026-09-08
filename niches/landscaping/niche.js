@@ -242,7 +242,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     plansGrid.innerHTML = plans.map(function(p, i){
       var feats = (p.features || []).map(function(f){ return '<li>' + checkSvg + '<span>' + esc(f) + '</span></li>'; }).join('');
       return '<div class="plan-card reveal' + (p.best ? ' plan-card--best' : '') + '" data-delay="' + ((i % 3) + 1) + '" data-plan="' + esc(slugify(p.tier)) + '">' +
-        (p.best ? '<span class="plan-card__pill">Most popular</span>' : '') +
+        (p.best ? '<span class="plan-card__pill">Our pick</span>' : '') +
         '<div class="plan-card__tier">' + esc(p.tier) + '</div>' +
         '<div class="plan-card__freq">' + esc(p.freq || '') + '</div>' +
         '<div class="plan-card__price">$' + num(p.price) + '<small>/' + esc(p.per || 'mo') + '</small></div>' +

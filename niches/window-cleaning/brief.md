@@ -26,7 +26,7 @@ palette:         LIGHT GROUND — "daylight through clean glass": high-key cool
                  14.48:1 and on the white card 15.40:1; ink-dim on ground
                  7.16:1; muted on ground 5.15:1 and on panel 4.81:1;
                  accent-text on ground 5.72:1; accent-alt on ground 4.57:1
-type:            Outfit / Figtree / DM Mono — all three unused elsewhere in the
+type:            Epilogue / Figtree / DM Mono — all three unused elsewhere in the
                  estate, all three requested by seo.fontsHref
 price anchors:   TIERS MODEL, display-string contract. pricing is the root
                  ARRAY; each row is {label, blurb, per, note, highlight,

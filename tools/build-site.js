@@ -375,11 +375,22 @@ const subs = {
   SEO_OG_TITLE: seo.ogTitle,
   SEO_OG_DESCRIPTION: seo.ogDescription,
   SEO_OG_IMAGE: seo.ogImage || (seo.canonical.replace(/\/$/, '') + '/og.png'),
+  /* NOTE: an empty seo.favicon emits href="", which per spec resolves to the
+     current document — the browser fetches the whole page as an icon candidate
+     and then still 404s /favicon.ico. Omitting the tag was tried and reverted:
+     qa-site's §8 head check REQUIRES a favicon, so suppressing the emit turns a
+     wasted request into a failing gate on the 18 niches that ship no icon. The
+     fix the gate is actually asking for is authoring those favicons. */
   FAVICON: seo.favicon || '',
   FONTS_HREF: seo.fontsHref || '',
   JSON_LD: buildJsonLd(),
   NICHE_CSS: nicheCss.trim(),
   BASE_CSS: baseCss.trim(),
+  /* ORDER MATTERS, and it is the one thing every component consumer trips
+     over: componentsCss is concatenated AFTER the niche's own sections.css,
+     so a per-niche rule that re-grounds a shared component at EQUAL
+     specificity silently loses. Scope the override (an id, or the section
+     class) rather than repeating the component's own selector. */
   SECTIONS_CSS: sectionCss.trim() + componentsCss,
   SCENE_SVG: sceneSvg.trim(),
   SECTIONS: sections.trim(),

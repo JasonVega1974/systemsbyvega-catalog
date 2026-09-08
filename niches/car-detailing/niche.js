@@ -308,7 +308,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.getElementById('packageGrid').innerHTML = packages.map(function(p, i){
       var items = p.features || [];
       return '<div class="pkg' + (p.highlight ? ' pkg--best' : '') + ' reveal" data-delay="' + ((i % 3) + 1) + '">'
-        + (p.highlight ? '<span class="pkg__flag">Most booked</span>' : '')
+        + (p.highlight ? '<span class="pkg__flag">Our pick</span>' : '')
         + '<div class="pkg__name">' + esc(p.label) + '</div>'
         + (p.per ? '<div class="pkg__dur">' + esc(p.per) + '</div>' : '')
         + '<div class="pkg__price">$' + num(p.blurb) + '<small>flat</small></div>'

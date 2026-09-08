@@ -196,10 +196,26 @@ export function priceHeadline(manifest, content) {
       ? manifest.pricing : {};
     /* A unit-priced niche states its unit here (see validate-manifest):
        "From $0.08" on a printed flyer reads as the price of the whole job,
-       "From $0.08/sq ft" reads as what it is. Appended to whatever the model
-       resolves, never invented. */
+       "From $0.08/sq ft" reads as what it is.
+       GATED ON THE WINNING ROW, not on the niche. A niche can mix per-unit
+       and per-job rows — window-cleaning prices three flat packages plus a
+       per-pane rate — and the headline takes whichever row is cheapest. If
+       an operator deletes the per-pane row, the cheapest becomes a flat
+       $149 package and an ungated suffix would print "From $149/pane" on
+       their flyer: a false price, and one that contradicts their own site.
+       So the suffix applies only when the row that won still carries that
+       unit in its own `per` text (a field the tiers editor does not expose,
+       so it always comes from the niche, never from an operator). Anything
+       else falls back to the bare number. */
     const suffix = str(cfg.headlineSuffix);
-    const withUnit = (v) => (v && suffix) ? v + suffix : v;
+    const alnum = (v) => str(v).toLowerCase().replace(/[^a-z0-9]/g, '');
+    const suffixKey = alnum(suffix);
+    const withUnit = (v, row) => {
+      if (!v || !suffix) return v;
+      if (!suffixKey) return v;
+      const per = alnum(row && row.per);
+      return per.includes(suffixKey) ? v + suffix : v;
+    };
     const model = str(cfg.model) || 'none';
     if (model === 'calculator' || model === 'none') return '';
 
@@ -209,14 +225,15 @@ export function priceHeadline(manifest, content) {
     if (model === 'tiers' || model === 'flash') {
       if (!Array.isArray(data)) return '';
       let bestLabel = '';
+      let bestRow = null;
       let bestN = Infinity;
       for (let i = 0; i < data.length; i++) {
         const label = rowPriceLabel(data[i]);
         if (!label) continue;
         const n = priceNumber(label);
-        if (Number.isFinite(n) && n < bestN) { bestN = n; bestLabel = label; }
+        if (Number.isFinite(n) && n < bestN) { bestN = n; bestLabel = label; bestRow = data[i]; }
       }
-      return bestLabel ? withUnit('From ' + displayPrice(bestLabel)) : '';
+      return bestLabel ? withUnit('From ' + displayPrice(bestLabel), bestRow) : '';
     }
 
     if (model === 'hourly') {
@@ -228,7 +245,7 @@ export function priceHeadline(manifest, content) {
       const rate = str(row.rate) || str(row.base);
       if (!rate) return '';
       const unit = str(row.unit);
-      return withUnit(displayPrice(rate) + (unit ? ' ' + unit : ''));
+      return withUnit(displayPrice(rate) + (unit ? ' ' + unit : ''), row);
     }
 
     if (model === 'quote') {
@@ -236,7 +253,7 @@ export function priceHeadline(manifest, content) {
       // starting_at is the validator's key; minimum is where the overlay
       // lands it for niches whose quoter speaks that dialect (delivery).
       const v = str(data.starting_at) || str(data.minimum);
-      return v ? withUnit('From ' + displayPrice(v)) : '';
+      return v ? withUnit('From ' + displayPrice(v), data) : '';
     }
 
     if (model === 'percentage') {

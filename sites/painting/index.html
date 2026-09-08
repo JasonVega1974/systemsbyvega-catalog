@@ -1823,7 +1823,7 @@ var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function renderPricing(){
     var grid = document.getElementById('plansGrid');
     grid.innerHTML = (CONTENT.pricing || []).map(function(p){
-      var pill = p.highlight ? '<span class="plan-card__pill">Most booked</span>' : '';
+      var pill = p.highlight ? '<span class="plan-card__pill">Our pick</span>' : '';
       var feats = (p.features || []).map(function(f){ return '<li>' + CHECK + '<span>' + esc(f) + '</span></li>'; }).join('');
       return '<div class="plan-card' + (p.highlight ? ' plan-card--best' : '') + '">' + pill +
         '<div class="plan-card__tier">' + esc(p.label) + '</div>' +

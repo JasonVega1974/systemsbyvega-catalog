@@ -56,7 +56,7 @@ var DAY_ORDER = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
          label is the name, and this niche carries its price in blurb. */
       var feats = (p.features || []).map(function(f){ return '<li>' + esc(f) + '</li>'; }).join('');
       return '<div class="pcard' + (p.highlight ? ' best' : '') + '">' +
-        (p.highlight ? '<span class="pnote">' + esc(p.note || 'Most popular') + '</span>' : '') +
+        (p.highlight ? '<span class="pnote">' + esc(p.note || 'Our pick') + '</span>' : '') +
         '<h3>' + esc(p.label) + '</h3>' +
         '<div class="pnum">' + esc(p.blurb) + '<span>' + esc(p.per) + '</span></div>' +
         '<ul>' + feats + '</ul></div>';

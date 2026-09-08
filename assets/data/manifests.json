@@ -355,7 +355,6 @@
       "logo": ""
     },
     "photoSlots": [
-      "logo",
       "hero",
       "before",
       "after",
@@ -1090,12 +1089,10 @@
       "editableFields": [
         "label",
         "price_label",
-        "per",
-        "note",
-        "features"
+        "note"
       ],
       "mergePath": "pricing",
-      "headlineSuffix": ""
+      "headlineSuffix": "/hour"
     },
     "merge": {
       "beforeAfter": "none",
@@ -1269,7 +1266,6 @@
       "logo": ""
     },
     "photoSlots": [
-      "logo",
       "hero",
       "before",
       "after",
@@ -1289,9 +1285,7 @@
       "editableFields": [
         "label",
         "price_label",
-        "per",
-        "note",
-        "features"
+        "note"
       ],
       "mergePath": "pricing",
       "headlineSuffix": ""
@@ -1460,8 +1454,8 @@
       "ok": "#177A50",
       "bad": "#B0362F",
       "onAccent": "#04262C",
-      "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
-      "display": "'Outfit',sans-serif",
+      "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Epilogue:wght@500;600;700;800&display=swap",
+      "display": "'Epilogue',sans-serif",
       "label": "'DM Mono',monospace",
       "body": "'Figtree',sans-serif",
       "logo": ""

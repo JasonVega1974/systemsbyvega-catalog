@@ -156,16 +156,29 @@
       }
     ],
     "promises": [
-      { "title": "Flat per-visit price", "blurb": "Agreed at the walkthrough, in writing, before a cloth comes out." },
-      { "title": "The same crew", "blurb": "The people who learned your house are the people who come back." },
-      { "title": "Your checklist", "blurb": "Written by your household, adjusted whenever you say so." },
-      { "title": "No contract", "blurb": "Pause, move or stop a visit with a text the day before." }
+      {
+        "title": "Flat per-visit price",
+        "blurb": "Agreed at the walkthrough, in writing, before a cloth comes out."
+      },
+      {
+        "title": "The same crew",
+        "blurb": "The people who learned your house are the people who come back."
+      },
+      {
+        "title": "Your checklist",
+        "blurb": "Written by your household, adjusted whenever you say so."
+      },
+      {
+        "title": "No contract",
+        "blurb": "Pause, move or stop a visit with a text the day before."
+      }
     ],
     "pricingNote": "Most homes land between $129–$289 a visit. Whatever the number is, it is set before we start — nothing gets added on afterwards, and there is no charge for driving out to look.",
     "beforeAfter": {
       "kicker": "Before and after",
-      "heading": "The same corner, one visit apart",
-      "blurb": "Drag the handle. This is an ordinary Friday clean in an ordinary rented flat — floor cleared, laundry racked, the room handed back usable."
+      "heading": "Drag to compare",
+      "blurb": "The slider wipes between two frames of the same room. Once your own before-and-after photos are in, this is where they go.",
+      "note": "Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim."
     },
     "beforeImg": "/sites/residential-cleaning/photos/before-clutter.jpg",
     "afterImg": "/sites/residential-cleaning/photos/after-tidy.jpg",

@@ -161,12 +161,7 @@
         "q": "How often should this happen?",
         "a": "Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year."
       }
-    ],
-    "contact": {
-      "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
-      "address": "",
-      "postal": ""
-    }
+    ]
   },
   "seo": {
     "title": "Pane &amp; Prairie Window Co. — Window Cleaning, Inside &amp; Out | Post Falls, ID",
@@ -178,7 +173,12 @@
     "canonical": "https://systemsbyvega.com/sites/window-cleaning/",
     "themeColor": "#22ACC4",
     "favicon": "",
-    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Epilogue:wght@500;600;700;800&display=swap",
     "ogImage": "https://systemsbyvega.com/sites/window-cleaning/og.png"
+  },
+  "contact": {
+    "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
+    "address": "",
+    "postal": ""
   }
 }

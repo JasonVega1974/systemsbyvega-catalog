@@ -50,3 +50,9 @@
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
+
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}

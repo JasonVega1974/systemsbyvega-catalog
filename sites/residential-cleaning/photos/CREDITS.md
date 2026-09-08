@@ -13,8 +13,8 @@ before-clutter.jpg       Clothes and magazines heaped on a parquet floor
                          https://www.pexels.com/photo/10557077/
                          (2:3 crop at 1200x1800; the before half of a same-room pair)
 
-after-tidy.jpg           The same corner tidied — clothes rack, basket, broom
+after-tidy.jpg           The same room from another angle, styled tidy — clothes rack, basket, broom
                          Ron Lach
                          https://www.pexels.com/photo/10558196/
-                         (2:3 crop at 1200x1800; same room and same shoot as the before, verified by the herringbone parquet and radiator cover)
+                         (2:3 crop at 1200x1800; same room and same shoot (herringbone parquet and radiator cover match) but a DIFFERENT WALL with the furniture restyled - example frames, not a record of a clean, and the page says so)
 

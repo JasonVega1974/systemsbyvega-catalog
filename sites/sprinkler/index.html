@@ -937,6 +937,12 @@ body::after{
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
 
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+
 /* -- component: job-details -- */
 /* _template/components/job-details.css
    .section/.section__head/.reveal/.eyebrow/.section-title are all shared
@@ -1506,7 +1512,7 @@ body::after{
 <section class="section reviews" id="reviews">
   <div class="wrap">
     <div class="section__head center reveal">
-      <span class="eyebrow">Neighbors we have worked for</span>
+      <span class="eyebrow">Reviews go here as they come in</span>
       <h2 class="section-title">Word from the valley</h2>
     </div>
     <!-- _template/components/reviews.html
@@ -1737,7 +1743,7 @@ var DEFAULT_CONTENT = {
   "social": [],
   "testimonials": [],
   "pricing": {
-    "starting_at": "$95",
+    "starting_at": "$95 service call",
     "note": "Installs are quoted in writing after a free walk; repairs bill from the service call, then hourly at the quoted rate."
   },
   "jobDetails": {

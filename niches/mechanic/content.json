@@ -74,7 +74,7 @@
         "Charging system re-checked after the swap",
         "Belt and tensioner inspected while we are in there"
       ],
-      "note": "Some engine bays are a two-hour job and some are a five. Your quote says which one yours is."
+      "note": "Some engine bays are a two-hour job, some a five. Your quote says which."
     },
     {
       "label": "Serpentine belt & tensioner",
@@ -103,7 +103,7 @@
       "blurb": "Text for a flat rate",
       "per": "",
       "features": [],
-      "note": "Send the year, make, model and what it is doing. If it is not a driveway job, we say so and point you at a shop with a lift."
+      "note": "Send year, make, model and symptoms. Not a driveway job? We say so."
     }
   ],
   "services": [
@@ -171,15 +171,32 @@
       "ctaSecondary": "See the flat rates"
     },
     "proof": [
-      { "big": "No tow", "small": "It gets fixed where it sits" },
-      { "big": "No lobby", "small": "Stay home or stay at work" },
-      { "big": "Flat rate", "small": "Texted before we load up" }
+      {
+        "big": "No tow",
+        "small": "It gets fixed where it sits"
+      },
+      {
+        "big": "No lobby",
+        "small": "Stay home or stay at work"
+      },
+      {
+        "big": "Flat rate",
+        "small": "Texted before we load up"
+      }
     ],
     "trust": [
-      { "title": "We drive to the vehicle" },
-      { "title": "Flat rate before the truck loads" },
-      { "title": "Old parts stay with you" },
-      { "title": "Driveways, lots and jobsites" }
+      {
+        "title": "We drive to the vehicle"
+      },
+      {
+        "title": "Flat rate before the truck loads"
+      },
+      {
+        "title": "Old parts stay with you"
+      },
+      {
+        "title": "Driveways, lots and jobsites"
+      }
     ],
     "about": {
       "heading": "A shop bay is mostly just a floor with a roof over it",

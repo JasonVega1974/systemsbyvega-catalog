@@ -936,6 +936,12 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:va
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
 
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+
 /* -- component: job-details -- */
 /* _template/components/job-details.css
    .section/.section__head/.reveal/.eyebrow/.section-title are all shared
@@ -1280,8 +1286,8 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:va
   <div class="wrap">
     <div class="section__head center reveal">
       <span class="eyebrow" id="baKicker">Before and after</span>
-      <h2 class="section-title" id="baHeading">The same corner, one visit apart</h2>
-      <p class="lead" style="margin:0 auto" id="baBlurb">Drag the handle. This is an ordinary Friday clean in an ordinary rented flat — floor cleared, laundry racked, the room handed back usable.</p>
+      <h2 class="section-title" id="baHeading">Drag to compare</h2>
+      <p class="lead" style="margin:0 auto" id="baBlurb">The slider wipes between two frames of the same room. Once your own before-and-after photos are in, this is where they go.</p>
       <!-- suds cluster; the gradient is the shared def from scene.svg -->
       <svg class="yb-suds" viewBox="0 0 120 34" aria-hidden="true">
         <circle cx="30" cy="20" r="11" fill="url(#yb-grad-suds)" opacity=".85"/>
@@ -1324,6 +1330,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:va
     <div class="ba-cmp__hint ba-cmp-ui">&#9668; Drag &#9658;</div>
   </div>
 </div>
+    <p class="lead center reveal" id="baNote">Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim.</p>
   </div>
 </section>
 
@@ -1569,7 +1576,7 @@ input:focus-visible,select:focus-visible,textarea:focus-visible{outline-color:va
   <!-- SWAP:DISCLOSURE -->
   <div class="wrap" style="margin-top:26px">
     <p class="disclosure"><span data-brand>Yarrow &amp; Broom Cleaning Co.</span> is a fictional business created to demonstrate this website design.
-    The phone number, email, pricing and reviews shown are placeholders — no real cleaning services are offered here.</p>
+    The phone number, email, pricing, photography and reviews shown are placeholders — no real cleaning services are offered here.</p>
   </div>
   <!-- /SWAP:DISCLOSURE -->
 </footer>
@@ -1761,8 +1768,9 @@ var DEFAULT_CONTENT = {
     "pricingNote": "Most homes land between $129–$289 a visit. Whatever the number is, it is set before we start — nothing gets added on afterwards, and there is no charge for driving out to look.",
     "beforeAfter": {
       "kicker": "Before and after",
-      "heading": "The same corner, one visit apart",
-      "blurb": "Drag the handle. This is an ordinary Friday clean in an ordinary rented flat — floor cleared, laundry racked, the room handed back usable."
+      "heading": "Drag to compare",
+      "blurb": "The slider wipes between two frames of the same room. Once your own before-and-after photos are in, this is where they go.",
+      "note": "Example frames, here to show how the comparison slider works. Your own before-and-after photos replace them from the admin — no photo, no claim."
     },
     "beforeImg": "/sites/residential-cleaning/photos/before-clutter.jpg",
     "afterImg": "/sites/residential-cleaning/photos/after-tidy.jpg",
@@ -2161,6 +2169,7 @@ var DEFAULT_CONTENT = {
     setText('baKicker', ba.kicker);
     setText('baHeading', ba.heading);
     setText('baBlurb', ba.blurb);
+    setText('baNote', ba.note);
   }
 
   function renderArea(sa, note){

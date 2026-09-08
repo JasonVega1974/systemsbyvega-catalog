@@ -1917,23 +1917,31 @@ document.addEventListener('DOMContentLoaded', function () {
         ? manifest.pricing : {};
       /* keep in sync with priceHeadline in api/marketing-kit.mjs — a
          unit-priced niche states its unit in the manifest so the flyer reads
-         "From $0.08/sq ft" rather than "From $0.08" */
+         "From $0.08/sq ft" rather than "From $0.08", and the suffix is GATED
+         on the winning row still carrying that unit in its own `per` (a niche
+         can mix per-unit and per-job rows; without the gate, deleting the
+         unit-priced row prints a false unit on the operator's flyer). */
       var suffix = mkStr(cfg.headlineSuffix);
-      var withUnit = function (v) { return (v && suffix) ? v + suffix : v; };
+      var mkAlnum = function (v) { return mkStr(v).toLowerCase().replace(/[^a-z0-9]/g, ''); };
+      var suffixKey = mkAlnum(suffix);
+      var withUnit = function (v, row) {
+        if (!v || !suffix || !suffixKey) return v;
+        return mkAlnum(row && row.per).indexOf(suffixKey) !== -1 ? v + suffix : v;
+      };
       var model = mkStr(cfg.model) || 'none';
       if (model === 'calculator' || model === 'none') return '';
       var data = mkGetPath(content, mkStr(cfg.mergePath));
       if (data === null || data === undefined) return '';
       if (model === 'tiers' || model === 'flash') {
         if (!Array.isArray(data)) return '';
-        var bestLabel = '', bestN = Infinity;
+        var bestLabel = '', bestRow = null, bestN = Infinity;
         for (var i = 0; i < data.length; i++) {
           var label = mkRowPriceLabel(data[i]);
           if (!label) continue;
           var n = mkPriceNumber(label);
-          if (isFinite(n) && n < bestN) { bestN = n; bestLabel = label; }
+          if (isFinite(n) && n < bestN) { bestN = n; bestLabel = label; bestRow = data[i]; }
         }
-        return bestLabel ? withUnit('From ' + mkDisplayPrice(bestLabel)) : '';
+        return bestLabel ? withUnit('From ' + mkDisplayPrice(bestLabel), bestRow) : '';
       }
       if (model === 'hourly') {
         var row = Array.isArray(data) ? data[0] : data;
@@ -1941,12 +1949,12 @@ document.addEventListener('DOMContentLoaded', function () {
         var rate = mkStr(row.rate) || mkStr(row.base);
         if (!rate) return '';
         var unit = mkStr(row.unit);
-        return withUnit(mkDisplayPrice(rate) + (unit ? ' ' + unit : ''));
+        return withUnit(mkDisplayPrice(rate) + (unit ? ' ' + unit : ''), row);
       }
       if (model === 'quote') {
         if (typeof data !== 'object' || Array.isArray(data)) return '';
         var q = mkStr(data.starting_at) || mkStr(data.minimum);
-        return q ? withUnit('From ' + mkDisplayPrice(q)) : '';
+        return q ? withUnit('From ' + mkDisplayPrice(q), data) : '';
       }
       if (model === 'percentage') {
         if (typeof data !== 'object' || Array.isArray(data)) return '';

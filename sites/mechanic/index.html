@@ -711,7 +711,7 @@ body::after{
 .gg-rate.is-picked{border-color:var(--accent-2);box-shadow:0 0 0 1px var(--accent-2) inset, var(--shadow)}
 .gg-rate--hot{border-color:rgba(74,204,124,.4)}
 .gg-rate--hot::after{
-  content:"Most booked";position:absolute;top:-11px;right:16px;
+  content:"Our pick";position:absolute;top:-11px;right:16px;
   font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.18em;
   text-transform:uppercase;padding:.32rem .6rem;border-radius:5px;
   background:var(--accent);color:var(--accent-ink);
@@ -902,6 +902,12 @@ body::after{
   position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
+
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
 
 /* -- component: reviews -- */
 /* _template/components/reviews.css
@@ -1629,7 +1635,7 @@ var DEFAULT_CONTENT = {
         "Charging system re-checked after the swap",
         "Belt and tensioner inspected while we are in there"
       ],
-      "note": "Some engine bays are a two-hour job and some are a five. Your quote says which one yours is."
+      "note": "Some engine bays are a two-hour job, some a five. Your quote says which."
     },
     {
       "label": "Serpentine belt & tensioner",
@@ -1658,7 +1664,7 @@ var DEFAULT_CONTENT = {
       "blurb": "Text for a flat rate",
       "per": "",
       "features": [],
-      "note": "Send the year, make, model and what it is doing. If it is not a driveway job, we say so and point you at a shop with a lift."
+      "note": "Send year, make, model and symptoms. Not a driveway job? We say so."
     }
   ],
   "services": [

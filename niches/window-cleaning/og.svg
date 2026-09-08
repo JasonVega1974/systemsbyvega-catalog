@@ -28,8 +28,8 @@
         letter-spacing="4.6" fill="#566D74">KOOTENAI COUNTY, IDAHO</text>
 
   <!-- headline: the business -->
-  <text x="90" y="300" font-family="Outfit, Georgia, serif" font-size="78" font-weight="800" fill="#16272E">Pane &amp; Prairie Window</text>
-  <text x="90" y="382.68" font-family="Outfit, Georgia, serif" font-size="78" font-weight="800" fill="#16272E">Co.</text>
+  <text x="90" y="300" font-family="Epilogue, Georgia, serif" font-size="78" font-weight="800" fill="#16272E">Pane &amp; Prairie Window</text>
+  <text x="90" y="382.68" font-family="Epilogue, Georgia, serif" font-size="78" font-weight="800" fill="#16272E">Co.</text>
 
   <!-- accent rule -->
   <rect x="90" y="426.68" width="132" height="7" fill="#22ACC4"/>

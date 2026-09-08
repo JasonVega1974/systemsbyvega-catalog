@@ -238,6 +238,7 @@
     setText('baKicker', ba.kicker);
     setText('baHeading', ba.heading);
     setText('baBlurb', ba.blurb);
+    setText('baNote', ba.note);
   }
 
   function renderArea(sa, note){

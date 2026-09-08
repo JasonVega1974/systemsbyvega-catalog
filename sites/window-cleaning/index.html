@@ -21,7 +21,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Epilogue:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
 <script type="application/ld+json">
 {
@@ -84,7 +84,7 @@
   --err:          #B0362F;
   --err-ink:      #8E2A24;
 
-  --display: 'Outfit', 'Trebuchet MS', sans-serif;
+  --display: 'Epilogue', 'Trebuchet MS', sans-serif;
   --body:    'Figtree', system-ui, -apple-system, sans-serif;
   --mono:    'DM Mono', ui-monospace, Consolas, monospace;
 }
@@ -990,6 +990,12 @@ body::after{
   text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
   letter-spacing: .06em; text-transform: uppercase; color: var(--accent-2); opacity: .85; z-index: 7; }
 
+/* base.css scopes its focus ring to .btn/a/button/summary/input/select/
+   textarea, and this control is a div[role=slider] — so without this rule a
+   keyboard user gets only the browser's hairline outline, over photography.
+   All five consumers of this component inherit the fix. */
+.ba-cmp:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px}
+
 /* -- component: reviews -- */
 /* _template/components/reviews.css
    Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
@@ -1777,12 +1783,7 @@ var DEFAULT_CONTENT = {
         "q": "How often should this happen?",
         "a": "Twice a year suits most homes here — once after the spring pollen drops and once before the holidays. Storefronts on a dusty street usually want a monthly exterior route with a full inside pass a few times a year."
       }
-    ],
-    "contact": {
-      "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
-      "address": "",
-      "postal": ""
-    }
+    ]
   },
   "seo": {
     "title": "Pane &amp; Prairie Window Co. — Window Cleaning, Inside &amp; Out | Post Falls, ID",
@@ -1794,8 +1795,13 @@ var DEFAULT_CONTENT = {
     "canonical": "https://systemsbyvega.com/sites/window-cleaning/",
     "themeColor": "#22ACC4",
     "favicon": "",
-    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Epilogue:wght@500;600;700;800&display=swap",
     "ogImage": "https://systemsbyvega.com/sites/window-cleaning/og.png"
+  },
+  "contact": {
+    "hours": "Mon–Sat, 7am–6pm · winter hours follow the daylight",
+    "address": "",
+    "postal": ""
   }
 };
 </script>

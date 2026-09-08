@@ -7,3 +7,8 @@ node_modules/
 .env*
 !.env.example
 .superpowers/
+
+# Stray agent screenshots. Review agents render pages to disk while checking
+# them; a bare numeric PNG in the repo root is one that escaped a scratch dir,
+# and `git add -A` would otherwise commit megabytes of it.
+/[0-9]*.png
