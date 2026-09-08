@@ -1425,6 +1425,110 @@ var DEFAULT_CONTENT = {
   }
   document.addEventListener('submit', consentGate, true);
 
+  /* -- lead capture ---------------------------------------------------------
+     Records the enquiry in the operator's lead list as well as emailing it.
+
+     ONE implementation here rather than one per niche. base.js already sees
+     every submit on every niche through consentGate, so a niche gets this by
+     existing rather than by being edited, and there is no chance of 32 copies
+     drifting.
+
+     Bubble phase, and it never calls preventDefault: consentGate runs first in
+     the capture phase and each niche's own handler does the real submission to
+     FormSubmit. This one only listens. If it throws, breaks, or the network is
+     down, the enquiry has still been emailed — which is why every failure path
+     here is silent.
+
+     It runs only on a CLAIMED site. clientId is present only in the merged
+     response from /api/operator-content; the niche's own content.json on the
+     demo path has none, so a demo submits nothing and no lead is ever recorded
+     against a tenant that does not exist. */
+
+  var LEAD_SENT = (typeof WeakSet === 'function') ? new WeakSet() : null;
+
+  /* Fields the operator does not need repeated back at them, or that are not
+     the visitor's words: the honeypot, the consent box, anything the niche
+     marked private, and the three we lift out by name. */
+  var LEAD_SKIP = /^(_honey|name|phone|email)$/i;
+
+  function leadField(form, name) {
+    var el = form.querySelector('[name="' + name + '"]');
+    return (el && typeof el.value === 'string') ? el.value.trim() : '';
+  }
+
+  /* Everything else the visitor filled in, as readable lines. Niches ask very
+     different questions -- panes, vehicle, package, placement -- and the answers
+     ARE the enquiry, so they are kept rather than reduced to one field. The
+     label is the field's own <label> text where there is one, since a raw name
+     like placement_notes reads badly in an inbox. */
+  function leadMessage(form) {
+    var out = [];
+    var els = form.querySelectorAll('input[name], select[name], textarea[name]');
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var n = el.getAttribute('name');
+      if (!n || LEAD_SKIP.test(n) || n.charAt(0) === '_') continue;
+      if (el.type === 'checkbox' && !el.checked) continue;
+      if (el.type === 'radio' && !el.checked) continue;
+      if (el.type === 'hidden' && !el.value) continue;
+      var v = (el.value || '').trim();
+      if (!v) continue;
+      var label = '';
+      if (el.id) {
+        var lab = form.querySelector('label[for="' + el.id + '"]');
+        if (lab) label = (lab.textContent || '').replace(/\s+/g, ' ').trim();
+      }
+      if (!label) label = n.replace(/[_-]+/g, ' ');
+      out.push(label.replace(/[:\s]+$/, '') + ': ' + v);
+    }
+    return out.join('\n');
+  }
+
+  function captureLead(e) {
+    try {
+      var form = e.target;
+      if (!form || form.tagName !== 'FORM') return;
+
+      /* consentGate blocks a submission with no consent ticked. That is not an
+         enquiry, so it is not a lead. */
+      if (e.defaultPrevented && !form.__slLeadAllow) {
+        var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+        if (box && !box.checked) return;
+      }
+
+      var c = window.CONTENT || {};
+      if (!c.clientId) return;                       /* demo site */
+      if (LEAD_SENT && LEAD_SENT.has(form)) return;  /* niche re-dispatched */
+
+      var phone = leadField(form, 'phone');
+      var email = leadField(form, 'email');
+      if (!phone && !email) return;                  /* nothing to reply to */
+
+      if (LEAD_SENT) LEAD_SENT.add(form);
+
+      fetch('/api/submit-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        /* keepalive so the record still goes even if a niche ever switches to
+           a submission that navigates away. */
+        keepalive: true,
+        body: JSON.stringify({
+          client_id: c.clientId,
+          name: leadField(form, 'name'),
+          phone: phone,
+          email: email,
+          message: leadMessage(form),
+          _honey: leadField(form, '_honey'),
+        }),
+      }).catch(function () { /* the email already went */ });
+    } catch (err) {
+      /* Never let lead capture break a working enquiry form. */
+    }
+  }
+
+  document.addEventListener('submit', captureLead, false);
+
+
   /* The content lifecycle.
      DEFAULT_CONTENT is inlined by the build from content.json, so the two can
      never disagree. The fetch exists so an operator edit goes live without a

@@ -120,6 +120,19 @@ async function handler(request) {
   }
   const body = op ? applyOperator(defaults, op, manifest) : defaults;
 
+  /* The tenant's own id, so the page knows which lead list a form submission
+     belongs to. Set from the TENANT row, not the operator-content row: a
+     freshly provisioned operator has no content row at all — that is the
+     expected state until their first save — and reading it from `op` would
+     have left clientId null for exactly the operator most likely to be
+     taking their first enquiries.
+
+     It appears only in this merged response. The niche's own content.json on
+     the demo path has no clientId, and that absence is how the page tells a
+     claimed site from a demo and skips the lead call rather than writing
+     rows against a tenant that does not exist. */
+  body.clientId = tenantRow.client_id;
+
   /* Short shared cache with a longer stale window. An operator who saves and
      refreshes should see the change quickly, and every other visitor should be
      served from the edge. max-age=0 keeps the browser honest; the page already
@@ -412,6 +425,7 @@ function applyOperator(base, op, manifest) {
      exist and are simply absent until then — set() skips undefined, so a
      deploy before sql/LEGAL-COLUMNS.sql is applied behaves as if no operator
      had written any. */
+
   out.legal = Object.assign({}, base.legal || {});
   set(out.legal, 'termsCustom',   op.terms_custom);
   set(out.legal, 'privacyCustom', op.privacy_custom);
