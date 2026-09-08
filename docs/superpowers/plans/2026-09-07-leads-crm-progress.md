@@ -156,23 +156,21 @@ with a signed-in operator, which needs a password I do not have.
 
 Everything else in the leads brief is complete.
 
-## Also queued, agreed with Jason 2026-09-08, not started
+## Also agreed 2026-09-08 — both now DONE
 
-1. **DJ theme selector in the admin — option B.** Jason chose it explicitly.
-   Requires: `grant update (theme)` on `sbv_tenants` to authenticated (today it
-   is deliberately withheld — see `sql/DJ-THEME.sql`, which reasons that theme
-   repoints which build the subdomain serves, like `niche_slug` and `tier`);
-   surfacing the theme list to the admin (cleanest: have
-   `tools/build-manifest-index.js` add `themes` to each niche's entry in
-   `assets/data/manifests.json`, which the admin already fetches — rather than
-   a second source of truth); a selector shown only for themed niches; and
-   reading/writing `sbv_tenants.theme`, which the admin does not currently
-   touch at all (it reads `sbv_operator_content`).
-2. **Guides + mini-course content for all 32 niches** (guides brief §3/§4).
-   Not started. Use `niches/<slug>/brief.md` and `content.json` as source.
-   Compliance: zero income claims, zero fabricated statistics.
-
----
+1. **DJ theme selector — option B.** Shipped in `d90cdc1`. sbv_tenants gained
+   the column grant (reversing DJ-THEME.sql's decision to withhold it, for
+   reasons recorded in sql/DJ-THEME-OPERATOR.sql), the theme list reaches the
+   admin through the manifest index it already fetches, and dirty-tracking
+   widened to cover a second table. Verified live that niche_slug and tier are
+   still refused and a theme with a slash is refused by the CHECK.
+2. **Guides for all 32 niches.** Shipped in `bfe9be1`, written by six parallel
+   agents and checked by a compliance sweep rather than by trusting their
+   reports. One real violation caught: personal-trainer asserted training is
+   "not a licensed trade anywhere in the United States". Three defects the
+   agents found were fixed — a /favicon.ico 404 on guide and legal pages,
+   phantom before/after photo slots on painting and pressure-washing, and dj's
+   demo bio claiming an admin capability that does not exist.
 
 ## Loose ends a fresh session would not otherwise know
 
