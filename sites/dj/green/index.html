@@ -1861,17 +1861,17 @@ renderLinks();
 _ytMaybe();
 
 /* ---------- render hero mini ---------- */
-$('#heroMini').innerHTML = CONTENT.heroMini.map(m=>`<div class="m"><b>${m.b}</b><span>${m.s}</span></div>`).join('');
+$('#heroMini').innerHTML = CONTENT.heroMini.map(m=>`<div class="m"><b>${esc(m.b)}</b><span>${esc(m.s)}</span></div>`).join('');
 
 /* ---------- marquee (actual events + years, derived from shows) ---------- */
 const yearOf = w => (String(w).match(/\d{4}/)||[''])[0];
 const credits = CONTENT.shows.map(s => /\d{4}/.test(s.t) ? s.t : `${s.t} ${yearOf(s.when)}`.trim());
-const mk = credits.map(c=>`<span>${c}<em>✦</em></span>`).join('');
+const mk = credits.map(c=>`<span>${esc(c)}<em>✦</em></span>`).join('');
 $('#marquee').innerHTML = mk + mk; // duplicate for seamless loop
 
 /* ---------- stats ---------- */
 $('#statGrid').innerHTML = CONTENT.stats.map(s=>`
-  <div class="stat"><div class="num">${s.num}</div><div class="lab">${s.lab}</div><div class="sub">${s.sub}</div></div>`).join('');
+  <div class="stat"><div class="num">${esc(s.num)}</div><div class="lab">${esc(s.lab)}</div><div class="sub">${esc(s.sub)}</div></div>`).join('');
 
 /* ---------- releases ---------- */
 renderReleaseGrid();
@@ -1882,9 +1882,9 @@ renderMerchGrid();
 /* ---------- shows ---------- */
 $('#timeline').innerHTML = CONTENT.shows.map(s=>`
   <div class="show ${s.up?'up':''}">
-    <div class="when">${s.when}</div>
-    <div class="what"><h4>${s.t}</h4><p>${s.p}</p></div>
-    <div class="tag">${s.up?'★ Latest · ':''}${s.tag}</div>
+    <div class="when">${esc(s.when)}</div>
+    <div class="what"><h4>${esc(s.t)}</h4><p>${esc(s.p)}</p></div>
+    <div class="tag">${s.up?'★ Latest · ':''}${esc(s.tag)}</div>
   </div>`).join('');
 
 /* ---------- photos ---------- */
@@ -1893,9 +1893,9 @@ const photoSizes=['tall','mid','','mid','tall','','mid','tall',''];
 const _photos=(CONTENT.photos&&CONTENT.photos.length)?CONTENT.photos:photoSizes.map((sz)=>({url:'',size:sz}));
 $('#photoGrid').innerHTML = _photos.map((p,i)=>{
   const sz=(p&&p.size)||photoSizes[i%photoSizes.length]||'';
-  if(p&&p.url) return `<div class="photo ${sz}" style="position:relative;overflow:hidden"><img src="${p.url}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>`;
+  if(p&&p.url) return `<div class="photo ${esc(sz)}" style="position:relative;overflow:hidden"><img src="${esc(p.url)}" alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>`;
   const g=`linear-gradient(${150+i*15}deg,${palettes[i%palettes.length][0]},${palettes[i%palettes.length][1]})`;
-  return `<div class="photo ${sz}" style="background:${g}"><div class="ph">Photo slot ${i+1}<br>upload-ready</div></div>`;
+  return `<div class="photo ${esc(sz)}" style="background:${g}"><div class="ph">Photo slot ${i+1}<br>upload-ready</div></div>`;
 }).join('');
 
 /* ---------- media tabs (attach once) ---------- */
@@ -1915,7 +1915,7 @@ const SOC_COLORS = {
   "X":"#FFFFFF", "Apple Music":"#FA243C"
 };
 function socIcon(s){
-  const P = s.p || ICONS[s.n] || '';
+  const P = esc(s.p || ICONS[s.n] || '');
   if(s.n==="Instagram"){
     return `<svg viewBox="0 0 24 24"><defs>
       <linearGradient id="igGrad" x1="0" y1="1" x2="1" y2="0">
@@ -1931,15 +1931,19 @@ function socIcon(s){
   }
   return `<svg viewBox="0 0 24 24"><path fill="${SOC_COLORS[s.n]||'#EAF2FF'}" d="${P}"/></svg>`;
 }
-$('#socials').innerHTML = CONTENT.social.map(s=>`
-  <a class="soc" href="${s.url}" target="_blank" rel="noopener" aria-label="${s.n}" title="${s.n}">${socIcon(s)}</a>`).join('');
+/* scheme gate, same as _template/components/footer-contact.js isHttps —
+   entity-encoding cannot stop a scheme. "#" is allowed through as the demo's
+   inert placeholder so the default circles keep rendering. */
+const socOk = s => s.url==='#' || /^https:\/\//i.test(String(s.url||''));
+$('#socials').innerHTML = CONTENT.social.filter(socOk).map(s=>`
+  <a class="soc" href="${esc(s.url)}" target="_blank" rel="noopener" aria-label="${esc(s.n)}" title="${esc(s.n)}">${socIcon(s)}</a>`).join('');
 
 /* ---------- section visibility toggles ---------- */
 const _showBk = !(CONTENT.settings && CONTENT.settings.showBooking===false);
 const _bk=document.getElementById('book'); if(_bk) _bk.style.display=_showBk?'':'none';
 document.querySelectorAll('a[href="#book"]').forEach(a=>{ a.style.display=_showBk?'':'none'; });
 
-if(CONTENT.portraitUrl){ const _p=$('#portrait'); if(_p){ _p.innerHTML='<img src="'+CONTENT.portraitUrl+'" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:2">'; } }
+if(CONTENT.portraitUrl){ const _p=$('#portrait'); if(_p){ _p.innerHTML='<img src="'+esc(CONTENT.portraitUrl)+'" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:inherit;z-index:2">'; } }
 } /* ---------- end renderAll ---------- */
 
 /* ---------- release grid (cover art matched in from gallery-manifest.json once it loads; see buildCoverMap below) ---------- */
@@ -1947,12 +1951,12 @@ let releaseCoverMap = new Map();
 function renderReleaseGrid(){
   $('#releaseGrid').innerHTML = CONTENT.releases.map(r=>{
     const cover = releaseCoverMap.get(normTitle(r.t));
-    const art = cover ? `<img src="${cover}" alt="" loading="lazy" decoding="async">` : '';
+    const art = cover ? `<img src="${esc(cover)}" alt="" loading="lazy" decoding="async">` : '';
     return `
-  <a class="release" href="${r.url}" target="_blank" rel="noopener">
+  <a class="release" href="${esc(r.url)}" target="_blank" rel="noopener">
     <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-    <div class="art" style="background:linear-gradient(150deg,${r.c1},${r.c2})">${art}<span${cover?' class="has-cover"':''}>${r.t}</span></div>
-    <div class="yr">${r.y}</div><h4>${r.t}</h4>
+    <div class="art" style="background:linear-gradient(150deg,${esc(r.c1)},${esc(r.c2)})">${art}<span${cover?' class="has-cover"':''}>${esc(r.t)}</span></div>
+    <div class="yr">${esc(r.y)}</div><h4>${esc(r.t)}</h4>
   </a>`;
   }).join('');
 }
@@ -1970,16 +1974,16 @@ function renderMerchGrid(){
   if(!items.length){
     grid.innerHTML = `<div class="merch-empty">
       <p>New merch drops soon — for now, shop the full store.</p>
-      <a class="btn btn-primary" href="${storeUrl}" target="_blank" rel="noopener">Shop the store →</a>
+      <a class="btn btn-primary" href="${esc(storeUrl)}" target="_blank" rel="noopener">Shop the store →</a>
     </div>`;
     return;
   }
   grid.innerHTML = items.map(m=>`
   <div class="merch-card">
-    <div class="shot">${m.image?`<img src="${m.image}" alt="" loading="lazy" decoding="async">`:''}</div>
-    <h4>${m.name||''}</h4>
-    <div class="price">${m.price||''}</div>
-    ${(m.streamlabsUrl||storeUrl)?`<a class="btn btn-primary" href="${m.streamlabsUrl||storeUrl}" target="_blank" rel="noopener">Shop Now →</a>`:''}
+    <div class="shot">${m.image?`<img src="${esc(m.image)}" alt="" loading="lazy" decoding="async">`:''}</div>
+    <h4>${esc(m.name||'')}</h4>
+    <div class="price">${esc(m.price||'')}</div>
+    ${(m.streamlabsUrl||storeUrl)?`<a class="btn btn-primary" href="${esc(m.streamlabsUrl||storeUrl)}" target="_blank" rel="noopener">Shop Now →</a>`:''}
   </div>`).join('');
 }
 
@@ -2174,7 +2178,7 @@ function renderYtUnavailable(){
   empty.hidden=false;
   const cu=String((CONTENT.youtube&&CONTENT.youtube.channelUrl)||'').trim();
   empty.innerHTML = cu
-    ? 'Videos are taking a breather — <a href="'+cu+'" target="_blank" rel="noopener" style="color:var(--gold)">watch on YouTube</a> in the meantime.'
+    ? 'Videos are taking a breather — <a href="'+esc(cu)+'" target="_blank" rel="noopener" style="color:var(--gold)">watch on YouTube</a> in the meantime.'
     : 'Connect your YouTube channel in the admin panel (Settings tab) and your videos will appear here automatically.';
   $('#ytMore').hidden=true;
   const controls=document.querySelector('.yt-controls'); if(controls) controls.hidden=true;
@@ -2345,7 +2349,7 @@ $('#bookForm').addEventListener('submit',(e)=>{
     date: dateInput.value, type: f.type.value });
   msg.innerHTML=`
     <h4>Request sent ✦</h4>
-    <p>Thanks, ${escYt(name.split(' ')[0])} — this demo just previewed a <b>${f.type.value}</b> request for <b>${dateInput.value}</b>. On your live site, this request goes straight to your inbox.</p>
+    <p>Thanks, ${escYt(name.split(' ')[0])} — this demo just previewed a <b>${escYt(f.type.value)}</b> request for <b>${escYt(dateInput.value)}</b>. On your live site, this request goes straight to your inbox.</p>
     <p class="auto">Demo form — no email was sent and nothing was booked. The live version connects to your email or booking service.</p>`;
   msg.scrollIntoView({behavior:'smooth',block:'center'});
   f.querySelectorAll('input,textarea').forEach(i=>{ if(i.type!=='submit') i.value=''; });

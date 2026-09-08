@@ -87,14 +87,18 @@ function str(v) {
 }
 
 // Operator-typed strings land inside markup that chromium executes with
-// web security off. Angle brackets are the only characters that can change
-// the document's structure there — strip them rather than entity-encode,
-// so the same value stays legible if a template ever puts it in an
-// attribute. Theme tokens are exempt: they land inside <style> and
-// legitimately carry quotes and commas.
+// web security off — and four tokens already sit inside QUOTED ATTRIBUTES
+// (logo_src, qr_src, site_host, phone_href), so stripping only angle
+// brackets was not enough: a double quote breaks out of the attribute.
+// Entity-encode the five HTML-significant characters; in text positions
+// the entities render back to the literal characters, so names like
+// "Magpie & Mantel" stay legible everywhere. Theme tokens are exempt:
+// they land inside <style> and legitimately carry quotes and commas.
 // keep in sync with mkSafe in admin/index.html
 function safe(v) {
-  return str(v).replace(/[<>]/g, '');
+  return str(v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 }
 
 // A bare 10-digit number (or 11 with a leading 1) whose only non-digit
@@ -271,7 +275,7 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
   // photos.logo is the merged-content slot; brand.logo is where an
   // operator's uploaded logo_url actually lands in the overlay.
   const logoCand = str(photos.logo) || str(brand.logo);
-  const logoSrc = /^https?:\/\//i.test(logoCand) ? logoCand : '';
+  const logoSrc = /^https?:\/\//i.test(logoCand) ? safe(logoCand) : '';
 
   const host = tenant + '.systemsbyvega.com';
 
@@ -281,7 +285,7 @@ export function buildTokens(tenant, content, manifest, qrSrc) {
     phone_href: phoneHref,
     city_state: cityState,
     tagline: safe(brand.tagline),
-    price_headline: priceHeadline(manifest, c),
+    price_headline: safe(priceHeadline(manifest, c)),
     site_url: 'https://' + host + '/',
     site_host: host,
     qr_src: str(qrSrc),

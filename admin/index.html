@@ -559,7 +559,11 @@ document.addEventListener('DOMContentLoaded', function () {
       kind: 'object', caption: '',
       fields: [
         { key: 'commission', maxlen: 20, ph: '35%', label: 'Commission' },
-        { key: 'minimum', maxlen: 20, ph: '$500', label: 'Minimum' }
+        { key: 'minimum', maxlen: 20, ph: '$500', label: 'Minimum' },
+        /* The fee note renders on the operator's live fee card (estate-sale/
+           garage-sale renderFee) — a service commitment they must be able to
+           reword. 120 = sbv_prices_valid's object-form value cap. */
+        { key: 'note', maxlen: 120, ph: 'One commission, agreed in writing — nothing up front.', label: 'Fee note' }
       ]
     },
     none: {
@@ -898,10 +902,15 @@ document.addEventListener('DOMContentLoaded', function () {
   /* Builds the Pricing section for pricing.model (default 'tiers' — today's
      exact editor, unchanged markup/placeholders/maxlengths — when no
      manifest resolved, the regression guard). "rows" models render PRICE_ROWS
-     (3) .pr-card rows of that model's fields; "object" models render one
-     .pr-card of flat labeled fields; "none" hides the whole editor and shows
-     pricingCaption instead. Sets currentPricingModel/currentPriceFieldKeys,
-     read by readPricesForModel()/updatePricePreviews() below. */
+     (6) .pr-card rows of that model's fields — or MORE when the saved array
+     is longer, so every saved row loads back into an input and survives the
+     next save (sbv_prices_valid allows up to 8 rows; the merge endpoint
+     treats the saved array's length as authoritative, so a row that failed
+     to load here would be truncated off the live site by the next save).
+     "object" models render one .pr-card of flat labeled fields; "none"
+     hides the whole editor and shows pricingCaption instead. Sets
+     currentPricingModel/currentPriceFieldKeys, read by
+     readPricesForModel()/updatePricePreviews() below. */
   function initPricing(model, saved, pricingCfg) {
     /* F3 (metal-fab inert-editor ruling): a manifest can name a real
        pricing.model (metal-fabrication says "quote") while ALSO saying
@@ -948,8 +957,15 @@ document.addEventListener('DOMContentLoaded', function () {
     /* kind === 'rows' */
     currentPriceFieldKeys = def.fields.map(function (f) { return f.key; });
     var rowClass = 'pr-row' + (def.fields.length === 2 ? ' pr-row-2' : '');
+    /* The saved array's length is authoritative on the merge side, so the
+       editor must surface EVERY saved row: a 7-row save rendered into only
+       6 inputs would silently drop row 7 from the next save. Rows are seeded
+       from saved[i] only — never from the niche's demo content — so demo
+       rows past the saved length stay placeholders, not values: what the
+       operator deleted does not creep back into the inputs. */
+    var rowCount = Math.max(PRICE_ROWS, Array.isArray(saved) ? saved.length : 0);
     var rowsHtml = '';
-    for (var i = 0; i < PRICE_ROWS; i++) {
+    for (var i = 0; i < rowCount; i++) {
       var p = (saved && saved[i]) || {};
       rowsHtml += '<div class="pr-card"><div class="' + rowClass + '">'
         + def.fields.map(function (f) {
@@ -974,7 +990,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* Reads every .pr-row (array-of-rows models: tiers/hourly/calculator/
      flash). Always generic over data-pk — never hardcoded to a specific
-     model's keys, so this needed no change when models beyond tiers arrived. */
+     model's keys, so this needed no change when models beyond tiers arrived.
+     Compaction is intentional and is the delete mechanism: fully-empty rows
+     drop out and the survivors re-index, and because the merge endpoint
+     treats the saved array's length as authoritative (operator-content.mjs
+     overlayArrayByIndex), the compacted array IS the operator's tier list —
+     clearing a row removes that tier from the live site rather than letting
+     a demo tier stand under it. ALL rows cleared returns null, never []:
+     null follows the same convention as every other -2 column here (prices,
+     photos, logo_url are sent with an explicit null that truly clears the
+     column — only the -3 columns need maybeClearable's three-state), and a
+     cleared prices column means "not set", so the site falls back to the
+     full demo pricing. Clearing every row restores the demo tiers; it does
+     not publish a site with zero pricing. */
   function readPriceRows() {
     var rows = [].map.call(document.querySelectorAll('.pr-row'), function (row) {
       var o = {};
@@ -1812,8 +1840,14 @@ document.addEventListener('DOMContentLoaded', function () {
   var MK_QR_PLACEHOLDER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132'%3E%3Crect width='132' height='132' fill='%23c9ced6'/%3E%3C/svg%3E";
 
   function mkStr(v) { return (v === null || v === undefined) ? '' : String(v).trim(); }
-  /* keep in sync with safe in api/marketing-kit.mjs */
-  function mkSafe(v) { return mkStr(v).replace(/[<>]/g, ''); }
+  /* keep in sync with safe in api/marketing-kit.mjs — entity-encodes the
+     five HTML-significant characters (four kit tokens sit inside quoted
+     attributes; entities render back to literals in text positions) */
+  function mkSafe(v) {
+    return mkStr(v)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
 
   /* keep in sync with getPath in api/marketing-kit.mjs */
   function mkGetPath(obj, dotPath) {
@@ -1933,7 +1967,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var city = mkSafe(brand.city), state = mkSafe(brand.state);
     var cityState = (city && state) ? city + ', ' + state : (city || state);
     var logoCand = mkStr(photos.logo) || mkStr(brand.logo);
-    var logoSrc = /^https?:\/\//i.test(logoCand) ? logoCand : '';
+    var logoSrc = /^https?:\/\//i.test(logoCand) ? mkSafe(logoCand) : '';
     var host = tenant + '.systemsbyvega.com';
     var out = {
       business_name: mkSafe(brand.name),
@@ -1941,7 +1975,7 @@ document.addEventListener('DOMContentLoaded', function () {
       phone_href: phoneHref,
       city_state: cityState,
       tagline: mkSafe(brand.tagline),
-      price_headline: mkPriceHeadline(manifest, c),
+      price_headline: mkSafe(mkPriceHeadline(manifest, c)),
       site_url: 'https://' + host + '/',
       site_host: host,
       qr_src: mkStr(qrSrc),

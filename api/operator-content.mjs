@@ -240,13 +240,22 @@ function pricingTarget(out, base, mergePath) {
 }
 
 /* By-index field-merge for the array pricing shape (tiers/hourly/calculator/
-   flash), mirroring the original pricing-tiers loop: editing one row keeps
-   the rest of that row (and every row past what the operator saved) intact. */
+   flash). The SAVED array is authoritative for row count (final-platform-
+   review #1): iterate op's rows, not the base's. A saved row at an index the
+   demo also has merges field-by-field onto the demo row, keeping base-only
+   fields the admin never edits (features, tagline, highlight) — exactly the
+   old per-row behavior. A saved row PAST the demo's length becomes a pure
+   operator row built from the field map alone, so an operator with more
+   packages than the demo publishes all of them. A saved array SHORTER than
+   the demo truncates: the admin compacts cleared rows out before saving, so
+   a 2-row save from a 3-row demo means the operator removed a tier — the
+   demo's fictional extra tier must not stay live on their real site.
+   Callers only reach here with a non-empty array (overlayPricingManifest
+   guards), so a never-saved or cleared operator still gets the full demo. */
 function overlayArrayByIndex(baseArr, opArr, fieldMap) {
-  return baseArr.map(function (row, i) {
-    const o = opArr[i];
-    if (!o || typeof o !== 'object') return row;
-    const merged = Object.assign({}, row);
+  return opArr.map(function (o, i) {
+    const merged = (i < baseArr.length) ? Object.assign({}, baseArr[i]) : {};
+    if (!o || typeof o !== 'object') return merged;
     Object.keys(fieldMap).forEach(function (fromKey) {
       const toKey = fieldMap[fromKey];
       const v = o[fromKey];
@@ -331,6 +340,15 @@ function overlayPricingManifest(out, base, op, manifest) {
         cfg.model + '" for mergePath "' + mergePath + '" — skipping');
       return;
     }
+    /* Only a NON-EMPTY saved array becomes length-authoritative. An empty
+       array is not a shape the admin ever writes (readPriceRows() returns
+       null, never [], and collectRow() sends that null so the column truly
+       clears) — but if one is ever in the column, treat it exactly like
+       "never saved" and leave the demo pricing standing, which is also what
+       the old base-length merge did with []. Truncating the demo to zero
+       rows on a value that means "nothing entered" would be the silent-wipe
+       failure class this platform exists to avoid. */
+    if (!op.prices.length) return;
     const fieldMap = ARRAY_FIELD_MAPS[mergePath] || DEFAULT_ARRAY_FIELD_MAP;
     target.set(overlayArrayByIndex(target.baseVal, op.prices, fieldMap));
   }
