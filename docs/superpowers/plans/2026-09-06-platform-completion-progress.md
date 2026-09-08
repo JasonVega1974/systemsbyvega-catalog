@@ -212,3 +212,41 @@ Rule: append after every task — what shipped, rulings made, what's blocked.
   (header-side fix only — never bake meta); dj needs --theme in sweep
   scripts.
 - Next: Phase D turnkey verification table + final whole-platform review.
+- PHASE D + FINAL PLATFORM REVIEW + HARDENING COMPLETE (through e16efec).
+  Turnkey verification table (docs/superpowers/specs/2026-09-07-phase-d-
+  turnkey-verification.md): 25 niches, executed proofs, 0 problem rows,
+  all 7 pricing models exercised. The final whole-platform review (opus +
+  a security sweep) then found what the phase gates weren't built to catch;
+  ALL ship-blocking and before-first-sale items are now FIXED, PROVEN, and
+  LIVE: car-detailing's fabricated five-star placeholders and $0 booking
+  prices; "★ Most Booked"-class badges on fictional brands -> "Our pick";
+  dj's stored XSS (the one renderer of 25 with zero escaping — every
+  interpolation now escaped, links https-gated, demo visuals preserved);
+  the ghost-pricing-rows class (operator's saved array is now
+  authoritative for length — an operator with 2 packages no longer keeps
+  a fictional $4,200 demo tier on their real site, and the flyer can no
+  longer print a "From $25" the operator never set; 16-proof battery +
+  25-niche back-compat sweep); percentage operators can now reword their
+  fee-note commitment; kit tokens entity-encode operator input (hostile-
+  input parity proof both copies); the database URL constraints are
+  anchored end-to-end (sql/URL-ANCHOR.sql applied live — attribute
+  breakout now dies at the boundary).
+- SECURITY POSTURE (reviewed clean, do not re-audit): RLS + storage
+  policies airtight, no cross-tenant path; all SECURITY DEFINER functions
+  pinned; anon surface leaks nothing beyond design.
+- OPEN BACKLOG (next-tier, none ship-blocking; full detail was in the
+  final-review work order): admin note field no-ops on ~10 tiers niches
+  (drive field lists from editableFields); landscaping legacy plans[] keys
+  + dead pricing[]; safeUrl scheme gate x6 copies; qa-site gains
+  compliance rules (star-badges in CSS, fabricated-stars, $0 renders,
+  real-brand allowlist); sites/index.html as a second ungated catalog;
+  kit preview neutral-theme degrade notice; heroWired gate in CI; Prime
+  disclosure file location (#19); force row level security (#22); CSP
+  (#23); favicon 16/29; preview-deploy noindex; catalog-flip is FOUR
+  steps not one (new singular-slug seed row + catalog rebuild + SQL +
+  sites/index.html hand-edit — sbv_niches_handoff_ck forbids reusing the
+  real-business rows).
+- THE BRIEF'S GOAL IS MET: every niche turnkey — claim -> provision ->
+  branded admin -> live site -> downloadable marketing kit — proven for
+  all 25, with catalog exposure of the two new niches awaiting Jason's
+  explicit go.
