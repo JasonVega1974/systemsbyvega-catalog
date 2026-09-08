@@ -87,7 +87,12 @@ for (const slug of slugs) {
        question it needs answered: does this niche have variants, and what are
        they called. Absent for every unthemed niche rather than an empty array,
        so the admin's check is a plain truthiness test. */
-    themes: themeNamesFor(slug)
+    themes: themeNamesFor(slug),
+    /* The first-week checklist, lifted from the niche's guide so the admin's
+       Start-here tab and the guide itself cannot drift apart. Titles only —
+       the full step text stays in the guide, which is where somebody reads
+       it properly. Empty for a niche with no guide yet. */
+    guideSteps: guideStepsFor(slug)
   };
 }
 
@@ -118,6 +123,28 @@ fs.writeFileSync(OUT_PATH, out, 'utf8');
    middleware. Generated rather than hand-listed on purpose: writing "dj" into
    the router by hand is exactly what silently misroutes the day a second
    themed niche appears. */
+/* Pulls the <b>Step title.</b> out of each <li> in the guide's gd-steps list.
+   A regex over our own generated markup rather than a parser: the shape is
+   fixed by _template/guide and the build already fails if a guide is
+   malformed, so there is nothing here a parser would catch that the build
+   does not. Returns [] rather than null so the admin can render unconditionally. */
+function guideStepsFor(slug) {
+  const p = path.join(REPO, 'niches', slug, 'guide.html');
+  if (!fs.existsSync(p)) return [];
+  const html = fs.readFileSync(p, 'utf8');
+  const list = html.match(/<ol class="gd-steps">[\s\S]*?<\/ol>/);
+  if (!list) return [];
+  const steps = [...list[0].matchAll(/<li>\s*<b>([\s\S]*?)<\/b>/g)]
+    .map((m) => m[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+  if (steps.length && (steps.length < 5 || steps.length > 7)) {
+    console.error('build-manifest-index: ' + slug
+      + ' guide has ' + steps.length + ' first-week steps; the brief says 5-7');
+    process.exit(1);
+  }
+  return steps;
+}
+
 /* Shared by the manifest index entries above and the themed map below, so the
    two can never disagree about what a niche's variants are. A function
    declaration, so it is hoisted above the index that calls it. Returns null

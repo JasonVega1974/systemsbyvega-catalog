@@ -44,7 +44,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "auto-repair": {
     "theme": {
@@ -93,7 +94,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "bbq-food-truck": {
     "theme": {
@@ -141,7 +143,8 @@
       "ownerShape": "none"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "bin-cleaning": {
     "theme": {
@@ -192,7 +195,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "car-detailing": {
     "theme": {
@@ -243,7 +247,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "caregiving": {
     "theme": {
@@ -292,7 +297,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "child-care": {
     "theme": {
@@ -341,7 +347,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "christmas-lights": {
     "theme": {
@@ -390,7 +397,16 @@
       "beforeAfter": "none"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": [
+      "Decide what you will not do.",
+      "Price three houses on paper.",
+      "Buy for one house, not ten.",
+      "Light your own house, or a friend's.",
+      "Put those photos on your site.",
+      "Tell fifty people you are doing it.",
+      "Book the installs, then buy the rest."
+    ]
   },
   "commercial-cleaning": {
     "theme": {
@@ -441,7 +457,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "contracting": {
     "theme": {
@@ -492,7 +509,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "delivery": {
     "theme": {
@@ -540,7 +558,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "dj": {
     "theme": {
@@ -588,7 +607,8 @@
       "blue",
       "green",
       "pink"
-    ]
+    ],
+    "guideSteps": []
   },
   "dog-walking": {
     "theme": {
@@ -636,7 +656,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "dumpster-rental": {
     "theme": {
@@ -684,7 +705,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "electrician": {
     "theme": {
@@ -732,7 +754,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "estate-sale": {
     "theme": {
@@ -781,7 +804,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "garage-sale": {
     "theme": {
@@ -830,7 +854,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "hvac": {
     "theme": {
@@ -879,7 +904,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "landscaping": {
     "theme": {
@@ -928,7 +954,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "mechanic": {
     "theme": {
@@ -980,7 +1007,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "metal-fabrication": {
     "theme": {
@@ -1025,7 +1053,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "moving": {
     "theme": {
@@ -1074,7 +1103,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "painting": {
     "theme": {
@@ -1125,7 +1155,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "personal-assistant": {
     "theme": {
@@ -1175,7 +1206,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "personal-trainer": {
     "theme": {
@@ -1224,7 +1256,8 @@
       "ownerShape": "none"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "plumbing": {
     "theme": {
@@ -1273,7 +1306,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "pressure-washing": {
     "theme": {
@@ -1324,7 +1358,8 @@
       "ownerShape": "owner"
     },
     "heroWired": false,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "residential-cleaning": {
     "theme": {
@@ -1375,7 +1410,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "roofing": {
     "theme": {
@@ -1424,7 +1460,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "sprinkler": {
     "theme": {
@@ -1475,7 +1512,8 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "tattoo-studio": {
     "theme": {
@@ -1523,7 +1561,8 @@
       "ownerShape": "none"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   },
   "window-cleaning": {
     "theme": {
@@ -1574,6 +1613,7 @@
       "ownerShape": "owner"
     },
     "heroWired": true,
-    "themes": null
+    "themes": null,
+    "guideSteps": []
   }
 }

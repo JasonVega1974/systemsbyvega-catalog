@@ -6,6 +6,21 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Your site — Systems by Vega</title>
 <style>
+  /* Start-here tab. Numbered list and three link cards; nothing interactive
+     beyond the links, because this tab exists to point somewhere else. */
+  .start-steps{list-style:none;counter-reset:s;margin:14px 0 0;padding:0}
+  .start-steps li{counter-increment:s;position:relative;padding:0 0 12px 40px;line-height:1.55}
+  .start-steps li::before{content:counter(s);position:absolute;left:0;top:0;
+    width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--on-accent, #fff);
+    font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
+  .start-links{display:grid;gap:12px;margin-top:26px}
+  .start-link{display:block;padding:14px 16px;border:1px solid var(--card-brd);border-radius:10px;
+    text-decoration:none;background:var(--card);min-height:44px}
+  .start-link:hover{border-color:var(--accent)}
+  .start-link b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
+  .start-link span{color:var(--muted);font-size:14.5px}
+  @media(min-width:720px){.start-links{grid-template-columns:repeat(3,1fr)}}
+
   /* Theme tokens. DEFAULTS below reproduce the pre-theme neutral look exactly.
      applyTheme() overwrites these on :root once a tenant's niche_slug is known;
      an unmapped niche leaves every default untouched. --adm-hair, --green,
@@ -213,6 +228,7 @@
   <!-- SECTION NAV. Five pills, shown only while the editor is loaded. -->
   <nav id="sectionNav" hidden aria-label="Sections">
     <div class="nav-scroll">
+      <a href="#sec-start" class="nav-pill" data-target="sec-start">Start here</a>
       <a href="#sec-business" class="nav-pill" data-target="sec-business">Business</a>
       <a href="#sec-photos" class="nav-pill" data-target="sec-photos">Photos</a>
       <a href="#sec-pricing" class="nav-pill" data-target="sec-pricing">Pricing</a>
@@ -250,6 +266,32 @@
          made anything dirty yet) — a load failure must not go silently into
          the save bar's message slot, which is invisible at that point. -->
     <p class="msg" id="panelMsg" role="alert"></p>
+
+    <!-- The first thing an operator sees after signing in. Deliberately not a
+         form: everything else in this admin asks them for something, and this
+         one tells them what to do. The checklist is the same first-week list as
+         their guide, read from the manifest index so the two cannot drift. -->
+    <section class="card" id="sec-start">
+      <p class="sec-h">Start here</p>
+      <p id="startWelcome" class="hint"></p>
+
+      <div id="startStepsWrap" hidden>
+        <p class="sec-h" style="margin-top:22px">Your first week</p>
+        <ol id="startSteps" class="start-steps"></ol>
+      </div>
+
+      <div class="start-links">
+        <a id="startGuide" class="start-link" href="/guide" target="_blank" rel="noopener">
+          <b>Read the full guide</b>
+          <span>What to charge, where the customers are, how the work runs.</span></a>
+        <a class="start-link" href="#sec-business" data-jump="sec-business">
+          <b>Set up your site</b>
+          <span>Your name, phone, hours and service area.</span></a>
+        <a class="start-link" href="#sec-marketing" data-jump="sec-marketing">
+          <b>Get your marketing kit</b>
+          <span>A social image and a printable flyer with your QR code.</span></a>
+      </div>
+    </section>
 
     <section class="card" id="sec-business">
       <p class="sec-h">Business</p>
@@ -1480,6 +1522,44 @@ document.addEventListener('DOMContentLoaded', function () {
       var manifest = (nicheSlug && Object.prototype.hasOwnProperty.call(manifestIndex, nicheSlug))
         ? manifestIndex[nicheSlug] : null;
       currentManifest = manifest;
+
+      /* Start-here content. The niche label comes from the slug rather than a
+         separate display-name field, which does not exist; the brand name is
+         whatever they have saved, falling back to nothing rather than to the
+         demo brand — greeting an operator by the fictional name would be worse
+         than greeting them by none. */
+      var bizName = (r.data && r.data.business_name) || '';
+      var nicheLabel = (nicheSlug || '').replace(/-/g, ' ');
+      $('startWelcome').textContent = bizName
+        ? ('Welcome back, ' + bizName + '. This is where you run your site.')
+        : (nicheLabel
+            ? ('Welcome to your ' + nicheLabel + ' site. Here is how to get your first customer.')
+            : 'Welcome. Here is how to get your first customer.');
+
+      var steps = (manifest && manifest.guideSteps) || [];
+      var stepsList = $('startSteps');
+      stepsList.innerHTML = '';
+      steps.forEach(function (t) {
+        var li = document.createElement('li');
+        li.textContent = t;
+        stepsList.appendChild(li);
+      });
+      /* Hidden rather than empty: a niche whose guide has not been written yet
+         should show the links and no orphan heading. */
+      $('startStepsWrap').hidden = steps.length === 0;
+      $('startGuide').hidden = steps.length === 0;
+
+      /* The guide lives on the OPERATOR's subdomain, and this admin is served
+         from the apex, so a bare '/guide' would 404 against systemsbyvega.com.
+         Build the tenant host the way panelSub does — plus a guard it does not
+         have: if the admin is ever opened ON the tenant subdomain (it is a real
+         file and serves from any host), prefixing again would produce
+         tenant.tenant.systemsbyvega.com. */
+      var apexHost = location.hostname.replace(/^www\./, '');
+      if (clientId && apexHost.indexOf(clientId + '.') === 0) {
+        apexHost = apexHost.slice(clientId.length + 1);
+      }
+      if (clientId) $('startGuide').href = 'https://' + clientId + '.' + apexHost + '/guide';
 
       /* Design variants, for the niches that have them. row.theme comes from
          sbv_public_tenants, which returns it since sql/DJ-THEME.sql. A tenant
