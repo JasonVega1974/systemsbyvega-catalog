@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Bluebird & Biscuit Pet Care</title>
+<meta name="description" content="Getting started guide for the owner of Bluebird & Biscuit Pet Care.">
+<meta name="theme-color" content="#F7FAFD">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233B9AE1'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Varela+Round&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#F7FAFD;
+  --gd-sunk:#FDFEFF;
+  --gd-line:#FDFEFF;
+  --gd-line:color-mix(in srgb, #22364A 18%, transparent);
+  --gd-ink:#22364A;
+  --gd-soft:#5A6B7B;
+  --gd-dim:#5A6B7B;
+  --gd-dim:color-mix(in srgb, #5A6B7B 78%, transparent);
+  --gd-accent:#3B9AE1;
+  --gd-on-accent:#1D2E40;
+  --gd-display:'Baloo 2',sans-serif;
+  --gd-body:'Varela Round',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">dog walking &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/dog-walking/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics. The legal section names
+     categories only - dog walking is largely unlicensed but city rules on
+     dogs per walker and commercial animal-care permits vary, so the reader is
+     sent to their own city. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>You are not being hired to walk a dog. You are being hired to hold a key to
+  somebody's house and be alone in it while they are at work. The dog is the easy part.
+  Set up the trust part first.</p>
+
+  <ol class="gd-steps">
+    <li><b>Sort your key system before you accept a single key.</b> A lockbox on the client's
+      own door is the best answer — you never carry their key, and they can change the code
+      the day they stop using you. Where you do hold keys, label them with a code that means
+      something only to you, never with a name or an address, and keep them somewhere locked.
+      A ring of tagged house keys in a car door pocket is the nightmare version of this
+      business.</li>
+    <li><b>Call a broker about pet care cover, and use the right words.</b> Ask about
+      liability, and then ask specifically about care, custody and control — cover for injury
+      to or loss of the animal that is in your hands, which plenty of general liability
+      policies exclude and which is the exact thing most likely to go wrong. Ask about being
+      bonded too, because clients who hand over keys ask about that by name. Do not put
+      "bonded and insured" on the site until the paperwork is real.</li>
+    <li><b>Write the dog file and the meet-and-greet script.</b> Vet name and number, whether
+      you are authorised to seek emergency treatment and who pays, vaccination status,
+      allergies, feeding, medication, leash and harness setup, recall, what they are reactive
+      to, gate and alarm codes, where the leash and towels live, and where the dog hides when
+      frightened. Ask about bite history plainly and without apology — an owner who will not
+      answer that question has answered it.</li>
+    <li><b>Walk five dogs for nothing.</b> Friends, neighbours, family. Learn what two leashes
+      feel like before you find out what four feel like, on a wet pavement, next to a road.
+      Photograph every one of those walks; that is your gallery for the first month.</li>
+    <li><b>Draw your service area on a map and make it small.</b> This trade is a routing
+      problem wearing a dog costume. Midday walks all land in the same ninety minutes, and a
+      client fifteen minutes outside your circle quietly costs you a whole slot. Pick a tight
+      area, say so on the site, and grow the circle later.</li>
+    <li><b>Buy the kit that stops disasters.</b> A slip lead as a backup on every walk, a
+      second clip so the dog is attached to you two ways, poo bags in every pocket, a towel and
+      old blankets in the car, water and a collapsible bowl, a basic pet first aid kit, and
+      treats you have cleared with the owner. Nothing here is expensive and any one of it can
+      save you a client.</li>
+    <li><b>Decide your pack rules before you have a pack.</b> How many dogs, what sizes go
+      together, that every new dog does solo walks first, and what makes a dog permanently a
+      solo dog. Write it down while it is theoretical.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site prices by service and duration — solo, pack and drop-in, each at twenty,
+  thirty and forty-five minutes — with a discount for three-day and five-day weeks, and a
+  separate overnight rate. Rewrite every number for your own market; the shape is what
+  matters.</p>
+
+  <p><strong>Solo costs more than pack because it costs you the same slot.</strong> A pack
+  walk is the only lever in this business that lets one hour serve several clients. Price it
+  so it is the obvious choice for a sociable dog and so a solo walk is genuinely worth doing
+  for the dogs that need one.</p>
+
+  <p><strong>The multi-day discount buys you a schedule, not a favour.</strong> A five-day
+  dog is a fixed block in your week that you can build the rest of the route around. That is
+  what the discount is for. Say so.</p>
+
+  <div class="gd-note">
+    <p><b>The mistake that quietly kills this business:</b> taking clients in the order they
+    enquire instead of in the order they sit on a map. Three good clients in three different
+    towns will fill your midday and leave you driving most of it. Before you accept a new
+    client, look at where they live against the walks you already have that day, and be
+    willing to say "I am not covering that street yet — can I put you on the list for when I
+    am?" A tight route is the whole difference in this trade.</p>
+  </div>
+
+  <p><strong>Charge for the calendar, not just the walk.</strong> Holidays, last-minute
+  bookings and same-day requests are worth a stated surcharge, decided in advance and written
+  on your terms so it is never a negotiation on Christmas Eve.</p>
+
+  <p><strong>Cancellations.</strong> A dog cancelled at 9am for a noon walk leaves a hole
+  nobody else can fill. Decide your notice window, put it in writing at the meet and greet,
+  and apply it the same way to everyone.</p>
+
+  <p><strong>Overnights are a different business.</strong> You are sleeping in somebody's
+  house, and you are not walking six other dogs that day. Price it as a night, not as a
+  stack of visits, and be honest with yourself about what it does to the rest of your
+  week.</p>
+
+  <p><strong>Raising rates.</strong> In writing, with a month's notice, at a natural point in
+  the year. Existing clients almost never leave over a modest increase announced properly;
+  they leave over one sprung on them in a text.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Dog people ask other dog people, and they ask the professionals they already pay. Three
+  channels do most of the work, and none of them is a paid advertisement.</p>
+
+  <ul>
+    <li><strong>Vets, groomers, trainers and boarding kennels.</strong> They are asked "do you
+      know a walker?" constantly and they do not offer walks themselves, so there is nothing
+      competitive about it. Go in mid-morning when it is quiet, ask who handles the front desk,
+      leave cards and a single page. The trainer referral is the best of the lot, because a
+      trainer has already assessed the dog and will only send you ones you can handle — and
+      being the walker a trainer recommends is a reputation you cannot buy.</li>
+    <li><strong>The route itself.</strong> You are visibly walking dogs in the same
+      neighbourhoods three times a day, which no other trade in this catalog can say. Wear
+      something with your name on it, keep cards in your pocket, and talk to people at the
+      park and on the pavement. Somebody who watches you handle four dogs calmly past a
+      barking terrier has seen a better advertisement than you could write.</li>
+    <li><strong>Apartment buildings, HOAs and property managers with pet policies.</strong>
+      A building full of dogs and residents who work in an office is a route in one postcode.
+      Ask about a noticeboard, a resident newsletter, or being the name at the leasing desk.</li>
+  </ul>
+
+  <p>Then there is the channel most walkers ignore: <strong>the clients you already have.</strong>
+  The midday drop-in client goes on holiday and needs overnights. The pack-walk client breaks an
+  ankle and needs a week of solos. Existing clients are the cheapest growth in this business, and
+  a short note when their routine changes is all it takes. Offer a free walk for a referral —
+  dog owners talk to each other constantly and one thank-you walk buys a lot of goodwill.</p>
+
+  <p>Your website's job is to answer the questions a nervous owner has before they will hand
+  over a key: who you are, what happens at a meet and greet, how many dogs are in a pack, what
+  happens if something goes wrong, and which streets you actually cover. The week builder earns
+  its place because it lets someone price their own Monday-to-Friday without having to ask.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Check the collar at the door, every single time.</strong> Two fingers under it,
+  clip the backup slip lead as well as their own leash, and only then open the front door.
+  Dogs back out of collars in the first thirty seconds of a walk, at the moment they are most
+  excited, usually within sight of a road. Everything else in this section matters less than
+  this.</p>
+
+  <p><strong>Know your loose-dog plan before you need it.</strong> Do not chase — running at a
+  loose dog pushes it further. Turn and move away, get low, use the treats, use the word they
+  actually respond to, which you asked about at the meet and greet. Then, in order: call the
+  owner, call the vet, post in the neighbourhood group, and keep looking. Have that order
+  written in your phone, because you will not be thinking clearly.</p>
+
+  <p><strong>Same walker, same route.</strong> It is the promise on your site and it is also
+  simply true about dogs — they do not want variety, they want the trail they know and the
+  person they know. It is also what lets you notice that he is favouring a back leg or that
+  she did not finish breakfast, which is a thing owners will pay for long after the novelty of
+  the service wears off.</p>
+
+  <p><strong>Send the photo and the note before you start the car.</strong> One picture, two
+  lines: where you went, how they did, anything worth flagging. If you leave it until the end
+  of the day it does not get sent, and the report is a large part of what the client is
+  actually buying — proof that somebody came.</p>
+
+  <div class="gd-note">
+    <p><b>Lock-up discipline is the thing that loses keys and clients:</b> after every visit,
+    physically turn the handle to confirm the door is locked, check the gate latch, and confirm
+    the dog is on the correct side of both. Photograph the closed door and send it with the walk
+    note. It takes five seconds and it ends every "did you lock up?" text forever — and the one
+    time a gate was already broken when you arrived, you will have the picture.</p>
+  </div>
+
+  <p><strong>Heat and ice are route decisions.</strong> Put the back of your hand on the
+  pavement and hold it there — if you cannot, neither can they. On those days shorten the walk,
+  find grass and shade, or swap in indoor play, and write in the note exactly what you did
+  instead. Owners are fine with a changed plan and not fine with silence.</p>
+
+  <p><strong>Never put your hands between dogs.</strong> If a scuffle starts, use the leash and
+  your body position and distance, not your fingers. Any bite — to you, to a dog, to a person —
+  is reported to the owner the same day and written down, with the time, the location and what
+  led up to it. Do not soften it and do not wait.</p>
+
+  <p><strong>Pick it up. All of it, every property, every time.</strong> This is what a
+  neighbourhood judges a walker on and it takes exactly one complaint to a HOA to make you the
+  problem.</p>
+
+  <p><strong>Have a backup walker before you get flu.</strong> Dogs still need letting out on
+  the day you cannot drive. Find somebody you trust, introduce them to your clients while
+  nothing is wrong, and get the owner's advance permission in writing rather than sending a
+  stranger to their door.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change there
+  is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Two slots — the hero and your own portrait. Replace the hero
+      with your own dogs on your own trail as soon as you have permission to use them. Ask
+      before you post any client's dog; most owners are delighted, and asking is what makes
+      them delighted rather than surprised. Shoot in the morning or the late afternoon and get
+      down to the dog's eye level — a photograph taken from standing height looks like a
+      security camera.</li>
+    <li><strong>Services and rates.</strong> Solo, pack and drop-in, each priced at twenty,
+      thirty and forty-five minutes, plus your three-day and five-day discounts and the
+      overnight rate. Those numbers drive the week builder, so edit them there and the
+      calculator follows. Keep the pack cap visible — it is a selling point and it also sets
+      expectations you will be held to.</li>
+    <li><strong>Details and hours.</strong> Put your real walking windows in, not "9-5". A
+      morning, midday and afternoon slot structure tells an owner far more, and it stops people
+      asking for a 7pm walk you were never going to do.</li>
+    <li><strong>Reviews.</strong> Empty until you add them, deliberately — nothing invented
+      ships on this site. Add real ones only, with permission. Dog owners write good reviews if
+      you ask right after a holiday you covered.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with a QR
+      code pointing at your site. Print it for the vet's noticeboard, the groomer's counter and
+      the apartment lobby.</li>
+    <li><strong>Leads.</strong> Every enquiry from your booking form is emailed to you and kept
+      as a running list. Reply the same day and open with the meet and greet — it is free, it
+      closes the sale, and it is where you find out whether the dog is one you can walk.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Use the Legal section of the admin for the clauses this
+  trade actually needs — your cancellation window, your key handling, your bad-weather policy,
+  and the fact that you may seek emergency veterinary treatment at the owner's cost if you
+  cannot reach them. Get that last one looked at properly and mirror it in your signed service
+  agreement.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>Read this as orientation only. Dog walking is not a licensed profession in the way that
+  care work is, but the rules that do apply are mostly local, which means they vary from one
+  city to the next rather than one state to the next. Check with your own city before you take
+  a client.</p>
+
+  <ul>
+    <li><strong>Business registration and local licence.</strong> Most cities want a registered
+      business name and a general business licence. Usually quick and cheap, and it is the first
+      thing to do.</li>
+    <li><strong>Commercial animal-care rules.</strong> Some cities and counties regulate
+      walking dogs for hire specifically — a permit for commercial animal services, a cap on
+      how many dogs one person may handle at once, rules about which parks may be used
+      commercially. These are genuinely local, they differ between neighbouring towns, and the
+      dog limit in particular is the one that catches walkers out. Ask your city's animal
+      services or licensing office directly.</li>
+    <li><strong>Leash, nuisance and waste ordinances.</strong> Leash law, where off-leash is
+      allowed, and waste rules are local and enforced against you as the handler, not the
+      owner.</li>
+    <li><strong>Insurance.</strong> Liability cover is the baseline. The part to raise
+      explicitly with a broker is care, custody and control — injury to or loss of an animal in
+      your care — plus cover for the client's property while you hold a key. Ask what is
+      excluded, in writing.</li>
+    <li><strong>Bonding.</strong> Clients ask about this because you are alone in their house.
+      Understand what a bond does and does not do before you describe yourself as bonded.</li>
+    <li><strong>Driving dogs.</strong> Transporting animals for a fee may fall outside a
+      personal auto policy, and some places have rules about how animals must be restrained in
+      a vehicle. Ask your insurer before a dog is ever in your car.</li>
+    <li><strong>Your service agreement.</strong> A signed agreement covering emergency
+      veterinary authorisation and who pays, key handling and return, cancellation, vaccination
+      expectations, and what happens if a dog bites someone on your walk. Have it drafted or
+      reviewed by an attorney in your state rather than assembled from a template.</li>
+    <li><strong>Workers' compensation and classification.</strong> The moment somebody else
+      walks a dog for your business, whether they are an employee or a contractor and whether
+      workers' compensation applies become real questions with state-specific answers.</li>
+  </ul>
+
+  <p>Do not describe yourself on your site as licensed, insured, bonded or background-checked
+  until every one of those is true and you hold the paper. People handing over house keys check,
+  and being caught overstating it once is the end of the referral chain you spent a year
+  building.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

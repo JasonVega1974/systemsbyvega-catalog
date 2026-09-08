@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Grit & Gleam Powerwashing</title>
+<meta name="description" content="Getting started guide for the owner of Grit & Gleam Powerwashing.">
+<meta name="theme-color" content="#071e29">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230C7A93'/%3E%3Cpath d='M14 44 L34 24' stroke='%23EAF7FB' stroke-width='5' stroke-linecap='round'/%3E%3Crect x='30' y='16' width='14' height='10' rx='2' transform='rotate(45 30 16)' fill='%23EAF7FB'/%3E%3Ccircle cx='46' cy='14' r='2.6' fill='%2322D3EE'/%3E%3Ccircle cx='52' cy='22' r='2' fill='%2222D3EE'/%3E%3Ccircle cx='41' cy='9' r='1.8' fill='%2222D3EE'/%3E%3Cpath d='M10 48 L18 48' stroke='%23EAF7FB' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+:root{
+  --gd-ground:#071e29;
+  --gd-sunk:#0c2c3a;
+  --gd-line:#0c2c3a;
+  --gd-line:color-mix(in srgb, #EAF7FB 18%, transparent);
+  --gd-ink:#EAF7FB;
+  --gd-soft:#CFE7EE;
+  --gd-dim:#CFE7EE;
+  --gd-dim:color-mix(in srgb, #CFE7EE 78%, transparent);
+  --gd-accent:#22D3EE;
+  --gd-on-accent:#04222B;
+  --gd-display:'Space Grotesk',sans-serif;
+  --gd-body:'Manrope',sans-serif;
+  --gd-mono:'Space Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">pressure washing &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/pressure-washing/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no "most operators" anything.
+     Everything here is about what to do, not what it will pay. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>Exterior cleaning is sold by the surface and won by the photograph. It is also the
+  trade where a beginner does the most damage in the first month, because the machine
+  will happily carve a driveway, strip a deck or drive water up under siding. Spend the
+  first week learning what not to point it at.</p>
+
+  <ol class="gd-steps">
+    <li><b>Learn the difference between washing and soft washing before you sell
+      anything.</b> Concrete and masonry take pressure. Siding, painted wood, roofs and
+      screens do not — those get chemistry at garden-hose pressure and a rinse. Roof
+      streaking is algae, and it dies from the mix, not from the machine. Selling a
+      "pressure wash" on a roof is how a beginner ends up buying somebody shingles.</li>
+    <li><b>Buy a surface cleaner with the machine, not later.</b> A wand alone on flatwork
+      leaves stripes across the whole driveway that no amount of extra passes hides. The
+      rotating surface cleaner is what makes concrete come out one even colour, and it is
+      the difference between finished work and obvious first work.</li>
+    <li><b>Check your water supply, not just your machine.</b> Gallons per minute is what
+      cleans; pressure only concentrates it. Fill a five-gallon bucket from the customer's
+      outside tap and time it. If the tap cannot keep up with the pump you need a buffer
+      tank between them, or you will starve the pump and cook it.</li>
+    <li><b>Wash your own driveway and stop halfway.</b> Leave the dividing line down the
+      middle, dirty on one side and clean on the other, and photograph it from standing
+      height in flat light. That single frame sells more work than any finished driveway
+      ever will, because it shows what was there.</li>
+    <li><b>Write down what you refuse.</b> No roofs you would need to walk. No chalky
+      oxidised paint. No cedar shakes. No unsealed stone you have never worked on. Decide
+      it now, in writing, because you will get asked in week two while standing in
+      somebody's yard.</li>
+    <li><b>Price and measure three real surfaces.</b> Take a measuring wheel to three
+      driveways on your street, write down the square footage, and work out what you would
+      charge. This trade quotes in square feet — you need to be able to say a number
+      without going quiet first.</li>
+    <li><b>Put your own before-and-afters on the site.</b> The site ships with an
+      illustrated hero and stock work. Replace the photographs with things you have
+      actually cleaned as soon as you have three.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships with three flat packages — a driveway refresh, a full exterior wash,
+  and a deck and fence restore — each with a stated size limit and a note explaining what
+  happens past it. Change every figure to your own market; the shape is what matters.</p>
+
+  <p><strong>Flat pricing with a stated boundary is the strongest offer in this
+  trade.</strong> Customers hate hourly quotes for exterior work because they cannot judge
+  how long it should take. A flat number with "up to this many square feet, and here is
+  the rate beyond it" gives them certainty and gives you a way out of the giant driveway
+  you did not expect.</p>
+
+  <p><strong>Measure before you quote, and measure from a map when you can.</strong>
+  Satellite imagery is accurate enough to get a driveway close, which means you can quote
+  most flatwork over the phone and keep the day for washing. Confirm the number on
+  arrival, before the machine comes off the trailer, not after.</p>
+
+  <div class="gd-note">
+    <p><b>Quote the condition, not just the area:</b> two driveways of the same size can
+    be an hour apart. Rust from a sprinkler, dried transmission fluid, red clay, black
+    algae in the shade under trees, paint drips from a previous owner — each of those is a
+    pretreatment and a second pass. Ask for a photograph before you name a price, and put
+    stains on their own line so nobody thinks you invented an extra at the end.</p>
+  </div>
+
+  <p><strong>Charge for what will not come clean, honestly, before you start.</strong>
+  Oil that has soaked into unsealed concrete may lighten and never leave. Oxidised siding
+  will come clean and still look chalky. Say so at the quote, in front of the surface,
+  and you keep the job. Say it afterwards and you are arguing about a refund.</p>
+
+  <p>Minimum service charge, and stick to it. Driving out, unrolling, washing one small
+  patio and rolling back up is most of a half day whatever the surface measured.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>This work is bought on sight. Almost everything that works in this trade is a way of
+  putting a clean surface in front of somebody who has a dirty one.</p>
+
+  <ul>
+    <li><strong>The street you are washing, while you are washing it.</strong> Put a sign
+      in the yard, work with the trailer visible, and knock the nearest doors before you
+      leave with a "we are on your street today" price. Driveways are visible from the
+      road in a way that most trades' work is not — the neighbours have already compared
+      theirs to the one you just did.</li>
+    <li><strong>Local groups, with the half-done frame.</strong> Post the driveway with
+      the line down the middle, not the finished one. Say the town. Do not post a
+      before-and-after so far apart that people think it is a different house — same
+      angle, same standing spot, same weather.</li>
+    <li><strong>Commercial route work.</strong> Restaurant dumpster pads, drive-thru
+      lanes, gas station forecourts, the sidewalk in front of a strip of shops. It is
+      grubby, it is usually done at night or early morning, and it repeats on a schedule
+      instead of once every few years. Walk in mid-morning and ask who handles the
+      exterior.</li>
+  </ul>
+
+  <p>Two more worth setting up once: estate agents who want a house washed before the
+  listing photographs, and property managers with a portfolio of the same building type.
+  Both are single relationships that turn into repeat work, and both care more about being
+  able to book you at short notice than about being cheapest.</p>
+
+  <p>Seasonal rhythm matters here. Spring pollen and the run-up to summer parties are when
+  people look at their house and decide it is filthy. Book the commercial work into the
+  quiet months on purpose.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Protect the plants before you mix anything.</strong> Soak the beds and the
+  grass around the work with plain water first, keep them wet while you wash, and rinse
+  again afterwards. Killed shrubs are the most expensive mistake in this trade and the
+  only one the customer sees a week later.</p>
+
+  <p><strong>Water goes in from above, not underneath.</strong> Never drive a stream up
+  under lap siding, into a soffit vent, into a dryer vent, or at a window seal from below.
+  Water pushed into a wall does not show up on the day; it shows up as a stain on somebody's
+  ceiling in a month, and that is your bill.</p>
+
+  <div class="gd-note">
+    <p><b>Test in a corner, every single time.</b> Behind the downpipe, under the deck
+    stairs, the bottom corner of a fence panel. Give it thirty seconds at the tip and
+    pressure you plan to use and look at what happened. Oxidised paint, soft cedar, old
+    stucco and stamped concrete all fail differently, and the test patch is the only thing
+    standing between you and a mark somebody has to look at for years.</p>
+  </div>
+
+  <p><strong>Wood is a low-pressure job with chemistry doing the work.</strong> Clean it,
+  then brighten it — the brightener is what pulls the grey out and puts the colour back
+  and it is the step that makes a deck look restored rather than merely wet. Keep the
+  pressure low enough not to raise the grain, because furred wood cannot be un-furred.</p>
+
+  <p><strong>Photograph everything, in the same standing spot.</strong> Before you unroll a
+  hose, walk the job with the phone and shoot every surface you were hired for and every
+  bit of existing damage you were not. The damage photos are for you. The before-and-afters
+  are for the customer, and texting them the pair the same day is what gets you the
+  referral to the neighbour.</p>
+
+  <p><strong>Walk the finished job with them.</strong> This trade has a hard, visible
+  finish line, so use it. Walk the surface together, in daylight, and fix anything they
+  point at while the machine is still on the trailer. That is also the moment to ask
+  whether they want the deck doing next year.</p>
+
+  <p><strong>Cold shuts you down.</strong> Freezing means water in the pump, the hoses and
+  the wand, and split lines are a spring you spend replacing gear. Learn how to drain and
+  store the machine properly the first autumn, not the second.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> This site's front page is a drag-to-clean canvas rather
+      than a before/after slider, so there is no comparison widget to feed — your real
+      before-and-afters do their work in the marketing kit, in your local group posts and
+      texted straight to the customer. Upload zones are in the admin and your uploads
+      save; keep the same-angle pairs together and named so you can find them.</li>
+    <li><strong>Pricing.</strong> Three packages. Edit the label, the price and the note on
+      each. The note line is where the boundary lives — the size the flat rate covers, and
+      what happens past it. Do not leave that line vague; it is doing real work.</li>
+    <li><strong>Details and service area.</strong> Name, phone, email and the towns you
+      actually drive to. This niche has no hours strip on the page, so the place to say you
+      work early mornings or after close for commercial pads is in the package notes or in
+      the copy — and say it somewhere, because that one sentence is why a restaurant calls
+      you instead of the next name on the list.</li>
+    <li><strong>Reviews.</strong> Empty by design — the site ships with no invented reviews
+      on it. Add real ones as you earn them, with the customer's permission.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with
+      a QR code pointing at your site. Leave the flyer at the doors either side of every
+      driveway you wash, the same day.</li>
+    <li><strong>Leads.</strong> Every enquiry from the booking form is emailed to you and
+      kept as a running list. Reply the same day — exterior work is shopped on speed of
+      response as much as on price.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section of the
+  admin — what you do not warrant, how far in advance a wash can be moved for weather,
+  what happens to a job rained out halfway.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by city.
+  Check what applies where you live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> Most places want a registered business name
+      and a local business licence before you trade. Usually quick and cheap, and the first
+      thing to do.</li>
+    <li><strong>Wash water and run-off.</strong> The rule that catches this trade. Water
+      carrying detergent, oil or a roof mix is generally not allowed to go into a storm
+      drain, and what you are required to do about it is set locally. Ask your city or the
+      sewer utility what they expect — capture, a berm and a vacuum, diversion to
+      landscaping — before your first commercial pad job, because that is where somebody
+      will notice.</li>
+    <li><strong>Liability insurance.</strong> Non-negotiable in a trade whose whole tool is
+      capable of destroying somebody's property. Talk to a broker before your first paid
+      job and describe roof work, soft washing and the chemicals honestly. A policy sold on
+      a vague description is a policy that may not answer.</li>
+    <li><strong>Chemical handling.</strong> The mixes used for algae are common but they
+      are still chemicals with a label. Read the label, store them the way it says,
+      transport them upright and secured, and keep the safety data sheets with the
+      trailer.</li>
+    <li><strong>Contractor licensing.</strong> Cleaning is usually not licensed work, but
+      some states pull anything above a dollar threshold, or anything involving a roof or a
+      coating, into contractor licensing. Ask your state board what side of the line
+      exterior cleaning sits on before you advertise roof work.</li>
+    <li><strong>Workers' compensation.</strong> The moment you put a second person on a
+      ladder or a roof, this becomes a question, and the rules differ sharply by state
+      including for casual help.</li>
+    <li><strong>Sales tax.</strong> Whether a cleaning service is taxable varies by state.
+      Ask an accountant once, early.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are, and
+  do not promise a stain will come out in writing before you have seen it. Both are
+  checkable, and both are the kind of claim a customer keeps a screenshot of.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

@@ -460,6 +460,28 @@ fs.writeFileSync(path.join(OUT, 'content.json'), contentRaw, 'utf8');
 
    Not linked from the storefront, by design: it is reached from the admin and
    from a direct URL. middleware.js serves it at <tenant>.systemsbyvega.com/guide. */
+/* Every view of a guide or legal page for one of the 18 niches with no favicon
+   was logging a 404. The first fix here omitted the tag when the value was
+   empty, which does NOT help: a browser with no icon declared requests
+   /favicon.ico by default, so an absent tag and an empty href produce exactly
+   the same request. The only thing that stops it is declaring a real icon.
+
+   So an empty favicon falls back to a plain rounded square in the niche's own
+   accent. It is deliberately a shape and not a letter or a mark: these pages
+   belong to whoever bought the site, and inventing a monogram for a business
+   we know nothing about would be worse than a blank tile. A niche that ships
+   its own favicon keeps it. The storefront is untouched by this and still
+   carries whatever it always did.
+
+   The # in the colour must be percent-encoded, or it terminates the data URI. */
+const faviconLink = (function () {
+  if (seo.favicon) return '<link rel="icon" href="' + seo.favicon + '">';
+  const tint = ((manifest && manifest.theme && manifest.theme.accent) || '#8895a6')
+    .replace('#', '%23');
+  return '<link rel="icon" href="data:image/svg+xml,'
+    + "%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E"
+    + "%3Crect width='64' height='64' rx='14' fill='" + tint + "'/%3E%3C/svg%3E\">";
+}());
 const GUIDE_SRC = path.join(TPL, 'guide');
 const nicheGuide = path.join(SRC, 'guide.html');
 if (fs.existsSync(GUIDE_SRC) && fs.existsSync(nicheGuide)) {
@@ -488,7 +510,7 @@ if (fs.existsSync(GUIDE_SRC) && fs.existsSync(nicheGuide)) {
     NICHE_LABEL:      slug.replace(/-/g, ' '),
     BRAND_NAME:       gBrand.name || '',
     SEO_THEME_COLOR:  seo.themeColor || gTheme.ground || '#ffffff',
-    SEO_FAVICON:      seo.favicon || '',
+    FAVICON_LINK:     faviconLink,
     THEME_GROUND:     gTheme.ground    || '#ffffff',
     THEME_SURFACE:    gTheme.surface   || '#f3f4f6',
     THEME_TEXT:       gTheme.text      || '#111827',
@@ -559,7 +581,7 @@ if (fs.existsSync(LEGAL_SRC)) {
       SERVICE_LINE:     svcLine,
       SERVICE_AREA:     svcArea,
       SEO_THEME_COLOR:  seo.themeColor || lgTheme.ground || '#ffffff',
-      SEO_FAVICON:      seo.favicon || '',
+      FAVICON_LINK:     faviconLink,
       THEME_GROUND:     lgTheme.ground   || '#ffffff',
       THEME_SURFACE:    lgTheme.surface  || '#f3f4f6',
       THEME_TEXT:       lgTheme.text     || '#111827',

@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Keyholder Facility Care</title>
+<meta name="description" content="Getting started guide for the owner of Keyholder Facility Care.">
+<meta name="theme-color" content="#0E1519">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F9AAC'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#0E1519;
+  --gd-sunk:#162126;
+  --gd-line:#162126;
+  --gd-line:color-mix(in srgb, #E8EDF0 18%, transparent);
+  --gd-ink:#E8EDF0;
+  --gd-soft:#AFBDC4;
+  --gd-dim:#AFBDC4;
+  --gd-dim:color-mix(in srgb, #AFBDC4 78%, transparent);
+  --gd-accent:#2F9AAC;
+  --gd-on-accent:#04181C;
+  --gd-display:'Manrope',sans-serif;
+  --gd-body:'Public Sans',sans-serif;
+  --gd-mono:'Roboto Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">commercial cleaning &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/commercial-cleaning/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no "most operators" anything.
+     Everything here is about what to do, not what it will pay. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>This is a business-to-business contracting business that happens to involve cleaning.
+  Your buyer is a facilities manager, an office manager or a property manager. They are not
+  buying a clean building — they are buying not having to think about the building, and they
+  will judge you on paperwork and consistency long before they judge you on a floor.</p>
+
+  <ol class="gd-steps">
+    <li><b>Learn to measure a building before you learn to bid one.</b> Cleanable square
+      footage, not the number on the lease. Walk it room by room and write down what
+      actually changes the work: restroom count and fixture count, floor types and where
+      they change, how many desks make trash, whether there is a kitchen, and how many
+      entrances hold dirt in winter. That sheet is the bid.</li>
+    <li><b>Build your own production rate, on a real building.</b> Clean one office end to
+      end and time it — trash, restrooms, vacuuming, floors, glass, separately. Square feet
+      per hour, measured by your own hands with your own equipment, is the only honest basis
+      for a price. Rates quoted at you by a supplier or a forum are somebody else's building
+      and somebody else's crew.</li>
+    <li><b>Write the scope document you will attach to every contract.</b> Every task with a
+      frequency beside it: nightly, weekly, monthly, quarterly. This is the whole product.
+      A janitorial relationship dies from scope drift, and the only defence is a document
+      both sides agreed to that anybody can pick up and check.</li>
+    <li><b>Get your paperwork before you get your first meeting.</b> A registered business,
+      a W-9 ready to hand over, and a conversation with an insurance broker about what
+      commercial buildings will ask you to produce. Many buyers cannot legally let you
+      through the door without a current certificate on file, and "I can get that" loses to
+      the company that attached it to the email.</li>
+    <li><b>Decide how you will handle keys and alarms, in writing, first.</b> Who gets
+      access, how it is signed out and back in each shift, who is on the alarm call list,
+      and what happens when somebody sets it off at eleven at night. A false alarm on your
+      second week is survivable. Not having an answer for how it happened is not.</li>
+    <li><b>Walk into ten buildings and ask one question.</b> Not a pitch — ask who handles
+      the cleaning contract and when it comes up for renewal. Write the answers down. This is
+      a long sales cycle: the building that says no in March is the building that calls in
+      November, and only if you wrote the name down.</li>
+    <li><b>Put your real service window on the site.</b> After close, overnight, early
+      morning, weekends. A facilities manager filters on that before anything else, because
+      a crew in the building during business hours is a different conversation with their
+      staff.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships with four rows priced per square foot per month — nightly, three nights,
+  a weekly reset, and a deep clean or post-construction job quoted after a walkthrough.
+  Change every figure to your own market. The per-square-foot monthly structure is what makes
+  this comparable to what a facilities manager already has on file.</p>
+
+  <p><strong>Price the month, invoice the month.</strong> Commercial cleaning is a contract
+  with a monthly figure, not a stack of visits. It makes the buyer's budgeting simple, it
+  makes your own side of the arrangement steady enough to schedule people against, and it
+  ends the argument about whether a five-week month costs more.</p>
+
+  <p><strong>Bid from your own measurements or do not bid.</strong> Square footage is the
+  biggest single driver, but restrooms, floor type and trash volume move a price a long way
+  from what area alone suggests. A building with a lot of tile and eight restrooms is not the
+  same job as an open office of the same size. Never quote a building you have not walked.</p>
+
+  <div class="gd-note">
+    <p><b>Scope creep is what kills janitorial contracts, not price.</b> "While you are here,
+    could you also..." arrives politely and never stops. The answer is never no — it is "yes,
+    here is a change order". Put the added task on paper with a frequency and a price, get it
+    agreed, and add it to the scope. Doing it free once makes it part of the contract in
+    everybody's mind except yours.</p>
+  </div>
+
+  <p><strong>Consumables are a decision, not an afterthought.</strong> Paper, liners, soap.
+  Either the building supplies them or you do and itemise them at cost — but say which in the
+  contract. Liners in particular are sized to the cans in that building, and a beginner who
+  agreed to supply them without checking discovers it as an unbudgeted standing order.</p>
+
+  <p><strong>Keep floor care off the base rate.</strong> Stripping and waxing hard floors,
+  carpet extraction, high dusting and window work are periodic projects priced separately and
+  scheduled separately. Folding them into a monthly figure hides real cost inside a number the
+  buyer is comparing to somebody who did not include them.</p>
+
+  <p>Do not chase the lowest bid. In this trade the cheapest contract is usually the one that
+  was underscoped, and the building that hired on price alone will be re-tendering it within
+  the year — which is your opening, not your model.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Nobody searches for a janitorial contractor at midnight the way a homeowner searches for
+  a plumber. Commercial work is found on a timetable, through people, and it takes months. All
+  three channels below are about being known before the contract comes up.</p>
+
+  <ul>
+    <li><strong>Property management companies.</strong> The relationship that moves the most work in
+      this trade, by a distance. One property manager may be responsible for a dozen buildings,
+      which means one conversation can put you in front of a portfolio instead of a suite. Ask
+      what they hate about their current arrangement and answer that specifically.</li>
+    <li><strong>Walk-ins, in daylight, with a renewal question.</strong> Go into office parks,
+      clinics, credit unions and light industrial buildings and ask who handles the cleaning
+      contract and when it renews. Keep the list in a spreadsheet with the renewal month and
+      call two months before it. A contract that is not up is not lost, it is scheduled.</li>
+    <li><strong>General contractors, for post-construction cleans.</strong> Final cleans before
+      handover are one-off, on a hard deadline, and awarded by a superintendent who needs
+      somebody reliable more than somebody cheap. They also put you in a finished building at
+      the exact moment its new tenant is deciding who cleans it.</li>
+  </ul>
+
+  <p>Your local chamber and the referral groups that meet at seven in the morning are worth
+  more here than they are in any consumer trade, because the people in the room are the people
+  who sign facilities contracts.</p>
+
+  <p>Keep every building you ever walked in one file: name, contact, square footage, current
+  provider, renewal month, what they complained about. That file is what makes the second year
+  easier than the first, and it is the only asset in this business that compounds.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Leave evidence in the building, every visit.</strong> A dated sign-off sheet on
+  a clipboard in the janitorial closet, initialled, with a line for anything that could not be
+  done and why. It is the single cheapest thing you can do and it answers the complaint this
+  trade always gets: nobody knows who was here last night or what they did.</p>
+
+  <p><strong>Run keys on a log and treat it seriously.</strong> Access issued to named people,
+  signed out and signed back each shift, alarm codes never shared informally, and a written
+  process for what happens the day somebody leaves. A building that trusts you with its keys is
+  a building that renews without shopping.</p>
+
+  <div class="gd-note">
+    <p><b>Understand the payment gap before you sign your first building.</b> You pay people on
+    your payroll schedule. A commercial customer pays on their accounts-payable cycle, after
+    an invoice, on terms they set — and the gap between those two dates is the thing that
+    catches new janitorial companies, not a lack of work. Ask about invoicing terms and who
+    approves the invoice during the walkthrough, at the same time you ask where the janitorial
+    closet is.</p>
+  </div>
+
+  <p><strong>Night work is a supervision problem.</strong> Your crew works when you are asleep
+  and nobody is watching, which means quality is whatever your system enforces rather than
+  whatever you would do yourself. Walk buildings unannounced, on a rotation, at the hour the
+  work actually happens. Inspect against the scope document, not against your mood.</p>
+
+  <p><strong>The same crew, named, is your actual product.</strong> Rotating strangers through
+  a secure building is what facilities managers are trying to escape. Assign people to
+  buildings and keep them there. When the assignment has to change, tell the customer before
+  it changes rather than letting them discover a new face on the camera.</p>
+
+  <p><strong>Restrooms decide the contract.</strong> Every complaint that reaches a facilities
+  manager comes from an employee, and employees complain about restrooms and about their own
+  desk area. Whatever else gets tightened up, those get done properly every visit — including
+  the consumables count, so nobody ever runs out on a Monday morning.</p>
+
+  <p><strong>Handle a complaint within one visit.</strong> Acknowledge it in writing the same
+  day, fix it before the next scheduled clean, and write on the sign-off sheet that it was
+  closed out. A commercial customer does not expect perfection. They expect a documented
+  response, because that is what they in turn have to show their own boss.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change there
+  is live within a minute or two. Remember who reads this site: a facilities manager checking
+  whether you are a real company before they reply to your email.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> A hero and a before/after pair. Shoot commercial interiors,
+      not domestic ones — a workstation, a lobby, a restroom, a break room. Get written
+      permission from the building before you photograph anything inside it, and keep client
+      names, signage and screens out of frame.</li>
+    <li><strong>Pricing.</strong> Four rows, with the label, the price and the note on each
+      yours to edit. The per-square-foot figures also drive the estimator block on the
+      homepage, which reads the rates straight out of these rows — change a price here and the
+      estimate moves with it, so there is never a second set of numbers to keep in step.</li>
+    <li><strong>Job details.</strong> What is included and what is not. This is where the base
+      scope lives and where you say plainly that floor care, carpet extraction and
+      post-construction work are quoted separately. Written boundaries are the thing this buyer
+      is actually shopping for.</li>
+    <li><strong>Details and hours.</strong> State the office hours and state the service window
+      separately. "Office weekdays, crews on site after close" answers the first question a
+      facilities manager has.</li>
+    <li><strong>Reviews.</strong> Empty by design — the site ships with no invented reviews on
+      it. Commercial references are worth more than star ratings, and they need explicit
+      permission: ask the facilities manager before you quote them, and never name a building's
+      security arrangements.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with a
+      QR code pointing at your site. Print it as the leave-behind for the walk-in visits, so
+      the office manager has something to hand their boss.</li>
+    <li><strong>Leads.</strong> Every walkthrough request from the form is emailed to you and
+      kept as a running list. Reply the same business day and put the walkthrough in the diary
+      on the call — the sales cycle is long enough already without a week lost to email.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section of the admin
+  — change-order handling, access and key terms, notice periods, and how invoices are raised.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by city. In
+  this trade the requirements are also set by your customers, which is a second layer on top of
+  the law. Check both before you sign anything.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> Most places want a registered business name and
+      a local business licence before you trade. Commercial buyers ask for the entity name and
+      a W-9 as a matter of routine, so have both ready.</li>
+    <li><strong>Liability insurance and the certificate.</strong> Commercial customers will ask
+      for a certificate of insurance and many will ask to be named as an additional insured on
+      the policy. That is a specific thing your broker does, not a phrase you can write on a
+      letterhead. Talk to a broker about what commercial contracts in your area ask for
+      before you bid one.</li>
+    <li><strong>Janitorial bonding.</strong> Buyers ask about it because your people are alone
+      in their building with their property. It is a separate product from liability cover.
+      Ask a broker what it actually covers before the word appears anywhere on your site.</li>
+    <li><strong>Employees versus contractors.</strong> The decision that shapes everything else
+      in a janitorial company. Whether the people cleaning your buildings are legally employees
+      is determined by tests set in law, not by the label on an agreement, and it drives
+      payroll tax, workers' compensation and what your insurance actually covers. Get this
+      answered by an accountant before your first hire.</li>
+    <li><strong>Workers' compensation.</strong> Usually triggered by having employees at all,
+      with thresholds that differ sharply by state — and commercial customers routinely require
+      evidence of it before they let a crew in the building.</li>
+    <li><strong>Chemical safety and training.</strong> Federal workplace rules on hazard
+      communication apply to the products your crew uses. Keep safety data sheets accessible,
+      label secondary containers, and train people before they use anything stronger than
+      general-purpose cleaner.</li>
+    <li><strong>Specialised environments.</strong> Medical, dental and food premises carry
+      requirements beyond ordinary office cleaning, sometimes written into the customer's own
+      compliance obligations rather than into cleaning law. Ask the customer what they are
+      obliged to require of you and put it in the scope.</li>
+    <li><strong>Sales tax.</strong> Whether commercial cleaning is taxable varies by state and
+      can differ from residential. Ask an accountant once, early.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are, and do
+  not describe your staff as screened, certified or trained to a standard you cannot produce
+  paperwork for. A facilities manager will ask for that paperwork before signing, and asking is
+  the entire point of their job.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

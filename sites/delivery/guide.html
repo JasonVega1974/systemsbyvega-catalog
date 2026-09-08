@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Swiftwater Courier Co.</title>
+<meta name="description" content="Getting started guide for the owner of Swiftwater Courier Co..">
+<meta name="theme-color" content="#0B0E14">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23C8F31D'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#0B0E14;
+  --gd-sunk:#10151E;
+  --gd-line:#10151E;
+  --gd-line:color-mix(in srgb, #F2F5F9 18%, transparent);
+  --gd-ink:#F2F5F9;
+  --gd-soft:#93A0B1;
+  --gd-dim:#93A0B1;
+  --gd-dim:color-mix(in srgb, #93A0B1 78%, transparent);
+  --gd-accent:#C8F31D;
+  --gd-on-accent:#10140A;
+  --gd-display:'Syne',sans-serif;
+  --gd-body:'Inter Tight',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">delivery &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/delivery/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the head, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics. The quoter's bands and minimum
+     are the operator's to set; nothing here says what any of it pays. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>A courier business can be started in an afternoon with a car you already own, and that
+  is exactly why people get hurt doing it. Two things have to be right before the first paid
+  run: the insurance, and the zone map the whole site prices from. Do them in this order.</p>
+
+  <ol class="gd-steps">
+    <li><b>Phone a commercial insurance broker before you carry anything for money.</b> A
+      personal auto policy generally excludes carrying goods for hire, and the exclusion is
+      found at the worst possible moment, after an accident, when a claim is denied and the
+      vehicle and the cargo are both your problem. Say the words "delivering goods for
+      payment" to the broker and ask what you need. This is not step one by accident.</li>
+    <li><b>Drive your zone boundaries before you trust them.</b> Your site prices from a
+      seven-zone map. Zones are not city limits — they are drive time. Put a boundary where
+      the traffic changes, where the bridge is, where the valley genuinely takes another
+      twenty minutes. Do the drives at eight in the morning and at half past four, because
+      those are the runs people will actually book.</li>
+    <li><b>Set the minimum so the shortest possible run is worth the ignition.</b> Remember
+      that a run is three drives, not one: to the pickup, to the drop, and back toward wherever
+      you want to be. A minimum that only covers the middle leg is a minimum that loses you
+      the day.</li>
+    <li><b>Build the proof-of-delivery habit on day one.</b> A photograph of where it
+      landed, the name of who took it, texted the moment it happens. Your site sells that as
+      the product because it is the product; anybody can drive a parcel across town. Do it
+      on the first run and every run after, including the ones for friends.</li>
+    <li><b>Kit the vehicle.</b> A folding hand truck, moving blankets, ratchet straps, a
+      couple of lidded totes, document envelopes that seal, a phone mount, a charger that
+      works, and a cool box if you intend to take clinic or lab work. Everything strapped —
+      a load that slides in a hard stop is a claim.</li>
+    <li><b>Write the will-not-carry list and keep it by the phone.</b> Hazardous goods,
+      anything alive, cash and high-value items that belong in a secured service, anything
+      you cannot lift alone, anything illegal. Your site's FAQ already says this. Being able
+      to say no quickly and without apology is a professional skill in this trade.</li>
+    <li><b>Get one account, not one customer.</b> Walk into ten counters in your first week
+      with a card and the zone map: law and title offices, print shops, medical and dental
+      labs, parts counters. You are looking for the standing route, not the one-off, and
+      that only happens face to face.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site has no price list, because the quoter is the price list. Pickup zone, drop
+  zone, size and speed produce a number in front of the customer, and the admin lets you set
+  the floor and the note that sits with it. What follows is how to think about the shape of
+  it.</p>
+
+  <p><strong>Price by zone, never by mileage.</strong> A mileage number invites an argument
+  about which route you took and what the traffic was like. A zone map is a fixed answer
+  that both of you can see before the run starts, and it is the reason the customer trusts
+  the quote. It is also the reason you can quote in ten seconds on the phone.</p>
+
+  <p><strong>The speed multiplier is not a surcharge, it is dedication.</strong> A scheduled
+  run rides along with other work. A rush is a direct drive that takes your whole slot and
+  displaces everything else in it. Price it as what it costs you — the other runs you cannot
+  take — and explain it in exactly those words, because it is a reason rather than an
+  excuse.</p>
+
+  <p><strong>Size covers handling, not just weight.</strong> An envelope goes on the seat. A
+  skid needs a ramp, a strap, a hand truck and somebody at the other end who is expecting
+  it. That is the difference the size band is describing, and it is worth saying so when
+  somebody asks why a light but awkward item is not the cheapest tier.</p>
+
+  <div class="gd-note">
+    <p><b>Charge for waiting, and decide the rule before you need it:</b> the run that
+    destroys a day is not a long one, it is the twenty-minute pickup where the paperwork
+    "will be ready in five minutes" three times in a row. Set a free wait, set what happens
+    after it, and put it in writing with your account customers. Nobody argues about a
+    waiting charge they were told about in advance. Everybody argues about one they were
+    not.</p>
+  </div>
+
+  <p><strong>Decide your after-hours and weekend position deliberately.</strong> Either you
+  do not do it, or it is priced as the interruption it is. What you must not do is take
+  Saturday runs at weekday prices to be helpful, because that is the day you will be asked
+  for from then on.</p>
+
+  <p>When fuel moves, revisit the zone bands rather than bolting a surcharge onto every
+  invoice. Your page promises no fuel surprises. Keep that promise and adjust the map.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>This one is different from every other trade in the catalogue: your customer is almost
+  never a household. It is a business with something that has to be across town before the
+  end of the day, and you find them by walking through their front door.</p>
+
+  <ul>
+    <li><strong>The counters, in person, in the morning.</strong> Law and title offices with
+      filings and originals. Print and sign shops with finished jobs that make them look
+      fast. Auto parts counters where one gasket is holding up a lift bay. Dental and medical
+      labs moving work between locations. Take the zone map, take cards, ask for the person
+      who books couriers, and go back a second time. This trade is won on the fourth visit,
+      not the first.</li>
+    <li><strong>The office manager, not the owner.</strong> The decision to try a new courier
+      is almost always made by whoever is standing at the front desk when something goes
+      wrong. Learn her name, spell it right, and be the number in her drawer. The owner will
+      never know you exist and it will not matter.</li>
+    <li><strong>The other couriers.</strong> Every established courier is over capacity at
+      two in the afternoon on the wrong day, and the alternative to handing you the run is
+      telling their customer no. Introduce yourself as overflow rather than as competition.
+      This is the fastest way to get paid work in the first month, and it costs nothing but
+      a phone call.</li>
+  </ul>
+
+  <p>What to chase, above everything: the standing route. A daily bank run, a transfer
+  between two branches every morning, a Friday collection. It fills a known slot on a known
+  road, it is booked once instead of every time, and it makes the rest of the week
+  plannable. Ask every account you win whether there is something they already do at the
+  same time every day.</p>
+
+  <p>Do not spend money on general consumer advertising for this. Nobody searches for a
+  courier the way they search for a plumber, and the households who do want one parcel moved
+  are the hardest work in this trade to make worth doing. Your site is the credibility somebody checks
+  after you have walked into their office, and the quoter is what convinces them you are not
+  going to invent a price later.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Never accept a run you cannot confirm the pickup window on.</strong> "Sometime
+  this afternoon" from the sender turns into a promise you made to the receiver. Get the
+  window, get a name and a phone number at both ends, and get the address confirmed as a
+  place a vehicle can actually stop.</p>
+
+  <p><strong>Batch by geography, protect the rushes.</strong> Scheduled work gets sequenced
+  into a loop; a rush breaks the loop by design, which is what it was paid for. Keep a
+  realistic sense of how many scheduled stops you can hold and still say yes to a direct
+  drive, because saying yes to the direct drive is where your reputation is made.</p>
+
+  <p><strong>Sealed, signed and separated for documents.</strong> Originals, filings and
+  anything with a deadline on it travel in a sealed envelope, in the cabin, not in the boot
+  with the parcels. If the sender wants a chain of custody, give them one and keep your
+  copy.</p>
+
+  <div class="gd-note">
+    <p><b>Decide the failed-delivery rule before it happens, not in the doorway:</b> nobody
+    home, the office shut early, a gate code that does not work. The rule is simple and it
+    should never bend — you do not leave it unless the sender has told you in writing that
+    you may, and you phone the sender before you do anything else, from the kerb, while you
+    are still there. A return trip is a second run at a second price, and the sender needs
+    to hear that from you at the time rather than see it on an invoice.</p>
+  </div>
+
+  <p><strong>The two texts are the whole service.</strong> One when it is in your hand, one
+  with the photograph when it is at the door. Send them without being asked and send them
+  every time, and you become the courier nobody has to chase. That is the entire pitch your
+  owner page is built on.</p>
+
+  <p><strong>Your vehicle is the business, so service it early.</strong> A breakdown is not
+  an inconvenience, it is a missed run for an account that trusted you, and accounts are
+  won slowly and lost in one afternoon. Book the service before it is due, keep the spare
+  inflated, and know who you would call to cover a run you cannot make.</p>
+
+  <p><strong>Keep the mileage and the fuel logged from the first day.</strong> You will need
+  it, and reconstructing a year of driving in April is miserable.</p>
+
+  <p><strong>Invoice accounts monthly and on time.</strong> Your site already offers a
+  single monthly invoice for recurring routes. An invoice that lands on the same day every
+  month gets paid; one that arrives whenever you got round to it teaches people that you are
+  casual about money.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Two slots that matter, the hero and the owner photo.
+      Replace the hero with your own vehicle, clean, in a real loading spot in a town people
+      recognise. A courier's photograph is doing one job: proving there is a real driver and
+      a real vehicle behind the phone number.</li>
+    <li><strong>Pricing.</strong> There is no price list to fill in, because the quoter is
+      the pricing. The admin gives you the floor price and the note that sits with it. That
+      note is where you put the thing customers ask you most — how waiting works, what
+      happens outside the map, what is not carried.</li>
+    <li><strong>The zone quoter.</strong> It is the most important thing on your site and
+      the number it shows is a promise: the customer expects it on the invoice. Before you
+      publish, price a handful of real runs by hand and check the quoter agrees with you,
+      including the awkward ones — same zone, the far edge, and the heaviest size on the
+      slowest speed.</li>
+    <li><strong>Details and hours.</strong> Put the real cut-off in. A same-day promise with
+      a booking deadline attached is honest and useful; the same promise with no deadline is
+      a complaint waiting to happen. Say which towns the map covers and what "outlying"
+      means.</li>
+    <li><strong>Reviews.</strong> Empty until you add them, deliberately. The site ships
+      with no invented reviews. Add real ones as you earn them, with permission — and in
+      this trade ask the office manager, because she is the one who can describe the
+      difference you made to her afternoon.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with
+      a QR code pointing at your site. The flyer is the thing you leave on a front desk
+      after the introduction, with the zone map explained on the back if you add one.</li>
+    <li><strong>Leads.</strong> Every enquiry from the booking form is emailed to you and
+      kept as a running list. Reply fast — courier enquiries are urgent by definition, and
+      the first person to answer usually gets the run.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. The Legal section of the admin matters more here
+  than in most trades: your limit of liability for goods in transit, the will-not-carry
+  list, your waiting and failed-delivery rules, and how a recurring account is cancelled.
+  Get those read by somebody qualified before you rely on them.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice. Courier work is often unlicensed as a trade, which
+  makes it easy to believe there is nothing to check. The insurance questions are the
+  serious ones, and they are the ones people get wrong. Check what applies where you are
+  before you carry anything for money.</p>
+
+  <ul>
+    <li><strong>Your personal auto policy almost certainly does not cover this.</strong>
+      Carrying goods for hire is a standard exclusion, and delivery use is generally
+      excluded even on a policy that allows other business driving. Assume you are not
+      covered until a broker tells you in writing that you are. This is the single most
+      important line in this guide.</li>
+    <li><strong>Commercial auto is the replacement, not an add-on.</strong> A commercial
+      policy written for delivery use is what answers when something happens on a run. Tell
+      the broker what you actually carry, how far, how often, and whether anyone else drives
+      the vehicle.</li>
+    <li><strong>Cargo cover is a separate policy again.</strong> Liability protects other
+      people. It does not pay for the customer's parcel, documents or freight that were in
+      your vehicle. Ask specifically about cover for goods in transit and about what the
+      limit is per item, because "insured" without that number means very little to a law
+      office handing you an original.</li>
+    <li><strong>Business registration and local licensing.</strong> A registered name and a
+      local business licence is usually the whole trade requirement for a small courier, but
+      some cities do license delivery or vehicle-for-hire operations. Ask before you assume.</li>
+    <li><strong>Vehicle size and crossing state lines change the picture.</strong> Federal
+      motor carrier rules — registration numbers, driver qualification, hours of service —
+      turn on things like vehicle weight, what is being carried and whether you operate
+      across state lines. A car in one valley is usually well below all of it. If you buy a
+      bigger van or start running out of state, find out where those thresholds sit before
+      you do it, not after.</li>
+    <li><strong>Specialised cargo brings its own rules.</strong> Medical specimens,
+      pharmacy work, legal originals and anything temperature-controlled all carry handling,
+      privacy and chain-of-custody obligations that come from the customer's regulator
+      rather than yours. Do not take that work until you have asked the customer what they
+      are required to require of you.</li>
+    <li><strong>If you add a driver, the classification question is real.</strong> Whether
+      somebody driving for you is an employee or a contractor is decided by law and by how
+      the work actually operates, not by what the paperwork calls it, and the rules differ
+      sharply by state. Getting it wrong is expensive in back taxes and penalties. Ask an
+      accountant or an employment lawyer before the second vehicle, not after.</li>
+    <li><strong>Workers' compensation.</strong> Attached to the same question, and again
+      state by state.</li>
+  </ul>
+
+  <p>Do not put "insured and bonded" on your site until both are true and you know what the
+  limits are. In this trade the claim is not decoration — it is the thing a business
+  customer will ask you to evidence before they hand you anything that matters.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

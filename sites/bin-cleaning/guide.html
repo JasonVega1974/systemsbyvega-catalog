@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Prime Bin Cleaning</title>
+<meta name="description" content="Getting started guide for the owner of Prime Bin Cleaning.">
+<meta name="theme-color" content="#050f1c">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/sites/bin-cleaning/photos/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#050f1c;
+  --gd-sunk:#0a2138;
+  --gd-line:#0a2138;
+  --gd-line:color-mix(in srgb, #e6f4ff 18%, transparent);
+  --gd-ink:#e6f4ff;
+  --gd-soft:#bfe3fb;
+  --gd-dim:#bfe3fb;
+  --gd-dim:color-mix(in srgb, #bfe3fb 78%, transparent);
+  --gd-accent:#4ea4e6;
+  --gd-on-accent:#050f1c;
+  --gd-display:'Anton',sans-serif;
+  --gd-body:'Inter',sans-serif;
+  --gd-mono:'Oswald',sans-serif;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">bin cleaning &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/bin-cleaning/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no "most operators" anything.
+     Everything here is about what to do, not what it will pay. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>This is a route business, not a job business. What you are selling is a stop on a
+  street on a given weekday, and everything you decide in the first week either builds
+  route density or destroys it. Do these in order.</p>
+
+  <ol class="gd-steps">
+    <li><b>Get the collection calendar before you get a customer.</b> Your city or hauler
+      publishes which streets are emptied on which day. Print it and mark it up. That map
+      is your route: you wash a bin on the day it is tipped, while it is empty and already
+      standing at the kerb. Every other decision hangs off that grid.</li>
+    <li><b>Decide the rig before you decide the price.</b> Hot water, a pump, a supply
+      tank, and a tank that catches what comes back off the bin. Whether you lift bins
+      with a hoist or tip them by hand decides how many stops fit in a day and how your
+      back feels in month three. Work out how many bins one tank of water gets you, then
+      plan the day around refills.</li>
+    <li><b>Find out where the dirty water is allowed to go.</b> What comes off a trash
+      bin is not rainwater, and a storm drain is the wrong answer in every town. Call
+      public works or the sewer utility, ask what they expect you to do with wash water,
+      and write the answer down before you take money.</li>
+    <li><b>Wash your own bin and your two nearest neighbours', free.</b> Photograph the
+      inside with the lid up, in daylight, standing in the same spot before and after.
+      The inside is what sells this. Nobody has ever booked a bin cleaning because of a
+      photograph of the outside of a bin.</li>
+    <li><b>Set up recurring billing before your first paying customer.</b> This is a
+      subscription with a route attached, not a series of one-off jobs. Monthly or
+      quarterly, on a card, cancel any time. Start out collecting cash at the kerb and
+      you will spend the whole first year chasing single bins.</li>
+    <li><b>Work one collection day on one street.</b> Door-hang the block you just
+      washed, the evening before their pickup day, when a flyer actually gets read. Ten
+      bins on one street is a business. The same ten bins spread across town is a day of
+      driving.</li>
+    <li><b>Put your real service days on the site.</b> Set the hours and the service area
+      to the hauler's days rather than to office hours, so a booking arrives already
+      sorted into the route day it belongs to.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships with four rows: one bin, two bins, three bins, and a group rate for
+  four or more or a whole street. Change every figure to your own market — they are a
+  shape, not a recommendation.</p>
+
+  <p><strong>You are pricing the stop, not the bin.</strong> The wash takes minutes. The
+  driving does not. That is the entire reason the per-bin number falls as the count goes
+  up: a second and third bin at a house you are already parked outside cost you little
+  more than water. Build the tiers so adding the second bin is obviously worth it, and so
+  organising a whole street is obviously worth it.</p>
+
+  <p><strong>A bin that has never been cleaned is a different job.</strong> Years of
+  packed residue, a lid seal full of grime, sometimes maggots. Decide now whether that is
+  a first-clean line on top of the regular price, or simply what the first visit costs,
+  and say which on the page. Do not discover it at the kerb and swallow it.</p>
+
+  <div class="gd-note">
+    <p><b>The rule that saves route businesses:</b> what happens when the bin is not out,
+    or is still full. Write it into the site's job details before you sign anybody up —
+    that the visit is charged, or moved to the next route day, whichever you choose — then
+    photograph the full bin and text the photo. An argument about a bin you could not wash
+    is the most common way a subscription gets cancelled.</p>
+  </div>
+
+  <p><strong>Pick a cadence and defend it.</strong> Monthly, every other month, quarterly
+  — whichever you sell has to match the route you can actually drive. Selling three
+  different cadences on one street means driving that street three times as often for the
+  same houses.</p>
+
+  <p>Raise prices between seasons, in writing, to the whole route at once. Never on a
+  doorstep, and never for the one customer who happened to ask.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Nothing in this trade rewards a scattered customer list. You are filling in streets,
+  not covering a map. Three channels do that.</p>
+
+  <ul>
+    <li><strong>The kerb you are standing at.</strong> A freshly washed bin sitting beside
+      eleven filthy ones is the best advertisement this trade has, and it runs until
+      everybody wheels theirs in. Hang a flyer on the doors either side while you are
+      there, and put a small dated tag on the lid you cleaned so the neighbours know who
+      did it.</li>
+    <li><strong>Subdivision groups and HOA newsletters.</strong> Neighbourhood Facebook
+      groups are organised by subdivision, which is exactly the shape you want. Post the
+      inside-the-bin before and after, name the street you were on, and name the
+      collection day you cover. Ask the HOA to run you in the newsletter, and offer a
+      street rate in exchange.</li>
+    <li><strong>Sign a street up before you serve it.</strong> Pick a subdivision, flyer
+      it with a start date, and say the route begins once enough houses on that block are
+      in. People will join something starting on their own street far more readily than
+      they will buy a service alone, and you get density on day one instead of building
+      toward it.</li>
+  </ul>
+
+  <p>Property managers, apartment complexes and small restaurants are the second act of
+  this business. Dumpster pads and commercial containers need heavier gear than a
+  residential rig, so do not promise it before you own it — but the drive that serves a
+  subdivision usually passes several of them.</p>
+
+  <p>Keep one spreadsheet: address, collection day, bin count, cadence, first-clean date.
+  That file is the business. If you ever sell this, that file is what you are selling.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Wash in an order and never vary it.</strong> Knock out what is stuck, hot
+  wash the inside, then the underside of the lid — that is where the smell actually lives
+  and it is the step people skip — then the outside, the lip, the wheels. Deodorise last.
+  Roll it back upright with the lid closed, facing the way you found it.</p>
+
+  <div class="gd-note">
+    <p><b>Never the storm drain.</b> Not the gutter, not the kerb, not "it is mostly
+    water anyway". Storm drains run to a creek in most towns, and this is the one thing
+    that turns a small bin-cleaning outfit into a compliance problem with a name on it.
+    Capture it, haul it, and get rid of it the way your utility told you to.</p>
+  </div>
+
+  <p><strong>Know your water before you plan your day.</strong> Count how many bins one
+  tank really gets you, then fix your refill points on the map. If you intend to fill from
+  a hydrant, that generally means a metered permit from the utility — ask, do not just
+  open one.</p>
+
+  <p><strong>Run the route in driving order.</strong> Put the day's stops on the phone in
+  the order you will physically drive them, not alphabetically and not in sign-up order.
+  Re-sorting a route sheet in the truck is how a day loses an hour.</p>
+
+  <p><strong>Winter is a real interruption in a cold climate.</strong> Below freezing you
+  cannot wash, and water left in a pump or a line splits it. Decide your season, tell the
+  route in advance, and pause the billing rather than let people cancel. A paused
+  subscription restarts in spring; a cancelled one gets shopped.</p>
+
+  <p><strong>Leave evidence every visit.</strong> The cancellation almost never comes from
+  bad work. It comes from a customer who was at work when you came and forgot the service
+  exists. A dated lid tag, or a text with a photo of their own bin, costs nothing and
+  keeps the subscription in their head.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <p>Start in Details. The site ships filled in with a working business's name, phone,
+  email and service area, and none of that is yours until you replace it. Do that before
+  you send the link to anybody.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> This niche has a logo slot and a before/after pair, and
+      no hero photograph. The before/after slider on the homepage is the whole argument,
+      so shoot it properly: same bin, lid up, same standing spot, same daylight, dirty one
+      in the before slot.</li>
+    <li><strong>Pricing.</strong> Four rows, with the label, the price and the note on
+      each yours to rewrite. Use the note line to carry the per-bin maths, so the reason
+      to add a second bin is on the page instead of in your head.</li>
+    <li><strong>Job details.</strong> The included and not-included lists. Your
+      bin-not-out rule, your broken-wheel rule and your no-rush-service rule belong here.
+      Anything you would rather not argue about at a kerb goes here in writing.</li>
+    <li><strong>Details and hours.</strong> Put route days in, not office hours. "Tuesday
+      and Thursday routes, booked by text" tells somebody more than "Mon-Fri 9-5".</li>
+    <li><strong>Reviews.</strong> Empty by design — the site ships with no invented
+      reviews on it. Add real ones as you earn them, with the customer's permission.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer
+      with a QR code pointing at your site. Print that flyer for the doors either side of
+      every bin you wash.</li>
+    <li><strong>Leads.</strong> Every booking from the form is emailed to you and kept as
+      a running list, so nothing is lost when the inbox gets busy.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section of the
+  admin — the cancellation window, the missed-bin rule, your winter pause.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state, by city and
+  by water utility. Check what applies where you live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> Most places want a registered business
+      name and a local business licence before you trade. Usually quick and cheap, and the
+      first thing to do.</li>
+    <li><strong>Wash water discharge.</strong> The one that matters most in this trade.
+      Many cities have explicit rules about wash water from mobile cleaning, set locally
+      rather than nationally. Ask public works or the sewer utility what capture and
+      disposal they expect, and get the answer in writing if you can.</li>
+    <li><strong>Buying water.</strong> Filling from a hydrant or a bulk station generally
+      needs a permit and a meter from the utility. Ask before you build a route around
+      it.</li>
+    <li><strong>Vehicle and trailer.</strong> A full water tank is heavy. Check your
+      state's rules on trailer weight, registration and what licence class you need to tow
+      it — and check whether your auto policy covers business use, because many personal
+      policies explicitly do not.</li>
+    <li><strong>Liability insurance.</strong> You are working on other people's property
+      with hot water and pressure. Talk to a broker before the first paid job and describe
+      the work honestly, wash water included.</li>
+    <li><strong>Sanitising claims.</strong> Sanitise and disinfect are regulated words
+      attached to products registered for that use. If you put them on your site, use a
+      product labelled for it and follow the label. Never put a percentage on it.</li>
+    <li><strong>Sales tax.</strong> Whether a cleaning service is taxable varies by state.
+      Ask an accountant once, early, rather than guessing for a year.</li>
+    <li><strong>If you are under eighteen.</strong> Registering a business, signing a
+      contract and holding a merchant account are all governed by age rules that differ by
+      state. Sort that out with a parent or guardian before you start, not after.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are.
+  That claim is checkable, and on a street where you have washed twenty bins it will be
+  checked.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

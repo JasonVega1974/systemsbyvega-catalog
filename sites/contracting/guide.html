@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Summit & Stone Contracting</title>
+<meta name="description" content="Getting started guide for the owner of Summit & Stone Contracting.">
+<meta name="theme-color" content="#151109">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='13' fill='%23F5A623'/%3E%3Cpath d='M8 46 L24 26 L34 38 L46 20 L56 46 Z' fill='%23151109' opacity='.92'/%3E%3Ctext x='32' y='17' font-family='Arial,sans-serif' font-size='13' font-weight='900' text-anchor='middle' fill='%23151109'%3ES%26amp;S%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;700;800;900&family=Barlow:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#151109;
+  --gd-sunk:#1c160d;
+  --gd-line:#1c160d;
+  --gd-line:color-mix(in srgb, #f5efe3 18%, transparent);
+  --gd-ink:#f5efe3;
+  --gd-soft:#b9bec2;
+  --gd-dim:#b9bec2;
+  --gd-dim:color-mix(in srgb, #b9bec2 78%, transparent);
+  --gd-accent:#f5a623;
+  --gd-on-accent:#1a1408;
+  --gd-display:'Big Shoulders Display',sans-serif;
+  --gd-body:'Barlow',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">contracting &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/contracting/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     Written for somebody who already contracts for a living. No income claims,
+     no invented statistics, no legal advice - the licensing section names what
+     typically applies and sends them to their own state board. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>General contracting is the one trade in this catalog where the work you are selling
+  is mostly other people's hands. You already know how to build. The company you are
+  starting this week is a scheduling, scoping and money-handling operation with a tool
+  belt attached, and every problem you will have in your first year comes from one of
+  those three, not from carpentry.</p>
+
+  <ol class="gd-steps">
+    <li><b>Write down what you self-perform and what you sub.</b> Concrete, decks,
+      fences, tile, punch lists — whatever your own crew actually does well. Then name
+      the trades you will bring in. That single list decides your pricing, your schedule
+      and how many jobs you can have open at once, and it is the document you will keep
+      rewriting for a year.</li>
+    <li><b>Build the sub bench before you need it.</b> An electrician, a plumber, an
+      HVAC tech, a tile setter and a drywall finisher who answer their phones. Collect a
+      current certificate of insurance and a licence number from each one and keep them
+      in a folder. An uninsured sub on your job is your liability, and you will not
+      think to ask on the morning you are desperate.</li>
+    <li><b>Get a contract you will actually use.</b> Scope, allowances, a payment
+      schedule tied to milestones, change orders in writing, cleanup, who pulls the
+      permit, and what happens if the customer's selections arrive late. Have a lawyer
+      read it once. A contractor working off a one-page estimate is a contractor who
+      will lose an argument he was right about.</li>
+    <li><b>Price two real jobs on paper with today's supplier numbers.</b> Not last
+      year's. Take a bathroom and a patio, price them line by line — material, labour,
+      subs, dump fees, permit, overhead, contingency — and then look at what you would
+      have quoted from memory. The gap between those two numbers is the single most
+      useful thing you will learn this week.</li>
+    <li><b>Set the deposit and the draw schedule.</b> How much up front, what each
+      milestone releases, and how much is held to the final walk-through. Check what your
+      state allows before you decide the deposit — several cap it — and then write it into
+      the contract.</li>
+    <li><b>Shoot the before photographs on the very next job.</b> Before you move a
+      single tool. Your site has a drag-across before-and-after slider on the front page,
+      and it is the strongest thing on it. You cannot go back and take a before.</li>
+    <li><b>Tell the people who feed this trade you are taking work.</b> Past customers,
+      realtors, property managers, the supply house counter, the cabinet showroom.
+      Contracting referrals come from people who are standing next to a homeowner who has
+      just realised they need somebody.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships three tiers as bands rather than prices — a refresh, a rebuild and a
+  remodel, each with a rough duration and a list of the work that lives in it. Rewrite
+  them to your market. Bands are the right shape here: they filter the enquiries before
+  they reach your phone, which is most of what pricing on a contracting website is for.</p>
+
+  <p><strong>Bid the scope, not the customer's budget.</strong> Somebody who tells you
+  they have fifteen thousand dollars has told you nothing about what the job costs. Price
+  it properly, show the number, and let them decide what to cut. Contractors who quietly
+  build a job down to fit a budget end up eating the difference in the last two weeks.</p>
+
+  <div class="gd-note">
+    <p><b>Change orders in writing, approved before the work happens. Every time.</b>
+    This is the discipline that decides whether a remodel makes money, and it is the one
+    that feels rudest to enforce when you are standing in a kitchen with a customer you
+    like. A text message saying what changed, what it adds, and "reply yes to go ahead"
+    is enough. Verbal change orders are gifts you did not intend to give.</p>
+  </div>
+
+  <p><strong>Put allowances in the contract with real numbers.</strong> Tile at a stated
+  price per square foot, a fixture allowance, a cabinet allowance. Then when the customer
+  falls in love with something three times that, it is an easy conversation and a line
+  item instead of an argument. Selections that were never priced are how the
+  material budget you costed carefully disappears into somebody else’s tile choice.</p>
+
+  <p><strong>Price the parts nobody bids.</strong> Dump runs and disposal, protection and
+  daily cleanup, permit and inspection time, the two hours a week you spend on the phone
+  with suppliers, and the drive. On a small job these are the whole margin.</p>
+
+  <p><strong>Do not bid against a handyman.</strong> If the job is small enough that a
+  one-man operation with no insurance and no overhead can do it, either take it as a
+  relationship job at your real price or refer it out. Winning it at their price teaches
+  a customer exactly the wrong thing about what you cost.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Contracting work comes from proximity and from other people's mouths. Almost none
+  of it comes from advertising, which is why the channels below are all about being
+  standing somewhere useful.</p>
+
+  <ul>
+    <li><strong>The street you are already on.</strong> A truck parked outside a house
+      for a week, a dumpster, a new driveway, a fence going up — that is your billboard,
+      and it is only up for a few days. Yard sign on day one, and knock the four nearest
+      doors before the job finishes. Exterior work especially: the neighbours have been
+      watching a stained driveway or a grey fence for a year and now they have watched
+      somebody fix one.</li>
+    <li><strong>Realtors and property managers.</strong> Pre-listing punch lists, turnover
+      work between tenants, and repairs that a closing depends on. It is deadline-driven,
+      unglamorous, repeat, and it pays on invoice. The contractor who answers the phone
+      and shows up when he said gets all of an agent's work, because the alternative is
+      an agent explaining to a seller why the closing slipped.</li>
+    <li><strong>Suppliers and showrooms.</strong> The counter staff at your tile,
+      cabinet, flooring and lumber suppliers are asked "do you know a good contractor?"
+      constantly. They refer the person who does not make them look bad — who orders
+      early, picks up on time, and does not send customers in confused. Introduce
+      yourself as somebody they can send people to, then behave that way for a
+      year.</li>
+    <li><strong>The small job as a door.</strong> Pressure washing, a fence repair, a
+      punch list off somebody's fridge. It gets you inside the house of the person who
+      will be planning a kitchen in two years, and it costs you a day. Do it properly,
+      photograph it, and leave.</li>
+  </ul>
+
+  <p>Keep one spreadsheet: every customer, what you did, when, and what they said they
+  wanted to do next. "You mentioned the deck after the patio" is a phone call in March
+  that most contractors never make.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Do not open more jobs than you can finish.</strong> Two half-torn-out
+  kitchens is how a good contractor gets a bad reputation in a small town, and it happens
+  because saying yes felt easier than scheduling honestly. Finish, then start.</p>
+
+  <p><strong>Sequence for the subs and the inspections, not for yourself.</strong> The
+  electrician and the plumber need the space in the right order, the rough inspection has
+  to pass before anything closes, and every one of those has a lead time. Build the
+  schedule backwards from the inspection dates and tell the subs their dates a week
+  out.</p>
+
+  <div class="gd-note">
+    <p><b>The complaint is almost never about the work. It is about silence.</b> A
+    homeowner living in a construction site with no idea what happens tomorrow gets
+    anxious, and anxious customers become difficult ones. Send one end-of-day message
+    with a photograph and one sentence about tomorrow. It takes ninety seconds and it is
+    the highest-return habit in this entire trade.</p>
+  </div>
+
+  <p><strong>Protect the house properly.</strong> Floor protection on the path in, a zip
+  wall between the work and the living space, dust control at the source, and one
+  designated bathroom — or a porta-john outside for the crew. People forgive a slow job.
+  They do not forgive drywall dust in the bedroom.</p>
+
+  <p><strong>Manage cash so the job funds itself.</strong> Bill on milestones, order
+  material against draws, and never fund one job out of another job's deposit. That is
+  the exact mechanism by which contracting businesses collapse, and it always starts as a
+  temporary measure.</p>
+
+  <p><strong>Walk the punch list with the customer, in writing.</strong> Both of you with
+  a pen, room by room. Agree the list, agree the date, and hold enough of the final
+  payment that finishing it matters — but not so much that they are holding you
+  hostage.</p>
+
+  <p><strong>Own your subs' work in front of the customer.</strong> They hired you, not
+  the tile setter. Fix it, then sort it out privately with the sub. A contractor who
+  blames a subcontractor in a customer's kitchen has told that customer he is not in
+  charge of his own job.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you save
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Four slots on this build: the hero, you, and a before
+      and after pair that feed the drag slider on the front page. The slider only works
+      if the two photographs line up — same spot, same height, same angle, ideally the
+      same time of day. Mark where you stood. A before-and-after that jumps around when
+      you drag it looks like two different houses.</li>
+    <li><strong>Pricing.</strong> The three bands are yours: label, range and the note
+      underneath it. The note is where the duration goes — "days, not weeks" tells a
+      homeowner more about which band they are in than the dollar figure does.</li>
+    <li><strong>Details.</strong> The owner block is the most valuable text box on this
+      site. The whole promise of the page is that the person who answers the phone is the
+      person running your job, so write that in your own words, badly rather than
+      slickly.</li>
+    <li><strong>Reviews.</strong> Empty by design; the site ships with nothing invented.
+      Ask at the punch-list walk, while you are both looking at finished work.</li>
+    <li><strong>Marketing kit.</strong> A social post and a printable flyer with a QR
+      code to your site. Print the flyer for the doors near a job while your truck is
+      still in the driveway.</li>
+    <li><strong>Leads.</strong> Enquiries from the form go to the inquiry email you set in
+      the Business section. The first time you change that address the form service emails
+      it an activation link — click it, or the enquiries stop and nothing tells you.</li>
+  </ul>
+
+  <p>Two things on this site are part of the page design rather than admin fields: the
+  FAQ block and the three-step "how most projects run" section. They are written to say
+  what a careful contractor would say — that licensed trades get licensed subs, that the
+  price comes in writing after a walk-through — so read them once and make sure you
+  actually work that way. If you need the wording changed, that is a request rather than
+  a setting.</p>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section — the
+  deposit rule, the change order rule, your warranty period, and what happens when
+  selections arrive late.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>General contracting is regulated in most states, and it carries the extra
+  complication that several trades inside your scope are licensed separately from you.
+  This is orientation only, not advice. Confirm everything with your own state board and
+  building department.</p>
+
+  <ul>
+    <li><strong>Contractor licensing or registration.</strong> Most states require a
+      licence or registration to contract for the public, frequently above a dollar
+      threshold, and often with an exam, an experience requirement and a financial test.
+      Some states license by classification — residential, commercial, specialty. Cities
+      sometimes add their own registration on top. Find out which apply to the work on
+      your price bands.</li>
+    <li><strong>The trades you cannot cover with your own licence.</strong> Electrical,
+      plumbing, mechanical and gas work are separately licensed in most places, and being
+      the general contractor does not extend your licence over them. Use licensed subs,
+      keep their numbers on file, and let the permit reflect who actually did what.</li>
+    <li><strong>Bonding.</strong> A surety bond is commonly required as part of licensing
+      or registration. It protects the customer, not you. Know the difference before you
+      write the word "bonded" anywhere.</li>
+    <li><strong>General liability and workers' compensation.</strong> Talk to a broker who
+      writes contractors, and be accurate about what you self-perform. Workers'
+      compensation becomes a live question the moment you have employees, and in many
+      states uninsured subcontractors can be treated as your employees for exactly this
+      purpose — which is why the certificate folder matters.</li>
+    <li><strong>Permits and inspections.</strong> Structural, electrical, plumbing and
+      mechanical work commonly need them. Whoever pulls the permit carries the
+      responsibility, so never let a customer pull an owner-builder permit to save money
+      on your job.</li>
+    <li><strong>Contracts, deposits and cancellation rights.</strong> Several states
+      regulate home improvement contracts specifically: required written terms, deposit
+      caps, and a cancellation window on contracts signed in the customer's home. Read
+      what applies to you once, properly.</li>
+    <li><strong>Liens and lien waivers.</strong> Understand how mechanic's liens work in
+      your state, what notices are required and when, and collect lien waivers from subs
+      and suppliers as you pay them. A sub who was not paid can lien your customer's
+      house, and the customer will hold you responsible.</li>
+    <li><strong>Sales tax.</strong> Whether materials and labour are taxed differently on
+      improvement work varies by state. Ask an accountant once, before your first
+      remodel, not after a year of invoices.</li>
+  </ul>
+
+  <p>Your site ships with the licence line blank on purpose, and it stays off the page
+  until there is a real number to put in it. Do not write "licensed, bonded and insured"
+  anywhere until all three are true and current — it is public, checkable, and the person
+  who checks is the person already unhappy with you.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

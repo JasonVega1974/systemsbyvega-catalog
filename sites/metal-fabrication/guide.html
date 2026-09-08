@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Black Anvil Fabrication</title>
+<meta name="description" content="Getting started guide for the owner of Black Anvil Fabrication.">
+<meta name="theme-color" content="#14181d">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FF6B1A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#14181d;
+  --gd-sunk:#1a2027;
+  --gd-line:#1a2027;
+  --gd-line:color-mix(in srgb, #EDF1F5 18%, transparent);
+  --gd-ink:#EDF1F5;
+  --gd-soft:#96A3B1;
+  --gd-dim:#96A3B1;
+  --gd-dim:color-mix(in srgb, #96A3B1 78%, transparent);
+  --gd-accent:#FF6B1A;
+  --gd-on-accent:#160b04;
+  --gd-display:'Saira Condensed',sans-serif;
+  --gd-body:'Inter',sans-serif;
+  --gd-mono:'JetBrains Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">metal fabrication &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/metal-fabrication/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     Written for somebody who already welds and fabricates for a living. No
+     income claims, no invented statistics, no legal advice - and nothing that
+     encourages claiming a welding certification the operator does not hold. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>You can already lay a bead, read a print and fit a frame square. Fabrication
+  businesses do not fail on welding. They fail on quoting — on the fit-up hours nobody
+  counted, on steel bought at last month's price, and on the custom job that turned into
+  three redesigns for the same money. This week is about the paperwork side of a shop.</p>
+
+  <ol class="gd-steps">
+    <li><b>Split the business into shop work and rig work, and price them apart.</b>
+      Work that comes to you and work you drive to are different businesses with
+      different costs. Decide what the truck carries, how far it goes, and what the
+      minimum is for rolling it out — travel, fuel, generator time and the hour you lose
+      loading.</li>
+    <li><b>Set the shop rate, the material markup and the minimum charge.</b> Three
+      numbers, written down once. Without a minimum you will spend a Tuesday driving
+      across the county to weld one broken bracket, and that Tuesday is gone.</li>
+    <li><b>Open the steel account and learn what today's steel costs.</b> Prices move.
+      Get a service centre account, find out their delivery days, ask about the remnant
+      rack, and put a rule on your own quotes — thirty days, then it gets re-priced.
+      Quoting from a number you remember from last spring is the classic way to build a
+      gate for free.</li>
+    <li><b>Write the quoting sheet you will use for every job.</b> Material weight and
+      cost, cutting, fit-up, welding, grinding, finish, hardware, delivery and install,
+      plus shop overhead and consumables. Fit-up and finish are where the hours actually
+      go, and they are the two lines every new shop leaves off.</li>
+    <li><b>Build three pieces for the portfolio and photograph them properly.</b> A gate
+      hung on somebody's driveway, a firepit lit at dusk, a close bead on a repair.
+      Fabrication sells off photographs more than any other trade in this catalog — put
+      the work on a plain background or on the customer's property, never on a cluttered
+      bench, and get down to its level rather than shooting from standing height.</li>
+    <li><b>Sort hauling and install before you sell a big build.</b> Trailer, straps,
+      how a sixteen-foot gate gets to a site and who lifts it. Decide whether your price
+      includes setting posts and hanging it, because "delivered" and "installed" are two
+      very different numbers and customers assume the second.</li>
+    <li><b>Tell the county you are here.</b> Farms and ranches, equipment dealers, truck
+      and trailer shops, fence contractors, the machine shop that does not weld. Say the
+      two things that matter: the rig comes to you, and one welder does the job start to
+      finish.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>This site does not publish prices, and that is the right call for fabrication — no
+  two jobs are alike enough to put a number on a web page. The Pricing panel in your
+  admin says as much and leaves nothing to fill in. Everything below is about how you
+  arrive at the number you give in person.</p>
+
+  <p><strong>Quote from something you can hold to.</strong> A sketch with dimensions, a
+  photograph with a tape measure in it, or your own measurements. If the customer gives
+  you the numbers, write on the quote that you are building to the dimensions they
+  supplied. That sentence has saved a great many gates.</p>
+
+  <p><strong>Charge for design time on custom work.</strong> Drawing, sizing material and
+  cut lists is real work, and giving it away means you have effectively made a free
+  drawing for whoever they show it to next. A small design fee, credited against the
+  build if they go ahead, is fair to both sides.</p>
+
+  <div class="gd-note">
+    <p><b>Take a deposit that covers material on anything custom.</b> Especially anything
+    with a name, a brand or an address cut into it — nobody else on earth wants that
+    gate. Steel bought for a job that evaporates is money sitting in your rack for years.
+    Material up front, balance on delivery, and say it plainly when you quote.</p>
+  </div>
+
+  <p><strong>Price repair work honestly, including when the answer is no.</strong> Some
+  repairs cost more than the part is worth, and telling a farmer that straight in
+  September is how you get every job he has in October. Have a minimum for a repair
+  call-out and say it before you drive.</p>
+
+  <p><strong>Do not compete with an import.</strong> A stamped-metal firepit from a big
+  box store is not the thing you make, and the customer who wants that price is not your
+  customer. Sell the difference — plate thickness, a weld that will not open, and the
+  fact that a person in this county made it and will fix it.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Fabrication work does not arrive the way service-trade work does. Nobody has an
+  emergency gate. What they have is a broken machine in a field, an idea they cannot
+  describe, or a picture they saw and want in steel.</p>
+
+  <ul>
+    <li><strong>Agriculture, equipment and truck shops.</strong> The steadiest work in
+      this trade and the least visible from outside it. Broken loader arms, cracked
+      implements, corral panels, trailer frames, hitches and racks. When something breaks
+      mid-harvest it does not wait, and the rig that turns up the same day owns that
+      customer permanently. Walk into the equipment dealers, the truck shops and the
+      trailer places and leave a card with the words "mobile" on it.</li>
+    <li><strong>Your own work standing on the roadside.</strong> A driveway gate is a
+      billboard at the end of a driveway, and it will be there for twenty years. Put a
+      small, tasteful maker's mark on the frame — a plasma-cut name plate on the hinge
+      post is enough — and photograph every gate the day it hangs.</li>
+    <li><strong>Local groups and marketplace listings for the retail side.</strong>
+      Firepits, address signs, tables, shelving and brackets fill the slow weeks and get
+      your name in front of people who did not know they could buy custom steel locally.
+      Post the photographs, name the town, price them properly. This is a shop window,
+      not a discount rack.</li>
+    <li><strong>Other welders and shops.</strong> The shop with no TIG capability, the
+      one that will not do aluminium, the one whose CNC table is booked. Overflow runs
+      both ways and costs nothing to set up — go and introduce yourself to the people you
+      were told were the competition.</li>
+  </ul>
+
+  <p>Keep a running job list with numbers on it, and photograph everything you deliver.
+  In fabrication your portfolio does the selling that a price list does in other trades,
+  and a job you did not photograph is a job that will never sell you another one.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Measure the opening yourself.</strong> Every time, for anything that has to
+  fit something else — gates, railings, replacement panels, a deck on somebody's trailer.
+  Customer measurements are given in good faith and are wrong often enough that a shop
+  which builds to them without checking will eventually rebuild a gate at its own
+  expense.</p>
+
+  <p><strong>Tack, check, then burn out.</strong> Everything tacked and squared, diagonals
+  measured, hinges dry-fitted before a single final weld. Once it is welded out, square
+  is a negotiation with a grinder.</p>
+
+  <div class="gd-note">
+    <p><b>Weld the sequence, not the seam order that feels natural.</b> Stagger, alternate
+    sides, and let the work cool between passes. Heat is what racks a gate, bows a table
+    top and pulls a frame out of true, and it happens silently while you are pleased with
+    how the beads look. A piece that ends up twisted is a piece you build twice.</p>
+  </div>
+
+  <p><strong>Finish is what the customer actually sees.</strong> They cannot judge
+  penetration. They can absolutely judge grind marks, spatter and mill scale. Prep it,
+  prime it, paint or powder coat it properly — bare steel in the path of a sprinkler is
+  rusty before the invoice is paid, and that rust will be described as your workmanship.</p>
+
+  <p><strong>Treat off-site hot work like the fire risk it is.</strong> Ask what is on
+  the other side of the wall, what is in the tank, and where the hay, fuel and paint are.
+  Extinguisher on the ground, spark blanket down, and a fire watch after you stop — a
+  fire that starts an hour after you drove away is still yours.</p>
+
+  <p><strong>Number every job and keep its paperwork together.</strong> The sketch, the
+  cut list, the material, the photographs of the finished piece. When somebody calls for
+  a second gate to match the first one, three years later, that folder is the whole
+  reason you can say yes without re-measuring the county.</p>
+
+  <p><strong>Stay inside your certification.</strong> Structural and pressure work
+  frequently requires a welder qualified to a specific procedure, and it is inspected
+  by people who ask for the paper. Turning that work down is not a weakness — quietly
+  taking it and hoping is the thing that ends shops.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you save
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Two slots: the hero and you. Sparks make a good hero,
+      but a finished piece in daylight sells better than a photograph of an arc. Put your
+      face in the owner slot — this site's whole pitch is one welder from start to finish,
+      and that is not believable without a person attached to it.</li>
+    <li><strong>Pricing.</strong> There is nothing to fill in. The panel tells you the
+      site is quote-based, which matches how you actually work. Your quoting happens in
+      person, on paper, over a tape measure.</li>
+    <li><strong>Reviews.</strong> This build has no reviews section on the public page,
+      and the admin panel says so rather than pretending otherwise. Customer words still
+      earn you work — put them in your marketplace listings and your social posts
+      instead, with permission.</li>
+    <li><strong>Details.</strong> The owner block is the important one here. Write who you
+      are, what you have been welding on for how long, and what kind of work you like
+      best. Buyers of custom steel are choosing a person, not a company.</li>
+    <li><strong>Marketing kit.</strong> A social post and a printable flyer, each with a
+      QR code to your site. The flyer belongs on the noticeboard at the feed store, the
+      equipment dealer and the trailer shop.</li>
+    <li><strong>Leads.</strong> Enquiries from the form go to the inquiry email you set in
+      the Business section. The first time you change that address the form service emails
+      it an activation link — click it, or the enquiries stop with no warning at all.</li>
+  </ul>
+
+  <p>Two parts of the page deserve a word. The job board ships with example tickets —
+  job numbers, material specs, category chips — to show the shape of a portfolio; editing
+  those tickets is a change to the page rather than an admin field, so treat them as a
+  template for how yours should read: material, process, size, delivered. And the
+  capability panel lists processes — TIG, MIG, stick, oxy and plasma cutting. Those are
+  capabilities, not credentials, which is exactly why they are safe to publish.
+  <strong>Do not add certification language to your site unless you hold the
+  certification</strong> and can produce the paper. It is the one claim in this trade that
+  gets checked by people who know what they are looking at.</p>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section — the
+  deposit rule, how long a quote stands, what "delivered" includes and what installation
+  costs.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>Welding sits differently from the other licensed trades: the work itself is usually
+  not licensed, but pieces of it are certified, permitted or regulated in ways that catch
+  people out. This is orientation only, not advice, and it varies by state and by city.
+  Check locally before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> A registered business name and a local
+      business licence are usually the first step, and a shop premises brings zoning and
+      fire-code questions with it — hot work, oxygen and acetylene storage, ventilation.
+      Ask the fire marshal rather than guessing; they would rather tell you first.</li>
+    <li><strong>Welding certification.</strong> There is generally no licence to weld, but
+      structural, pressure and code work commonly requires a welder qualified to a
+      specific procedure, tested and documented. That certification belongs to the person
+      and to the procedure, not to the shop, and it expires. Never advertise a
+      certification you do not currently hold.</li>
+    <li><strong>Contractor licensing when you install.</strong> Fabricating a railing and
+      installing it on somebody's building can be two different regulatory questions.
+      Structural work, work attached to a building and anything a building department
+      inspects may pull you into contractor licensing or permits. Ask before you quote
+      the install.</li>
+    <li><strong>Mobile work and commercial auto.</strong> A welding rig is a commercial
+      vehicle carrying compressed gas. A personal auto policy generally will not cover it.
+      Talk to a broker about commercial auto, inland marine cover for the equipment on the
+      truck, and what your liability policy says about hot work off your own
+      premises.</li>
+    <li><strong>Liability and hot work.</strong> Be explicit with your broker about
+      cutting and welding on customer property. Fire exclusions in a policy bought on a
+      vague description are exactly the kind of surprise you cannot afford.</li>
+    <li><strong>Trailers you build.</strong> A trailer built for somebody else usually has
+      to be titled, and many states require an inspection, a verified weight and an
+      assigned identification number before it can be registered. Find out what your state
+      requires before you build one, not when the customer is at the DMV counter.</li>
+    <li><strong>Workers' compensation.</strong> Live the moment you have a helper, and the
+      rules differ by state including for part-time and casual labour.</li>
+    <li><strong>Sales tax.</strong> Fabricated goods, installed work and repair labour are
+      often taxed differently from each other, and a resale certificate for the steel you
+      buy is usually part of the picture. Ask an accountant once, early.</li>
+  </ul>
+
+  <p>Do not put "certified", "licensed" or "insured" on your site until each one is true
+  and current. In fabrication those words are read by people who understand precisely
+  what they mean, and being caught wearing one you have not earned costs more than the
+  work it would have won.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

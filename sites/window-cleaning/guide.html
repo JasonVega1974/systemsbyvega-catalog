@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Pane & Prairie Window Co.</title>
+<meta name="description" content="Getting started guide for the owner of Pane & Prairie Window Co..">
+<meta name="theme-color" content="#22ACC4">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2322ACC4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&family=Epilogue:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  --gd-ground:#F3F9FB;
+  --gd-sunk:#E7F2F6;
+  --gd-line:#E7F2F6;
+  --gd-line:color-mix(in srgb, #16272E 18%, transparent);
+  --gd-ink:#16272E;
+  --gd-soft:#42575F;
+  --gd-dim:#42575F;
+  --gd-dim:color-mix(in srgb, #42575F 78%, transparent);
+  --gd-accent:#22ACC4;
+  --gd-on-accent:#04262C;
+  --gd-display:'Epilogue',sans-serif;
+  --gd-body:'Figtree',sans-serif;
+  --gd-mono:'DM Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">window cleaning &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/window-cleaning/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no "most operators" anything.
+     Everything here is about what to do, not what it will pay. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>Window cleaning has the lowest cost of entry of any trade on this platform and the
+  narrowest margin for sloppiness. The customer inspects the work by standing still and
+  looking at it, in daylight, with nothing else to look at. Your first week is about
+  technique and about learning to count panes, in that order.</p>
+
+  <ol class="gd-steps">
+    <li><b>Buy a proper channel, and buy spare rubber with it.</b> A squeegee, two or
+      three channel widths, a washer sleeve, a bucket, a scrim or waffle-weave towel and a
+      detail cloth. The rubber is the entire trade: a nick in the edge draws a line down
+      every pane after it, and the fix is to flip it or change it, not to wipe harder.
+      Carry spare rubber from day one.</li>
+    <li><b>Learn the straight pull before you try to fan.</b> Wash the glass properly first
+      — the squeegee removes water, the sleeve does the cleaning. Then overlapping straight
+      pulls top to bottom, wiping the blade after each, and a dry detail cloth around the
+      edges and into the corners. Fanning is faster and looks impressive and it is a month
+      three skill.</li>
+    <li><b>Do your own house, then a friend's, and count as you go.</b> Count every pane
+      the way you will bill it, write the number down, then time the job. Two houses is
+      enough to know what your own quote means in hours.</li>
+    <li><b>Write your pane-counting rule and never deviate from it.</b> A pane is one piece
+      of glass you can see through. A double-hung is two. A slider is two. A grid sash is
+      one, not nine, because the bars are frame. This rule is already on your site — read
+      it, agree with it or change it, and use whatever it says on every quote.</li>
+    <li><b>Decide your ladder ceiling.</b> Second-storey exteriors, yes. Anything over a
+      roofline, anything needing you to walk a roof, anything on a slope where a ladder
+      cannot stand square — get looked at in person or refused. Write it down before your
+      first quote.</li>
+    <li><b>Walk a block of storefronts.</b> Before you have any residential work, walk into
+      ten small shops on one street and ask who does their windows. Route work is what
+      makes a window cleaner's week predictable, and the conversation costs you an
+      afternoon.</li>
+    <li><b>Photograph one window properly.</b> Same sash, soaped and streaking in one
+      frame, squeegeed and dry in the next, from the same standing spot with the same thing
+      visible through it. That pair goes into the before/after slider on your site.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships with four rows priced by pane count — up to fifteen, sixteen to
+  thirty, thirty-one to fifty, and then a per-pane rate for larger homes and storefront
+  glass. Change the figures to your own market. The structure is the useful part.</p>
+
+  <p><strong>Pane count is the only unit a customer can check.</strong> Square footage
+  means nothing to a homeowner, hourly rates make them watch the clock, and "it depends"
+  loses the job to whoever gave a number. Counting panes lets you quote from photographs
+  or over the phone, and it lets them verify that the price was fair after you have
+  gone.</p>
+
+  <p><strong>Interior and exterior are two different jobs sold as one.</strong> The
+  exterior is quick and can be done without anybody home; the interior means drop cloths,
+  moving furniture, blinds, pets and shoes off. That is why the exterior-only route rate on
+  your site is lower per pane. Keep those two numbers distinct and never let a full-service
+  quote get talked into an exterior price.</p>
+
+  <div class="gd-note">
+    <p><b>Quote the extras before you touch the glass:</b> hard-water spotting from a
+    sprinkler, construction overspray, paint flecks and stickers are separate processes,
+    not part of a wash. Walk the house at the quote and point at them, out loud, with the
+    customer standing next to you. If you clean around them silently, the finished job gets
+    judged on the spots you were never paid to remove.</p>
+  </div>
+
+  <p><strong>Screens and tracks are where the value actually is.</strong> Anybody can wipe
+  glass. Pulling the screens, washing both faces, vacuuming the track and drying it is the
+  work that keeps the glass clean past the first rain — and it is the step most cheap
+  quotes leave out. Say it is included in yours, in that much detail, and you stop
+  competing on the number alone.</p>
+
+  <p>Charge a minimum. Three windows at the far end of the county is a drive, a setup and a
+  pack-down whatever the pane count says.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Two very different customers buy this work, and you need both. Storefronts give you a
+  predictable week. Houses give you the bigger single tickets. The channels for each are
+  not the same.</p>
+
+  <ul>
+    <li><strong>Walking storefronts, in person, mid-morning.</strong> The single most
+      reliable way to build a window-cleaning round. Not email, not a flyer through the
+      door — walk in when it is quiet, ask for whoever handles the building, and quote the
+      front glass on the spot. Shops on the same street go on the same weekly or monthly
+      run, which means several stops without moving the van.</li>
+    <li><strong>The twice-a-year callback.</strong> Residential window cleaning is bought
+      on a rhythm: once after spring pollen, once before the holidays. Put every house you
+      clean into a calendar with a reminder six months out, and phone them. A second clean
+      is a phone call, not a sale, and a round of those calls is the closest thing this
+      trade has to a reliable diary.</li>
+    <li><strong>Builders, painters and estate agents.</strong> Post-construction cleanup is
+      its own kind of work — the glass is covered in mortar dust, stickers and overspray,
+      and general contractors need it done before handover on a date they cannot move. One
+      builder can be worth a season of houses. Estate agents want the same thing before
+      listing photographs.</li>
+  </ul>
+
+  <p>Leave a small dated sticker in a bottom corner of one pane, or on the meter box, with
+  your name on it. Windows are the one trade where the customer is going to be looking
+  directly at your work every day for six months, and the sticker is what turns "we should
+  get these done again" into a call to you.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Never work a pane in direct hot sun.</strong> The soap dries ahead of the
+  blade and you will chase streaks around the glass all morning. Follow the shade around
+  the house — start on whichever elevation the sun has left — and the same work comes out
+  clean in half the passes.</p>
+
+  <div class="gd-note">
+    <p><b>Do not put a blade on glass you have not tested.</b> Tempered glass and glass with
+    fabrication debris scratch under a razor, and the scratches are permanent, visible, and
+    a whole window to replace. If a scraper is genuinely needed, test a small area at the
+    bottom corner, wet, and look at it before you go further. When in doubt, do not scrape
+    — tell the customer what the mark is and what removing it would risk.</p>
+  </div>
+
+  <p><strong>Learn the water-fed pole for upstairs.</strong> Purified water dries without
+  spotting, which is what lets you clean a second-storey exterior from the ground and walk
+  away without touching the glass. It is safer than a ladder, faster than a ladder, and it
+  is the single piece of gear that changes what jobs you can take. Ladders remain the
+  answer where a pole cannot reach or the ground will not stand it — with standoffs, so
+  nothing rests on a gutter.</p>
+
+  <p><strong>Number the screens as they come out.</strong> A piece of tape with a number on
+  the frame and the same number written on your sheet against the room. Screens are not
+  interchangeable, a screen put back in the wrong opening either rattles or will not seat,
+  and hunting for the right one at four o'clock is a miserable end to a good day.</p>
+
+  <p><strong>Inside the house, you are a guest first and a cleaner second.</strong> Cloths
+  under every sill before the bucket comes in, blinds lifted and returned to exactly where
+  you found them, shoes off or booties on, and ask about pets at the door rather than
+  finding out when one goes out through an open slider.</p>
+
+  <p><strong>Walk it at low sun and let them point.</strong> Finish the job and then walk
+  the outside with the customer when the light is raking across the glass, which is when
+  every flaw shows and when they were going to look anyway. Redo whatever they point at,
+  right then, with the kit still out. Getting there first is the difference between a
+  callback and a referral.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> A hero and a before/after pair. The pair has to be the same
+      window, same standing spot, minutes apart — soaped and streaking, then dried — because
+      the whole point of the slider is that nothing else changed. A pair from two different
+      windows reads as a trick and people notice.</li>
+    <li><strong>Pricing.</strong> Four rows keyed to pane bands, with the label, the price
+      and the note on each yours to edit. Keep the pane-counting rule visible on the page:
+      it is what makes a flat quote checkable, and it is why a visitor trusts the number
+      before they have spoken to you.</li>
+    <li><strong>Details and hours.</strong> Say what your season actually is. If freezing
+      weather stops you, say so, and say that a weather move costs the customer nothing.
+      That sentence prevents the phone call you would otherwise get every January.</li>
+    <li><strong>Reviews.</strong> Empty by design — the site ships with no invented reviews
+      on it. Add real ones as you earn them, with the customer's permission.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with a
+      QR code pointing at your site. Take the flyers on the storefront walk so you leave
+      something behind when the manager is out.</li>
+    <li><strong>Leads.</strong> Every enquiry from the quote form is emailed to you and kept
+      as a running list, with the pane band they picked already attached. That is most of a
+      quote before you have called them back.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section of the
+  admin — your access and cancellation terms, and what you do and do not warrant on
+  scratched or already-damaged glass.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by city.
+  Check what applies where you live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> Most places want a registered business name
+      and a local business licence before you trade. Usually quick and cheap, and the first
+      thing to do.</li>
+    <li><strong>Liability insurance.</strong> You are on ladders, over other people's
+      landscaping, and inside their houses handling glass. Talk to a broker before your
+      first paid job and be specific about ladder work and interior access. Commercial
+      customers will ask for a certificate before they let you on site, and some will want
+      to be named on it.</li>
+    <li><strong>Working at height.</strong> Rules on ladders, ropes and anything suspended
+      differ by state and get much stricter above a certain height or on commercial
+      buildings. Anything involving rope descent is a specialist, regulated activity — do
+      not drift into it because a customer asked nicely.</li>
+    <li><strong>Keys, alarm codes and being alone in a house.</strong> Commercial and
+      recurring residential customers will eventually offer you access. Decide how you hold
+      keys and codes and write it down. Some customers will ask about background checks;
+      answer honestly rather than claiming a screening process you do not run.</li>
+    <li><strong>Workers' compensation.</strong> The moment somebody else goes up a ladder
+      for you, this becomes a question, and the rules differ sharply by state including for
+      part-time help.</li>
+    <li><strong>Sales tax.</strong> Whether a cleaning service is taxable varies by state.
+      Ask an accountant once, early.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are, and
+  do not say "guaranteed streak-free" unless you intend to go back for free every time
+  somebody says it is not. Write the guarantee you will actually honour.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

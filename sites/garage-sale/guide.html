@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Sunup Garage Sales</title>
+<meta name="description" content="Getting started guide for the owner of Sunup Garage Sales.">
+<meta name="theme-color" content="#C75B12">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23EF8A1F'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#FFF6E9;
+  --gd-sunk:#FFEFDA;
+  --gd-line:#FFEFDA;
+  --gd-line:color-mix(in srgb, #33241A 18%, transparent);
+  --gd-ink:#33241A;
+  --gd-soft:#6D5847;
+  --gd-dim:#6D5847;
+  --gd-dim:color-mix(in srgb, #6D5847 78%, transparent);
+  --gd-accent:#EF8A1F;
+  --gd-on-accent:#2E1503;
+  --gd-display:'Bricolage Grotesque',sans-serif;
+  --gd-body:'Public Sans',sans-serif;
+  --gd-mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">garage sale &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/garage-sale/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no guessing out loud what a
+     sale will bring — the site itself promises not to, and neither does this. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>You are not in the business of selling used things. You are in the business of
+  giving somebody their Saturday and their garage back. The client is usually moving in
+  three weeks, or has just cleared a parent's house, or has finally lost the argument
+  with their spouse about the third bike. They dread every part of this and they are
+  hiring you to take it. Set up around that.</p>
+
+  <ol class="gd-steps">
+    <li><b>Build the kit and keep it loaded.</b> Eight to ten folding tables, sawhorses
+      and a couple of sheets of plywood, tarps, a pop-up canopy, table cloths, sticker
+      guns, a marker set, a cash apron, a float of ones and fives and quarters, a card
+      reader, grocery bags and newspaper for wrapping, a hand truck, and a stack of
+      corner signs with stakes and zip ties. It lives in the trailer, packed the same
+      way every time, so a sale never starts with a hardware run.</li>
+    <li><b>Decide the smallest sale you will take.</b> That is what the minimum on your
+      site is for. A two-table driveway takes almost the same staging day as a full one
+      and a crew still gives up a Saturday for it. Learn to say "you don't need us for
+      this" and mean it — that call comes back as a referral more often than a job you
+      resented.</li>
+    <li><b>Write the terms on one page.</b> The commission, the minimum, the rain date,
+      when they get their money, and what happens to what does not sell. Clients read
+      the leftovers paragraph hardest, because that pile at 4 p.m. is the thing they are
+      most afraid of.</li>
+    <li><b>Line up the donation outlet before your first sale.</b> Which charity takes
+      furniture, which takes clothes only, which will not take mattresses or upholstered
+      goods, whether they collect and on what days, and how the client gets the receipt.
+      Get this wrong once and you own a trailer full of somebody else's things on a
+      Sunday.</li>
+    <li><b>Check your towns' sign and sale rules before you book a date.</b> Most cities
+      have something to say about signs on the verge and how many sales an address may
+      hold in a year, and plenty of HOAs have more. This is your call to make, not the
+      client's — your name is on the sign.</li>
+    <li><b>Run one for a friend, free, end to end.</b> Sort, stage, price, sign, sell,
+      mark down, haul out, settle. Time the staging especially. Everybody underestimates
+      it, and the number you learn on that job is what makes every quote afterwards
+      honest.</li>
+    <li><b>Photograph that sale properly.</b> Shoot the driveway from the street at
+      about nine in the morning when the tables are full and the light is still low and
+      sideways. That photograph — full tables, cars parked up the street, people walking
+      the corridor — is the whole pitch, and it goes on your site under Admin,
+      Photos.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships a percentage model: a commission of <strong>40%</strong> on what
+  sells and a <strong>$200 minimum</strong>. Both are editable in the admin. They are a
+  starting shape for your market and nothing more.</p>
+
+  <p><strong>Why the percentage is higher here than an estate company's.</strong> The
+  totals in a driveway sale are small and the labour is not. Sorting, staging, pricing
+  and signing a garage is a day, sale day is a day, and the haul-out is a third. A
+  commission has to carry all of that on a number that was never going to be large. Say
+  that plainly at the walkthrough — clients understand it immediately when you frame it
+  as a day rate the sale has to cover.</p>
+
+  <p><strong>The minimum is a floor, not a fee.</strong> You take the greater of the two,
+  and you say so before the date goes on the calendar. It is what makes a small
+  driveway worth the crew's weekend, and it is the number that lets you say yes to the
+  jobs everyone else turns down.</p>
+
+  <div class="gd-note">
+    <p><b>The client will want to price too high, and it costs you both:</b> that hedge
+    trimmer cost real money when it was new and they remember it. Explain the alignment
+    out loud — you are
+    on commission, so you have every reason to get real money for the good things, and
+    no reason at all to let the rest sit. Then price to clear, bundle the small stuff,
+    and agree the markdown schedule in writing before sale day so the last hour is not a
+    negotiation with the person whose things they are.</p>
+  </div>
+
+  <p><strong>Never estimate the total.</strong> Your site says this in so many words and
+  it is the right policy. Nobody can honestly guess what a driveway will bring, and the
+  number you say at a kitchen table on a Tuesday is the number you get judged against on
+  Saturday afternoon. What you promise is the work: the sorting, the staging, the signs,
+  the staffing, the haul-away and the settlement sheet.</p>
+
+  <p><strong>Charge separately for what leaves in a truck.</strong> A donation run is
+  reasonable to fold in. A trailer of genuine rubbish going to the transfer station is a
+  gate fee and a trip, and it belongs on its own line, quoted at the walkthrough.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Like an estate company, you are selling to two crowds — the household that hires
+  you and the shoppers who turn up on Saturday. Unlike an estate company, your client is
+  almost always on a deadline, and the deadline is what you market to.</p>
+
+  <ul>
+    <li><strong>Get in front of people who are already moving.</strong> That is the
+      trigger. Apartment complex and self-storage managers, the counter at the truck
+      rental place, realtors with a listing going live in a month, and the "moving,
+      everything must go" posts in local buy-and-sell groups. Someone who has just
+      booked a truck for the end of the month has a garage problem right now, and almost
+      nobody is talking to them about it.</li>
+    <li><strong>Your corner signs are the advertising.</strong> Four big words and an
+      arrow for the shoppers, and your business name small along the bottom. Every
+      driver who passes that corner on Friday night sees it, and the ones who do not need
+      a sale this year remember the name when they do. Clean, square, professional signs
+      also tell a passing homeowner that this is a company, not a family with a card
+      table.</li>
+    <li><strong>The sale day itself, on the street.</strong> A sign at the driveway
+      saying who ran this sale, and cards at the checkout table. Neighbours walk to
+      sales. They come over, they see a staffed, tidy, busy driveway, and half of them
+      have a garage that has bothered them for three years.</li>
+    <li><strong>The estate companies' overflow.</strong> Full-service estate firms turn
+      down houses that are too small for their minimum, and those calls have nowhere to
+      go. Introduce yourself to every one within driving distance. Refer the big houses
+      back to them and the arrangement will hold.</li>
+  </ul>
+
+  <p>Then market to the shoppers for each sale, because a thin crowd is a bad settlement
+  sheet. Post the sale in the local yard-sale and buy-and-sell groups midweek with eight
+  or ten photographs of the actual good items — the tool chest, the bike, the furniture.
+  The photograph of the tool chest is what brings the man who buys the whole workbench.
+  Post again Friday evening when the signs go up.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Weather runs your calendar.</strong> Look at the forecast on Wednesday, not
+  Friday night, and have a rain date already written into the agreement so the
+  conversation is a reminder rather than a negotiation. Wind is worse than rain for a
+  driveway sale — it takes the signs, the tablecloths and the light things. Bring
+  weights.</p>
+
+  <p><strong>Stage a corridor, not a wall.</strong> Tables down both sides so shoppers
+  walk through and see everything, with the furniture and the tools nearest the street
+  doing the advertising. Everything off the ground — a sheet of plywood on sawhorses
+  outsells a tarp on the lawn every time, because people will not bend over for things
+  they have not decided they want yet.</p>
+
+  <p><strong>Have an early-bird policy and put it on the sign.</strong> They will arrive
+  at half past six whether you advertise eight or not, usually dealers, usually
+  friendly. Decide in advance whether you sell to them and at what price, and tell the
+  crew, because the worst version is selling the best thing on the driveway for
+  five dollars before the tables are even up.</p>
+
+  <div class="gd-note">
+    <p><b>Take your signs down the same night.</b> Every one, including the two you put
+    up in the dark on Friday. Signs left on a corner for a fortnight are what turn a
+    tolerant code officer into an unfriendly one, and yours have your business name
+    printed on them. Photograph the corners as you clear them if you have a crew doing
+    it.</p>
+  </div>
+
+  <p><strong>Two people minimum, and one of them never leaves checkout.</strong> One at
+  the table with the apron and the card reader, one on the floor answering questions and
+  watching the small valuables. Cash stays on your body, not in a box on a table.</p>
+
+  <p><strong>Hold price early, discount on a schedule.</strong> The first two hours are
+  when the people who want the good things arrive; that is not the moment to take half.
+  Then run the markdowns you agreed with the client — a posted discount hour, then a
+  fill-a-bag price at the end. The point of the last hour is an empty garage, not a full
+  one.</p>
+
+  <p><strong>Be a good neighbour on somebody else's street.</strong> Do not block
+  driveways, keep the crew's vehicles off the narrow side, and knock on the two houses
+  either side beforehand to tell them what is happening. Sweep the driveway before you
+  leave and photograph it empty — that photograph goes with the settlement sheet.</p>
+
+  <p><strong>Settle within days, not weeks.</strong> Itemised sheet, the donation
+  receipt, and the payment. Keep the client's money separate from your own so that is
+  never a question of timing.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Replace the hero with your own driveway shot as soon as
+      you have run a sale — full tables, low morning light, taken from the street. The
+      photo that ships is honest placeholder work and nothing more.</li>
+    <li><strong>Pricing.</strong> The commission and the minimum are editable. The note
+      under them is deliberately free of numbers, so it stays true whatever you set the
+      percentage to — if you rewrite it, keep it that way rather than repeating a figure
+      that will go stale.</li>
+    <li><strong>Details and hours.</strong> Put the two things a client needs: when you
+      do walkthroughs and which days you run sales. "Walkthroughs weekday evenings, sale
+      days Friday and Saturday" answers the only scheduling question they have.</li>
+    <li><strong>Reviews.</strong> Empty until you add them, deliberately — the site ships
+      with nothing invented on it. Add real ones as you earn them, with permission. Ask
+      on the Sunday, when the garage is empty and they are still delighted about it.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer
+      with a QR code pointing at your site. Leave the flyer at the storage place, the
+      truck rental counter and the apartment office.</li>
+    <li><strong>Leads.</strong> Every enquiry from your booking form is emailed to you
+      and kept as a running list. These are time-sensitive — a client with a moving date
+      will book whoever calls back first.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Use the Legal section of the admin to add your
+  own clauses: the rain-date rule, the leftovers policy, and what you will not put on a
+  table.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by
+  city. Check what applies where you live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> A registered business name and a local
+      business licence are usually the first step, and usually quick.</li>
+    <li><strong>Sale permits and per-address limits.</strong> This is the one that
+      catches people in this trade specifically. Many cities and counties require a
+      permit for a yard or garage sale, cap how many an address may hold in a year, and
+      restrict the hours. Some HOAs ban them outright or allow only a community sale
+      weekend. Check the city and the HOA for every address before the date is booked —
+      not the morning of.</li>
+    <li><strong>Sign ordinances.</strong> Signs in the public right-of-way, on utility
+      poles, on medians and on the verge are regulated in most places, and any penalty
+      generally lands on whoever's name is printed on the sign. Yours is. Find out what
+      is allowed, and take them all down the same night regardless.</li>
+    <li><strong>Sales tax.</strong> A household clearing its own garage and a company
+      selling other people's goods for a fee every weekend are not the same thing to a
+      revenue department. Whether you need a seller's permit, and whether you must
+      collect tax on sales you make as an agent, varies by state. Ask an accountant
+      before your first sale.</li>
+    <li><strong>Holding other people's money.</strong> The proceeds in your apron belong
+      to your client until you settle. Keep them in a separate account from your own
+      operating money and pay out on the timeline you promised in writing.</li>
+    <li><strong>Insurance.</strong> You are inviting strangers onto somebody else's
+      driveway and moving their furniture around. Talk to a broker about general
+      liability before your first paid sale, and be specific about what you actually
+      do.</li>
+    <li><strong>Workers' compensation.</strong> The moment you put a second person on a
+      crew this becomes a question, and the rules differ sharply by state, including for
+      casual weekend help.</li>
+    <li><strong>Things that should not go on the table.</strong> Firearms and ammunition,
+      prescription medication, recalled cribs, car seats and helmets, counterfeit goods.
+      Set them aside at the walkthrough and tell the client why rather than discovering
+      them at eight in the morning.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are.
+  It is a checkable claim, and in a town where your signs go up on four corners every
+  weekend, somebody will check it.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

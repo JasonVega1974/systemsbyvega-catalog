@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Riserline Irrigation Co.</title>
+<meta name="description" content="Getting started guide for the owner of Riserline Irrigation Co..">
+<meta name="theme-color" content="#081419">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232FB37A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Azeret+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#081419;
+  --gd-sunk:#0C1D24;
+  --gd-line:#0C1D24;
+  --gd-line:color-mix(in srgb, #EAF4F1 18%, transparent);
+  --gd-ink:#EAF4F1;
+  --gd-soft:#B3C7C6;
+  --gd-dim:#B3C7C6;
+  --gd-dim:color-mix(in srgb, #B3C7C6 78%, transparent);
+  --gd-accent:#2FB37A;
+  --gd-on-accent:#03150C;
+  --gd-display:'Archivo',sans-serif;
+  --gd-body:'Instrument Sans',sans-serif;
+  --gd-mono:'Azeret Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">sprinkler &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/sprinkler/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, and specifically no water-saving
+     or bill-reduction claims of any kind — those are performance claims and the
+     site itself is built without them. Utility locates and backflow rules are
+     named as things to go and confirm locally, never stated here. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>Irrigation is a diagnostic trade before it is a digging trade. Most of what you sell
+  is finding things: a valve nobody can locate, a wire somebody cut, a zone that never had
+  the pressure to run the heads on it. Spend your first week on the measuring end, not on
+  the machinery.</p>
+
+  <ol class="gd-steps">
+    <li><b>Buy the diagnostic tools before the trencher.</b> A pressure gauge that screws
+      onto a hose bib, a five-gallon bucket and a stopwatch for timing flow, a wire tracker,
+      a valve locator, a soil probe and a good shovel. You can rent a trencher for a day.
+      You cannot rent knowing where the wire goes.</li>
+    <li><b>Learn on your own system first.</b> Find every valve box on your own property,
+      run each zone, draw the map, and then disconnect something on purpose and trace it
+      back with the tracker. Do that until locating a fault is boring rather than
+      exciting.</li>
+    <li><b>Call your water purveyor and ask about backflow.</b> An irrigation line drawing
+      off a public main brings backflow-prevention requirements, and districts differ on
+      who may install an assembly, who may test it, and whether they keep their own list of
+      approved testers. Get that answer from the district in your service area before you
+      quote your first install, not during it.</li>
+    <li><b>Set your service call and your hourly rate before the phone rings.</b> Your
+      site publishes a service-call figure and a note saying repairs bill from it and then
+      hourly. Both of those numbers get asked for on the first call you take, and inventing
+      them while somebody waits is how you end up working for less than you meant to.</li>
+    <li><b>Practise the walk on three properties for free.</b> Read static pressure at the
+      bib, time the flow into the bucket, find the meter, the point of connection and the
+      outlet the controller will live near, and sketch the turf, the beds and the hardscape.
+      Do it three times before you charge anyone, so that on the fourth you are looking at
+      the property rather than at your own notes.</li>
+    <li><b>Learn the blow-out before autumn arrives.</b> Know what pressure your compressor
+      actually delivers and what the manufacturers of the heads and valves on that system
+      allow, because too much air pressure through a dry zone destroys the very seals you
+      are there to protect. Get this right in September, on a system you own, not in
+      November on a customer's.</li>
+    <li><b>Start the as-built habit on job one.</b> Photograph every trench while it is
+      still open, measure the mainline and the valve boxes off two fixed points that will
+      not move, and hand the customer a copy of the drawing. That map is why a repair two
+      years later takes an hour instead of a morning.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site carries exactly two numbers: a service-call figure, and a note under it
+  saying installs are quoted in writing after a free walk while repairs bill from the
+  service call and then hourly. The install panel deliberately carries no price at all.
+  That is the honest shape for this trade &mdash; an install price given before a pressure
+  reading is a number you invented.</p>
+
+  <p><strong>The service call is the number that gets you to the door.</strong> Say on the
+  phone what it covers: the drive, the first hour of finding out what is actually wrong,
+  and a straight answer about what it will take. Then hourly starts. Saying that before you
+  get in the truck prevents the argument that otherwise happens on the driveway.</p>
+
+  <p><strong>Quote installs from the meter, not from the acreage.</strong> Static pressure
+  and available flow decide how many heads a zone can hold, which decides how many zones,
+  which decides how many valves, how much wire and how many hours. Two identical-looking
+  lawns on different pressure are two different jobs with two different prices, and the
+  only way to know is to measure.</p>
+
+  <p><strong>Zones are the unit, not square feet.</strong> Price the manifold, then price
+  per zone and per head, then add what the ground is going to cost you: rock, roots, a
+  driveway you have to sleeve under, an established bed you cannot trench through. Walk the
+  line you intend to dig before you write the number.</p>
+
+  <div class="gd-note">
+    <p><b>Never quote a system you have not been able to find:</b> a repair call on
+    somebody else's install starts as a map problem and only then becomes a plumbing
+    problem. Locate the valve boxes and run every zone before you promise a price. On an
+    unlabelled system that hunt can be most of the visit &mdash; which is exactly what the
+    service call is for, and why quoting a repair over the phone is guesswork.</p>
+  </div>
+
+  <p><strong>Seasonal work is route work.</strong> Start-ups and blow-outs should be a flat
+  per-visit price, booked in geographic order and run as a route. Hourly pricing on a
+  twenty-minute job means you are billing for driving, and the driving is what actually
+  costs you.</p>
+
+  <p><strong>Stop and re-quote when a repair turns into a redesign.</strong> Your site says
+  exactly that; say the same sentence out loud when it happens. Running the clock on a
+  system that needs rebuilding is how a customer ends up paying twice and telling people
+  about it.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Irrigation has a shape almost no other trade has: the same customer needs you three
+  times a year, every year, at predictable times. Build for that first and everything else
+  is a supplement.</p>
+
+  <ul>
+    <li><strong>The blow-out list is the business.</strong> Every system you winterise is a
+      property whose whole year you can hold &mdash; start-up in spring, a tune in summer,
+      a blow-out in autumn. Keep the list with the address, the zone count, the controller
+      model, the backflow type and the date you last touched it, and work down it by phone
+      rather than waiting for the phone to ring.</li>
+    <li><strong>Call before the season calls you.</strong> Book blow-outs in September and
+      start-ups in late winter. Everybody in your county rings the same week the first hard
+      freeze is forecast, and by then you cannot serve them all. The operator who called in
+      September already has the route.</li>
+    <li><strong>Landscapers, sod installers and fence crews.</strong> They get asked about
+      irrigation constantly and most of them do not want to do it. Fence and deck builders
+      also cut laterals regularly and need somebody to call the same day. One landscaper who
+      trusts you is a steady feed of installs, and the relationship costs you nothing but
+      turning up when they ring.</li>
+    <li><strong>The open trench is the sign.</strong> An install means a week of torn-open
+      ground on a visible street with people walking past it. Put a sign at the kerb while
+      you are in the trench, and knock on the neighbours when you backfill &mdash; they have
+      watched the whole thing and half of them have a dry corner of their own.</li>
+    <li><strong>Small commercial and property managers.</strong> Church lawns, storage
+      yards, HOA common ground, the strip of turf outside a small business. These systems
+      are usually old, usually unmaintained, and sit against a budget line somebody is
+      already expecting to spend.</li>
+    <li><strong>Answer the phone in spring.</strong> Between March and June the trade's
+      real competitive advantage is picking up and giving somebody a date. Set the voicemail
+      honestly if you cannot, and return calls the same evening.</li>
+  </ul>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Measure before you design.</strong> Static pressure at the bib and flow timed
+  into a bucket, written down, on every property. Everything downstream &mdash; head count
+  per zone, nozzle choice, whether that back paddock can even be added &mdash; comes off
+  those two numbers, and no amount of experience replaces reading them.</p>
+
+  <div class="gd-note">
+    <p><b>Call for utility locates before every trench, including the small ones:</b>
+    marking buried gas, power and communications lines before digging is a legal
+    requirement, and the notice period and the exact process are set where you live. Find
+    out yours, follow it every time, and wait the full period even when the job is one
+    trench across a front lawn. This is the one shortcut in this trade that can kill
+    somebody.</p>
+  </div>
+
+  <p><strong>Group zones by the pressure they can actually hold.</strong> Rotors and spray
+  heads never share a valve. A shaded strip does not share a valve with a south-facing lawn,
+  because they do not want the same water. Beds go on drip, on their own valve, with a
+  filter and a regulator ahead of the line. Never add a head to a zone just to save a valve
+  &mdash; that is the decision that produces the dry corner you get called back for.</p>
+
+  <p><strong>Nozzle to the arc.</strong> A quarter-circle head running the same nozzle as a
+  full-circle head next to it puts far more water on that corner in the same run time. Match
+  the nozzles to the arcs so every head in the zone is laying down water at the same rate,
+  or the schedule can never be right for the whole zone at once.</p>
+
+  <p><strong>Overlap is the design.</strong> Spray has to reach the next head, not merely
+  reach the gap between them. Run each zone with the customer standing beside you, adjust
+  the arcs, swap nozzles until the throws meet, and only then set the schedule.</p>
+
+  <p><strong>Wire discipline.</strong> Tag both ends of every valve wire, use waterproof
+  connectors rather than tape, and pull a spare wire or two to each box while the trench is
+  open. Tape and optimism is the reason somebody is paying you to trace a fault on a
+  system that is only five years old.</p>
+
+  <p><strong>Valve boxes you can open from the surface.</strong> Set them to finish grade,
+  keep them out of the mow line where you can, and never bury a manifold. A buried manifold
+  is a morning of digging every time anything goes wrong, and it will be you doing the
+  digging.</p>
+
+  <p><strong>Charge the mainline slowly in spring.</strong> Open the valve gradually so the
+  surge does not blow a fitting you then have to find and dig up. Then walk every zone
+  looking for what the winter moved before you tell the customer it is running.</p>
+
+  <p><strong>Write the schedule where the next person will find it.</strong> Programme the
+  controller with the owner watching, then write the seasonal run times inside the door of
+  the box. The customer forgets; the box does not.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Five zones: your logo, the hero at the top, a before and
+      an after for the comparison slider, and your own portrait. Shoot spray in low
+      morning or evening light &mdash; water reads as water when the sun is low and
+      disappears at midday.</li>
+    <li><strong>The before-and-after slider.</strong> The pair your site ships with is two
+      different Payette Valley lawns, and the page says so in plain words. If you replace
+      them, replace both, shoot from the same height in the same light, and only remove
+      that disclosure if it genuinely is one property before and after your own work.
+      Nothing on this site pretends, and that is worth more than a dramatic slider.</li>
+    <li><strong>Pricing.</strong> Two fields: the service-call figure and the sentence
+      beneath it about how installs and repairs are billed. Keep the sentence short &mdash;
+      the box has a length limit, and the sentence is doing one job, which is preventing a
+      surprise on the driveway.</li>
+    <li><strong>Job details.</strong> What is included and what is not. This is the
+      strongest section on your page and it is worth rewriting carefully &mdash; especially
+      the "not included" list. Meter and tap fees, the district's own backflow test, sod
+      repair beyond backfilling, lawn care, and electrical work beyond plugging the
+      controller in are the five that otherwise become arguments.</li>
+    <li><strong>Details and hours.</strong> Owner name, the paragraph about who walks the
+      property, and your hours, which appear in the footer. Put the real ones in, including
+      whether Saturday walks happen by appointment.</li>
+    <li><strong>Reviews.</strong> They ship empty by design &mdash; there are no invented
+      reviews on this site. Add real ones as you earn them, with the customer's
+      permission.</li>
+    <li><strong>Social links.</strong> Ship empty, and that whole line renders as nothing
+      until you add one. Leave it empty rather than linking an account you do not use.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with
+      a QR code pointing at your site. Print the flyer for the doors you knock when you
+      backfill a trench.</li>
+    <li><strong>Leads.</strong> Every enquiry is emailed to you and kept as a running list.
+      The scope builder on your page writes a plain-language summary of the property into
+      the request &mdash; read that before you call back, because it usually tells you what
+      to put on the truck.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. The Legal section of the admin is where a deposit
+  rule, your winterisation booking window and a plain note that the annual backflow test
+  belongs to the purveyor's own tester should go.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice. Irrigation sits across three different rule-makers
+  &mdash; the state, the local building authority, and your water purveyor &mdash; and they
+  do not agree with each other from county to county. Check all three where you work before
+  you take money.</p>
+
+  <ul>
+    <li><strong>Business registration and trade licensing.</strong> A registered business
+      name and a local business licence are the usual first step. Beyond that, states vary
+      widely: some license irrigation contractors specifically, some fold the work under
+      plumbing or landscape contracting, and some do not license it at all. Ask your state's
+      contractor board what installing an in-ground system requires of you.</li>
+    <li><strong>Backflow prevention.</strong> Connecting irrigation to a potable water
+      supply brings backflow requirements from the plumbing code and from the water
+      purveyor, and the person permitted to install an assembly is frequently not the person
+      permitted to test it. Your district is the authority on both. Find out before you
+      quote, and be clear with customers about which part is yours and which is
+      theirs.</li>
+    <li><strong>Utility locates.</strong> Marking buried services before you dig is a legal
+      obligation with its own process and waiting period wherever you are. Learn yours, use
+      it on every job, and keep the ticket.</li>
+    <li><strong>Permits and inspection.</strong> Some jurisdictions require a permit and an
+      inspection for a new irrigation connection or for the backflow assembly. Ask your
+      local building department rather than assuming a sprinkler system is unregulated.</li>
+    <li><strong>Water restrictions.</strong> Many districts limit watering days or hours,
+      seasonally or permanently. Know the rules where you work, because the schedule you
+      programme into a customer's controller has to be a legal one.</li>
+    <li><strong>Insurance.</strong> You dig through other people's ground and other people's
+      utilities. Talk to a broker about general liability before your first paid job, and be
+      specific about trenching &mdash; a policy bought on a vague description of "landscape
+      work" may not answer when you need it. Commercial auto for the truck and trailer is a
+      separate question again.</li>
+    <li><strong>Workers' compensation and sales tax.</strong> Workers' comp becomes a
+      question the moment you hire, including for seasonal help, and the rules differ
+      sharply by state. Whether parts and labour are taxed the same way also varies. Ask an
+      accountant once, early.</li>
+  </ul>
+
+  <p>Do not put "licensed", "certified" or "insured" on your site until each one is true and
+  current. In this trade the backflow claim is the dangerous one &mdash; districts keep
+  public lists of who is certified to test, and being on your own site but not on their list
+  is a very short conversation.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

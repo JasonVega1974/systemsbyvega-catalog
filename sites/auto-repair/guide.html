@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Rimrock Garage</title>
+<meta name="description" content="Getting started guide for the owner of Rimrock Garage.">
+<meta name="theme-color" content="#F5EFE2">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23B3271E'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#F5EFE2;
+  --gd-sunk:#FBF7EC;
+  --gd-line:#FBF7EC;
+  --gd-line:color-mix(in srgb, #2A2118 18%, transparent);
+  --gd-ink:#2A2118;
+  --gd-soft:#6E6152;
+  --gd-dim:#6E6152;
+  --gd-dim:color-mix(in srgb, #6E6152 78%, transparent);
+  --gd-accent:#B3271E;
+  --gd-on-accent:#FFFFFF;
+  --gd-display:'Zilla Slab',serif;
+  --gd-body:'Source Sans 3',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">auto repair &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/auto-repair/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the head, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics. The published price ranges on
+     the site are the operator's to set; nothing here says what any of it
+     pays. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>This is a shop with a door, a lift and an address. That address is the business: it is
+  where the work happens, where the customers come, and what people search for. Your first
+  week is spent making the bay able to take a car and the paperwork able to take a
+  customer.</p>
+
+  <ol class="gd-steps">
+    <li><b>Get the lift signed off before it lifts anybody's car.</b> Anchors, slab
+      thickness, arm restraints, the safety locks, and an inspection by somebody qualified
+      to do it. Then write the date on the column and put the next one in your calendar.
+      A lift is the one piece of equipment in the building that can kill somebody, and it
+      is also the one most likely to have been left by the previous tenant.</li>
+    <li><b>Set your labour rate and pick your time guide.</b> Flat-rate book hours or your
+      own measured times, one or the other, decided before your first quote rather than
+      argued out per car. Everything downstream of this, including the ranges on your
+      site, is built from it.</li>
+    <li><b>Open two or three parts accounts and learn their delivery times.</b> The
+      counter that runs a truck at 8am and 1pm is worth more than the one that is a dollar
+      cheaper. A car on your lift waiting for a part is your bay standing still.</li>
+    <li><b>Buy diagnostic capability, not a code reader.</b> A bidirectional scan tool and
+      a subscription to real service information: wiring diagrams, service bulletins,
+      torque and procedure. Guessing from a code is what gives the trade its reputation,
+      and your site's whole pitch is the opposite of that.</li>
+    <li><b>Set up the waste accounts before the first oil change.</b> Used oil, oil
+      filters, coolant, batteries, tyres. Every one has somewhere it must go and somebody
+      licensed to take it. Sort this in the quiet week, not on the day the drum is full.</li>
+    <li><b>Check the site's published ranges against your own numbers.</b> Your home page
+      ships with six job ranges and a diagnostic fee. Work each one out on your own labour
+      time and your own parts cost, then edit them in the admin. They go on the internet
+      with your name on them, so they need to be honest for the worst common version of
+      that job, not the easiest.</li>
+    <li><b>Run three cars through the whole process.</b> Intake, road test, written
+      estimate, approval, repair, photograph of the old part, hand it back. Do it on your
+      own vehicles or a friend's before a stranger's. The process is the product here, and
+      it needs to be smooth before anybody is watching.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site publishes six job ranges and a diagnostic fee applied to the repair. That is
+  unusual for this trade and it is the whole positioning: somebody can see roughly what a
+  brake job costs before they phone. Change every figure to your own market in the admin.
+  They are a starting shape, not a recommendation.</p>
+
+  <p><strong>A published range binds you, so write it for the hard version.</strong> The
+  range has to survive the seized caliper bolt and the rusted rotor, not just the clean
+  three-year-old sedan. If your low number only works on the easy car, you will spend every
+  Tuesday explaining why the actual number is higher, and the page that was supposed to
+  build trust will be spending it instead.</p>
+
+  <p><strong>Defend the diagnostic fee.</strong> A free diagnosis makes you the free second
+  opinion for every shop in town and for every customer who intends to fix it themselves in
+  their own driveway. Charging for the hour and applying it to the repair, the way the site
+  already does, is the fair version: the person who lets you do the work pays nothing for
+  the diagnosis, and the person who does not pays for your time.</p>
+
+  <div class="gd-note">
+    <p><b>One written number, and work stops if it changes:</b> the estimate you gave is
+    the estimate you honour. If the car opens up and the job is genuinely different, tools
+    down and the phone rings, and nothing else happens until the customer approves the new
+    number. A shop that quietly adds to the number at the counter has traded a
+    customer for one invoice, and in a small town they tell everybody.</p>
+  </div>
+
+  <p><strong>Do not compete on the oil change.</strong> It is the cheapest thing on your
+  board, everybody sells it, and cutting it further does not win a customer who was going
+  to go to the quick-lube anyway. Sell it as the visit where somebody actually looks at the
+  car, and show them what you found.</p>
+
+  <p><strong>Parts margin and labour are two different decisions.</strong> Know what each
+  one is doing for you, and give the customer an honest read on new versus good used parts
+  on an older vehicle. Your site already promises that conversation. Have it the same way
+  every time.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>You are a fixed location, so most of your work arrives through a map and a
+  neighbourhood, not through advertising. Three channels do the heavy lifting.</p>
+
+  <ul>
+    <li><strong>Your Google Business Profile, treated as a real job.</strong> "Mechanic
+      near me" is how this trade gets found, and the map result is what people pick from.
+      Real hours, kept accurate at holidays. Photographs of your actual bay and your actual
+      sign, not stock images. Answer every review, including the unhappy one, calmly and in
+      public. This is the single highest-return hour a shop owner spends in a week, and it
+      is not something a mobile operator can do the same way.</li>
+    <li><strong>Small fleets and the businesses that run trucks.</strong> The plumbing
+      outfit with five vans, the landscaper's trailers, the church bus, the farm pickups.
+      They need somebody who will take the vehicle today and give it back tomorrow, they
+      pay on invoice, and they fill the quiet middle of the week. Go and see them; do not
+      wait to be found.</li>
+    <li><strong>The shops that do not do what you do.</strong> The transmission specialist,
+      the body shop, the tyre place, the dealer that will not touch a fifteen-year-old
+      truck. Every one of them turns work away every week. Introduce yourself, be specific
+      about what you want sent over, and send work back. Reciprocal referral is how a small
+      shop fills its Tuesdays.</li>
+  </ul>
+
+  <p>Pre-purchase inspections deserve their own mention. Somebody buying a used car is
+  meeting you at the calmest possible moment, with no emergency and no anger, and a
+  reasonable share of them become the customer who brings that car back for everything
+  else. Say yes to those bookings even when the bay is busy.</p>
+
+  <p>Your site's sound tool is a reason for somebody to land on the page and stay. Point
+  people at it when they describe a noise on the phone, and let it do what it says it does:
+  give them the usual suspects so they are not walking in blind. It is not a diagnosis and
+  the page says so. Keep saying so.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>The lift is the constraint.</strong> Everything about how you schedule follows
+  from that. Stage the parts before the car goes up, not after, and keep one slot a day
+  open for the tow-in and the car that will not start in somebody's driveway. A day with no
+  gap in it becomes a day where every customer is told a different lie about when their car
+  will be ready.</p>
+
+  <p><strong>Road test before and after, every time.</strong> Before, because the noise the
+  customer describes and the noise the car makes are frequently two different noises. After,
+  because the only person who should discover that the job is not finished is you. Take the
+  customer along on the first one when they are willing; it is the fastest diagnosis you
+  will ever do.</p>
+
+  <p><strong>Photograph the failure while it is still on the car.</strong> The cracked
+  boot, the worn pad against a new one, the play in the joint. Send it to their phone with
+  the estimate. This is what turns "they said I needed it" into "I saw it", and it is the
+  single habit that separates a shop people trust from a shop people suspect.</p>
+
+  <div class="gd-note">
+    <p><b>The comeback is your reputation, not your inconvenience:</b> a car that returns
+    with the same complaint gets looked at first, that day, ahead of the schedule, and
+    nobody argues about who pays until after it is fixed. Every shop has comebacks. The
+    ones with a good name are the ones where the comeback was easy for the customer.</p>
+  </div>
+
+  <p><strong>Keep the old part.</strong> Bag it, label it and offer it back. Your site
+  promises this. Most people say no and every one of them remembers being asked.</p>
+
+  <p><strong>Write the estimate in the bay, not from memory at the desk.</strong> With the
+  car up and the flashlight on the problem is when you know what the job actually is. Ten
+  minutes later at the counter is when you start guessing.</p>
+
+  <p><strong>Sweep the floor.</strong> A customer cannot judge your torque wrench. They can
+  judge the state of the waiting area, whether the oily rag is on the seat and whether the
+  toilet is clean, and they will use those to decide whether you are careful. Unfair, and
+  entirely real.</p>
+
+  <p><strong>Raising prices.</strong> Change the ranges on the site, in the admin, between
+  jobs. Never renegotiate with a person standing at your counter holding their keys.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> There are two slots that matter here, the hero and the
+      owner photo. Replace the hero with your own bay, your own lift and your own sign as
+      soon as you can. For a fixed-location shop, a photograph that proves the place exists
+      and is tidy does more work than anything else on the page.</li>
+    <li><strong>Pricing.</strong> The six published ranges and the diagnostic row are all
+      editable: the label, the price text and the note under each one. Ranges stay ranges,
+      written as text, so "applied to the repair" says exactly that. Edit them the week you
+      change your labour rate, not six months later.</li>
+    <li><strong>Details and hours.</strong> Put your real hours in and keep them right.
+      More people are turned away by wrong hours on a map than by any price you publish.
+      The owner paragraph is where you say who is turning the wrench, which matters more in
+      this trade than most.</li>
+    <li><strong>Reviews.</strong> Empty until you add them, deliberately. The site ships
+      with no invented reviews. Add real ones as you earn them, with the customer's
+      permission, and ask on the day you hand back the keys and the car is fixed.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer with
+      a QR code pointing at your site. Print the flyer for the fleet visits and leave one at
+      every parts counter that will let you.</li>
+    <li><strong>Leads.</strong> Every enquiry from your booking form is emailed to you and
+      kept as a running list, so nothing is lost when the phone has been going all
+      morning.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. The Legal section of the admin is where you add
+  your own clauses: your storage policy for cars left after completion, how long an estimate
+  stands, and the wording of your workmanship guarantee.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice. Automotive repair is regulated in a lot of states and
+  barely regulated in others, and the difference matters a great deal. Check what applies
+  where you are before you take money.</p>
+
+  <ul>
+    <li><strong>Repair facility registration.</strong> A number of states register auto
+      repair shops specifically, on top of a general business licence, and attach rules
+      about written estimates, authorisation before work starts and what you must give the
+      customer. Find out whether yours is one of them, first.</li>
+    <li><strong>Certification is not a licence.</strong> Industry technician certification
+      is the norm in this trade and is worth having, but in most places it is a credential,
+      not permission to operate. Do not let the two blur on your website, and never imply
+      that you hold one you do not.</li>
+    <li><strong>Inspection and emissions work is separate.</strong> If you want to be a
+      station that signs off safety or emissions tests, that is its own certification, its
+      own equipment and its own audit, in the states that have it at all.</li>
+    <li><strong>Air conditioning refrigerant.</strong> Handling refrigerant is federally
+      regulated and there is a certification attached to doing it. Find out what applies to
+      you before you open a system, and buy the recovery equipment before you buy the
+      first can.</li>
+    <li><strong>Waste oil, coolant, batteries and tyres.</strong> Every one of these has
+      collection and disposal rules, usually at state level, and used oil in particular is
+      handled as its own category. A licensed collector and a paper trail is the shape of
+      the answer everywhere.</li>
+    <li><strong>Insurance.</strong> General liability is the baseline. The one shops forget
+      is cover for customers' vehicles in your care, custody and control, including the
+      test drive, which is a separate thing from liability. Talk to a broker who has
+      written a repair shop before, and be specific about road testing and about who is
+      allowed to drive.</li>
+    <li><strong>Workers' compensation.</strong> The moment there is a second person in the
+      shop this becomes a question, and the rules differ sharply by state.</li>
+    <li><strong>Mechanic's lien.</strong> Every state has a process for an unpaid repair
+      and for a car nobody comes back for. Read yours before the first car is abandoned in
+      your lot, because one will be.</li>
+    <li><strong>Sales tax.</strong> Whether tax lands on parts, on labour, or on both
+      varies by state. Ask an accountant once, early, rather than guessing for a year.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, certified, insured or bonded until
+  each of those is true. Certifications in this trade are checkable by anybody with a phone,
+  and in a town this size somebody will check.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

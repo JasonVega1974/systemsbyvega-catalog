@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Osprey Moving Co.</title>
+<meta name="description" content="Getting started guide for the owner of Osprey Moving Co..">
+<meta name="theme-color" content="#F0E7D8">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232F6B4F'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bevan&family=Mulish:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#F0E7D8;
+  --gd-sunk:#F8F3E9;
+  --gd-line:#F8F3E9;
+  --gd-line:color-mix(in srgb, #2E2A24 18%, transparent);
+  --gd-ink:#2E2A24;
+  --gd-soft:#6B6353;
+  --gd-dim:#6B6353;
+  --gd-dim:color-mix(in srgb, #6B6353 78%, transparent);
+  --gd-accent:#2F6B4F;
+  --gd-on-accent:#FFFFFF;
+  --gd-display:'Bevan',serif;
+  --gd-body:'Mulish',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">moving &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/moving/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no stated licence rules or
+     costs — this is the one trade where the federal layer is real, so it gets
+     named as a category and nothing more. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>Moving is a labour business with a calendar problem. Leases turn on the first of the
+  month, so the last few days of every month and the whole of summer are the work, and a
+  mid-month week in February is quiet. Everything you build in the first week should be
+  aimed at being ready for the busy days and having something useful to do on the slow
+  ones.</p>
+
+  <ol class="gd-steps">
+    <li><b>Settle the authority question before you advertise anything.</b> Moving
+      household goods is one of the few local trades with a real registration layer, and
+      it differs depending on whether you stay inside the state or cross a line. Find out
+      what your state requires of an intrastate household-goods mover, and what applies
+      federally the moment a job crosses a border. Do this first, because the answer
+      shapes what you are allowed to put on your own website.</li>
+    <li><b>Consider starting labour-only.</b> Loading and unloading customers' rental
+      trucks and portable containers takes no truck, no commercial vehicle, and a much
+      smaller insurance conversation. It is real work with real customers, and it is the
+      cheapest way to learn whether your back and your temperament are suited to this
+      before you sign for a box truck.</li>
+    <li><b>Buy pads before you buy anything else.</b> Far more moving blankets than feels
+      reasonable, four-wheel dollies, an appliance dolly with a proper belt strap,
+      shoulder straps, ratchet and cam straps, shrink wrap, tape, floor runners, door
+      jamb protectors, mattress bags, and a small tool bag with an allen set and a
+      crescent wrench for bed frames. A crew with too few pads damages furniture and
+      knows it.</li>
+    <li><b>Learn to estimate hours by estimating your own house.</b> Run your own place
+      through the load calculator on your site, write down the number, then actually move
+      something and compare. Estimating hours is the entire commercial skill in this
+      trade and there is no way to learn it except by guessing, timing, and closing the
+      gap. Keep doing it on every job for a year.</li>
+    <li><b>Write the clock policy down.</b> When the clock starts, when it stops, the
+      minimum hours, whether travel is inside the rate, what a deposit holds and what
+      happens on a cancellation. Nearly every argument in moving is an argument about the
+      clock, and it is only ever an argument when nobody wrote it down.</li>
+    <li><b>Find two people you would trust with a couch and your name.</b> This trade
+      lives or dies on whether a crew turns up at half past seven. Pay properly, feed
+      them, and decide early that you would rather turn down a job than send a crew you
+      are not sure of.</li>
+    <li><b>Do three moves for friends at cost, on the clock.</b> Time each phase
+      separately: protection, disassembly, carry, load, drive, unload, rebuild. Those
+      numbers are what make your quotes honest and your bookings fit in a day.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site prices by crew size and hour — two, three or four movers with a truck,
+  each at its own rate — and the load calculator picks the tier from what the customer
+  says they are moving. All of those rates are editable in the admin. They are a starting
+  shape for your market, not a recommendation.</p>
+
+  <p><strong>You are selling hours, so protect the hour.</strong> The rate has to carry
+  wages, payroll taxes, workers' compensation, the truck, fuel, pads that wear out, and
+  the drive back to the yard at the end. A rate set by looking at what the cheapest
+  advert in town says is a rate set by somebody else's arithmetic.</p>
+
+  <p><strong>Minimum hours are not a trick.</strong> A two-hour job still consumes a
+  morning, a crew and a truck. Say the minimum at booking, in the same sentence as the
+  rate, and nobody minds.</p>
+
+  <p><strong>A bigger crew usually costs the customer less.</strong> Four movers at the
+  higher hourly rate finish a big house in far fewer hours than two movers will, and the
+  furniture takes less punishment. Do that arithmetic out loud at the walkthrough
+  instead of defaulting to the smallest crew because the hourly number sounds friendlier.
+  Customers remember the mover who talked them into the right crew.</p>
+
+  <div class="gd-note">
+    <p><b>The underestimate is the mistake, and it is almost always the same
+    underestimate:</b> the walk. Not the lifting — the distance from the door to the
+    truck, the elevator wait, the second flight, the disassembly nobody mentioned, the
+    stop at the storage unit. Estimate the work, then add the walking. Give the customer
+    a range, put the top of the range on the written confirmation, and let coming in
+    under it be the good news.</p>
+  </div>
+
+  <p><strong>Never make an unseen quote binding.</strong> Your calculator says plainly
+  that it produces a ballpark, not a quote — repeat that on the phone in your own words.
+  The walkthrough, fifteen minutes in person or on video, is what turns it into a number
+  you will stand behind.</p>
+
+  <p><strong>Do not invent surcharges.</strong> Your site promises straight hourly with
+  no fuel surcharge, no stair fee and no heavy-item ambush on the final bill. That is a
+  real promise and it is most of why somebody called you. If stairs and a piano make a
+  job harder, the honest answer is a bigger crew agreed in advance, not a line item
+  discovered at the end. Charge packing materials separately by what actually gets
+  used.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Work the calendar before you work the marketing. Month-end and summer weekends book
+  out and should be sold at full crew. Mid-month and winter weekdays are where you go
+  looking for the jobs nobody else wants — in-house moves for a flooring installation, an
+  office that has to move after hours, a senior downsizing on a Tuesday.</p>
+
+  <ul>
+    <li><strong>The people who know before the customer does.</strong> Apartment and
+      complex leasing offices, self-storage managers, senior living communities and
+      senior move managers, realtors looking for a closing gift, staging companies, and
+      flooring installers who need a house emptied for a day. They learn about a move
+      weeks before a mover does. Visit in person, leave something they can hand over, and
+      make it easy for them to look good for recommending you.</li>
+    <li><strong>Reviews, asked for on the truck.</strong> In no trade do reviews matter
+      more, because a stranger is about to hand you everything they own. Ask at the end,
+      on the spot, while they are relieved and standing in a furnished house — not by
+      email three days later when the relief has worn off. Ask by name, and have the crew
+      lead ask, because the crew lead is who they liked.</li>
+    <li><strong>A Google Business Profile with your own photographs.</strong> Your truck,
+      your crew in branded shirts, a wrapped stair rail, a loaded truck packed tight. The
+      searches you want are local and urgent, and the profile with real photographs of a
+      real crew beats a stock photograph every time.</li>
+    <li><strong>Repeat and referral from the move itself.</strong> Leave a small stack of
+      cards on the counter at the end. Neighbours watch a move happen from their windows
+      for six hours; a tidy crew and a clean truck is a long advert.</li>
+  </ul>
+
+  <p>You will be offered leads by broker sites that sell the same enquiry to several
+  movers at once. You can win work there, but understand what it is before you spend:
+  you are bidding against whoever is willing to underquote the job, on a customer who was
+  never yours.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>The walkthrough is where the day is won.</strong> Fifteen minutes, in person
+  or on video. Count what is going, and hunt specifically for the things that ruin a
+  schedule: a piano, a gun safe, a spiral staircase, a long carry from a parking lot, a
+  building elevator that must be booked, a stairwell with a turn that will not take a
+  sofa, a driveway a big truck cannot enter. Ask about the destination too — half the
+  surprises in moving are waiting at the other end.</p>
+
+  <p><strong>Protect the building before you touch the furniture.</strong> Floor runners
+  down, door jambs padded, stair rails wrapped, before the first box moves. Damage claims
+  in this trade are overwhelmingly about the house, not the contents, and a wrapped
+  doorway also tells the customer in the first ten minutes what kind of crew they
+  hired.</p>
+
+  <p><strong>Wrap at the item, carry once.</strong> Blanket and shrink the piece where it
+  stands rather than carrying it bare to the truck and wrapping it there. Everything gets
+  padded, including the things that look tough.</p>
+
+  <p><strong>Load in tiers.</strong> Heavy low and forward over the axle, tiers built
+  wall to ceiling, mattresses and mirrors flat against the side, strap every tier before
+  starting the next. A tight load does not shift, and a load that does not shift is the
+  difference between an uneventful drive and a claim.</p>
+
+  <div class="gd-note">
+    <p><b>Report damage before the truck leaves.</b> A scuff the crew lead points out
+    while you are both standing there is a short, decent conversation. The same scuff
+    found by the customer after you have driven away is a claim and a review. Make it a
+    standing rule that nobody on your crew hides anything, and make it safe for them to
+    say so.</p>
+  </div>
+
+  <p><strong>Label the rooms at the destination first.</strong> Tape a sheet of paper on
+  each door before the first box comes off the truck. It costs five minutes and saves an
+  hour of "where does this go" — and the customer is paying by the hour.</p>
+
+  <p><strong>Big buildings need paperwork days ahead.</strong> Many require a certificate
+  of insurance naming the building, and a booked elevator or loading dock window. Ask at
+  booking, not on the morning, because a crew standing in a lobby is billable time
+  nobody enjoys paying for.</p>
+
+  <p><strong>Feed the crew.</strong> Water in the truck as standard, a real lunch break,
+  and shade in July. Crews that are looked after come back next season, and in a trade
+  where turnover is the default that is a genuine advantage.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Replace the hero with your own truck and your own crew
+      as soon as you have both. A packed, strapped truck interior is an unusually
+      persuasive photograph in this trade, because it is the thing customers worry about
+      and never get to see.</li>
+    <li><strong>Pricing.</strong> Your crew tiers — the labels, the hourly rates and the
+      "who this fits" line for each — are all editable. The calculator uses those rates,
+      so change them there and the ballpark follows.</li>
+    <li><strong>The load calculator.</strong> The list of rooms and heavy items and the
+      settings behind them are yours. Tune it against your own completed jobs as you
+      learn your real pace, and keep the note that says these are ballparks rather than
+      quotes. That note is doing important work.</li>
+    <li><strong>Details and hours.</strong> Say your booking lead time honestly — that
+      month-end and summer weekends go weeks ahead and mid-month weekdays are often
+      available in days. It saves you the phone calls you cannot serve.</li>
+    <li><strong>Reviews.</strong> They ship empty on purpose, with nothing invented in
+      them. Fill them with real ones as you earn them, with permission, and put the best
+      one at the top.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer
+      with a QR code pointing at your site. This is what you leave at the leasing office
+      and the storage counter.</li>
+    <li><strong>Leads.</strong> Every enquiry from your booking form is emailed to you
+      and kept as a running list. Moving enquiries have a date attached and a shopping
+      list of three competitors — call back the same day or the date is gone.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. The Legal section of the admin is where your own
+  clauses go, and in this trade they matter: the clock policy, the minimum, the
+  cancellation window, the list of what you will not move, and how a damage claim is
+  reported and handled.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by
+  city. Moving is the trade in this catalogue where getting it wrong is most expensive,
+  because there is a federal layer as well as a state one. Check what applies where you
+  live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> A registered name and a local business
+      licence, as with any trade. This is the easy part.</li>
+    <li><strong>Household goods authority.</strong> Moving people's belongings across a
+      state line brings federal motor carrier registration into play — you will hear it
+      called a USDOT number and operating authority — along with prescribed paperwork and
+      disclosures you must give the customer. Staying entirely inside your own state is
+      generally a state matter instead, and many states license, permit or tariff
+      intrastate household-goods movers. Find out which applies to the work you intend to
+      do, before you advertise it.</li>
+    <li><strong>The truck and the driver.</strong> Weight ratings decide licence class,
+      medical certification, inspections and marking requirements, and the line moves
+      depending on what you are pulling and how loaded you are. Check the rating on the
+      door jamb of the specific truck against your state's thresholds rather than
+      assuming a box truck is exempt.</li>
+    <li><strong>Insurance, and the difference between insurance and valuation.</strong>
+      General liability, commercial auto, and cargo cover on the customer's goods are
+      three separate things. Separately, the liability level a mover offers on the goods
+      is a disclosure obligation in regulated interstate work, and it is not the same as
+      an insurance policy. Use a broker who writes movers and can explain both.</li>
+    <li><strong>Workers' compensation.</strong> Moving is heavy physical work and comp
+      becomes a live question with your first employee. It is not a cheap class of work
+      to cover, so get the quote before you hire rather than after.</li>
+    <li><strong>Employees versus contractors.</strong> Crews who use your truck, your
+      pads and your schedule generally look like employees. Classification is heavily
+      enforced in labour trades, and calling a mover a contractor does not make him
+      one.</li>
+    <li><strong>Sales tax.</strong> Whether moving labour is taxable, and whether packing
+      materials are treated differently from the service, varies by state. Ask an
+      accountant once, early.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed or insured until you are, and never
+  display a DOT or authority number that is not yours. In this trade those numbers are
+  public, searchable, and operating under somebody else's is treated far more seriously
+  than an exaggeration.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

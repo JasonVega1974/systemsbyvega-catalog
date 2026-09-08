@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Voltridge Electric</title>
+<meta name="description" content="Getting started guide for the owner of Voltridge Electric.">
+<meta name="theme-color" content="#05060F">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A0D1C'/%3E%3Crect x='22' y='14' width='20' height='36' rx='6' fill='%23171D38' stroke='%236C63FF' stroke-width='2'/%3E%3Crect x='26' y='18' width='12' height='14' rx='3' fill='%237DF9FF'/%3E%3Cpath d='M32 34 L26 44 L31 44 L30 50 L38 40 L33 40 Z' fill='%236C63FF'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --gd-ground:#0A0D1C;
+  --gd-sunk:#070915;
+  --gd-line:#070915;
+  --gd-line:color-mix(in srgb, #EAF0FF 18%, transparent);
+  --gd-ink:#EAF0FF;
+  --gd-soft:#8590B8;
+  --gd-dim:#8590B8;
+  --gd-dim:color-mix(in srgb, #8590B8 78%, transparent);
+  --gd-accent:#6C63FF;
+  --gd-on-accent:#050414;
+  --gd-display:'Rajdhani',sans-serif;
+  --gd-body:'Inter',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">electrician &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/electrician/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     Written for somebody who already holds the electrical licence. No income
+     claims, no invented statistics, no legal advice - the licensing section
+     names what typically applies and sends them to their own state board. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>You can already pull a service, calculate a load and make up a panel that an
+  inspector will not comment on. That is not what this week is for. This week is about
+  becoming findable, quotable and reachable — the three things a good electrician
+  working alone is usually worst at.</p>
+
+  <ol class="gd-steps">
+    <li><b>Write down the work you take and the work you hand off.</b> Residential
+      service, small commercial, panel changes, EV and generator work — pick. Then name
+      the jobs you will refer out: a service upgrade needing a new mast, three-phase,
+      fire alarm, anything you would be learning on somebody else's money. The list
+      takes ten minutes and it saves you an entire bad month.</li>
+    <li><b>Sort your permit and utility paperwork before the first job.</b> Get the
+      login for the permit portal, learn how your jurisdiction wants a panel change-out
+      filed, and find out how a meter release and a reconnect actually get scheduled
+      where you work. One afternoon on the phone. Doing this on the morning of a
+      shutdown is how a one-day job becomes three.</li>
+    <li><b>Set the diagnostic fee and what it applies to.</b> The site ships a $95
+      service call — a first-hour diagnostic, credited toward the repair if they go
+      ahead that day. Decide whether that is your number and whether the credit is
+      same-day only, then say it on the phone every time.</li>
+    <li><b>Price the four jobs you can quote from the driveway.</b> The site's pricing
+      block has four rows, and they are the four that people shop: troubleshooting, EV
+      charger, generator hookup, panel upgrade. Work out your real ranges — including
+      the permit, the inspection trip and the drywall you will not be repairing — and
+      put them up.</li>
+    <li><b>Stock the van for what fails, not for what is interesting.</b> AFCI and GFCI
+      breakers for the two panel brands the houses around you actually have, receptacles,
+      devices, wire, boxes, a spare of whatever you used last. If your area is full of
+      one obsolete panel brand, know now where you can get a breaker for it.</li>
+    <li><b>Call the electrical contractors in town.</b> Not for a job — to be their
+      overflow. A shop booked three weeks out turns away small service calls every day
+      and would rather hand them to a licensed van than lose the customer. This fills a
+      solo calendar faster than any advertising you can buy.</li>
+    <li><b>Photograph one finished panel.</b> Dead front off, breakers dressed, conductors
+      bent square, directory typed and legible. That single photo tells another electrician
+      you are careful and tells a homeowner nothing at all — which is fine, because the
+      homeowner is looking at whether you own a camera and a clean shirt.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships four price rows, each a range rather than a fixed figure:
+  troubleshooting and repairs, EV charger installs, generator hookups, panel upgrades.
+  Rewrite them to your market. Ranges are the honest shape here — the real cost of the
+  job is decided by what is behind the wall, and everyone in this trade knows it.</p>
+
+  <p><strong>Quote the range on the phone, the number after you look.</strong> Say the
+  range plainly, say what moves it, and book the visit. "Between this and this,
+  depending on whether the panel has room and how far the run is" is a professional
+  answer. "It depends" is not.</p>
+
+  <p><strong>Price the unknowns as their own line.</strong> Aluminium branch wiring, a
+  service with no equipment ground, knob-and-tube in the attic, a panel buried behind
+  finished drywall, a meter base that has been rained into for a decade. Any of these
+  turns a clean job into a different job. Name them in the quote as conditions that
+  change the price, before you find them.</p>
+
+  <div class="gd-note">
+    <p><b>Never quote a panel change without taking the cover off and looking outside.</b>
+    The number is decided by the service conductors, the meter base, the grounding
+    electrode, the mast, and whether the utility needs to be involved. A quote given
+    from a photo the customer texted you is a quote you will be renegotiating in their
+    driveway with the power off.</p>
+  </div>
+
+  <p><strong>Permit and inspection time is billable and gets its own line.</strong> Filing,
+  waiting for the inspector, the return trip for a correction. Burying it in the labour
+  rate means the customer thinks it is free and you think you are slow.</p>
+
+  <p><strong>Do not compete on being cheapest.</strong> The EV customer holding three
+  quotes is usually comparing three different jobs — one includes a load calculation and
+  a panel that can actually take the circuit, one is a 6-gauge run to a full panel and a
+  hope. Explain the difference in one sentence in your quote. That sentence wins the job
+  more often than a discount does.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>Residential electrical work mostly arrives because somebody else told the customer
+  to call an electrician. Your job is to be the name in that person's phone.</p>
+
+  <ul>
+    <li><strong>Home inspectors.</strong> The best single referral source in residential
+      electrical, and the one most electricians never call. Their reports create the
+      work: double-taps, an ungrounded receptacle, a federal-era panel, no AFCI where a
+      buyer's lender wants one. Every one of those items needs an electrician on a
+      closing deadline. Take three inspectors to breakfast, ask what they flag most, and
+      be the one who turns up in two days with a written letter of what was corrected.</li>
+    <li><strong>The trades whose work needs a circuit.</strong> HVAC contractors need
+      disconnects and dedicated circuits for every changeout. Remodelers need rough-in
+      and a licensed name on the permit. Pool, spa, generator and solar installers need
+      a service and a panel that can carry what they just sold. Plumbers need
+      tankless-heater feeds. Each of these people has the same problem — the electrician
+      they used stopped answering.</li>
+    <li><strong>Property managers and small commercial.</strong> Parking lot lights, exit
+      and emergency lighting, a retrofit that has to happen after closing, breakers that
+      trip in the same suite every month. It is scheduled, invoiced, repeat work, and
+      night or early-morning access is a feature you can charge for rather than a
+      hardship.</li>
+  </ul>
+
+  <p>One habit worth starting now: after every job, photograph the finished panel
+  directory and text it to the customer. It costs you nothing, it is genuinely useful to
+  them, and it is the thing they forward to a neighbour when the neighbour's lights
+  flicker.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Tell them exactly when the power goes off, and for how long.</strong> Home
+  offices, medical equipment, aquariums, somebody working nights and sleeping days. A
+  shutdown that arrives as a surprise is the complaint, not the outage itself. Confirm
+  the window the day before.</p>
+
+  <p><strong>Test before you touch and again before you leave.</strong> Write the
+  readings on the invoice — voltage at the panel, at the affected circuit, the ground
+  and neutral you verified. It takes a minute and it is the difference between a
+  service call and a diagnosis somebody can act on later.</p>
+
+  <p><strong>Photograph every wall before you open it.</strong> And keep the cuts small
+  and rectangular, in a place a patch can be made honest. Say plainly in the quote that
+  you leave clean holes and do not do drywall finish, then leave clean holes.</p>
+
+  <div class="gd-note">
+    <p><b>Leave the directory legible or the job is not finished.</b> A typed, accurate
+    panel schedule is the thing every future electrician, inspector and homeowner sees
+    first, and it is the cheapest possible signature on your work. Handwritten in pencil,
+    half-abbreviated, is how the last guy left it — which is exactly why you were
+    called.</p>
+  </div>
+
+  <p><strong>Schedule the inspection when you book the job.</strong> And never let a
+  wall close before the rough is signed off, no matter who on the site is in a hurry.
+  You are the one whose licence is on the permit.</p>
+
+  <p><strong>Change orders in writing before the extra work, not after.</strong> A text
+  message saying "found aluminium branch wiring on this circuit, adding pigtails, adds
+  this much — reply yes" is a change order. It has ended more disputes than any contract
+  clause.</p>
+
+  <p><strong>Keep the truck stock honest.</strong> Restock at the end of the day, not
+  at the start of the next one. A solo van lives or dies on not driving to the supply
+  house at ten in the morning with a customer waiting.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you save
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Two slots: the hero and you. Swap the hero for your own
+      work as soon as you have a panel you are proud of. The owner photo matters more
+      than electricians expect — the whole promise of this site is that one person
+      quotes the job and does the job, and a face is what makes that believable.</li>
+    <li><strong>Pricing.</strong> Four rows, and on this build each row is a label and a
+      figure — there is no bullet list under them. That means the label has to carry the
+      meaning: "Panel upgrade — most 100A to 200A changeouts" says more than "Panel
+      upgrade" and costs you nothing.</li>
+    <li><strong>Details.</strong> The owner block is where you write who you are in a
+      short paragraph — years in the trade, the licence class, what you like doing. This
+      build also has social links, so put the profile where you actually post finished
+      work and leave the rest empty.</li>
+    <li><strong>Reviews.</strong> Empty by design; the site ships with nothing invented.
+      Add real ones as you earn them, with permission. The best time to ask is standing
+      in the kitchen the moment the thing they lived with for two years stops doing
+      it.</li>
+    <li><strong>Marketing kit.</strong> Generates a social post and a printable flyer,
+      each with a QR code to your site. The flyer is what you leave with a property
+      manager or pin in a supply house.</li>
+    <li><strong>Leads.</strong> Enquiries from the form go to the inquiry email you set
+      in the Business section. The first time you change that address the form service
+      sends it an activation link — click it, or the enquiries stop without any
+      warning.</li>
+  </ul>
+
+  <p>The breaker panel on the home page is interactive: a visitor clicks a breaker and
+  sees what that circuit feeds. It is there to make a homeowner comfortable with a panel
+  rather than frightened of it, which is the conversation you are about to have on the
+  phone anyway. Leave it alone and let it do that work.</p>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. Add your own clauses in the Legal section — how
+  change orders are approved, what you do and do not patch, when payment is due.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>Electrical is one of the trades where the licence decides who may legally do the
+  work at all, and you are presumably already inside it. This is orientation only, not
+  advice, and the details vary by state and by the local authority having jurisdiction.
+  Confirm all of it with your own board.</p>
+
+  <ul>
+    <li><strong>Licence class versus contractor registration.</strong> States typically
+      license individuals in tiers — apprentice, journeyman, master — and separately
+      register the contractor who may sell work to the public and pull permits in their
+      own name. A journeyman card alone does not always let you take the money. Find
+      out which registration your board wants for the work you intend to sell.</li>
+    <li><strong>Permits, the AHJ and the adopted code cycle.</strong> Which code edition
+      your jurisdiction has adopted, and its local amendments, is a real question with a
+      real answer — get it from the building department rather than from a forum.</li>
+    <li><strong>Your licence number in advertising.</strong> Many states require it on
+      advertising, vehicles and written proposals. Check what yours requires and put it
+      where required, including on this site.</li>
+    <li><strong>Bond and insurance.</strong> Contractor registration often requires a
+      surety bond. General liability is a separate policy, and a personal auto policy
+      generally will not cover a work van — ask a broker about commercial auto, and be
+      accurate with them about what you do.</li>
+    <li><strong>Workers' compensation.</strong> The moment you have an apprentice or a
+      helper this becomes a live question, and the rules differ by state, including for
+      part-time and casual labour.</li>
+    <li><strong>Specialty endorsements.</strong> Low voltage, fire alarm, solar and
+      certain commercial work are frequently licensed separately from a general
+      electrical licence. Do not sell them on the strength of the card you have.</li>
+  </ul>
+
+  <p>Do not write "licensed, bonded and insured" on your site until all three are true
+  and current. A state licence lookup is public, it takes a customer thirty seconds, and
+  the one who checks is always the one you are already having a problem with.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>

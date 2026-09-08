@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to run this business — Magpie & Mantel Estate Sales</title>
+<meta name="description" content="Getting started guide for the owner of Magpie & Mantel Estate Sales.">
+<meta name="theme-color" content="#0E2A26">
+<!-- Never indexed. This is the operator's own manual, linked from their admin
+     and from nowhere public. It is not a page a customer should ever land on
+     from a search, and 32 near-identical guides competing with the storefronts
+     would be actively harmful. Tenant traffic also gets X-Robots-Tag from
+     middleware; this covers the demo build served off the catalog. -->
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23C89A3F'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  --gd-ground:#0C1614;
+  --gd-sunk:#12211D;
+  --gd-line:#12211D;
+  --gd-line:color-mix(in srgb, #F2EDE0 18%, transparent);
+  --gd-ink:#F2EDE0;
+  --gd-soft:#AEBDB4;
+  --gd-dim:#AEBDB4;
+  --gd-dim:color-mix(in srgb, #AEBDB4 78%, transparent);
+  --gd-accent:#C89A3F;
+  --gd-on-accent:#20160A;
+  --gd-display:'Fraunces',serif;
+  --gd-body:'Karla',sans-serif;
+  --gd-mono:'IBM Plex Mono',monospace;
+}
+/* _template/guide/guide.css
+   "How to run this business" — the operator's own manual, served at
+   <tenant>.systemsbyvega.com/guide and linked only from their admin.
+
+   Read once, then referred back to. So it is built for scanning: numbered
+   steps that survive being skimmed, a sticky contents rail on wide screens,
+   and generous line height for a document somebody reads on a phone in a van.
+   Nothing animates; nothing is hidden behind an interaction.
+
+   Self-contained by requirement — qa-site.js §8 asserts no external
+   dependencies, so this is inlined into each built page. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--gd-ground);
+  color: var(--gd-ink);
+  font-family: var(--gd-body);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-shell { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+
+/* ── masthead ─────────────────────────────────────────────────────────── */
+.gd-top { padding: 38px 0 24px; border-bottom: 1px solid var(--gd-line); }
+.gd-eyebrow {
+  font-family: var(--gd-mono); font-size: 12px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-accent); margin: 0 0 12px;
+}
+.gd-top h1 {
+  font-family: var(--gd-display); font-weight: 700;
+  font-size: clamp(30px, 5vw, 44px); line-height: 1.1; letter-spacing: -.015em;
+  margin: 0 0 12px; text-wrap: balance;
+}
+.gd-lede { font-size: 19px; color: var(--gd-soft); max-width: 62ch; margin: 0; }
+
+/* ── two-column body with a contents rail ─────────────────────────────── */
+.gd-body { display: grid; grid-template-columns: 210px 1fr; gap: 46px; padding: 34px 0 0; }
+.gd-toc { position: sticky; top: 24px; align-self: start; }
+.gd-toc p {
+  font-family: var(--gd-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gd-dim); margin: 0 0 12px;
+}
+.gd-toc ol { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.gd-toc li { counter-increment: toc; margin: 0 0 9px; }
+.gd-toc a {
+  color: var(--gd-soft); text-decoration: none; font-size: 14.5px; line-height: 1.4;
+  display: block; padding-left: 22px; position: relative;
+}
+.gd-toc a::before {
+  content: counter(toc); position: absolute; left: 0; top: 1px;
+  font-family: var(--gd-mono); font-size: 11px; color: var(--gd-dim);
+}
+.gd-toc a:hover { color: var(--gd-accent); }
+
+/* ── sections ─────────────────────────────────────────────────────────── */
+.gd-sec { padding: 0 0 40px; scroll-margin-top: 20px; }
+.gd-sec h2 {
+  font-family: var(--gd-display); font-weight: 700; font-size: 25px;
+  letter-spacing: -.01em; margin: 0 0 6px;
+}
+.gd-sec > p:first-of-type { margin-top: 0; }
+.gd-sec p { margin: 0 0 15px; color: var(--gd-soft); }
+.gd-sec p strong, .gd-sec li strong { color: var(--gd-ink); font-weight: 600; }
+.gd-sec ul { margin: 0 0 15px; padding-left: 20px; }
+.gd-sec li { margin: 0 0 9px; color: var(--gd-soft); }
+
+/* The quick-start checklist. Numbered because the order genuinely matters —
+   these are sequential, unlike the bulleted lists elsewhere in the guide. */
+.gd-steps { list-style: none; counter-reset: step; margin: 18px 0 0; padding: 0; }
+.gd-steps > li {
+  counter-increment: step; position: relative; padding: 0 0 20px 46px;
+  color: var(--gd-soft);
+}
+.gd-steps > li::before {
+  content: counter(step); position: absolute; left: 0; top: -2px;
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gd-accent); color: var(--gd-on-accent);
+  font-family: var(--gd-mono); font-size: 14px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+}
+.gd-steps b { color: var(--gd-ink); display: block; margin-bottom: 2px; font-size: 17.5px; }
+
+/* Callout for the things an operator most often gets wrong. */
+.gd-note {
+  background: var(--gd-sunk); border-left: 3px solid var(--gd-accent);
+  border-radius: 0 8px 8px 0; padding: 15px 18px; margin: 0 0 15px;
+}
+.gd-note p { margin: 0; font-size: 16px; }
+.gd-note b { color: var(--gd-ink); }
+
+.gd-foot {
+  margin: 20px 0 0; padding: 24px 0 60px; border-top: 1px solid var(--gd-line);
+  color: var(--gd-dim); font-size: 15px;
+}
+.gd-foot a { color: var(--gd-accent); }
+
+@media (max-width: 860px) {
+  .gd-body { grid-template-columns: 1fr; gap: 0; }
+  .gd-toc { position: static; margin: 0 0 30px; padding: 0 0 22px;
+            border-bottom: 1px solid var(--gd-line); }
+  .gd-toc ol { columns: 2; column-gap: 20px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .gd-shell { padding: 0 18px; }
+  .gd-toc ol { columns: 1; }
+  .gd-steps > li { padding-left: 40px; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  .gd-toc { display: none; }
+  .gd-body { grid-template-columns: 1fr; }
+  a { color: #000; }
+}
+</style>
+</head>
+<body>
+<div class="gd-shell">
+  <header class="gd-top">
+    <p class="gd-eyebrow">estate sale &middot; owner's guide</p>
+    <h1>How to run this business</h1>
+    <p class="gd-lede">Everything here is about the work itself: what to do first, what to charge, where the customers actually are, and how to use the site you now own.</p>
+  </header>
+
+  <div class="gd-body">
+    <nav class="gd-toc" aria-label="Contents">
+      <p>Contents</p>
+      <ol>
+        <li><a href="#start">Your first week</a></li>
+        <li><a href="#pricing">What to charge</a></li>
+        <li><a href="#finding">Finding customers</a></li>
+        <li><a href="#running">Running the work</a></li>
+        <li><a href="#site">Using your site</a></li>
+        <li><a href="#legal">Licences and insurance</a></li>
+      </ol>
+    </nav>
+
+    <main>
+      <!-- niches/estate-sale/guide.html
+     BODY ONLY. tools/build-site.js wraps this in _template/guide/shell.html,
+     which supplies the <head>, the palette and the contents rail. The six
+     section ids below are what that rail links to; the build fails if one is
+     missing.
+
+     No income claims, no invented statistics, no promises about what any
+     estate will bring. Everything here is about how to do the work. -->
+
+<section class="gd-sec" id="start">
+  <h2>Your first week</h2>
+  <p>An estate sale is rarely a happy occasion. Somebody died, or moved into care, or
+  finally admitted the house is too much. The family calling you is usually an executor
+  or an adult child, and they are handling their parents' belongings for the last time.
+  Handling that well is most of the job. The tables and the price stickers are the easy
+  part.</p>
+
+  <ol class="gd-steps">
+    <li><b>Write your terms before you walk your first house.</b> One page, plain
+      English: the commission, the minimum, when the family gets the settlement sheet
+      and the money, and — the one everybody forgets — exactly what happens to what does
+      not sell. Almost every dispute in this trade is an argument about the leftovers
+      that nobody wrote down.</li>
+    <li><b>Decide what you will not handle.</b> Firearms and ammunition, vehicles with
+      title questions, prescription medication, anything a hazmat contractor should be
+      touching. Write the list, keep it in your folder, and have the name of somebody
+      you refer that work to. Saying "not us, but call him" builds more trust than
+      taking it on.</li>
+    <li><b>Learn to read sold prices, not asking prices.</b> Pick thirty things in your
+      own house and price each one against completed sales, not listings. Anyone can
+      find what somebody hopes to get. Knowing what things actually changed hands for is
+      the skill the family is paying for.</li>
+    <li><b>Assemble the kit.</b> Folding tables and cloths, a lockable glass case for
+      small valuables, sticker guns in two colours, a jeweller's loupe, a gram scale,
+      clip lamps and extension cords for dark basements, moving blankets, a dolly, a
+      cash box, a card reader, and a roll of blue painter's tape for taping off
+      everything that is not for sale. The tape is not optional — fixtures, the
+      neighbour's ladder and the family's own boxes all get taped and labelled before
+      strangers walk in.</li>
+    <li><b>Run one sale at cost.</b> A friend downsizing, a relative's garage. Do the
+      whole process — walkthrough, sort, stage, price, advertise, sale, haul-out,
+      settlement sheet — and time each part. You will discover that staging takes days,
+      not hours, and it is much better to discover that on a job where nobody is paying
+      you.</li>
+    <li><b>Build your photo set and your listings.</b> Estate-sale shoppers find sales
+      on the sale-listing sites, and they decide from photographs. Shoot the staged
+      rooms from the doorway with the lights on and the curtains open, then shoot the
+      twenty best individual items on a clean cloth. Those same photos go on your own
+      site under Admin, Photos.</li>
+  </ol>
+</section>
+
+<section class="gd-sec" id="pricing">
+  <h2>What to charge</h2>
+  <p>Your site ships a percentage model: a commission of <strong>35%</strong> and a
+  <strong>$1,500 minimum</strong>. Both figures are yours to change in the admin. They
+  are a starting shape for your market, not a recommendation.</p>
+
+  <p><strong>The commission is what makes this trade honest.</strong> You do not know
+  what a house will bring, the family does not know, and nobody who tells them
+  otherwise should be trusted. A percentage means you are paid for the same outcome they
+  are, and you can say that out loud at the kitchen table. What you never do is guess a
+  total in front of them. Not a range, not a "houses like this usually". You have no way
+  to know and it will be quoted back to you.</p>
+
+  <p><strong>The minimum is what stops a small house eating a fortnight.</strong> The
+  work of staging, researching, advertising and staffing a sale barely shrinks when the
+  contents do. The minimum is a floor, not a fee — you charge the greater of the two,
+  and you say so before you sign.</p>
+
+  <div class="gd-note">
+    <p><b>Put the unsold items in writing, every time:</b> who decides what gets donated,
+    who does the hauling, whether the clean-out is inside the commission or billed
+    separately, what the deadline is for the family to come back for something, and who
+    receives the donation receipt. Say it at the walkthrough and print it in the
+    agreement. This one paragraph prevents nearly every argument this trade produces.</p>
+  </div>
+
+  <p><strong>Price the clean-out separately and say so early.</strong> Emptying a house
+  after the sale is a truck, a crew and a landfill ticket. Families almost always want
+  it. Quote it as its own line rather than absorbing it and resenting it on the
+  Monday.</p>
+
+  <p><strong>If you ever buy contents outright, say what you are doing.</strong> A
+  buyout is a different transaction and your interests stop being aligned the moment
+  money changes hands that way. Offer it as an alternative, in writing, alongside the
+  commissioned sale — never as a favour discovered halfway through the walkthrough.</p>
+</section>
+
+<section class="gd-sec" id="finding">
+  <h2>Finding customers</h2>
+  <p>This trade has two audiences and they are completely different people. The
+  <strong>family</strong> hires you once, maybe twice in a lifetime. The
+  <strong>shoppers</strong> come to every sale you run, all year. You have to market to
+  both, and most operators only remember the first.</p>
+
+  <ul>
+    <li><strong>The referral trades.</strong> This is where the work comes from. Probate
+      and elder-law attorneys, realtors who list vacant and inherited houses, senior
+      move managers, retirement communities, hospice social workers, and the junk-haul
+      firms who get called for jobs that should have been a sale. Introduce yourself in
+      person, bring photographs of a staged house and a copy of your one-page terms.
+      What they need to know is that you will not embarrass them in front of a grieving
+      client. Say that plainly.</li>
+    <li><strong>The sale-listing sites.</strong> Shoppers, dealers and pickers plan
+      their weekend from those listings, and they choose on photographs. List early in
+      the week, post a lot of pictures, and lead with the things collectors drive for —
+      the tools, the jewellery, the mid-century furniture, the signed art. A thin
+      listing gets a thin crowd, and a thin crowd is a poor settlement sheet.</li>
+    <li><strong>Your own buyer list.</strong> Collect emails or phone numbers at the
+      checkout table of every sale and send one message a week: where the next sale is,
+      what is in it, three photographs. Those regulars turn up in the first hour and buy
+      the difficult things. Building that list is the most durable asset in this
+      business, and it belongs to you, not to a listing site.</li>
+  </ul>
+
+  <p>The sale itself also sells the next job. Half the people walking through a house on
+  a Saturday have a parent with a house of their own. Keep cards at checkout, keep the
+  sale calm and orderly, and hand a card to any neighbour who comes over to see what is
+  going on.</p>
+</section>
+
+<section class="gd-sec" id="running">
+  <h2>Running the work</h2>
+  <p><strong>Discretion is the product.</strong> You will open drawers containing
+  letters, medical papers, cash in a coat pocket, a photograph the family has never
+  seen. None of it is a story you tell. Everything of value or of a personal nature is
+  bagged, labelled with the room it came from, and handed to your point of contact
+  before the sale — documented, in front of them. Do that once and the family will
+  recommend you for twenty years.</p>
+
+  <p><strong>Never take anything home.</strong> Not the thing they said you could have,
+  not the thing nobody wanted. If a family insists, put it on the settlement sheet at a
+  price and pay for it like anybody else. The appearance of it is worse than the value
+  of it, and in a small town appearance is all there is.</p>
+
+  <p><strong>Work the house room by room.</strong> Like with like, everything up off the
+  floor, cabinets open, lamps on in dark corners. Check every pocket, every book, every
+  tin. The kitchen becomes glassware, the garage becomes tools, the bedroom becomes
+  linens and jewellery. A sorted house prices far faster and reads as competent to
+  everyone who walks in.</p>
+
+  <div class="gd-note">
+    <p><b>The family should not be there on sale day.</b> Say it kindly and say it
+    early: watching strangers haggle over your mother's dishes is the worst hour of
+    anybody's week, and a family member on the floor undoes your pricing within twenty
+    minutes. Offer them a private walkthrough the evening before instead, so they see the
+    house staged and beautiful rather than picked over.</p>
+  </div>
+
+  <p><strong>Control the door.</strong> One way in past a person, one way out past the
+  checkout table. Cap how many are inside at once and run a numbered list outside if
+  there is a queue. Small valuables live in the locked case and come out one at a time.
+  Post your discount schedule — half price on the last day, or whatever you choose —
+  before the sale opens, so the whole weekend is not a negotiation.</p>
+
+  <p><strong>Mind the street.</strong> Warn the neighbours a few days ahead, keep
+  driveways clear, and take your signs down the same evening. A sale that ruins a
+  cul-de-sac on a Saturday is remembered longer than one that went well.</p>
+
+  <p><strong>Settle fast.</strong> Itemised sheet, in the format you promised, within
+  the number of days you promised, with the payment. Hold the client's money separately
+  from your own operating account so that deadline is never a cashflow question.</p>
+</section>
+
+<section class="gd-sec" id="site">
+  <h2>Using your site</h2>
+  <p>Your admin is at <strong>/admin</strong> on your own address. Everything you change
+  there is live within a minute or two.</p>
+
+  <ul>
+    <li><strong>Photos.</strong> Replace the hero with a staged room of your own as soon
+      as you have run one sale. Doorway angle, lights on, curtains open, nothing on the
+      floor. The stock photo that ships is honest placeholder work and nothing more.</li>
+    <li><strong>Pricing.</strong> The commission and the minimum are editable, and the
+      note beneath them is yours to rewrite. Keep the note about what the fee covers —
+      staffing, staging, pricing, running the sale — because that is the paragraph
+      families read twice.</li>
+    <li><strong>Details and hours.</strong> Walkthrough times matter more than office
+      hours here. "Walkthroughs weekday evenings, sales Friday and Saturday" tells a
+      working executor exactly when to call you.</li>
+    <li><strong>Reviews.</strong> Empty until you add them, deliberately — the site
+      ships with nothing invented on it. Add real ones only, with the family's written
+      permission, and ask whether they want their name on it. Many will not, and that is
+      the trade you are in.</li>
+    <li><strong>Marketing kit.</strong> Generates a social image and a printable flyer
+      with a QR code pointing at your site. The flyer is what you leave with an attorney,
+      a realtor or a retirement community office.</li>
+    <li><strong>Leads.</strong> Every enquiry from your booking form is emailed to you
+      and kept as a running list. Return these fast — a family calling about a house is
+      usually calling three companies the same afternoon.</li>
+  </ul>
+
+  <p>Your site also carries a Terms of Service and a Privacy Policy for your customers,
+  generated from your business details. The Legal section of the admin is where you add
+  your own clauses — and this is the trade where you should use it. Your unsold-items
+  policy, your settlement timeline and your list of what you will not sell belong on the
+  page as well as in the signed agreement.</p>
+</section>
+
+<section class="gd-sec" id="legal">
+  <h2>Licences and insurance</h2>
+  <p>This is orientation, not advice, and the rules vary enormously by state and by
+  city. Check what applies where you live before you take money.</p>
+
+  <ul>
+    <li><strong>Business registration.</strong> Most places want a registered business
+      name and a local business licence before you trade. Quick, cheap, first.</li>
+    <li><strong>Sales tax.</strong> An estate sale is retail selling, so tax is a live
+      question in most states — whether you need a seller's permit, whether you collect
+      on the family's behalf, and whether an "occasional sale" exemption covers a
+      household but not the company running sales every weekend. This is the thing
+      operators in this trade most often get wrong. Ask an accountant once, early,
+      before your first sale rather than after your tenth.</li>
+    <li><strong>Who actually has authority to sell.</strong> Confirm the person hiring
+      you is the owner, or the executor or personal representative with the paperwork to
+      prove it. Get one named point of contact in writing, and be careful with estates
+      where several heirs each have an opinion — that is where the trouble in this trade
+      lives.</li>
+    <li><strong>Things that cannot simply be put on a table.</strong> Firearms and
+      ammunition, prescription and controlled medication, ivory and items from protected
+      species, certain feathers and taxidermy, recalled cribs and car seats, counterfeit
+      goods. Some are restricted, some are outright illegal to sell, and the categories
+      differ by state as well as federally. Learn the list that applies where you work,
+      set those items aside at the walkthrough, and tell the family why.</li>
+    <li><strong>Pricing is not appraisal.</strong> A formal appraisal for probate, tax or
+      insurance purposes is a credentialed exercise and a different document from your
+      sale pricing. Do not call your pricing an appraisal, and refer families who need
+      one to somebody qualified.</li>
+    <li><strong>Insurance and bonding.</strong> You are inviting crowds into a house you
+      do not own and handling other people's property and money. Talk to a broker about
+      general liability and about cover for goods in your care, and ask what bonding
+      means in your state — attorneys and property managers frequently ask for it.</li>
+    <li><strong>Workers' compensation.</strong> The moment you put a second person on a
+      crew this becomes a question, and the rules differ sharply by state, including for
+      casual weekend help.</li>
+  </ul>
+
+  <p>Do not claim on your site that you are licensed, insured or bonded until you are,
+  and do not describe yourself as an appraiser or a certified anything you have not
+  earned. Those claims are checkable, and the professionals who refer you work will
+  check them.</p>
+</section>
+
+
+      <footer class="gd-foot">
+        <p>This guide covers how the work is done. It is not legal, tax, or
+        insurance advice, and it makes no promise about what you will earn —
+        that depends on your town, your prices, and how many jobs you book.
+        See the <a href="https://systemsbyvega.com/legal/terms.html">Systems by
+        Vega terms</a>.</p>
+      </footer>
+    </main>
+  </div>
+</div>
+</body>
+</html>
