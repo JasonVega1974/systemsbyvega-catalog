@@ -250,7 +250,7 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .plate-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:34px 0 46px}
 
 /* The agency page's hero chips, carrying the three real figures. */
-.ledger-bar{display:grid;grid-template-columns:repeat(3,1fr);
+.ledger-bar{display:grid;grid-template-columns:repeat(4,1fr);
   background:rgba(255,255,255,.04);border:1px solid #283040;border-radius:10px;
   overflow:hidden;margin-bottom:56px}
 .ledger-cell{padding:20px 12px;text-align:center;border-right:1px solid #283040}
@@ -303,9 +303,16 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .family[data-fam="home-trade"]    { --pa:#F2C6C0; --pb:#E7B4AD; }  /* receipt pink */
 .family[data-fam="people-pets"]   { --pa:#E6DFA8; --pb:#DAD296; }  /* manila */
 
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px 26px;padding-top:10px}
+/* Four across on a wide screen. The steps below are sized to the CARD,
+   not to device names: an entry carries a price sticker, a mono code
+   line, a title and a job line, and it stops being readable under about
+   250px, so the column count drops before that happens. */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px 22px;padding-top:10px}
+@media (max-width:1180px){.grid{grid-template-columns:repeat(3,1fr);gap:34px 26px}}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.grid{grid-template-columns:1fr;gap:30px}}
+@media (max-width:760px){.ledger-bar{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.ledger-bar{grid-template-columns:1fr}}
 
 /* the plate */
 .entry.sheet{

@@ -113,6 +113,7 @@ function main() {
   html = inject(html, 'THESIS_OPEN',  R.thesisOpen(fig.open));
   html = inject(html, 'TOTAL',        String(fig.total));
   html = inject(html, 'OPEN',         String(fig.open));
+  html = inject(html, 'SITES',        String(fig.sites));
   html = inject(html, 'CATALOG',      '\n' + R.catalog(seed.families, seed.niches, {}) + '\n');
   html = inject(html, 'NICHE_SELECT', '\n' + R.nicheSelect(seed.niches) + '\n');
   html = inject(html, 'SEED_SCRIPT',  seedScript);

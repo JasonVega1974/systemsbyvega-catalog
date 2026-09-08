@@ -189,6 +189,10 @@
       open:        by('open'),
       inLine:      by('in_line'),
       websiteOnly: by('website_only'),
+      /* Turnkey sites a buyer can actually claim today. Deliberately NOT the
+         same as `total`: the board also lists ideas that are only in line and
+         the three platforms that are whole businesses rather than websites. */
+      sites:       niches.filter(function (n) { return n.website_offer; }).length,
       perCity:     1
     };
   }
