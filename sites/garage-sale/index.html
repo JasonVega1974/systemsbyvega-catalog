@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Sunup Garage Sales — Garage & Moving Sales, Run For You | Pocatello, ID</title>
+<meta name="description" content="Full-service garage and moving sales in Pocatello and the Portneuf Valley. We sort, price, sign and staff the whole sale, then haul or donate what's left. Free driveway walkthroughs — call or text (208) 555-0158." />
+<meta name="theme-color" content="#C75B12" />
+
+<link rel="canonical" href="https://systemsbyvega.com/sites/garage-sale/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://systemsbyvega.com/sites/garage-sale/" />
+<meta property="og:title" content="Sunup Garage Sales — Your garage back by Sunday night." />
+<meta property="og:description" content="Garage and moving sales across Pocatello and the Portneuf Valley, Idaho, run for you from setup to haul-away. Free walkthroughs: (208) 555-0158." />
+<meta property="og:image" content="https://systemsbyvega.com/sites/garage-sale/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://systemsbyvega.com/sites/garage-sale/og.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Sunup Garage Sales",
+  "description": "Full-service garage and moving sales in Pocatello and the Portneuf Valley. We sort, price, sign and staff the whole sale, then haul or donate what's left. Free driveway walkthroughs — call or text (208) 555-0158.",
+  "telephone": "+12085550158",
+  "email": "hello@sunupgaragesales.com",
+  "areaServed": "Pocatello & the Portneuf Valley",
+  "priceRange": "$$",
+  "slogan": "Your garage back by Sunday night."
+}
+</script>
+
+<style>
+/* ── niche tokens ─────────────────────────────────────────────────────── */
+/* garage-sale — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "sunup on the driveway" — the morning-light sibling of
+   estate-sale's parlor at dusk. Warm cream ground, sunrise-orange accent,
+   espresso ink, a sparing morning-sky blue. Contrast (WCAG, computed):
+   accent-ink on accent 6.80:1, on accent-2 9.23:1, on accent-deep 5.48:1;
+   ink on ground 13.93:1, on white card 14.91:1; ink-dim on ground 7.58:1;
+   muted on ground 5.03:1; accent-text on ground 5.14:1. */
+:root{
+  --scheme: light;
+  --ground-deep:  #FFEED6;   /* the warm low glow at the page's foot */
+  --ground:       #FFF6E9;   /* cream morning light */
+  --ground-2:     #FFFBF2;   /* near-white sky at the top */
+  --panel:        #FFEFDA;
+  --panel-2:      #FFFFFF;
+  --accent:       #EF8A1F;   /* sunrise orange — the sale-sticker accent */
+  --accent-2:     #FFAD42;   /* high sun highlight */
+  --accent-deep:  #DD7708;   /* late-golden shadow (gradient end) */
+  --accent-text:  #A8500A;   /* orange dark enough to READ on cream */
+  --accent-alt:   #2F6DA8;   /* morning-sky blue, used sparingly */
+  --accent-ink:   #2E1503;   /* type on orange */
+  --ink:          #33241A;   /* warm espresso */
+  --ink-bright:   #241609;
+  --ink-dim:      #5F4C3C;
+  --ink-max:      #1C0F05;
+  --muted:        #7A6754;
+  --hair:         rgba(51,36,26,.14);
+  --hair-accent:  rgba(239,138,31,.28);
+  --card:         rgba(255,255,255,.82);
+  --card-solid:   #FFFFFF;
+  --card-brd:     rgba(51,36,26,.10);
+  --shadow:       0 24px 55px -24px rgba(140,75,10,.30);
+  --maxw:         1140px;
+
+  --sheen-hi:     #6B4A28;
+  --sheen-lo:     #33241A;
+  --sheen-accent: var(--accent);
+  --placeholder: #7A6754;
+  --ok:           #1E7A48;
+  --ok-ink:       #1E7A48;
+  --err:          #B23A34;
+  --err-ink:      #8F2B26;
+
+  --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+  --body:    'Public Sans', system-ui, -apple-system, sans-serif;
+  --mono:    ui-monospace, 'Cascadia Mono', Consolas, monospace;
+}
+/* ── shared structural CSS ────────────────────────────────────────────── */
+/* _template/base.css — structural CSS shared by every SiteLab niche.
+   A rule lives here when its class/id hooks appear in the markup of two or more
+   deployed sites, or when it targets elements only. A rule used by exactly one
+   niche belongs in that niche's sections.css instead (SITELAB_TEMPLATE.md §3).
+   Colour and type come from niches/<slug>/niche.css. Never put a literal colour
+   in this file: reference a token from the §5 contract. */
+/* =========================================================
+   SAWTOOTH DUMPSTER CO. — tokens
+   High-desert identity: deep pine green base, safety-yellow
+   primary (amber-deep gradient end), warm sand/kraft type.
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ground);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* warm high-desert backdrop for the whole page */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 640px at 82% -10%, rgba(216,155,0,.16), transparent 60%),
+    radial-gradient(900px 700px at 6% 14%, rgba(29,58,44,.55), transparent 62%),
+    radial-gradient(760px 520px at 50% 108%, rgba(255,196,0,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint topographic contour rings */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, transparent 0 52px, rgba(242,233,216,.035) 52px 53px),
+    repeating-radial-gradient(circle at 84% 68%, transparent 0 68px, rgba(255,196,0,.03) 68px 69px),
+    repeating-radial-gradient(circle at 55% -10%, transparent 0 84px, rgba(242,233,216,.022) 84px 85px);
+  opacity:.9;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;
+  font-size:.74rem;color:var(--accent);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;border-radius:2px;flex:none;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.section-title{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  font-size:1rem;padding:1rem 1.7rem;border-radius:12px;border:0;cursor:pointer;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.55), inset 0 1px 0 rgba(255,255,255,.5);
+  overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:active{transform:translateY(0)}
+/* headlight shine sweep */
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .6s ease;
+}
+.btn:hover::after{left:130%}
+.btn--ghost{
+  background:rgba(255,196,0,.07);color:var(--ink-bright);
+  border:1px solid rgba(255,196,0,.35);
+  box-shadow:none;backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{background:var(--hair-accent);box-shadow:0 10px 26px -14px rgba(255,196,0,.5)}
+.btn--lg{font-size:1.12rem;padding:1.15rem 2.2rem}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--accent-2);outline-offset:3px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:16px 0;
+}
+.nav.solid{
+  background:rgba(8,19,14,.86);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--hair), 0 18px 40px -30px #000;
+  padding:10px 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__mark{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.6)}
+.brand__mark svg{width:30px;height:30px}
+.brand__name{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.92rem;line-height:1;color:var(--ink-bright)}
+.brand__name span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.58rem;
+  letter-spacing:.22em;margin-top:4px;color:var(--muted)}
+.nav__links{display:flex;align-items:center;gap:28px}
+.nav__links a.link{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.76rem;color:var(--ink);opacity:.82;transition:opacity .2s,color .2s}
+.nav__links a.link:hover{opacity:1;color:var(--accent-2)}
+.nav__call{display:inline-flex;align-items:center;gap:.5rem;font-family:'Anybody',sans-serif;font-stretch:62.5%;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem;
+  padding:.6rem 1.05rem;border-radius:10px;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 24px -12px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.45);}
+.nav__call svg{width:16px;height:16px}
+@media(max-width:900px){.nav__links a.link{display:none}}
+@media(max-width:520px){.nav__call{font-size:.74rem;padding:.5rem .8rem;gap:.35rem;letter-spacing:.03em}}
+@media(max-width:380px){.nav__call{font-size:.68rem;padding:.45rem .65rem;gap:.3rem}}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:safe center;
+  padding:clamp(120px,15vh,180px) 0 clamp(70px,9vh,96px);overflow:hidden}
+.hero > .wrap{width:100%;position:relative;z-index:2}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+@media(max-height:780px){.hero{align-items:flex-start}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;text-align:center;gap:30px}}
+
+.hero__tag{margin-bottom:20px}
+.hero h1{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.5rem,6.8vw,4.7rem);line-height:.94;letter-spacing:.005em;margin-bottom:8px;
+}
+.hero h1 .l1{
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 50%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(242,233,216,.14));display:block;
+}
+.hero h1 .l2{
+  color:var(--accent);display:block;
+  text-shadow:0 4px 30px rgba(255,196,0,.38);
+}
+.hero__sub{font-size:1.16rem;color:var(--ink-dim);max-width:48ch;margin:18px 0 30px}
+@media(max-width:900px){.hero__sub{margin-inline:auto}}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero__cta{justify-content:center}}
+.hero__proof{display:flex;gap:26px;margin-top:32px;flex-wrap:wrap}
+@media(max-width:900px){.hero__proof{justify-content:center}}
+.proof{display:flex;flex-direction:column;line-height:1.1}
+.proof b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
+.proof span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.proof + .proof{padding-left:26px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* hero art: roll-off box under a mountain ridge, drawn inline */
+.hero__art{position:relative;display:flex;justify-content:center}
+.hero__art .halo{
+  position:absolute;inset:-4% -8% 6%;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,196,0,.22), rgba(255,196,0,.06) 55%, transparent 72%);
+  filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0;
+}
+.hero__art svg{position:relative;z-index:1;width:min(520px,94%);height:auto;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* drifting high-desert dust motes */
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.75}
+  55%{transform:translate3d(26px,-55vh,0)}
+  88%{opacity:.4}
+  100%{transform:translate3d(-14px,-108vh,0);opacity:0}
+}
+
+/* ridge divider under hero */
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--panel);z-index:0;pointer-events:none}
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+.trust{background:linear-gradient(180deg,var(--panel),rgba(19,42,32,.4));border-block:1px solid var(--hair)}
+.trust__in{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;align-items:center;padding:20px 22px}
+.trust__item{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--ink)}
+.trust__item svg{width:20px;height:20px;color:var(--accent);flex:none}
+
+/* =========================================================
+   SECTION base
+   ========================================================= */
+.section{padding:92px 0}
+.section__head{max-width:660px;margin-bottom:44px}
+.section__head.center{margin-inline:auto;text-align:center}
+.section__head .section-title{margin:14px 0 16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.08em;
+  font-size:.84rem;color:var(--ink);padding:.6rem 1.15rem;border-radius:10px;text-transform:uppercase;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5);transition:.15s;user-select:none;white-space:nowrap}
+.pill:hover span{border-color:rgba(255,196,0,.5)}
+.pill input:checked + span{color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -10px rgba(255,196,0,.7)}
+.pill input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
+.price-box .btn{width:100%;margin-top:18px}
+.reveal.in .meter__bar{width:var(--w)}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:30px 26px;background:var(--card);border:1px solid var(--card-brd);
+  border-radius:18px;backdrop-filter:blur(8px)}
+.step__n{counter-increment:step;font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;
+  font-size:2.6rem;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,196,0,.65);
+  display:block;margin-bottom:12px}
+.step__n::before{content:"0" counter(step)}
+.step h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin-bottom:8px;color:var(--ink-max)}
+.step p{color:var(--muted);font-size:.98rem}
+.nogo .section__head{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.8rem;letter-spacing:.04em;color:var(--ink);padding:.5rem 1rem;border-radius:20px;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5)}
+.chip svg{width:14px;height:14px;color:var(--accent);flex:none}
+
+/* =========================================================
+   MEET THE OWNER
+   ========================================================= */
+.owner__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.owner__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.owner__photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,58,44,.6),rgba(10,22,16,.6));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.owner__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.owner__photo > svg{width:100%;height:100%;display:block}
+.owner__photo:not(:has(img,svg))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,196,0,.1), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,233,216,.04) 14px 15px);
+}
+.owner__photo:not(:has(img,svg))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none}
+.owner__body .section-title{margin:14px 0 22px}
+.owner__desc{color:var(--ink);font-size:1.02rem;line-height:1.7;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);min-height:170px;position:relative}
+.owner__desc:empty::before{
+  content:"Short bio goes here — who runs Sawtooth Dumpster Co., how long they've been hauling in the Valley, and why they got sick of watching neighbors get quote-gamed. Replace this placeholder with the real thing.";
+  color:var(--muted);opacity:.7;font-style:italic;display:block}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--card);border:1px solid var(--card-brd);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:700;font-size:1.04rem;color:var(--ink-bright)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,196,0,.4);color:var(--accent);transition:transform .25s ease;font-family:'Inter',sans-serif;font-weight:400}
+.faq[open] summary .plus{transform:rotate(45deg)}
+.faq__body{padding:0 22px 20px;color:var(--muted);font-size:1rem}
+.faq__body b{color:var(--ink)}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.cta{position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 340px at 18% 0%, var(--hair-accent), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(29,58,44,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+  border-block:1px solid var(--hair)}
+.cta__phone{color:var(--muted);font-size:.95rem;margin-top:14px}
+.cta__phone a{color:var(--accent-2);font-weight:600}
+
+.book{max-width:760px;margin:0 auto;background:rgba(8,19,14,.62);
+  border:1px solid var(--card-brd);border-radius:22px;padding:clamp(22px,3vw,34px);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.book__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.book__grid + .book__grid,.book__grid + .field,.field + .book__grid{margin-top:16px}
+@media(max-width:640px){.book__grid{grid-template-columns:1fr}}
+.field{min-width:0}
+.field--wide{grid-column:1 / -1}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.field em{color:var(--accent-2);font-style:normal;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:11px;
+  background:rgba(5,12,9,.7);border:1px solid var(--card-brd);color:var(--ink-bright);
+  font-family:'Inter',sans-serif;font-size:1rem}
+.field textarea{resize:vertical;min-height:74px}
+.field input::placeholder,.field textarea::placeholder{color:var(--placeholder)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:rgba(5,12,9,.9)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD34D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;padding-right:2.6rem}
+.field input[readonly]{background:rgba(255,196,0,.06);border-style:dashed;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:var(--err);box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+/* date input: keep the picker icon visible on dark bg */
+.field input[type="date"]{color-scheme:dark}
+
+.consent{display:flex;gap:.65rem;align-items:flex-start;margin-top:20px;
+  color:var(--muted);font-size:.92rem;line-height:1.5;cursor:pointer}
+.consent input{margin-top:.15rem;width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.book__actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22px}
+.book__actions .btn[disabled]{opacity:.7;cursor:progress}
+.book__alt{font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);opacity:.85;
+  text-transform:uppercase;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+.book__alt:hover{opacity:1;color:var(--accent-2)}
+.book__msg{margin-top:14px;font-size:.94rem;min-height:1.1em}
+.book__msg.err{color:var(--err-ink)}
+.book__msg.ok{color:var(--accent-2)}
+
+.book-done{max-width:600px;margin:0 auto;text-align:center;
+  background:linear-gradient(180deg,rgba(29,58,44,.55),rgba(10,22,16,.6));
+  border:1px solid rgba(255,196,0,.4);border-radius:22px;padding:clamp(32px,5vw,52px) 32px;
+  box-shadow:0 0 0 1px rgba(255,196,0,.2),var(--shadow);backdrop-filter:blur(10px)}
+.book-done__ic{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.8)}
+.book-done__ic svg{width:34px;height:34px}
+.book-done h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.02;margin-bottom:12px;
+  background:linear-gradient(180deg,var(--sheen-hi),var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.book-done p{color:var(--ink-dim);font-size:1.05rem;margin-bottom:22px}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:52px 0 40px;border-top:1px solid var(--hair)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center}
+.footer__brand{display:flex;align-items:center;gap:14px}
+.footer__brand .brand__mark{width:52px;height:52px}
+.footer__brand b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-max);font-size:1rem;display:block}
+.footer__brand span{color:var(--muted);font-size:.8rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.footer__meta{color:var(--muted);font-size:.86rem;text-align:right}
+.footer__meta a{color:var(--accent-2)}
+.footer__credit{display:block;margin-top:10px;font-size:.76rem;opacity:.55;letter-spacing:.02em}
+.footer__credit a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+.footer__credit a:hover{color:var(--accent-2)}
+@media(max-width:640px){.footer__meta{text-align:left}}
+
+/* =========================================================
+   STICKY MOBILE CTA
+   ========================================================= */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,19,14,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair)}
+.mobile-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;font-size:.95rem;padding:.95rem;border-radius:12px}
+.mobile-cta .call{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.7)}
+.mobile-cta .text{color:var(--ink-bright);background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35)}
+.mobile-cta svg{width:20px;height:20px}
+@media(max-width:820px){.mobile-cta{display:flex}.footer{padding-bottom:120px}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn::after{display:none}}
+/* ── this niche's own section rules (may override the above) ─────────── */
+/* garage-sale/sections.css — this niche's own section rules, layered over
+   _template/base.css. Identity: "sunup on the driveway" — cream morning
+   light, sale-sticker orange, cardboard signs, pennant string, masking tape.
+   The bright, simple sibling of estate-sale's parlor at dusk.
+   base.css was written against dark grounds, so every piece of its chrome
+   that hardcodes a dark rgba() is re-grounded for daylight here.
+   Signature animation lives here in CSS: gs-signsway, gs-sunhalo, gs-drift —
+   transform/opacity only, neutralised under prefers-reduced-motion below. */
+
+/* ---------- atmosphere: morning sky instead of the high-desert dark ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1000px 600px at 82% -14%, rgba(255,173,66,.38), transparent 62%),
+    radial-gradient(900px 620px at 6% 6%, rgba(47,109,168,.10), transparent 60%),
+    radial-gradient(820px 520px at 50% 110%, rgba(239,138,31,.14), transparent 62%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 46%, var(--ground-deep) 100%);
+}
+/* faint driveway-chalk grid instead of topographic rings */
+body::after{
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 64px, rgba(51,36,26,.028) 64px 65px),
+    repeating-linear-gradient(90deg, transparent 0 64px, rgba(51,36,26,.02) 64px 65px);
+  opacity:.8;
+}
+
+/* ---------- morning type voice ---------- */
+.section-title{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.015em;font-size:clamp(1.9rem,4.2vw,2.8rem);line-height:1.1;
+  background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--ink-bright);
+}
+.lead{font-size:1.05rem;color:var(--ink-dim)}
+.eyebrow{font-family:var(--mono);color:var(--accent-text)}
+.eyebrow::before{background:linear-gradient(90deg,var(--accent),transparent)}
+.gs-flourish{display:block;width:160px;height:12px;margin:18px auto 0}
+.section__head .gs-flourish{margin-top:22px}
+
+/* ---------- buttons: sun-warm, pill-shaped, cheerful ---------- */
+.btn{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;font-size:.98rem;
+  box-shadow:0 12px 26px -10px rgba(221,119,8,.45), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.btn:hover{box-shadow:0 18px 36px -10px rgba(221,119,8,.55), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn--ghost{
+  background:rgba(239,138,31,.08);border:1.5px solid rgba(221,119,8,.5);
+  box-shadow:none;color:var(--accent-text);backdrop-filter:none;
+}
+.btn--ghost:hover{background:rgba(239,138,31,.16);box-shadow:0 10px 24px -14px rgba(221,119,8,.45)}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(255,248,238,.92);box-shadow:0 1px 0 var(--hair), 0 14px 34px -26px rgba(140,75,10,.5)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0}
+.brand__mark svg{width:40px;height:40px}
+.brand__name{
+  font-family:var(--display);font-weight:800;text-transform:none;
+  letter-spacing:0;font-size:1.06rem;color:var(--ink-bright);
+}
+.brand__name span{font-family:var(--mono);color:var(--muted)}
+.nav__links a.link{color:var(--ink);opacity:.85;font-family:var(--mono)}
+.nav__links a.link:hover{opacity:1;color:var(--accent-text)}
+.nav__call{
+  font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;
+  box-shadow:0 10px 22px -12px rgba(221,119,8,.6), inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+/* ---------- hero: first light on the driveway ---------- */
+.hero h1{
+  font-family:var(--display);font-weight:800;text-transform:none;
+  font-size:clamp(2.3rem,5vw,3.7rem);line-height:1.06;letter-spacing:-.02em;
+  margin-bottom:10px;max-width:16ch;color:var(--ink-max);
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.1rem;line-height:1.75;max-width:52ch;color:var(--ink-dim)}
+.hero__proof{gap:18px}
+.proof b{font-family:var(--display);font-weight:800;font-size:1.18rem;text-transform:none;letter-spacing:0;color:var(--ink-max)}
+.proof span{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--muted)}
+.proof + .proof{padding-left:18px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* morning column: swaying cardboard sign + sun-warmed photo card */
+.hero__morning{position:relative;display:flex;justify-content:center;padding:30px 10px 10px}
+.hero__morning .hero-photo-cmp{
+  width:min(410px,100%);border-radius:20px;
+  border:1px solid rgba(221,119,8,.35);
+  outline:2px dashed rgba(221,119,8,.3);outline-offset:10px;
+  box-shadow:0 30px 60px -22px rgba(140,75,10,.45), 0 6px 18px rgba(140,75,10,.18);
+}
+/* slot-empty caption ships in hero-photo.css with accent-2 text (a dark-ground
+   choice); scoped override keeps it readable on this cream ground */
+.hero__morning .hero-photo-cmp.slot-empty::after{color:var(--accent-text)}
+.gs-halo{
+  position:absolute;inset:-4% -8% 4%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(255,173,66,.5), rgba(255,217,138,.22) 55%, transparent 74%);
+  filter:blur(12px);
+  animation:gs-sunhalo 7s ease-in-out infinite;
+}
+.gs-sign{
+  position:absolute;top:-16px;right:2%;width:132px;z-index:3;pointer-events:none;
+  filter:drop-shadow(0 12px 18px rgba(140,75,10,.3));
+}
+.gs-sign svg{width:100%;height:auto;transform-origin:75px 0;animation:gs-signsway 7s ease-in-out infinite}
+@media(max-width:900px){.gs-sign{right:6%;width:104px;top:-8px}}
+
+/* motes riding the low sun */
+.gs-motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.gs-mote{
+  position:absolute;bottom:-24px;width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle, rgba(239,138,31,.75), transparent 70%);
+  opacity:0;animation:gs-drift 16s linear infinite;
+}
+.gs-mote:nth-child(1){left:9%;--dx:28px;animation-duration:15s;animation-delay:-2s}
+.gs-mote:nth-child(2){left:23%;--dx:-20px;animation-duration:19s;animation-delay:-9s;width:5px;height:5px}
+.gs-mote:nth-child(3){left:46%;--dx:20px;animation-duration:14s;animation-delay:-5s}
+.gs-mote:nth-child(4){left:64%;--dx:-26px;animation-duration:21s;animation-delay:-12s;width:7px;height:7px}
+.gs-mote:nth-child(5){left:79%;--dx:22px;animation-duration:17s;animation-delay:-7s;width:5px;height:5px}
+.gs-mote:nth-child(6){left:92%;--dx:-16px;animation-duration:20s;animation-delay:-14s}
+
+/* the signature loops — sway, glow, drift (transform/opacity only) */
+@keyframes gs-signsway{0%,100%{transform:rotate(-3.5deg)}50%{transform:rotate(3.5deg)}}
+@keyframes gs-sunhalo{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes gs-drift{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  10%{opacity:.65}
+  60%{transform:translate3d(var(--dx,24px),-42vh,0);opacity:.4}
+  100%{transform:translate3d(calc(var(--dx,24px) * -0.6),-76vh,0);opacity:0}
+}
+
+/* pennant string along the hero's bottom edge */
+.gs-bunting{position:absolute;left:0;right:0;bottom:-2px;height:34px;line-height:0;z-index:1;pointer-events:none}
+.gs-bunting svg{width:100%;height:100%;display:block;opacity:.9}
+
+/* ---------- trust strip: morning banner ---------- */
+.trust{background:linear-gradient(180deg,rgba(255,239,218,.85),rgba(255,246,233,.5));border-block:1px solid var(--hair)}
+.trust__item{font-family:var(--mono);color:var(--ink)}
+.trust__item svg{color:var(--accent-text)}
+
+/* ---------- about: the friendly straight talk ---------- */
+.about{padding-bottom:60px}
+.about__card{
+  max-width:800px;margin:0 auto;text-align:center;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:22px;
+  padding:clamp(30px,5vw,52px);box-shadow:var(--shadow);
+}
+.about__card .gs-flourish{margin:0 auto 20px}
+.about__card .section-title{margin-bottom:18px}
+.about__body{color:var(--ink-dim);font-size:1.08rem;line-height:1.85;max-width:62ch;margin:0 auto}
+
+/* ---------- how it works: four moves ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--card-brd);box-shadow:0 14px 34px -22px rgba(140,75,10,.35);backdrop-filter:none}
+.step__n{
+  font-family:var(--display);font-weight:800;font-size:2.5rem;
+  -webkit-text-stroke:1.8px rgba(221,119,8,.7);
+}
+.step h3{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:-.01em;font-size:1.16rem;color:var(--ink-bright);
+}
+.step p{color:var(--ink-dim)}
+
+/* ---------- fee: the sale-sticker card ---------- */
+.fee__card{
+  position:relative;max-width:780px;margin:0 auto;
+  background:var(--card-solid);
+  border:1px solid rgba(221,119,8,.3);border-radius:22px;
+  padding:clamp(30px,5vw,50px) clamp(22px,4vw,46px) clamp(26px,4vw,40px);
+  box-shadow:0 0 0 1px rgba(239,138,31,.14), var(--shadow);
+  overflow:visible;
+}
+/* strips of masking tape on the card's shoulders */
+.fee__card::before,.fee__card::after{
+  content:"";position:absolute;top:-10px;width:110px;height:30px;
+  background:rgba(255,217,138,.55);border:1px solid rgba(221,119,8,.25);
+  box-shadow:0 2px 6px rgba(140,75,10,.12);
+}
+.fee__card::before{left:10%;transform:rotate(-5deg)}
+.fee__card::after{right:10%;transform:rotate(4deg)}
+.fee__cols{display:flex;align-items:stretch;justify-content:center;gap:clamp(18px,4vw,44px)}
+.fee__col{flex:1;text-align:center;padding:6px 0;min-width:0;display:flex;flex-direction:column;align-items:center}
+.fee__rule{border-left:2px dashed rgba(221,119,8,.4);align-self:stretch}
+.fee__label{
+  display:block;font-family:var(--mono);font-weight:600;font-size:.68rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent-text);margin-bottom:14px;
+}
+/* the commission wears a big fluorescent price sticker */
+.fee__sticker{
+  width:clamp(150px,26vw,196px);aspect-ratio:1;border-radius:50%;
+  display:grid;place-items:center;transform:rotate(-4deg);
+  background:radial-gradient(circle at 34% 30%, var(--accent-2), var(--accent) 58%, var(--accent-deep));
+  outline:3px dashed rgba(255,255,255,.55);outline-offset:-10px;
+  box-shadow:0 16px 34px -14px rgba(221,119,8,.6), inset 0 2px 0 rgba(255,255,255,.35);
+}
+.fee__big{
+  font-family:var(--display);font-weight:800;line-height:1;
+  font-size:clamp(3rem,8vw,4.6rem);letter-spacing:-.03em;color:var(--accent-ink);
+}
+/* the minimum rides a kraft price tag on twine */
+.fee__tag{
+  position:relative;padding:.55em 1em .55em 1.55em;transform:rotate(2.5deg);
+  background:linear-gradient(120deg,#D8B084,#C79A6B);border-radius:8px 14px 14px 8px;
+  clip-path:polygon(0 50%, 9% 0, 100% 0, 100% 100%, 9% 100%);
+  box-shadow:0 12px 26px -12px rgba(140,75,10,.5);
+  margin-top:clamp(14px,3vw,34px);
+}
+.fee__tag::before{
+  content:"";position:absolute;left:.62em;top:50%;width:12px;height:12px;margin-top:-6px;
+  border-radius:50%;background:var(--card-solid);box-shadow:inset 0 0 0 2.5px rgba(51,36,26,.5);
+}
+.fee__big--min{font-size:clamp(2.2rem,6vw,3.4rem);color:#3B2A16}
+.fee__sub{
+  display:block;margin-top:14px;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+;margin-top:auto}
+.fee__note{
+  margin:28px auto 0;max-width:54ch;text-align:center;
+  color:var(--ink-dim);font-size:1.02rem;line-height:1.7;
+  padding-top:22px;border-top:2px dashed rgba(51,36,26,.16);
+}
+.fee__cta{text-align:center;margin-top:24px}
+@media(max-width:560px){
+  .fee__cols{flex-direction:column;gap:24px}
+  .fee__rule{border-left:0;border-top:2px dashed rgba(221,119,8,.4)}
+  .fee__tag{margin-top:6px}
+}
+
+/* ---------- prep tips: sticker-dot cards ---------- */
+.tips__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1080px;margin:0 auto;counter-reset:tip}
+@media(max-width:1020px){.tips__grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.tips__grid{grid-template-columns:1fr;max-width:520px}}
+.tip{
+  position:relative;background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
+  padding:26px 24px 24px;box-shadow:0 14px 34px -22px rgba(140,75,10,.35);
+  transition:transform .2s ease, border-color .2s ease;
+}
+.tip:hover{transform:translateY(-4px);border-color:rgba(221,119,8,.4)}
+.tip__dot{
+  counter-increment:tip;
+  display:grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  margin-bottom:14px;transform:rotate(-6deg);
+  font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--accent-ink);
+  background:radial-gradient(circle at 34% 30%, var(--accent-2), var(--accent) 62%, var(--accent-deep));
+  box-shadow:0 8px 18px -8px rgba(221,119,8,.6), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.tip__dot::before{content:counter(tip)}
+.tip:nth-child(3n+2) .tip__dot{background:radial-gradient(circle at 34% 30%, #3572AE, var(--accent-alt) 62%, #245685);color:#FFFDF8;transform:rotate(4deg)}
+.tip:nth-child(3n) .tip__dot{background:radial-gradient(circle at 34% 30%, #25834E, var(--ok) 62%, #14603A);color:#FFFDF8;transform:rotate(-2deg)}
+.tip h3{
+  font-family:var(--display);font-weight:700;font-size:1.12rem;letter-spacing:-.01em;
+  color:var(--ink-bright);margin-bottom:8px;
+}
+.tip p{color:var(--ink-dim);font-size:.96rem;line-height:1.7}
+
+/* ---------- reviews: re-ground the component's accent text for daylight ----------
+   Scoped under .reviews on purpose: build-site.js appends component CSS AFTER
+   sections.css, so an equal-specificity override here would lose the cascade.
+   accent-2 text was designed for dark grounds; on a white card it read at
+   about 1.9:1. accent-text (#A8500A) is the readable orange. */
+.reviews .review-cmp{box-shadow:0 14px 34px -22px rgba(140,75,10,.3)}
+.reviews .review-cmp__mark{color:var(--accent);opacity:.7}
+.reviews .review-cmp__who{color:var(--accent-text)}
+
+/* ---------- service area ---------- */
+.chip{background:var(--card-solid);border:1px solid var(--card-brd);color:var(--ink);font-family:var(--mono)}
+.chip svg{color:var(--accent-text)}
+
+/* ---------- book / cta: daylight forms ---------- */
+.cta{
+  background:
+    radial-gradient(700px 340px at 18% 0%, rgba(255,173,66,.25), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(255,217,138,.35), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+}
+.cta__hours{margin-top:16px;font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cta__phone a{color:var(--accent-text)}
+.book{background:var(--card-solid);backdrop-filter:none}
+.field label{color:var(--ink-dim);font-family:var(--mono)}
+.field em{color:var(--accent-text)}
+.field input,.field select,.field textarea{
+  background:#FFFDF8;border:1px solid rgba(51,36,26,.18);color:var(--ink-bright);
+  font-family:var(--body);
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:#FFFFFF}
+.field input[type="date"]{color-scheme:light}
+.consent{color:var(--ink-dim)}
+.book__alt{font-family:var(--mono);color:var(--ink-dim);opacity:1}
+.book__alt:hover{color:var(--accent-text)}
+.book__msg.ok{color:var(--ok-ink)}
+.book__msg.err{color:var(--err-ink)}
+.book-done{
+  background:var(--card-solid);border:1.5px dashed rgba(221,119,8,.5);
+  box-shadow:0 0 0 1px rgba(239,138,31,.15),var(--shadow);backdrop-filter:none;
+}
+.book-done h3{
+  font-family:var(--display);font-weight:800;text-transform:none;letter-spacing:-.01em;
+  background:none;-webkit-background-clip:initial;background-clip:initial;color:var(--ink-bright);
+}
+.book-done p{color:var(--ink-dim)}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,#FFEED6,#FFE2B8);
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,173,66,.3), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(51,36,26,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 22px}
+.meet__desc{
+  color:var(--ink);font-size:1.02rem;line-height:1.75;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);box-shadow:0 14px 34px -22px rgba(140,75,10,.3);
+}
+
+/* ---------- footer / chrome polish ---------- */
+.footer__brand b{font-family:var(--display);font-weight:800;text-transform:none;letter-spacing:0;color:var(--ink-max)}
+.footer__brand span{text-transform:none;letter-spacing:.02em;font-family:var(--body);color:var(--muted)}
+.footer__meta a{color:var(--accent-text)}
+/* .footer scope beats footer-contact.css's later-in-bundle .fc-social a */
+.footer .fc-social a{color:var(--accent-text)}
+.footer .fc-hours,.footer .fc-address,.footer .fc-social{color:var(--muted)}
+.disclosure{
+  max-width:860px;font-family:var(--mono);font-size:.74rem;line-height:1.7;
+  color:var(--muted);opacity:.9;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta{background:rgba(255,248,238,.96);border-top:1px solid var(--hair);box-shadow:0 -8px 24px rgba(140,75,10,.12)}
+.mobile-cta .call{box-shadow:0 8px 20px -8px rgba(221,119,8,.6)}
+.mobile-cta .text{background:rgba(239,138,31,.1);border:1.5px solid rgba(221,119,8,.45);color:var(--accent-text)}
+.mobile-cta a{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:.01em}
+
+/* ---------- reduced motion: the morning holds still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .gs-sign svg,.gs-halo,.gs-mote{animation:none}
+  .gs-mote{opacity:0}
+  .hero__morning .hero-photo-cmp img{animation:none}
+}
+
+/* the build-injected consent line's privacy link must read as a link
+   (base.css strips all anchor affordances globally) */
+.consent a{color:var(--accent-text);text-decoration:underline;text-underline-offset:2px}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: reviews -- */
+/* _template/components/reviews.css
+   Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
+   contained on the shared token set every niche.css defines. */
+.reviews-cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+@media (max-width: 880px) { .reviews-cmp-grid { grid-template-columns: 1fr; max-width: 520px; } }
+.review-cmp { background: var(--card); border: 1px solid var(--card-brd); border-radius: 18px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s ease, border-color .2s ease; }
+.review-cmp:hover { transform: translateY(-4px); }
+.review-cmp__mark { font-size: 2.2rem; line-height: 1; color: var(--accent-2); opacity: .5; font-family: var(--mono); }
+.review-cmp__quote { color: var(--ink-dim); font-size: 1rem; line-height: 1.65; flex: 1; font-style: italic; }
+.review-cmp__who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; color: var(--accent-2); }
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+<div id="svDemoBanner" role="note" aria-label="Demo site notice">
+  <span class="svDemoBanner__dot" aria-hidden="true"></span>
+  <span>Demo — this site is for sale</span>
+  <a href="/sites/">View all sites →</a>
+</div>
+<script>
+/* Demo chrome removes itself off the catalog: on a tenant subdomain this SAME
+   deployed file is an operator's live site — there is no per-buyer build any
+   more, middleware rewrites the subdomain here. Hostname, not a header or a
+   fetch: a page cannot read its own response headers, and a fetch would flash
+   the banner and fail open on a paid site. Synchronous removal right after the
+   element parses means it never paints. The apex and www keep the banner (that
+   IS the demo); so do vercel.app previews and localhost. */
+(function () {
+  var h = location.hostname;
+  if (h !== 'systemsbyvega.com' && h !== 'www.systemsbyvega.com'
+      && h.slice(-18) === '.systemsbyvega.com') {
+    var b = document.getElementById('svDemoBanner');
+    if (b) b.remove();
+
+    /* Owner login. The tenant IS the hostname's first label — the same value
+       middleware routes on — so nothing needs injecting for the page to know
+       it. ?tenant= is a hint, not authorisation: /admin/ resolves ownership
+       from the sign-in, so a guessed URL gets a login form, nothing more.
+
+       Appended on DOMContentLoaded, not here: this script sits at the TOP of
+       body (so the banner removal above beats first paint), and the footer
+       does not exist yet at this point in the parse. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var a = document.createElement('a');
+      a.id = 'svOwnerLogin';
+      a.href = '/admin/?tenant=' + encodeURIComponent(h.slice(0, -18));
+      a.textContent = 'Owner login →';
+      var f = document.querySelector('footer');
+      if (f) {
+        a.style.cssText = 'display:inline-block;margin-top:12px;' +
+          'font-size:11.5px;color:inherit;opacity:.6;text-decoration:underline';
+        f.appendChild(a);
+      } else {
+        /* No footer in this niche's markup: a discreet fixed corner beats
+           silently having no login path at all. */
+        a.style.cssText = 'position:fixed;right:12px;bottom:10px;z-index:50;' +
+          'font-size:11.5px;color:inherit;opacity:.55;text-decoration:underline';
+        document.body.appendChild(a);
+      }
+    });
+  }
+})();
+</script>
+<style>
+#svDemoBanner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 9px;background:#161B22;color:#fff;font-family:'IBM Plex Mono',ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.01em;padding:9px 16px;border-radius:20px;border:1px solid #323A48;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 24px);text-align:center}
+#svDemoBanner .svDemoBanner__dot{width:7px;height:7px;border-radius:50%;background:#F3922F;flex:none}
+#svDemoBanner a{color:#F3922F;font-weight:700;text-decoration:none}
+#svDemoBanner a:hover{text-decoration:underline}
+@media(max-width:820px){#svDemoBanner{bottom:78px;font-size:11.5px;padding:8px 14px}}
+</style>
+
+<!-- garage-sale/scene.svg — this site keeps its illustrations inline in
+     sections.html (rising-sun marks, cardboard sale sign, pennant string)
+     rather than in a shared <defs> block. Placeholder so the build slot
+     resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>
+
+<!-- garage-sale/sections.html — this niche's body markup.
+     The morning-light sibling of estate-sale (SITELAB_TEMPLATE.md §3.1):
+     same platform skeleton, opposite hour of day — cream sunrise ground,
+     sale-sticker orange, cardboard-sign and pennant motifs. Brand fictional.
+     Static copy below mirrors content.json (the no-JS fallback);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Sunup Garage Sales home">
+      <span class="brand__mark" role="img" aria-label="Sunup rising-sun mark">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="gs-grad-sun" cx=".5" cy=".42" r=".62">
+              <stop offset="0" stop-color="#FFD98A"/><stop offset=".55" stop-color="#FFAD42"/><stop offset="1" stop-color="#EF8A1F"/>
+            </radialGradient>
+            <linearGradient id="gs-grad-ray" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#FFAD42"/><stop offset="1" stop-color="#DD7708"/>
+            </linearGradient>
+          </defs>
+          <path d="M14 38a18 18 0 0 1 36 0Z" fill="url(#gs-grad-sun)"/>
+          <g stroke="url(#gs-grad-ray)" stroke-width="3.4" stroke-linecap="round">
+            <path d="M32 8v6"/><path d="M14.5 15.5 19 20"/><path d="M49.5 15.5 45 20"/>
+            <path d="M7 32h6"/><path d="M51 32h6"/>
+          </g>
+          <path d="M8 44h48" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M16 52h32" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Sunup</span><span id="brandLocale">Garage sales · Pocatello, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#fee">The fee</a>
+      <a class="link" href="#tips">Prep tips</a>
+      <a class="link" href="#reviews">Reviews</a>
+      <a class="link" href="#book">Walkthrough</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550158" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0158</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- morning dust motes in the low sun — pure CSS drift, transform/opacity only (gs-drift) -->
+  <div class="gs-motes" aria-hidden="true">
+    <span class="gs-mote"></span><span class="gs-mote"></span><span class="gs-mote"></span>
+    <span class="gs-mote"></span><span class="gs-mote"></span><span class="gs-mote"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Garage sales · Moving sales · Downsizing days</span></div>
+        <h1 id="heroTitle">You don't want a garage sale. You want the garage back.</h1>
+        <p class="hero__sub" id="heroSub">Sunup runs garage and moving sales across Pocatello and the Portneuf Valley. We sort, stage, price and sign everything, staff the whole sale day, and haul or donate whatever's left. You don't even have to be home.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free driveway walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how it works</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Free</b><span>Driveway walkthrough</span></div>
+          <div class="proof"><b>Staffed</b><span>Whole sale day</span></div>
+          <div class="proof"><b>Swept</b><span>Garage handed back</span></div>
+        </div>
+      </div>
+      <div class="hero__morning">
+        <!-- signature motif: a hand-lettered cardboard sale sign hanging on
+             twine, swaying in the morning air (gs-signsway in sections.css —
+             transform only, reduced-motion safe) -->
+        <div class="gs-sign" aria-hidden="true">
+          <svg viewBox="0 0 150 130" fill="none">
+            <defs>
+              <linearGradient id="gs-grad-card" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#D8B084"/><stop offset=".5" stop-color="#C79A6B"/><stop offset="1" stop-color="#B0824F"/>
+              </linearGradient>
+              <radialGradient id="gs-grad-doodle" cx=".5" cy=".5" r=".55">
+                <stop offset="0" stop-color="#FFD98A"/><stop offset="1" stop-color="#EF8A1F"/>
+              </radialGradient>
+            </defs>
+            <path d="M40 2 73 34M110 2 77 34" stroke="rgba(51,36,26,.4)" stroke-width="1.6"/>
+            <g transform="rotate(-3 75 78)">
+              <rect x="15" y="34" width="120" height="86" rx="6" fill="url(#gs-grad-card)"/>
+              <rect x="20.5" y="39.5" width="109" height="75" rx="3.5" stroke="rgba(51,36,26,.35)" stroke-width="1.6" stroke-dasharray="6 5"/>
+              <circle cx="75" cy="38" r="3" fill="#5C4326"/>
+              <text x="75" y="70" text-anchor="middle" font-family="'Bricolage Grotesque','Trebuchet MS',sans-serif" font-weight="800" font-size="23" letter-spacing="1.5" fill="#3B2A16">GARAGE</text>
+              <text x="63" y="98" text-anchor="middle" font-family="'Bricolage Grotesque','Trebuchet MS',sans-serif" font-weight="800" font-size="23" letter-spacing="1.5" fill="#3B2A16">SALE</text>
+              <circle cx="110" cy="91" r="10" fill="url(#gs-grad-doodle)"/>
+              <path d="M110 78v-4M110 108v-4M97 91h-4M127 91h-4M100.5 81.5l-2.6-2.6M122 103l-2.6-2.6M119.5 81.5l2.6-2.6M98 103l2.6-2.6" stroke="#DD7708" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
+        <div class="gs-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-sunup-clocks.jpg).
+             Credit: Beyzaa Yurtkuran, Pexels (photos/CREDITS.md). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/garage-sale/photos/hero-sunup-clocks.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/garage-sale/photos/hero-sunup-clocks.jpg" alt="A table of vintage alarm clocks and brass odds and ends on a striped cloth, lit by low morning sun" fetchpriority="high" decoding="async">
+</figure>
+      </div>
+    </div>
+  </div>
+  <!-- pennant string between the morning sky and the page -->
+  <div class="gs-bunting" aria-hidden="true">
+    <svg viewBox="0 0 1200 34" preserveAspectRatio="none">
+      <path d="M0 2h1200" stroke="rgba(51,36,26,.25)" stroke-width="2"/>
+      <path d="M20 2 50 30 80 2Z" fill="#EF8A1F"/><path d="M140 2l30 28 30-28Z" fill="#2F6DA8"/>
+      <path d="M260 2l30 28 30-28Z" fill="#FFAD42"/><path d="M380 2l30 28 30-28Z" fill="#1E7A48"/>
+      <path d="M500 2l30 28 30-28Z" fill="#EF8A1F"/><path d="M620 2l30 28 30-28Z" fill="#2F6DA8"/>
+      <path d="M740 2l30 28 30-28Z" fill="#FFAD42"/><path d="M860 2l30 28 30-28Z" fill="#1E7A48"/>
+      <path d="M980 2l30 28 30-28Z" fill="#EF8A1F"/><path d="M1100 2l30 28 30-28Z" fill="#2F6DA8"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18"/><path d="M5 9v10M19 9v10"/><path d="M3 9l2-4h14l2 4"/></svg>We bring the tables &amp; signs</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Staffed from early birds to close</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Cash &amp; card checkout</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Itemized settlement sheet</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="gs-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="gs-fl-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#EF8A1F" stop-opacity="0"/><stop offset=".5" stop-color="#DD7708"/><stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#gs-fl-a)" stroke-width="1.6"/>
+        <circle cx="80" cy="6" r="4" fill="url(#gs-fl-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">Nobody actually wants to run a garage sale</h2>
+      <p class="about__body" id="aboutBody">The pricing decisions, the 6 a.m. start, the haggling, the pile of unsold stuff at 4 p.m. — that's the part people dread, and that's the part we take. We run the sale on your driveway, on your behalf: your things stay yours until a shopper pays for them, and everything ends with an itemized settlement sheet and an empty garage. One thing we'll never do is guess out loud what your sale will bring — nobody honestly can. What we promise is the work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From cluttered to swept in one weekend</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Sort &amp; stage</h3>
+        <p>We walk the garage with you and flag anything the family keeps. Then the crew sorts the rest into categories and stages the driveway — everything up on tables, best items nearest the street.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Price &amp; sign</h3>
+        <p>Every category gets priced to actually sell, small items get bundled, and our corner signs go up around the neighborhood the night before — big letters, driver height.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Sale day, staffed</h3>
+        <p>We work the sale from early birds to the last hour: greeting, haggling, cash and card checkout. You can watch from the kitchen window or leave town entirely.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Leftovers hauled or donated</h3>
+        <p>Whatever hasn't sold by close gets donated or hauled away by arrangement. You get the garage back swept, with an itemized settlement sheet of everything that sold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEE STRUCTURE (percentage model) ============ -->
+<section class="section fee" id="fee">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fee</span>
+      <h2 class="section-title">How the fee works</h2>
+      <svg class="gs-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="gs-fl-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#EF8A1F" stop-opacity="0"/><stop offset=".5" stop-color="#DD7708"/><stop offset="1" stop-color="#EF8A1F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#gs-fl-b)" stroke-width="1.6"/>
+        <circle cx="80" cy="6" r="4" fill="url(#gs-fl-b)"/>
+      </svg>
+    </div>
+
+    <!-- The sale-sticker card. commission + minimum are the percentage
+         model's two editable fields (admin PRICE_MODEL_FIELDS.percentage);
+         niche.js renders them from CONTENT.pricing — no invented figures. -->
+    <div class="fee__card reveal" id="feeCard">
+      <div class="fee__cols">
+        <div class="fee__col">
+          <span class="fee__label">Commission</span>
+          <div class="fee__sticker"><div class="fee__big" id="feeCommission">40%</div></div>
+          <span class="fee__sub">of what sells</span>
+        </div>
+        <div class="fee__rule" aria-hidden="true"></div>
+        <div class="fee__col">
+          <span class="fee__label">Sale minimum</span>
+          <div class="fee__tag"><div class="fee__big fee__big--min" id="feeMinimum">$200</div></div>
+          <span class="fee__sub">per sale</span>
+        </div>
+      </div>
+      <p class="fee__note" id="feeNote">One commission on what sells, agreed in writing before we book your date — nothing to pay up front.</p>
+      <div class="fee__cta">
+        <a class="btn" href="#book">Book a free driveway walkthrough</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PREP TIPS ============ -->
+<section class="section tips" id="tips">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Prep tips</span>
+      <h2 class="section-title">How a good sale day gets set up</h2>
+      <p class="lead" style="margin:0 auto">Six things our crew does on every driveway — worth stealing even if you'd rather run your own.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.prepTips.
+         Every value lands via textContent (DOM-property sinks only). -->
+    <div class="tips__grid" id="tipsGrid">
+      <div class="tip reveal" data-delay="1">
+        <span class="tip__dot"></span>
+        <h3>Everything off the ground</h3>
+        <p>Items on the floor don't sell. We bring folding tables and raise everything to waist height — even a sheet of plywood on sawhorses outsells a tarp on the lawn.</p>
+      </div>
+      <div class="tip reveal" data-delay="2">
+        <span class="tip__dot"></span>
+        <h3>Best things face the street</h3>
+        <p>A driver decides in two seconds whether to stop. The furniture, tools and big pieces go nearest the curb, where they do the advertising for everything behind them.</p>
+      </div>
+      <div class="tip reveal" data-delay="3">
+        <span class="tip__dot"></span>
+        <h3>Make a walkway, not a wall</h3>
+        <p>Tables form a corridor shoppers walk through, so they end up seeing everything — a single line of tables across the driveway is a barricade, not a sale.</p>
+      </div>
+      <div class="tip reveal" data-delay="1">
+        <span class="tip__dot"></span>
+        <h3>Signs get four words</h3>
+        <p>A driver thirty feet away has time for about four big words and an arrow. Our signs go up on the corners the night before, at eye height for a driver — not knee height on a fence.</p>
+      </div>
+      <div class="tip reveal" data-delay="2">
+        <span class="tip__dot"></span>
+        <h3>Price by category, then bundle</h3>
+        <p>We sort first and price whole categories at once instead of agonizing item by item. Small stuff gets bundled — 'fill a bag' moves volume and saves hours of tagging.</p>
+      </div>
+      <div class="tip reveal" data-delay="3">
+        <span class="tip__dot"></span>
+        <h3>A markdown plan empties the garage</h3>
+        <p>The point of the last day is a clear garage, not a full one. We set the markdown schedule with you in advance, so the sale ends on purpose instead of fizzling out.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="section-title">Word from the driveway</h2>
+    </div>
+    <!-- _template/components/reviews.html
+     Three review cards filled from c.testimonials. The fallback strings for
+     an empty card live in reviews.js, set via textContent -- NOT a CSS
+     :empty::before pseudo-element (bin-cleaning's original approach): a
+     property assignment is the escaping standard for every new sink in this
+     build, and it means the fallback copy exists in the DOM regardless of
+     what CSS a given niche happens to ship. -->
+<div class="reviews-cmp-grid">
+  <div class="review-cmp reveal" data-delay="1">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="2">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="3">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving the Portneuf Valley</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Pocatello &amp; the Portneuf Valley</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Pocatello</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Chubbuck</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Inkom</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>American Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>McCammon</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Lava Hot Springs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free walkthrough</span>
+      <h2 class="section-title" style="margin:14px 0 14px" id="contactHeading">Get your Saturday back</h2>
+      <p class="lead" style="margin:0 auto" id="contactBody">Call or text and we'll set up a free driveway walkthrough — usually a weekday evening, about twenty minutes. We'll look at what you've got, explain the fee structure, and if it's a fit, put a sale date on the calendar in writing.</p>
+      <p class="cta__hours" id="contactHours">Walkthroughs weekday evenings · Sale days Friday &amp; Saturday, 8 AM – 4 PM</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550158" data-tel data-phone-text>(208) 555-0158</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the sale <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Pocatello" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred sale weekend</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What's in the garage? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. We're moving at the end of next month. A garage full of tools and camping gear, some furniture, lots of kid stuff. Hoping for a sale before the move."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walkthrough. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Book my free walkthrough</button>
+        <a class="book__alt" href="sms:+12085550158?body=Hi%20Sunup%20Garage%20Sales!%20I%27d%20like%20to%20book%20a%20free%20driveway%20walkthrough." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — consider the driveway ours</h3>
+      <p id="doneMsg">We'll text you shortly to set up your free walkthrough.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who works your driveway</h2>
+        <div class="meet__desc" id="meetDesc">Ramona Pike has been the first car at Saturday-morning sales since she was tall enough to see over a card table. After years of running sales for moving neighbors and downsizing friends, she made it official — a small crew, a trailer full of folding tables, and one simple promise: you hand us the garage, and we hand it back empty. Ramona still prices every sale herself and works every sale day from the first early bird to the last box on the donation truck.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Sunup Garage Sales">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <radialGradient id="gs-grad-sun2" cx=".5" cy=".42" r=".62">
+              <stop offset="0" stop-color="#FFD98A"/><stop offset=".55" stop-color="#FFAD42"/><stop offset="1" stop-color="#EF8A1F"/>
+            </radialGradient>
+          </defs>
+          <path d="M14 38a18 18 0 0 1 36 0Z" fill="url(#gs-grad-sun2)"/>
+          <g stroke="#DD7708" stroke-width="3.4" stroke-linecap="round">
+            <path d="M32 8v6"/><path d="M14.5 15.5 19 20"/><path d="M49.5 15.5 45 20"/>
+            <path d="M7 32h6"/><path d="M51 32h6"/>
+          </g>
+          <path d="M8 44h48" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round"/>
+          <path d="M16 52h32" stroke="#DD7708" stroke-width="3.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </span>
+      <div><b data-brand>Sunup Garage Sales</b><span id="footTagline">Your garage back by Sunday night.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550158" data-tel data-phone-text>(208) 555-0158</a><br />
+      <span id="areaLine">Serving Pocatello &amp; the Portneuf Valley</span><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Sunup Garage Sales</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Sunup Garage Sales</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real garage-sale services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550158" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550158?body=Hi%20Sunup%20Garage%20Sales!%20I%27d%20like%20to%20book%20a%20free%20driveway%20walkthrough." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
+
+<script>
+/* Inlined from niches/garage-sale/content.json by tools/build-site.js.
+   DO NOT EDIT — edit content.json. These two cannot drift: one generates the other. */
+var DEFAULT_CONTENT = {
+  "brand": {
+    "name": "Sunup Garage Sales",
+    "tagline": "Your garage back by Sunday night.",
+    "phone": "(208) 555-0158",
+    "email": "hello@sunupgaragesales.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Pocatello",
+    "state": "ID"
+  },
+  "owner": {
+    "name": "Ramona Pike",
+    "heading": "The person who works your driveway",
+    "bio": "Ramona Pike has been the first car at Saturday-morning sales since she was tall enough to see over a card table. After years of running sales for moving neighbors and downsizing friends, she made it official — a small crew, a trailer full of folding tables, and one simple promise: you hand us the garage, and we hand it back empty. Ramona still prices every sale herself and works every sale day from the first early bird to the last box on the donation truck.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Pocatello & the Portneuf Valley",
+    "short": "Portneuf Valley",
+    "cities": [
+      "Pocatello",
+      "Chubbuck",
+      "Inkom",
+      "American Falls",
+      "McCammon",
+      "Lava Hot Springs"
+    ]
+  },
+  "testimonials": [],
+  "pricing": {
+    "commission": "40%",
+    "minimum": "$200",
+    "note": "One commission on what sells, agreed in writing before we book your date — nothing to pay up front."
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Garage sales · Moving sales · Downsizing days",
+      "title": "You don't want a garage sale. You want the garage back.",
+      "subtitle": "Sunup runs garage and moving sales across Pocatello and the Portneuf Valley. We sort, stage, price and sign everything, staff the whole sale day, and haul or donate whatever's left. You don't even have to be home.",
+      "ctaPrimary": "Book a free driveway walkthrough",
+      "ctaSecondary": "See how it works"
+    },
+    "about": {
+      "heading": "Nobody actually wants to run a garage sale",
+      "body": "The pricing decisions, the 6 a.m. start, the haggling, the pile of unsold stuff at 4 p.m. — that's the part people dread, and that's the part we take. We run the sale on your driveway, on your behalf: your things stay yours until a shopper pays for them, and everything ends with an itemized settlement sheet and an empty garage. One thing we'll never do is guess out loud what your sale will bring — nobody honestly can. What we promise is the work."
+    },
+    "howItWorks": [
+      {
+        "title": "Sort & stage",
+        "desc": "We walk the garage with you and flag anything the family keeps. Then the crew sorts the rest into categories and stages the driveway — everything up on tables, best items nearest the street."
+      },
+      {
+        "title": "Price & sign",
+        "desc": "Every category gets priced to actually sell, small items get bundled, and our corner signs go up around the neighborhood the night before — big letters, driver height."
+      },
+      {
+        "title": "Sale day, staffed",
+        "desc": "We work the sale from early birds to the last hour: greeting, haggling, cash and card checkout. You can watch from the kitchen window or leave town entirely."
+      },
+      {
+        "title": "Leftovers hauled or donated",
+        "desc": "Whatever hasn't sold by close gets donated or hauled away by arrangement. You get the garage back swept, with an itemized settlement sheet of everything that sold."
+      }
+    ],
+    "prepTips": [
+      {
+        "title": "Everything off the ground",
+        "desc": "Items on the floor don't sell. We bring folding tables and raise everything to waist height — even a sheet of plywood on sawhorses outsells a tarp on the lawn."
+      },
+      {
+        "title": "Best things face the street",
+        "desc": "A driver decides in two seconds whether to stop. The furniture, tools and big pieces go nearest the curb, where they do the advertising for everything behind them."
+      },
+      {
+        "title": "Make a walkway, not a wall",
+        "desc": "Tables form a corridor shoppers walk through, so they end up seeing everything — a single line of tables across the driveway is a barricade, not a sale."
+      },
+      {
+        "title": "Signs get four words",
+        "desc": "A driver thirty feet away has time for about four big words and an arrow. Our signs go up on the corners the night before, at eye height for a driver — not knee height on a fence."
+      },
+      {
+        "title": "Price by category, then bundle",
+        "desc": "We sort first and price whole categories at once instead of agonizing item by item. Small stuff gets bundled — 'fill a bag' moves volume and saves hours of tagging."
+      },
+      {
+        "title": "A markdown plan empties the garage",
+        "desc": "The point of the last day is a clear garage, not a full one. We set the markdown schedule with you in advance, so the sale ends on purpose instead of fizzling out."
+      }
+    ],
+    "contact": {
+      "heading": "Get your Saturday back",
+      "body": "Call or text and we'll set up a free driveway walkthrough — usually a weekday evening, about twenty minutes. We'll look at what you've got, explain the fee structure, and if it's a fit, put a sale date on the calendar in writing.",
+      "hours": "Walkthroughs weekday evenings · Sale days Friday & Saturday, 8 AM – 4 PM"
+    }
+  },
+  "seo": {
+    "title": "Sunup Garage Sales — Garage & Moving Sales, Run For You | Pocatello, ID",
+    "description": "Full-service garage and moving sales in Pocatello and the Portneuf Valley. We sort, price, sign and staff the whole sale, then haul or donate what's left. Free driveway walkthroughs — call or text (208) 555-0158.",
+    "ogTitle": "Sunup Garage Sales — Your garage back by Sunday night.",
+    "ogDescription": "Garage and moving sales across Pocatello and the Portneuf Valley, Idaho, run for you from setup to haul-away. Free walkthroughs: (208) 555-0158.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/garage-sale/",
+    "themeColor": "#C75B12",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/garage-sale/og.png"
+  }
+};
+</script>
+
+<!-- SCRIPT ORDER IS LOAD-BEARING. base.js FIRST.
+     Every niche.js opens with `var SL = window.SL;`, and base.js assigns
+     window.SL at the end of its IIFE. With base.js emitted last, SL was
+     undefined when niche.js ran: every renderer threw on its first line,
+     window.renderContent was never defined, and base.js then skipped it via its
+     own typeof guard — silently, on all 14 converted sites.
+     base.js defers boot() to DOMContentLoaded, so renderContent and initScene
+     are both defined by the time it fires. Do not reorder these. -->
+<script>
+/* _template/base.js — utilities and the content lifecycle.
+   Shared by every niche. Niche-specific rendering lives in niches/<slug>/niche.js,
+   which must define window.renderContent(CONTENT). */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+  function telDigits(p) { return String(p || '').replace(/[^0-9+]/g, ''); }
+  function telHref(p) { return 'tel:' + telDigits(p); }
+  function smsHref(p, body) { return 'sms:' + telDigits(p) + '?&body=' + encodeURIComponent(body || ''); }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  /* reveal-on-scroll. Under reduced motion everything is revealed at once. */
+  function initReveal() {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Form POST. Returns a promise; the niche decides what to render on success. */
+  function postForm(endpoint, payload) {
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+  }
+
+  /* Consent gate (§9.3).
+     Runs in the CAPTURE phase, ahead of the niche's own submit handler, so a
+     checkbox the BUILD injected is enforced even though that niche's JS knows
+     nothing about it.
+
+     It does NOT stopPropagation: the niche handler still runs and sets its own
+     message if it has one. We only supply wording when nobody else did, checked
+     on the next tick — so the 8 sites that already gate keep their own copy and
+     the injected sites get a sensible default. Enforcement is uniform; wording
+     is not overridden. */
+  function consentGate(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+    if (!box || box.checked) return;
+
+    e.preventDefault();
+    box.focus();
+
+    var msg = form.querySelector('[id$="Msg"]');
+    var before = msg ? msg.textContent : null;
+    setTimeout(function () {
+      if (!msg || msg.textContent !== before) return;   // the niche spoke first
+      msg.textContent = 'Please tick the consent box so we can reply to you.';
+      if (msg.className.indexOf('err') < 0) msg.className += ' err';
+    }, 0);
+  }
+  document.addEventListener('submit', consentGate, true);
+
+  /* The content lifecycle.
+     DEFAULT_CONTENT is inlined by the build from content.json, so the two can
+     never disagree. The fetch exists so an operator edit goes live without a
+     rebuild; on failure the inlined copy already rendered. */
+  /* content.json namespaces per-niche data under `niche` (SITELAB_TEMPLATE.md
+     §4.3) so the canonical schema stays clean. But every niche renderer reads
+     those keys FLAT — c.walkServices, c.systemMap, c.rundown — because they were
+     written against the pre-consolidation shape. Nothing ever unpacked the
+     namespace, so after the very first conversion every renderer that touched
+     niche data threw on undefined. Hand the renderer a flattened view; the
+     authored file keeps its namespace. Verified collision-free across all 17
+     sites, and re-checked by qa-site.js on every run. */
+  function SLflat(c) { return c && c.niche ? Object.assign({}, c, c.niche) : (c || {}); }
+
+  /* Flatten the GLOBAL, once, before niche.js parses. Passing a flattened copy
+     to renderContent(c) is not enough: every niche.js opens with
+     `var CONTENT = window.DEFAULT_CONTENT;` and its interactive handlers — drip
+     calculators, quoters, week builders — read that alias directly rather than
+     the render parameter. Those paths would still see the nested shape.
+     This is why base.js must be emitted BEFORE niche.js (see _template/index.html).
+     content.json on disk keeps its namespace; only the runtime view is flat, so
+     DEFAULT_CONTENT still matches the authored file byte for byte. */
+  window.DEFAULT_CONTENT = SLflat(window.DEFAULT_CONTENT);
+
+  function boot() {
+    var CONTENT = SLflat(window.DEFAULT_CONTENT);
+    window.CONTENT = CONTENT;
+    if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+    initReveal();
+    if (typeof window.initScene === 'function') window.initScene(reduce);
+
+    fetch('content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        CONTENT = SLflat(Object.assign({}, window.DEFAULT_CONTENT, d));
+        window.CONTENT = CONTENT;
+        if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+      })
+      .catch(function () { /* offline or 404: the inlined defaults stand */ });
+  }
+
+  /* setErr and showDone are intentionally absent: every niche examined
+     defines its own with a different signature. Sharing them would be a
+     silent behaviour change, not a saving. */
+  window.SL = { esc: esc, num: num, telHref: telHref, telDigits: telDigits,
+                smsHref: smsHref, val: val, postForm: postForm, reduce: reduce };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<script>
+/* garage-sale/niche.js — this niche's renderer and interactive logic.
+   Shared utilities come from _template/base.js via SL. base.js owns the
+   reduced-motion flag, the reveal observer, the content fetch/merge lifecycle,
+   and calling window.renderContent(). Sinks are DOM-property assignments
+   (textContent / element properties) throughout; innerHTML appears only with
+   esc() per the escaping canon.
+   Content shape notes: hero/about/howItWorks/prepTips/contact live under
+   content.json's `niche` namespace and reach this renderer FLAT (base.js
+   SLflat). brand carries a SPLIT city + state — the estate-sale convention,
+   shared only by these two siblings — composed here wherever a locale line
+   renders. pricing is the percentage-model OBJECT {commission, minimum, note}
+   (spec Decision 3), never an array. niche.contact {heading, body, hours} is
+   this niche's new key family; the flattened c.contact.hours doubles as the
+   footer-contact component's hours line for free. */
+(function () {
+  'use strict';
+
+  var SL = window.SL;
+  var esc = SL.esc, telHref = SL.telHref;
+  var CONTENT = window.DEFAULT_CONTENT;
+
+  /* ---- content helpers ---- */
+  function phoneDigits(p){ var d = String(p || '').replace(/\D/g, ''); if (d.length === 10) d = '1' + d; return d; }
+  function smsHref(p, body){ return 'sms:+' + phoneDigits(p) + (body ? '?body=' + encodeURIComponent(body) : ''); }
+  /* Always read contact details off the LIVE merged view (base.js refreshes
+     window.CONTENT after the content.json fetch) so an admin edit takes
+     effect everywhere — form destination, SMS fallback, toasts — no rebuild. */
+  function cc(){ return window.CONTENT || CONTENT; }
+  function brandName(){ return (cc().brand && cc().brand.name) || DEFAULT_CONTENT.brand.name; }
+  function brandPhone(){ return (cc().brand && cc().brand.phone) || DEFAULT_CONTENT.brand.phone; }
+  function brandEmail(){ return (cc().brand && (cc().brand.leadEmail || cc().brand.email)) || (DEFAULT_CONTENT.brand.leadEmail || DEFAULT_CONTENT.brand.email); }
+  function smsBody(){ return 'Hi ' + brandName() + "! I'd like to book a free driveway walkthrough."; }
+  function setText(id, v){ var el = document.getElementById(id); if (el && v != null && v !== '') el.textContent = v; }
+
+  /* Re-rendered regions appear instantly once the boot render + reveal
+     observer have run (this listener registers AFTER base.js's, so it fires
+     after boot). Before that, first-paint nodes keep .reveal and get observed. */
+  var revealReady = false;
+  document.addEventListener('DOMContentLoaded', function () { revealReady = true; });
+  function revealCls(){ return revealReady ? 'reveal in' : 'reveal'; }
+
+  var PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+  /* ---- section renderers ---- */
+  function renderHero(h){
+    if (!h) return;
+    setText('heroKicker', h.kicker);
+    setText('heroTitle', h.title);
+    setText('heroSub', h.subtitle);
+    setText('heroCtaPrimary', h.ctaPrimary);
+    setText('heroCtaSecondary', h.ctaSecondary);
+  }
+
+  function renderAbout(a){
+    if (!a) return;
+    setText('aboutHeading', a.heading);
+    setText('aboutBody', a.body);
+  }
+
+  function renderSteps(steps){
+    var g = document.getElementById('stepsGrid');
+    if (!g || !steps || !steps.length) return;
+    while (g.firstChild) g.removeChild(g.firstChild);
+    steps.forEach(function (s, i) {
+      var step = document.createElement('div');
+      step.className = 'step ' + revealCls();
+      step.setAttribute('data-delay', String(i % 3 + 1));
+      var n = document.createElement('span'); n.className = 'step__n';
+      var h3 = document.createElement('h3'); h3.textContent = s.title || '';
+      var p = document.createElement('p'); p.textContent = s.desc || '';
+      step.appendChild(n); step.appendChild(h3); step.appendChild(p);
+      g.appendChild(step);
+    });
+  }
+
+  /* The percentage sale-sticker card. commission + minimum are the admin's
+     two editable fields for this model; note rides along on the same object.
+     Values render verbatim — this file adds no money copy of its own. */
+  function renderFee(p){
+    if (!p || typeof p !== 'object' || Array.isArray(p)) return;
+    setText('feeCommission', p.commission);
+    setText('feeMinimum', p.minimum);
+    setText('feeNote', p.note);
+  }
+
+  /* Six prep-tip cards, order preserved from content. Every value lands via
+     textContent; the numbered sticker dot is CSS-counter chrome. */
+  function renderPrepTips(tips){
+    var g = document.getElementById('tipsGrid');
+    if (!g || !tips || !tips.length) return;
+    while (g.firstChild) g.removeChild(g.firstChild);
+    tips.forEach(function (t, i) {
+      var tip = document.createElement('div');
+      tip.className = 'tip ' + revealCls();
+      tip.setAttribute('data-delay', String(i % 3 + 1));
+      var dot = document.createElement('span'); dot.className = 'tip__dot';
+      var h3 = document.createElement('h3'); h3.textContent = t.title || '';
+      var p = document.createElement('p'); p.textContent = t.desc || '';
+      tip.appendChild(dot); tip.appendChild(h3); tip.appendChild(p);
+      g.appendChild(tip);
+    });
+  }
+
+  /* niche.contact {heading, body, hours} — the booking section's voice. */
+  function renderContact(ct){
+    if (!ct) return;
+    setText('contactHeading', ct.heading);
+    setText('contactBody', ct.body);
+    setText('contactHours', ct.hours);
+  }
+
+  function renderArea(sa){
+    if (!sa) return;
+    setText('areaRegion', sa.region);
+    var g = document.getElementById('areaChips');
+    if (!g || !sa.cities || !sa.cities.length) return;
+    while (g.firstChild) g.removeChild(g.firstChild);
+    sa.cities.forEach(function (city) {
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = PIN_SVG;          // static icon markup, no content in it
+      chip.appendChild(document.createTextNode(city));
+      g.appendChild(chip);
+    });
+  }
+
+  function renderOwner(o){
+    if (!o) return;
+    setText('meetHeading', o.heading);
+    setText('meetDesc', o.bio);
+    var mp = document.getElementById('meetPhoto');
+    if (mp) {
+      while (mp.firstChild) mp.removeChild(mp.firstChild);
+      if (o.photo) {
+        var img = document.createElement('img');
+        img.src = o.photo;
+        img.alt = 'Photo of the owner';
+        mp.appendChild(img);
+        mp.removeAttribute('aria-label'); mp.removeAttribute('role');
+      }
+    }
+  }
+
+  function renderContent(c){
+    var b = c.brand || {};
+    /* Full name everywhere; the nav lockup drops a trailing " Garage Sales" —
+       the line under it already says "Garage sales · <city, state>". */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function (el) { el.textContent = b.name || ''; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function (el) {
+      el.textContent = String(b.name || '').replace(/\s+Garage Sales$/i, '');
+    });
+    /* brand.city + brand.state are SPLIT in this niche's content.json —
+       compose "City, ST" once and reuse it. */
+    var locale = [b.city, b.state].filter(Boolean).join(', ');
+    var bl = document.getElementById('brandLocale');
+    if (bl && locale) bl.textContent = 'Garage sales · ' + locale;
+
+    var tel = telHref(b.phone), sms = smsHref(b.phone, smsBody());
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function (a) { a.setAttribute('href', tel); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function (a) { a.setAttribute('href', sms); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-phone-text]'), function (el) { el.textContent = b.phone || ''; });
+
+    setText('footTagline', b.tagline);
+    var area = document.getElementById('areaLine');
+    if (area) area.textContent = 'Serving ' + ((c.serviceArea && c.serviceArea.region) || locale || b.city || '');
+
+    renderHero(c.hero);
+    renderAbout(c.about);
+    renderSteps(c.howItWorks);
+    renderFee(c.pricing);
+    renderPrepTips(c.prepTips);
+    renderContact(c.contact);
+    renderArea(c.serviceArea);
+    renderOwner(c.owner);
+  }
+
+  // year
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  // nav solidify
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ===== walkthrough request form =====
+     Leads deliver without a backend via FormSubmit (house pattern): the FIRST
+     real submission emails an activation link to the lead inbox; the
+     destination email and business number live in CONTENT.brand and are
+     editable from /admin/. Set provider:'web3forms' + a key to switch. */
+  var LEAD = {
+    provider: 'formsubmit',
+    web3formsKey: ''                    // <-- paste a key from web3forms.com to use Web3Forms
+  };
+
+  var form = document.getElementById('bookForm');
+  if (form) {
+    var msgEl = document.getElementById('bookMsg');
+    var submitBtn = document.getElementById('bookSubmit');
+    var val = function (id) { var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+    var setErr = function (fieldEl, on) { if (fieldEl) fieldEl.classList.toggle('invalid', !!on); };
+
+    var buildSms = function (d) {
+      var body = 'Hi ' + brandName() + "! I'd like to book a free driveway walkthrough."
+        + ' Name: ' + d.name + '.'
+        + ' Phone: ' + d.phone + '.'
+        + ' Sale address: ' + d.address + (d.city ? ', ' + d.city : '') + '.'
+        + (d.date ? ' Preferred weekend: ' + d.date + '.' : '')
+        + (d.notes ? ' In the garage: ' + d.notes + '.' : '');
+      return smsHref(brandPhone(), body);
+    };
+
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // Desktop guard: never let sms: or tel: links open the OS "pick an app"
+    // dialog — show a helpful toast instead. Mobile is untouched.
+    if (!isMobile) {
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+        if (!a) return;
+        e.preventDefault();
+        var t = document.getElementById('smsToast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'smsToast';
+          t.setAttribute('role', 'status');
+          t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+            + 'background:#FFFFFF;color:#33241A;padding:14px 22px;border-radius:14px;'
+            + 'box-shadow:0 12px 40px rgba(140,75,10,.35);border:1.5px solid rgba(221,119,8,.5);'
+            + 'font-family:\'Public Sans\',system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+            + 'opacity:0;transition:opacity .25s ease;';
+          document.body.appendChild(t);
+        }
+        t.innerHTML = 'Call or text us at <strong style="color:#A8500A;letter-spacing:.02em">' + esc(brandPhone()) + '</strong> from your phone.';
+        requestAnimationFrame(function () { t.style.opacity = '1'; });
+        clearTimeout(window.__smsToastTimer);
+        window.__smsToastTimer = setTimeout(function () { t.style.opacity = '0'; }, 4500);
+      });
+    }
+
+    var showDone = function (phone, smsUrl) {
+      form.hidden = true;
+      var done = document.getElementById('bookDone');
+      var dm = document.getElementById('doneMsg');
+      if (dm) {
+        if (isMobile && smsUrl) {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' to set up your free walkthrough. Opening a text so you can send us a copy too — just hit send.';
+        } else {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' from ' + brandPhone() + ' to set up your free walkthrough. Keep an eye on your messages.';
+        }
+      }
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      // On mobile only, also open the customer's SMS app pre-filled.
+      if (smsUrl && isMobile) { setTimeout(function () { window.location.href = smsUrl; }, 900); }
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // honeypot: bots fill this; treat as done and do nothing real
+      var hp = form.querySelector('.hp');
+      if (hp && hp.value) { showDone(val('q-phone') || 'your phone'); return; }
+
+      // validate
+      var checks = ['q-name', 'q-phone', 'q-addr', 'q-city'];
+      var firstBad = null, ok = true;
+      checks.forEach(function (id) {
+        var el = document.getElementById(id);
+        var bad = !el.value || !el.value.trim();
+        setErr(el.closest('.field'), bad);
+        if (bad) { ok = false; if (!firstBad) firstBad = el; }
+      });
+      var consent = document.getElementById('q-consent');
+      if (!consent.checked) { ok = false; if (!firstBad) firstBad = consent; }
+
+      if (!ok) {
+        msgEl.className = 'book__msg err';
+        msgEl.textContent = consent.checked ? 'Please fill in the highlighted fields.'
+                                            : 'Please complete the required fields and check the consent box.';
+        if (firstBad) firstBad.focus();
+        return;
+      }
+
+      var data = {
+        name: val('q-name'), phone: val('q-phone'),
+        address: val('q-addr'), city: val('q-city'),
+        date: val('q-date'), notes: val('q-notes')
+      };
+
+      // build request per provider
+      var url, payload, headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (LEAD.provider === 'web3forms' && LEAD.web3formsKey) {
+        url = 'https://api.web3forms.com/submit';
+        payload = Object.assign({
+          access_key: LEAD.web3formsKey,
+          subject: 'New walkthrough request: ' + data.name + ' — ' + data.city,
+          from_name: brandName() + ' site'
+        }, data);
+      } else {
+        url = 'https://formsubmit.co/ajax/' + encodeURIComponent(brandEmail());
+        payload = Object.assign({
+          _subject: 'New walkthrough request: ' + data.name + ' — ' + data.city,
+          _template: 'table', _captcha: 'false'
+        }, data);
+      }
+
+      submitBtn.disabled = true;
+      var origText = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      msgEl.className = 'book__msg'; msgEl.textContent = '';
+
+      fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(payload) })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return { ok: true }; }) : Promise.reject(r.status); })
+        .then(function () { showDone(data.phone, buildSms(data)); })
+        .catch(function () {
+          // couldn't reach the lead server — never lose the lead
+          if (isMobile) {
+            msgEl.className = 'book__msg ok';
+            msgEl.textContent = 'Opening a text with your details — just hit send and we\'ll take it from there.';
+            window.location.href = buildSms(data);
+          } else {
+            msgEl.className = 'book__msg err';
+            msgEl.textContent = 'Couldn\'t reach our server. Please text your details to ' + brandPhone() + ' and we\'ll get you scheduled.';
+          }
+        })
+        .then(function () { submitBtn.disabled = false; submitBtn.textContent = origText; });
+    });
+
+    // clear a field's error as the user fixes it
+    form.addEventListener('input', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+    form.addEventListener('change', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+  }
+
+  window.renderContent = renderContent;
+})();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: reviews -- */
+/* _template/components/reviews.js
+   Fills the three review cards from c.testimonials via element.textContent
+   (DOM-property assignment, the escaping standard for this build). Carries
+   its OWN fallback strings -- the B1 lesson: an empty testimonial must still
+   read as an honest, deliberate placeholder, not blank space or a copied-in
+   assumption about a real customer. Empty-compliant: a fictional demo with
+   no testimonials renders three "coming soon" cards, never a fabricated
+   quote. */
+(function () {
+  'use strict';
+
+  var FALLBACK_QUOTE = 'Real review coming soon.';
+  var FALLBACK_WHO = '— Add a real review here';
+
+  function initReviews(c) {
+    var cards = document.querySelectorAll('.review-cmp');
+    if (!cards.length) return;
+    var testimonials = (c && c.testimonials) || [];
+    cards.forEach(function (card, i) {
+      var t = testimonials[i] || {};
+      var quoteEl = card.querySelector('.review-cmp__quote');
+      var whoEl = card.querySelector('.review-cmp__who');
+      if (quoteEl) quoteEl.textContent = t.quote || FALLBACK_QUOTE;
+      if (whoEl) whoEl.textContent = t.name ? ('— ' + t.name) : FALLBACK_WHO;
+    });
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initReviews);
+  }
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
+</script>
+
+<script>
+/* garage-sale/scene.js — the signature animation is CSS, in sections.css.
+   sway, glow and drift — a cardboard GARAGE SALE sign swaying on its twine
+   beside the hero photo card, morning motes drifting up through the low sun,
+   and a sunrise halo breathing behind the photo. All of it is
+   transform/opacity only, loops on @keyframes (gs-signsway, gs-sunhalo,
+   gs-drift), and is switched off by the prefers-reduced-motion block in that
+   same file plus base.css's global animation:none override — so there is
+   nothing for JavaScript to drive (SITELAB_TEMPLATE.md 7.0, D-S). A stub
+   here is the correct shape, not a gap. qa-site.js grades the animation
+   wherever it lives. */
+window.initScene = function (reduce) { /* see sections.css */ };
+</script>
+
+</body>
+</html>

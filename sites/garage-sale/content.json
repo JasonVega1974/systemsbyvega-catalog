@@ -1,0 +1,110 @@
+{
+  "brand": {
+    "name": "Sunup Garage Sales",
+    "tagline": "Your garage back by Sunday night.",
+    "phone": "(208) 555-0158",
+    "email": "hello@sunupgaragesales.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Pocatello",
+    "state": "ID"
+  },
+  "owner": {
+    "name": "Ramona Pike",
+    "heading": "The person who works your driveway",
+    "bio": "Ramona Pike has been the first car at Saturday-morning sales since she was tall enough to see over a card table. After years of running sales for moving neighbors and downsizing friends, she made it official — a small crew, a trailer full of folding tables, and one simple promise: you hand us the garage, and we hand it back empty. Ramona still prices every sale herself and works every sale day from the first early bird to the last box on the donation truck.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Pocatello & the Portneuf Valley",
+    "short": "Portneuf Valley",
+    "cities": [
+      "Pocatello",
+      "Chubbuck",
+      "Inkom",
+      "American Falls",
+      "McCammon",
+      "Lava Hot Springs"
+    ]
+  },
+  "testimonials": [],
+  "pricing": {
+    "commission": "40%",
+    "minimum": "$200",
+    "note": "One commission on what sells, agreed in writing before we book your date — nothing to pay up front."
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Garage sales · Moving sales · Downsizing days",
+      "title": "You don't want a garage sale. You want the garage back.",
+      "subtitle": "Sunup runs garage and moving sales across Pocatello and the Portneuf Valley. We sort, stage, price and sign everything, staff the whole sale day, and haul or donate whatever's left. You don't even have to be home.",
+      "ctaPrimary": "Book a free driveway walkthrough",
+      "ctaSecondary": "See how it works"
+    },
+    "about": {
+      "heading": "Nobody actually wants to run a garage sale",
+      "body": "The pricing decisions, the 6 a.m. start, the haggling, the pile of unsold stuff at 4 p.m. — that's the part people dread, and that's the part we take. We run the sale on your driveway, on your behalf: your things stay yours until a shopper pays for them, and everything ends with an itemized settlement sheet and an empty garage. One thing we'll never do is guess out loud what your sale will bring — nobody honestly can. What we promise is the work."
+    },
+    "howItWorks": [
+      {
+        "title": "Sort & stage",
+        "desc": "We walk the garage with you and flag anything the family keeps. Then the crew sorts the rest into categories and stages the driveway — everything up on tables, best items nearest the street."
+      },
+      {
+        "title": "Price & sign",
+        "desc": "Every category gets priced to actually sell, small items get bundled, and our corner signs go up around the neighborhood the night before — big letters, driver height."
+      },
+      {
+        "title": "Sale day, staffed",
+        "desc": "We work the sale from early birds to the last hour: greeting, haggling, cash and card checkout. You can watch from the kitchen window or leave town entirely."
+      },
+      {
+        "title": "Leftovers hauled or donated",
+        "desc": "Whatever hasn't sold by close gets donated or hauled away by arrangement. You get the garage back swept, with an itemized settlement sheet of everything that sold."
+      }
+    ],
+    "prepTips": [
+      {
+        "title": "Everything off the ground",
+        "desc": "Items on the floor don't sell. We bring folding tables and raise everything to waist height — even a sheet of plywood on sawhorses outsells a tarp on the lawn."
+      },
+      {
+        "title": "Best things face the street",
+        "desc": "A driver decides in two seconds whether to stop. The furniture, tools and big pieces go nearest the curb, where they do the advertising for everything behind them."
+      },
+      {
+        "title": "Make a walkway, not a wall",
+        "desc": "Tables form a corridor shoppers walk through, so they end up seeing everything — a single line of tables across the driveway is a barricade, not a sale."
+      },
+      {
+        "title": "Signs get four words",
+        "desc": "A driver thirty feet away has time for about four big words and an arrow. Our signs go up on the corners the night before, at eye height for a driver — not knee height on a fence."
+      },
+      {
+        "title": "Price by category, then bundle",
+        "desc": "We sort first and price whole categories at once instead of agonizing item by item. Small stuff gets bundled — 'fill a bag' moves volume and saves hours of tagging."
+      },
+      {
+        "title": "A markdown plan empties the garage",
+        "desc": "The point of the last day is a clear garage, not a full one. We set the markdown schedule with you in advance, so the sale ends on purpose instead of fizzling out."
+      }
+    ],
+    "contact": {
+      "heading": "Get your Saturday back",
+      "body": "Call or text and we'll set up a free driveway walkthrough — usually a weekday evening, about twenty minutes. We'll look at what you've got, explain the fee structure, and if it's a fit, put a sale date on the calendar in writing.",
+      "hours": "Walkthroughs weekday evenings · Sale days Friday & Saturday, 8 AM – 4 PM"
+    }
+  },
+  "seo": {
+    "title": "Sunup Garage Sales — Garage & Moving Sales, Run For You | Pocatello, ID",
+    "description": "Full-service garage and moving sales in Pocatello and the Portneuf Valley. We sort, price, sign and staff the whole sale, then haul or donate what's left. Free driveway walkthroughs — call or text (208) 555-0158.",
+    "ogTitle": "Sunup Garage Sales — Your garage back by Sunday night.",
+    "ogDescription": "Garage and moving sales across Pocatello and the Portneuf Valley, Idaho, run for you from setup to haul-away. Free walkthroughs: (208) 555-0158.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/garage-sale/",
+    "themeColor": "#C75B12",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/garage-sale/og.png"
+  }
+}

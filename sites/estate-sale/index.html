@@ -1,0 +1,2150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Magpie &amp; Mantel Estate Sales — Estate Sales &amp; Clean-Outs | Twin Falls, ID</title>
+<meta name="description" content="Full-service estate sales in Twin Falls and the Magic Valley. We assess, stage, price and run the sale weekend, then hand back a broom-clean home. Free walkthroughs — call or text (208) 555-0127." />
+<meta name="theme-color" content="#0E2A26" />
+
+<link rel="canonical" href="https://systemsbyvega.com/sites/estate-sale/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://systemsbyvega.com/sites/estate-sale/" />
+<meta property="og:title" content="Magpie &amp; Mantel Estate Sales — The whole house, handled with care." />
+<meta property="og:description" content="Estate sales, downsizing and clean-outs across Twin Falls and the Magic Valley, Idaho. Free walkthroughs: (208) 555-0127." />
+<meta property="og:image" content="https://systemsbyvega.com/sites/estate-sale/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://systemsbyvega.com/sites/estate-sale/og.png" />
+
+<link rel="icon" href="" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Magpie & Mantel Estate Sales",
+  "description": "Full-service estate sales in Twin Falls and the Magic Valley. We assess, stage, price and run the sale weekend, then hand back a broom-clean home. Free walkthroughs — call or text (208) 555-0127.",
+  "telephone": "+12085550127",
+  "email": "hello@magpieandmantel.com",
+  "areaServed": "Magic Valley, Idaho",
+  "priceRange": "$$",
+  "slogan": "The whole house, handled with care."
+}
+</script>
+
+<style>
+/* ── niche tokens ─────────────────────────────────────────────────────── */
+/* estate-sale — tokens only. Structure lives in _template/base.css; this
+   niche's own section rules live in sections.css.
+   Identity: "parlor at dusk" — deep teal-ink ground, brass accent, warm
+   parchment type. Adapted from the EstateSaleBiz demo's teal + brass system,
+   re-tuned dark for the platform template. Contrast (WCAG, computed):
+   accent-ink on accent 6.90:1, on accent-2 9.63:1; ink on ground 15.75:1;
+   ink-dim on ground 9.42:1 and 7.33:1 on panel-2; muted on ground 6.71:1. */
+:root{
+  --scheme: dark;
+  --ground-deep:  #081010;   /* the dark under the dark */
+  --ground:       #0C1614;   /* teal-ink parlor ground */
+  --ground-2:     #0F1D1A;
+  --panel:        #12211D;
+  --panel-2:      #1A2E28;
+  --accent:       #C89A3F;   /* brass — the treasure accent */
+  --accent-2:     #E3B95F;   /* polished brass highlight */
+  --accent-deep:  #8A6420;   /* aged brass shadow */
+  --accent-alt:   #3FBFA5;   /* estate teal, used sparingly */
+  --accent-ink:   #20160A;   /* type on brass */
+  --ink:          #F2EDE0;   /* warm parchment */
+  --ink-bright:   #FAF7EE;
+  --ink-dim:      #AEBDB4;
+  --ink-max:      #FFFDF6;
+  --muted:        #8FA098;
+  --hair:         rgba(242,237,224,.10);
+  --hair-accent:  rgba(200,154,63,.20);
+  --card:         rgba(18,33,29,.55);
+  --card-brd:     rgba(242,237,224,.12);
+  --shadow:       0 24px 60px -20px rgba(0,0,0,.7);
+  --maxw:         1140px;
+
+  --sheen-hi:     #FFF9EC;
+  --sheen-lo:     #D8CCAE;
+  --sheen-accent: var(--accent-2);
+  --placeholder:  var(--muted);
+  --err:          #E0616B;
+  --err-ink:      #FF9AA2;
+
+  --display: 'Fraunces', Georgia, serif;
+  --body:    'Karla', system-ui, -apple-system, sans-serif;
+  --mono:    'IBM Plex Mono', ui-monospace, Consolas, monospace;
+}
+/* ── shared structural CSS ────────────────────────────────────────────── */
+/* _template/base.css — structural CSS shared by every SiteLab niche.
+   A rule lives here when its class/id hooks appear in the markup of two or more
+   deployed sites, or when it targets elements only. A rule used by exactly one
+   niche belongs in that niche's sections.css instead (SITELAB_TEMPLATE.md §3).
+   Colour and type come from niches/<slug>/niche.css. Never put a literal colour
+   in this file: reference a token from the §5 contract. */
+/* =========================================================
+   SAWTOOTH DUMPSTER CO. — tokens
+   High-desert identity: deep pine green base, safety-yellow
+   primary (amber-deep gradient end), warm sand/kraft type.
+   ========================================================= */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--ground);
+  color:var(--ink);
+  line-height:1.7;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* warm high-desert backdrop for the whole page */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    radial-gradient(1100px 640px at 82% -10%, rgba(216,155,0,.16), transparent 60%),
+    radial-gradient(900px 700px at 6% 14%, rgba(29,58,44,.55), transparent 62%),
+    radial-gradient(760px 520px at 50% 108%, rgba(255,196,0,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint topographic contour rings */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-image:
+    repeating-radial-gradient(circle at 18% 22%, transparent 0 52px, rgba(242,233,216,.035) 52px 53px),
+    repeating-radial-gradient(circle at 84% 68%, transparent 0 68px, rgba(255,196,0,.03) 68px 69px),
+    repeating-radial-gradient(circle at 55% -10%, transparent 0 84px, rgba(242,233,216,.022) 84px 85px);
+  opacity:.9;
+}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  text-transform:uppercase;letter-spacing:.22em;
+  font-size:.74rem;color:var(--accent);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{
+  content:"";width:26px;height:2px;border-radius:2px;flex:none;
+  background:linear-gradient(90deg,var(--accent),transparent);
+}
+.section-title{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.9rem,5vw,3.3rem);line-height:1.02;letter-spacing:.01em;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.lead{color:var(--muted);font-size:1.08rem;max-width:58ch}
+
+/* ---------- buttons ---------- */
+.btn{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  font-size:1rem;padding:1rem 1.7rem;border-radius:12px;border:0;cursor:pointer;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.55), inset 0 1px 0 rgba(255,255,255,.5);
+  overflow:hidden;transition:transform .18s ease, box-shadow .18s ease;white-space:nowrap;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.55)}
+.btn:active{transform:translateY(0)}
+/* headlight shine sweep */
+.btn::after{
+  content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-18deg);transition:left .6s ease;
+}
+.btn:hover::after{left:130%}
+.btn--ghost{
+  background:rgba(255,196,0,.07);color:var(--ink-bright);
+  border:1px solid rgba(255,196,0,.35);
+  box-shadow:none;backdrop-filter:blur(6px);
+}
+.btn--ghost:hover{background:var(--hair-accent);box-shadow:0 10px 26px -14px rgba(255,196,0,.5)}
+.btn--lg{font-size:1.12rem;padding:1.15rem 2.2rem}
+.btn:focus-visible,a:focus-visible,button:focus-visible,summary:focus-visible,
+input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:3px solid var(--accent-2);outline-offset:3px;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:60;
+  transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  padding:16px 0;
+}
+.nav.solid{
+  background:rgba(8,19,14,.86);backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--hair), 0 18px 40px -30px #000;
+  padding:10px 0;
+}
+.nav__in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand__mark{width:44px;height:44px;flex:none;border-radius:11px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.6)}
+.brand__mark svg{width:30px;height:30px}
+.brand__name{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.92rem;line-height:1;color:var(--ink-bright)}
+.brand__name span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.58rem;
+  letter-spacing:.22em;margin-top:4px;color:var(--muted)}
+.nav__links{display:flex;align-items:center;gap:28px}
+.nav__links a.link{font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:.1em;
+  text-transform:uppercase;font-size:.76rem;color:var(--ink);opacity:.82;transition:opacity .2s,color .2s}
+.nav__links a.link:hover{opacity:1;color:var(--accent-2)}
+.nav__call{display:inline-flex;align-items:center;gap:.5rem;font-family:'Anybody',sans-serif;font-stretch:62.5%;
+  font-weight:800;letter-spacing:.05em;text-transform:uppercase;font-size:.82rem;
+  padding:.6rem 1.05rem;border-radius:10px;color:var(--accent-ink);white-space:nowrap;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 10px 24px -12px rgba(255,196,0,.7), inset 0 1px 0 rgba(255,255,255,.45);}
+.nav__call svg{width:16px;height:16px}
+@media(max-width:900px){.nav__links a.link{display:none}}
+@media(max-width:520px){.nav__call{font-size:.74rem;padding:.5rem .8rem;gap:.35rem;letter-spacing:.03em}}
+@media(max-width:380px){.nav__call{font-size:.68rem;padding:.45rem .65rem;gap:.3rem}}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero{position:relative;min-height:100svh;display:flex;align-items:safe center;
+  padding:clamp(120px,15vh,180px) 0 clamp(70px,9vh,96px);overflow:hidden}
+.hero > .wrap{width:100%;position:relative;z-index:2}
+.hero__grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,4vw,56px);align-items:center;width:100%}
+@media(max-height:780px){.hero{align-items:flex-start}}
+@media(max-width:900px){.hero__grid{grid-template-columns:1fr;text-align:center;gap:30px}}
+
+.hero__tag{margin-bottom:20px}
+.hero h1{
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(2.5rem,6.8vw,4.7rem);line-height:.94;letter-spacing:.005em;margin-bottom:8px;
+}
+.hero h1 .l1{
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 50%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 4px 20px rgba(242,233,216,.14));display:block;
+}
+.hero h1 .l2{
+  color:var(--accent);display:block;
+  text-shadow:0 4px 30px rgba(255,196,0,.38);
+}
+.hero__sub{font-size:1.16rem;color:var(--ink-dim);max-width:48ch;margin:18px 0 30px}
+@media(max-width:900px){.hero__sub{margin-inline:auto}}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap}
+@media(max-width:900px){.hero__cta{justify-content:center}}
+.hero__proof{display:flex;gap:26px;margin-top:32px;flex-wrap:wrap}
+@media(max-width:900px){.hero__proof{justify-content:center}}
+.proof{display:flex;flex-direction:column;line-height:1.1}
+.proof b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;font-size:1.6rem;color:var(--ink-max);letter-spacing:.02em}
+.proof span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.proof + .proof{padding-left:26px;border-left:1px solid var(--hair)}
+@media(max-width:900px){.proof + .proof{border-left:0;padding-left:0}}
+
+/* hero art: roll-off box under a mountain ridge, drawn inline */
+.hero__art{position:relative;display:flex;justify-content:center}
+.hero__art .halo{
+  position:absolute;inset:-4% -8% 6%;border-radius:50%;
+  background:radial-gradient(closest-side, rgba(255,196,0,.22), rgba(255,196,0,.06) 55%, transparent 72%);
+  filter:blur(8px);animation:pulse 6s ease-in-out infinite;z-index:0;
+}
+.hero__art svg{position:relative;z-index:1;width:min(520px,94%);height:auto;
+  filter:drop-shadow(0 30px 50px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes pulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.04)}}
+
+/* drifting high-desert dust motes */
+.motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+@keyframes mote{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  12%{opacity:.75}
+  55%{transform:translate3d(26px,-55vh,0)}
+  88%{opacity:.4}
+  100%{transform:translate3d(-14px,-108vh,0);opacity:0}
+}
+
+/* ridge divider under hero */
+.ridge{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:64px;line-height:0;color:var(--panel);z-index:0;pointer-events:none}
+
+/* =========================================================
+   TRUST STRIP
+   ========================================================= */
+.trust{background:linear-gradient(180deg,var(--panel),rgba(19,42,32,.4));border-block:1px solid var(--hair)}
+.trust__in{display:flex;flex-wrap:wrap;gap:14px 34px;justify-content:center;align-items:center;padding:20px 22px}
+.trust__item{display:flex;align-items:center;gap:.6rem;font-family:'IBM Plex Mono',monospace;
+  font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:.74rem;color:var(--ink)}
+.trust__item svg{width:20px;height:20px;color:var(--accent);flex:none}
+
+/* =========================================================
+   SECTION base
+   ========================================================= */
+.section{padding:92px 0}
+.section__head{max-width:660px;margin-bottom:44px}
+.section__head.center{margin-inline:auto;text-align:center}
+.section__head .section-title{margin:14px 0 16px}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{position:relative;cursor:pointer}
+.pill input{position:absolute;opacity:0;width:0;height:0}
+.pill span{display:block;font-family:'IBM Plex Mono',monospace;font-weight:600;letter-spacing:.08em;
+  font-size:.84rem;color:var(--ink);padding:.6rem 1.15rem;border-radius:10px;text-transform:uppercase;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5);transition:.15s;user-select:none;white-space:nowrap}
+.pill:hover span{border-color:rgba(255,196,0,.5)}
+.pill input:checked + span{color:var(--accent-ink);border-color:transparent;
+  background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -10px rgba(255,196,0,.7)}
+.pill input:focus-visible + span{outline:3px solid var(--accent-2);outline-offset:2px}
+.price-box .btn{width:100%;margin-top:18px}
+.reveal.in .meter__bar{width:var(--w)}
+
+/* =========================================================
+   HOW IT WORKS
+   ========================================================= */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:step}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding:30px 26px;background:var(--card);border:1px solid var(--card-brd);
+  border-radius:18px;backdrop-filter:blur(8px)}
+.step__n{counter-increment:step;font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;
+  font-size:2.6rem;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(255,196,0,.65);
+  display:block;margin-bottom:12px}
+.step__n::before{content:"0" counter(step)}
+.step h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;text-transform:uppercase;
+  letter-spacing:.03em;font-size:1.15rem;margin-bottom:8px;color:var(--ink-max)}
+.step p{color:var(--muted);font-size:.98rem}
+.nogo .section__head{margin-bottom:30px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:820px;margin:0 auto}
+.chip{display:inline-flex;align-items:center;gap:.5rem;font-family:'IBM Plex Mono',monospace;
+  font-size:.8rem;letter-spacing:.04em;color:var(--ink);padding:.5rem 1rem;border-radius:20px;
+  border:1px solid var(--card-brd);background:rgba(8,19,14,.5)}
+.chip svg{width:14px;height:14px;color:var(--accent);flex:none}
+
+/* =========================================================
+   MEET THE OWNER
+   ========================================================= */
+.owner__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.owner__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.owner__photo{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(29,58,44,.6),rgba(10,22,16,.6));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);backdrop-filter:blur(8px)}
+.owner__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.owner__photo > svg{width:100%;height:100%;display:block}
+.owner__photo:not(:has(img,svg))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(255,196,0,.1), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,233,216,.04) 14px 15px);
+}
+.owner__photo:not(:has(img,svg))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none}
+.owner__body .section-title{margin:14px 0 22px}
+.owner__desc{color:var(--ink);font-size:1.02rem;line-height:1.7;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);min-height:170px;position:relative}
+.owner__desc:empty::before{
+  content:"Short bio goes here — who runs Sawtooth Dumpster Co., how long they've been hauling in the Valley, and why they got sick of watching neighbors get quote-gamed. Replace this placeholder with the real thing.";
+  color:var(--muted);opacity:.7;font-style:italic;display:block}
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq{background:var(--card);border:1px solid var(--card-brd);border-radius:14px;overflow:hidden;backdrop-filter:blur(8px)}
+.faq summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:700;font-size:1.04rem;color:var(--ink-bright)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid rgba(255,196,0,.4);color:var(--accent);transition:transform .25s ease;font-family:'Inter',sans-serif;font-weight:400}
+.faq[open] summary .plus{transform:rotate(45deg)}
+.faq__body{padding:0 22px 20px;color:var(--muted);font-size:1rem}
+.faq__body b{color:var(--ink)}
+
+/* =========================================================
+   BOOKING
+   ========================================================= */
+.cta{position:relative;overflow:hidden;
+  background:
+    radial-gradient(700px 340px at 18% 0%, var(--hair-accent), transparent 60%),
+    radial-gradient(600px 340px at 92% 100%, rgba(29,58,44,.7), transparent 60%),
+    linear-gradient(160deg,var(--panel),var(--ground-2));
+  border-block:1px solid var(--hair)}
+.cta__phone{color:var(--muted);font-size:.95rem;margin-top:14px}
+.cta__phone a{color:var(--accent-2);font-weight:600}
+
+.book{max-width:760px;margin:0 auto;background:rgba(8,19,14,.62);
+  border:1px solid var(--card-brd);border-radius:22px;padding:clamp(22px,3vw,34px);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow)}
+.book__grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.book__grid + .book__grid,.book__grid + .field,.field + .book__grid{margin-top:16px}
+@media(max-width:640px){.book__grid{grid-template-columns:1fr}}
+.field{min-width:0}
+.field--wide{grid-column:1 / -1}
+.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-dim);margin-bottom:6px}
+.field em{color:var(--accent-2);font-style:normal;font-weight:700}
+.field input,.field select,.field textarea{width:100%;padding:.85rem 1rem;border-radius:11px;
+  background:rgba(5,12,9,.7);border:1px solid var(--card-brd);color:var(--ink-bright);
+  font-family:'Inter',sans-serif;font-size:1rem}
+.field textarea{resize:vertical;min-height:74px}
+.field input::placeholder,.field textarea::placeholder{color:var(--placeholder)}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);background:rgba(5,12,9,.9)}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD34D' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center;background-size:18px;padding-right:2.6rem}
+.field input[readonly]{background:rgba(255,196,0,.06);border-style:dashed;color:var(--ink);
+  font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.field.invalid input,.field.invalid select,.field.invalid textarea{
+  border-color:var(--err);box-shadow:0 0 0 2px rgba(224,97,107,.22)}
+/* date input: keep the picker icon visible on dark bg */
+.field input[type="date"]{color-scheme:dark}
+
+.consent{display:flex;gap:.65rem;align-items:flex-start;margin-top:20px;
+  color:var(--muted);font-size:.92rem;line-height:1.5;cursor:pointer}
+.consent input{margin-top:.15rem;width:18px;height:18px;flex:none;accent-color:var(--accent);cursor:pointer}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+.book__actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:22px}
+.book__actions .btn[disabled]{opacity:.7;cursor:progress}
+.book__alt{font-family:'IBM Plex Mono',monospace;letter-spacing:.06em;color:var(--ink);opacity:.85;
+  text-transform:uppercase;font-size:.76rem;text-decoration:underline;text-underline-offset:3px}
+.book__alt:hover{opacity:1;color:var(--accent-2)}
+.book__msg{margin-top:14px;font-size:.94rem;min-height:1.1em}
+.book__msg.err{color:var(--err-ink)}
+.book__msg.ok{color:var(--accent-2)}
+
+.book-done{max-width:600px;margin:0 auto;text-align:center;
+  background:linear-gradient(180deg,rgba(29,58,44,.55),rgba(10,22,16,.6));
+  border:1px solid rgba(255,196,0,.4);border-radius:22px;padding:clamp(32px,5vw,52px) 32px;
+  box-shadow:0 0 0 1px rgba(255,196,0,.2),var(--shadow);backdrop-filter:blur(10px)}
+.book-done__ic{width:66px;height:66px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;
+  color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 12px 30px -10px rgba(255,196,0,.8)}
+.book-done__ic svg{width:34px;height:34px}
+.book-done h3{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:900;text-transform:uppercase;
+  font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.02;margin-bottom:12px;
+  background:linear-gradient(180deg,var(--sheen-hi),var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.book-done p{color:var(--ink-dim);font-size:1.05rem;margin-bottom:22px}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer{padding:52px 0 40px;border-top:1px solid var(--hair)}
+.footer__grid{display:flex;flex-wrap:wrap;gap:26px;justify-content:space-between;align-items:center}
+.footer__brand{display:flex;align-items:center;gap:14px}
+.footer__brand .brand__mark{width:52px;height:52px}
+.footer__brand b{font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-max);font-size:1rem;display:block}
+.footer__brand span{color:var(--muted);font-size:.8rem;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+.footer__meta{color:var(--muted);font-size:.86rem;text-align:right}
+.footer__meta a{color:var(--accent-2)}
+.footer__credit{display:block;margin-top:10px;font-size:.76rem;opacity:.55;letter-spacing:.02em}
+.footer__credit a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+.footer__credit a:hover{color:var(--accent-2)}
+@media(max-width:640px){.footer__meta{text-align:left}}
+
+/* =========================================================
+   STICKY MOBILE CTA
+   ========================================================= */
+.mobile-cta{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;gap:10px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+  background:rgba(8,19,14,.94);backdrop-filter:blur(14px);border-top:1px solid var(--hair)}
+.mobile-cta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:'Anybody',sans-serif;font-stretch:62.5%;font-weight:800;letter-spacing:.05em;
+  text-transform:uppercase;font-size:.95rem;padding:.95rem;border-radius:12px}
+.mobile-cta .call{color:var(--accent-ink);background:linear-gradient(135deg,var(--accent-2),var(--accent-deep));
+  box-shadow:0 8px 20px -8px rgba(255,196,0,.7)}
+.mobile-cta .text{color:var(--ink-bright);background:rgba(255,196,0,.1);border:1px solid rgba(255,196,0,.35)}
+.mobile-cta svg{width:20px;height:20px}
+@media(max-width:820px){.mobile-cta{display:flex}.footer{padding-bottom:120px}}
+
+/* reveal-on-scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn::after{display:none}}
+/* ── this niche's own section rules (may override the above) ─────────── */
+/* estate-sale/sections.css — this niche's own section rules, layered over
+   _template/base.css. Identity: "parlor at dusk" — a dark teal-ink parlor,
+   brass hardware, parchment serif type, ledger and estate-ticket motifs.
+   Adapted from the EstateSaleBiz demo's visual language (teal + brass,
+   perforated ticket edges, price-sticker tags) with a fictional brand.
+   Signature animation lives here in CSS: mm-keysway, mm-halo, mm-drift —
+   transform/opacity only, neutralised under prefers-reduced-motion below. */
+
+/* ---------- atmosphere: replace the high-desert backdrop ---------- */
+body{font-family:var(--body)}
+body::before{
+  background:
+    radial-gradient(1100px 620px at 78% -12%, rgba(63,191,165,.10), transparent 60%),
+    radial-gradient(900px 640px at 4% 16%, rgba(26,46,40,.6), transparent 62%),
+    radial-gradient(760px 520px at 52% 108%, rgba(200,154,63,.07), transparent 60%),
+    linear-gradient(180deg,var(--ground-2) 0%, var(--ground) 45%, var(--ground-deep) 100%);
+}
+/* faint ledger ruling instead of topographic rings — the bookkeeping motif */
+body::after{
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 46px, rgba(242,237,224,.028) 46px 47px),
+    repeating-linear-gradient(90deg, transparent 0 220px, rgba(200,154,63,.02) 220px 221px);
+  opacity:.9;
+}
+
+/* ---------- estate type voice ---------- */
+.section-title{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  letter-spacing:-.015em;font-size:clamp(1.9rem,4.2vw,2.9rem);line-height:1.12;
+}
+.lead{font-size:1.05rem}
+.mm-flourish{display:block;width:160px;height:12px;margin:18px auto 0}
+.section__head .mm-flourish{margin-top:22px}
+
+/* ---------- buttons: brass, pill-shaped, quietly confident ---------- */
+.btn{
+  font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;font-size:.98rem;
+  box-shadow:0 12px 30px -10px rgba(200,154,63,.5), inset 0 1px 0 rgba(255,253,246,.45);
+}
+.btn:hover{box-shadow:0 18px 40px -10px rgba(200,154,63,.6), inset 0 1px 0 rgba(255,253,246,.5)}
+.btn--ghost{
+  background:rgba(200,154,63,.07);border:1px solid rgba(200,154,63,.4);
+  box-shadow:none;color:var(--ink-bright);
+}
+.btn--ghost:hover{background:rgba(200,154,63,.14);box-shadow:0 10px 26px -14px rgba(200,154,63,.5)}
+
+/* ---------- nav ---------- */
+.nav.solid{background:rgba(10,18,16,.88)}
+.brand__mark{background:transparent;box-shadow:none;border-radius:0}
+.brand__mark svg{width:40px;height:40px}
+.brand__name{
+  font-family:var(--display);font-weight:700;text-transform:none;
+  letter-spacing:0;font-size:1.02rem;
+}
+.nav__call{
+  font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em;
+  border-radius:100px;
+  box-shadow:0 10px 24px -12px rgba(200,154,63,.6), inset 0 1px 0 rgba(255,253,246,.4);
+}
+
+/* ---------- hero: the parlor ---------- */
+.hero h1{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  font-size:clamp(2.3rem,5vw,3.8rem);line-height:1.1;letter-spacing:-.02em;
+  margin-bottom:10px;max-width:15ch;
+  background:linear-gradient(180deg,var(--sheen-hi) 0%,var(--ink) 55%,var(--sheen-lo) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+@media(max-width:900px){.hero h1{margin-inline:auto}}
+.hero__sub{font-size:1.1rem;line-height:1.75;max-width:52ch}
+.hero__proof{gap:18px}
+.proof b{font-family:var(--display);font-weight:700;font-size:1.18rem;text-transform:none;letter-spacing:0}
+.proof span{font-size:.62rem;letter-spacing:.1em}
+.proof + .proof{padding-left:18px}
+
+/* estate column: hanging brass key + framed heirloom photo */
+.hero__estate{position:relative;display:flex;justify-content:center;padding:26px 10px 10px}
+.hero__estate .hero-photo-cmp{
+  width:min(410px,100%);border-radius:18px;
+  border:1px solid rgba(200,154,63,.35);
+  outline:1px solid rgba(200,154,63,.22);outline-offset:9px;
+  box-shadow:0 34px 80px -24px rgba(0,0,0,.75), 0 6px 18px rgba(0,0,0,.4);
+}
+.mm-halo{
+  position:absolute;inset:-2% -6% 4%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(closest-side, rgba(200,154,63,.2), rgba(63,191,165,.06) 55%, transparent 74%);
+  filter:blur(10px);
+  animation:mm-halo 7s ease-in-out infinite;
+}
+.mm-key{
+  position:absolute;top:-14px;left:4%;width:56px;z-index:3;pointer-events:none;
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.5));
+}
+.mm-key svg{width:100%;height:auto;transform-origin:30px 0;animation:mm-keysway 8s ease-in-out infinite}
+@media(max-width:900px){.mm-key{left:10%;width:44px;top:-6px}}
+
+/* attic-light dust motes */
+.mm-motes{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.mm-mote{
+  position:absolute;bottom:-24px;width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle, rgba(227,185,95,.8), transparent 70%);
+  opacity:0;animation:mm-drift 16s linear infinite;
+}
+.mm-mote:nth-child(1){left:8%;--dx:30px;animation-duration:15s;animation-delay:-2s}
+.mm-mote:nth-child(2){left:24%;--dx:-22px;animation-duration:19s;animation-delay:-9s;width:4px;height:4px}
+.mm-mote:nth-child(3){left:47%;--dx:18px;animation-duration:14s;animation-delay:-5s}
+.mm-mote:nth-child(4){left:63%;--dx:-28px;animation-duration:21s;animation-delay:-12s;width:6px;height:6px}
+.mm-mote:nth-child(5){left:78%;--dx:24px;animation-duration:17s;animation-delay:-7s;width:4px;height:4px}
+.mm-mote:nth-child(6){left:91%;--dx:-16px;animation-duration:20s;animation-delay:-14s}
+
+/* the signature loops — sway, breathe, drift (transform/opacity only) */
+@keyframes mm-keysway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+@keyframes mm-halo{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:.95;transform:scale(1.05)}}
+@keyframes mm-drift{
+  0%{transform:translate3d(0,0,0);opacity:0}
+  10%{opacity:.7}
+  60%{transform:translate3d(var(--dx,24px),-40vh,0);opacity:.45}
+  100%{transform:translate3d(calc(var(--dx,24px) * -0.6),-74vh,0);opacity:0}
+}
+
+/* estate-ticket perforation along the hero's bottom edge */
+.mm-perf{position:absolute;left:0;right:0;bottom:0;border-top:2px dashed rgba(242,237,224,.16)}
+.mm-perf::before,.mm-perf::after{
+  content:"";position:absolute;top:-14px;width:26px;height:26px;border-radius:50%;
+  background:var(--ground);border:1px solid rgba(242,237,224,.1);
+}
+.mm-perf::before{left:-13px}
+.mm-perf::after{right:-13px}
+
+/* ---------- about: the letter ---------- */
+.about{padding-bottom:60px}
+.about__card{
+  max-width:800px;margin:0 auto;text-align:center;
+  background:var(--card);border:1px solid var(--card-brd);border-radius:22px;
+  padding:clamp(30px,5vw,52px);backdrop-filter:blur(8px);
+}
+.about__card .mm-flourish{margin:0 auto 20px}
+.about__card .section-title{margin-bottom:18px}
+.about__body{color:var(--ink-dim);font-size:1.08rem;line-height:1.85;max-width:62ch;margin:0 auto}
+
+/* ---------- how it works: four movements ---------- */
+.steps--four{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1020px){.steps--four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.steps--four{grid-template-columns:1fr}}
+.step__n{
+  font-family:var(--display);font-weight:600;font-size:2.5rem;
+  -webkit-text-stroke:1.6px rgba(200,154,63,.75);
+}
+.step h3{
+  font-family:var(--display);font-weight:600;text-transform:none;
+  letter-spacing:-.01em;font-size:1.18rem;
+}
+
+/* ---------- fee structure: the settlement sheet ---------- */
+.fee__sheet{
+  position:relative;max-width:780px;margin:0 auto;
+  background:linear-gradient(170deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(200,154,63,.3);border-radius:22px;
+  padding:clamp(30px,5vw,50px) clamp(22px,4vw,46px) clamp(26px,4vw,40px);
+  box-shadow:0 0 0 1px rgba(200,154,63,.12), var(--shadow);
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 34px, rgba(242,237,224,.03) 34px 35px),
+    linear-gradient(170deg,var(--panel-2),var(--panel));
+  overflow:hidden;
+}
+/* ticket notches on the sheet's waist */
+.fee__sheet::before,.fee__sheet::after{
+  content:"";position:absolute;top:50%;width:26px;height:26px;margin-top:-13px;
+  border-radius:50%;background:var(--ground);border:1px solid rgba(200,154,63,.25);
+}
+.fee__sheet::before{left:-14px}
+.fee__sheet::after{right:-14px}
+.fee__cols{display:flex;align-items:stretch;justify-content:center;gap:clamp(18px,4vw,44px)}
+.fee__col{flex:1;text-align:center;padding:6px 0;min-width:0}
+.fee__rule{border-left:2px dashed rgba(200,154,63,.35);align-self:stretch}
+.fee__label{
+  display:block;font-family:var(--mono);font-weight:600;font-size:.68rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px;
+}
+.fee__big{
+  font-family:var(--display);font-weight:700;line-height:1;
+  font-size:clamp(3.4rem,9vw,5.6rem);letter-spacing:-.03em;
+  background:linear-gradient(180deg,#F6E2AE 0%,var(--accent-2) 45%,var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 24px rgba(200,154,63,.22));
+}
+.fee__big--min{font-size:clamp(2.6rem,7vw,4.2rem);padding-top:.35em}
+.fee__sub{
+  display:block;margin-top:10px;font-family:var(--mono);font-size:.72rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.fee__note{
+  margin:28px auto 0;max-width:54ch;text-align:center;
+  color:var(--ink-dim);font-size:1.02rem;line-height:1.7;
+  padding-top:22px;border-top:2px dashed rgba(242,237,224,.14);
+}
+.fee__cta{text-align:center;margin-top:24px}
+@media(max-width:560px){
+  .fee__cols{flex-direction:column;gap:20px}
+  .fee__rule{border-left:0;border-top:2px dashed rgba(200,154,63,.35)}
+}
+
+/* ---------- what-sells: the pricing ledger ---------- */
+.ws__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto;align-items:start}
+@media(max-width:860px){.ws__grid{grid-template-columns:1fr;max-width:620px}}
+.ws-group{
+  background:var(--card);border:1px solid var(--card-brd);border-radius:18px;
+  padding:22px 24px 14px;backdrop-filter:blur(8px);
+}
+.ws-group__cat{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-weight:600;font-size:.7rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent-2);
+  margin-bottom:8px;
+}
+.ws-group__cat::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(200,154,63,.4),transparent)}
+.ws-row{padding:14px 0;border-bottom:1px dashed var(--hair)}
+.ws-row:last-child{border-bottom:0}
+.ws-row__top{display:flex;align-items:baseline;justify-content:space-between;gap:14px}
+.ws-row__item{font-weight:700;color:var(--ink-bright);font-size:1rem;line-height:1.35}
+.ws-row__range{
+  flex:none;font-family:var(--mono);font-weight:600;font-size:.82rem;white-space:nowrap;
+  color:var(--accent-2);background:rgba(200,154,63,.1);
+  border:1px solid rgba(200,154,63,.35);border-radius:100px;padding:3px 12px;
+  transform:rotate(-1.5deg);
+}
+.ws-row__note{margin-top:6px;color:var(--muted);font-size:.9rem;line-height:1.6}
+.ws__note{
+  display:flex;gap:14px;align-items:flex-start;max-width:760px;margin:28px auto 0;
+  background:rgba(200,154,63,.06);border:2px dashed rgba(200,154,63,.4);border-radius:16px;
+  padding:18px 22px;
+}
+.ws__note svg{width:22px;height:22px;flex:none;color:var(--accent-2);margin-top:2px}
+.ws__note p{color:var(--ink-dim);font-size:.98rem;line-height:1.65}
+
+/* ---------- meet the owner ---------- */
+.meet__grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,52px);align-items:center;max-width:1000px;margin:0 auto}
+@media(max-width:820px){.meet__grid{grid-template-columns:1fr;gap:32px;max-width:520px}}
+.meet__photo{
+  position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(160deg,rgba(26,46,40,.7),rgba(8,16,16,.7));
+  border:1px solid var(--card-brd);box-shadow:var(--shadow);
+}
+.meet__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.meet__photo:not(:has(img))::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(closest-side, rgba(200,154,63,.12), transparent 70%),
+    repeating-linear-gradient(45deg, transparent 0 14px, rgba(242,237,224,.04) 14px 15px);
+}
+.meet__photo:not(:has(img))::after{
+  content:"Add the owner's photo here";position:absolute;inset:0;display:grid;place-items:center;
+  font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:.74rem;
+  color:var(--ink-dim);opacity:.6;padding:20px;text-align:center;pointer-events:none;
+}
+.meet__body .section-title{margin:14px 0 22px}
+.meet__desc{
+  color:var(--ink);font-size:1.02rem;line-height:1.75;padding:26px;border-radius:16px;
+  background:var(--card);border:1px solid var(--card-brd);backdrop-filter:blur(8px);
+}
+
+/* ---------- book / footer polish ---------- */
+.book{background:rgba(8,16,14,.62)}
+.book-done h3{font-family:var(--display);font-weight:600;text-transform:none;letter-spacing:-.01em}
+.footer__brand b{font-family:var(--display);font-weight:700;text-transform:none;letter-spacing:0}
+.footer__brand span{text-transform:none;letter-spacing:.02em;font-family:var(--body)}
+.disclosure{
+  max-width:860px;font-family:var(--mono);font-size:.74rem;line-height:1.7;
+  color:var(--muted);opacity:.8;padding-top:18px;border-top:1px solid var(--hair);
+}
+.mobile-cta .call{box-shadow:0 8px 20px -8px rgba(200,154,63,.7)}
+.mobile-cta .text{background:rgba(200,154,63,.1);border:1px solid rgba(200,154,63,.35)}
+.mobile-cta a{font-family:var(--body);font-weight:700;text-transform:none;letter-spacing:.01em}
+
+/* ---------- reduced motion: the parlor sits still ---------- */
+@media (prefers-reduced-motion: reduce){
+  .mm-key svg,.mm-halo,.mm-mote{animation:none}
+  .mm-mote{opacity:0}
+  .hero__estate .hero-photo-cmp img{animation:none}
+}
+
+/* the build-injected consent line's privacy link must read as a link
+   (base.css strips all anchor affordances globally) */
+.consent a{color:var(--accent-2);text-decoration:underline;text-underline-offset:2px}
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.css
+   Minimal: these three lines sit inside a niche's existing footer__meta
+   (defined in _template/base.css), so they inherit its color, alignment and
+   font-size. Only the bits base.css has no hook for -- margin reset so a
+   <p> stays flush with the surrounding text flow, and the link color inside
+   the social line -- live here. */
+.fc-hours, .fc-address, .fc-social { margin: 0; color: var(--muted); }
+.fc-social a { color: var(--accent-2); }
+
+/* -- component: reviews -- */
+/* _template/components/reviews.css
+   Namespaced review-cmp-* copy of bin-cleaning's .review grid, self-
+   contained on the shared token set every niche.css defines. */
+.reviews-cmp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+@media (max-width: 880px) { .reviews-cmp-grid { grid-template-columns: 1fr; max-width: 520px; } }
+.review-cmp { background: var(--card); border: 1px solid var(--card-brd); border-radius: 18px;
+  padding: 26px 24px; display: flex; flex-direction: column; gap: 14px;
+  transition: transform .2s ease, border-color .2s ease; }
+.review-cmp:hover { transform: translateY(-4px); }
+.review-cmp__mark { font-size: 2.2rem; line-height: 1; color: var(--accent-2); opacity: .5; font-family: var(--mono); }
+.review-cmp__quote { color: var(--ink-dim); font-size: 1rem; line-height: 1.65; flex: 1; font-style: italic; }
+.review-cmp__who { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; color: var(--accent-2); }
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.css
+   From niches/landscaping/sections.css's .hero__photo, generalized onto the
+   shared token set (--card-brd/--shadow/--accent-2/--mono instead of
+   landscaping's literal purple rgba() values) so it reads correctly in any
+   niche's palette. transform-only animation stays on the compositor; a 24s
+   one-shot with forwards, not an infinite loop, so it never reads as
+   breathing once you notice it. base.css already forces
+   `*{animation:none!important}` under reduced motion; the local query below
+   is a belt-and-suspenders copy so this component works even standalone. */
+.hero-photo-cmp { position: relative; z-index: 1; margin: 0; overflow: hidden; border-radius: 24px;
+  aspect-ratio: 4 / 5; max-height: 520px; width: 100%;
+  border: 1px solid var(--card-brd); box-shadow: var(--shadow); background: var(--card); }
+.hero-photo-cmp img { width: 100%; height: 100%; object-fit: cover; display: block;
+  animation: sl-kenburns 24s ease-out forwards; }
+@keyframes sl-kenburns { from { transform: scale(1) translateY(0); } to { transform: scale(1.08) translateY(-1.5%); } }
+@media (prefers-reduced-motion: reduce) { .hero-photo-cmp img { animation: none; } }
+
+.hero-photo-cmp.slot-empty { border: 2px dashed var(--accent-2); min-height: 220px; }
+.hero-photo-cmp.slot-empty img { display: none; }
+.hero-photo-cmp.slot-empty::after { content: "Photo appears here -- add it in your admin";
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 12px; font: 600 12px/1.5 var(--mono);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--accent-2); opacity: .85; }
+
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+</head>
+<body>
+<div id="svDemoBanner" role="note" aria-label="Demo site notice">
+  <span class="svDemoBanner__dot" aria-hidden="true"></span>
+  <span>Demo — this site is for sale</span>
+  <a href="/sites/">View all sites →</a>
+</div>
+<script>
+/* Demo chrome removes itself off the catalog: on a tenant subdomain this SAME
+   deployed file is an operator's live site — there is no per-buyer build any
+   more, middleware rewrites the subdomain here. Hostname, not a header or a
+   fetch: a page cannot read its own response headers, and a fetch would flash
+   the banner and fail open on a paid site. Synchronous removal right after the
+   element parses means it never paints. The apex and www keep the banner (that
+   IS the demo); so do vercel.app previews and localhost. */
+(function () {
+  var h = location.hostname;
+  if (h !== 'systemsbyvega.com' && h !== 'www.systemsbyvega.com'
+      && h.slice(-18) === '.systemsbyvega.com') {
+    var b = document.getElementById('svDemoBanner');
+    if (b) b.remove();
+
+    /* Owner login. The tenant IS the hostname's first label — the same value
+       middleware routes on — so nothing needs injecting for the page to know
+       it. ?tenant= is a hint, not authorisation: /admin/ resolves ownership
+       from the sign-in, so a guessed URL gets a login form, nothing more.
+
+       Appended on DOMContentLoaded, not here: this script sits at the TOP of
+       body (so the banner removal above beats first paint), and the footer
+       does not exist yet at this point in the parse. */
+    document.addEventListener('DOMContentLoaded', function () {
+      var a = document.createElement('a');
+      a.id = 'svOwnerLogin';
+      a.href = '/admin/?tenant=' + encodeURIComponent(h.slice(0, -18));
+      a.textContent = 'Owner login →';
+      var f = document.querySelector('footer');
+      if (f) {
+        a.style.cssText = 'display:inline-block;margin-top:12px;' +
+          'font-size:11.5px;color:inherit;opacity:.6;text-decoration:underline';
+        f.appendChild(a);
+      } else {
+        /* No footer in this niche's markup: a discreet fixed corner beats
+           silently having no login path at all. */
+        a.style.cssText = 'position:fixed;right:12px;bottom:10px;z-index:50;' +
+          'font-size:11.5px;color:inherit;opacity:.55;text-decoration:underline';
+        document.body.appendChild(a);
+      }
+    });
+  }
+})();
+</script>
+<style>
+#svDemoBanner{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 9px;background:#161B22;color:#fff;font-family:'IBM Plex Mono',ui-monospace,Consolas,monospace;font-size:12px;letter-spacing:.01em;padding:9px 16px;border-radius:20px;border:1px solid #323A48;box-shadow:0 10px 30px rgba(0,0,0,.35);max-width:calc(100vw - 24px);text-align:center}
+#svDemoBanner .svDemoBanner__dot{width:7px;height:7px;border-radius:50%;background:#F3922F;flex:none}
+#svDemoBanner a{color:#F3922F;font-weight:700;text-decoration:none}
+#svDemoBanner a:hover{text-decoration:underline}
+@media(max-width:820px){#svDemoBanner{bottom:78px;font-size:11.5px;padding:8px 14px}}
+</style>
+
+<!-- estate-sale/scene.svg — this site keeps its illustrations inline in
+     sections.html (brass key, ledger flourishes, monograms) rather than in a
+     shared <defs> block. Placeholder so the build slot resolves. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"></svg>
+
+<!-- estate-sale/sections.html — this niche's body markup.
+     Sections differ by product (SITELAB_TEMPLATE.md §3.1), so this is per-niche.
+     Visual language adapted from the EstateSaleBiz demo (teal + brass, ledger
+     and ticket motifs) onto the platform template; the brand here is fictional.
+     Static copy below mirrors content.json (the no-JS fallback — decision 1a);
+     niche.js re-renders every hooked region from the merged CONTENT. -->
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="brand" href="#top" aria-label="Magpie &amp; Mantel Estate Sales home">
+      <span class="brand__mark" role="img" aria-label="Magpie &amp; Mantel brass magpie seal">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="mm-grad-brass" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D08A"/><stop offset=".5" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#mm-grad-brass)" stroke-width="2.5"/>
+          <path d="M17 40c5-2 8-6 10-11 1.5-3.6 4-6 8-6 4.5 0 7 3 7 6.5 0 2.5-1.2 4.3-3.2 5.4L47 40l-9.5-2.6c-2.6 4-6.8 6.3-12.5 6.3-3 0-5.8-.6-8-3.7Z" fill="url(#mm-grad-brass)"/>
+          <circle cx="37.4" cy="27.6" r="1.3" fill="#20160A"/>
+        </svg>
+      </span>
+      <span class="brand__name" id="brandName"><span data-brand-short>Magpie &amp; Mantel</span><span id="brandLocale">Estate sales · Twin Falls, ID</span></span>
+    </a>
+    <div class="nav__links">
+      <a class="link" href="#how">How it works</a>
+      <a class="link" href="#fee">The fee</a>
+      <a class="link" href="#guide">What sells</a>
+      <a class="link" href="#reviews">Reviews</a>
+      <a class="link" href="#book">Walkthrough</a>
+      <!-- (208) 555-01XX is a reserved fictional range — editable via admin (brand.phone in content.json) -->
+      <a class="nav__call" href="tel:+12085550127" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg><span data-phone-text>(208) 555-0127</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <!-- attic-light dust motes — pure CSS drift, transform/opacity only (mm-drift) -->
+  <div class="mm-motes" aria-hidden="true">
+    <span class="mm-mote"></span><span class="mm-mote"></span><span class="mm-mote"></span>
+    <span class="mm-mote"></span><span class="mm-mote"></span><span class="mm-mote"></span>
+  </div>
+  <div class="wrap">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__tag"><span class="eyebrow" id="heroKicker">Estate sales · Downsizing · Clean-outs</span></div>
+        <h1 id="heroTitle">When it's time to let the house go, you shouldn't have to do it alone.</h1>
+        <p class="hero__sub" id="heroSub">Magpie &amp; Mantel runs full-service estate sales across Twin Falls and the Magic Valley. We walk the house with you, stage and price what's inside, run the sale weekend, and hand back a broom-clean home.</p>
+        <div class="hero__cta">
+          <a class="btn btn--lg" href="#book" id="heroCtaPrimary">Book a free walkthrough</a>
+          <a class="btn btn--ghost btn--lg" href="#how" id="heroCtaSecondary">See how it works</a>
+        </div>
+        <div class="hero__proof">
+          <div class="proof"><b>Free</b><span>Walkthrough, no pressure</span></div>
+          <div class="proof"><b>Itemized</b><span>Settlement sheet</span></div>
+          <div class="proof"><b>Broom-clean</b><span>Empty, swept handoff</span></div>
+        </div>
+      </div>
+      <div class="hero__estate">
+        <!-- signature motif: a brass skeleton key on its thread, swaying slowly
+             (mm-keysway in sections.css — transform only, reduced-motion safe) -->
+        <div class="mm-key" aria-hidden="true">
+          <svg viewBox="0 0 60 200" fill="none">
+            <defs>
+              <linearGradient id="mm-grad-key" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#F0D08A"/><stop offset=".45" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+              </linearGradient>
+              <radialGradient id="mm-grad-bow" cx=".35" cy=".3" r=".9">
+                <stop offset="0" stop-color="#F6E2AE"/><stop offset=".55" stop-color="#C89A3F"/><stop offset="1" stop-color="#7A5518"/>
+              </radialGradient>
+            </defs>
+            <line x1="30" y1="0" x2="30" y2="52" stroke="rgba(242,237,224,.35)" stroke-width="1.2"/>
+            <circle cx="30" cy="74" r="21" stroke="url(#mm-grad-bow)" stroke-width="7"/>
+            <circle cx="30" cy="52" r="3.4" fill="url(#mm-grad-key)"/>
+            <rect x="26.4" y="94" width="7.2" height="72" rx="3.4" fill="url(#mm-grad-key)"/>
+            <path d="M33.6 150h12v7.4h-12zM33.6 162h8v7.4h-8z" fill="url(#mm-grad-key)"/>
+            <rect x="24" y="97" width="2.1" height="64" rx="1" fill="rgba(255,253,246,.32)"/>
+          </svg>
+        </div>
+        <div class="mm-halo" aria-hidden="true"></div>
+        <!-- Hero art goes through the shared hero-photo component: it prefers an
+             operator's own uploaded c.niche.heroImg and falls back to
+             manifest.json's heroDefault (photos/hero-heirloom-table.jpg).
+             Credit: Tima Miroshnichenko, Pexels (photos/CREDITS.md). -->
+        <!-- _template/components/hero-photo.html
+     figure + img, Ken Burns one-shot zoom, extracted from niches/landscaping
+     (see .hero__photo in its sections.css). Both data-hero-default AND the
+     img's own src/alt are stamped by tools/build-site.js at build time: a
+     src that only appeared after DOMContentLoaded (hero-photo.js's original
+     design) hid the hero from the browser's preload scanner and made
+     fetchpriority="high" inert — a straight LCP regression against the
+     static figure this component replaced. hero-photo.js now only SWAPS the
+     src when an operator's c.niche.heroImg differs from what shipped.
+     Paths are absolute, since on a tenant subdomain the document is served
+     at "/" and a relative photos/ URL would 404. -->
+<figure class="hero-photo-cmp" data-hero-default="/sites/estate-sale/photos/hero-heirloom-table.jpg">
+  <img class="hero-photo-cmp__img" src="/sites/estate-sale/photos/hero-heirloom-table.jpg" alt="A gilt-edged porcelain coffee service staged on a polished walnut dining table, antique sideboard behind" fetchpriority="high" decoding="async">
+</figure>
+      </div>
+    </div>
+  </div>
+  <!-- estate-ticket perforation between the dark parlor and the page -->
+  <div class="mm-perf" aria-hidden="true"></div>
+</header>
+
+<!-- ============ TRUST STRIP ============ -->
+<section class="trust" aria-label="Highlights">
+  <div class="wrap trust__in">
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 4l9 6.5"/><path d="M5 10v9h14v-9"/><path d="M3 21h18"/></svg>The whole house, handled</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>Every item researched &amp; tagged</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>You keep what matters</div>
+    <div class="trust__item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>Nothing owed up front</div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about__card reveal">
+      <svg class="mm-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="mm-fl-a" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#C89A3F" stop-opacity="0"/><stop offset=".5" stop-color="#E3B95F"/><stop offset="1" stop-color="#C89A3F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#mm-fl-a)" stroke-width="1"/>
+        <path d="M80 1.5 84.5 6 80 10.5 75.5 6Z" fill="url(#mm-fl-a)"/>
+      </svg>
+      <h2 class="section-title" id="aboutHeading">A house full of things is a house full of decisions</h2>
+      <p class="about__body" id="aboutBody">Most families call us in one of three seasons: a passing, a move, or a long-overdue downsize. Whichever brought you here, the job is the same — treat the household with respect, research and price things honestly, and leave you with an empty, swept house and an itemized accounting of everything that sold. You keep what matters. We handle the rest.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="section-title">From first walkthrough to swept floors</h2>
+    </div>
+    <div class="steps steps--four" id="stepsGrid">
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Walk &amp; assess</h3>
+        <p>We tour the house with you, room by room, and flag anything the family wants to keep. The walkthrough is free, and there's no pressure to book.</p>
+      </div>
+      <div class="step reveal" data-delay="2">
+        <span class="step__n"></span>
+        <h3>Stage &amp; price</h3>
+        <p>Our crew sorts, stages and tags every room — tables up, cabinets opened, and each item researched and priced against real estate-sale comparables.</p>
+      </div>
+      <div class="step reveal" data-delay="3">
+        <span class="step__n"></span>
+        <h3>Sale weekend</h3>
+        <p>We run the sale from open to close: signage, crowd flow, checkout, and half-price hours at the end. You don't need to be there — many families prefer not to be.</p>
+      </div>
+      <div class="step reveal" data-delay="1">
+        <span class="step__n"></span>
+        <h3>Broom-clean handoff</h3>
+        <p>Whatever remains is donated or hauled away by arrangement. Then we hand back a swept, empty house along with an itemized settlement sheet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEE STRUCTURE (percentage model) ============ -->
+<section class="section fee" id="fee">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The fee</span>
+      <h2 class="section-title">One number, agreed before we start</h2>
+      <svg class="mm-flourish" viewBox="0 0 160 12" aria-hidden="true">
+        <defs><linearGradient id="mm-fl-b" gradientUnits="userSpaceOnUse" x1="0" y1="6" x2="160" y2="6"><stop offset="0" stop-color="#C89A3F" stop-opacity="0"/><stop offset=".5" stop-color="#E3B95F"/><stop offset="1" stop-color="#C89A3F" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" y1="6" x2="160" y2="6" stroke="url(#mm-fl-b)" stroke-width="1"/>
+        <path d="M80 1.5 84.5 6 80 10.5 75.5 6Z" fill="url(#mm-fl-b)"/>
+      </svg>
+    </div>
+
+    <!-- The settlement-sheet card. commission + minimum are the percentage
+         model's two editable fields (admin PRICE_MODEL_FIELDS.percentage);
+         niche.js renders them from CONTENT.pricing — no invented figures. -->
+    <div class="fee__sheet reveal" id="feeSheet">
+      <div class="fee__cols">
+        <div class="fee__col">
+          <span class="fee__label">Commission</span>
+          <div class="fee__big" id="feeCommission">35%</div>
+          <span class="fee__sub">of sales</span>
+        </div>
+        <div class="fee__rule" aria-hidden="true"></div>
+        <div class="fee__col">
+          <span class="fee__label">Sale minimum</span>
+          <div class="fee__big fee__big--min" id="feeMinimum">$1,500</div>
+          <span class="fee__sub">per estate</span>
+        </div>
+      </div>
+      <p class="fee__note" id="feeNote">We staff, stage, price and run the whole sale — one commission, agreed in writing, nothing to pay up front.</p>
+      <div class="fee__cta">
+        <a class="btn" href="#book" id="feeCta">Book a free walkthrough</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT-SELLS GUIDE ============ -->
+<section class="section guide" id="guide">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">The pricing ledger</span>
+      <h2 class="section-title">What things typically sell for</h2>
+      <p class="lead" style="margin:0 auto">A page from our working ledger — the kinds of pieces we see in Magic Valley households, and how we price them for a sale weekend.</p>
+    </div>
+    <!-- rendered by niche.js from CONTENT.whatSells, grouped by category.
+         Every value lands via textContent (DOM-property sinks only). -->
+    <div class="ws__grid" id="wsGroups"></div>
+    <div class="ws__note reveal" role="note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg>
+      <p id="wsNote">Ranges reflect typical estate-sale pricing for well-kept examples. Every estate is different, and no range here is a promise of what any particular item will bring.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="section reviews" id="reviews">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Families we've helped</span>
+      <h2 class="section-title">Word from around the valley</h2>
+    </div>
+    <!-- _template/components/reviews.html
+     Three review cards filled from c.testimonials. The fallback strings for
+     an empty card live in reviews.js, set via textContent -- NOT a CSS
+     :empty::before pseudo-element (bin-cleaning's original approach): a
+     property assignment is the escaping standard for every new sink in this
+     build, and it means the fallback copy exists in the DOM regardless of
+     what CSS a given niche happens to ship. -->
+<div class="reviews-cmp-grid">
+  <div class="review-cmp reveal" data-delay="1">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="2">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+  <div class="review-cmp reveal" data-delay="3">
+    <span class="review-cmp__mark" aria-hidden="true">&ldquo;</span>
+    <div class="review-cmp__quote"></div>
+    <div class="review-cmp__who"></div>
+  </div>
+</div>
+  </div>
+</section>
+
+<!-- ============ SERVICE AREA ============ -->
+<section class="section area" id="area">
+  <div class="wrap">
+    <div class="section__head center reveal">
+      <span class="eyebrow">Where we work</span>
+      <h2 class="section-title">Serving the Magic Valley</h2>
+      <p class="lead" style="margin:0 auto" id="areaRegion">Magic Valley, Idaho</p>
+    </div>
+    <div class="chips" id="areaChips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Twin Falls</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Jerome</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Kimberly</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Filer</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Buhl</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>Hansen</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK A WALKTHROUGH ============ -->
+<section class="section cta" id="book">
+  <div class="wrap">
+    <div class="section__head center reveal" style="max-width:660px;margin:0 auto 34px">
+      <span class="eyebrow">Free walkthrough</span>
+      <h2 class="section-title" style="margin:14px 0 14px">Tell us about the house</h2>
+      <p class="lead" style="margin:0 auto">Takes about a minute. We'll text you to set up a free walkthrough — we look at the house, you ask your questions, and there's no pressure to book.</p>
+      <p class="cta__phone">Rather talk? Call or text <a href="tel:+12085550127" data-tel data-phone-text>(208) 555-0127</a></p>
+    </div>
+
+    <form class="book reveal" id="bookForm" novalidate>
+      <div class="book__grid">
+        <div class="field">
+          <label for="q-name">Full name <em>*</em></label>
+          <input id="q-name" name="name" type="text" autocomplete="name" placeholder="Jordan Smith" required />
+        </div>
+        <div class="field">
+          <label for="q-phone">Phone (for text confirmation) <em>*</em></label>
+          <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(208) 555-0199" required />
+        </div>
+        <div class="field field--wide">
+          <label for="q-addr">Street address of the house <em>*</em></label>
+          <input id="q-addr" name="address" type="text" autocomplete="street-address" placeholder="123 Main St" required />
+        </div>
+        <div class="field">
+          <label for="q-city">City <em>*</em></label>
+          <input id="q-city" name="city" type="text" autocomplete="address-level2" placeholder="Twin Falls" required />
+        </div>
+        <div class="field">
+          <label for="q-date">Preferred walkthrough date</label>
+          <input id="q-date" name="date" type="date" />
+        </div>
+        <div class="field field--wide">
+          <label for="q-notes">What's the situation? (a sentence or two is plenty)</label>
+          <textarea id="q-notes" name="notes" rows="4" placeholder="e.g. We're clearing my parents' three-bedroom house after a move to assisted living. Lots of furniture and a full garage. Hoping for a sale next month."></textarea>
+        </div>
+      </div>
+
+      <label class="consent">
+        <input type="checkbox" id="q-consent" required />
+        <span>Text me to schedule the free walkthrough. Message &amp; data rates may apply. See our <a href="/legal/privacy.html">privacy policy</a>.</span>
+      </label>
+
+      <!-- spam honeypot: real people leave this empty -->
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+
+      <div class="book__actions">
+        <button class="btn btn--lg" type="submit" id="bookSubmit">Request my free walkthrough</button>
+        <a class="book__alt" href="sms:+12085550127?body=Hi%20Magpie%20%26%20Mantel!%20I%27d%20like%20to%20book%20a%20free%20walkthrough." data-sms>or text us instead</a>
+      </div>
+      <p class="book__msg" id="bookMsg" role="status" aria-live="polite"></p>
+    </form>
+
+    <!-- success card -->
+    <div class="book-done" id="bookDone" hidden>
+      <div class="book-done__ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <h3>Got it — we're with you from here</h3>
+      <p id="doneMsg">We'll text you shortly to set up your free walkthrough.</p>
+      <a class="btn btn--ghost" href="#top">Back to top</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEET THE OWNER ============ -->
+<section class="section meet" id="meet">
+  <div class="wrap">
+    <div class="meet__grid">
+      <!-- Owner photo renders from owner.photo (admin upload); empty shows the
+           honest add-a-photo placeholder styled in sections.css. -->
+      <div class="meet__photo reveal" id="meetPhoto" role="img" aria-label="Photo of the owner — coming soon">
+      </div>
+      <div class="meet__body reveal" data-delay="1">
+        <span class="eyebrow">Meet the owner</span>
+        <h2 class="section-title" id="meetHeading">The person who walks the house with you</h2>
+        <div class="meet__desc" id="meetDesc">Rowan Ashby grew up working weekend auctions and learned early that every box in a garage has a story attached. After years of helping neighbors downsize, Rowan turned that knack into a company — one built on the idea that a family should never have to price a lifetime of belongings while they're still saying goodbye to it. Rowan still leads every walkthrough personally, from the first look at the house to the final broom-clean handoff.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div class="footer__brand">
+      <span class="brand__mark" role="img" aria-label="Magpie &amp; Mantel Estate Sales">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="mm-grad-brass2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F0D08A"/><stop offset=".5" stop-color="#C89A3F"/><stop offset="1" stop-color="#8A6420"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="32" r="27" stroke="url(#mm-grad-brass2)" stroke-width="2.5"/>
+          <path d="M17 40c5-2 8-6 10-11 1.5-3.6 4-6 8-6 4.5 0 7 3 7 6.5 0 2.5-1.2 4.3-3.2 5.4L47 40l-9.5-2.6c-2.6 4-6.8 6.3-12.5 6.3-3 0-5.8-.6-8-3.7Z" fill="url(#mm-grad-brass2)"/>
+          <circle cx="37.4" cy="27.6" r="1.3" fill="#20160A"/>
+        </svg>
+      </span>
+      <div><b data-brand>Magpie &amp; Mantel Estate Sales</b><span id="footTagline">The whole house, handled with care.</span></div>
+    </div>
+    <div class="footer__meta">
+      Call or text <a href="tel:+12085550127" data-tel data-phone-text>(208) 555-0127</a><br />
+      <span id="areaLine">Serving Magic Valley, Idaho</span><br />
+      <!-- _template/components/footer-contact.html
+     Fragment meant to sit inside an existing niche's footer, wherever that
+     niche's sections.html carries the footer-contact slot comment (typically
+     beside the phone/email/serve-area lines already in footer__meta).
+     Populated by initFooterContact(c) in footer-contact.js. Each line starts
+     hidden and is revealed only when its own data is present, so an empty
+     demo (or an operator who hasn't filled in hours or an address yet) shows
+     nothing here at all -- no half-filled contact block, no dangling label
+     with nothing after it. -->
+<p class="fc-hours" id="fcHours" hidden></p>
+<p class="fc-address" id="fcAddress" hidden></p>
+<p class="fc-social" id="fcSocial" hidden></p>
+      <span style="opacity:.6">© <span id="yr"></span> <span data-brand>Magpie &amp; Mantel Estate Sales</span></span><br />
+      <span class="footer__credit">Concept build by Systems by Vega</span>
+    </div>
+  </div>
+  <!-- SWAP:DISCLOSURE -->
+  <div class="wrap" style="margin-top:26px">
+    <p class="disclosure"><span data-brand>Magpie &amp; Mantel Estate Sales</span> is a fictional business created to demonstrate this website design.
+    The phone number, email, pricing and reviews shown are placeholders — no real estate-sale services are offered here.</p>
+  </div>
+  <!-- /SWAP:DISCLOSURE -->
+</footer>
+
+<!-- ============ STICKY MOBILE CTA ============ -->
+<div class="mobile-cta">
+  <a class="call" href="tel:+12085550127" data-tel><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7A2 2 0 0 1 22 16.9z"/></svg>Call</a>
+  <a class="text" href="sms:+12085550127?body=Hi%20Magpie%20%26%20Mantel!%20I%27d%20like%20to%20book%20a%20free%20walkthrough." data-sms><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+</div>
+
+<script>
+/* Inlined from niches/estate-sale/content.json by tools/build-site.js.
+   DO NOT EDIT — edit content.json. These two cannot drift: one generates the other. */
+var DEFAULT_CONTENT = {
+  "brand": {
+    "name": "Magpie & Mantel Estate Sales",
+    "tagline": "The whole house, handled with care.",
+    "phone": "(208) 555-0127",
+    "email": "hello@magpieandmantel.com",
+    "leadEmail": "info@kingdom-creatives.com",
+    "city": "Twin Falls",
+    "state": "ID"
+  },
+  "owner": {
+    "name": "Rowan Ashby",
+    "heading": "The person who walks the house with you",
+    "bio": "Rowan Ashby grew up working weekend auctions and learned early that every box in a garage has a story attached. After years of helping neighbors downsize, Rowan turned that knack into a company — one built on the idea that a family should never have to price a lifetime of belongings while they're still saying goodbye to it. Rowan still leads every walkthrough personally, from the first look at the house to the final broom-clean handoff.",
+    "photo": ""
+  },
+  "serviceArea": {
+    "region": "Magic Valley, Idaho",
+    "short": "Magic Valley",
+    "cities": [
+      "Twin Falls",
+      "Jerome",
+      "Kimberly",
+      "Filer",
+      "Buhl",
+      "Hansen"
+    ]
+  },
+  "testimonials": [],
+  "pricing": {
+    "commission": "35%",
+    "minimum": "$1,500",
+    "note": "We staff, stage, price and run the whole sale — one commission, agreed in writing, nothing to pay up front."
+  },
+  "niche": {
+    "hero": {
+      "kicker": "Estate sales · Downsizing · Clean-outs",
+      "title": "When it's time to let the house go, you shouldn't have to do it alone.",
+      "subtitle": "Magpie & Mantel runs full-service estate sales across Twin Falls and the Magic Valley. We walk the house with you, stage and price what's inside, run the sale weekend, and hand back a broom-clean home.",
+      "ctaPrimary": "Book a free walkthrough",
+      "ctaSecondary": "See how it works"
+    },
+    "about": {
+      "heading": "A house full of things is a house full of decisions",
+      "body": "Most families call us in one of three seasons: a passing, a move, or a long-overdue downsize. Whichever brought you here, the job is the same — treat the household with respect, research and price things honestly, and leave you with an empty, swept house and an itemized accounting of everything that sold. You keep what matters. We handle the rest."
+    },
+    "howItWorks": [
+      {
+        "title": "Walk & assess",
+        "desc": "We tour the house with you, room by room, and flag anything the family wants to keep. The walkthrough is free, and there's no pressure to book."
+      },
+      {
+        "title": "Stage & price",
+        "desc": "Our crew sorts, stages and tags every room — tables up, cabinets opened, and each item researched and priced against real estate-sale comparables."
+      },
+      {
+        "title": "Sale weekend",
+        "desc": "We run the sale from open to close: signage, crowd flow, checkout, and half-price hours at the end. You don't need to be there — many families prefer not to be."
+      },
+      {
+        "title": "Broom-clean handoff",
+        "desc": "Whatever remains is donated or hauled away by arrangement. Then we hand back a swept, empty house along with an itemized settlement sheet."
+      }
+    ],
+    "whatSells": [
+      {
+        "cat": "Furniture",
+        "item": "Mid-century teak credenza",
+        "range": "$400–$1,500",
+        "note": "Danish maker stamps push the high end; a refinish usually lowers it."
+      },
+      {
+        "cat": "Furniture",
+        "item": "Solid-wood dining set, table + six chairs",
+        "range": "$200–$800",
+        "note": "Solid walnut or oak leads the range; veneer over particle board trails it."
+      },
+      {
+        "cat": "Jewelry & Watches",
+        "item": "14k gold jewelry (priced per gram)",
+        "range": "$55–$70",
+        "note": "Weighed and priced against the day's spot price — never below melt."
+      },
+      {
+        "cat": "Jewelry & Watches",
+        "item": "Signed vintage costume jewelry (per piece)",
+        "range": "$25–$300",
+        "note": "Signed pieces only — unsigned costume sells by the bagful on the final day."
+      },
+      {
+        "cat": "China & Glassware",
+        "item": "Complete fine-china service for eight",
+        "range": "$75–$400",
+        "note": "Pattern is everything; partial sets get priced to clear."
+      },
+      {
+        "cat": "China & Glassware",
+        "item": "Patterned mid-century kitchen glass (per piece)",
+        "range": "$10–$75",
+        "note": "Rare patterns beat the range; chips and dishwasher haze sink it."
+      },
+      {
+        "cat": "Kitchen",
+        "item": "Cast-iron skillet, early smooth-milled",
+        "range": "$40–$300",
+        "note": "Pre-1960 smooth-bottom pans lead the range; modern rough-cast cooks just as well but sells low."
+      },
+      {
+        "cat": "Tools & Shop",
+        "item": "Professional cordless power tools (each)",
+        "range": "$60–$300",
+        "note": "Battery and charger included makes the price — bare tools bring about half."
+      },
+      {
+        "cat": "Tools & Shop",
+        "item": "Rolling tool chest, professional line",
+        "range": "$200–$800",
+        "note": "Well-kept pro boxes hold their value; loaded drawers sell the box."
+      },
+      {
+        "cat": "Art & Prints",
+        "item": "Original oil painting, listed artist",
+        "range": "$200–$5,000",
+        "note": "Every signature gets researched before the sale — regional artists surprise people."
+      },
+      {
+        "cat": "Electronics & Audio",
+        "item": "1970s silver-face stereo receiver",
+        "range": "$75–$500",
+        "note": "The watts-per-channel monsters draw collectors from three counties."
+      },
+      {
+        "cat": "Books & Media",
+        "item": "Collectible vinyl pressings (each)",
+        "range": "$10–$100",
+        "note": "Originals and first pressings get pulled and priced singly; the rest fill the dollar bins."
+      }
+    ],
+    "whatSellsNote": "Ranges reflect typical estate-sale pricing for well-kept examples. Every estate is different, and no range here is a promise of what any particular item will bring."
+  },
+  "seo": {
+    "title": "Magpie &amp; Mantel Estate Sales — Estate Sales &amp; Clean-Outs | Twin Falls, ID",
+    "description": "Full-service estate sales in Twin Falls and the Magic Valley. We assess, stage, price and run the sale weekend, then hand back a broom-clean home. Free walkthroughs — call or text (208) 555-0127.",
+    "ogTitle": "Magpie &amp; Mantel Estate Sales — The whole house, handled with care.",
+    "ogDescription": "Estate sales, downsizing and clean-outs across Twin Falls and the Magic Valley, Idaho. Free walkthroughs: (208) 555-0127.",
+    "priceRange": "$$",
+    "schemaType": "LocalBusiness",
+    "canonical": "https://systemsbyvega.com/sites/estate-sale/",
+    "themeColor": "#0E2A26",
+    "favicon": "",
+    "fontsHref": "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Karla:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap",
+    "ogImage": "https://systemsbyvega.com/sites/estate-sale/og.png"
+  }
+};
+</script>
+
+<!-- SCRIPT ORDER IS LOAD-BEARING. base.js FIRST.
+     Every niche.js opens with `var SL = window.SL;`, and base.js assigns
+     window.SL at the end of its IIFE. With base.js emitted last, SL was
+     undefined when niche.js ran: every renderer threw on its first line,
+     window.renderContent was never defined, and base.js then skipped it via its
+     own typeof guard — silently, on all 14 converted sites.
+     base.js defers boot() to DOMContentLoaded, so renderContent and initScene
+     are both defined by the time it fires. Do not reorder these. -->
+<script>
+/* _template/base.js — utilities and the content lifecycle.
+   Shared by every niche. Niche-specific rendering lives in niches/<slug>/niche.js,
+   which must define window.renderContent(CONTENT). */
+(function () {
+  'use strict';
+
+  var reduce = window.matchMedia &&
+               window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function num(v) { var n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+  function telDigits(p) { return String(p || '').replace(/[^0-9+]/g, ''); }
+  function telHref(p) { return 'tel:' + telDigits(p); }
+  function smsHref(p, body) { return 'sms:' + telDigits(p) + '?&body=' + encodeURIComponent(body || ''); }
+  function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+  /* reveal-on-scroll. Under reduced motion everything is revealed at once. */
+  function initReveal() {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    els.forEach(function (el) { io.observe(el); });
+  }
+
+  /* Form POST. Returns a promise; the niche decides what to render on success. */
+  function postForm(endpoint, payload) {
+    return fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r; });
+  }
+
+  /* Consent gate (§9.3).
+     Runs in the CAPTURE phase, ahead of the niche's own submit handler, so a
+     checkbox the BUILD injected is enforced even though that niche's JS knows
+     nothing about it.
+
+     It does NOT stopPropagation: the niche handler still runs and sets its own
+     message if it has one. We only supply wording when nobody else did, checked
+     on the next tick — so the 8 sites that already gate keep their own copy and
+     the injected sites get a sensible default. Enforcement is uniform; wording
+     is not overridden. */
+  function consentGate(e) {
+    var form = e.target;
+    if (!form || form.tagName !== 'FORM') return;
+    var box = form.querySelector('input[type="checkbox"][id$="consent"]');
+    if (!box || box.checked) return;
+
+    e.preventDefault();
+    box.focus();
+
+    var msg = form.querySelector('[id$="Msg"]');
+    var before = msg ? msg.textContent : null;
+    setTimeout(function () {
+      if (!msg || msg.textContent !== before) return;   // the niche spoke first
+      msg.textContent = 'Please tick the consent box so we can reply to you.';
+      if (msg.className.indexOf('err') < 0) msg.className += ' err';
+    }, 0);
+  }
+  document.addEventListener('submit', consentGate, true);
+
+  /* The content lifecycle.
+     DEFAULT_CONTENT is inlined by the build from content.json, so the two can
+     never disagree. The fetch exists so an operator edit goes live without a
+     rebuild; on failure the inlined copy already rendered. */
+  /* content.json namespaces per-niche data under `niche` (SITELAB_TEMPLATE.md
+     §4.3) so the canonical schema stays clean. But every niche renderer reads
+     those keys FLAT — c.walkServices, c.systemMap, c.rundown — because they were
+     written against the pre-consolidation shape. Nothing ever unpacked the
+     namespace, so after the very first conversion every renderer that touched
+     niche data threw on undefined. Hand the renderer a flattened view; the
+     authored file keeps its namespace. Verified collision-free across all 17
+     sites, and re-checked by qa-site.js on every run. */
+  function SLflat(c) { return c && c.niche ? Object.assign({}, c, c.niche) : (c || {}); }
+
+  /* Flatten the GLOBAL, once, before niche.js parses. Passing a flattened copy
+     to renderContent(c) is not enough: every niche.js opens with
+     `var CONTENT = window.DEFAULT_CONTENT;` and its interactive handlers — drip
+     calculators, quoters, week builders — read that alias directly rather than
+     the render parameter. Those paths would still see the nested shape.
+     This is why base.js must be emitted BEFORE niche.js (see _template/index.html).
+     content.json on disk keeps its namespace; only the runtime view is flat, so
+     DEFAULT_CONTENT still matches the authored file byte for byte. */
+  window.DEFAULT_CONTENT = SLflat(window.DEFAULT_CONTENT);
+
+  function boot() {
+    var CONTENT = SLflat(window.DEFAULT_CONTENT);
+    window.CONTENT = CONTENT;
+    if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+    initReveal();
+    if (typeof window.initScene === 'function') window.initScene(reduce);
+
+    fetch('content.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        CONTENT = SLflat(Object.assign({}, window.DEFAULT_CONTENT, d));
+        window.CONTENT = CONTENT;
+        if (typeof window.renderContent === 'function') window.renderContent(CONTENT);
+      })
+      .catch(function () { /* offline or 404: the inlined defaults stand */ });
+  }
+
+  /* setErr and showDone are intentionally absent: every niche examined
+     defines its own with a different signature. Sharing them would be a
+     silent behaviour change, not a saving. */
+  window.SL = { esc: esc, num: num, telHref: telHref, telDigits: telDigits,
+                smsHref: smsHref, val: val, postForm: postForm, reduce: reduce };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+</script>
+
+<script>
+/* estate-sale/niche.js — this niche's renderer and interactive logic.
+   Shared utilities come from _template/base.js via SL. base.js owns the
+   reduced-motion flag, the reveal observer, the content fetch/merge lifecycle,
+   and calling window.renderContent(). Sinks are DOM-property assignments
+   (textContent / element properties) throughout; innerHTML appears only with
+   esc() per the escaping canon.
+   Content shape notes: hero/about/howItWorks/whatSells live under content.json's
+   `niche` namespace and reach this renderer FLAT (base.js SLflat). brand carries
+   a SPLIT city + state — the only niche that does — composed here wherever a
+   locale line renders. pricing is the percentage-model OBJECT
+   {commission, minimum, note} (spec Decision 3), never an array. */
+(function () {
+  'use strict';
+
+  var SL = window.SL;
+  var esc = SL.esc, telHref = SL.telHref;
+  var CONTENT = window.DEFAULT_CONTENT;
+
+  /* ---- content helpers ---- */
+  function phoneDigits(p){ var d = String(p || '').replace(/\D/g, ''); if (d.length === 10) d = '1' + d; return d; }
+  function smsHref(p, body){ return 'sms:+' + phoneDigits(p) + (body ? '?body=' + encodeURIComponent(body) : ''); }
+  /* Always read contact details off the LIVE merged view (base.js refreshes
+     window.CONTENT after the content.json fetch) so an admin edit takes
+     effect everywhere — form destination, SMS fallback, toasts — no rebuild. */
+  function cc(){ return window.CONTENT || CONTENT; }
+  function brandName(){ return (cc().brand && cc().brand.name) || DEFAULT_CONTENT.brand.name; }
+  function brandPhone(){ return (cc().brand && cc().brand.phone) || DEFAULT_CONTENT.brand.phone; }
+  function brandEmail(){ return (cc().brand && (cc().brand.leadEmail || cc().brand.email)) || (DEFAULT_CONTENT.brand.leadEmail || DEFAULT_CONTENT.brand.email); }
+  function smsBody(){ return 'Hi ' + brandName() + "! I'd like to book a free walkthrough."; }
+  function setText(id, v){ var el = document.getElementById(id); if (el && v != null && v !== '') el.textContent = v; }
+
+  /* Re-rendered regions appear instantly once the boot render + reveal
+     observer have run (this listener registers AFTER base.js's, so it fires
+     after boot). Before that, first-paint nodes keep .reveal and get observed. */
+  var revealReady = false;
+  document.addEventListener('DOMContentLoaded', function () { revealReady = true; });
+  function revealCls(){ return revealReady ? 'reveal in' : 'reveal'; }
+
+  var PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+  /* ---- section renderers ---- */
+  function renderHero(h){
+    if (!h) return;
+    setText('heroKicker', h.kicker);
+    setText('heroTitle', h.title);
+    setText('heroSub', h.subtitle);
+    setText('heroCtaPrimary', h.ctaPrimary);
+    setText('heroCtaSecondary', h.ctaSecondary);
+  }
+
+  function renderAbout(a){
+    if (!a) return;
+    setText('aboutHeading', a.heading);
+    setText('aboutBody', a.body);
+  }
+
+  function renderSteps(steps){
+    var g = document.getElementById('stepsGrid');
+    if (!g || !steps || !steps.length) return;
+    while (g.firstChild) g.removeChild(g.firstChild);
+    steps.forEach(function (s, i) {
+      var step = document.createElement('div');
+      step.className = 'step ' + revealCls();
+      step.setAttribute('data-delay', String(i % 3 + 1));
+      var n = document.createElement('span'); n.className = 'step__n';
+      var h3 = document.createElement('h3'); h3.textContent = s.title || '';
+      var p = document.createElement('p'); p.textContent = s.desc || '';
+      step.appendChild(n); step.appendChild(h3); step.appendChild(p);
+      g.appendChild(step);
+    });
+  }
+
+  /* The percentage fee sheet. commission + minimum are the admin's two
+     editable fields for this model; note rides along on the same object.
+     Values render verbatim — this file adds no money copy of its own. */
+  function renderFee(p){
+    if (!p || typeof p !== 'object' || Array.isArray(p)) return;
+    setText('feeCommission', p.commission);
+    setText('feeMinimum', p.minimum);
+    setText('feeNote', p.note);
+  }
+
+  /* The pricing ledger: rows grouped by category, order preserved from
+     content. Every value lands via textContent. */
+  function renderWhatSells(rows){
+    var g = document.getElementById('wsGroups');
+    if (!g || !rows || !rows.length) return;
+    var groups = [], byCat = {};
+    rows.forEach(function (r) {
+      if (!r || !r.item) return;
+      var cat = r.cat || 'More finds';
+      if (!byCat[cat]) { byCat[cat] = { cat: cat, rows: [] }; groups.push(byCat[cat]); }
+      byCat[cat].rows.push(r);
+    });
+    while (g.firstChild) g.removeChild(g.firstChild);
+    groups.forEach(function (grp, i) {
+      var card = document.createElement('div');
+      card.className = 'ws-group ' + revealCls();
+      card.setAttribute('data-delay', String(i % 3 + 1));
+      var head = document.createElement('div');
+      head.className = 'ws-group__cat';
+      head.textContent = grp.cat;
+      card.appendChild(head);
+      grp.rows.forEach(function (r) {
+        var row = document.createElement('div'); row.className = 'ws-row';
+        var top = document.createElement('div'); top.className = 'ws-row__top';
+        var item = document.createElement('span'); item.className = 'ws-row__item'; item.textContent = r.item || '';
+        top.appendChild(item);
+        if (r.range) {
+          var range = document.createElement('span'); range.className = 'ws-row__range'; range.textContent = r.range;
+          top.appendChild(range);
+        }
+        row.appendChild(top);
+        if (r.note) {
+          var note = document.createElement('div'); note.className = 'ws-row__note'; note.textContent = r.note;
+          row.appendChild(note);
+        }
+        card.appendChild(row);
+      });
+      g.appendChild(card);
+    });
+  }
+
+  function renderArea(sa){
+    if (!sa) return;
+    setText('areaRegion', sa.region);
+    var g = document.getElementById('areaChips');
+    if (!g || !sa.cities || !sa.cities.length) return;
+    while (g.firstChild) g.removeChild(g.firstChild);
+    sa.cities.forEach(function (city) {
+      var chip = document.createElement('span');
+      chip.className = 'chip';
+      chip.innerHTML = PIN_SVG;          // static icon markup, no content in it
+      chip.appendChild(document.createTextNode(city));
+      g.appendChild(chip);
+    });
+  }
+
+  function renderOwner(o){
+    if (!o) return;
+    setText('meetHeading', o.heading);
+    setText('meetDesc', o.bio);
+    var mp = document.getElementById('meetPhoto');
+    if (mp) {
+      while (mp.firstChild) mp.removeChild(mp.firstChild);
+      if (o.photo) {
+        var img = document.createElement('img');
+        img.src = o.photo;
+        img.alt = 'Photo of the owner';
+        mp.appendChild(img);
+        mp.removeAttribute('aria-label'); mp.removeAttribute('role');
+      }
+    }
+  }
+
+  function renderContent(c){
+    var b = c.brand || {};
+    /* Full name everywhere; the nav lockup drops a trailing " Estate Sales" —
+       the line under it already says "Estate sales · <city, state>". */
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand]'), function (el) { el.textContent = b.name || ''; });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-brand-short]'), function (el) {
+      el.textContent = String(b.name || '').replace(/\s+Estate Sales$/i, '');
+    });
+    /* brand.city + brand.state are SPLIT in this niche's content.json —
+       compose "City, ST" once and reuse it. */
+    var locale = [b.city, b.state].filter(Boolean).join(', ');
+    var bl = document.getElementById('brandLocale');
+    if (bl && locale) bl.textContent = 'Estate sales · ' + locale;
+
+    var tel = telHref(b.phone), sms = smsHref(b.phone, smsBody());
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-tel]'), function (a) { a.setAttribute('href', tel); });
+    Array.prototype.forEach.call(document.querySelectorAll('a[data-sms]'), function (a) { a.setAttribute('href', sms); });
+    Array.prototype.forEach.call(document.querySelectorAll('[data-phone-text]'), function (el) { el.textContent = b.phone || ''; });
+
+    setText('footTagline', b.tagline);
+    var area = document.getElementById('areaLine');
+    if (area) area.textContent = 'Serving ' + ((c.serviceArea && c.serviceArea.region) || locale || b.city || '');
+
+    renderHero(c.hero);
+    renderAbout(c.about);
+    renderSteps(c.howItWorks);
+    renderFee(c.pricing);
+    renderWhatSells(c.whatSells);
+    setText('wsNote', c.whatSellsNote);
+    renderArea(c.serviceArea);
+    renderOwner(c.owner);
+  }
+
+  // year
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = new Date().getFullYear();
+
+  // nav solidify
+  var nav = document.getElementById('nav');
+  if (nav) {
+    var onScroll = function () { nav.classList.toggle('solid', window.scrollY > 30); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ===== walkthrough request form =====
+     Leads deliver without a backend via FormSubmit (house pattern): the FIRST
+     real submission emails an activation link to the lead inbox; the
+     destination email and business number live in CONTENT.brand and are
+     editable from /admin/. Set provider:'web3forms' + a key to switch. */
+  var LEAD = {
+    provider: 'formsubmit',
+    web3formsKey: ''                    // <-- paste a key from web3forms.com to use Web3Forms
+  };
+
+  var form = document.getElementById('bookForm');
+  if (form) {
+    var msgEl = document.getElementById('bookMsg');
+    var submitBtn = document.getElementById('bookSubmit');
+    var val = function (id) { var el = document.getElementById(id); return el ? (el.value || '').trim() : ''; };
+    var setErr = function (fieldEl, on) { if (fieldEl) fieldEl.classList.toggle('invalid', !!on); };
+
+    var buildSms = function (d) {
+      var body = 'Hi ' + brandName() + "! I'd like to book a free walkthrough."
+        + ' Name: ' + d.name + '.'
+        + ' Phone: ' + d.phone + '.'
+        + ' House: ' + d.address + (d.city ? ', ' + d.city : '') + '.'
+        + (d.date ? ' Preferred date: ' + d.date + '.' : '')
+        + (d.notes ? ' Situation: ' + d.notes + '.' : '');
+      return smsHref(brandPhone(), body);
+    };
+
+    var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // Desktop guard: never let sms: or tel: links open the OS "pick an app"
+    // dialog — show a helpful toast instead. Mobile is untouched.
+    if (!isMobile) {
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="sms:"], a[href^="tel:"]');
+        if (!a) return;
+        e.preventDefault();
+        var t = document.getElementById('smsToast');
+        if (!t) {
+          t = document.createElement('div');
+          t.id = 'smsToast';
+          t.setAttribute('role', 'status');
+          t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);z-index:9999;'
+            + 'background:#1A2E28;color:#F2EDE0;padding:14px 22px;border-radius:14px;'
+            + 'box-shadow:0 12px 40px rgba(0,0,0,.55);border:1px solid rgba(200,154,63,.4);'
+            + 'font-family:Karla,system-ui,sans-serif;font-size:15px;max-width:88vw;text-align:center;'
+            + 'opacity:0;transition:opacity .25s ease;';
+          document.body.appendChild(t);
+        }
+        t.innerHTML = 'Call or text us at <strong style="color:#E3B95F;letter-spacing:.02em">' + esc(brandPhone()) + '</strong> from your phone.';
+        requestAnimationFrame(function () { t.style.opacity = '1'; });
+        clearTimeout(window.__smsToastTimer);
+        window.__smsToastTimer = setTimeout(function () { t.style.opacity = '0'; }, 4500);
+      });
+    }
+
+    var showDone = function (phone, smsUrl) {
+      form.hidden = true;
+      var done = document.getElementById('bookDone');
+      var dm = document.getElementById('doneMsg');
+      if (dm) {
+        if (isMobile && smsUrl) {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' to set up your free walkthrough. Opening a text so you can send us a copy too — just hit send.';
+        } else {
+          dm.textContent = 'We got your info. We\'ll text you at ' + phone + ' from ' + brandPhone() + ' to set up your free walkthrough. Keep an eye on your messages.';
+        }
+      }
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      // On mobile only, also open the customer's SMS app pre-filled.
+      if (smsUrl && isMobile) { setTimeout(function () { window.location.href = smsUrl; }, 900); }
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // honeypot: bots fill this; treat as done and do nothing real
+      var hp = form.querySelector('.hp');
+      if (hp && hp.value) { showDone(val('q-phone') || 'your phone'); return; }
+
+      // validate
+      var checks = ['q-name', 'q-phone', 'q-addr', 'q-city'];
+      var firstBad = null, ok = true;
+      checks.forEach(function (id) {
+        var el = document.getElementById(id);
+        var bad = !el.value || !el.value.trim();
+        setErr(el.closest('.field'), bad);
+        if (bad) { ok = false; if (!firstBad) firstBad = el; }
+      });
+      var consent = document.getElementById('q-consent');
+      if (!consent.checked) { ok = false; if (!firstBad) firstBad = consent; }
+
+      if (!ok) {
+        msgEl.className = 'book__msg err';
+        msgEl.textContent = consent.checked ? 'Please fill in the highlighted fields.'
+                                            : 'Please complete the required fields and check the consent box.';
+        if (firstBad) firstBad.focus();
+        return;
+      }
+
+      var data = {
+        name: val('q-name'), phone: val('q-phone'),
+        address: val('q-addr'), city: val('q-city'),
+        date: val('q-date'), notes: val('q-notes')
+      };
+
+      // build request per provider
+      var url, payload, headers = { 'Content-Type': 'application/json', 'Accept': 'application/json' };
+      if (LEAD.provider === 'web3forms' && LEAD.web3formsKey) {
+        url = 'https://api.web3forms.com/submit';
+        payload = Object.assign({
+          access_key: LEAD.web3formsKey,
+          subject: 'New walkthrough request: ' + data.name + ' — ' + data.city,
+          from_name: brandName() + ' site'
+        }, data);
+      } else {
+        url = 'https://formsubmit.co/ajax/' + encodeURIComponent(brandEmail());
+        payload = Object.assign({
+          _subject: 'New walkthrough request: ' + data.name + ' — ' + data.city,
+          _template: 'table', _captcha: 'false'
+        }, data);
+      }
+
+      submitBtn.disabled = true;
+      var origText = submitBtn.textContent; submitBtn.textContent = 'Sending…';
+      msgEl.className = 'book__msg'; msgEl.textContent = '';
+
+      fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(payload) })
+        .then(function (r) { return r.ok ? r.json().catch(function () { return { ok: true }; }) : Promise.reject(r.status); })
+        .then(function () { showDone(data.phone, buildSms(data)); })
+        .catch(function () {
+          // couldn't reach the lead server — never lose the lead
+          if (isMobile) {
+            msgEl.className = 'book__msg ok';
+            msgEl.textContent = 'Opening a text with your details — just hit send and we\'ll take it from there.';
+            window.location.href = buildSms(data);
+          } else {
+            msgEl.className = 'book__msg err';
+            msgEl.textContent = 'Couldn\'t reach our server. Please text your details to ' + brandPhone() + ' and we\'ll get you scheduled.';
+          }
+        })
+        .then(function () { submitBtn.disabled = false; submitBtn.textContent = origText; });
+    });
+
+    // clear a field's error as the user fixes it
+    form.addEventListener('input', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+    form.addEventListener('change', function (e) {
+      var f = e.target.closest && e.target.closest('.field'); if (f) f.classList.remove('invalid');
+    });
+  }
+
+  window.renderContent = renderContent;
+})();
+/* -- component runtime -- */
+/* _template/components/runtime.js — the shared-component wiring mechanism.
+ *
+ * Why this exists: base.js is shared by EVERY build, including the 23 (soon
+ * more) niches that use none of these components, so it cannot unconditionally
+ * call an initComponents(c) hook — a page with no components must build
+ * byte-identical to today. tools/build-site.js only appends this file (once,
+ * prepended ahead of any component's own .js) into the NICHE_JS bundle when
+ * at least one component actually got included for that niche. A niche with
+ * no components never sees this file at all.
+ *
+ * Mechanism: wrap window.renderContent. Script order is base.js, then
+ * NICHE_JS (niche.js followed by this runtime + each included component's
+ * .js, in that order — see _template/index.html and build-site.js), then
+ * scene.js — all synchronous, all executed before base.js's own boot() runs
+ * on DOMContentLoaded (see base.js). So by the time this file runs, niche.js
+ * has already done `window.renderContent = function (c) { ... };` — we read
+ * that as the "real" renderer, then replace window.renderContent with a
+ * wrapper that calls it first (unchanged niche behavior, always) and then
+ * runs every registered component initializer with the SAME content object.
+ * boot() calls window.renderContent(CONTENT) twice — once synchronously at
+ * boot, once again after the content.json fetch resolves — and the wrapper
+ * covers both calls automatically, so a component reacts to a live operator
+ * edit exactly like the niche's own render does.
+ *
+ * A component's own .js (footer-contact.js, before-after.js, ...) calls
+ * window.SLComponents.register(fn) at parse time — after this file, since
+ * build-site.js always places runtime.js first in the appended bundle.
+ */
+(function () {
+  'use strict';
+
+  if (window.SLComponents) return; // idempotent: only one niche build ever
+                                    // appends this, but guard anyway.
+
+  var list = [];
+  window.SLComponents = {
+    register: function (fn) { if (typeof fn === 'function') list.push(fn); }
+  };
+
+  var prevRender = window.renderContent;
+  window.renderContent = function (c) {
+    if (typeof prevRender === 'function') prevRender(c);
+    list.forEach(function (fn) {
+      /* One component's bug must not blank a page that otherwise rendered
+         fine — swallow and move on to the next initializer. */
+      try { fn(c); } catch (e) { /* component init failed; page still stands */ }
+    });
+  };
+})();
+
+/* -- component: footer-contact -- */
+/* _template/components/footer-contact.js
+   Hours + address + social row for the footer. Fed from c.contact.hours,
+   c.contact.address, c.contact.postal, c.brand.city/state and c.social.
+   Escaping standard for this build: DOM-property assignment for every sink
+   (textContent / element properties), never innerHTML or string
+   concatenation into markup -- so this file, unlike bin-cleaning's
+   hand-written footSocial (innerHTML + esc()), builds each link node with
+   createElement and sets .href/.rel/.target/.textContent directly. */
+(function () {
+  'use strict';
+
+  /* Same scheme gate bin-cleaning's footSocial uses, done again here rather
+     than trusted from upstream: entity-encoding on a value cannot stop a
+     scheme, and a manifest/content change is not a security boundary. */
+  function isHttps(url) { return /^https:\/\//i.test(String(url || '')); }
+  function safeUrl(u) { return String(u || '').replace(/["\\)]/g, ''); }
+
+  function setLine(el, text) {
+    if (!el) return;
+    el.textContent = text || '';
+    el.hidden = !text;
+  }
+
+  function initFooterContact(c) {
+    var hoursEl = document.getElementById('fcHours');
+    var addrEl = document.getElementById('fcAddress');
+    var socEl = document.getElementById('fcSocial');
+    if (!hoursEl && !addrEl && !socEl) return; // no slot on this page
+
+    var contact = (c && c.contact) || {};
+    var brand = (c && c.brand) || {};
+    var social = (c && c.social) || [];
+
+    setLine(hoursEl, contact.hours);
+
+    /* city/state/postal are only shown as the TAIL of a real street address --
+       brand.city alone (with no contact.address) is not an address, and most
+       niches already surface it elsewhere (e.g. a "Serving <city>" line), so
+       showing it here on its own would not be the empty-renders-nothing state
+       this component promises. */
+    var fullAddress = '';
+    if (contact.address) {
+      // brand.state is read here for completeness, but no real content.json in
+      // this codebase ever sets it: operator-content.mjs already composes a
+      // combined "City, ST" string into brand.city (Task 5/6 audit), so
+      // brand.state is dead weight on every current pipeline, not a bug in
+      // this component.
+      var cityState = [brand.city, brand.state].filter(Boolean).join(', ');
+      var tail = [cityState, contact.postal].filter(Boolean).join(' ');
+      fullAddress = [contact.address, tail].filter(Boolean).join(', ');
+    }
+    setLine(addrEl, fullAddress);
+
+    if (socEl) {
+      var links = social.filter(function (s) { return s && isHttps(s.url); });
+      while (socEl.firstChild) socEl.removeChild(socEl.firstChild);
+      links.forEach(function (s, i) {
+        if (i) socEl.appendChild(document.createTextNode(' \u00b7 '));
+        var a = document.createElement('a');
+        a.href = safeUrl(s.url);
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = s.label || s.n || s.url;
+        socEl.appendChild(a);
+      });
+      socEl.hidden = !links.length;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initFooterContact);
+  }
+})();
+
+/* -- component: reviews -- */
+/* _template/components/reviews.js
+   Fills the three review cards from c.testimonials via element.textContent
+   (DOM-property assignment, the escaping standard for this build). Carries
+   its OWN fallback strings -- the B1 lesson: an empty testimonial must still
+   read as an honest, deliberate placeholder, not blank space or a copied-in
+   assumption about a real customer. Empty-compliant: a fictional demo with
+   no testimonials renders three "coming soon" cards, never a fabricated
+   quote. */
+(function () {
+  'use strict';
+
+  var FALLBACK_QUOTE = 'Real review coming soon.';
+  var FALLBACK_WHO = '— Add a real review here';
+
+  function initReviews(c) {
+    var cards = document.querySelectorAll('.review-cmp');
+    if (!cards.length) return;
+    var testimonials = (c && c.testimonials) || [];
+    cards.forEach(function (card, i) {
+      var t = testimonials[i] || {};
+      var quoteEl = card.querySelector('.review-cmp__quote');
+      var whoEl = card.querySelector('.review-cmp__who');
+      if (quoteEl) quoteEl.textContent = t.quote || FALLBACK_QUOTE;
+      if (whoEl) whoEl.textContent = t.name ? ('— ' + t.name) : FALLBACK_WHO;
+    });
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initReviews);
+  }
+})();
+
+/* -- component: hero-photo -- */
+/* _template/components/hero-photo.js
+   src comes from c.niche.heroImg, falling back to the build-stamped default
+   path (data-hero-default) for this niche's photos/hero.jpg. Neither one
+   loading (missing content value AND a 404 on the default) shows the dashed
+   slot-empty state instead of a broken image -- detected via the img's own
+   load/error events rather than a build-time file-existence check, since
+   this file has no filesystem access at runtime. DOM-property assignment
+   throughout (img.src/.alt), never innerHTML. */
+(function () {
+  'use strict';
+
+  function initHeroPhoto(c) {
+    var fig = document.querySelector('.hero-photo-cmp');
+    if (!fig) return;
+    var img = fig.querySelector('img');
+    if (!img) return;
+
+    var n = (c && c.niche) || {};
+    var brand = (c && c.brand) || {};
+    var target = n.heroImg || fig.getAttribute('data-hero-default') || '';
+
+    if (!target) { fig.classList.add('slot-empty'); return; }
+
+    img.onerror = function () { fig.classList.add('slot-empty'); img.removeAttribute('src'); };
+    img.onload = function () { fig.classList.remove('slot-empty'); };
+    /* The default src (and its hand-written alt) ship IN the markup so the
+       preload scanner starts the fetch at parse time — reassigning the same
+       value here would refetch for nothing and stomp the static alt. Only
+       an operator photo that actually differs swaps in, wearing a
+       brand-derived alt because nobody wrote one for it. */
+    if (target !== img.getAttribute('src')) {
+      img.alt = brand.name ? (brand.name + ' — hero photo') : 'Hero photo';
+      img.src = target;
+    }
+  }
+
+  if (window.SLComponents && typeof window.SLComponents.register === 'function') {
+    window.SLComponents.register(initHeroPhoto);
+  }
+})();
+
+</script>
+
+<script>
+/* estate-sale/scene.js — the signature animation is CSS, in sections.css.
+   sway and drift — a brass key swaying gently on its thread beside the hero
+   photo card, attic-light dust motes drifting up through the hero, and a slow
+   halo breathing behind the photo. All of it is transform/opacity only, loops
+   on @keyframes (mm-keysway, mm-drift, mm-halo), and is switched off by the
+   prefers-reduced-motion block in that same file plus base.css's global
+   animation:none override — so there is nothing for JavaScript to drive
+   (SITELAB_TEMPLATE.md 7.0, D-S). A stub here is the correct shape, not a gap.
+   qa-site.js grades the animation wherever it lives. */
+window.initScene = function (reduce) { /* see sections.css */ };
+</script>
+
+</body>
+</html>
