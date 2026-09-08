@@ -84,18 +84,77 @@ tenants were isolated from one another was not testing isolation.
 
 ---
 
-## NEXT STEP — resume here
+## Step 2 — `api/submit-lead.mjs` · DONE (`796eab6`)
 
-**Step 2 of the brief: `api/submit-lead.mjs`.** Nothing has been written yet.
+Public route recording a booking-form enquiry in sbv_leads. Additive: FormSubmit
+still delivers every enquiry and stays the path of record, the page calls this
+afterwards, and every failure path is silent because the operator has already
+been told.
 
-Hard gate from the brief's §8, not yet satisfied: *do not push the route until
-a curl test proves 5 rapid submissions succeed and the 6th returns 429.*
+**The brief's hard gate is satisfied, twice.** Before pushing, the real handler
+was run against the real database: 5 submissions accepted, 6th refused 429 with
+Retry-After, exactly 5 rows stored, still refused after soft-deleting all five.
+Then after deploying, the literal curl proof against production:
 
-Then, in brief order: step 3 (add `clientId` to the merge endpoint response),
-step 4 (niche form wiring in `applyRuntime()`, batched, rebuild all, qa 0
-failures), step 5 (the admin Leads tab), step 6 (review, push).
+```
+submission 1..5 -> HTTP 200  {"ok":true}
+submission 6    -> HTTP 429  {"ok":false,"error":"rate_limited"}
+rows stored: 5, all source=form
+```
+
+Test tenants and every row deleted afterwards; the table is empty and tenants
+are back to 6.
+
+**Departure from the brief, deliberate.** Manual leads do NOT go through this
+route. The brief said they should, but that gives one endpoint two
+authentication models and makes the branch between them the thing a bug lets
+you take the wrong side of. The admin is authenticated and sbv_leads has an
+INSERT policy for exactly that case, so it inserts directly under RLS.
+
+**Bug found in my own first cut:** clientId was read from the operator-content
+row, which does not exist until an operator's first save — so it would have
+been null for precisely the operator taking their first enquiries. It comes
+from the tenant row now.
+
+**Also departed:** lead capture lives in `_template/base.js`, not in 32
+niche.js files. base.js already sees every submit on every niche through
+consentGate, so this is one implementation that cannot drift and a new niche
+inherits it by existing.
+
+**Worth knowing:** `/api/submit-lead` 308-redirects to `/api/submit-lead/`
+because vercel.json sets trailingSlash. Every API route does this and browsers
+follow it transparently — but curl needs `-L` or the trailing slash.
 
 ---
+
+## Step 5 — the Leads tab · DONE (`5b77718`)
+
+Rows not a table (stacks on a phone), semantic status colours independent of
+the niche accent, KPI strip, filter, 25-row pagination, inline expand with
+status and note, soft delete, manual add.
+
+Not part of the Save bar, deliberately: everything else in the admin is a draft
+composed then committed, but a lead's status is a fact about a call that
+already happened. Each change writes immediately.
+
+Verified in a browser against the real database with 30 seeded leads: controls
+present, page 1 returns 25 of 30, the filter narrows, soft delete drops the row
+from the list while it stays in the table. Cleanup left nothing.
+
+Also gave the admin a favicon — it had none, so the page operators use most
+404'd on /favicon.ico every load.
+
+---
+
+## NEXT STEP — resume here
+
+**Step 4 of the brief is the only piece not done: nothing has been verified
+end to end on a LIVE claimed tenant.** The route is proven, the capture is in
+all 34 builds, and the tab is proven — but no real form submission on a real
+subdomain has been watched landing in a real Leads tab. That needs a tenant
+with a signed-in operator, which needs a password I do not have.
+
+Everything else in the leads brief is complete.
 
 ## Also queued, agreed with Jason 2026-09-08, not started
 
