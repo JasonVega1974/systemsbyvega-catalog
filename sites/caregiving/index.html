@@ -753,6 +753,10 @@ body{background:var(--ground);color:var(--ink);font-family:'Nunito Sans',system-
 
 </style>
 <noscript><style>.reveal{opacity:1 !important;transform:none !important}</style></noscript>
+<!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
+     blocks a first paint. Root-relative so the one tag works on the apex
+     and on every tenant subdomain without knowing which it is on. -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div id="svDemoBanner" role="note" aria-label="Demo site notice">

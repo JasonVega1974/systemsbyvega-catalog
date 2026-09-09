@@ -250,6 +250,10 @@
   .mk-files li{margin:4px 0}
   .mk-files a{color:var(--adm-accent);word-break:break-all}
 </style>
+<!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
+     blocks a first paint. Root-relative so the one tag works on the apex
+     and on every tenant subdomain without knowing which it is on. -->
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <div class="wrap">
