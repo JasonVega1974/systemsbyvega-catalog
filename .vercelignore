@@ -17,3 +17,12 @@ tools/brevo-diag.mjs
 
 # Local one-off, same reasoning as brevo-diag above.
 tools/resend-welcome.mjs
+
+# Reference material for the marketing templates — a real operator's own
+# finished artwork, kept in git so the generated pair can be compared against
+# what it was modelled on. It carries their real phone number and domain, and
+# niches/ IS uploaded (api/marketing-kit.mjs and the admin both fetch
+# /niches/<slug>/marketing/<fmt>.html at runtime), so without this line the
+# file was publicly readable at systemsbyvega.com. Only facebook.html and
+# flyer.html are needed on the CDN; reference/ never was.
+niches/*/marketing/reference/
