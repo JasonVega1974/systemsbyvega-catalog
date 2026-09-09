@@ -549,7 +549,11 @@ if (fs.existsSync(LEGAL_SRC)) {
      any unrelated rebuild ran, telling every operator's customers the policy
      changed when it did not. Bump this by hand when the wording in
      _template/legal/{terms,privacy}.html actually changes. */
-  const LEGAL_UPDATED = '8 September 2026';
+  /* PER DOCUMENT, not one shared date. They change independently: the privacy
+     page gained an analytics disclosure on the 9th while the terms text did not
+     move, and a shared constant made Terms claim a revision that never happened.
+     Bump the one whose wording actually changed. */
+  const LEGAL_UPDATED = { terms: '8 September 2026', privacy: '9 September 2026' };
 
   /* A tel: href needs digits; the display string keeps its formatting. */
   const telHref = String(lgBrand.phone || '').replace(/[^0-9+]/g, '');
@@ -572,7 +576,7 @@ if (fs.existsSync(LEGAL_SRC)) {
       LEGAL_JS:         legalJs.trim(),
       LEGAL_FONTS:      seo.fontsHref
                           ? '<link rel="stylesheet" href="' + seo.fontsHref + '">' : '',
-      UPDATED:          LEGAL_UPDATED,
+      UPDATED:          LEGAL_UPDATED[doc],
       BRAND_NAME:       lgBrand.name || '',
       BRAND_CITY:       lgBrand.city || '',
       BRAND_PHONE:      lgBrand.phone || '',
