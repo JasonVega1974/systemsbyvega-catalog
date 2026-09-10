@@ -81,6 +81,17 @@
   .sitecard:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(20,28,40,.12)}
   .sc-preview{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--paper);border-bottom:1px solid var(--hair)}
   .sc-preview iframe{position:absolute;top:0;left:0;width:400%;height:400%;border:0;transform:scale(.25);transform-origin:top left;pointer-events:none}
+  /* Below the desktop breakpoint the preview frame is not rendered at all.
+     Each one lays out a full desktop-width page (400% wide, scaled to 25%),
+     and 32 of them put ~25 complete sites in one tab — enough to get the tab
+     killed on a phone, which is what produced the reload-then-cannot-be-reached
+     report. A 25%-scale screenshot is unreadable at that size anyway, so the
+     card leads with the name and description instead of a blank frame. */
+  @media(max-width:899px){
+    .sc-preview{aspect-ratio:auto;padding:12px 14px;background:var(--paper)}
+    .sc-preview iframe{display:none}
+    .sc-tag{position:static;display:inline-block}
+  }
   .sc-tag{position:absolute;top:10px;left:10px;font-family:'IBM Plex Mono';font-size:10.5px;font-weight:600;letter-spacing:.03em;text-transform:uppercase;color:#1a1206;background:var(--con-amber);padding:4px 10px;border-radius:20px;z-index:2}
   .sc-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
   .sc-body h3{font-family:'Archivo';font-weight:800;font-size:18.5px;letter-spacing:-.01em}
@@ -279,7 +290,18 @@
 <!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
      blocks a first paint. Root-relative so the one tag works on the apex
      and on every tenant subdomain without knowing which it is on. -->
-<script defer src="/_vercel/insights/script.js"></script>
+<script>
+/* Top frame only. /sites/ embeds ~32 storefronts as iframes, and an unguarded
+   tag made every one of them report its own page view — inflating the numbers
+   and attributing traffic to sites nobody actually opened. */
+(function () {
+  if (window.self !== window.top) return;
+  var s = document.createElement("script");
+  s.defer = true;
+  s.src = "/_vercel/insights/script.js";
+  document.head.appendChild(s);
+}());
+</script>
 </head>
 <body>
 
@@ -334,7 +356,7 @@
     <div class="site-grid">
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Landscaping</span><iframe src="/sites/landscaping/" loading="lazy" tabindex="-1" aria-hidden="true" title="Larkspur &amp; Ledge Landscape Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Landscaping</span><iframe data-src="/sites/landscaping/" loading="lazy" tabindex="-1" aria-hidden="true" title="Larkspur &amp; Ledge Landscape Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Larkspur &amp; Ledge Landscape Co.</h3>
           <p>A year-round landscaping site built around an interactive season wheel — click Spring, Summer, Fall or Winter and the services, pricing and photos re-render for that season. Tiered monthly maintenance plans and a live booking form.</p>
@@ -376,7 +398,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Pressure washing</span><iframe src="/sites/pressure-washing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Grit &amp; Gleam Powerwashing preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Pressure washing</span><iframe data-src="/sites/pressure-washing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Grit &amp; Gleam Powerwashing preview"></iframe></div>
         <div class="sc-body">
           <h3>Grit &amp; Gleam Powerwashing</h3>
           <p>A wand-reveal hero lets visitors wipe grime off the header art with a pointer or finger — then flat-rate pricing cards and a surface-by-surface service breakdown close the sale.</p>
@@ -418,7 +440,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Car detailing</span><iframe src="/sites/car-detailing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Kestrel Detail Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Car detailing</span><iframe data-src="/sites/car-detailing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Kestrel Detail Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Kestrel Detail Co.</h3>
           <p>An interactive car diagram lets visitors tap paint, glass, interior or wheels to see exactly what each package covers. Three tiered packages plus a full à la carte add-on menu.</p>
@@ -460,7 +482,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Personal trainer</span><iframe src="/sites/personal-trainer/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cora Vale Fitness preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Personal trainer</span><iframe data-src="/sites/personal-trainer/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cora Vale Fitness preview"></iframe></div>
         <div class="sc-body">
           <h3>Cora Vale Fitness</h3>
           <p>A goal-path picker — Strength, First 5K, Postpartum, Over 50 — re-renders the program section, proof points, and FAQ around whichever goal a visitor picks. A personal-brand layout built around the coach.</p>
@@ -502,7 +524,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">BBQ food truck</span><iframe src="/sites/bbq-food-truck/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cinder Hog BBQ preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">BBQ food truck</span><iframe data-src="/sites/bbq-food-truck/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cinder Hog BBQ preview"></iframe></div>
         <div class="sc-body">
           <h3>Cinder Hog BBQ</h3>
           <p>The flagship feature is a weekly find-the-truck schedule with map links for every stop. Full plate/sandwich/side menu with real pricing, plus catering packages and a pitmaster bio.</p>
@@ -544,7 +566,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Dumpster rental</span><iframe src="/sites/dumpster-rental/" loading="lazy" tabindex="-1" aria-hidden="true" title="Sawtooth Dumpster Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Dumpster rental</span><iframe data-src="/sites/dumpster-rental/" loading="lazy" tabindex="-1" aria-hidden="true" title="Sawtooth Dumpster Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Sawtooth Dumpster Co.</h3>
           <p>A live price picker walks visitors through size, rental length, and add-ons with the total updating in real time — "the price is the price" built right into the interaction, not just the copy.</p>
@@ -586,7 +608,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Tattoo studio</span><iframe src="/sites/tattoo-studio/" loading="lazy" tabindex="-1" aria-hidden="true" title="Static Rose Tattoo preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Tattoo studio</span><iframe data-src="/sites/tattoo-studio/" loading="lazy" tabindex="-1" aria-hidden="true" title="Static Rose Tattoo preview"></iframe></div>
         <div class="sc-body">
           <h3>Static Rose Tattoo</h3>
           <p>A filterable gallery and lightbox showcase blackwork, fine line, color, and flash pieces. A flash sheet with real pricing, an artist bio, and a books-open/closed toggle keep the page honest about availability.</p>
@@ -628,7 +650,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Metal fabrication</span><iframe src="/sites/metal-fabrication/" loading="lazy" tabindex="-1" aria-hidden="true" title="Black Anvil Fabrication preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Metal fabrication</span><iframe data-src="/sites/metal-fabrication/" loading="lazy" tabindex="-1" aria-hidden="true" title="Black Anvil Fabrication preview"></iframe></div>
         <div class="sc-body">
           <h3>Black Anvil Fabrication</h3>
           <p>A job-ticket-style build board shows real project specs — tube size, process, finish — the way they'd actually hang on a shop wall. Service breakdown, process/material chips, and a mobile welding callout.</p>
@@ -670,7 +692,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Contracting</span><iframe src="/sites/contracting/" loading="lazy" tabindex="-1" aria-hidden="true" title="Summit &amp; Stone Contracting preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Contracting</span><iframe data-src="/sites/contracting/" loading="lazy" tabindex="-1" aria-hidden="true" title="Summit &amp; Stone Contracting preview"></iframe></div>
         <div class="sc-body">
           <h3>Summit &amp; Stone Contracting</h3>
           <p>A before/after project slider anchors the page, backed by tiered project pricing (Refresh / Rebuild / Remodel) and a gallery spanning concrete, hardscape, decks, and full remodels.</p>
@@ -712,7 +734,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Painting</span><iframe src="/sites/painting/" loading="lazy" tabindex="-1" aria-hidden="true" title="Bristlecone Paint Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Painting</span><iframe data-src="/sites/painting/" loading="lazy" tabindex="-1" aria-hidden="true" title="Bristlecone Paint Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Bristlecone Paint Co.</h3>
           <p>A room re-paint visualizer lets visitors tap a paint chip and watch a room illustration recolor live — the single best way to sell a color choice before a brush ever touches a wall. Interior, exterior, and cabinet refinishing packages.</p>
@@ -754,7 +776,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Plumbing</span><iframe src="/sites/plumbing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cascade &amp; Copper Plumbing preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Plumbing</span><iframe data-src="/sites/plumbing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cascade &amp; Copper Plumbing preview"></iframe></div>
         <div class="sc-body">
           <h3>Cascade &amp; Copper Plumbing</h3>
           <p>A drip cost calculator turns a nagging leak into a real dollar number in real time — drag the slider, watch the monthly waste estimate climb. Emergency and scheduled service with transparent starting-at pricing.</p>
@@ -796,7 +818,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Electrician</span><iframe src="/sites/electrician/" loading="lazy" tabindex="-1" aria-hidden="true" title="Voltridge Electric preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Electrician</span><iframe data-src="/sites/electrician/" loading="lazy" tabindex="-1" aria-hidden="true" title="Voltridge Electric preview"></iframe></div>
         <div class="sc-body">
           <h3>Voltridge Electric</h3>
           <p>A breaker panel switchboard doubles as the services menu — flip a breaker to reveal panel upgrades, EV charger installs, lighting, and more. Built for a trade where clarity and trust close the job.</p>
@@ -838,7 +860,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Companion care</span><iframe src="/sites/caregiving/" loading="lazy" tabindex="-1" aria-hidden="true" title="Hearth &amp; Home Companion Care preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Companion care</span><iframe data-src="/sites/caregiving/" loading="lazy" tabindex="-1" aria-hidden="true" title="Hearth &amp; Home Companion Care preview"></iframe></div>
         <div class="sc-body">
           <h3>Hearth &amp; Home Companion Care</h3>
           <p>A weekly care-plan builder lets families check off the support they need — companionship, meals, transportation — and watch a sample weekly schedule build itself. Warm, non-medical, family-first tone throughout.</p>
@@ -880,7 +902,7 @@
       </div>
 
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Roofing</span><iframe src="/sites/roofing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Storm Ridge Roofing preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Roofing</span><iframe data-src="/sites/roofing/" loading="lazy" tabindex="-1" aria-hidden="true" title="Storm Ridge Roofing preview"></iframe></div>
         <div class="sc-body">
           <h3>Storm Ridge Roofing</h3>
           <p>A storm-damage self-check walks visitors through a few quick questions and ends with a plain-language recommendation — inspect now or keep an eye on it — routed straight into the quote form. Repair, replacement, and insurance-claim support.</p>
@@ -922,7 +944,7 @@
       </div>
 
           <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Bin Cleaning</span><iframe src="/sites/bin-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Prime Bin Cleaning preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Bin Cleaning</span><iframe data-src="/sites/bin-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Prime Bin Cleaning preview"></iframe></div>
         <div class="sc-body">
           <h3>Prime Bin Cleaning</h3>
           <p class="sc-note">Real business — live on this template.</p>
@@ -964,7 +986,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">HVAC</span><iframe src="/sites/hvac/" loading="lazy" tabindex="-1" aria-hidden="true" title="Whitecloud Heating &amp; Air preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">HVAC</span><iframe data-src="/sites/hvac/" loading="lazy" tabindex="-1" aria-hidden="true" title="Whitecloud Heating &amp; Air preview"></iframe></div>
         <div class="sc-body">
           <h3>Whitecloud Heating &amp; Air</h3>
           <p>An HVAC site with a tap-the-house system map — furnace, ducts, filter, thermostat and more, each revealing symptoms, what a visit covers, and a typical price range. Tune-up plan tiers and seasonal readiness guides carry the heating/cooling split through the whole design.</p>
@@ -1005,7 +1027,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Auto Repair</span><iframe src="/sites/auto-repair/" loading="lazy" tabindex="-1" aria-hidden="true" title="Rimrock Garage preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Auto Repair</span><iframe data-src="/sites/auto-repair/" loading="lazy" tabindex="-1" aria-hidden="true" title="Rimrock Garage preview"></iframe></div>
         <div class="sc-body">
           <h3>Rimrock Garage</h3>
           <p>A small-town garage site with a &quot;What’s that sound?&quot; diagnoser — pick the noise and when it happens, get the likely culprits, what the diagnostic visit covers, and an honest price range. Straight-talk pricing table and a diagnose-approve-fix process section.</p>
@@ -1046,7 +1068,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Auto Body</span><iframe src="/sites/auto-body/" loading="lazy" tabindex="-1" aria-hidden="true" title="Ironwood Collision Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Auto Body</span><iframe data-src="/sites/auto-body/" loading="lazy" tabindex="-1" aria-hidden="true" title="Ironwood Collision Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Ironwood Collision Co.</h3>
           <p>A collision-repair site whose Repair Reveal slider wipes SVG-drawn damage away as stage captions track estimate → teardown → paint match → refinish → cure. Includes a plain-English insurance-claim walkthrough written for the customer, plus an estimate form.</p>
@@ -1087,7 +1109,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Dog Walking</span><iframe src="/sites/dog-walking/" loading="lazy" tabindex="-1" aria-hidden="true" title="Bluebird &amp; Biscuit Pet Care preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Dog Walking</span><iframe data-src="/sites/dog-walking/" loading="lazy" tabindex="-1" aria-hidden="true" title="Bluebird &amp; Biscuit Pet Care preview"></iframe></div>
         <div class="sc-body">
           <h3>Bluebird &amp; Biscuit Pet Care</h3>
           <p>A dog-walking and pet-sitting site with a walk-week builder — toggle days, walk length and service type and watch the weekly grid fill while a monthly price computes live. Meet-and-greet-first booking flow with solo, pack and drop-in tiers.</p>
@@ -1128,7 +1150,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Child Care</span><iframe src="/sites/child-care/" loading="lazy" tabindex="-1" aria-hidden="true" title="Huckleberry Sitters preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Child Care</span><iframe data-src="/sites/child-care/" loading="lazy" tabindex="-1" aria-hidden="true" title="Huckleberry Sitters preview"></iframe></div>
         <div class="sc-body">
           <h3>Huckleberry Sitters</h3>
           <p>A babysitting site with a sitter match planner — pick ages, times and needs and it assembles a sample evening rundown with a live hourly estimate. Positioned squarely as in-home date-night and after-school sitting, with the rates table driven by the same data as the planner.</p>
@@ -1169,7 +1191,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Delivery</span><iframe src="/sites/delivery/" loading="lazy" tabindex="-1" aria-hidden="true" title="Swiftwater Courier Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Delivery</span><iframe data-src="/sites/delivery/" loading="lazy" tabindex="-1" aria-hidden="true" title="Swiftwater Courier Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Swiftwater Courier Co.</h3>
           <p>A courier site with a zone-to-zone quoter that shows its math — pickup, dropoff, parcel size and speed produce a line-by-line quote with a minimum-charge floor. Dispatch walkthrough and a recurring-accounts section aimed at business clients.</p>
@@ -1210,7 +1232,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Moving</span><iframe src="/sites/moving/" loading="lazy" tabindex="-1" aria-hidden="true" title="Osprey Moving Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Moving</span><iframe data-src="/sites/moving/" loading="lazy" tabindex="-1" aria-hidden="true" title="Osprey Moving Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Osprey Moving Co.</h3>
           <p>A moving-company site with a load builder — tap rooms and bulky items and a truck-fill gauge recommends the truck size, crew and hours with a live ballpark. Crew-hour pricing table and a no-surprises billable-time explainer share one source of truth with the builder.</p>
@@ -1251,7 +1273,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">DJ / Performer</span><iframe src="/sites/dj/pink/" loading="lazy" tabindex="-1" aria-hidden="true" title="DJ Nova · Pulse · Bloom — 3-Theme Kit preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">DJ / Performer</span><iframe data-src="/sites/dj/pink/" loading="lazy" tabindex="-1" aria-hidden="true" title="DJ Nova · Pulse · Bloom — 3-Theme Kit preview"></iframe></div>
         <div class="sc-body">
           <h3>DJ Nova · Pulse · Bloom — 3-Theme Kit</h3>
           <p>One DJ site in three complete color themes — Nova (azure), Pulse (neon green) and Bloom (hot pink) — with a chooser page to compare them live. Shows, releases, video and merch sections over a canvas-animated stage backdrop, plus a booking request form.</p>
@@ -1293,7 +1315,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Estate Sales</span><iframe src="/sites/estate-sale/" loading="lazy" tabindex="-1" aria-hidden="true" title="Magpie &amp; Mantel Estate Sales preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Estate Sales</span><iframe data-src="/sites/estate-sale/" loading="lazy" tabindex="-1" aria-hidden="true" title="Magpie &amp; Mantel Estate Sales preview"></iframe></div>
         <div class="sc-body">
           <h3>Magpie &amp; Mantel Estate Sales</h3>
           <p>An estate-sale company&rsquo;s site built around the fee conversation: a settlement-sheet card states the commission and the sale minimum in plain figures, and a what-sells ledger groups typical price ranges by category with an explicit note that no range is a promise.</p>
@@ -1334,7 +1356,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Garage Sales</span><iframe src="/sites/garage-sale/" loading="lazy" tabindex="-1" aria-hidden="true" title="Sunup Garage Sales preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Garage Sales</span><iframe data-src="/sites/garage-sale/" loading="lazy" tabindex="-1" aria-hidden="true" title="Sunup Garage Sales preview"></iframe></div>
         <div class="sc-body">
           <h3>Sunup Garage Sales</h3>
           <p>A run-your-sale-for-you site in morning light: a sale-sticker commission card, a four-step week from sort to haul-away, and six prep tips drawn from how the sale day actually runs.</p>
@@ -1375,7 +1397,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">House Cleaning</span><iframe src="/sites/residential-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Yarrow &amp; Broom Cleaning Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">House Cleaning</span><iframe data-src="/sites/residential-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Yarrow &amp; Broom Cleaning Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Yarrow &amp; Broom Cleaning Co.</h3>
           <p>A house-cleaning site with a drag-to-compare slider and cadence pricing &mdash; one-off, first deep clean, or a recurring visit &mdash; with the per-visit figure and the fine print on the same card.</p>
@@ -1416,7 +1438,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Office Cleaning</span><iframe src="/sites/commercial-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Keyholder Facility Care preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Office Cleaning</span><iframe data-src="/sites/commercial-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Keyholder Facility Care preview"></iframe></div>
         <div class="sc-body">
           <h3>Keyholder Facility Care</h3>
           <p>A janitorial site pitched at whoever signs the contract: a square-foot estimator, per-sqft and monthly pricing, and a standards section about coverage certificates and vetting written as questions to ask any bidder.</p>
@@ -1457,7 +1479,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Window Cleaning</span><iframe src="/sites/window-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Pane &amp; Prairie Window Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Window Cleaning</span><iframe data-src="/sites/window-cleaning/" loading="lazy" tabindex="-1" aria-hidden="true" title="Pane &amp; Prairie Window Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Pane &amp; Prairie Window Co.</h3>
           <p>A window-cleaning site priced the way the trade actually quotes &mdash; flat packages by house size plus a per-pane rate for storefronts &mdash; with a same-window before/after slider carrying the proof.</p>
@@ -1498,7 +1520,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Sprinkler &amp; Irrigation</span><iframe src="/sites/sprinkler/" loading="lazy" tabindex="-1" aria-hidden="true" title="Riserline Irrigation Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Sprinkler &amp; Irrigation</span><iframe data-src="/sites/sprinkler/" loading="lazy" tabindex="-1" aria-hidden="true" title="Riserline Irrigation Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Riserline Irrigation Co.</h3>
           <p>An irrigation site with a controller-faceplate voice: installs quoted in writing after a free walk, repairs billed from the service call, and a coverage-not-watering explanation for the brown patch in the lawn.</p>
@@ -1539,7 +1561,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Mobile Mechanic</span><iframe src="/sites/mechanic/" loading="lazy" tabindex="-1" aria-hidden="true" title="Gravel &amp; Gasket Mobile Mechanic preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Mobile Mechanic</span><iframe data-src="/sites/mechanic/" loading="lazy" tabindex="-1" aria-hidden="true" title="Gravel &amp; Gasket Mobile Mechanic preview"></iframe></div>
         <div class="sc-body">
           <h3>Gravel &amp; Gasket Mobile Mechanic</h3>
           <p>A mobile-mechanic site that makes the difference obvious in the first screen &mdash; the driveway is the shop bay. Flat rates for the jobs that never needed a lift, and a plain line about the ones that do.</p>
@@ -1580,7 +1602,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Personal Assistant</span><iframe src="/sites/personal-assistant/" loading="lazy" tabindex="-1" aria-hidden="true" title="Wrenfield &amp; Co. preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Personal Assistant</span><iframe data-src="/sites/personal-assistant/" loading="lazy" tabindex="-1" aria-hidden="true" title="Wrenfield &amp; Co. preview"></iframe></div>
         <div class="sc-body">
           <h3>Wrenfield &amp; Co.</h3>
           <p>An errands-and-admin site that carries itself without a photo gallery: hourly, half-day and monthly retainer cards, a five-day week rail, and a &ldquo;where I stop&rdquo; section naming the work this service does not take on.</p>
@@ -1621,7 +1643,7 @@
         </div>
       </div>
       <div class="sitecard">
-        <div class="sc-preview"><span class="sc-tag">Christmas Lights</span><iframe src="/sites/christmas-lights/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cedar &amp; Filament Holiday Lighting preview"></iframe></div>
+        <div class="sc-preview"><span class="sc-tag">Christmas Lights</span><iframe data-src="/sites/christmas-lights/" loading="lazy" tabindex="-1" aria-hidden="true" title="Cedar &amp; Filament Holiday Lighting preview"></iframe></div>
         <div class="sc-body">
           <h3>Cedar &amp; Filament Holiday Lighting</h3>
           <p>A seasonal lighting site built around the one thing the trade actually sells: a price that covers the whole season &mdash; the November install, every service call in December, the January takedown and the storage after it.</p>
@@ -1813,6 +1835,26 @@ window.SBV_CONFIG = (function () {
      event but AFTER this inline block parses, so initClaim would not yet
      exist. */
   document.addEventListener('DOMContentLoaded', function () { window.initClaim(); });
+</script>
+<script>
+/* Previews are opt-in by width. src is only ever assigned on a viewport wide
+   enough to want one, so a phone never fetches a single storefront. Also
+   re-checked on resize/rotate, so turning a tablet landscape arms them without
+   a reload. loading="lazy" still governs WHICH of them fetch once armed. */
+(function () {
+  var wide = window.matchMedia && window.matchMedia("(min-width: 900px)");
+  function arm() {
+    if (!wide || !wide.matches) return;
+    var frames = document.querySelectorAll("iframe[data-src]");
+    for (var i = 0; i < frames.length; i++) {
+      frames[i].src = frames[i].getAttribute("data-src");
+      frames[i].removeAttribute("data-src");
+    }
+  }
+  arm();
+  if (wide && wide.addEventListener) wide.addEventListener("change", arm);
+  else if (wide && wide.addListener) wide.addListener(arm);
+}());
 </script>
 </body>
 </html>

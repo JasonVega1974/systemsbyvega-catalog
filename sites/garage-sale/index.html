@@ -898,7 +898,18 @@ body::after{
 <!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
      blocks a first paint. Root-relative so the one tag works on the apex
      and on every tenant subdomain without knowing which it is on. -->
-<script defer src="/_vercel/insights/script.js"></script>
+<script>
+/* Top frame only. /sites/ embeds ~32 storefronts as iframes, and an unguarded
+   tag made every one of them report its own page view — inflating the numbers
+   and attributing traffic to sites nobody actually opened. */
+(function () {
+  if (window.self !== window.top) return;
+  var s = document.createElement("script");
+  s.defer = true;
+  s.src = "/_vercel/insights/script.js";
+  document.head.appendChild(s);
+}());
+</script>
 </head>
 <body>
 <div id="svDemoBanner" role="note" aria-label="Demo site notice">
