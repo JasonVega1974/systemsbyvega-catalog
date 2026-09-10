@@ -45,7 +45,7 @@
   ],
   "headers": [
     {
-      "source": "/sites/(.*)",
+      "source": "/sites/(.+)",
       "has": [
         {
           "type": "host",
