@@ -130,7 +130,7 @@
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 1</span></div>
         <h3>Pick a business</h3>
-        <p class="job">Every business in the catalog below, with what the job actually is in one line. Two you can buy today. For the rest, the honest answer is that they are not built yet.</p>
+        <p class="job">Every business in the catalog below, with what the job actually is in one line. Three you can buy today. For the rest, the honest answer is that they are not built yet.</p>
       </article>
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 2</span></div>
@@ -162,32 +162,34 @@
       </p>
     </div>
 
-    <!-- Twenty-nine plates is a wall to a first-time visitor. These cut it to
-         four short boards. Rendered in the HTML rather than injected, so the
-         counts are correct before any script runs; sbv.js recomputes them from
-         live rows and re-applies the active filter after every repaint. -->
+    <!-- Thirty-eight plates is a wall to a first-time visitor. These cut it to
+         four short boards. Rendered in the HTML rather than injected; the bar
+         starts hidden and applyFilter() in sbv.js recomputes every count from
+         the DOM before it unhides, so the numbers below are inert fallbacks a
+         visitor never sees. They are kept in sync anyway — a stale number in
+         source is how the wrong ones downstream got written. -->
     <div class="filterbar" id="filterbar" hidden>
       <div class="chips" role="group" aria-label="Filter the catalog">
         <button type="button" class="chip" data-filter="" aria-pressed="true">
-          <span>Everything</span><b class="chip-n" data-count="">29</b>
+          <span>Everything</span><b class="chip-n" data-count="">38</b>
         </button>
         <button type="button" class="chip" data-filter="is-open" aria-pressed="false">
           <i class="dot" aria-hidden="true"></i>
-          <span>Open now</span><b class="chip-n" data-count="is-open">2</b>
+          <span>Open now</span><b class="chip-n" data-count="is-open">3</b>
         </button>
         <button type="button" class="chip" data-filter="is-in-line" aria-pressed="false">
           <i class="dot" aria-hidden="true"></i>
-          <span>In line</span><b class="chip-n" data-count="is-in-line">11</b>
+          <span>In line</span><b class="chip-n" data-count="is-in-line">10</b>
         </button>
         <button type="button" class="chip" data-filter="is-website-only" aria-pressed="false">
           <i class="dot" aria-hidden="true"></i>
-          <span>Website only</span><b class="chip-n" data-count="is-website-only">16</b>
+          <span>Website only</span><b class="chip-n" data-count="is-website-only">25</b>
         </button>
       </div>
       <!-- Split so the translation never has to interpolate a number: the only
            translatable string here is the label. -->
       <p class="filter-count" id="filter-count" role="status" aria-live="polite">
-        <span>On the board:</span> <b id="fc-n">29</b>/<b id="fc-t">29</b>
+        <span>On the board:</span> <b id="fc-n">38</b>/<b id="fc-t">38</b>
       </p>
     </div>
 
@@ -301,9 +303,9 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">The actual product</span>
-      <h2>Two of these are finished. <br>Here they are.</h2>
+      <h2>Three of these are finished. <br>Here they are.</h2>
       <p class="lede" style="margin-top:12px">
-        Screenshots of the running platforms, not renderings of them. Click either one, check a
+        Screenshots of the running platforms, not renderings of them. Click any of them, check a
         city, and read the operator agreement before you spend anything.
       </p>
     </div>
@@ -329,17 +331,25 @@
             <a class="link" href="https://estatesalebiz.com">Open it &rarr;</a></p>
         </div>
         <div class="reveal">
-          <div class="proof-shot" style="padding:18px;line-height:1.5">
-            <p class="fine" style="color:var(--ink-2)">
-              There is no third screenshot here yet, because there is no third finished platform.
-              When one gets built it will appear in this row, and not before.
-            </p>
-          </div>
-          <p class="proof-cap"><b>Everything else.</b> Twenty-seven entries in the catalog are
-            either a website or a line you can join. None of them is pictured as though it exists.</p>
+          <a class="proof-shot" href="https://consignmentbiz.com">
+            <img src="/assets/proof/consignmentbiz.jpg" width="1280" height="800" loading="lazy"
+                 alt="The ConsignmentBiz homepage: a dark green storefront illustration under the headline Run your own local consignment storefront, next to a Claim Your City button.">
+          </a>
+          <p class="proof-cap"><b>ConsignmentBiz.</b> Live. $197 once, one city, no monthly fee.
+            <a class="link" href="https://consignmentbiz.com">Open it &rarr;</a></p>
         </div>
       </div>
     </div>
+
+    <!-- The honesty device this section exists for. It used to occupy the third
+         cell BECAUSE there was no third platform; there is one now, so the note
+         belongs under the row rather than in it. "Thirty-five" is 38 listed
+         minus 3 open, and it is the last hand-typed count left on this page —
+         the next thing that should move behind a BUILD: marker. -->
+    <p class="fine" style="margin-top:22px;max-width:70ch">
+      <b>Everything else.</b> The other thirty-five entries in the catalog are either a website
+      or a line you can join. None of them is pictured as though it exists.
+    </p>
   </div>
 </section>
 
@@ -366,7 +376,7 @@
 
       <div class="reg-body">
         <p>Exclusivity is only worth something if it is written down somewhere you can check. For
-        the two businesses that are open, that row already exists, and the availability checker on
+        the three businesses that are open, that row already exists, and the availability checker on
         each of their sites reads it. That is the whole mechanism — there is no bidding, no renewal
         auction, and no tier that buys you more of the map.</p>
 
@@ -400,12 +410,13 @@
       training — and I answer the email. Kingdom Creatives LLC is me and a small company, not a
       franchise with a call centre. If you write, it is me who writes back.</p>
 
-      <p>Two of them are finished and running:
-      <a class="link" href="https://estatesalebiz.com">estatesalebiz.com</a> and
-      <a class="link" href="https://garagesalebiz.com">garagesalebiz.com</a>. You can click into
-      both right now, check whether your city is free, and read the whole operator agreement
-      before you spend a dollar. That is the entire track record, and I would rather show you two
-      real ones than list twenty-nine I have not built.</p>
+      <p>Three of them are finished and running:
+      <a class="link" href="https://estatesalebiz.com">estatesalebiz.com</a>,
+      <a class="link" href="https://garagesalebiz.com">garagesalebiz.com</a> and
+      <a class="link" href="https://consignmentbiz.com">consignmentbiz.com</a>. You can click into
+      all three right now, check whether your city is free, and read the whole operator agreement
+      before you spend a dollar. That is the entire track record, and I would rather show you three
+      real ones than list thirty-five I have not built.</p>
 
       <p><b>What I do not do.</b> I do not find your clients, book your jobs, or run your business.
       I do not tell you what to charge, and I make no claim about what you will earn. Some
@@ -422,7 +433,7 @@
       <span class="eyebrow">Already running one of these?</span>
       <h2>Then you don't need a business. <br>You need a website.</h2>
       <p class="lede" style="margin-top:12px">
-        Twenty-three trades, twenty-three sites already built. Pick the one closest to yours and it
+        Thirty-two trades, thirty-two sites already built. Pick the one closest to yours and it
         gets rebuilt under your name, your colours, and your service area. This is a website, not a
         territory — no exclusivity, no city, no registry.
       </p>
@@ -444,7 +455,7 @@
         <p class="job">Ongoing edits and priority support. Optional, cancel any time. New features and new modules are real development, so those get scoped and quoted separately.</p>
       </article>
     </div>
-    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">See all twenty-three sites &rarr;</a></p>
+    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">See all thirty-two sites &rarr;</a></p>
   </div>
 </section>
 
