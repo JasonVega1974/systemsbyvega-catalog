@@ -1708,6 +1708,30 @@ Move into `sites/index.html`: the ledger, all `BUILD:` markers, the filter chips
 `#registry`, `#line`, `#faq`, the niche modal, the exit card, and the Supabase confirm
 bridge. Delete the 32 hand-authored cards — they regenerate from data.
 
+- [ ] **Step 4b: Delete the inline `<style>` block and join the shared assets (Ruling R11)**
+
+`sites/index.html` currently carries ~300 lines of inline `<style>` and loads **neither**
+`/assets/sbv.css` nor `/assets/sbv.js`. That is why the shared chrome injected in Task 2
+is unstyled there and its mobile drawer is inert. This step closes it:
+
+1. Delete the whole inline `<style>` block.
+2. Add `<link rel="stylesheet" href="/assets/sbv.css">` in `<head>` and
+   `<script src="/assets/sbv.js" defer></script>` before `</body>`, matching `index.html`.
+3. Port any rule from the deleted block that has no `sbv.css` equivalent — the
+   `.sitecard` / `.sc-*` gallery components are the likely set — into `sbv.css`,
+   **rewritten to read band tokens** (`--surface`, `--tx`, `--rule`, `--acc`) rather than
+   the literals the inline block used.
+4. In `tools/check-pages.js`, flip `/sites/` from `sharedAssets: false` to
+   `sharedAssets: true` and delete its `pending` string.
+
+**The gate fails if you skip step 4.** That is deliberate — `sharedAssets: false` is a
+declared exception with this task named as its expiry, not a permanent state.
+
+**Verify the chrome actually works here now**, the way Task 2's fix was verified: serve
+locally, and at 390px confirm `#gnav-drawer .btn` computes
+`background: rgb(243, 146, 47)` / `color: rgb(26, 18, 6)`, the burger opens the drawer,
+and Escape closes it. A passing text gate does not prove any of that.
+
 - [ ] **Step 5: Keep the confirm bridge on BOTH pages for now**
 
 **Do not delete the copy on `/` yet.** It moves only after the Supabase dashboard
