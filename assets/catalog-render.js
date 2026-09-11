@@ -188,6 +188,55 @@
     }).join('');
   }
 
+  /* The landing-page hero rotator. One frame per niche that has a demo, in
+     seed order, captured by tools/build-shots.js into assets/shots/rotator/
+     under the niche's own slug — so this function and that tool read the same
+     list and cannot disagree about which frames exist.
+
+     Only FRAME 1 gets a src here. The other thirty-one are fetched by
+     assets/sbv.js, one ahead of the one showing, which is the whole reason
+     the hero can carry 32 frames without 32 downloads. That also means the
+     no-JS and reduced-motion renderings are this markup exactly as it
+     stands: frame 1, its caption, and the full trade list below.
+
+     The chips are the reduced-motion (and no-JS) presentation, revealed by
+     CSS. They are CAPPED at CHIP_CAP, with a generated '+N more' link for
+     the rest. Printing all thirty-two put a 559px wall of pills in the hero
+     at 390px — measured — which pushes the CTAs off the first screen and is
+     a worse reduced-motion experience than the animation it stands in for.
+     The remainder is stated rather than dropped, its count computed here
+     (Ruling R20: a count in this markup is never typed), and the link goes
+     to the page that lists every one of them. */
+  var CHIP_CAP = 11;
+  function heroRotator(niches) {
+    var frames = niches.filter(function (n) { return n.demo_path; });
+    if (!frames.length) return '';
+    var first = frames[0];
+    var shot = function (n) { return '/assets/shots/rotator/' + esc(n.slug) + '.jpg'; };
+
+    return '' +
+      '<div class="seq" data-rotator role="img" aria-label="The ' + esc(first.name) +
+        ' demo storefront.">' +
+        '<img class="seq-layer is-on" src="' + shot(first) + '" width="1280" height="800" ' +
+             'fetchpriority="high" decoding="async" alt="">' +
+        '<img class="seq-layer" width="1280" height="800" decoding="async" alt="">' +
+      '</div>' +
+      '<div class="seq-cap" data-rotator-cap aria-hidden="true">' +
+        '<span class="seq-cap-layer is-on">' + esc(first.name) + '</span>' +
+        '<span class="seq-cap-layer"></span>' +
+      '</div>' +
+      '<div class="seq-steps">' +
+        frames.slice(0, CHIP_CAP).map(function (n, i) {
+          return '<span class="seq-step' + (i === 0 ? ' is-current' : '') + '">' +
+                 esc(n.name) + '</span>';
+        }).join('') +
+        (frames.length > CHIP_CAP
+          ? '<a class="seq-step seq-step-more" href="/sites/">+' +
+            (frames.length - CHIP_CAP) + ' more &rarr;</a>'
+          : '') +
+      '</div>';
+  }
+
   function nicheSelect(niches) {
     var open = [], line = [];
     niches.forEach(function (n) {
@@ -239,6 +288,7 @@
     entry: entry,
     extras: extras,
     nicheSelect: nicheSelect,
+    heroRotator: heroRotator,
     figures: figures,
     numWord: numWord,
     thesisOpen: thesisOpen,

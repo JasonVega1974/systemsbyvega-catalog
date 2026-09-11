@@ -94,12 +94,19 @@
 
    Task 9 rebuilt `/` as the landing page and retired the diagram above — the
    catalog, #line, #registry, #faq and #founder all moved to /sites/ (Task 10).
-   `/`'s rhythm now: nav dark, hero dark (.plate), #offer white, #featured
-   paper, #how white, #platforms dark, #proof paper, #teaser white, footer
+   `/`'s rhythm now: nav dark, hero dark (.plate), #platforms paper, #offer
+   white, #featured paper, #how white, #proof paper, #teaser white, footer
    dark. #proof moved bands with the page — it printed the four figures next
    to a dark hero before; now it is its own paper-toned strip further down,
-   so it left the dark selector group below and joined the paper one. No
-   content band repeats a neighbour's tone.
+   so it left the dark selector group below and joined the paper one.
+
+   #platforms did the same, and for a harder reason. It was DARK while it sat
+   at section 5, between #how white and #proof paper. Promoting the platforms
+   to section 2 put it directly under the dark hero, where dark-on-dark would
+   have been the first tone repeat on the page — so it joined the paper group
+   too. Its visual weight comes from .pcard (screenshot-topped cards, a wider
+   column, more room than #offer's .entry cards get), not from its ground.
+   No content band repeats a neighbour's tone.
 
    /services/ reuses the same three rules rather than inventing a fourth.
    Its rhythm: nav dark, hero dark (.plate — the same nav+hero exception the
@@ -134,7 +141,7 @@
    the border-top:0 exception list below, or the page shows a stray hairline
    seam at that band's transition (the two lists are a pair, not a coincidence).
 */
-.plate, #catalog, #founder, #contact, .foot, .gfoot, .gnav, .gnav-drawer, #answers, #next, #platforms{
+.plate, #catalog, #founder, #contact, .foot, .gfoot, .gnav, .gnav-drawer, #answers, #next{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
@@ -181,7 +188,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq, #problem, #process, #esb, #csb, #story, #proof, #featured{
+#registry, #faq, #problem, #process, #esb, #csb, #story, #proof, #featured, #platforms{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -298,59 +305,45 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
   text-transform:uppercase;color:var(--tx-3);margin-top:9px}
 
 /* ---------------------------------------------------------- hero rotator --
-   Six real screenshots, one per featured niche, cross-faded on a 30s loop.
-   Supersedes the two-frame demo-then-branded sequence of Rulings R7/R14 —
-   the hero's job is now "look how many trades are already running", which
-   six frames say and two could not.
+   One frame per niche with a live demo — 32 today — cross-faded 5s apart.
 
-   The clock. 6 frames x 5s = a 30s cycle, so one slot is 16.667% and the
-   0.6s cross-fade is 2%. Each frame holds opacity 1 across its own slot and
-   fades out over the 2% that the NEXT frame fades in, which is what makes it
-   a cross-fade rather than a cut through the background. Frame n carries
-   animation-delay:n*5s; before its delay elapses the element sits at its own
-   opacity:0, so nothing flashes on first paint. Frame 6's fade-out (25s ->
-   30.6s) overlaps frame 1's next fade-in at 30s, so the loop closes seamlessly
-   instead of snapping.
+   WHY THIS IS NO LONGER @keyframes. The six-frame version stacked six <img>
+   and cross-faded them on one 30s clock, which is the right shape for six and
+   the wrong one for thirty-two: every frame needs a src in the markup, so the
+   browser fetches all of them on load. At 32 that is roughly 3MB to render one
+   visible image. So the DOM now holds exactly TWO layers and assets/sbv.js
+   swaps their src, keeping one frame ahead of the one showing. Two downloads,
+   not thirty-two, and the count no longer scales with the catalog.
 
-   Still CSS @keyframes on stacked <img> — no JS, no library. Six frames is
-   more state than two, but not enough to justify either. */
+   What the CSS still owns is the cross-fade itself — an opacity transition
+   between the layer that is .is-on and the one that is not. The JS decides
+   WHEN; this decides what it looks like. Frame 1 ships with .is-on already
+   set, so the hero is correct before any script runs and stays correct if
+   none ever does.
+
+   Hover-pause moved to the JS with the clock (animation-play-state has
+   nothing to pause now). Reduced motion is handled in both places: the JS
+   never starts the timer and never fetches a second frame, and the rule at
+   the bottom here kills the transition so a state change could not animate
+   even if one happened. */
 .seq-frame{max-width:640px;margin:38px auto 0;padding:14px 14px 20px;
   background:var(--surface);border:1px solid var(--rule-2);border-radius:14px;
   box-shadow:var(--elev-2)}
 .seq-chrome{display:flex;gap:6px;padding:0 4px 12px}
 .seq-chrome i{width:9px;height:9px;border-radius:50%;background:var(--rule-2)}
 .seq{position:relative;aspect-ratio:16/10;border-radius:9px;overflow:hidden;background:var(--surface-2)}
-.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:seq 30s infinite}
-.seq img:nth-child(1){animation-delay:0s}
-.seq img:nth-child(2){animation-delay:5s}
-.seq img:nth-child(3){animation-delay:10s}
-.seq img:nth-child(4){animation-delay:15s}
-.seq img:nth-child(5){animation-delay:20s}
-.seq img:nth-child(6){animation-delay:25s}
-@keyframes seq{
-  0%                {opacity:0}
-  2%,   16.6667%    {opacity:1}
-  18.6667%, 100%    {opacity:0}
-}
-/* Captions cross-fade on the same clock as the frames so the text never
-   contradicts the image. Trades, not demo brand names — see the note on the
-   markup in index.html. */
+.seq-layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .6s ease}
+.seq-layer.is-on{opacity:1}
+/* The caption rides the same .is-on switch as the frames, flipped in the same
+   tick, so the trade named under the frame is always the trade in it. */
 .seq-cap{position:relative;height:18px;margin-top:14px;text-align:center;
   font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-2)}
-.seq-cap span{position:absolute;inset:0;opacity:0;animation:seq 30s infinite}
-.seq-cap span:nth-child(1){animation-delay:0s}
-.seq-cap span:nth-child(2){animation-delay:5s}
-.seq-cap span:nth-child(3){animation-delay:10s}
-.seq-cap span:nth-child(4){animation-delay:15s}
-.seq-cap span:nth-child(5){animation-delay:20s}
-.seq-cap span:nth-child(6){animation-delay:25s}
-/* Pause on hover. Frames and captions share one clock, so both must pause or
-   the caption walks off its image. */
-.seq-frame:hover .seq img,
-.seq-frame:hover .seq-cap span{animation-play-state:paused}
-/* Reduced motion gets a DIFFERENT honest presentation, not a broken one:
-   frame 1 held with its own caption pinned under it, and the five trades it
-   can no longer rotate to become a visible row instead of being lost. */
+.seq-cap-layer{position:absolute;inset:0;opacity:0;transition:opacity .6s ease}
+.seq-cap-layer.is-on{opacity:1}
+/* Reduced motion, and the no-JS case, get the same honest presentation:
+   frame 1 held with its caption, and every trade the rotator would have
+   reached listed below it as text rather than silently lost. */
 .seq-steps{display:none;gap:8px;margin-top:16px;justify-content:center;flex-wrap:wrap}
 .seq-step{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--tx-2);border:1px solid var(--rule-2);border-radius:999px;padding:5px 11px}
@@ -358,11 +351,16 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
    showing is marked here too — otherwise the caption and the first chip
    read as an accidental duplicate rather than a label and its list. */
 .seq-step.is-current{color:var(--acc);border-color:var(--acc)}
+/* The capped list ends in a real link to the full catalog, not an ellipsis:
+   the trades it does not print are still reachable, and the count in it is
+   generated by R.heroRotator, never typed. */
+a.seq-step-more{text-decoration:none;color:var(--acc-tx);border-color:var(--rule-2)}
+a.seq-step-more:hover{border-color:var(--acc);color:var(--acc)}
 @media(prefers-reduced-motion:reduce){
-  .seq img,.seq-cap span{animation:none}
-  .seq img:nth-child(1),.seq-cap span:nth-child(1){opacity:1}
+  .seq-layer,.seq-cap-layer{transition:none}
   .seq-steps{display:flex}
 }
+.no-js .seq-steps{display:flex}
 
 /* -------------------------------------------------------------- sections --- */
 .section{padding:64px 0;border-top:1px solid var(--rule)}
@@ -620,7 +618,64 @@ a.proof-shot:hover{transform:translateY(-3px);border-color:var(--acc)}
   text-transform:uppercase;color:var(--tx-3);margin-top:9px}
 @media(max-width:640px){.proof-strip{grid-template-columns:repeat(2,1fr)}}
 
+/* ------------------------------------------------------- platform cards ---
+   The premier tier on `/`. These have to outweigh the four .entry cards in
+   #offer below them without the band tone doing the work (see THE BAND
+   SYSTEM — #platforms sits under a dark hero and had to become paper).
+
+   Weight comes from three things instead: a real screenshot across the top
+   of every card, three columns against #offer's four, and noticeably more
+   padding and type inside. .fcard further down the page is the closest
+   relative — same screenshot-over-body shape — but .pcard is deliberately
+   the larger of the two, because the thing it sells is the larger one. */
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding-top:10px}
+@media(max-width:1080px){.pgrid{grid-template-columns:1fr;gap:30px}}
+.pcard{display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--rule);border-radius:15px;overflow:hidden;
+  box-shadow:var(--elev-2);transition:transform .18s,box-shadow .18s,border-color .18s}
+.pcard:hover,.pcard:focus-within{transform:translateY(-4px);border-color:var(--acc)}
+.pcard-shot{display:block;border-bottom:1px solid var(--rule)}
+.pcard-shot img{display:block;width:100%;height:auto}
+.pcard-body{padding:22px 24px 26px;display:flex;flex-direction:column;flex:1}
+.pcard-top{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:12px}
+.pcard-no{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--tx-3)}
+.pcard h3{font-family:var(--display);font-weight:800;font-size:clamp(19px,2vw,23px);
+  letter-spacing:-.018em;color:var(--tx);margin:0}
+.pcard-line{font-size:15px;line-height:1.55;color:var(--tx-2);margin-top:12px}
+/* "Who runs one" is the qualifying line — it says who this suits, and by
+   omission who it does not. Set apart from the description so it reads as an
+   answer to a different question, not a second sentence of the same one. */
+.pcard-for{font-size:13.5px;line-height:1.55;color:var(--tx-3);margin-top:14px;
+  padding-top:14px;border-top:1px solid var(--rule)}
+.pcard-for b{color:var(--tx-2);font-weight:600}
+/* Hydrated from the database by paintPlatforms(); empty until then, and empty
+   forever if the row has no price — so it must not reserve space it may never
+   use, and must not print a stray separator next to nothing. */
+.pcard-price{font-family:var(--mono);font-size:12.5px;color:var(--tx-3);margin-top:14px}
+.pcard-price:empty{display:none}
+/* Same reasoning for the status pill: it is empty until paintPlatforms()
+   fills it from the database row, and with JS off it stays empty forever.
+   An empty .tok still carries padding and a background, so without this it
+   renders as a small blank chip next to the platform number — a control
+   that looks broken rather than one that simply has nothing to say. */
+.pcard-top [data-status]:empty{display:none}
+.pcard-cta{display:flex;align-items:center;flex-wrap:wrap;gap:14px;margin-top:auto;
+  padding-top:20px}
+/* min-height, not just padding: at 12px mono this link's box was 16px tall
+   and a11y-sweep counted all three as under-size tap targets (the homepage
+   went 14 -> 17 the run they were added). The underline is text-decoration
+   rather than a bottom border so it stays against the text while the hit
+   area grows around it. */
+.pcard-live{display:inline-flex;align-items:center;min-height:24px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.03em;
+  color:var(--acc-tx);text-decoration:none}
+.pcard-live:hover{text-decoration:underline;text-underline-offset:3px}
+@media(prefers-reduced-motion:reduce){.pcard{transition:none}.pcard:hover,.pcard:focus-within{transform:none}}
+
 /* ------------------------------------------------------------- featured ---
+
    Six screenshots, never iframes — the old /sites/ armed 32 of them at once
    (audit §6.4). Hover, and :focus-within so keyboard users get it too, swaps
    to a second shot of the same site's signature interaction. child-care has

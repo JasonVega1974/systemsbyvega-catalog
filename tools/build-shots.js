@@ -32,6 +32,21 @@ const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT  = path.join(ROOT, 'assets', 'shots');
+/* The catalog seed — the one list of niches the whole site is built from.
+   Read here so the rotator group below cannot drift from it. */
+const SEED = JSON.parse(fs.readFileSync(
+  path.join(ROOT, 'assets', 'data', 'niches.seed.json'), 'utf8'));
+/* One exception to demo_path. /sites/dj/ is a theme CHOOSER — three cards
+   linking to the three built storefronts — not a storefront itself, so
+   capturing it would put the only non-hero frame in the rotator. Point it
+   at the same theme the featured card already uses. dj is the only niche
+   with sub-sites (verified by scanning the sites directory), so this map
+   has one entry and should stay that way. */
+const ROTATOR_URL_OVERRIDE = { dj: '/sites/dj/pink/' };
+const ROTATOR_TARGETS = SEED.niches
+  .filter(n => n.demo_path)
+  .map(n => ({ group: 'rotator', name: n.slug,
+               url: ROTATOR_URL_OVERRIDE[n.slug] || n.demo_path }));
 /* Scratch dir for the hero/2-branded rebuild (Ruling R13 fix round 2). It
    lives under ROOT — not an OS tmp dir — so the SAME static HTTP server that
    serves every other local target can serve it too; file:// was fix round
@@ -88,6 +103,20 @@ const TARGETS = [
   // twinkle with no discrete state to engage, so no capture can produce a
   // meaningfully distinct second frame. The landing-page task handles a
   // card with no hover frame.
+
+  /* rotator — the landing-page hero, one frame per niche that has a demo.
+     NOT listed by hand. The seed is the single source of truth for which
+     niches exist and where each demo lives, so this reads it: give a niche
+     a demo_path in niches.seed.json and it gets a hero frame on the next
+     run, with no edit here and none in index.html either — the rotator
+     markup is a BUILD marker fed from that same file.
+
+     Deliberately a SEPARATE group from `featured`, though six slugs
+     overlap. A `featured` frame is chosen for what makes a good card, and
+     three are paired with a -hover capture; the rotator wants the plain
+     hero of every niche on one consistent footing. Sharing files would
+     couple a card-art decision to the hero and back. */
+  ...ROTATOR_TARGETS,
 
   // platforms — consignmentbiz already exists in assets/proof/; recapture all
   // three here so the group is self-consistent in size and quality.

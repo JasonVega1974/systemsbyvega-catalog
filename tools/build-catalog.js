@@ -53,7 +53,8 @@ const CHECK = process.argv.includes('--check');
    missing marker, so each target names exactly what it carries. */
 const TARGETS = [
   { file: path.join(ROOT, 'index.html'),
-    markers: ['TOTAL', 'OPEN', 'SITES', 'SITES_OFFER', 'SITES_STEP', 'SITES_LINK'] },
+    markers: ['TOTAL', 'OPEN', 'SITES', 'SITES_OFFER', 'SITES_STEP', 'SITES_LINK',
+               'HERO_ROTATOR', 'SEED_SCRIPT'] },
   { file: path.join(ROOT, 'sites', 'index.html'),
     markers: ['TOTAL', 'OPEN', 'SITES', 'THESIS_OPEN',
               'CATALOG', 'NICHE_SELECT', 'SEED_SCRIPT', 'EXTRAS_SCRIPT'] },
@@ -209,6 +210,11 @@ function main() {
     SVC_SITES:    String(fig.sites),
     WK_SITES:     String(fig.sites),
     PLAT_INLINE:  String(fig.inLine),
+    /* The hero rotator's 32 frames, from the same seed rows that name the
+       screenshots tools/build-shots.js captures. Generated, not typed: a
+       niche given a demo_path in the seed joins the hero on the next build,
+       the same way it joins the catalog. */
+    HERO_ROTATOR: '\n' + R.heroRotator(seed.niches) + '\n',
     CATALOG:      '\n' + R.catalog(seed.families, seed.niches, {}, extras) + '\n',
     NICHE_SELECT: '\n' + R.nicheSelect(seed.niches) + '\n',
     SEED_SCRIPT:  seedScript,

@@ -861,9 +861,114 @@
     });
   }
 
+  /* ------------------------------------------------------------- rotator */
+  /* The landing-page hero. A no-op everywhere else — [data-rotator] exists on
+     no other page, so this returns before touching the DOM (Ruling R3).
+
+     THE POINT OF THIS FUNCTION IS THE FETCHING, not the fading. The markup
+     ships two <img> layers and one src; everything else it needs is already
+     on the page in window.SBV_SEED. Each tick promotes the back layer to the
+     front and then points the new back layer at the frame AFTER the one now
+     showing. So the browser has fetched the current frame and exactly one
+     more, whatever the frame count is.
+
+     Frames come from the SEED, deliberately, and not from state.niches —
+     state.niches is replaced by the live database overlay in loadLive(), and
+     a row that arrives live has no screenshot committed for it yet. The seed
+     is the list tools/build-shots.js captured from, so it is the only list
+     whose every entry is guaranteed to resolve. A niche added to the database
+     joins the hero when the site is rebuilt, which is also when its frame is
+     captured — together, or not at all. */
+  var ROT_MS = 5000;
+  function rotator() {
+    var seqEl = document.querySelector('[data-rotator]');
+    if (!seqEl) return;
+    var layers = seqEl.querySelectorAll('.seq-layer');
+    if (layers.length !== 2) return;
+
+    var capEl  = document.querySelector('[data-rotator-cap]');
+    var caps   = capEl ? capEl.querySelectorAll('.seq-cap-layer') : null;
+    if (caps && caps.length !== 2) caps = null;
+
+    var frames = (seed.niches || []).filter(function (n) { return n.demo_path; })
+      .map(function (n) {
+        return { src: '/assets/shots/rotator/' + n.slug + '.jpg', trade: n.name };
+      });
+    /* One frame is not a rotation. The static markup is already correct, so
+       leave it alone rather than starting a timer that changes nothing. */
+    if (frames.length < 2) return;
+
+    var i = 0;            // index of the frame currently on screen
+    var front = 0;        // which of the two layers is showing it
+    var timer = null;
+    var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+    function other() { return front === 0 ? 1 : 0; }
+
+    /* Point the hidden layer at a frame. Setting src IS the fetch — this is
+       the only place a rotator image is ever requested. */
+    function load(idx) {
+      var b = layers[other()];
+      var want = frames[idx].src;
+      if (b.getAttribute('src') !== want) b.setAttribute('src', want);
+    }
+
+    function step() {
+      var next = (i + 1) % frames.length;
+      var b = layers[other()];
+      load(next);                       // normally already done; cheap if so
+      if (caps) {
+        caps[other()].textContent = frames[next].trade;
+        caps[front].classList.remove('is-on');
+        caps[other()].classList.add('is-on');
+      }
+      layers[front].classList.remove('is-on');
+      b.classList.add('is-on');
+      /* The whole rotator is one role="img"; its label names what is in it
+         now, so it never describes a frame that has already faded out. */
+      seqEl.setAttribute('aria-label', 'The ' + frames[next].trade + ' demo storefront.');
+      front = other();
+      i = next;
+      load((i + 1) % frames.length);    // stay exactly one frame ahead
+    }
+
+    function start() {
+      if (timer || (mq && mq.matches)) return;
+      load((i + 1) % frames.length);
+      timer = setInterval(step, ROT_MS);
+    }
+    function stop() {
+      if (!timer) return;
+      clearInterval(timer);
+      timer = null;
+    }
+
+    /* Hover pauses. The frame under the pointer is the one someone is
+       looking at, so it should stay until they look away. */
+    var frameEl = seqEl.closest ? seqEl.closest('.seq-frame') : null;
+    if (frameEl) {
+      frameEl.addEventListener('mouseenter', stop);
+      frameEl.addEventListener('mouseleave', start);
+    }
+    /* A hidden tab should not burn through frames — or fetch them. */
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stop(); else start();
+    });
+    /* Reduced motion can be switched on mid-visit. Honour it live: stop, and
+       stop fetching. Turning it back off resumes from wherever it stopped. */
+    if (mq && mq.addEventListener) {
+      mq.addEventListener('change', function (e) { if (e.matches) stop(); else start(); });
+    }
+
+    start();
+  }
+
   /* ------------------------------------------------------------ platforms */
-  /* /platforms/ only. A no-op everywhere else — #platforms-root does not
-     exist on any other page, so this returns before touching the DOM.
+  /* /platforms/ AND the landing page — both carry #platforms-root, so both
+     get hydrated here; a no-op on the four pages that do not, which return
+     before touching the DOM (Ruling R3). (This comment said "/platforms/
+     only" for a while and was wrong the whole time: index.html has always
+     had the root too. It matters more now that the band is section 2.)
 
      The three open platforms, from the same rows the catalog reads. A price
      typed into this page would be a fourth place the number lives — the
@@ -1168,6 +1273,7 @@
     wireRail();
     wireExit();
     paintPlatforms();
+    rotator();
 
     /* /work/ only — no-op everywhere else (Ruling R3). */
     wkWireFilters();
