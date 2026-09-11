@@ -11,8 +11,14 @@
 <meta property="og:url" content="https://systemsbyvega.com/sites/">
 <link rel="canonical" href="https://systemsbyvega.com/sites/">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image" content="https://systemsbyvega.com/portfolio/assets/img/systemsbyvega.jpg">
-<meta name="twitter:image" content="https://systemsbyvega.com/portfolio/assets/img/systemsbyvega.jpg">
+<!-- Copied from portfolio/assets/img/ (Task 11 fix round 1): /portfolio/:path*
+     now 301s to /work/, so an og:image left under /portfolio/ would resolve
+     to an HTML page instead of the file. This copy sits at a path no
+     redirect touches; portfolio/ keeps its own copy on disk. -->
+<meta property="og:image" content="https://systemsbyvega.com/assets/og/systemsbyvega.jpg">
+<meta property="og:image:width" content="1659">
+<meta property="og:image:height" content="832">
+<meta name="twitter:image" content="https://systemsbyvega.com/assets/og/systemsbyvega.jpg">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F3922F'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' text-anchor='middle' fill='%231a1206'%3EV%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
