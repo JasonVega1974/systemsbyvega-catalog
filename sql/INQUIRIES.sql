@@ -28,7 +28,7 @@
 -- sessions, so session state does not survive from one statement to the next,
 -- and two earlier attempts died with 42P01.
 --
--- ip_address IS ONE ADDITIVE COLUMN BEYOND THE BRIEF'S ILLUSTRATIVE SCHEMA.
+-- ip_hash IS ONE ADDITIVE COLUMN BEYOND THE BRIEF'S ILLUSTRATIVE SCHEMA.
 -- Task 4's brief asks api/submit-inquiry.mjs to rate-limit "per IP per hour,
 -- counted from sbv_inquiries itself" — since there is no client_id to scope
 -- by, IP is the only dimension left, and a per-IP count "from the table
@@ -36,6 +36,16 @@
 -- brief's own sample schema had no such column, so this is the smallest
 -- addition that makes the stated behavior actually achievable: no anon
 -- exposure, no new policy, nothing else about the table changes.
+--
+-- Ruling R15 — A HASH, NOT THE RAW ADDRESS. An earlier version of this file
+-- stored ip_address in the clear. That is a new category of personal data
+-- this database would be persisting, and legal/privacy.html discloses only
+-- that our HOSTING PROVIDER keeps standard server logs with IP addresses —
+-- it says nothing about SystemsByVega persisting them in Postgres, so the
+-- raw column would have made a published claim false. The rate limiter only
+-- ever needs a stable bucket per client, which a salted SHA-256 gives just
+-- as well as the address itself, without keeping the address anywhere. See
+-- api/submit-inquiry.mjs's ipHash() for the hashing and the salt.
 -- ============================================================================
 
 do $$ begin
@@ -51,15 +61,18 @@ create table if not exists public.sbv_inquiries (
   budget_range  text,
   source        text not null default 'services',
   status        public.sbv_inquiry_status not null default 'new',
-  ip_address    text,
+  ip_hash       text,
   created_at    timestamptz not null default now(),
   updated_at    timestamptz not null default now(),
   deleted_at    timestamptz
 );
 
--- Table already existed before ip_address was added (see header note above);
--- IF NOT EXISTS makes this re-runnable against either the old or new shape.
-alter table public.sbv_inquiries add column if not exists ip_address text;
+-- Table already existed before ip_hash was added (see header note above);
+-- IF NOT EXISTS / IF EXISTS make this re-runnable against any prior shape,
+-- including the short-lived ip_address column Ruling R15 replaced. The table
+-- holds 0 rows at every point this has run, so the drop loses nothing.
+alter table public.sbv_inquiries add column if not exists ip_hash text;
+alter table public.sbv_inquiries drop column if exists ip_address;
 
 alter table public.sbv_inquiries drop constraint if exists sbv_inquiries_lengths_ck;
 alter table public.sbv_inquiries add  constraint sbv_inquiries_lengths_ck
@@ -69,7 +82,7 @@ alter table public.sbv_inquiries add  constraint sbv_inquiries_lengths_ck
     (company is null or char_length(company) <= 160) and
     char_length(btrim(project)) between 10 and 4000  and
     char_length(source)         <= 40             and
-    (ip_address is null or char_length(ip_address) <= 64)
+    (ip_hash is null or char_length(ip_hash) <= 64)
   );
 
 alter table public.sbv_inquiries drop constraint if exists sbv_inquiries_email_ck;
@@ -87,9 +100,11 @@ alter table public.sbv_inquiries add  constraint sbv_inquiries_budget_ck
 create index if not exists sbv_inquiries_open_idx
   on public.sbv_inquiries (created_at desc) where deleted_at is null;
 
--- The rate limiter in api/submit-inquiry.mjs counts recent rows for one IP.
-create index if not exists sbv_inquiries_ip_created_idx
-  on public.sbv_inquiries (ip_address, created_at);
+-- The rate limiter in api/submit-inquiry.mjs counts recent rows for one
+-- hashed IP bucket.
+drop index if exists public.sbv_inquiries_ip_created_idx;
+create index if not exists sbv_inquiries_ip_hash_created_idx
+  on public.sbv_inquiries (ip_hash, created_at);
 
 -- Reused from sbv_leads; see sql/LEADS.sql for the trigger body.
 drop trigger if exists sbv_inquiries_touch on public.sbv_inquiries;
@@ -132,17 +147,23 @@ union all select 'the open partial index exists',
          where schemaname = 'public' and tablename = 'sbv_inquiries'
            and indexname = 'sbv_inquiries_open_idx')
 
-union all select 'ip_address column exists and is text',
+union all select 'ip_hash column exists and is text',
        (select (data_type = 'text')::text
+          from information_schema.columns
+         where table_schema = 'public' and table_name = 'sbv_inquiries'
+           and column_name = 'ip_hash')
+
+union all select 'raw ip_address column does not exist',
+       (select (count(*) = 0)::text
           from information_schema.columns
          where table_schema = 'public' and table_name = 'sbv_inquiries'
            and column_name = 'ip_address')
 
-union all select 'the ip/created rate-limit index exists',
+union all select 'the ip_hash/created rate-limit index exists',
        (select (count(*) = 1)::text
           from pg_indexes
          where schemaname = 'public' and tablename = 'sbv_inquiries'
-           and indexname = 'sbv_inquiries_ip_created_idx')
+           and indexname = 'sbv_inquiries_ip_hash_created_idx')
 
 union all select 'no policy exists for anyone',
        (select (count(*) = 0)::text

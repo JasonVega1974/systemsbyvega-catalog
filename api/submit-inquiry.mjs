@@ -20,12 +20,21 @@
    hop of X-Forwarded-For. Counted from the table rather than in-process
    memory for the same reason as submit-lead: this runs on Fluid Compute,
    where a second instance would otherwise get its own fresh allowance.
-   ip_address is a column added to sbv_inquiries beyond the brief's sample
+   ip_hash is a column added to sbv_inquiries beyond the brief's sample
    schema specifically to make this possible — see sql/INQUIRIES.sql's header.
-   A missing X-Forwarded-For falls back to the literal 'unknown', the same
-   convention api/check-territory.mjs uses: header-less callers share one
-   allowance, which fails toward limiting rather than toward waving
-   everyone through.
+
+   Ruling R15 — A HASH, NOT THE ADDRESS. check-territory.mjs rate-limits by IP
+   entirely in an in-memory Map and never persists it, which is fine there
+   because a missed territory check is harmless. This table is the owner's
+   inbox and has to survive across serverless instances, so the bucket has to
+   be durable — but durable does not mean the raw address belongs in
+   Postgres. legal/privacy.html discloses only that our HOSTING PROVIDER
+   keeps standard server logs with IP addresses; it says nothing about
+   SystemsByVega persisting them, and storing the raw value here would have
+   made that published statement false. A salted SHA-256 buckets identically
+   for rate-limiting purposes without keeping the address anywhere this
+   database can be queried for it. See ipHash() below for the hashing, the
+   salt, and the 'unknown' fallback for a missing X-Forwarded-For.
 
    budget_range IS THE BUYER'S BUDGET, NOT A CLAIM ABOUT RETURN. It records
    what a prospect says they can spend. Nothing here may describe a payback
@@ -34,11 +43,20 @@
    this family holds to everywhere.
    ========================================================================== */
 
+import { createHash } from 'node:crypto';
 import {
   json, preflight, pgSelect, pgInsert, PgError,
 } from './_shared.mjs';
 
 export const config = { runtime: 'nodejs' };
+
+/* Ruling R15's salt. Read the same way api/_shared.mjs reads every other
+   environment value: process.env with a non-empty literal fallback, never an
+   empty string that would make an unset var silently hash with nothing. The
+   fallback is not a secret worth protecting — it only has to be non-empty so
+   local runs without the env var still bucket consistently; production sets
+   its own via Vercel env. */
+const IP_SALT = process.env.SBV_IP_SALT || 'sbv-inquiries-default-salt-2026';
 
 /* Per IP, per hour. Counted from the table itself rather than any in-process
    memory: this runs on Fluid Compute where a second instance would otherwise
@@ -63,14 +81,27 @@ const BUDGET_RANGES = new Set(['under-5k', '5k-15k', '15k-40k', '40k-plus', 'not
 
 const str = (v) => (typeof v === 'string' ? v.trim() : '');
 
-/* First hop only. Anything after it is whatever the client claimed and is
+/* Ruling R15: the rate limit needs a stable per-client bucket that survives
+   across serverless instances, which an in-memory Map cannot give. It does
+   NOT need the address itself. A salted hash buckets identically and stores
+   no raw identifier — legal/privacy.html discloses only that our HOST keeps
+   server logs, not that we keep IPs in Postgres, and that statement must
+   stay true. check-territory.mjs takes the in-memory route because a missed
+   territory check is harmless; this table is the owner's inbox, so the
+   bucket has to be durable.
+
+   First hop only. Anything after it is whatever the client claimed and is
    not trustworthy for rate-limiting; the edge/proxy in front of this route
-   is what prepends the real one. Falls back to 'unknown' rather than an
-   empty string, matching check-territory.mjs's clientKey(): header-less
-   callers share one allowance instead of each getting a private bucket. */
-function clientIp(request) {
-  const xff = request.headers.get('x-forwarded-for') || '';
-  return xff.split(',')[0].trim() || 'unknown';
+   is what prepends the real one. Falls back to the literal 'unknown' rather
+   than an empty string, matching check-territory.mjs's clientKey():
+   header-less callers share one allowance instead of each getting a private
+   bucket, which fails toward limiting rather than toward waving everyone
+   through. Truncated to 32 hex chars — plenty of entropy for a rate-limit
+   bucket, and short enough to stay well under the column's 64-char cap. */
+function ipHash(request) {
+  const fwd = request.headers.get('x-forwarded-for') || '';
+  const first = fwd.split(',')[0].trim() || 'unknown';
+  return createHash('sha256').update(IP_SALT + first).digest('hex').slice(0, 32);
 }
 
 export default {
@@ -118,11 +149,13 @@ export default {
     const rawBudget = str(body.budget_range);
     const budgetRange = BUDGET_RANGES.has(rawBudget) ? rawBudget : null;
 
-    const ip = clientIp(request);
+    const bucket = ipHash(request);
 
     try {
       /* Rate limit, per IP per hour, counted from sbv_inquiries itself since
-         there is no tenant to scope by.
+         there is no tenant to scope by. Filters on the hash — see ipHash()
+         and sql/INQUIRIES.sql's Ruling R15 note for why the table never
+         holds the raw address.
 
          limit=RATE_LIMIT+1 because the only question is whether the count has
          reached the ceiling; fetching more rows to count them precisely would
@@ -130,7 +163,7 @@ export default {
          submit-lead.mjs. */
       const since = new Date(Date.now() - RATE_WINDOW_MS).toISOString();
       const recent = await pgSelect('sbv_inquiries',
-        'ip_address=eq.' + encodeURIComponent(ip) +
+        'ip_hash=eq.' + encodeURIComponent(bucket) +
         '&created_at=gt.' + encodeURIComponent(since) +
         '&select=id&limit=' + (RATE_LIMIT + 1));
       if (Array.isArray(recent) && recent.length >= RATE_LIMIT) {
@@ -145,7 +178,7 @@ export default {
         project,
         budget_range: budgetRange,
         source: 'services',
-        ip_address: ip,
+        ip_hash: bucket,
       }, { minimal: true });
 
       return json({ ok: true });
@@ -154,7 +187,7 @@ export default {
          PostgREST body, which names columns and constraints. Log it, answer
          with a code. */
       const status = e instanceof PgError && e.status >= 400 && e.status < 500 ? 400 : 503;
-      console.error('submit-inquiry:', ip, e && e.message);
+      console.error('submit-inquiry:', bucket, e && e.message);
       return json({ ok: false, error: status === 400 ? 'rejected' : 'unavailable' }, status);
     }
   },
