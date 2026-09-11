@@ -31,6 +31,7 @@ const PAGES = [
     pending: 'inline <style> until Task 10 consolidates the catalog here' },
   { route: '/platforms/', file: 'platforms/index.html', sharedAssets: true },
   { route: '/services/', file: 'services/index.html', sharedAssets: true },
+  { route: '/work/', file: 'work/index.html', sharedAssets: true },
 ];
 
 const DISCLAIMER = 'makes no representation about income, revenue, profit, or results';

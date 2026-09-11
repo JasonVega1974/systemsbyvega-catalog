@@ -110,6 +110,11 @@
    dark (.plate), #esb paper, #gsb white, #csb paper, #next dark, footer dark.
    Paper never sits next to paper — #esb and #csb are separated by #gsb white
    in between, same principle as #problem/#process on /services/ not touching.
+
+   /work/ also reuses the same three rules. Its rhythm: nav dark, hero dark
+   (.plate), #roster white, footer dark — one content band is enough for a
+   single filterable grid, and white-then-dark never repeats a neighbour's
+   tone either way it is read.
 */
 .plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer, #answers, #next{
   --bg:      var(--con);
@@ -139,7 +144,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites, #build, #inquiry, #gsb{
+#how, #line, #websites, #build, #inquiry, #gsb, #roster{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -279,7 +284,7 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 /* Bands are full-width and butt against each other; a hairline between two
    different grounds is noise, so only same-tone neighbours keep one. */
 #proof, #registry, #catalog, #how, #line, #websites, #faq, #founder,
-#esb, #gsb, #csb, #next{border-top:0}
+#esb, #gsb, #csb, #next, #roster{border-top:0}
 .section-head{margin-bottom:30px}
 .section-head h2{margin:12px 0 16px}
 
@@ -1076,6 +1081,138 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
   letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);font-style:normal}
 @media (prefers-reduced-motion:reduce){.related-card{transition:none}
   .related-card:hover{transform:none}}
+
+/* ========================================================== /work/ grid ==
+   Task 7 — Ruling R4: every colour below is a BAND TOKEN
+   (--surface,--tx,--tx-2,--tx-3,--rule,--acc,--acc-ink), never a literal
+   lifted from portfolio/assets/css/styles.css. #roster is the one band this
+   grid lives in, so the tokens it reads are that band's — the same rule
+   .reg-card and .founder already follow.
+
+   .wk-card deliberately does NOT reuse .entry.sheet (the homepage's pinned-
+   paper catalog plate). That look is the "Own Your Town" catalog's device;
+   a portfolio card is a screenshot, a name and a status, not a stapled
+   yard-sale flyer. It DOES reuse .grid for the four/three/two/one column
+   layout — .grid only assigns columns and gap, its rotate/twitch rules key
+   off .entry.sheet specifically and never touch a .wk-card. */
+.wk-grid{align-items:start}
+.wk-loading{grid-column:1/-1;color:var(--tx-3);font-family:var(--mono);font-size:13px}
+
+.wk-card{
+  display:flex;flex-direction:column;overflow:hidden;
+  background:var(--surface);border:1px solid var(--rule);border-radius:13px;
+  box-shadow:var(--elev);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.wk-card:hover{transform:translateY(-4px);box-shadow:var(--elev-2);border-color:var(--acc)}
+.wk-card:focus-within{border-color:var(--acc)}
+
+/* the screenshot — real cards get an <img>, Kingdom Creatives gets a placard */
+.wk-shot{position:relative;display:block;aspect-ratio:1280/800;overflow:hidden;
+  background:var(--surface-2);border-bottom:1px solid var(--rule);line-height:0}
+.wk-shot img{width:100%;height:100%;object-fit:cover;display:block}
+.wk-shot--placard{
+  display:grid;place-items:center;text-align:center;gap:6px;padding:20px;
+  background:var(--acc);color:var(--acc-ink);
+}
+.wk-shot--placard b{font-family:var(--display);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(19px,3vw,25px);line-height:1.1}
+.wk-shot--placard span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;opacity:.82}
+
+.wk-body{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1 1 auto}
+.wk-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.wk-body h3{font-size:19px}
+.wk-tagline{font-size:14px;color:var(--tx-2);margin-top:8px;line-height:1.5}
+.wk-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.wk-tag{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tx-3);background:var(--surface-2);
+  border:1px solid var(--rule);border-radius:999px;padding:4px 9px;
+}
+.wk-go{
+  margin-top:auto;padding-top:16px;font-family:var(--display);font-weight:700;
+  font-size:13.5px;color:var(--acc-tx);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.wk-go:hover{text-decoration:underline;text-underline-offset:3px}
+/* Kingdom Creatives has no .wk-go at all — see sbv.js: `p.url ? '<a ...>' : ''`.
+   Without a CTA the card still needs its bottom edge to land somewhere, so the
+   note that replaces it carries the same top margin. */
+.wk-note{margin-top:auto;padding-top:16px;font-size:13px;color:var(--tx-2);line-height:1.5}
+
+/* status pill — Offline must never read as another shade of Live */
+.wk-pill{
+  flex:0 0 auto;font-family:var(--mono);font-weight:600;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+  white-space:nowrap;margin-top:2px;
+}
+.wk-pill--live{background:var(--acc);color:var(--acc-ink)}
+.wk-pill--offline{background:transparent;color:var(--tx-3);border:1px solid var(--rule-2)}
+
+/* the title-as-button the whole card opens through — same device as .card-open */
+.wk-open{
+  font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;
+  text-align:left;cursor:pointer;display:inline;
+  border-bottom:2px solid transparent;transition:border-color .18s ease;
+}
+.wk-card:hover .wk-open,
+.wk-open:hover,
+.wk-open:focus-visible{border-bottom-color:var(--acc)}
+
+/* --------------------------------------------------------- detail panel --- */
+/* A plain overlay, not the homepage's "plate, unpinned" flourish — this page
+   has no paper texture to unpin FROM. Root tokens (--panel/--ink/--hair), not
+   band tokens: like .nm-card and .exit-card, it floats above whichever band
+   was open when it was clicked and must read the same regardless. */
+.wk-modal{
+  position:fixed;inset:0;z-index:110;display:grid;place-items:center;
+  padding:24px 20px;background:rgba(10,13,18,.6);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+  overflow-y:auto;
+}
+/* opacity, not visibility: a visibility transition only becomes focusable
+   once the browser has painted the new value, which lands one frame after
+   the attribute flips — late enough that the initial focus() call below
+   still finds the panel unfocusable and leaves focus on the card. Opacity
+   carries no such rule, so the close button is focusable the instant
+   box.hidden is cleared. pointer-events keeps the transparent overlay from
+   swallowing clicks while it is closed or mid fade-out. */
+.wk-modal[data-open="1"]{opacity:1;pointer-events:auto}
+.wk-modal-card{
+  position:relative;width:min(600px,100%);margin:auto;padding:34px 30px 28px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--hair);
+  border-radius:14px;box-shadow:var(--shadow);
+  transform:translateY(10px);transition:transform .2s ease;
+}
+.wk-modal[data-open="1"] .wk-modal-card{transform:translateY(0)}
+.wk-modal-close{
+  position:absolute;top:8px;right:8px;width:42px;height:42px;
+  background:none;border:0;cursor:pointer;font-size:26px;line-height:1;
+  color:var(--ink-soft);border-radius:8px;
+}
+.wk-modal-close:hover{color:var(--ink);background:rgba(20,28,40,.06)}
+.wk-modal-shot{display:block;width:100%;aspect-ratio:1280/800;object-fit:cover;
+  border-radius:9px;border:1px solid var(--hair);margin-bottom:18px}
+.wk-modal-shot--placard{
+  display:grid;place-items:center;background:var(--amber);color:#1a1206;
+  font-family:var(--display);font-weight:900;font-size:22px;text-align:center;padding:16px;
+}
+.wk-modal-body h3{font-size:clamp(21px,3.6vw,27px);color:var(--ink);display:inline}
+.wk-modal-tagline{font-size:14.5px;color:var(--ink-soft);margin-top:8px}
+.wk-modal-desc{font-size:15px;line-height:1.6;color:var(--ink-soft);margin-top:14px}
+.wk-modal-note{
+  margin-top:14px;padding:11px 13px;background:rgba(232,121,27,.08);
+  border-left:3px solid var(--amber);border-radius:0 6px 6px 0;
+  font-size:13.5px;line-height:1.55;color:var(--ink-soft);
+}
+.wk-modal-features{margin-top:16px;padding-left:20px;color:var(--ink-soft);font-size:14px;line-height:1.6}
+.wk-modal-features li + li{margin-top:6px}
+.wk-modal-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.wk-modal-foot{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.wk-modal-foot .btn-pri{background:var(--amber-deep);border-color:var(--amber-deep);color:#fff}
+.wk-modal-foot .btn-pri:hover{background:var(--amber)}
+@media (max-width:560px){.wk-modal{padding:14px 12px}.wk-modal-card{padding:28px 20px 22px}}
+@media (prefers-reduced-motion:reduce){.wk-modal,.wk-modal-card{transition:none}}
 
 /* ===================================================== GLOBAL CHROME ==
    Nav and footer, injected by tools/build-chrome.js. Reads band tokens

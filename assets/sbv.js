@@ -874,6 +874,246 @@
     }
   }
 
+  /* ----------------------------------------------------------------- work */
+  /* /work/ only. A no-op everywhere else — #wk-grid does not exist on any
+     other page, so paintWork() returns before the fetch, and wireWorkModal()
+     returns before it touches the DOM. Ruling R3.
+
+     The pattern is the one portfolio/assets/js/app.js already proved:
+     fetch a JSON file, render cards, filter by category. It moves here and
+     reads band tokens instead of that file's own stylesheet (Ruling R4);
+     nothing else about the shape changed. The data itself lives in
+     work/projects.json, not in this file — the roster can be edited without
+     touching code, and this script cannot drift from it because it never
+     copies a project's name or status into a string of its own. */
+  var wkProjects = [];
+  var wkFilter = '';
+  var wkModalLast = null;
+
+  function wkEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function wkInitials(name) {
+    return String(name || '')
+      .replace(/[^A-Za-z0-9 ]/g, '')
+      .split(/\s+/).filter(Boolean).slice(0, 2)
+      .map(function (w) { return w[0].toUpperCase(); }).join('');
+  }
+
+  /* A card with no url is not a broken link, it is a card that deliberately
+     does not link. Rendering an <a href="null"> or an <a> with no href would
+     be a worse answer than the honest one. */
+  function wkGoLink(p) {
+    if (!p.url) return p.note ? '<p class="wk-note">' + wkEsc(p.note) + '</p>' : '';
+    var external = /^https?:\/\//.test(p.url);
+    var attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return '<a class="wk-go" href="' + wkEsc(p.url) + '"' + attrs + '>Open it ' +
+           '<span aria-hidden="true">&rarr;</span></a>';
+  }
+
+  function wkShotHtml(p) {
+    if (p.shot) {
+      return '<div class="wk-shot"><img src="/assets/shots/work/' + wkEsc(p.shot) +
+             '" width="1280" height="800" loading="lazy" alt="' +
+             wkEsc(p.name + ' — screenshot') + '"></div>';
+    }
+    /* No screenshot: a typographic placard in the house colour, same device
+       the homepage board uses for a platform that is not filled yet — never
+       a broken <img>, and never silence where a shot would have been. */
+    return '<div class="wk-shot wk-shot--placard"><b>' + wkEsc(wkInitials(p.name)) +
+           '</b><span>' + wkEsc(p.status || '') + '</span></div>';
+  }
+
+  function wkCardHtml(p) {
+    var pillClass = String(p.status).toLowerCase() === 'live' ? 'wk-pill--live' : 'wk-pill--offline';
+    var tags = (p.tags || []).map(function (t) {
+      return '<span class="wk-tag">' + wkEsc(t) + '</span>';
+    }).join('');
+    return '' +
+      '<article class="wk-card reveal" data-id="' + wkEsc(p.id) + '" data-category="' + wkEsc(p.category || '') + '">' +
+        wkShotHtml(p) +
+        '<div class="wk-body">' +
+          '<div class="wk-top">' +
+            '<h3><button type="button" class="wk-open">' + wkEsc(p.name) + '</button></h3>' +
+            '<span class="wk-pill ' + pillClass + '">' + wkEsc(p.status || '') + '</span>' +
+          '</div>' +
+          '<p class="wk-tagline">' + wkEsc(p.tagline || '') + '</p>' +
+          (tags ? '<div class="wk-tags">' + tags + '</div>' : '') +
+          wkGoLink(p) +
+        '</div>' +
+      '</article>';
+  }
+
+  function wkCategories(list) {
+    var seen = [];
+    list.forEach(function (p) {
+      if (p.category && seen.indexOf(p.category) === -1) seen.push(p.category);
+    });
+    return seen;
+  }
+
+  function wkBuildFilters(list) {
+    var bar = el('wk-filterbar'), chips = el('wk-chips');
+    if (!bar || !chips) return;
+    var cats = [''].concat(wkCategories(list));
+    chips.innerHTML = cats.map(function (cat, idx) {
+      var label = cat || 'All work';
+      var n = cat ? list.filter(function (p) { return p.category === cat; }).length : list.length;
+      return '<button type="button" class="chip" data-filter="' + wkEsc(cat) + '" ' +
+             'aria-pressed="' + (idx === 0 ? 'true' : 'false') + '">' +
+             '<span>' + wkEsc(label) + '</span><b class="chip-n">' + n + '</b></button>';
+    }).join('');
+    bar.hidden = false;
+  }
+
+  function wkApplyFilter() {
+    var grid = el('wk-grid');
+    if (!grid) return;
+    var cards = grid.querySelectorAll('.wk-card');
+    var shown = 0;
+    Array.prototype.forEach.call(cards, function (c) {
+      var on = !wkFilter || c.getAttribute('data-category') === wkFilter;
+      c.hidden = !on;
+      if (on) shown++;
+    });
+    var bar = el('wk-filterbar');
+    if (bar) {
+      Array.prototype.forEach.call(bar.querySelectorAll('.chip'), function (c) {
+        c.setAttribute('aria-pressed', (c.getAttribute('data-filter') || '') === wkFilter ? 'true' : 'false');
+      });
+    }
+    var count = el('wk-filter-count');
+    if (count) count.textContent = shown + ' of ' + cards.length;
+    var empty = el('wk-filter-empty');
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  function wkWireFilters() {
+    var bar = el('wk-filterbar');
+    if (!bar) return;
+    bar.addEventListener('click', function (e) {
+      var chip = e.target.closest ? e.target.closest('.chip') : null;
+      if (!chip) return;
+      wkFilter = chip.getAttribute('data-filter') || '';
+      wkApplyFilter();
+    });
+  }
+
+  /* -------------------------------------------------------- detail panel */
+  /* Every word here is read off the project object that opened it — nothing
+     authored per-card in this file, so the modal cannot say something the
+     grid does not already say. Same constraint fillModal() follows above. */
+  function wkFillModal(p) {
+    var body = el('wk-modal-body');
+    if (!body) return;
+    var pillClass = String(p.status).toLowerCase() === 'live' ? 'wk-pill--live' : 'wk-pill--offline';
+    var shot = p.shot
+      ? '<img class="wk-modal-shot" src="/assets/shots/work/' + wkEsc(p.shot) + '" width="1280" height="800" ' +
+        'alt="' + wkEsc(p.name + ' — screenshot') + '">'
+      : '<div class="wk-modal-shot wk-modal-shot--placard">' + wkEsc(wkInitials(p.name)) + '</div>';
+    var tags = (p.tags || []).map(function (t) {
+      return '<span class="wk-tag">' + wkEsc(t) + '</span>';
+    }).join('');
+    var features = (p.features || []).length
+      ? '<ul class="wk-modal-features">' + p.features.map(function (f) {
+          return '<li>' + wkEsc(f) + '</li>';
+        }).join('') + '</ul>'
+      : '';
+    var note = (!p.url && p.note)
+      ? '<p class="wk-modal-note">' + wkEsc(p.note) + '</p>' : '';
+    var foot = '';
+    if (p.url) {
+      var external = /^https?:\/\//.test(p.url);
+      var attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      foot = '<a class="btn btn-pri" href="' + wkEsc(p.url) + '"' + attrs + '>Open it &rarr;</a>';
+    }
+    body.innerHTML =
+      shot +
+      '<div class="wk-top"><h3 id="wk-modal-title">' + wkEsc(p.name) + '</h3>' +
+      '<span class="wk-pill ' + pillClass + '">' + wkEsc(p.status || '') + '</span></div>' +
+      '<p class="wk-modal-tagline">' + wkEsc(p.tagline || '') + '</p>' +
+      '<p class="wk-modal-desc">' + wkEsc(p.description || '') + '</p>' +
+      note + features +
+      (tags ? '<div class="wk-modal-tags">' + tags + '</div>' : '') +
+      '<div class="wk-modal-foot">' + foot + '</div>';
+  }
+
+  function wkModalFocusables() {
+    var box = el('wk-modal');
+    return box ? box.querySelectorAll('a[href],button:not([disabled])') : [];
+  }
+
+  function wkModalKey(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) { wkCloseModal(); return; }
+    if (e.key !== 'Tab' && e.keyCode !== 9) return;
+    var f = wkModalFocusables();
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function wkOpenModal(id) {
+    var box = el('wk-modal');
+    var p = wkProjects.filter(function (x) { return x.id === id; })[0];
+    if (!box || !p) return;
+    wkModalLast = document.activeElement;
+    wkFillModal(p);
+    box.hidden = false;
+    void box.offsetHeight;
+    box.setAttribute('data-open', '1');
+    document.body.style.overflow = 'hidden';
+    var f = wkModalFocusables();
+    if (f.length) f[0].focus();
+    document.addEventListener('keydown', wkModalKey);
+  }
+
+  function wkCloseModal() {
+    var box = el('wk-modal');
+    if (!box || box.getAttribute('data-open') !== '1') return;
+    box.setAttribute('data-open', '0');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', wkModalKey);
+    setTimeout(function () { box.hidden = true; }, 220);
+    if (wkModalLast && wkModalLast.focus) wkModalLast.focus();
+  }
+
+  function wkWireModal() {
+    var grid = el('wk-grid'), box = el('wk-modal');
+    if (!grid || !box) return;
+    grid.addEventListener('click', function (e) {
+      if (!e.target.closest) return;
+      if (e.target.closest('a')) return;             // the "Open it" link keeps its own behaviour
+      var card = e.target.closest('.wk-card');
+      if (!card) return;
+      e.preventDefault();
+      wkOpenModal(card.getAttribute('data-id'));
+    });
+    box.addEventListener('click', function (e) { if (e.target === box) wkCloseModal(); });
+    var x = el('wk-modal-close');
+    if (x) x.addEventListener('click', wkCloseModal);
+  }
+
+  function paintWork() {
+    var grid = el('wk-grid');
+    if (!grid) return;                                // R3: not this page, do nothing
+    fetch('/work/projects.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (list) {
+        wkProjects = Array.isArray(list) ? list : [];
+        grid.innerHTML = wkProjects.map(wkCardHtml).join('');
+        wkBuildFilters(wkProjects);
+        wkApplyFilter();
+        observe();                                    // the grid just got .reveal cards to animate in
+      })
+      .catch(function () {
+        grid.innerHTML = '<p class="wk-loading">Couldn’t load the roster. Try reloading the page.</p>';
+      });
+  }
+
   function boot() {
     document.documentElement.classList.remove('no-js');
     wireLineLinks();
@@ -893,6 +1133,11 @@
     wireRail();
     wireExit();
     paintPlatforms();
+
+    /* /work/ only — no-op everywhere else (Ruling R3). */
+    wkWireFilters();
+    wkWireModal();
+    paintWork();
 
     loadLive();
   }
