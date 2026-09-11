@@ -415,6 +415,15 @@ a.seq-step-more:hover{border-color:var(--acc);color:var(--acc)}
 @media (max-width:1180px){.grid{grid-template-columns:repeat(3,1fr);gap:34px 26px}}
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:600px){.grid{grid-template-columns:1fr;gap:30px}}
+/* #offer carries TWO cards now — the SaaS one was a smaller echo of the
+   #platforms band directly above it. Two cards left in the shared
+   four-column .grid would sit squeezed into the left third with two dead
+   columns beside them, reading as a load failure rather than a choice. This
+   band gets a pair layout instead, capped so the two do not stretch into
+   banners: the cards grow, which is the right direction when there are
+   fewer of them. .grid itself is untouched — #how still uses all four. */
+#offer .grid{grid-template-columns:repeat(2,1fr);gap:34px 28px;max-width:860px}
+@media (max-width:700px){#offer .grid{grid-template-columns:1fr;gap:30px}}
 @media (max-width:760px){.ledger-bar{grid-template-columns:repeat(2,1fr)}.ledger-cell:nth-child(2n){border-right:0}}
 @media (max-width:420px){.ledger-bar{grid-template-columns:1fr}.ledger-cell{border-right:0}}
 
