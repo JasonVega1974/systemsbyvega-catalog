@@ -1759,6 +1759,25 @@ locally, and at 390px confirm `#gnav-drawer .btn` computes
 `background: rgb(243, 146, 47)` / `color: rgb(26, 18, 6)`, the burger opens the drawer,
 and Escape closes it. A passing text gate does not prove any of that.
 
+- [ ] **Step 4c: Fix the modal focus bug while you are moving it (F7)**
+
+`openModal()` in `assets/sbv.js` calls `f[0].focus()` but focus never lands — measured
+on `/`: `BODY` before, immediately after, and 500ms after opening, with `data-open="1"`
+and `focusIsInsideModal: false`. A keyboard user opens a card’s detail panel and their
+focus stays behind it; the trap at `sbv.js:688` never engages because activeElement was
+never inside. This is live on the site today and you are moving this modal anyway.
+
+Fix it the way Task 7 fixed the identical problem in `.wk-modal`: drop `visibility`
+from the transition and use `opacity` + `pointer-events` instead. The reasoning is
+written up at `assets/sbv.css:1173` — read it.
+
+`.exit` (the exit-intent card, `assets/sbv.css:813`) uses the same pattern and calls
+`focus()` the same way. **Check it too**, and fix it if it shares the bug.
+
+**Verify by measurement, not by reading the CSS:** open each in a browser, and assert
+`document.getElementById('nm').contains(document.activeElement)` is `true` after the
+click. Then Tab to the last focusable element and confirm it cycles back to the first.
+
 - [ ] **Step 5: Keep the confirm bridge on BOTH pages for now**
 
 **Do not delete the copy on `/` yet.** It moves only after the Supabase dashboard

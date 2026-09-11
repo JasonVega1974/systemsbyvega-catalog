@@ -119,3 +119,35 @@ checkable.
 
 Deliberately not written into the file by an agent: the brief's stop conditions say to
 flag compliance-adjacent copy rather than guess at it.
+
+---
+
+## F7 — the homepage niche modal never receives focus (live a11y bug)
+
+**Status:** open, pre-existing, confirmed by measurement. Scheduled into Task 10.
+
+`openModal()` in `assets/sbv.js` calls `f[0].focus()` (line ~722) right after flipping
+`data-open`, but focus never lands. Measured in a browser on `/`:
+
+```
+focus before open        BODY
+focus just after open    BODY
+focus after transition   BODY      (500ms, well past the .22s transition)
+modal data-open          1
+focus inside modal       false
+```
+
+A keyboard user opens a catalog card's detail panel and their focus is still behind it.
+Tab then walks the page underneath, and the focus trap at `sbv.js:688-689` never engages
+because `document.activeElement` was never inside the modal to begin with.
+
+`.exit` (the exit-intent card, `sbv.css:813`) uses the identical
+`opacity + visibility` transition pattern and calls `focus()` the same way, so it is
+very likely affected too — verify both when fixing.
+
+**Known-good fix:** Task 7 hit exactly this in its new `.wk-modal` and solved it by
+dropping `visibility` from the transition and using `opacity` + `pointer-events`
+instead, with the reasoning written up at `assets/sbv.css:1173`. Apply the same shape.
+
+**Why Task 10:** that task moves this modal to `/sites/` anyway, so it is the natural
+place to fix it rather than touching `sbv.js` twice.
