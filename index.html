@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Systems by Vega — the catalog of turnkey local businesses</title>
-<meta name="description" content="A catalog of turnkey local businesses. One operator per city. Three are open today — estate sales, garage sales, and consignment — and the rest get built in the order people ask for them.">
+<title>Systems by Vega — I build the whole system, not the website</title>
+<meta name="description" content="Turnkey local businesses, multi-tenant SaaS platforms, and custom software — built solo, shipped, and running today. Browse the catalog, the platforms, or the work.">
 <link rel="canonical" href="https://systemsbyvega.com/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Systems by Vega — the catalog of turnkey local businesses">
-<meta property="og:description" content="Pick a business. Check your city. One operator per city, recorded rather than promised.">
+<meta property="og:title" content="Systems by Vega — I build the whole system, not the website">
+<meta property="og:description" content="Turnkey local businesses, multi-tenant SaaS platforms, and custom software — built solo, shipped, and running today.">
 <meta property="og:url" content="https://systemsbyvega.com/">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -73,195 +73,307 @@
   </div>
 </nav><!-- /BUILD:NAV -->
 
-<!-- ══════════════════════════ MASTHEAD ══════════════════════════════════ -->
+<!-- ══════════════════════════ HERO ═══════════════════════════════════════ -->
+<!-- This page sells nothing. Every CTA below leaves for a room: /sites/,
+     /platforms/, /services/, /work/. Its only job is answering "what is
+     this?" in five seconds and routing. -->
 <header class="plate" id="main">
-  <!-- The board: one tile per listed business, in its family colour, the open
-       ones lit. Built by sbv.js from the same data the ledger bar counts, so
-       it can never disagree with the numbers printed underneath it. Purely
-       decorative, absolutely positioned, contributes no layout. -->
-  <div class="board" id="hero-board" aria-hidden="true"></div>
-
   <div class="wrap">
     <div class="plate-body">
-      <div class="plate-sub">The catalog of turnkey local businesses</div>
-      <h1 class="display">Pick a business.<br>Check your city.</h1>
+      <div class="plate-sub">Systems by Vega</div>
+      <h1 class="display">I build the whole system,<br>not the website.</h1>
       <p class="thesis">
-        <em><span id="thesis-open"><!-- BUILD:THESIS_OPEN -->Three are open today<!-- /BUILD:THESIS_OPEN --></span></em>
-        <span>— the rest get built in the order people ask for them.</span>
+        Turnkey local businesses, multi-tenant SaaS platforms, and custom software —
+        built solo, shipped, and running today.
       </p>
       <div class="plate-cta">
-        <a class="btn btn-pri" href="/sites/#catalog">Browse the catalog</a>
-        <a class="btn btn-sec" href="#how">How it works</a>
+        <a class="btn btn-pri" href="/sites/">Browse the catalog &rarr;</a>
+        <a class="btn btn-sec" href="/work/">See what I build</a>
       </div>
-    </div>
-  </div>
 
-  <div class="wrap">
-    <div class="ledger-bar">
-      <div class="ledger-cell">
-        <b id="lg-total"><!-- BUILD:TOTAL -->38<!-- /BUILD:TOTAL --></b>
-        <span>Businesses listed</span>
-      </div>
-      <div class="ledger-cell">
-        <b id="lg-open"><!-- BUILD:OPEN -->3<!-- /BUILD:OPEN --></b>
-        <span>Open today</span>
-      </div>
-      <div class="ledger-cell">
-        <b id="lg-sites"><!-- BUILD:SITES -->32<!-- /BUILD:SITES --></b>
-        <span>Turnkey sites ready</span>
-      </div>
-      <div class="ledger-cell">
-        <b id="lg-per-city">1</b>
-        <span>Operator per city</span>
+      <!-- The sequence: two real screenshots, cross-faded. Demo storefront,
+           then the same storefront rebuilt under another brand (Ruling R7 —
+           not three frames; /admin/ is behind auth). CSS @keyframes only. -->
+      <div class="seq-frame reveal">
+        <div class="seq-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="seq">
+          <img src="/assets/shots/hero/1-demo.jpg" width="1280" height="800"
+               alt="The landscaping demo storefront, Larkspur &amp; Ledge Landscape Co., carrying a banner that reads Demo — this site is for sale.">
+          <img src="/assets/shots/hero/2-branded.jpg" width="1280" height="800"
+               alt="The same site, genuinely rebuilt under a different brand — Vega &amp; Sons Lawn Care — with no demo banner.">
+        </div>
+        <div class="seq-cap" aria-hidden="true">
+          <span>The demo</span>
+          <span>Your site.</span>
+        </div>
+        <div class="seq-steps">
+          <div class="seq-step"><b>1</b><span>The demo</span></div>
+          <div class="seq-step"><b>2</b><span>Your site.</span></div>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- ══════════════════════════ HOW IT WORKS ══════════════════════════════ -->
+<!-- ══════════════════════════ THREE ROOMS ════════════════════════════════ -->
+<section class="section" id="offer">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Pick a room</span>
+      <h2>Three ways to work with me. <br>Pick the one that fits.</h2>
+    </div>
+    <div class="grid">
+      <article class="entry reveal">
+        <div class="entry-top"><span class="cat-no">From $299</span></div>
+        <h3>Turnkey websites</h3>
+        <p class="job">32 industries, live demos, owner admin included. Pick the one closest to
+          yours and it gets rebuilt under your name.</p>
+        <p style="margin-top:14px"><a class="link" href="/sites/">Browse the catalog &rarr;</a></p>
+      </article>
+      <article class="entry reveal">
+        <div class="entry-top"><span class="cat-no">From $197</span></div>
+        <h3>SaaS platforms</h3>
+        <p class="job">Run the whole operation — one operator per city, checkout and buyer
+          notifications built in.</p>
+        <p style="margin-top:14px"><a class="link" href="/platforms/">See the platforms &rarr;</a></p>
+      </article>
+      <article class="entry reveal">
+        <div class="entry-top"><span class="cat-no">Quoted</span></div>
+        <h3>Custom builds</h3>
+        <p class="job">Dashboards, databases, automation. Scoped and quoted for what your
+          business actually needs.</p>
+        <p style="margin-top:14px"><a class="link" href="/services/">Talk about a build &rarr;</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FEATURED SITES ═════════════════════════════ -->
+<section class="section" id="featured">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Six of the thirty-two</span>
+      <h2>Screenshots, not renderings. <br>Hover one to see it work.</h2>
+      <p class="lede" style="margin-top:12px">
+        Every one of these is a live, running site. Hover a card — or tab to it — to see its
+        signature interaction.
+      </p>
+    </div>
+
+    <div class="fgrid">
+      <a class="fcard reveal" href="/sites/bin-cleaning/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/bin-cleaning.jpg" width="1280" height="800" loading="lazy"
+               alt="The Prime Bin Cleaning homepage.">
+          <img class="on" src="/assets/shots/featured/bin-cleaning-hover.jpg" width="1280" height="800" loading="lazy"
+               alt="Prime Bin Cleaning's before/after drag slider, mid-drag.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">Prime Bin Cleaning</div>
+          <div class="fcard-trade">Bin Cleaning</div>
+          <p class="fcard-line">Clean the trash bins on a route, on a schedule, every month.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+
+      <a class="fcard reveal" href="/sites/landscaping/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/landscaping.jpg" width="1280" height="800" loading="lazy"
+               alt="The Larkspur &amp; Ledge Landscape Co. homepage.">
+          <img class="on" src="/assets/shots/featured/landscaping-hover.jpg" width="1280" height="800" loading="lazy"
+               alt="Larkspur &amp; Ledge's season wheel, switched to a different season.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">Larkspur &amp; Ledge Landscape Co.</div>
+          <div class="fcard-trade">Landscaping</div>
+          <p class="fcard-line">Keep yards cut, edged, and planted through all four seasons.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+
+      <a class="fcard reveal" href="/sites/dumpster-rental/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/dumpster-rental.jpg" width="1280" height="800" loading="lazy"
+               alt="The Sawtooth Dumpster Co. homepage.">
+          <img class="on" src="/assets/shots/featured/dumpster-rental-hover.jpg" width="1280" height="800" loading="lazy"
+               alt="Sawtooth Dumpster Co.'s size and price picker, a size selected.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">Sawtooth Dumpster Co.</div>
+          <div class="fcard-trade">Dumpster Rental</div>
+          <p class="fcard-line">Drop the container, haul it off, bill a flat rate.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+
+      <a class="fcard reveal" href="/sites/dog-walking/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/dog-walking.jpg" width="1280" height="800" loading="lazy"
+               alt="The Bluebird &amp; Biscuit Pet Care homepage.">
+          <img class="on" src="/assets/shots/featured/dog-walking-hover.jpg" width="1280" height="800" loading="lazy"
+               alt="Bluebird &amp; Biscuit's weekly walk builder, days selected.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">Bluebird &amp; Biscuit Pet Care</div>
+          <div class="fcard-trade">Dog Walking</div>
+          <p class="fcard-line">Walk the dogs on a weekly rhythm their owners can count on.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+
+      <a class="fcard reveal" href="/sites/dj/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/dj.jpg" width="1280" height="800" loading="lazy"
+               alt="The DJ Nova homepage, pink theme.">
+          <img class="on" src="/assets/shots/featured/dj-hover.jpg" width="1280" height="800" loading="lazy"
+               alt="DJ Nova's live canvas visualiser, mid-animation.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">DJ Nova</div>
+          <div class="fcard-trade">DJ</div>
+          <p class="fcard-line">Play the room — weddings, clubs, and anywhere with a dance floor.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+
+      <!-- child-care: no .on image (Ruling R13). Its hero is an ambient CSS
+           twinkle with no discrete state a screenshot can differ from —
+           assets/shots/featured/child-care-hover.jpg deliberately does not
+           exist. A broken <img> is worse than no hover, and .fcard:hover .on
+           simply matches nothing here, which is the correct degrade. -->
+      <a class="fcard reveal" href="/sites/child-care/">
+        <div class="fcard-shot">
+          <img src="/assets/shots/featured/child-care.jpg" width="1280" height="800" loading="lazy"
+               alt="The Huckleberry Sitters homepage at dusk.">
+        </div>
+        <div class="fcard-body">
+          <div class="fcard-brand">Huckleberry Sitters</div>
+          <div class="fcard-trade">Child Care</div>
+          <p class="fcard-line">Watch the kids so the parents can have the evening.</p>
+          <span class="fcard-go">See the demo &rarr;</span>
+        </div>
+      </a>
+    </div>
+
+    <p class="fine" style="margin-top:24px;max-width:70ch">
+      <strong>Nearly every business name above is an example</strong> — a demo built to show the
+      template in action, not a real company. One exception: Prime Bin Cleaning is a real operator
+      running on this exact template.
+    </p>
+
+    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">All 32 sites &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ HOW IT WORKS ═══════════════════════════════ -->
 <section class="section" id="how">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">How it works</span>
-      <h2>Three steps, and we are honest <br>about which one you are on.</h2>
+      <h2>Three steps. This is <br>the real flow, today.</h2>
     </div>
     <div class="grid">
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 1</span></div>
-        <h3>Pick a business</h3>
-        <p class="job">Every business in the catalog below, with what the job actually is in one line. Three you can buy today. For the rest, the honest answer is that they are not built yet.</p>
+        <h3>Pick a site</h3>
+        <p class="job">32 built and live. Click into any of them and see it running before you
+          decide anything.</p>
       </article>
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 2</span></div>
-        <h3>Claim your cities</h3>
-        <p class="job">One operator per city. When a city is taken it is taken, and the availability checker on that product's own site will tell you so before you pay.</p>
+        <h3>Claim your city</h3>
+        <p class="job">Checkout, and the registry writes the row. One operator per city — when a
+          city is taken, the availability checker says so before you pay.</p>
       </article>
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 3</span></div>
-        <h3>Launch with everything</h3>
-        <p class="job">The site, the documents, the training, the tools. You operate under your own business name and keep what you collect.</p>
+        <h3>Log in and make it yours</h3>
+        <p class="job">Your admin, your name, your colours — live in a minute. No developer, no
+          waiting on me to make a change.</p>
       </article>
     </div>
-    <p class="fine" style="margin-top:18px">
-      These are not franchises and not business opportunities. You get no licence to our brand,
-      you pay no royalty and no franchise fee, and we exercise no control over how you operate.
-    </p>
   </div>
 </section>
 
-<!-- ══════════════════════════ PROOF ═════════════════════════════════════ -->
+<!-- ══════════════════════════ PLATFORMS ══════════════════════════════════ -->
+<section class="section" id="platforms">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Run the whole operation</span>
+      <h2>Three platforms, live today. <br>Multi-tenant, one operator per city.</h2>
+      <p class="lede" style="margin-top:12px">
+        Status and price below come straight from the same database that runs checkout — never
+        typed by hand.
+      </p>
+    </div>
+    <div class="grid" id="platforms-root">
+      <article class="entry reveal" data-slug="estate-sales">
+        <div class="entry-top"><span class="tok open" data-status></span></div>
+        <h3>EstateSaleBiz</h3>
+        <p class="job">Run the whole sale when a household has to be emptied — pricing, staffing,
+          and the storefront buyers browse.</p>
+        <p class="mono" data-price style="font-family:var(--mono);font-size:12.5px;color:var(--tx-3);margin-top:12px"></p>
+      </article>
+      <article class="entry reveal" data-slug="garage-sales">
+        <div class="entry-top"><span class="tok open" data-status></span></div>
+        <h3>GarageSaleBiz</h3>
+        <p class="job">Own the map of every garage sale across your three cities, and the
+          Saturday-morning traffic that comes with it.</p>
+        <p class="mono" data-price style="font-family:var(--mono);font-size:12.5px;color:var(--tx-3);margin-top:12px"></p>
+      </article>
+      <article class="entry reveal" data-slug="consignment-vintage">
+        <div class="entry-top"><span class="tok open" data-status></span></div>
+        <h3>ConsignmentBiz</h3>
+        <p class="job">Sell other people's furniture and finds on a split, without owning the
+          inventory or the storefront lease.</p>
+        <p class="mono" data-price style="font-family:var(--mono);font-size:12.5px;color:var(--tx-3);margin-top:12px"></p>
+      </article>
+    </div>
+    <p style="margin-top:24px"><a class="btn btn-sec" href="/platforms/">See all three platforms &rarr;</a></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PROOF ═══════════════════════════════════════ -->
 <section class="section" id="proof">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">The actual product</span>
-      <h2>Three of these are finished. <br>Here they are.</h2>
-      <p class="lede" style="margin-top:12px">
-        Screenshots of the running platforms, not renderings of them. Click any of them, check a
-        city, and read the operator agreement before you spend anything.
-      </p>
+      <span class="eyebrow">The actual numbers</span>
+      <h2>Everything below is counted, <br>not claimed.</h2>
     </div>
-
-    <div class="proof-grid">
-      <div class="reveal">
-        <a class="proof-shot" href="https://garagesalebiz.com">
-          <img src="/assets/proof/garagesalebiz.jpg" width="1280" height="800" loading="lazy"
-               alt="The GarageSaleBiz homepage: a yellow yard-sign panel reading Three cities, one operator, you, next to a form for checking whether a city is still available.">
-        </a>
-        <p class="proof-cap"><b>GarageSaleBiz.</b> Live, with a real territory registry behind the
-          availability checker in the hero. $249 once, three cities, no monthly fee.
-          <a class="link" href="https://garagesalebiz.com">Open it &rarr;</a></p>
+    <div class="proof-strip">
+      <div class="proof-cell">
+        <b id="lg-sites"><!-- BUILD:SITES -->32<!-- /BUILD:SITES --></b>
+        <span>Turnkey sites</span>
       </div>
-      <div class="proof-side">
-        <div class="reveal">
-          <a class="proof-shot" href="https://estatesalebiz.com">
-            <img src="/assets/proof/estatesalebiz.jpg" width="1280" height="800" loading="lazy"
-                 alt="The EstateSaleBiz homepage, showing the estate sale business system and its city availability checker.">
-          </a>
-          <p class="proof-cap"><b>EstateSaleBiz.</b> Live. $497 plus $39 a month after the first
-            thirty days, three cities.
-            <a class="link" href="https://estatesalebiz.com">Open it &rarr;</a></p>
-        </div>
-        <div class="reveal">
-          <a class="proof-shot" href="https://consignmentbiz.com">
-            <img src="/assets/proof/consignmentbiz.jpg" width="1280" height="800" loading="lazy"
-                 alt="The ConsignmentBiz homepage: a dark green storefront illustration under the headline Run your own local consignment storefront, next to a Claim Your City button.">
-          </a>
-          <p class="proof-cap"><b>ConsignmentBiz.</b> Live. $197 once, one city, no monthly fee.
-            <a class="link" href="https://consignmentbiz.com">Open it &rarr;</a></p>
-        </div>
+      <div class="proof-cell">
+        <b id="lg-open"><!-- BUILD:OPEN -->3<!-- /BUILD:OPEN --></b>
+        <span>Live platforms</span>
+      </div>
+      <div class="proof-cell">
+        <b id="lg-total"><!-- BUILD:TOTAL -->38<!-- /BUILD:TOTAL --></b>
+        <span>Businesses listed</span>
+      </div>
+      <div class="proof-cell">
+        <b id="lg-per-city">1</b>
+        <span>Operator per city</span>
       </div>
     </div>
-
-    <!-- The honesty device this section exists for. It used to occupy the third
-         cell BECAUSE there was no third platform; there is one now, so the note
-         belongs under the row rather than in it. "Thirty-five" is 38 listed
-         minus 3 open, and it is the last hand-typed count left on this page —
-         the next thing that should move behind a BUILD: marker. -->
-    <p class="fine" style="margin-top:22px;max-width:70ch">
-      <b>Everything else.</b> The other thirty-five entries in the catalog are either a website
-      or a line you can join. None of them is pictured as though it exists.
+    <p class="fine" style="margin-top:18px;max-width:70ch">
+      No operator count, no revenue figure, no testimonial. What runs is pictured; what doesn't
+      isn't.
     </p>
   </div>
 </section>
 
-<!-- ══════════════════════════ FOUNDER ═══════════════════════════════════ -->
-<section class="section" id="founder">
-  <div class="wrap-narrow">
-    <div class="section-head">
-      <span class="eyebrow">Who is behind this</span>
-      <h2>One person, in Nampa, Idaho.</h2>
-    </div>
-    <div class="founder reveal">
-      <p>I'm Jason Vega. I build these platforms myself — the software, the documents, the
-      training — and I answer the email. Kingdom Creatives LLC is me and a small company, not a
-      franchise with a call centre. If you write, it is me who writes back.</p>
-
-      <p>Three of them are finished and running:
-      <a class="link" href="https://estatesalebiz.com">estatesalebiz.com</a>,
-      <a class="link" href="https://garagesalebiz.com">garagesalebiz.com</a> and
-      <a class="link" href="https://consignmentbiz.com">consignmentbiz.com</a>. You can click into
-      all three right now, check whether your city is free, and read the whole operator agreement
-      before you spend a dollar. That is the entire track record, and I would rather show you three
-      real ones than list thirty-five I have not built.</p>
-
-      <p><b>What I do not do.</b> I do not find your clients, book your jobs, or run your business.
-      I do not tell you what to charge, and I make no claim about what you will earn. Some
-      operators never book a job. You could lose money on this. It is a set of tools and a
-      protected patch of ground, not a job offer.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════ SECONDARY: WEBSITES ═══════════════════════ -->
-<section class="section" id="websites">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Already running one of these?</span>
-      <h2>Then you don't need a business. <br>You need a website.</h2>
-      <p class="lede" style="margin-top:12px">
-        Thirty-two trades, thirty-two sites already built. Pick the one closest to yours and it
-        gets rebuilt under your name, your colours, and your service area. This is a website, not a
-        territory — no exclusivity, no city, no registry.
-      </p>
-    </div>
-    <div class="grid">
-      <article class="entry reveal">
-        <div class="entry-top"><span class="cat-no">$299</span></div>
-        <h3>Launch-ready</h3>
-        <p class="job">The site white-labelled to your business name, colours and contact details. Domain connected, lead form to your inbox, owner admin panel, setup guide.</p>
-      </article>
-      <article class="entry reveal">
-        <div class="entry-top"><span class="cat-no">$499</span></div>
-        <h3>Custom launch</h3>
-        <p class="job">Everything above, plus content and section edits, social ad graphics, email and flyer graphics, and thirty days of support.</p>
-      </article>
-      <article class="entry reveal">
-        <div class="entry-top"><span class="cat-no">$25/mo</span></div>
-        <h3>Care plan</h3>
-        <p class="job">Ongoing edits and priority support. Optional, cancel any time. New features and new modules are real development, so those get scoped and quoted separately.</p>
-      </article>
-    </div>
-    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">See all thirty-two sites &rarr;</a></p>
+<!-- ══════════════════════════ CUSTOM WORK TEASER ═════════════════════════ -->
+<section class="section" id="teaser">
+  <div class="wrap-narrow" style="text-align:center">
+    <span class="eyebrow">Need something else</span>
+    <p class="lede" style="margin:16px auto 0;max-width:60ch">
+      Not every business fits a template. When it doesn't, I build the dashboards, databases,
+      and automation it actually needs — scoped and quoted, not templated.
+    </p>
+    <p style="margin-top:22px"><a class="btn btn-pri" href="/services/">Talk about a custom build &rarr;</a></p>
   </div>
 </section>
 
@@ -282,8 +394,8 @@
 </footer><!-- /BUILD:FOOTER -->
 
 <div class="mcta">
-  <a class="btn btn-sec" href="/sites/#catalog">Browse the catalog</a>
-  <a class="btn btn-pri" href="/sites/#line">Get in line</a>
+  <a class="btn btn-sec" href="/work/">See what I build</a>
+  <a class="btn btn-pri" href="/sites/">Browse the catalog</a>
 </div>
 
 <script>

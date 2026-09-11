@@ -92,11 +92,14 @@
      #how       white       #proof     dark        #faq       paper
                             #registry  paper       footer     dark
 
-   In page order: dark, white, paper, white, dark, paper, dark, white, paper,
-   dark. No tone ever repeats back to back — a repeat is what makes a long
-   page read as one flat slab, which is the failure this rhythm exists to
-   avoid. Only four bands are dark, and they are spaced so the eye resets
-   between them.
+   Task 9 rebuilt `/` as the landing page and retired the diagram above — the
+   catalog, #line, #registry, #faq and #founder all moved to /sites/ (Task 10).
+   `/`'s rhythm now: nav dark, hero dark (.plate), #offer white, #featured
+   paper, #how white, #platforms dark, #proof paper, #teaser white, footer
+   dark. #proof moved bands with the page — it printed the four figures next
+   to a dark hero before; now it is its own paper-toned strip further down,
+   so it left the dark selector group below and joined the paper one. No
+   content band repeats a neighbour's tone.
 
    /services/ reuses the same three rules rather than inventing a fourth.
    Its rhythm: nav dark, hero dark (.plate — the same nav+hero exception the
@@ -131,7 +134,7 @@
    the border-top:0 exception list below, or the page shows a stray hairline
    seam at that band's transition (the two lists are a pair, not a coincidence).
 */
-.plate, #catalog, #proof, #founder, #contact, .foot, .gnav, .gnav-drawer, #answers, #next{
+.plate, #catalog, #founder, #contact, .foot, .gnav, .gnav-drawer, #answers, #next, #platforms{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
@@ -159,7 +162,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites, #build, #inquiry, #gsb, #roster, #boundaries{
+#how, #line, #websites, #build, #inquiry, #gsb, #roster, #boundaries, #offer, #teaser{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -178,7 +181,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq, #problem, #process, #esb, #csb, #story{
+#registry, #faq, #problem, #process, #esb, #csb, #story, #proof, #featured{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -294,13 +297,57 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .ledger-cell span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--tx-3);margin-top:9px}
 
+/* ---------------------------------------------------------- hero sequence --
+   Ruling R7: TWO real screenshots, cross-faded — the demo storefront, then
+   the same storefront rebuilt under another brand. Not a third admin frame:
+   /admin/ sits behind auth, and a logged-out capture would be a sign-in form
+   presented as an admin panel, which the admin step describes as text in
+   How-it-works instead. CSS @keyframes opacity on two stacked <img> — no JS,
+   no canvas, no library, because that is all two frames need. */
+.seq-frame{max-width:640px;margin:38px auto 0;padding:14px 14px 20px;
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:14px;
+  box-shadow:var(--elev-2)}
+.seq-chrome{display:flex;gap:6px;padding:0 4px 12px}
+.seq-chrome i{width:9px;height:9px;border-radius:50%;background:var(--rule-2)}
+.seq{position:relative;aspect-ratio:16/10;border-radius:9px;overflow:hidden;background:var(--surface-2)}
+.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:seq 8s infinite}
+.seq img:nth-child(1){animation-delay:0s}
+.seq img:nth-child(2){animation-delay:4s}
+@keyframes seq{
+  0%,3%   {opacity:0}
+  8%,45%  {opacity:1}
+  50%,100%{opacity:0}
+}
+/* Captions cross-fade on the same clock as the frames so the text never
+   contradicts the image. */
+.seq-cap{position:relative;height:18px;margin-top:14px;text-align:center;
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-2)}
+.seq-cap span{position:absolute;inset:0;opacity:0;animation:seq 8s infinite}
+.seq-cap span:nth-child(1){animation-delay:0s}
+.seq-cap span:nth-child(2){animation-delay:4s}
+/* Reduced motion gets a DIFFERENT honest presentation, not a broken one:
+   frame 1 held, and the captions become a visible two-step row that explains
+   the same mechanism in text. */
+.seq-steps{display:none;gap:18px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+.seq-step{display:flex;align-items:center;gap:9px;font-family:var(--mono);
+  font-size:12px;letter-spacing:.04em;color:var(--tx-2)}
+.seq-step b{width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--acc-ink);
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:12px;flex:none}
+@media(prefers-reduced-motion:reduce){
+  .seq img{animation:none}
+  .seq img:nth-child(1){opacity:1}
+  .seq-cap{display:none}
+  .seq-steps{display:flex}
+}
+
 /* -------------------------------------------------------------- sections --- */
 .section{padding:64px 0;border-top:1px solid var(--rule)}
 /* Bands are full-width and butt against each other; a hairline between two
    different grounds is noise, so only same-tone neighbours keep one. */
 #proof, #registry, #catalog, #how, #line, #websites, #faq, #founder,
 #esb, #gsb, #csb, #next, #roster, #story, #boundaries, #contact,
-#problem, #build, #process, #answers, #inquiry{border-top:0}
+#problem, #build, #process, #answers, #inquiry,
+#offer, #featured, #platforms, #teaser{border-top:0}
 .section-head{margin-bottom:30px}
 .section-head h2{margin:12px 0 16px}
 
@@ -534,6 +581,48 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 a.proof-shot:hover{transform:translateY(-3px);border-color:var(--acc)}
 .proof-cap{font-size:13.5px;color:var(--tx-2);margin-top:12px;line-height:1.55}
 .proof-cap b{color:var(--tx);font-weight:600}
+
+/* the homepage proof strip — the four true figures, and no fifth. Reads
+   R.figures() through the same BUILD:TOTAL/OPEN/SITES markers the ledger
+   bar uses; "1 operator per city" is the exclusivity rule, not a count of
+   sbv_tenants rows, so it is never wrapped in a marker. */
+.proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.proof-cell{background:var(--surface);padding:28px 14px;text-align:center}
+.proof-cell b{display:block;font-family:var(--display);font-weight:900;
+  font-size:clamp(28px,4.6vw,40px);line-height:1;color:var(--acc-tx);
+  font-variant-numeric:lining-nums tabular-nums}
+.proof-cell span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--tx-3);margin-top:9px}
+@media(max-width:640px){.proof-strip{grid-template-columns:repeat(2,1fr)}}
+
+/* ------------------------------------------------------------- featured ---
+   Six screenshots, never iframes — the old /sites/ armed 32 of them at once
+   (audit §6.4). Hover, and :focus-within so keyboard users get it too, swaps
+   to a second shot of the same site's signature interaction. child-care has
+   no second frame (Ruling R13: its hero is an ambient CSS twinkle with no
+   discrete state a capture can differ from) — its card markup omits the .on
+   image entirely, and with no .on child ".fcard:hover .on" simply matches
+   nothing, so it degrades correctly on its own. */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fcard{display:block;text-decoration:none;color:inherit;background:var(--surface);
+  border:1px solid var(--rule);border-radius:13px;overflow:hidden;
+  box-shadow:var(--elev);transition:transform .18s,box-shadow .18s,border-color .18s}
+.fcard:hover,.fcard:focus-within{transform:translateY(-4px);box-shadow:var(--elev-2);border-color:var(--acc)}
+.fcard-shot{position:relative}
+.fcard-shot img{display:block;width:100%;height:auto}
+.fcard-shot .on{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.fcard:hover .on,.fcard:focus-within .on{opacity:1}
+.fcard-body{padding:18px 20px 22px}
+.fcard-brand{font-family:var(--display);font-weight:800;font-size:16px;color:var(--tx)}
+.fcard-trade{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tx-3);margin-top:5px}
+.fcard-line{font-size:13.5px;color:var(--tx-2);margin-top:11px;line-height:1.5}
+.fcard-go{display:inline-flex;align-items:center;gap:6px;margin-top:15px;
+  font-family:var(--display);font-weight:700;font-size:13px;color:var(--acc-tx)}
+@media(prefers-reduced-motion:reduce){.fcard-shot .on{transition:none}.fcard{transition:none}}
 
 /* ------------------------------------------------------------- registry --- */
 .reg-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:32px}
