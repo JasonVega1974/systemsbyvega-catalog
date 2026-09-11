@@ -23,9 +23,10 @@
 
    Ruling R1 — three files, three marker sets. inject() throws on a marker a
    file does not declare, so each target below names exactly what it carries.
-   index.html does not yet carry the catalog's own figures in the right place
-   (Task 9 rebuilds that page) — it keeps only TOTAL/OPEN/SITES for its proof
-   strip, same as before this task.
+   index.html carries TOTAL/OPEN/SITES for its proof strip, plus (Ruling R20)
+   SITES_OFFER/SITES_STEP/SITES_LINK for the three other places that page
+   says "32" in prose — inject() cannot reuse one marker name twice in a
+   file, so each spot gets its own name, all fed the same fig.sites value.
 
    Run:  node tools/build-catalog.js          (from the repo root)
          node tools/build-catalog.js --check  (verify, write nothing; CI-safe)
@@ -52,7 +53,7 @@ const CHECK = process.argv.includes('--check');
    missing marker, so each target names exactly what it carries. */
 const TARGETS = [
   { file: path.join(ROOT, 'index.html'),
-    markers: ['TOTAL', 'OPEN', 'SITES'] },
+    markers: ['TOTAL', 'OPEN', 'SITES', 'SITES_OFFER', 'SITES_STEP', 'SITES_LINK'] },
   { file: path.join(ROOT, 'sites', 'index.html'),
     markers: ['TOTAL', 'OPEN', 'SITES', 'THESIS_OPEN',
               'CATALOG', 'NICHE_SELECT', 'SEED_SCRIPT', 'EXTRAS_SCRIPT'] },
@@ -183,6 +184,15 @@ function main() {
     TOTAL:        String(fig.total),
     OPEN:         String(fig.open),
     SITES:        String(fig.sites),
+    /* Ruling R20: three more spots on index.html print the same site count in
+       prose ("32 industries…", "32 built and live…", "All 32 sites →").
+       inject() splices between the FIRST open/close pair for a marker name,
+       so one name cannot appear twice in a file — hence three distinct
+       marker names, all fed this same fig.sites value, never typed by hand
+       a second time. */
+    SITES_OFFER:  String(fig.sites),
+    SITES_STEP:   String(fig.sites),
+    SITES_LINK:   String(fig.sites),
     CATALOG:      '\n' + R.catalog(seed.families, seed.niches, {}, extras) + '\n',
     NICHE_SELECT: '\n' + R.nicheSelect(seed.niches) + '\n',
     SEED_SCRIPT:  seedScript,

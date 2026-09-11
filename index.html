@@ -36,9 +36,9 @@
      blocks a first paint. Root-relative so the one tag works on the apex
      and on every tenant subdomain without knowing which it is on. -->
 <script>
-/* Top frame only. /sites/ embeds ~32 storefronts as iframes, and an unguarded
-   tag made every one of them report its own page view — inflating the numbers
-   and attributing traffic to sites nobody actually opened. */
+/* Top frame only. This page embeds no iframes (Task 10 moved the catalog,
+   and with it the last hand-authored preview cards, to /sites/), but the
+   guard costs nothing to keep and matches every other page's tag verbatim. */
 (function () {
   if (window.self !== window.top) return;
   var s = document.createElement("script");
@@ -126,7 +126,7 @@
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">From $299</span></div>
         <h3>Turnkey websites</h3>
-        <p class="job">32 industries, live demos, owner admin included. Pick the one closest to
+        <p class="job"><!-- BUILD:SITES_OFFER -->32<!-- /BUILD:SITES_OFFER --> industries, live demos, owner admin included. Pick the one closest to
           yours and it gets rebuilt under your name.</p>
         <p style="margin-top:14px"><a class="link" href="/sites/">Browse the catalog &rarr;</a></p>
       </article>
@@ -152,7 +152,7 @@
 <section class="section" id="featured">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Six of the thirty-two</span>
+      <span class="eyebrow">A few of the strongest</span>
       <h2>Screenshots, not renderings. <br>Hover one to see it work.</h2>
       <p class="lede" style="margin-top:12px">
         Every one of these is a live, running site. Hover a card — or tab to it — to see its
@@ -261,7 +261,7 @@
       running on this exact template.
     </p>
 
-    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">All 32 sites &rarr;</a></p>
+    <p style="margin-top:20px"><a class="btn btn-sec" href="/sites/">All <!-- BUILD:SITES_LINK -->32<!-- /BUILD:SITES_LINK --> sites &rarr;</a></p>
   </div>
 </section>
 
@@ -276,7 +276,7 @@
       <article class="entry reveal">
         <div class="entry-top"><span class="cat-no">Step 1</span></div>
         <h3>Pick a site</h3>
-        <p class="job">32 built and live. Click into any of them and see it running before you
+        <p class="job"><!-- BUILD:SITES_STEP -->32<!-- /BUILD:SITES_STEP --> built and live. Click into any of them and see it running before you
           decide anything.</p>
       </article>
       <article class="entry reveal">
