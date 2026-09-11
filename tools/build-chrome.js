@@ -33,8 +33,9 @@ const NAV = [
 /* Every page that gets chrome. `indexable` drives robots.txt and sitemap.xml.
    Add a route here in the same commit that creates its file. */
 const PAGES = [
-  { route: '/',       file: 'index.html',       indexable: true },
-  { route: '/sites/', file: 'sites/index.html', indexable: true },
+  { route: '/',         file: 'index.html',         indexable: true },
+  { route: '/sites/',   file: 'sites/index.html',   indexable: true },
+  { route: '/services/', file: 'services/index.html', indexable: true },
 ];
 
 const LEGAL = [

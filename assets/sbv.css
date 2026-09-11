@@ -97,6 +97,11 @@
    page read as one flat slab, which is the failure this rhythm exists to
    avoid. Only four bands are dark, and they are spaced so the eye resets
    between them.
+
+   /services/ reuses the same three rules rather than inventing a fourth.
+   Its rhythm: nav dark, hero dark (.plate — the same nav+hero exception the
+   homepage already uses), #problem paper, #build white, #process paper,
+   #inquiry white, footer dark. No content band repeats a neighbour's tone.
 */
 .plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer{
   --bg:      var(--con);
@@ -126,7 +131,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites{
+#how, #line, #websites, #build, #inquiry{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -145,7 +150,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq{
+#registry, #faq, #problem, #process{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -437,12 +442,17 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .field{margin-bottom:16px}
 .field label{display:block;font-family:var(--display);font-size:13px;font-weight:700;
   color:var(--tx-2);margin-bottom:7px}
-.field input,.field select{width:100%;font-family:var(--body);font-size:16px;padding:13px 14px;
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:16px;padding:13px 14px;
   min-height:var(--tap);background:var(--surface);color:var(--tx);
   border:1px solid var(--rule-2);border-radius:9px;transition:border-color .16s,box-shadow .16s}
-.field input:focus,.field select:focus{border-color:var(--acc);
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--acc);
   box-shadow:0 0 0 3px rgba(232,121,27,.16);outline:none}
-.field input::placeholder{color:var(--tx-3)}
+.field input::placeholder,.field textarea::placeholder{color:var(--tx-3)}
+/* No page before /services/ used a <textarea> in this shared sheet — the rule
+   above covers it structurally, this just sets the two things unique to a
+   textarea: it resizes vertically only, and its line-height matches body
+   copy rather than the single-line inputs it sits next to. */
+.field textarea{resize:vertical;line-height:1.55;min-height:120px}
 .row-2{display:grid;grid-template-columns:1fr 124px;gap:10px}
 @media (max-width:480px){.row-2{grid-template-columns:1fr}}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
