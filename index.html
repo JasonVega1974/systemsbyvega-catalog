@@ -47,6 +47,15 @@
   document.head.appendChild(s);
 }());
 </script>
+<script>
+/* Ad creatives still carry /#catalog and /#websites from when this page was
+   the catalog. Both anchors moved to /sites/. Retire this once the creatives
+   stop pointing here. */
+(function () {
+  var h = location.hash;
+  if (h === '#catalog' || h === '#websites') location.replace('/sites/');
+}());
+</script>
 </head>
 <body>
 

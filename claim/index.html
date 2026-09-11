@@ -31,6 +31,20 @@
   .cl-cta{margin:26px 0 0}
   .cl-nav{border-top:1px solid var(--hair);padding:22px 0 40px;font-family:var(--mono);font-size:12px}
 </style>
+<!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
+     blocks a first paint. -->
+<script>
+/* Top frame only, matching index.html — /sites/ embeds ~32 storefronts as
+   iframes, and an unguarded tag made every one of them report its own page
+   view. This page is never iframed, but the guard costs nothing to keep. */
+(function () {
+  if (window.self !== window.top) return;
+  var s = document.createElement("script");
+  s.defer = true;
+  s.src = "/_vercel/insights/script.js";
+  document.head.appendChild(s);
+}());
+</script>
 </head>
 <body>
 
