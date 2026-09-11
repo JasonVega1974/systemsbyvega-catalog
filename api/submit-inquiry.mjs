@@ -43,9 +43,8 @@
    this family holds to everywhere.
    ========================================================================== */
 
-import { createHash } from 'node:crypto';
 import {
-  json, preflight, pgSelect, pgInsert, PgError,
+  json, preflight, pgSelect, pgInsert, PgError, sha256Hex,
 } from './_shared.mjs';
 
 export const config = { runtime: 'nodejs' };
@@ -101,7 +100,12 @@ const str = (v) => (typeof v === 'string' ? v.trim() : '');
 function ipHash(request) {
   const fwd = request.headers.get('x-forwarded-for') || '';
   const first = fwd.split(',')[0].trim() || 'unknown';
-  return createHash('sha256').update(IP_SALT + first).digest('hex').slice(0, 32);
+  /* sha256Hex(IP_SALT + first) is byte-identical to the createHash('sha256')
+     call this replaced — same algorithm, same utf8 encoding, same input
+     string — verified before this change shipped: this feeds the rate
+     limiter's bucket key, and a changed hash would silently reset
+     everyone's window. */
+  return sha256Hex(IP_SALT + first).slice(0, 32);
 }
 
 export default {

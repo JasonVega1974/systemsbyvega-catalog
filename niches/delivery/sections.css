@@ -30,9 +30,27 @@ body{background:var(--ground);color:var(--ink);font-family:'Inter Tight',system-
     .nav-links a.tab{display:none}
     .nav-in{padding:12px 20px}
   }
+  /* At <=480px the brand mark's tagline plus "Book a pickup" no longer both
+     fit beside each other (a11y sweep: 55px horizontal overflow at 360px).
+     Dropping the tagline — the brand name alone still identifies the
+     business — buys back the ~100px the CTA needs; nothing about the CTA
+     itself changes. */
+  @media(max-width:480px){
+    .logo small{display:none}
+  }
 
   /* ---------- hero ---------- */
-  .hero{padding:84px 0 64px;position:relative;overflow:hidden}
+  /* _template/base.css also declares a bare .hero{} (its full-viewport flex
+     hero) and this niche predates that template, so its own .hero markup
+     is a plain stacked header, not the BEM .hero__grid the base rule
+     expects. Same class name, different shape: without display/min-height
+     reset here, the base rule's display:flex + min-height:100svh leak
+     through, and .hero-in + #quote — meant to stack as two block
+     sections — become side-by-side flex items instead. That squeezed
+     #quote into a sliver column at every width and overflowed the
+     viewport at 360px (a11y sweep). display:block + min-height:auto
+     cancels exactly those two leaked properties. */
+  .hero{padding:84px 0 64px;position:relative;overflow:hidden;display:block;min-height:auto}
   /* north-star (dj-site-blue): layered 5-stop atmospheric radials for depth over reflective lane-marking streaks */
   .hero::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.7;
     background:

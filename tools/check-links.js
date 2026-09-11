@@ -65,10 +65,36 @@ try {
    segment (plus one pre-existing bare regex group in /api/(.*).js, which
    passes through untouched since `(...)` is already valid regex). That is
    enough to match everything actually in the table without pulling in the
-   real path-to-regexp dependency for a build-time check. */
+   real path-to-regexp dependency for a build-time check.
+
+   Walked char-by-char rather than replaced with two global regexes: the old
+   version ran the param substitutions over the RAW source and never
+   escaped what was left, so a literal `.` in a literal path (the one in
+   /niche-landing.html) matched as "any character" instead of a literal dot
+   — over-permissive, not dangerous, but still wrong. The one pre-existing
+   `(.*)` group (/api/(.*).js) is recognised and passed through as-is, same
+   as before; every other character gets escaped so it can only match
+   itself. */
 function sourceToRegExp(source) {
-  const pattern = source.replace(/:([A-Za-z0-9_]+)\*/g, '.*')
-                         .replace(/:([A-Za-z0-9_]+)/g, '[^/]+');
+  let pattern = '';
+  let i = 0;
+  while (i < source.length) {
+    const rest = source.slice(i);
+    let m;
+    if ((m = /^\(\.\*\)/.exec(rest))) {
+      pattern += '(.*)';
+      i += m[0].length;
+    } else if ((m = /^:[A-Za-z0-9_]+\*/.exec(rest))) {
+      pattern += '.*';
+      i += m[0].length;
+    } else if ((m = /^:[A-Za-z0-9_]+/.exec(rest))) {
+      pattern += '[^/]+';
+      i += m[0].length;
+    } else {
+      pattern += rest[0].replace(/[.*+?^${}()|[\]\\]/, '\\$&');
+      i += 1;
+    }
+  }
   return new RegExp('^' + pattern + '$');
 }
 
