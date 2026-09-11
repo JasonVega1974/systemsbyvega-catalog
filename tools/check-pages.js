@@ -27,6 +27,18 @@ const PAGES = [
 
 const DISCLAIMER = 'makes no representation about income, revenue, profit, or results';
 
+/* Ruling R9 — sentences that legitimately contain a banned substring BECAUSE
+   they are the disclaimer of that very thing. Stripped before the FORBIDDEN
+   scan, or the gate flags the copy that exists to protect us: "I make no claim
+   about what you will earn" contains "you will earn".
+   Whole sentences only, never fragments — an over-broad entry here would hide
+   a real claim, and this list is meant to be auditable at a glance. */
+const EXEMPT = [
+  'I make no claim about what you will earn',
+  'makes no representation about income, revenue, profit, or results',
+  'We will not answer that, and you should be wary of anyone who does',
+];
+
 /* Substrings no page may contain. Each carries the reason, because a future
    reader deserves to know why a string is banned rather than guessing. */
 const FORBIDDEN = [
@@ -74,11 +86,15 @@ for (const page of PAGES) {
   if (!/<!-- BUILD:NAV -->/.test(html))    bad(page.route, 'no BUILD:NAV marker');
   if (!/<!-- BUILD:FOOTER -->/.test(html)) bad(page.route, 'no BUILD:FOOTER marker');
 
+  /* Strip the exempt sentences before scanning (Ruling R9). */
+  let scan = html;
+  for (const e of EXEMPT) scan = scan.split(e).join('');
+
   for (const [s, why] of FORBIDDEN) {
     /* /about/ is the one page allowed to name the employer, and only as a
        role. The card and the demo page are gone; the sentence stays. */
     if (s === 'Command Center' && page.route === '/about/') continue;
-    if (html.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
+    if (scan.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
   }
   for (const s of BANNED_COUNTS) {
     if (html.includes(s)) bad(page.route, `stale hand-typed count "${s}"`);
