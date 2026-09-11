@@ -30,19 +30,9 @@ const ROOT   = path.resolve(__dirname, '..');
 const SEED   = path.join(ROOT, 'assets', 'data', 'niches.seed.json');
 const PAGE   = path.join(ROOT, 'index.html');
 const R      = require(path.join(ROOT, 'assets', 'catalog-render.js'));
+const { inject } = require('./lib/inject');
 
 const CHECK = process.argv.includes('--check');
-
-/* -------------------------------------------------------------- injection */
-function inject(html, marker, value) {
-  const open  = `<!-- BUILD:${marker} -->`;
-  const close = `<!-- /BUILD:${marker} -->`;
-  const i = html.indexOf(open);
-  const j = html.indexOf(close);
-  if (i === -1 || j === -1) throw new Error(`marker BUILD:${marker} not found in index.html`);
-  if (j < i) throw new Error(`marker BUILD:${marker} is inverted in index.html`);
-  return html.slice(0, i + open.length) + value + html.slice(j);
-}
 
 /* ------------------------------------------------------------- validation */
 /* A bad seed should stop the build, not ship a wrong catalog. */

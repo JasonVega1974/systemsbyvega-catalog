@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+'use strict';
+/* check-pages.js — structural and compliance gate over the marketing pages.
+ *
+ * WHY THIS EXISTS. build-catalog.js already proves no catalog COUNT is typed
+ * by hand. This proves the rest: that every page carries the disclaimer, the
+ * analytics tag, a canonical, and the shared chrome — and that no page carries
+ * a forbidden string. The failure it exists to prevent is the one the audit
+ * found: prose drifting away from data with nothing watching.
+ *
+ * Static text inspection only. No browser, no network. a11y-sweep.js owns the
+ * rendered checks.
+ *
+ *   node tools/check-pages.js          exit 0 clean, 1 on failure
+ *   node tools/check-pages.js --list   print registered routes
+ */
+const fs = require('fs');
+const path = require('path');
+const ROOT = path.resolve(__dirname, '..');
+
+/* Every public marketing page. A page task is not done until its route is
+   here and this file exits 0. */
+const PAGES = [
+  { route: '/',       file: 'index.html'       },
+  { route: '/sites/', file: 'sites/index.html' },
+];
+
+const DISCLAIMER = 'makes no representation about income, revenue, profit, or results';
+
+/* Substrings no page may contain. Each carries the reason, because a future
+   reader deserves to know why a string is banned rather than guessing. */
+const FORBIDDEN = [
+  ['Interstate V2',    'employer work — never on this site'],
+  ['GS Travel Planner','employer work — never on this site'],
+  ['Command Center',   'employer work — the /work/ card was removed'],
+  ['AI-powered',       'buzzword; /services/ states the process as fact instead'],
+  ['guaranteed income','income claim'],
+  ['you will earn',    'income claim'],
+  ['average operator', 'income claim + fabricated proof'],
+];
+
+/* Spelled-out counts that were wrong on the homepage for months. Banning the
+   words is cruder than checking the numbers, and that is the point: a count
+   belongs in data, so a spelled-out one in prose is the bug. */
+const BANNED_COUNTS = [
+  'twenty-three sites', 'twenty-three trades', 'twenty-seven entries',
+  'twenty-nine I have not built', 'Two of these are finished',
+];
+
+/* Ruling R5: failures are counted PER PAGE as well as in total, so a page
+   that just failed a check cannot also print an "ok" line. A gate whose own
+   output contradicts itself is the exact failure this project exists to fix. */
+let failures = 0;
+let pageFailures = 0;
+const bad = (route, msg) => { failures++; pageFailures++; console.log(`  FAIL  ${route}  ${msg}`); };
+const ok  = (route, msg) => console.log(`  ok    ${route}  ${msg}`);
+
+if (process.argv.includes('--list')) {
+  PAGES.forEach(p => console.log(p.route + '  ' + p.file));
+  process.exit(0);
+}
+
+for (const page of PAGES) {
+  pageFailures = 0;
+  const abs = path.join(ROOT, page.file);
+  if (!fs.existsSync(abs)) { bad(page.route, `missing file ${page.file}`); continue; }
+  const html = fs.readFileSync(abs, 'utf8');
+
+  if (!html.includes(DISCLAIMER)) bad(page.route, 'footer disclaimer missing');
+  if (!/data-i18n-skip/.test(html)) bad(page.route, 'disclaimer missing data-i18n-skip');
+  if (!html.includes('/_vercel/insights/script.js')) bad(page.route, 'analytics tag missing');
+  if (!/<link rel="canonical" href="https:\/\/systemsbyvega\.com/.test(html))
+    bad(page.route, 'canonical missing or not absolute');
+  if (!/<!-- BUILD:NAV -->/.test(html))    bad(page.route, 'no BUILD:NAV marker');
+  if (!/<!-- BUILD:FOOTER -->/.test(html)) bad(page.route, 'no BUILD:FOOTER marker');
+
+  for (const [s, why] of FORBIDDEN) {
+    /* /about/ is the one page allowed to name the employer, and only as a
+       role. The card and the demo page are gone; the sentence stays. */
+    if (s === 'Command Center' && page.route === '/about/') continue;
+    if (html.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
+  }
+  for (const s of BANNED_COUNTS) {
+    if (html.includes(s)) bad(page.route, `stale hand-typed count "${s}"`);
+  }
+  if (pageFailures === 0) ok(page.route, 'structure + compliance');
+}
+
+console.log(failures ? `\n${failures} failure(s)` : `\n${PAGES.length} page(s) clean`);
+process.exit(failures ? 1 : 0);
