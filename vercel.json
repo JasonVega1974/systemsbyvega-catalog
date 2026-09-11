@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": "node tools/build-catalog.js --check",
+  "buildCommand": "node tools/build-catalog.js --check && node tools/build-chrome.js --check && node tools/check-pages.js",
   "outputDirectory": ".",
   "trailingSlash": true,
   "functions": {

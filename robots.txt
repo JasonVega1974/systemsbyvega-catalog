@@ -1,0 +1,20 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /__owner__/
+Disallow: /claim/
+
+# The 32 storefronts are near-identical templates and stay out of search.
+# vercel.json sends X-Robots-Tag: noindex for /sites/<slug>/ on the apex;
+# middleware.js flips it to `all` per tenant. This mirrors that.
+#
+# Ruling R6: the Allow comes FIRST and is anchored with $. A bare
+# "Disallow: /sites/*/" is not safe here — a robots wildcard may match the
+# empty string, so it can swallow /sites/ itself. That is precisely the bug
+# commit 10f1035 just fixed in vercel.json, and re-introducing it through a
+# different file would drop the primary revenue page out of search.
+# Longest-match-wins makes the anchored Allow beat the Disallow for exactly
+# one path, and nothing else.
+Allow: /sites/$
+Disallow: /sites/
+
+Sitemap: https://systemsbyvega.com/sitemap.xml

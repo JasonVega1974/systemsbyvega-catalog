@@ -798,11 +798,52 @@
     if (x) x.addEventListener('click', closeModal);
   }
 
+  /* ------------------------------------------------------------ gnav */
+  /* The drawer is display:none until data-open, so nothing inside it is
+     focusable while closed and no focus trap is needed for the closed
+     state. Open traps, Esc closes, and focus returns to the burger —
+     the same contract wireExit() already uses for the exit card. */
+  function wireNav() {
+    var burger = el('gnav-burger'), drawer = el('gnav-drawer');
+    if (!burger || !drawer) return;
+
+    function close() {
+      drawer.removeAttribute('data-open');
+      drawer.hidden = true;
+      burger.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('keydown', onKey);
+      burger.focus();
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') return close();
+      if (e.key !== 'Tab') return;
+      var f = drawer.querySelectorAll('a[href],button:not([disabled])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    burger.addEventListener('click', function () {
+      if (drawer.getAttribute('data-open') === '1') return close();
+      drawer.hidden = false;
+      drawer.setAttribute('data-open', '1');
+      burger.setAttribute('aria-expanded', 'true');
+      document.addEventListener('keydown', onKey);
+      var f = drawer.querySelector('a[href]');
+      if (f) f.focus();
+    });
+    /* A resize past the breakpoint must not leave a hidden drawer open. */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 900 && drawer.getAttribute('data-open') === '1') close();
+    });
+  }
+
   function boot() {
     document.documentElement.classList.remove('no-js');
     wireLineLinks();
     wireForm();
     wireFaq();
+    wireNav();
     observe();
 
     /* Everything below decorates a catalog that is already in the HTML, so it

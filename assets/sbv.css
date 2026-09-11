@@ -1057,3 +1057,53 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
   letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);font-style:normal}
 @media (prefers-reduced-motion:reduce){.related-card{transition:none}
   .related-card:hover{transform:none}}
+
+/* ===================================================== GLOBAL CHROME ==
+   Nav and footer, injected by tools/build-chrome.js. Reads band tokens
+   only — no literal colours — so one definition serves paper, white and
+   console without a variant. */
+.skip{position:absolute;left:-9999px;top:0;z-index:200;padding:12px 18px;
+  background:var(--con);color:var(--con-text);font-family:var(--mono);font-size:13px}
+.skip:focus{left:8px;top:8px}
+
+.gnav{position:sticky;top:0;z-index:100;background:rgba(20,24,33,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--con-hair)}
+.gnav-in{max-width:var(--shell);margin:0 auto;padding:12px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;gap:16px}
+.gnav-brand{display:flex;align-items:center;gap:10px;font-family:var(--display);
+  font-weight:800;font-size:16px;color:#fff;text-decoration:none;letter-spacing:-.01em}
+.gnav-brand .sq{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--con-amber),var(--amber-deep));
+  color:#1a1206;font-size:13px;font-weight:900}
+.gnav-links{display:flex;align-items:center;gap:4px}
+.gnav-link{font-family:var(--display);font-weight:700;font-size:13.5px;color:#C2CAD6;
+  text-decoration:none;padding:9px 13px;border-radius:7px;transition:.18s}
+.gnav-link:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gnav-link.is-active{color:#fff;background:rgba(243,146,47,.14)}
+.gnav-tools{display:flex;align-items:center;gap:10px}
+.gnav-burger{display:none;width:var(--tap);height:var(--tap);border:0;background:none;
+  cursor:pointer;flex-direction:column;justify-content:center;gap:5px;padding:0 12px}
+.gnav-burger span{display:block;height:2px;background:#C2CAD6;border-radius:2px;transition:.2s}
+.gnav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.gnav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.gnav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.gnav-drawer{display:none;flex-direction:column;gap:2px;padding:8px var(--gutter) 20px;
+  border-top:1px solid var(--con-hair);background:var(--con)}
+.gnav-drawer .gnav-link{font-size:20px;padding:14px 12px;min-height:var(--tap);
+  display:flex;align-items:center}
+.gnav-drawer .btn{margin-top:10px}
+
+@media(max-width:899px){
+  .gnav-links{display:none}
+  .gnav-burger{display:flex}
+  .gnav-cta{display:none}
+  .gnav-drawer[data-open="1"]{display:flex}
+}
+@media(prefers-reduced-motion:reduce){
+  .gnav-link,.gnav-burger span{transition:none}
+}
+
+.gfoot{background:var(--con);color:var(--con-muted);padding:44px 0 54px;
+  font-size:14px;line-height:1.7}
+.gfoot .link{color:var(--con-amber)}
+.gfoot .foot-legal{margin-top:18px;font-size:12.5px;color:#7C8698;max-width:78ch}

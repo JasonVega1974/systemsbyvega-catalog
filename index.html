@@ -54,28 +54,27 @@
      covers halfway down the page is worse than no progress line. -->
 <div class="rail" aria-hidden="true"><i id="rail-fill"></i></div>
 
-<nav class="nav">
-  <div class="nav-in">
-    <a class="nav-brand" href="/">Systems by Vega</a>
-    <div class="nav-links">
-      <a href="#catalog">Catalog</a>
-      <a href="#how">How it works</a>
-      <a href="#proof">Proof</a>
-      <a href="#websites">Websites</a>
-      <a href="#founder">About</a>
-    </div>
-    <div class="nav-tools">
-      <label class="hp" for="lang-pick">Language</label>
-      <select class="lang" id="lang-pick" autocomplete="off">
-        <option value="en">English</option>
-        <option value="es">Español</option>
-      </select>
+<!-- BUILD:NAV -->
+<a class="skip" href="#main">Skip to content</a>
+<nav class="gnav" aria-label="Main">
+  <div class="gnav-in">
+    <a class="gnav-brand" href="/"><span class="sq" aria-hidden="true">V</span> Systems by Vega</a>
+    <div class="gnav-links"><a class="gnav-link" href="/sites/">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link" href="/work/">Work</a><a class="gnav-link" href="/about/">About</a></div>
+    <div class="gnav-tools">
+      <a class="btn btn-pri gnav-cta" href="/sites/#line">Get in line</a>
+      <button type="button" class="gnav-burger" id="gnav-burger"
+              aria-expanded="false" aria-controls="gnav-drawer" aria-label="Menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </div>
   </div>
-</nav>
+  <div class="gnav-drawer" id="gnav-drawer" hidden><a class="gnav-link" href="/sites/">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link" href="/work/">Work</a><a class="gnav-link" href="/about/">About</a>
+    <a class="btn btn-pri" href="/sites/#line">Get in line</a>
+  </div>
+</nav><!-- /BUILD:NAV -->
 
 <!-- ══════════════════════════ MASTHEAD ══════════════════════════════════ -->
-<header class="plate">
+<header class="plate" id="main">
   <!-- The board: one tile per listed business, in its family colour, the open
        ones lit. Built by sbv.js from the same data the ledger bar counts, so
        it can never disagree with the numbers printed underneath it. Purely
@@ -505,34 +504,20 @@
 </section>
 
 <!-- ══════════════════════════ FOOTER ════════════════════════════════════ -->
-<footer class="foot">
+<!-- BUILD:FOOTER -->
+<footer class="gfoot">
   <div class="wrap">
     <p><b>Systems by Vega</b> · A Kingdom Creatives LLC company · Nampa, Idaho ·
       <a class="link" href="mailto:info@kingdom-creatives.com">info@kingdom-creatives.com</a></p>
-    <p style="margin-top:10px">
-      <a class="link" href="/sites/">Site Shop</a> ·
-      <a class="link" href="/showcase/">Showcase</a> ·
-      <a class="link" href="/portfolio/">Portfolio</a> ·
-      <a class="link" href="/demo/">Demo</a>
-    </p>
-    <p style="margin-top:10px">
-      <a class="link" href="/legal/terms.html">Terms</a> ·
-      <a class="link" href="/legal/privacy.html">Privacy</a> ·
-      <a class="link" href="/legal/refund.html">Refund</a>
-    </p>
-    <!-- data-i18n-skip: this paragraph is never translated. A disclaimer that
-         says something slightly different in another language is worse than
-         one a reader has to translate themselves. #lang-governs appears
-         beneath it whenever a translation is active. -->
-    <p class="foot-legal" data-i18n-skip>
-      Systems by Vega provides software, documents, and training. It does not provide clients,
-      leads, or locations, and makes no representation about income, revenue, profit, or results.
-      Operators are independent businesses, not franchisees, employees, or agents of Kingdom
-      Creatives LLC. Nothing on this site is legal, tax, or insurance advice.
-    </p>
+    <p style="margin-top:10px"><a class="link" href="/sites/">Sites</a> · <a class="link" href="/platforms/">Platforms</a> · <a class="link" href="/services/">Services</a> · <a class="link" href="/work/">Work</a> · <a class="link" href="/about/">About</a></p>
+    <p style="margin-top:10px"><a class="link" href="/legal/terms.html">Terms</a> · <a class="link" href="/legal/privacy.html">Privacy</a> · <a class="link" href="/legal/refund.html">Refund</a> · <a class="link" href="/legal/operator-agreement.html">Operator Agreement</a></p>
+    <!-- data-i18n-skip: never translated. A disclaimer that says something
+         slightly different in another language is worse than one a reader has
+         to translate themselves. -->
+    <p class="foot-legal" data-i18n-skip>Systems by Vega provides software, documents, and training. It does not provide clients, leads, or locations, and makes no representation about income, revenue, profit, or results. Operators are independent businesses, not franchisees, employees, or agents of Kingdom Creatives LLC. Nothing on this site is legal, tax, or insurance advice.</p>
     <p class="legal-note" id="lang-governs" hidden></p>
   </div>
-</footer>
+</footer><!-- /BUILD:FOOTER -->
 
 <div class="mcta">
   <a class="btn btn-sec" href="#catalog">Browse the catalog</a>

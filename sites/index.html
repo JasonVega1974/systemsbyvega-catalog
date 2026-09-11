@@ -305,25 +305,26 @@
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-in">
-    <a class="logo" href="/"><span class="sq">V</span> Systems by Vega</a>
-    <div class="nav-links">
-      <a href="/demo/" class="nav-tab">Live Demo</a>
-      <a href="/showcase/" class="nav-tab">Showcase</a>
-      <a href="/sites/" class="nav-tab active">Site Shop</a>
-      <a href="/pricing/" class="nav-tab">Pricing</a>
-      <a href="/portfolio/" class="nav-tab">Portfolio</a>
-      <a href="#contact" class="cta">Hire me</a>
-      <span class="nav-auth" id="navAuth" hidden>
-        <span class="nav-email" id="navEmail"></span>
-        <button type="button" class="nav-signout" id="navSignOut">Sign out</button>
-      </span>
+<!-- BUILD:NAV -->
+<a class="skip" href="#main">Skip to content</a>
+<nav class="gnav" aria-label="Main">
+  <div class="gnav-in">
+    <a class="gnav-brand" href="/"><span class="sq" aria-hidden="true">V</span> Systems by Vega</a>
+    <div class="gnav-links"><a class="gnav-link is-active" href="/sites/" aria-current="page">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link" href="/work/">Work</a><a class="gnav-link" href="/about/">About</a></div>
+    <div class="gnav-tools">
+      <a class="btn btn-pri gnav-cta" href="/sites/#line">Get in line</a>
+      <button type="button" class="gnav-burger" id="gnav-burger"
+              aria-expanded="false" aria-controls="gnav-drawer" aria-label="Menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </div>
   </div>
-</nav>
+  <div class="gnav-drawer" id="gnav-drawer" hidden><a class="gnav-link is-active" href="/sites/" aria-current="page">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link" href="/work/">Work</a><a class="gnav-link" href="/about/">About</a>
+    <a class="btn btn-pri" href="/sites/#line">Get in line</a>
+  </div>
+</nav><!-- /BUILD:NAV -->
 
-<header class="hero">
+<header class="hero" id="main">
   <div class="hero-in">
     <div class="eyebrow">Site Shop · ready-to-launch templates</div>
     <h1>32 businesses. <span class="hl">32 sites, already built.</span></h1>
@@ -1744,19 +1745,20 @@
   </div>
 </section>
 
-<footer>
-  <div class="wrap foot-in">
-    <div>
-      <div class="fb">Systems by Vega</div>
-      Ready-to-launch business websites · info@kingdom-creatives.com
-    </div>
-    <div>
-      A Kingdom Creatives LLC company · Nampa, Idaho<br>
-      <a class="foot-link" href="/pricing/">Pricing</a> · <a class="foot-link" href="/portfolio/">See the work →</a><br>
-      <a class="foot-link" href="/legal/terms.html">Terms</a> · <a class="foot-link" href="/legal/privacy.html">Privacy</a> · <a class="foot-link" href="/legal/refund.html">Refund</a>
-    </div>
+<!-- BUILD:FOOTER -->
+<footer class="gfoot">
+  <div class="wrap">
+    <p><b>Systems by Vega</b> · A Kingdom Creatives LLC company · Nampa, Idaho ·
+      <a class="link" href="mailto:info@kingdom-creatives.com">info@kingdom-creatives.com</a></p>
+    <p style="margin-top:10px"><a class="link" href="/sites/">Sites</a> · <a class="link" href="/platforms/">Platforms</a> · <a class="link" href="/services/">Services</a> · <a class="link" href="/work/">Work</a> · <a class="link" href="/about/">About</a></p>
+    <p style="margin-top:10px"><a class="link" href="/legal/terms.html">Terms</a> · <a class="link" href="/legal/privacy.html">Privacy</a> · <a class="link" href="/legal/refund.html">Refund</a> · <a class="link" href="/legal/operator-agreement.html">Operator Agreement</a></p>
+    <!-- data-i18n-skip: never translated. A disclaimer that says something
+         slightly different in another language is worse than one a reader has
+         to translate themselves. -->
+    <p class="foot-legal" data-i18n-skip>Systems by Vega provides software, documents, and training. It does not provide clients, leads, or locations, and makes no representation about income, revenue, profit, or results. Operators are independent businesses, not franchisees, employees, or agents of Kingdom Creatives LLC. Nothing on this site is legal, tax, or insurance advice.</p>
+    <p class="legal-note" id="lang-governs" hidden></p>
   </div>
-</footer>
+</footer><!-- /BUILD:FOOTER -->
 
 <script>
   // "Want this site?" — scroll to the contact form and pre-fill the message with the chosen site
