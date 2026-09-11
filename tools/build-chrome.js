@@ -38,6 +38,7 @@ const PAGES = [
   { route: '/platforms/', file: 'platforms/index.html', indexable: true },
   { route: '/services/', file: 'services/index.html', indexable: true },
   { route: '/work/', file: 'work/index.html', indexable: true },
+  { route: '/about/', file: 'about/index.html', indexable: true },
 ];
 
 const LEGAL = [

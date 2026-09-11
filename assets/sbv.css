@@ -115,6 +115,14 @@
    (.plate), #roster white, footer dark — one content band is enough for a
    single filterable grid, and white-then-dark never repeats a neighbour's
    tone either way it is read.
+
+   /about/ also reuses the same three rules. Its rhythm: nav dark, hero dark
+   (.plate), #story paper, #boundaries white, footer dark — the same
+   dark/paper/white progression as everywhere else, and no neighbour repeats.
+
+   Ruling R18: every id added to a band selector list above MUST also join
+   the border-top:0 exception list below, or the page shows a stray hairline
+   seam at that band's transition (the two lists are a pair, not a coincidence).
 */
 .plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer, #answers, #next{
   --bg:      var(--con);
@@ -144,7 +152,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites, #build, #inquiry, #gsb, #roster{
+#how, #line, #websites, #build, #inquiry, #gsb, #roster, #boundaries{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -163,7 +171,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq, #problem, #process, #esb, #csb{
+#registry, #faq, #problem, #process, #esb, #csb, #story{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -284,7 +292,8 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 /* Bands are full-width and butt against each other; a hairline between two
    different grounds is noise, so only same-tone neighbours keep one. */
 #proof, #registry, #catalog, #how, #line, #websites, #faq, #founder,
-#esb, #gsb, #csb, #next, #roster{border-top:0}
+#esb, #gsb, #csb, #next, #roster, #story, #boundaries,
+#problem, #build, #process, #answers, #inquiry{border-top:0}
 .section-head{margin-bottom:30px}
 .section-head h2{margin:12px 0 16px}
 
