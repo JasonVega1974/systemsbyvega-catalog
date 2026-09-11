@@ -58,7 +58,16 @@ const TARGETS = [
     markers: ['TOTAL', 'OPEN', 'SITES', 'THESIS_OPEN',
               'CATALOG', 'NICHE_SELECT', 'SEED_SCRIPT', 'EXTRAS_SCRIPT'] },
   { file: path.join(ROOT, 'platforms', 'index.html'),
-    markers: ['SEED_SCRIPT'] },
+    markers: ['SEED_SCRIPT', 'PLAT_INLINE'] },
+  /* Finding 3 of the final whole-branch review: three more pages hand-typed
+     counts the project already ruled indefensible for the landing page
+     (Ruling R20). Same fix, same reasoning — a marker fed from the one
+     R.figures() call, so these cannot print a number that disagrees with
+     the catalog a click away. */
+  { file: path.join(ROOT, 'services', 'index.html'),
+    markers: ['SVC_SITES'] },
+  { file: path.join(ROOT, 'work', 'index.html'),
+    markers: ['WK_SITES'] },
 ];
 
 /* ------------------------------------------------------------- validation */
@@ -193,6 +202,13 @@ function main() {
     SITES_OFFER:  String(fig.sites),
     SITES_STEP:   String(fig.sites),
     SITES_LINK:   String(fig.sites),
+    /* Finding 3: services/index.html and work/index.html each print the
+       site count once in prose; platforms/index.html prints the in-line
+       count right above the chips that already render it. All three fed
+       from this same fig, never typed by hand a second time. */
+    SVC_SITES:    String(fig.sites),
+    WK_SITES:     String(fig.sites),
+    PLAT_INLINE:  String(fig.inLine),
     CATALOG:      '\n' + R.catalog(seed.families, seed.niches, {}, extras) + '\n',
     NICHE_SELECT: '\n' + R.nicheSelect(seed.niches) + '\n',
     SEED_SCRIPT:  seedScript,

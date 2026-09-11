@@ -54,12 +54,16 @@
 }());
 </script>
 <script>
-/* Ad creatives still carry /#catalog and /#websites from when this page was
-   the catalog. Both anchors moved to /sites/. Retire this once the creatives
-   stop pointing here. */
+/* Ad creatives still carry /#catalog, /#websites, /#line and /#founder from
+   when this page was the catalog. All four anchors moved off this page —
+   the first two to /sites/ in general, #line to the registry form that still
+   exists at that same id on /sites/, and #founder to the bio content that
+   now lives on /about/. Retire this once the creatives stop pointing here. */
 (function () {
   var h = location.hash;
   if (h === '#catalog' || h === '#websites') location.replace('/sites/');
+  else if (h === '#line') location.replace('/sites/#line');
+  else if (h === '#founder') location.replace('/about/');
 }());
 </script>
 </head>
@@ -422,10 +426,9 @@ window.SBV_CONFIG = {
 };
 </script>
 <script src="/assets/catalog-render.js" defer></script>
-<!-- Loaded before sbv.js so SBVi18n exists when the page boots and re-translates
-     after each catalog repaint. Both are deferred, so order is guaranteed. -->
-<script src="/assets/lang/es.js" defer></script>
-<script src="/assets/i18n.js" defer></script>
+<!-- Spanish is parked: assets/i18n.js and assets/lang/es.js stay on disk but
+     unloaded, because there is no #lang-pick on this page's nav to pick a
+     language with, or to fall back to — see docs/superpowers/specs/2026-09-10-site-reorg-design.md. -->
 <script src="/assets/sbv.js" defer></script>
 <script>
 /* BUILD:SEED — the catalog data, inlined so the runtime can re-render without

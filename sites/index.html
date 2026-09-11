@@ -158,9 +158,10 @@
     <div class="example-note" role="note">
       <span class="example-note__badge">Example names only</span>
       <p>The business names, logos, and photos on every card and demo below are placeholders used
-        to show each template in a real-feeling context. None of these are actual businesses. Pick
-        the template closest to your trade and I'll rebuild it with <strong>your</strong> business
-        name, branding, service area, and pricing.</p>
+        to show each template in a real-feeling context. Nearly all of these are placeholders, not
+        actual businesses — the one exception is noted above. Pick the template closest to your
+        trade and I'll rebuild it with <strong>your</strong> business name, branding, service area,
+        and pricing.</p>
     </div>
 
     <!-- Thirty-eight plates is a wall to a first-time visitor. These cut it to
@@ -496,10 +497,9 @@ window.SBV_CONFIG = (function () {
 })();
 </script>
 <script src="/assets/catalog-render.js" defer></script>
-<!-- Loaded before sbv.js so SBVi18n exists when the page boots and re-translates
-     after each catalog repaint. Both are deferred, so order is guaranteed. -->
-<script src="/assets/lang/es.js" defer></script>
-<script src="/assets/i18n.js" defer></script>
+<!-- Spanish is parked: assets/i18n.js and assets/lang/es.js stay on disk but
+     unloaded, because there is no #lang-pick on this page's nav to pick a
+     language with, or to fall back to — see docs/superpowers/specs/2026-09-10-site-reorg-design.md. -->
 <script src="/assets/sbv.js" defer></script>
 <script>
 /* BUILD:SEED / BUILD:EXTRAS — the catalog data and the slug-keyed demo-brand
@@ -567,10 +567,17 @@ window.SBV_CONFIG = (function () {
   var text = document.getElementById('confirmText');
   var go   = document.getElementById('confirmGo');
 
-  /* Carrying the fragment is what lets supabase-js on /sites/ establish the
-     session if it is still unspent; a bare href would sign them straight back
-     out, one click after confirming. claim.js accepts either shape. */
-  var onward = '/sites/' + (h || q || '?confirmed=1');
+  /* UNLIKE THE COPY ON /: this page IS /sites/ already, so carrying the
+     fragment forward (as that copy correctly does, for the cross-page hop)
+     would target a URL that differs from the current one only by hash.
+     location.replace() to that is a same-document navigation — nothing
+     reloads, this script never runs again, and every branch below would
+     dead-end with the bar stuck reading "signing you in…" forever. The SDK
+     below reads the CURRENT page's fragment in place (createClient's
+     detectSessionInUrl), so nothing is lost by not carrying it forward.
+     ?confirmed=1 is a real query-string change, so it is a real navigation —
+     and it is what claim.js already watches for either way. */
+  var onward = '/sites/?confirmed=1';
   go.setAttribute('href', onward);
   go.hidden = false;
   bar.hidden = false;

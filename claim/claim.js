@@ -775,4 +775,12 @@
   }
 
   window.initClaim = initClaim;
+
+  /* Exposed so sbv.js's paint() can re-run it after a repaint (Finding 5):
+     paint() replaces #catalog-root wholesale, which wipes out every
+     [data-claimed] badge loadCounts() wrote at boot, and loadCounts() never
+     ran again on its own. Named on initClaim rather than a second global —
+     one thing to check for, one thing to guard against on the five pages
+     that never load this file. */
+  initClaim.loadCounts = loadCounts;
 })();

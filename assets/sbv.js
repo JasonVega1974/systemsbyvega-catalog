@@ -109,6 +109,11 @@
       applyFilter(true);
       enhanceCards();
       translate();
+      /* The repaint just destroyed every [data-claimed] badge claim.js's
+         loadCounts() wrote at boot; re-run it so a fourth real claim does
+         not silently lose the catalog's scarcity signal. Guarded: claim.js
+         (and therefore window.initClaim) only loads on /sites/. */
+      if (window.initClaim && window.initClaim.loadCounts) window.initClaim.loadCounts();
     }
     var sel = el('f-niche');
     if (sel) {
@@ -784,8 +789,26 @@
     if (root) {
       root.addEventListener('click', function (e) {
         if (!e.target.closest) return;
-        /* Links and the form buttons keep their own behaviour. */
-        if (e.target.closest('a')) return;
+        /* Links and buttons keep their own behaviour — the guard used to
+           check only `a`, so the claim CTA (a <button class="card-go
+           claim-btn">, catalog-render.js's claimBtn()) fell through, this
+           listener opened the niche-detail modal underneath it, and the
+           click kept bubbling to claim.js's own document-level listener,
+           which opened the claim modal on top — two dialogs from one click.
+
+           The one interactive element this must NOT swallow is
+           button.card-open — the h3 button enhanceCards() creates purely so
+           keyboard and screen-reader users have a labelled target for THIS
+           modal. It carries no click handler of its own; it depends entirely
+           on bubbling to this listener. Excluding it the same as claim-btn
+           would silently break the accessible way to open the modal (and
+           mouse clicks that land on the card title), so it is named back in
+           rather than folded into the blanket "a, button" exclusion. No
+           other control inside a card was found that needs the same
+           carve-out — the claim button is the only other in-card control
+           with independent behaviour today. */
+        var ctrl = e.target.closest('a, button');
+        if (ctrl && !ctrl.classList.contains('card-open')) return;
         var card = e.target.closest('.entry.sheet');
         if (!card) return;
         e.preventDefault();
@@ -849,18 +872,30 @@
      the same way, so the card cannot say "Open now" for a slug the seed no
      longer marks open. */
   var PLATFORM_STATUS_LABEL = { open: 'Open now', in_line: 'Waitlist', website_only: 'Website' };
+  var PLATFORM_STATUS_CLASS = { open: 'open', in_line: 'wait', website_only: 'site' };
   function paintPlatforms() {
     var root = el('platforms-root');
     if (!root || !state.niches.length) return;
-    state.niches.filter(function (n) { return n.status === 'open'; })
-      .forEach(function (n) {
-        var card = root.querySelector('[data-slug="' + n.slug + '"]');
-        if (!card) return;
-        var price = card.querySelector('[data-price]');
-        if (price) price.textContent = n.price_label || '';
-        var status = card.querySelector('[data-status]');
-        if (status) status.textContent = PLATFORM_STATUS_LABEL[n.status] || n.status;
-      });
+    /* Every card on the page, not just the ones currently open — the markup
+       hard-coded class="tok open" on all three status pills, so a platform
+       whose status changed away from open kept a green "Open now" pill with
+       empty text (nothing here ever ran for it, because the old filter below
+       only ever looked at open rows). Text AND class are both set from the
+       row, the same way catalog-render.js's statusTok() does it for the
+       catalog cards, so this cannot drift the same way the numbering just
+       did. */
+    Array.prototype.forEach.call(root.querySelectorAll('[data-slug]'), function (card) {
+      var slug = card.getAttribute('data-slug');
+      var n = state.niches.filter(function (x) { return x.slug === slug; })[0];
+      if (!n) return;
+      var price = card.querySelector('[data-price]');
+      if (price) price.textContent = n.price_label || '';
+      var status = card.querySelector('[data-status]');
+      if (status) {
+        status.className = 'tok ' + (PLATFORM_STATUS_CLASS[n.status] || 'site');
+        status.textContent = PLATFORM_STATUS_LABEL[n.status] || n.status;
+      }
+    });
 
     /* The closing "What's next" band. Chips, not a hand-typed list — the ten
        in-line businesses are whatever the seed currently says they are, and

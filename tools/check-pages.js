@@ -106,9 +106,6 @@ for (const page of PAGES) {
   for (const e of EXEMPT) scan = scan.split(e).join('');
 
   for (const [s, why] of FORBIDDEN) {
-    /* /about/ is the one page allowed to name the employer, and only as a
-       role. The card and the demo page are gone; the sentence stays. */
-    if (s === 'Command Center' && page.route === '/about/') continue;
     if (scan.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
   }
   for (const s of BANNED_COUNTS) {
@@ -117,5 +114,30 @@ for (const page of PAGES) {
   if (pageFailures === 0) ok(page.route, 'structure + compliance');
 }
 
-console.log(failures ? `\n${failures} failure(s)` : `\n${PAGES.length} page(s) clean`);
+/* work/projects.json renders straight onto /work/ (wkCardHtml/wkFillModal in
+   assets/sbv.js) but, as a JSON data file rather than an HTML page, was never
+   in the PAGES loop above — a forbidden string typed into a project's
+   tagline or description would ship silently. Same FORBIDDEN list and EXEMPT
+   stripping; the structural checks (disclaimer, canonical, BUILD markers)
+   do not apply to a data file, so only the string scans run here. */
+{
+  const route = 'work/projects.json';
+  const abs = path.join(ROOT, 'work', 'projects.json');
+  pageFailures = 0;
+  if (!fs.existsSync(abs)) {
+    bad(route, 'missing file work/projects.json');
+  } else {
+    let scan = fs.readFileSync(abs, 'utf8');
+    for (const e of EXEMPT) scan = scan.split(e).join('');
+    for (const [s, why] of FORBIDDEN) {
+      if (scan.includes(s)) bad(route, `forbidden string "${s}" — ${why}`);
+    }
+    for (const s of BANNED_COUNTS) {
+      if (scan.includes(s)) bad(route, `stale hand-typed count "${s}"`);
+    }
+    if (pageFailures === 0) ok(route, 'forbidden-string scan');
+  }
+}
+
+console.log(failures ? `\n${failures} failure(s)` : `\n${PAGES.length} page(s) + projects.json clean`);
 process.exit(failures ? 1 : 0);
