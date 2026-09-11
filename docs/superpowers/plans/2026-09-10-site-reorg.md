@@ -73,6 +73,13 @@ must yield a *different honest* presentation, never a broken or empty one.
 
 **Mobile-first.** Every page correct at 390px. No horizontal overflow at 360px.
 
+**Band ids come in pairs (Ruling R18).** Any section id you add to a band
+selector list in `assets/sbv.css` must ALSO be added to the `border-top:0` exception
+list at `assets/sbv.css:276`. That list is the codebase’s own mechanism for suppressing
+the hairline where two differently-toned bands meet — its comment says so. Skip it and
+the page renders a stray 1px seam at every band transition. Nothing gates this, so it is
+on you to check.
+
 **Shared `assets/sbv.js` (Ruling R3).** Five tasks append to this one file, and all six
 pages load it. Every addition must (a) register its own `wireX()` / `paintX()` call in
 `boot()`, and (b) return early if its root element is absent — otherwise a function
@@ -1315,10 +1322,16 @@ Expected: `4 page(s) clean`.
 
 Then confirm no price is hard-coded:
 ```bash
-grep -nE '\$(497|249|197)' platforms/index.html
+node -e "const h=require('fs').readFileSync('platforms/index.html','utf8');const prose=h.replace(/<!-- BUILD:SEED_SCRIPT -->[\s\S]*?<!-- \/BUILD:SEED_SCRIPT -->/,'');const hits=prose.match(/\$(497|249|197)/g)||[];console.log(hits.length?'FAIL hand-typed price in prose: '+hits.join(' '):'ok  no price outside the seed');"
 ```
-Expected: **no output.** Every price arrives from `price_label`. If a figure appears,
-it is a second source of truth — remove it.
+Expected: `ok  no price outside the seed`.
+
+**Ruling R19 — the seed block is deliberately excluded.** `price_label` inside
+`SBV_SEED` is the source of truth and *must* contain the real prices. An earlier run of
+this check grepped the whole file, so the only way to satisfy it was to null those three
+`price_label`s — which shipped a copy of the seed that disagreed with
+`assets/data/niches.seed.json`, and made prices render blank without JavaScript. What is
+banned is a price typed into prose or markup, never a price in the data.
 
 - [ ] **Step 5: Commit**
 
