@@ -90,3 +90,32 @@ No Vercel Analytics tag on `/demo/`, `/showcase/`, `/portfolio/`, `/claim/`, or
 `/claim/thank-you.html`. The two `/claim/` pages are the Stripe cancel and success
 landings — the highest-value pages in the funnel are invisible in reporting.
 Folded into T7.
+
+---
+
+## F6 — disclose the hashed-IP abuse record in the privacy policy
+
+**Status:** open, needs Jason's decision on wording. Not blocking.
+
+`sbv_inquiries` stores a salted SHA-256 of the submitter's IP (`ip_hash`) to rate-limit
+the `/services/` form across serverless instances (Ruling R15). The raw address is never
+stored.
+
+`legal/privacy.html` §3 currently discloses only:
+
+> Our hosting provider keeps standard server logs, including IP addresses, for security
+> and troubleshooting.
+
+That is a statement about Vercel's logs. It does not cover a record SystemsByVega keeps
+in its own database, even a hashed one. The policy is not *false* today, but it is
+incomplete, and the whole posture of this site is that published statements are true and
+checkable.
+
+**Suggested sentence for §3**, for Jason to approve or reword:
+
+> When you send an enquiry through the site we also keep a one-way scrambled form of your
+> network address, which lets us block abuse of the form. It cannot be turned back into
+> your address and we never store the address itself.
+
+Deliberately not written into the file by an agent: the brief's stop conditions say to
+flag compliance-adjacent copy rather than guess at it.

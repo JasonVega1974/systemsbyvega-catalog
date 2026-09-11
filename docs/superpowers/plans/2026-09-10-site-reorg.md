@@ -1142,10 +1142,11 @@ Sections, in order, with their band (spec §2.1) and their source:
 | # | Section | Band | Content |
 |---|---|---|---|
 | 1 | Hero | console | H1 **"You don't need a template. You need the thing built."** Sub: "Custom platforms, dashboards, databases and automation — designed, built and shipped by one person who has done it for himself first." CTA → `#inquiry` |
-| 2 | The problem | paper | From `demo/index.html` §01, near-verbatim: "Everything important lives in a file someone can overwrite by accident." Keep the four-point grid |
+| 2 | The problem | paper | The opener is `demo/index.html` **§01** — "Everything important lives in a file someone can overwrite by accident." The four-point grid is a **separate section, §02 "How I’d fix it"** (~lines 322-340): One source of truth / Mistakes made impossible / Numbers that update themselves / Built for the people using it. Lift both near-verbatim (Ruling R17). |
 | 3 | What I build | white | Five blocks — copy in Step 4 |
 | 4 | How I work | paper | brief → spec → plan → build → review → ship. State the AI-agent process plainly as fact |
-| 5 | Inquiry form | white | Step 5 |
+| 5 | **FAQ** | **console** | Three answers lifted near-verbatim from `demo/index.html` — existing data / IT staff / timeline. Spec §3.4 requires it; the earlier table omitted it (Ruling R16). Reuses the `.qa` accordion. |
+| 6 | Inquiry form | white | Step 5 |
 
 Reuse existing components throughout: `.section`, `.section-head`, `.eyebrow`, `.grid`,
 `.entry`, `.btn`. **Do not write new component CSS for this page.**
