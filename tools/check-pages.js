@@ -21,8 +21,14 @@ const ROOT = path.resolve(__dirname, '..');
 /* Every public marketing page. A page task is not done until its route is
    here and this file exits 0. */
 const PAGES = [
-  { route: '/',       file: 'index.html'       },
-  { route: '/sites/', file: 'sites/index.html' },
+  { route: '/',       file: 'index.html',       sharedAssets: true },
+  /* sharedAssets:false is a DECLARED, REASONED exception, not an oversight.
+     sites/index.html is ~300 lines of inline <style> and loads neither shared
+     asset, so the injected chrome is unstyled and its drawer is inert there.
+     Task 10 deletes that inline block when it consolidates the catalog into
+     this page, and flips this flag to true. The gate fails if it forgets. */
+  { route: '/sites/', file: 'sites/index.html', sharedAssets: false,
+    pending: 'inline <style> until Task 10 consolidates the catalog here' },
 ];
 
 const DISCLAIMER = 'makes no representation about income, revenue, profit, or results';
@@ -85,6 +91,17 @@ for (const page of PAGES) {
     bad(page.route, 'canonical missing or not absolute');
   if (!/<!-- BUILD:NAV -->/.test(html))    bad(page.route, 'no BUILD:NAV marker');
   if (!/<!-- BUILD:FOOTER -->/.test(html)) bad(page.route, 'no BUILD:FOOTER marker');
+
+  /* Ruling R11: sharedAssets is a declared, reasoned exception, not silence.
+     A page that opts out still gets a line on every run, so the debt stays
+     visible instead of disappearing the way the missing /sites/ disclaimer
+     once did. */
+  if (page.sharedAssets) {
+    if (!html.includes('/assets/sbv.css')) bad(page.route, 'does not load /assets/sbv.css');
+    if (!html.includes('/assets/sbv.js'))  bad(page.route, 'does not load /assets/sbv.js');
+  } else {
+    console.log(`  pend  ${page.route}  shared assets deferred — ${page.pending}`);
+  }
 
   /* Strip the exempt sentences before scanning (Ruling R9). */
   let scan = html;
