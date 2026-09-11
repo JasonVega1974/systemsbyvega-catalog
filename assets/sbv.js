@@ -98,7 +98,7 @@
        overwriting it would take the heading, the lede and the legend with it. */
     var root = el('catalog-root');
     if (root) {
-      root.innerHTML = R.catalog(state.families, state.niches, state.counts);
+      root.innerHTML = R.catalog(state.families, state.niches, state.counts, window.SBV_EXTRAS || {});
       wireLineLinks();
       observe();
       /* The repaint just destroyed every card, so anything that decorates a
@@ -109,6 +109,11 @@
       applyFilter(true);
       enhanceCards();
       translate();
+      /* The repaint just destroyed every [data-claimed] badge claim.js's
+         loadCounts() wrote at boot; re-run it so a fourth real claim does
+         not silently lose the catalog's scarcity signal. Guarded: claim.js
+         (and therefore window.initClaim) only loads on /sites/. */
+      if (window.initClaim && window.initClaim.loadCounts) window.initClaim.loadCounts();
     }
     var sel = el('f-niche');
     if (sel) {
@@ -124,7 +129,7 @@
 
     rest('sbv_niches?select=*&is_listed=eq.true&order=sort.asc')
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) { if (rows && rows.length) { state.niches = rows; paint(); } })
+      .then(function (rows) { if (rows && rows.length) { state.niches = rows; paint(); paintPlatforms(); } })
       .catch(function () { /* the pre-rendered catalog stands */ });
 
     rest('rpc/sbv_demand_counts')
@@ -784,8 +789,26 @@
     if (root) {
       root.addEventListener('click', function (e) {
         if (!e.target.closest) return;
-        /* Links and the form buttons keep their own behaviour. */
-        if (e.target.closest('a')) return;
+        /* Links and buttons keep their own behaviour — the guard used to
+           check only `a`, so the claim CTA (a <button class="card-go
+           claim-btn">, catalog-render.js's claimBtn()) fell through, this
+           listener opened the niche-detail modal underneath it, and the
+           click kept bubbling to claim.js's own document-level listener,
+           which opened the claim modal on top — two dialogs from one click.
+
+           The one interactive element this must NOT swallow is
+           button.card-open — the h3 button enhanceCards() creates purely so
+           keyboard and screen-reader users have a labelled target for THIS
+           modal. It carries no click handler of its own; it depends entirely
+           on bubbling to this listener. Excluding it the same as claim-btn
+           would silently break the accessible way to open the modal (and
+           mouse clicks that land on the card title), so it is named back in
+           rather than folded into the blanket "a, button" exclusion. No
+           other control inside a card was found that needs the same
+           carve-out — the claim button is the only other in-card control
+           with independent behaviour today. */
+        var ctrl = e.target.closest('a, button');
+        if (ctrl && !ctrl.classList.contains('card-open')) return;
         var card = e.target.closest('.entry.sheet');
         if (!card) return;
         e.preventDefault();
@@ -798,11 +821,340 @@
     if (x) x.addEventListener('click', closeModal);
   }
 
+  /* ------------------------------------------------------------ gnav */
+  /* The drawer is display:none until data-open, so nothing inside it is
+     focusable while closed and no focus trap is needed for the closed
+     state. Open traps, Esc closes, and focus returns to the burger —
+     the same contract wireExit() already uses for the exit card. */
+  function wireNav() {
+    var burger = el('gnav-burger'), drawer = el('gnav-drawer');
+    if (!burger || !drawer) return;
+
+    function close() {
+      drawer.removeAttribute('data-open');
+      drawer.hidden = true;
+      burger.setAttribute('aria-expanded', 'false');
+      document.removeEventListener('keydown', onKey);
+      burger.focus();
+    }
+    function onKey(e) {
+      if (e.key === 'Escape') return close();
+      if (e.key !== 'Tab') return;
+      var f = drawer.querySelectorAll('a[href],button:not([disabled])');
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    burger.addEventListener('click', function () {
+      if (drawer.getAttribute('data-open') === '1') return close();
+      drawer.hidden = false;
+      drawer.setAttribute('data-open', '1');
+      burger.setAttribute('aria-expanded', 'true');
+      document.addEventListener('keydown', onKey);
+      var f = drawer.querySelector('a[href]');
+      if (f) f.focus();
+    });
+    /* A resize past the breakpoint must not leave a hidden drawer open. */
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 900 && drawer.getAttribute('data-open') === '1') close();
+    });
+  }
+
+  /* ------------------------------------------------------------ platforms */
+  /* /platforms/ only. A no-op everywhere else — #platforms-root does not
+     exist on any other page, so this returns before touching the DOM.
+
+     The three open platforms, from the same rows the catalog reads. A price
+     typed into this page would be a fourth place the number lives — the
+     catalog, the seed, the database, and here — and the audit found what
+     happens when prose keeps its own copy of a figure. Status is hydrated
+     the same way, so the card cannot say "Open now" for a slug the seed no
+     longer marks open. */
+  var PLATFORM_STATUS_LABEL = { open: 'Open now', in_line: 'Waitlist', website_only: 'Website' };
+  var PLATFORM_STATUS_CLASS = { open: 'open', in_line: 'wait', website_only: 'site' };
+  function paintPlatforms() {
+    var root = el('platforms-root');
+    if (!root || !state.niches.length) return;
+    /* Every card on the page, not just the ones currently open — the markup
+       hard-coded class="tok open" on all three status pills, so a platform
+       whose status changed away from open kept a green "Open now" pill with
+       empty text (nothing here ever ran for it, because the old filter below
+       only ever looked at open rows). Text AND class are both set from the
+       row, the same way catalog-render.js's statusTok() does it for the
+       catalog cards, so this cannot drift the same way the numbering just
+       did. */
+    Array.prototype.forEach.call(root.querySelectorAll('[data-slug]'), function (card) {
+      var slug = card.getAttribute('data-slug');
+      var n = state.niches.filter(function (x) { return x.slug === slug; })[0];
+      if (!n) return;
+      var price = card.querySelector('[data-price]');
+      if (price) price.textContent = n.price_label || '';
+      var status = card.querySelector('[data-status]');
+      if (status) {
+        status.className = 'tok ' + (PLATFORM_STATUS_CLASS[n.status] || 'site');
+        status.textContent = PLATFORM_STATUS_LABEL[n.status] || n.status;
+      }
+    });
+
+    /* The closing "What's next" band. Chips, not a hand-typed list — the ten
+       in-line businesses are whatever the seed currently says they are, and
+       this reads it the same way the homepage's #line select does. */
+    var next = el('next-chips');
+    if (next) {
+      next.innerHTML = state.niches.filter(function (n) { return n.status === 'in_line'; })
+        .map(function (n) {
+          return '<a class="chip" href="/sites/#line" data-niche="' + n.slug + '">' + n.name + '</a>';
+        }).join('');
+    }
+  }
+
+  /* ----------------------------------------------------------------- work */
+  /* /work/ only. A no-op everywhere else — #wk-grid does not exist on any
+     other page, so paintWork() returns before the fetch, and wireWorkModal()
+     returns before it touches the DOM. Ruling R3.
+
+     The pattern is the one portfolio/assets/js/app.js already proved:
+     fetch a JSON file, render cards, filter by category. It moves here and
+     reads band tokens instead of that file's own stylesheet (Ruling R4);
+     nothing else about the shape changed. The data itself lives in
+     work/projects.json, not in this file — the roster can be edited without
+     touching code, and this script cannot drift from it because it never
+     copies a project's name or status into a string of its own. */
+  var wkProjects = [];
+  var wkFilter = '';
+  var wkModalLast = null;
+
+  function wkEsc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function wkInitials(name) {
+    return String(name || '')
+      .replace(/[^A-Za-z0-9 ]/g, '')
+      .split(/\s+/).filter(Boolean).slice(0, 2)
+      .map(function (w) { return w[0].toUpperCase(); }).join('');
+  }
+
+  /* A card with no url is not a broken link, it is a card that deliberately
+     does not link. Rendering an <a href="null"> or an <a> with no href would
+     be a worse answer than the honest one. */
+  function wkGoLink(p) {
+    if (!p.url) return p.note ? '<p class="wk-note">' + wkEsc(p.note) + '</p>' : '';
+    var external = /^https?:\/\//.test(p.url);
+    var attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return '<a class="wk-go" href="' + wkEsc(p.url) + '"' + attrs + '>Open it ' +
+           '<span aria-hidden="true">&rarr;</span></a>';
+  }
+
+  function wkShotHtml(p) {
+    if (p.shot) {
+      return '<div class="wk-shot"><img src="/assets/shots/work/' + wkEsc(p.shot) +
+             '" width="1280" height="800" loading="lazy" alt="' +
+             wkEsc(p.name + ' — screenshot') + '"></div>';
+    }
+    /* No screenshot: a typographic placard in the house colour, same device
+       the homepage board uses for a platform that is not filled yet — never
+       a broken <img>, and never silence where a shot would have been. */
+    return '<div class="wk-shot wk-shot--placard"><b>' + wkEsc(wkInitials(p.name)) +
+           '</b><span>' + wkEsc(p.status || '') + '</span></div>';
+  }
+
+  function wkCardHtml(p) {
+    var pillClass = String(p.status).toLowerCase() === 'live' ? 'wk-pill--live' : 'wk-pill--offline';
+    var tags = (p.tags || []).map(function (t) {
+      return '<span class="wk-tag">' + wkEsc(t) + '</span>';
+    }).join('');
+    return '' +
+      '<article class="wk-card reveal" data-id="' + wkEsc(p.id) + '" data-category="' + wkEsc(p.category || '') + '">' +
+        wkShotHtml(p) +
+        '<div class="wk-body">' +
+          '<div class="wk-top">' +
+            '<h3><button type="button" class="wk-open">' + wkEsc(p.name) + '</button></h3>' +
+            '<span class="wk-pill ' + pillClass + '">' + wkEsc(p.status || '') + '</span>' +
+          '</div>' +
+          '<p class="wk-tagline">' + wkEsc(p.tagline || '') + '</p>' +
+          (tags ? '<div class="wk-tags">' + tags + '</div>' : '') +
+          wkGoLink(p) +
+        '</div>' +
+      '</article>';
+  }
+
+  function wkCategories(list) {
+    var seen = [];
+    list.forEach(function (p) {
+      if (p.category && seen.indexOf(p.category) === -1) seen.push(p.category);
+    });
+    return seen;
+  }
+
+  function wkBuildFilters(list) {
+    var bar = el('wk-filterbar'), chips = el('wk-chips');
+    if (!bar || !chips) return;
+    var cats = [''].concat(wkCategories(list));
+    chips.innerHTML = cats.map(function (cat, idx) {
+      var label = cat || 'All work';
+      var n = cat ? list.filter(function (p) { return p.category === cat; }).length : list.length;
+      return '<button type="button" class="chip" data-filter="' + wkEsc(cat) + '" ' +
+             'aria-pressed="' + (idx === 0 ? 'true' : 'false') + '">' +
+             '<span>' + wkEsc(label) + '</span><b class="chip-n">' + n + '</b></button>';
+    }).join('');
+    bar.hidden = false;
+  }
+
+  function wkApplyFilter() {
+    var grid = el('wk-grid');
+    if (!grid) return;
+    var cards = grid.querySelectorAll('.wk-card');
+    var shown = 0;
+    Array.prototype.forEach.call(cards, function (c) {
+      var on = !wkFilter || c.getAttribute('data-category') === wkFilter;
+      c.hidden = !on;
+      if (on) shown++;
+    });
+    var bar = el('wk-filterbar');
+    if (bar) {
+      Array.prototype.forEach.call(bar.querySelectorAll('.chip'), function (c) {
+        c.setAttribute('aria-pressed', (c.getAttribute('data-filter') || '') === wkFilter ? 'true' : 'false');
+      });
+    }
+    var count = el('wk-filter-count');
+    if (count) count.textContent = shown + ' of ' + cards.length;
+    var empty = el('wk-filter-empty');
+    if (empty) empty.hidden = shown > 0;
+  }
+
+  function wkWireFilters() {
+    var bar = el('wk-filterbar');
+    if (!bar) return;
+    bar.addEventListener('click', function (e) {
+      var chip = e.target.closest ? e.target.closest('.chip') : null;
+      if (!chip) return;
+      wkFilter = chip.getAttribute('data-filter') || '';
+      wkApplyFilter();
+    });
+  }
+
+  /* -------------------------------------------------------- detail panel */
+  /* Every word here is read off the project object that opened it — nothing
+     authored per-card in this file, so the modal cannot say something the
+     grid does not already say. Same constraint fillModal() follows above. */
+  function wkFillModal(p) {
+    var body = el('wk-modal-body');
+    if (!body) return;
+    var pillClass = String(p.status).toLowerCase() === 'live' ? 'wk-pill--live' : 'wk-pill--offline';
+    var shot = p.shot
+      ? '<img class="wk-modal-shot" src="/assets/shots/work/' + wkEsc(p.shot) + '" width="1280" height="800" ' +
+        'alt="' + wkEsc(p.name + ' — screenshot') + '">'
+      : '<div class="wk-modal-shot wk-modal-shot--placard">' + wkEsc(wkInitials(p.name)) + '</div>';
+    var tags = (p.tags || []).map(function (t) {
+      return '<span class="wk-tag">' + wkEsc(t) + '</span>';
+    }).join('');
+    var features = (p.features || []).length
+      ? '<ul class="wk-modal-features">' + p.features.map(function (f) {
+          return '<li>' + wkEsc(f) + '</li>';
+        }).join('') + '</ul>'
+      : '';
+    var note = (!p.url && p.note)
+      ? '<p class="wk-modal-note">' + wkEsc(p.note) + '</p>' : '';
+    var foot = '';
+    if (p.url) {
+      var external = /^https?:\/\//.test(p.url);
+      var attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      foot = '<a class="btn btn-pri" href="' + wkEsc(p.url) + '"' + attrs + '>Open it &rarr;</a>';
+    }
+    body.innerHTML =
+      shot +
+      '<div class="wk-top"><h3 id="wk-modal-title">' + wkEsc(p.name) + '</h3>' +
+      '<span class="wk-pill ' + pillClass + '">' + wkEsc(p.status || '') + '</span></div>' +
+      '<p class="wk-modal-tagline">' + wkEsc(p.tagline || '') + '</p>' +
+      '<p class="wk-modal-desc">' + wkEsc(p.description || '') + '</p>' +
+      note + features +
+      (tags ? '<div class="wk-modal-tags">' + tags + '</div>' : '') +
+      '<div class="wk-modal-foot">' + foot + '</div>';
+  }
+
+  function wkModalFocusables() {
+    var box = el('wk-modal');
+    return box ? box.querySelectorAll('a[href],button:not([disabled])') : [];
+  }
+
+  function wkModalKey(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) { wkCloseModal(); return; }
+    if (e.key !== 'Tab' && e.keyCode !== 9) return;
+    var f = wkModalFocusables();
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  function wkOpenModal(id) {
+    var box = el('wk-modal');
+    var p = wkProjects.filter(function (x) { return x.id === id; })[0];
+    if (!box || !p) return;
+    wkModalLast = document.activeElement;
+    wkFillModal(p);
+    box.hidden = false;
+    void box.offsetHeight;
+    box.setAttribute('data-open', '1');
+    document.body.style.overflow = 'hidden';
+    var f = wkModalFocusables();
+    if (f.length) f[0].focus();
+    document.addEventListener('keydown', wkModalKey);
+  }
+
+  function wkCloseModal() {
+    var box = el('wk-modal');
+    if (!box || box.getAttribute('data-open') !== '1') return;
+    box.setAttribute('data-open', '0');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', wkModalKey);
+    setTimeout(function () { box.hidden = true; }, 220);
+    if (wkModalLast && wkModalLast.focus) wkModalLast.focus();
+  }
+
+  function wkWireModal() {
+    var grid = el('wk-grid'), box = el('wk-modal');
+    if (!grid || !box) return;
+    grid.addEventListener('click', function (e) {
+      if (!e.target.closest) return;
+      if (e.target.closest('a')) return;             // the "Open it" link keeps its own behaviour
+      var card = e.target.closest('.wk-card');
+      if (!card) return;
+      e.preventDefault();
+      wkOpenModal(card.getAttribute('data-id'));
+    });
+    box.addEventListener('click', function (e) { if (e.target === box) wkCloseModal(); });
+    var x = el('wk-modal-close');
+    if (x) x.addEventListener('click', wkCloseModal);
+  }
+
+  function paintWork() {
+    var grid = el('wk-grid');
+    if (!grid) return;                                // R3: not this page, do nothing
+    fetch('/work/projects.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); })
+      .then(function (list) {
+        wkProjects = Array.isArray(list) ? list : [];
+        grid.innerHTML = wkProjects.map(wkCardHtml).join('');
+        wkBuildFilters(wkProjects);
+        wkApplyFilter();
+        observe();                                    // the grid just got .reveal cards to animate in
+      })
+      .catch(function () {
+        grid.innerHTML = '<p class="wk-loading">Couldn’t load the roster. Try reloading the page.</p>';
+      });
+  }
+
   function boot() {
     document.documentElement.classList.remove('no-js');
     wireLineLinks();
     wireForm();
     wireFaq();
+    wireNav();
     observe();
 
     /* Everything below decorates a catalog that is already in the HTML, so it
@@ -815,6 +1167,12 @@
     heroBoard();
     wireRail();
     wireExit();
+    paintPlatforms();
+
+    /* /work/ only — no-op everywhere else (Ruling R3). */
+    wkWireFilters();
+    wkWireModal();
+    paintWork();
 
     loadLive();
   }

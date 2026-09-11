@@ -92,13 +92,49 @@
      #how       white       #proof     dark        #faq       paper
                             #registry  paper       footer     dark
 
-   In page order: dark, white, paper, white, dark, paper, dark, white, paper,
-   dark. No tone ever repeats back to back — a repeat is what makes a long
-   page read as one flat slab, which is the failure this rhythm exists to
-   avoid. Only four bands are dark, and they are spaced so the eye resets
-   between them.
+   Task 9 rebuilt `/` as the landing page and retired the diagram above — the
+   catalog, #line, #registry, #faq and #founder all moved to /sites/ (Task 10).
+   `/`'s rhythm now: nav dark, hero dark (.plate), #offer white, #featured
+   paper, #how white, #platforms dark, #proof paper, #teaser white, footer
+   dark. #proof moved bands with the page — it printed the four figures next
+   to a dark hero before; now it is its own paper-toned strip further down,
+   so it left the dark selector group below and joined the paper one. No
+   content band repeats a neighbour's tone.
+
+   /services/ reuses the same three rules rather than inventing a fourth.
+   Its rhythm: nav dark, hero dark (.plate — the same nav+hero exception the
+   homepage already uses), #problem paper, #build white, #process paper,
+   #answers dark, #inquiry white, footer dark. #answers (the FAQ, styled with
+   the existing .qa accordion) sits dark for the same reason #proof does on
+   the homepage — a dark band right before the closing ask resets the eye
+   before the form. No content band repeats a neighbour's tone.
+
+   /platforms/ also reuses the same three rules. Its rhythm: nav dark, hero
+   dark (.plate), #esb paper, #gsb white, #csb paper, #next dark, footer dark.
+   Paper never sits next to paper — #esb and #csb are separated by #gsb white
+   in between, same principle as #problem/#process on /services/ not touching.
+
+   /work/ also reuses the same three rules. Its rhythm: nav dark, hero dark
+   (.plate), #roster white, footer dark — one content band is enough for a
+   single filterable grid, and white-then-dark never repeats a neighbour's
+   tone either way it is read.
+
+   /about/ also reuses the same three rules. Its rhythm: nav dark, hero dark
+   (.plate), #story paper, #boundaries white, footer dark — the same
+   dark/paper/white progression as everywhere else, and no neighbour repeats.
+
+   /sites/ (Task 10) reuses the same three rules too, and reuses the SAME ids
+   index.html's catalog already uses for #how/#catalog/#line/#registry/#faq —
+   a different file, so no collision, and the alternation stays proven. Its
+   rhythm: nav dark, hero dark (.plate), #how white, #catalog dark, #line
+   white, #registry paper, #contact dark (the final ask, same job #proof and
+   #founder do on the homepage), #faq paper, footer dark.
+
+   Ruling R18: every id added to a band selector list above MUST also join
+   the border-top:0 exception list below, or the page shows a stray hairline
+   seam at that band's transition (the two lists are a pair, not a coincidence).
 */
-.plate, #catalog, #proof, #founder, .foot{
+.plate, #catalog, #founder, #contact, .foot, .gfoot, .gnav, .gnav-drawer, #answers, #next, #platforms{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
@@ -126,7 +162,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites{
+#how, #line, #websites, #build, #inquiry, #gsb, #roster, #boundaries, #offer, #teaser{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -145,7 +181,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq{
+#registry, #faq, #problem, #process, #esb, #csb, #story, #proof, #featured{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -261,11 +297,57 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .ledger-cell span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--tx-3);margin-top:9px}
 
+/* ---------------------------------------------------------- hero sequence --
+   Ruling R7: TWO real screenshots, cross-faded — the demo storefront, then
+   the same storefront rebuilt under another brand. Not a third admin frame:
+   /admin/ sits behind auth, and a logged-out capture would be a sign-in form
+   presented as an admin panel, which the admin step describes as text in
+   How-it-works instead. CSS @keyframes opacity on two stacked <img> — no JS,
+   no canvas, no library, because that is all two frames need. */
+.seq-frame{max-width:640px;margin:38px auto 0;padding:14px 14px 20px;
+  background:var(--surface);border:1px solid var(--rule-2);border-radius:14px;
+  box-shadow:var(--elev-2)}
+.seq-chrome{display:flex;gap:6px;padding:0 4px 12px}
+.seq-chrome i{width:9px;height:9px;border-radius:50%;background:var(--rule-2)}
+.seq{position:relative;aspect-ratio:16/10;border-radius:9px;overflow:hidden;background:var(--surface-2)}
+.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:seq 8s infinite}
+.seq img:nth-child(1){animation-delay:0s}
+.seq img:nth-child(2){animation-delay:4s}
+@keyframes seq{
+  0%,3%   {opacity:0}
+  8%,45%  {opacity:1}
+  50%,100%{opacity:0}
+}
+/* Captions cross-fade on the same clock as the frames so the text never
+   contradicts the image. */
+.seq-cap{position:relative;height:18px;margin-top:14px;text-align:center;
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-2)}
+.seq-cap span{position:absolute;inset:0;opacity:0;animation:seq 8s infinite}
+.seq-cap span:nth-child(1){animation-delay:0s}
+.seq-cap span:nth-child(2){animation-delay:4s}
+/* Reduced motion gets a DIFFERENT honest presentation, not a broken one:
+   frame 1 held, and the captions become a visible two-step row that explains
+   the same mechanism in text. */
+.seq-steps{display:none;gap:18px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+.seq-step{display:flex;align-items:center;gap:9px;font-family:var(--mono);
+  font-size:12px;letter-spacing:.04em;color:var(--tx-2)}
+.seq-step b{width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--acc-ink);
+  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:12px;flex:none}
+@media(prefers-reduced-motion:reduce){
+  .seq img{animation:none}
+  .seq img:nth-child(1){opacity:1}
+  .seq-cap{display:none}
+  .seq-steps{display:flex}
+}
+
 /* -------------------------------------------------------------- sections --- */
 .section{padding:64px 0;border-top:1px solid var(--rule)}
 /* Bands are full-width and butt against each other; a hairline between two
    different grounds is noise, so only same-tone neighbours keep one. */
-#proof, #registry, #catalog, #how, #line, #websites, #faq, #founder{border-top:0}
+#proof, #registry, #catalog, #how, #line, #websites, #faq, #founder,
+#esb, #gsb, #csb, #next, #roster, #story, #boundaries, #contact,
+#problem, #build, #process, #answers, #inquiry,
+#offer, #featured, #platforms, #teaser, .gfoot{border-top:0}
 .section-head{margin-bottom:30px}
 .section-head h2{margin:12px 0 16px}
 
@@ -385,6 +467,16 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
   font-size:clamp(23px,3.4vw,28px);line-height:1.02;letter-spacing:-.02em;
   text-transform:uppercase;color:var(--plate-ink);
 }
+/* The demo brand name (e.g. "Larkspur & Ledge") and its feature chips —
+   assets/catalog-render.js's extras(), sourced from window.SBV_EXTRAS. Read
+   off the same plate-ink/mono system every other card device uses; nothing
+   here is a second palette. */
+.card-brand{margin-top:5px;font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:.04em;color:rgba(22,19,14,.62)}
+.card-chips{margin-top:9px;display:flex;flex-wrap:wrap;gap:6px}
+.chip-sm{font-family:var(--mono);font-size:9.5px;letter-spacing:.03em;
+  color:rgba(22,19,14,.68);background:rgba(255,255,255,.4);
+  border:1px solid rgba(22,19,14,.22);border-radius:20px;padding:3px 8px}
 .entry.sheet .job{margin-top:9px;font-size:14px;line-height:1.5;font-weight:500;
   color:rgba(22,19,14,.84)}
 .entry.sheet .caveat{
@@ -413,6 +505,11 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
   color:rgba(22,19,14,.74);text-decoration:underline;text-underline-offset:3px;
 }
 .card-alt:hover{color:var(--plate-ink)}
+/* Filled and unhidden by claim/claim.js's loadCounts(), never by the
+   renderer — a count of 1-3 never arrives, enforced in SQL (see claim.js). */
+.card-claimed{margin-top:8px;font-family:var(--mono);font-size:10.5px;font-weight:600;
+  letter-spacing:.04em;color:var(--amber-text)}
+.card-claimed[hidden]{display:none}
 
 /* the two you can buy today stay the loudest things on the board */
 .entry.sheet.is-open{border-width:4px;box-shadow:var(--shadow-hover)}
@@ -433,16 +530,36 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
   font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3)}
 .legend i{font-style:normal;color:var(--acc)}
 
+/* --------------------------------------------------------- example names ---
+   The "nearly every business name is an example" disclosure. Band tokens
+   throughout, so it reads correctly wherever it is placed — it moved from
+   sites/index.html's inline <style> (Ruling R11), which hard-coded a single
+   paper-on-white palette. */
+.example-note{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;
+  margin-top:28px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:12px;padding:16px 20px}
+.example-note__badge{flex:none;font-family:var(--mono);font-weight:700;font-size:11px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--acc-ink);
+  background:var(--acc);padding:6px 12px;border-radius:20px;white-space:nowrap}
+.example-note p{flex:1;min-width:240px;font-size:14px;color:var(--tx-2);
+  line-height:1.55;margin:0}
+.example-note strong{color:var(--tx)}
+
 /* ---------------------------------------------------------------- forms --- */
 .field{margin-bottom:16px}
 .field label{display:block;font-family:var(--display);font-size:13px;font-weight:700;
   color:var(--tx-2);margin-bottom:7px}
-.field input,.field select{width:100%;font-family:var(--body);font-size:16px;padding:13px 14px;
+.field input,.field select,.field textarea{width:100%;font-family:var(--body);font-size:16px;padding:13px 14px;
   min-height:var(--tap);background:var(--surface);color:var(--tx);
   border:1px solid var(--rule-2);border-radius:9px;transition:border-color .16s,box-shadow .16s}
-.field input:focus,.field select:focus{border-color:var(--acc);
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--acc);
   box-shadow:0 0 0 3px rgba(232,121,27,.16);outline:none}
-.field input::placeholder{color:var(--tx-3)}
+.field input::placeholder,.field textarea::placeholder{color:var(--tx-3)}
+/* No page before /services/ used a <textarea> in this shared sheet — the rule
+   above covers it structurally, this just sets the two things unique to a
+   textarea: it resizes vertically only, and its line-height matches body
+   copy rather than the single-line inputs it sits next to. */
+.field textarea{resize:vertical;line-height:1.55;min-height:120px}
 .row-2{display:grid;grid-template-columns:1fr 124px;gap:10px}
 @media (max-width:480px){.row-2{grid-template-columns:1fr}}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
@@ -464,6 +581,48 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 a.proof-shot:hover{transform:translateY(-3px);border-color:var(--acc)}
 .proof-cap{font-size:13.5px;color:var(--tx-2);margin-top:12px;line-height:1.55}
 .proof-cap b{color:var(--tx);font-weight:600}
+
+/* the homepage proof strip — the four true figures, and no fifth. Reads
+   R.figures() through the same BUILD:TOTAL/OPEN/SITES markers the ledger
+   bar uses; "1 operator per city" is the exclusivity rule, not a count of
+   sbv_tenants rows, so it is never wrapped in a marker. */
+.proof-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--rule);border:1px solid var(--rule);border-radius:12px;overflow:hidden}
+.proof-cell{background:var(--surface);padding:28px 14px;text-align:center}
+.proof-cell b{display:block;font-family:var(--display);font-weight:900;
+  font-size:clamp(28px,4.6vw,40px);line-height:1;color:var(--acc-tx);
+  font-variant-numeric:lining-nums tabular-nums}
+.proof-cell span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--tx-3);margin-top:9px}
+@media(max-width:640px){.proof-strip{grid-template-columns:repeat(2,1fr)}}
+
+/* ------------------------------------------------------------- featured ---
+   Six screenshots, never iframes — the old /sites/ armed 32 of them at once
+   (audit §6.4). Hover, and :focus-within so keyboard users get it too, swaps
+   to a second shot of the same site's signature interaction. child-care has
+   no second frame (Ruling R13: its hero is an ambient CSS twinkle with no
+   discrete state a capture can differ from) — its card markup omits the .on
+   image entirely, and with no .on child ".fcard:hover .on" simply matches
+   nothing, so it degrades correctly on its own. */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:900px){.fgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.fgrid{grid-template-columns:1fr}}
+.fcard{display:block;text-decoration:none;color:inherit;background:var(--surface);
+  border:1px solid var(--rule);border-radius:13px;overflow:hidden;
+  box-shadow:var(--elev);transition:transform .18s,box-shadow .18s,border-color .18s}
+.fcard:hover,.fcard:focus-within{transform:translateY(-4px);box-shadow:var(--elev-2);border-color:var(--acc)}
+.fcard-shot{position:relative}
+.fcard-shot img{display:block;width:100%;height:auto}
+.fcard-shot .on{position:absolute;inset:0;opacity:0;transition:opacity .35s ease}
+.fcard:hover .on,.fcard:focus-within .on{opacity:1}
+.fcard-body{padding:18px 20px 22px}
+.fcard-brand{font-family:var(--display);font-weight:800;font-size:16px;color:var(--tx)}
+.fcard-trade{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--tx-3);margin-top:5px}
+.fcard-line{font-size:13.5px;color:var(--tx-2);margin-top:11px;line-height:1.5}
+.fcard-go{display:inline-flex;align-items:center;gap:6px;margin-top:15px;
+  font-family:var(--display);font-weight:700;font-size:13px;color:var(--acc-tx)}
+@media(prefers-reduced-motion:reduce){.fcard-shot .on{transition:none}.fcard{transition:none}}
 
 /* ------------------------------------------------------------- registry --- */
 .reg-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:32px}
@@ -564,7 +723,7 @@ a.proof-shot:hover{transform:translateY(-3px);border-color:var(--acc)}
   font-family:var(--display);font-weight:700;font-size:12.5px;color:#C2CAD6;
   background-color:rgba(255,255,255,.06);
   border:1px solid #2C3444;border-radius:7px;
-  padding:9px 26px 9px 30px;min-height:40px;cursor:pointer;
+  padding:9px 26px 9px 30px;min-height:44px;cursor:pointer;
   transition:color .18s,background-color .18s,border-color .18s;
   /* globe left, chevron right — both drawn inline, so the picker costs no
      request and cannot render as a broken image on a slow connection */
@@ -649,7 +808,7 @@ html.no-js .plate > .board{display:none}
 .chip{
   font-family:var(--display);font-weight:700;font-size:13px;
   display:inline-flex;align-items:center;gap:7px;
-  padding:9px 14px;min-height:40px;cursor:pointer;
+  padding:9px 14px;min-height:44px;cursor:pointer;
   color:var(--tx-2);background:transparent;
   border:1px solid var(--rule);border-radius:999px;
   transition:color .16s,background .16s,border-color .16s,transform .16s;
@@ -786,9 +945,14 @@ html.no-js .plate > .board{display:none}
 .exit{
   position:fixed;inset:0;z-index:100;display:grid;place-items:center;
   padding:24px;background:rgba(10,13,18,.62);
-  opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s;
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
 }
-.exit[data-open="1"]{opacity:1;visibility:visible}
+/* opacity, not visibility (F7) — see .wk-modal below for the reasoning. A
+   visibility transition only becomes focusable one frame after the attribute
+   flips, which is late enough that the "Keep browsing" focus() call in
+   wireExit()'s open() still finds the card unfocusable. pointer-events keeps
+   the transparent overlay from swallowing clicks while closed or fading. */
+.exit[data-open="1"]{opacity:1;pointer-events:auto}
 .exit-card{
   position:relative;max-width:430px;width:100%;
   background:#FFFDF7;color:var(--plate-ink);
@@ -866,11 +1030,17 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
   display:grid;place-items:center;
   padding:24px 20px;
   background:rgba(10,13,18,.72);
-  opacity:0;visibility:hidden;
-  transition:opacity .22s ease,visibility .22s;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease;
   overflow-y:auto;
 }
-.nm[data-open="1"]{opacity:1;visibility:visible}
+/* opacity, not visibility (F7) — a visibility transition only becomes
+   focusable one frame after the attribute flips, late enough that
+   openModal()'s f[0].focus() call still finds the card unfocusable and
+   leaves focus on the page behind it. Same fix as .wk-modal below.
+   pointer-events keeps the transparent overlay from swallowing clicks while
+   it is closed or mid fade-out. */
+.nm[data-open="1"]{opacity:1;pointer-events:auto}
 
 .nm-card{
   position:relative;
@@ -1057,3 +1227,313 @@ html:not([lang="en"]) .sticker .small{padding:0 4px;max-width:100%}
   letter-spacing:.1em;text-transform:uppercase;color:var(--tx-3);font-style:normal}
 @media (prefers-reduced-motion:reduce){.related-card{transition:none}
   .related-card:hover{transform:none}}
+
+/* ========================================================== /work/ grid ==
+   Task 7 — Ruling R4: every colour below is a BAND TOKEN
+   (--surface,--tx,--tx-2,--tx-3,--rule,--acc,--acc-ink), never a literal
+   lifted from portfolio/assets/css/styles.css. #roster is the one band this
+   grid lives in, so the tokens it reads are that band's — the same rule
+   .reg-card and .founder already follow.
+
+   .wk-card deliberately does NOT reuse .entry.sheet (the homepage's pinned-
+   paper catalog plate). That look is the "Own Your Town" catalog's device;
+   a portfolio card is a screenshot, a name and a status, not a stapled
+   yard-sale flyer. It DOES reuse .grid for the four/three/two/one column
+   layout — .grid only assigns columns and gap, its rotate/twitch rules key
+   off .entry.sheet specifically and never touch a .wk-card. */
+.wk-grid{align-items:start}
+.wk-loading{grid-column:1/-1;color:var(--tx-3);font-family:var(--mono);font-size:13px}
+
+.wk-card{
+  display:flex;flex-direction:column;overflow:hidden;
+  background:var(--surface);border:1px solid var(--rule);border-radius:13px;
+  box-shadow:var(--elev);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.wk-card:hover{transform:translateY(-4px);box-shadow:var(--elev-2);border-color:var(--acc)}
+.wk-card:focus-within{border-color:var(--acc)}
+
+/* the screenshot — real cards get an <img>, Kingdom Creatives gets a placard */
+.wk-shot{position:relative;display:block;aspect-ratio:1280/800;overflow:hidden;
+  background:var(--surface-2);border-bottom:1px solid var(--rule);line-height:0}
+.wk-shot img{width:100%;height:100%;object-fit:cover;display:block}
+.wk-shot--placard{
+  display:grid;place-items:center;text-align:center;gap:6px;padding:20px;
+  background:var(--acc);color:var(--acc-ink);
+}
+.wk-shot--placard b{font-family:var(--display);font-weight:900;letter-spacing:-.02em;
+  font-size:clamp(19px,3vw,25px);line-height:1.1}
+.wk-shot--placard span{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;opacity:.82}
+
+.wk-body{padding:20px 20px 22px;display:flex;flex-direction:column;flex:1 1 auto}
+.wk-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.wk-body h3{font-size:19px}
+.wk-tagline{font-size:14px;color:var(--tx-2);margin-top:8px;line-height:1.5}
+.wk-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.wk-tag{
+  font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--tx-3);background:var(--surface-2);
+  border:1px solid var(--rule);border-radius:999px;padding:4px 9px;
+}
+/* Unlike .wk-open (the title-as-button the whole card also opens through),
+   .wk-go is the only way to actually LEAVE the card for the linked site — a
+   real standalone CTA, not a keyboard proxy for a bigger clickable surface —
+   so min-height:44px applies here (a11y sweep at 360px: 38px tall). */
+.wk-go{
+  margin-top:auto;padding-top:16px;font-family:var(--display);font-weight:700;
+  font-size:13.5px;color:var(--acc-tx);text-decoration:none;
+  display:inline-flex;align-items:center;gap:6px;min-height:44px;
+}
+.wk-go:hover{text-decoration:underline;text-underline-offset:3px}
+/* Kingdom Creatives has no .wk-go at all — see sbv.js: `p.url ? '<a ...>' : ''`.
+   Without a CTA the card still needs its bottom edge to land somewhere, so the
+   note that replaces it carries the same top margin. */
+.wk-note{margin-top:auto;padding-top:16px;font-size:13px;color:var(--tx-2);line-height:1.5}
+
+/* status pill — Offline must never read as another shade of Live */
+.wk-pill{
+  flex:0 0 auto;font-family:var(--mono);font-weight:600;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;
+  white-space:nowrap;margin-top:2px;
+}
+.wk-pill--live{background:var(--acc);color:var(--acc-ink)}
+.wk-pill--offline{background:transparent;color:var(--tx-3);border:1px solid var(--rule-2)}
+
+/* the title-as-button the whole card opens through — same device as .card-open */
+.wk-open{
+  font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;
+  text-align:left;cursor:pointer;display:inline;
+  border-bottom:2px solid transparent;transition:border-color .18s ease;
+}
+.wk-card:hover .wk-open,
+.wk-open:hover,
+.wk-open:focus-visible{border-bottom-color:var(--acc)}
+
+/* --------------------------------------------------------- detail panel --- */
+/* A plain overlay, not the homepage's "plate, unpinned" flourish — this page
+   has no paper texture to unpin FROM. Root tokens (--panel/--ink/--hair), not
+   band tokens: like .nm-card and .exit-card, it floats above whichever band
+   was open when it was clicked and must read the same regardless. */
+.wk-modal{
+  position:fixed;inset:0;z-index:110;display:grid;place-items:center;
+  padding:24px 20px;background:rgba(10,13,18,.6);
+  opacity:0;pointer-events:none;transition:opacity .2s ease;
+  overflow-y:auto;
+}
+/* opacity, not visibility: a visibility transition only becomes focusable
+   once the browser has painted the new value, which lands one frame after
+   the attribute flips — late enough that the initial focus() call below
+   still finds the panel unfocusable and leaves focus on the card. Opacity
+   carries no such rule, so the close button is focusable the instant
+   box.hidden is cleared. pointer-events keeps the transparent overlay from
+   swallowing clicks while it is closed or mid fade-out. */
+.wk-modal[data-open="1"]{opacity:1;pointer-events:auto}
+.wk-modal-card{
+  position:relative;width:min(600px,100%);margin:auto;padding:34px 30px 28px;
+  background:var(--panel);color:var(--ink);border:1px solid var(--hair);
+  border-radius:14px;box-shadow:var(--shadow);
+  transform:translateY(10px);transition:transform .2s ease;
+}
+.wk-modal[data-open="1"] .wk-modal-card{transform:translateY(0)}
+.wk-modal-close{
+  position:absolute;top:8px;right:8px;width:42px;height:42px;
+  background:none;border:0;cursor:pointer;font-size:26px;line-height:1;
+  color:var(--ink-soft);border-radius:8px;
+}
+.wk-modal-close:hover{color:var(--ink);background:rgba(20,28,40,.06)}
+.wk-modal-shot{display:block;width:100%;aspect-ratio:1280/800;object-fit:cover;
+  border-radius:9px;border:1px solid var(--hair);margin-bottom:18px}
+.wk-modal-shot--placard{
+  /* #1a1206 is exactly --acc-ink, but this modal isn't nested inside any of
+     the band selectors that declare it, so it falls back to the same
+     literal --acc-ink resolves to everywhere (see the var(--acc-ink,#1a1206)
+     precedent below in the catalog card CTA) rather than an unscoped token
+     that would go invalid here. */
+  display:grid;place-items:center;background:var(--amber);color:var(--acc-ink,#1a1206);
+  font-family:var(--display);font-weight:900;font-size:22px;text-align:center;padding:16px;
+}
+.wk-modal-body h3{font-size:clamp(21px,3.6vw,27px);color:var(--ink);display:inline}
+.wk-modal-tagline{font-size:14.5px;color:var(--ink-soft);margin-top:8px}
+.wk-modal-desc{font-size:15px;line-height:1.6;color:var(--ink-soft);margin-top:14px}
+.wk-modal-note{
+  margin-top:14px;padding:11px 13px;background:rgba(232,121,27,.08);
+  border-left:3px solid var(--amber);border-radius:0 6px 6px 0;
+  font-size:13.5px;line-height:1.55;color:var(--ink-soft);
+}
+.wk-modal-features{margin-top:16px;padding-left:20px;color:var(--ink-soft);font-size:14px;line-height:1.6}
+.wk-modal-features li + li{margin-top:6px}
+.wk-modal-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.wk-modal-foot{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+/* --panel is #FFFFFF verbatim (see the token table at the top of this file)
+   and is declared at :root, so it resolves here regardless of band scope —
+   unlike --acc-ink above, no fallback is needed. */
+.wk-modal-foot .btn-pri{background:var(--amber-deep);border-color:var(--amber-deep);color:var(--panel)}
+.wk-modal-foot .btn-pri:hover{background:var(--amber)}
+@media (max-width:560px){.wk-modal{padding:14px 12px}.wk-modal-card{padding:28px 20px 22px}}
+@media (prefers-reduced-motion:reduce){.wk-modal,.wk-modal-card{transition:none}}
+
+/* ==========================================================================
+   TERRITORY CLAIM MODAL — /sites/ only, markup injected by claim/claim.js
+   --------------------------------------------------------------------------
+   Ported from sites/index.html's inline <style> (Ruling R11), which styled
+   it against that page's OWN local tokens because the page loaded no shared
+   stylesheet at all. Root tokens, not band tokens — like .nm-card and
+   .wk-modal-card above, this floats above whichever band was open when the
+   card was clicked and must read the same regardless of band.
+   ========================================================================== */
+.cm-back{position:fixed;inset:0;z-index:200;background:rgba(20,24,33,.62);
+  backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;
+  padding:5vh 16px;overflow-y:auto}
+.cm-back[hidden]{display:none}
+.cm{position:relative;background:var(--panel);border-radius:16px;box-shadow:var(--shadow);
+  width:100%;max-width:520px;padding:30px 28px 26px}
+@media (max-width:560px){.cm{padding:24px 18px 20px;border-radius:12px}}
+
+.cm-x{position:absolute;top:10px;right:12px;background:none;border:0;cursor:pointer;
+  font-size:26px;line-height:1;color:var(--ink-soft);padding:6px 10px;border-radius:8px}
+.cm-x:hover{background:var(--paper);color:var(--ink)}
+.cm-x:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+
+.cm-step{font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--amber-deep);margin:0 0 6px}
+.cm-title{font-family:var(--display);font-weight:800;font-size:23px;
+  letter-spacing:-.01em;line-height:1.15;margin:0 0 14px;color:var(--ink)}
+.cm-lead{font-size:14.5px;color:var(--ink-soft);margin:0 0 18px;line-height:1.6}
+
+.cm-row{display:flex;gap:12px;align-items:flex-end}
+.cm-f{display:block;flex:1;margin:0 0 14px}
+.cm-f-sm{flex:0 0 96px}
+.cm-f>span{display:block;font-family:var(--mono);font-size:10.5px;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 5px}
+.cm-f input,.cm-f select{width:100%;padding:10px 12px;font:inherit;font-size:15px;
+  border:1px solid var(--hair);border-radius:9px;background:var(--panel);color:var(--ink)}
+.cm-f input:focus-visible,.cm-f select:focus-visible{outline:2px solid var(--amber);
+  outline-offset:1px;border-color:var(--amber)}
+
+.cm-sub{display:flex;align-items:center;gap:6px}
+.cm-sub input{flex:1}
+.cm-sub em{font-style:normal;font-family:var(--mono);font-size:12.5px;
+  color:var(--ink-soft);white-space:nowrap}
+/* Sits under the web-address field; negative top margin tucks it against the
+   field it explains rather than floating between rows. */
+.cm-hint{font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin:-8px 0 14px}
+
+.cm-msg{font-size:14px;line-height:1.55;margin:0 0 14px;min-height:1.2em;color:var(--ink-soft)}
+.cm-msg.bad{color:#B3261E}
+.cm-norm{color:var(--ink-soft);font-size:13px}
+.cm-ok{font-size:15.5px;line-height:1.6;margin:0 0 18px;padding:12px 14px;
+  background:rgba(23,112,61,.08);border-left:3px solid var(--open-green);border-radius:0 8px 8px 0}
+
+.cm-go{width:100%;padding:13px 18px;font:inherit;font-weight:700;font-size:15px;
+  color:#fff;background:var(--amber-deep);border:0;border-radius:10px;cursor:pointer}
+.cm-go:hover:not([disabled]){background:var(--amber)}
+.cm-go[disabled]{opacity:.5;cursor:not-allowed}
+.cm-go:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.cm-tabs{display:flex;gap:6px;margin:0 0 16px;background:var(--paper);
+  padding:4px;border-radius:10px}
+.cm-tab{flex:1;padding:8px 10px;font:inherit;font-size:13.5px;font-weight:600;
+  border:0;background:none;border-radius:7px;cursor:pointer;color:var(--ink-soft)}
+.cm-tab.on{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(20,28,40,.1)}
+.cm-tab:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+
+.cm-tiers{border:1px solid var(--hair);border-radius:10px;padding:12px 14px;margin:0 0 16px}
+.cm-tiers legend{font-family:var(--mono);font-size:10.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);padding:0 6px}
+.cm-tiers label{display:flex;align-items:center;gap:9px;font-size:14.5px;padding:5px 0;cursor:pointer}
+.cm-tiers b{font-weight:700}
+
+/* Scrollable so long terms cannot push the button off screen — and focusable,
+   so a keyboard user can actually read them before the checkbox. */
+.cm-terms{max-height:132px;overflow-y:auto;border:1px solid var(--hair);border-radius:9px;
+  padding:12px 14px;font-size:13.5px;line-height:1.62;color:var(--ink-soft);
+  background:var(--paper);margin:0 0 12px}
+.cm-terms:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+
+.cm-accept{display:flex;gap:10px;align-items:flex-start;font-size:14px;
+  line-height:1.5;margin:0 0 16px;cursor:pointer}
+.cm-accept input{margin-top:3px;width:18px;height:18px;flex:0 0 18px;accent-color:var(--amber-deep)}
+.cm-fine{font-size:12.5px;color:var(--ink-soft);text-align:center;margin:12px 0 0;line-height:1.5}
+
+/* ------------------------------------------------------- confirmed banner ---
+   Injected by claim/claim.js's confirmedBanner() on ?confirmed=1. Bottom
+   centre, not top: the nav is sticky, so a top banner would either cover it
+   or shove the page down at the moment the buyer arrives. width:max-content
+   with a viewport cap — without it the flex box shrinks to fit its narrowest
+   item on a small screen. */
+.cb{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:300;
+  display:flex;align-items:center;gap:11px;
+  width:max-content;max-width:calc(100vw - 32px);
+  background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--open-green);
+  border-radius:11px;box-shadow:var(--shadow);padding:13px 14px 13px 15px;
+  font-size:14.5px;line-height:1.45;cursor:pointer;
+  animation:cb-in .28s cubic-bezier(.2,.8,.3,1)}
+.cb.out{opacity:0;transform:translateX(-50%) translateY(8px);
+  transition:opacity .25s,transform .25s}
+.cb-tick{color:var(--open-green);font-weight:700;font-size:16px;line-height:1;flex:0 0 auto}
+.cb-text{flex:1 1 auto;min-width:0}
+/* 28px square: the 20px glyph alone measures under the 24px AA floor for a
+   tap target. The banner also dismisses on click anywhere, so this is the
+   precise target rather than the only one. */
+.cb-x{background:none;border:0;font-size:20px;line-height:1;color:var(--ink-soft);
+  cursor:pointer;padding:0;margin-left:4px;flex:0 0 auto;
+  min-width:28px;min-height:28px;display:flex;align-items:center;justify-content:center}
+.cb-x:hover{color:var(--ink)}
+@keyframes cb-in{from{opacity:0;transform:translateX(-50%) translateY(10px)}}
+@media (prefers-reduced-motion:reduce){.cb{animation:none}.cb.out{transition:none}}
+
+/* ===================================================== GLOBAL CHROME ==
+   Nav and footer, injected by tools/build-chrome.js. Reads band tokens
+   only — no literal colours — so one definition serves paper, white and
+   console without a variant. */
+.skip{position:absolute;left:-9999px;top:0;z-index:200;padding:12px 18px;
+  background:var(--con);color:var(--con-text);font-family:var(--mono);font-size:13px}
+.skip:focus{left:8px;top:8px}
+
+.gnav{position:sticky;top:0;z-index:100;background:rgba(20,24,33,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--con-hair)}
+.gnav-in{max-width:var(--shell);margin:0 auto;padding:12px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;gap:16px}
+.gnav-brand{display:flex;align-items:center;gap:10px;font-family:var(--display);
+  font-weight:800;font-size:16px;color:#fff;text-decoration:none;letter-spacing:-.01em;
+  position:relative}
+/* Invisible hit-area expansion, not a bigger logo: the visible mark stays the
+   same size (26px tall — a11y sweep at 360px), but the actual tappable
+   region grows to 44px via this transparent overlay, matching the pattern
+   .gnav uses nowhere else because nothing else here is this compact. */
+.gnav-brand::before{content:"";position:absolute;inset:-9px -4px}
+.gnav-brand .sq{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--con-amber),var(--amber-deep));
+  color:#1a1206;font-size:13px;font-weight:900}
+.gnav-links{display:flex;align-items:center;gap:4px}
+.gnav-link{font-family:var(--display);font-weight:700;font-size:13.5px;color:#C2CAD6;
+  text-decoration:none;padding:9px 13px;border-radius:7px;transition:.18s}
+.gnav-link:hover{color:#fff;background:rgba(255,255,255,.07)}
+.gnav-link.is-active{color:#fff;background:rgba(243,146,47,.14)}
+.gnav-tools{display:flex;align-items:center;gap:10px}
+.gnav-burger{display:none;width:var(--tap);height:var(--tap);border:0;background:none;
+  cursor:pointer;flex-direction:column;justify-content:center;gap:5px;padding:0 12px}
+.gnav-burger span{display:block;height:2px;background:#C2CAD6;border-radius:2px;transition:.2s}
+.gnav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.gnav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.gnav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.gnav-drawer{display:none;flex-direction:column;gap:2px;padding:8px var(--gutter) 20px;
+  border-top:1px solid var(--con-hair);background:var(--con)}
+.gnav-drawer .gnav-link{font-size:20px;padding:14px 12px;min-height:var(--tap);
+  display:flex;align-items:center}
+.gnav-drawer .btn{margin-top:10px}
+
+@media(max-width:899px){
+  .gnav-links{display:none}
+  .gnav-burger{display:flex}
+  .gnav-cta{display:none}
+  .gnav-drawer[data-open="1"]{display:flex}
+}
+@media(prefers-reduced-motion:reduce){
+  .gnav-link,.gnav-burger span{transition:none}
+}
+
+.gfoot{background:var(--con);color:var(--con-muted);padding:44px 0 54px;
+  font-size:14px;line-height:1.7}
+.gfoot .link{color:var(--con-amber)}
+.gfoot .foot-legal{margin-top:18px;font-size:12.5px;color:var(--con-muted);max-width:78ch}

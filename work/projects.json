@@ -1,0 +1,107 @@
+[
+  {
+    "id": "estatesalebiz",
+    "name": "EstateSaleBiz",
+    "tagline": "Run a whole estate sale business, not just list one.",
+    "description": "EstateSaleBiz is a live, multi-tenant platform for running an estate sale business — pricing tools for the contents of a house, staffing and day-of checklists, and a public storefront with its own checkout, one city at a time.",
+    "url": "https://estatesalebiz.com",
+    "shot": "estatesalebiz.jpg",
+    "category": "Platforms",
+    "tags": ["Multi-tenant SaaS", "Stripe", "Supabase"],
+    "status": "Live"
+  },
+  {
+    "id": "garagesalebiz",
+    "name": "GarageSaleBiz",
+    "tagline": "The map a town checks before it gets in the car.",
+    "description": "GarageSaleBiz turns a single garage sale into a business: a public map of every sale across three cities, a self-serve listing tool for sellers, and the Saturday-morning traffic that comes with being the map people actually check.",
+    "url": "https://garagesalebiz.com",
+    "shot": "garagesalebiz.jpg",
+    "category": "Platforms",
+    "tags": ["Multi-tenant SaaS", "Stripe", "Supabase"],
+    "status": "Live"
+  },
+  {
+    "id": "consignmentbiz",
+    "name": "ConsignmentBiz",
+    "tagline": "The storefront and the paperwork, in one place.",
+    "description": "ConsignmentBiz runs the storefront and back office behind a consignment shop — intake, splits, and a public site where buyers browse what's currently on the floor, replacing the shared spreadsheet a shop like this normally runs on.",
+    "url": "https://consignmentbiz.com",
+    "shot": "consignmentbiz.jpg",
+    "category": "Platforms",
+    "tags": ["Multi-tenant SaaS", "Stripe", "Supabase"],
+    "status": "Live"
+  },
+  {
+    "id": "sitelab",
+    "name": "SiteLab",
+    "tagline": "Thirty-two trade sites, one system behind them.",
+    "description": "SiteLab is the system behind the thirty-two storefronts at /sites/ — one content file per trade, a shared template, an operator admin panel, and a marketing kit, so a new niche launches from data instead of a rebuild.",
+    "url": "/sites/",
+    "shot": "sitelab.jpg",
+    "category": "Platforms",
+    "tags": ["32 niches", "Operator admin", "Marketing kit"],
+    "status": "Live"
+  },
+  {
+    "id": "yourlifecc",
+    "name": "YourLife CC",
+    "tagline": "Faith & family progressive web app",
+    "description": "YourLife CC is a faith-and-family PWA that helps parents run their household — chores, allowance, life skills, and a Christian faith path — installable and working across devices, built on Vercel, Supabase, Stripe, and Brevo.",
+    "url": "https://yourlifecc.com",
+    "shot": "yourlifecc.jpg",
+    "category": "Faith & Family",
+    "tags": ["PWA", "Offline-first", "Parent/child accounts"],
+    "status": "Live",
+    "features": [
+      "Faith Journey — a guided, Duolingo-style discipleship path inside the app.",
+      "Return — a QR-code tote inventory system built for a church's men's retreat.",
+      "Legacy Vault — a private place for parents to preserve letters and memories for their children."
+    ]
+  },
+  {
+    "id": "churchfortruckers",
+    "name": "Church for Truckers",
+    "tagline": "Faith on the road. Hope at every mile.",
+    "description": "Church for Truckers is a ministry web presence for a trucker-focused congregation in Farmington, Missouri, built on Next.js with a Pastor Portal for managing content, migrated off WordPress.",
+    "url": "https://churchfortruckers.org",
+    "shot": "churchfortruckers.jpg",
+    "category": "Faith & Family",
+    "tags": ["Next.js", "Pastor Portal", "Migrated off WordPress"],
+    "status": "Live"
+  },
+  {
+    "id": "primebincleaning",
+    "name": "Prime Bin Cleaning",
+    "tagline": "Residential bin power-washing, booked from a phone.",
+    "description": "Prime Bin Cleaning is the web presence and booking front for a real, teen-owned residential garbage-bin cleaning service in Idaho's Treasure Valley — pricing, process, before/after results, and a text-to-book flow.",
+    "url": "https://primebincleaning.com",
+    "shot": "primebincleaning.jpg",
+    "category": "Local Service",
+    "tags": ["Web", "Local business", "Booking"],
+    "status": "Live"
+  },
+  {
+    "id": "domvegz",
+    "name": "Dom Vegz",
+    "tagline": "EDM producer & DJ",
+    "description": "Dom Vegz is the official artist site for EDM producer and DJ Dom Vegz — releases, shows, videos, photos, and booking, with an admin panel and YouTube sync so the artist manages his own content.",
+    "url": "https://domvegz.com",
+    "shot": "domvegz.jpg",
+    "category": "Music & Creative",
+    "tags": ["Artist site", "Admin panel", "YouTube sync"],
+    "status": "Live"
+  },
+  {
+    "id": "kingdom-creatives",
+    "name": "Kingdom Creatives",
+    "tagline": "Sponsor-funded websites for underserved churches",
+    "description": "Kingdom Creatives provides sponsor-funded church websites, sermon tools, and communication systems to underserved churches at no cost to the church — built for churches, designed for pastors.",
+    "url": null,
+    "shot": null,
+    "category": "Faith & Family",
+    "tags": ["Church platform", "Supabase", "Sponsor-funded"],
+    "status": "Offline",
+    "note": "Hosting is being moved. The site is down; the company is not."
+  }
+]

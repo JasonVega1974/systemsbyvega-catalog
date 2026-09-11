@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — Systems by Vega</title>
+<meta name="description" content="Real work, shipped — live multi-tenant platforms, the system behind a growing set of trade sites, ministry builds, an artist site, and a local business front. Screenshots of the running thing, not a rendering of it.">
+<link rel="canonical" href="https://systemsbyvega.com/work/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Work — Systems by Vega">
+<meta property="og:description" content="Real work, shipped — screenshots of the running thing, not a rendering of it.">
+<meta property="og:url" content="https://systemsbyvega.com/work/">
+<meta name="twitter:card" content="summary_large_image">
+<!-- 1280x800 source screenshot, not the 1.91:1 social ideal — a real
+     screenshot beats a blank card today; re-cropping is a separate job. -->
+<meta property="og:image" content="https://systemsbyvega.com/assets/shots/work/sitelab.jpg">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="800">
+<meta name="twitter:image" content="https://systemsbyvega.com/assets/shots/work/sitelab.jpg">
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23F3922F'/%3E%3Ctext x='32' y='44' font-family='Arial Black,Arial,sans-serif' font-size='36' font-weight='900' text-anchor='middle' fill='%231a1206'%3EV%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/sbv.css">
+
+<!-- Vercel Analytics. Same-origin, cookieless, and defer so it never
+     blocks a first paint. Root-relative so the one tag works on the apex
+     and on every tenant subdomain without knowing which it is on. -->
+<script>
+(function () {
+  if (window.self !== window.top) return;
+  var s = document.createElement("script");
+  s.defer = true;
+  s.src = "/_vercel/insights/script.js";
+  document.head.appendChild(s);
+}());
+</script>
+</head>
+<body>
+
+<!-- BUILD:NAV -->
+<a class="skip" href="#main">Skip to content</a>
+<nav class="gnav" aria-label="Main">
+  <div class="gnav-in">
+    <a class="gnav-brand" href="/"><span class="sq" aria-hidden="true">V</span> Systems by Vega</a>
+    <div class="gnav-links"><a class="gnav-link" href="/sites/">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link is-active" href="/work/" aria-current="page">Work</a><a class="gnav-link" href="/about/">About</a></div>
+    <div class="gnav-tools">
+      <a class="btn btn-pri gnav-cta" href="/sites/#line">Get in line</a>
+      <button type="button" class="gnav-burger" id="gnav-burger"
+              aria-expanded="false" aria-controls="gnav-drawer" aria-label="Menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+  <div class="gnav-drawer" id="gnav-drawer" hidden><a class="gnav-link" href="/sites/">Sites</a><a class="gnav-link" href="/platforms/">Platforms</a><a class="gnav-link" href="/services/">Services</a><a class="gnav-link is-active" href="/work/" aria-current="page">Work</a><a class="gnav-link" href="/about/">About</a>
+    <a class="btn btn-pri" href="/sites/#line">Get in line</a>
+  </div>
+</nav><!-- /BUILD:NAV -->
+<main>
+
+<!-- ══════════════════════════ HERO ══════════════════════════════════════ -->
+<header class="plate" id="main">
+  <div class="wrap">
+    <div class="plate-body">
+      <div class="plate-sub">Work</div>
+      <h1 class="display">Things I've actually shipped.</h1>
+      <p class="thesis">Screenshots of the running thing, not a rendering of it. Live
+        multi-tenant platforms, the system behind <!-- BUILD:WK_SITES -->32<!-- /BUILD:WK_SITES -->
+        trade sites, two ministry builds, an artist site, and a real local business — all but
+        one linked to where it actually runs.</p>
+      <div class="plate-cta">
+        <a class="btn btn-pri" href="#roster">See the work ↓</a>
+        <a class="btn btn-sec" href="/services/#inquiry">Get something built →</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════ THE ROSTER ═══════════════════════════════ -->
+<section class="section" id="roster">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The roster</span>
+      <h2>Built, shipped, and still running.</h2>
+      <p class="lede" style="margin-top:12px">
+        Everything below is live today unless its card says otherwise. Filter by kind, or open a
+        card for the full write-up.
+      </p>
+    </div>
+
+    <!-- Filled by wireWorkFilters() in /assets/sbv.js, from the categories present in
+         work/projects.json — no filter is hand-typed, so the chips cannot list a category
+         that has no cards under it. -->
+    <div class="filterbar" id="wk-filterbar" hidden>
+      <div class="chips" id="wk-chips"></div>
+      <p class="filter-count" id="wk-filter-count" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- Filled by paintWork() in /assets/sbv.js from work/projects.json. Static HTML
+         carries no project data, so this file cannot drift from that one. -->
+    <div class="grid wk-grid" id="wk-grid" aria-live="polite">
+      <p class="wk-loading">Loading the roster…</p>
+    </div>
+    <p class="filter-empty" id="wk-filter-empty" hidden>Nothing here matches that filter.</p>
+
+    <p class="lede" style="margin-top:44px">
+      Something like this, built for your business? <a class="link" href="/services/#inquiry">Start a project →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════ DETAIL PANEL (built by sbv.js) ════════════════ -->
+<div class="wk-modal" id="wk-modal" hidden data-open="0" role="dialog" aria-modal="true" aria-labelledby="wk-modal-title">
+  <div class="wk-modal-card" id="wk-modal-card">
+    <button type="button" class="wk-modal-close" id="wk-modal-close" aria-label="Close">&times;</button>
+    <div id="wk-modal-body"></div>
+  </div>
+</div>
+
+</main>
+<!-- BUILD:FOOTER -->
+<footer class="gfoot">
+  <div class="wrap">
+    <p><b>Systems by Vega</b> · A Kingdom Creatives LLC company · Nampa, Idaho ·
+      <a class="link" href="mailto:info@kingdom-creatives.com">info@kingdom-creatives.com</a></p>
+    <p style="margin-top:10px"><a class="link" href="/sites/">Sites</a> · <a class="link" href="/platforms/">Platforms</a> · <a class="link" href="/services/">Services</a> · <a class="link" href="/work/">Work</a> · <a class="link" href="/about/">About</a></p>
+    <p style="margin-top:10px"><a class="link" href="/legal/terms.html">Terms</a> · <a class="link" href="/legal/privacy.html">Privacy</a> · <a class="link" href="/legal/refund.html">Refund</a> · <a class="link" href="/legal/operator-agreement.html">Operator Agreement</a></p>
+    <!-- data-i18n-skip: never translated. A disclaimer that says something
+         slightly different in another language is worse than one a reader has
+         to translate themselves. -->
+    <p class="foot-legal" data-i18n-skip>Systems by Vega provides software, documents, and training. It does not provide clients, leads, or locations, and makes no representation about income, revenue, profit, or results. Operators are independent businesses, not franchisees, employees, or agents of Kingdom Creatives LLC. Nothing on this site is legal, tax, or insurance advice.</p>
+    <p class="legal-note" id="lang-governs" hidden></p>
+  </div>
+</footer><!-- /BUILD:FOOTER -->
+
+<script src="/assets/sbv.js" defer></script>
+
+</body>
+</html>

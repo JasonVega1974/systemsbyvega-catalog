@@ -62,7 +62,8 @@ header.nav .nav-cta{ color:var(--ground) }
   box-shadow:0 6px 22px var(--accent-a32); transition:transform .15s, box-shadow .2s;
 }
 .nav-cta:hover{ transform:translateY(-2px); box-shadow:0 10px 28px var(--accent-a5) }
-.burger{ display:none; background:none; border:0; color:var(--ink); cursor:pointer; padding:6px }
+.burger{ display:none; align-items:center; justify-content:center; width:44px; height:44px;
+  background:none; border:0; color:var(--ink); cursor:pointer; padding:6px }
 .burger svg{ width:26px; height:26px }
 
 /* ============================================================ HERO */
@@ -469,8 +470,13 @@ footer::before{ content:""; position:absolute; inset:auto 0 0 0; height:50%; z-i
     transform:translateX(100%); transition:transform .35s ease; border-left:1px solid var(--hair); z-index:55;
   }
   .nav-links.open{ transform:translateX(0) }
-  .nav-links a{ font-size:18px; color:var(--ink) }
-  .burger{ display:block; z-index:60 }
+  /* display:flex + min-height, not just a bigger font: at rest this was a
+     one-line 14px link with no padding, ~28px tall in the open drawer — a
+     real sub-44px tap target once a visitor actually opens the menu (a11y
+     sweep at 360px), not just the closed-state off-canvas rect the sweep
+     also (over-eagerly) measures. */
+  .nav-links a{ font-size:18px; color:var(--ink); display:flex; align-items:center; min-height:44px; width:100% }
+  .burger{ display:flex; z-index:60 }
   .nav .nav-cta.desktop{ display:none }
   .stat-grid{ grid-template-columns:1fr 1fr }
   .release-grid{ grid-template-columns:1fr 1fr }

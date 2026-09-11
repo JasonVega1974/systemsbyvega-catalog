@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": "node tools/build-catalog.js --check",
+  "buildCommand": "node tools/build-catalog.js --check && node tools/build-chrome.js --check && node tools/check-pages.js && node tools/check-links.js",
   "outputDirectory": ".",
   "trailingSlash": true,
   "functions": {
@@ -19,17 +19,17 @@
     },
     {
       "source": "/pricing/",
-      "destination": "/#websites",
+      "destination": "/sites/",
       "permanent": true
     },
     {
       "source": "/pricing",
-      "destination": "/#websites",
+      "destination": "/sites/",
       "permanent": true
     },
     {
       "source": "/pricing/:path*",
-      "destination": "/#websites",
+      "destination": "/sites/",
       "permanent": true
     },
     {
@@ -39,7 +39,37 @@
     },
     {
       "source": "/niche-landing.html",
-      "destination": "/#catalog",
+      "destination": "/sites/",
+      "permanent": true
+    },
+    {
+      "source": "/demo",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/demo/:path*",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/showcase",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/showcase/:path*",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/work/",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/:path*",
+      "destination": "/work/",
       "permanent": true
     }
   ],

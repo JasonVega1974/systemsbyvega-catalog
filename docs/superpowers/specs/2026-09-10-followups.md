@@ -90,3 +90,107 @@ No Vercel Analytics tag on `/demo/`, `/showcase/`, `/portfolio/`, `/claim/`, or
 `/claim/thank-you.html`. The two `/claim/` pages are the Stripe cancel and success
 landings — the highest-value pages in the funnel are invisible in reporting.
 Folded into T7.
+
+---
+
+## F6 — disclose the hashed-IP abuse record in the privacy policy
+
+**Status:** open, needs Jason's decision on wording. Not blocking.
+
+`sbv_inquiries` stores a salted SHA-256 of the submitter's IP (`ip_hash`) to rate-limit
+the `/services/` form across serverless instances (Ruling R15). The raw address is never
+stored.
+
+`legal/privacy.html` §3 currently discloses only:
+
+> Our hosting provider keeps standard server logs, including IP addresses, for security
+> and troubleshooting.
+
+That is a statement about Vercel's logs. It does not cover a record SystemsByVega keeps
+in its own database, even a hashed one. The policy is not *false* today, but it is
+incomplete, and the whole posture of this site is that published statements are true and
+checkable.
+
+**Suggested sentence for §3**, for Jason to approve or reword:
+
+> When you send an enquiry through the site we also keep a one-way scrambled form of your
+> network address, which lets us block abuse of the form. It cannot be turned back into
+> your address and we never store the address itself.
+
+Deliberately not written into the file by an agent: the brief's stop conditions say to
+flag compliance-adjacent copy rather than guess at it.
+
+---
+
+## F7 — the homepage niche modal never receives focus (live a11y bug)
+
+**Status:** open, pre-existing, confirmed by measurement. Scheduled into Task 10.
+
+`openModal()` in `assets/sbv.js` calls `f[0].focus()` (line ~722) right after flipping
+`data-open`, but focus never lands. Measured in a browser on `/`:
+
+```
+focus before open        BODY
+focus just after open    BODY
+focus after transition   BODY      (500ms, well past the .22s transition)
+modal data-open          1
+focus inside modal       false
+```
+
+A keyboard user opens a catalog card's detail panel and their focus is still behind it.
+Tab then walks the page underneath, and the focus trap at `sbv.js:688-689` never engages
+because `document.activeElement` was never inside the modal to begin with.
+
+`.exit` (the exit-intent card, `sbv.css:813`) uses the identical
+`opacity + visibility` transition pattern and calls `focus()` the same way, so it is
+very likely affected too — verify both when fixing.
+
+**Known-good fix:** Task 7 hit exactly this in its new `.wk-modal` and solved it by
+dropping `visibility` from the transition and using `opacity` + `pointer-events`
+instead, with the reasoning written up at `assets/sbv.css:1173`. Apply the same shape.
+
+**Why Task 10:** that task moves this modal to `/sites/` anyway, so it is the natural
+place to fix it rather than touching `sbv.js` twice.
+
+---
+
+## F8 — purpose-built Open Graph art
+
+**Status:** open, cosmetic, not blocking.
+
+All six pages now carry `og:image`, but they reuse product screenshots from
+`assets/shots/` at **1280×800 (1.6:1)**. The social ideal is **1200×630 (1.91:1)**, so
+Facebook, Instagram, LinkedIn and X will letterbox or centre-crop them. Nothing breaks;
+the cards are just not composed for the frame.
+
+Given this site's traffic comes from paid social, purpose-built OG art — correct ratio,
+with the headline and a legible product shot composed for it — is worth doing as its own
+small design pass. `tools/build-og.js` already exists in this repo and generates OG
+images for the niche sites; extending it to cover the six marketing pages is the obvious
+route.
+
+A real screenshot beats a blank card, which is what five of the six pages had before, so
+this is an improvement to build on rather than a defect to fix.
+
+---
+
+## F9 — the a11y sweep cannot see inside closed drawers
+
+**Status:** open, known blind spot, documented in code.
+
+`tools/a11y-sweep.js`'s `vis()` guard excludes off-canvas elements
+(`r.right <= 0 || r.left >= vw`). That is correct for honeypots and off-screen
+scaffolding, and it removed a batch of false positives.
+
+But the sweep never *opens* anything, so any component that is off-canvas until
+interacted with — the mobile nav drawer above all — is now permanently invisible to the
+tap-target and focus-ring checks. That is the single component most likely to regress,
+and the brief for the task that added this guard named it as a likely offender.
+
+**To close it:** teach the sweep to drive each page's disclosure controls (click the
+burger, wait for the drawer, re-run the probes with it open) before reporting. That is a
+real feature, not a tweak, which is why it was deliberately not attempted during a
+polish pass.
+
+Until then the drawer's accessibility is covered only by the manual browser checks
+recorded in the task reports — verified working at the time, but not gated.

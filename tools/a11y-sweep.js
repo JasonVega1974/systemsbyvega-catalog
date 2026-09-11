@@ -45,6 +45,28 @@ function resolvePlaywright() {
   throw new Error('playwright not found — set SITELAB_PLAYWRIGHT');
 }
 
+/* Same three-way browser resolution as tools/build-shots.js: playwright-core
+   is already a dependency, @sparticuz/chromium's executablePath is undefined
+   outside its AWS-Lambda build (verified on this machine, so never tried
+   here), and system Chrome via channel:'chrome' is the reliable local route.
+   Falls back to whatever resolvePlaywright() found, in case a future machine
+   does have a bundled browser under one of those paths. */
+async function launchBrowser() {
+  const attempts = [];
+  try {
+    const { chromium } = require('playwright-core');
+    return await chromium.launch({ headless: true, channel: 'chrome' });
+  } catch (e) { attempts.push(`playwright-core channel:'chrome' -> ${e.message.split('\n')[0]}`); }
+
+  try {
+    const pw = resolvePlaywright();
+    try { return await pw.chromium.launch({ headless: true, channel: 'chrome' }); }
+    catch (e) { return await pw.chromium.launch({ headless: true }); }
+  } catch (e) { attempts.push(`resolvePlaywright() -> ${e.message.split('\n')[0]}`); }
+
+  throw new Error('No local Chromium found. Attempts:\n  ' + attempts.join('\n  '));
+}
+
 function serve(root) {
   const ROOT = path.resolve(root);
   return new Promise((res, rej) => {
@@ -64,9 +86,19 @@ function serve(root) {
   });
 }
 
-/* Every built page: a plain niche is one, a themed niche is one per theme. */
+/* The six marketing pages. pages() previously enumerated niches/ only, so
+   every page a visitor actually lands on first went unswept. */
+const MARKETING = ['/', '/sites/', '/platforms/', '/services/', '/work/', '/about/'];
+
+/* Every built page: a plain niche is one, a themed niche is one per theme,
+   plus the six marketing routes above — unless `only` narrows to specific
+   slugs, in which case the marketing pages are skipped so
+   `node tools/a11y-sweep.js landscaping` still means just landscaping. */
 function pages() {
   const out = [];
+  if (!only.length) {
+    for (const url of MARKETING) out.push({ name: url, url });
+  }
   for (const slug of fs.readdirSync(path.join(REPO, 'niches'))) {
     if (!fs.statSync(path.join(REPO, 'niches', slug)).isDirectory()) continue;
     if (only.length && !only.includes(slug)) continue;
@@ -92,7 +124,26 @@ const PROBE = () => {
     const s = getComputedStyle(el);
     if (s.display === 'none' || s.visibility === 'hidden' || Number(s.opacity) === 0) return false;
     const r = el.getBoundingClientRect();
-    return r.width > 0 && r.height > 0;
+    if (r.width <= 0 || r.height <= 0) return false;
+    /* An off-canvas drawer (position:fixed/absolute, translateX past the
+       viewport edge when closed) still has display!=none and a real
+       bounding box, so without this it reads as a normal, visible,
+       undersized nav link — closed navs like this exist specifically so
+       their contents are NOT reachable until opened. Vertical position is
+       untouched: below-the-fold content is genuinely visible on scroll and
+       must still be checked.
+
+       KNOWN BLIND SPOT: this sweep never opens a drawer, so the same guard
+       that correctly kills honeypot false positives (a field parked at
+       left:-9999px) also permanently excludes a CLOSED drawer's contents
+       from every check below — tap-target size and focus-ring included.
+       The nav drawer is exactly the component the brief named a likely
+       offender, so this makes the probe quieter there, not more accurate.
+       A drawer's tap targets and focus rings still need eyes-on checking
+       (or a script that clicks the toggle before measuring) rather than
+       trusting a clean sweep. Left as-is deliberately — see task-12-report.md. */
+    if (r.right <= 0 || r.left >= vw) return false;
+    return true;
   };
 
   /* ---- 1. horizontal overflow ---- */
@@ -124,11 +175,26 @@ const PROBE = () => {
   }
 
   /* ---- 3. focus rings ---- */
+  /* stroke/strokeWidth added for SVG interactive elements (delivery's map-zone
+     <path role=button> pins use a stroke-based focus ring, not outline/
+     box-shadow/border — without these the snapshot never changed and every
+     one of them read as "no visible focus", a false positive this tool would
+     otherwise report on a focus style that genuinely exists). */
   const snap = el => { const s = getComputedStyle(el);
-    return s.outlineStyle + '|' + s.outlineWidth + '|' + s.outlineColor + '|' + s.boxShadow + '|' + s.borderColor; };
+    return s.outlineStyle + '|' + s.outlineWidth + '|' + s.outlineColor + '|' + s.boxShadow + '|' +
+           s.borderColor + '|' + s.backgroundColor + '|' + s.stroke + '|' + s.strokeWidth; };
   for (const el of nodes.slice(0, 60)) {
     const before = snap(el);
     try { el.focus({ preventScroll: true }); } catch (e) { continue; }
+    /* Several niches swap outline for a border/background-color change that
+       is CSS-transitioned (e.g. dj's .field input:focus, .2s). Read cold,
+       immediately after focus(), that transition has not moved yet and
+       "after" comes back identical to "before" — a false negative on a
+       focus style that genuinely works. Finishing any transition/animation
+       the focus triggered jumps straight to its end state without an actual
+       wait, so the snapshot reflects where the style lands, not the first
+       animation frame. */
+    try { el.getAnimations().forEach(a => a.finish()); } catch (e) { /* not Animatable, fine */ }
     const after = snap(el);
     if (document.activeElement !== el) continue;
     if (before === after) R.focus.push({ sel: sel(el), text: (el.innerText || '').trim().slice(0, 28) });
@@ -199,11 +265,8 @@ const PROBE = () => {
 };
 
 (async () => {
-  const pw = resolvePlaywright();
+  const browser = await launchBrowser();
   const { s, port } = await serve(REPO);
-  let browser;
-  try { browser = await pw.chromium.launch({ headless: true, channel: 'chrome' }); }
-  catch (e) { browser = await pw.chromium.launch({ headless: true }); }
 
   const ctx = await browser.newContext({ viewport: { width: WIDTH, height: 800 },
                                          deviceScaleFactor: 2, isMobile: true, hasTouch: true });

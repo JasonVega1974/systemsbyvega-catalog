@@ -203,21 +203,14 @@ export default async function middleware(request) {
      exposed to its JavaScript — so the storefront resolves its tenant from
      location.hostname instead.
 
-     X-Robots-Tag is MEANT to override the `--demo` build's baked
-     <meta name="robots" content="noindex"> — headers win over body meta per
-     the robots spec, in principle, because middleware never touches the
-     static HTML it rewrites to. In practice, right now, every tenant-served
-     page still IS that `--demo` build, meta tag and all: Google is known to
-     resolve a header/body conflict to whichever directive is MORE
-     restrictive, not to the header unconditionally, so `all` here is likely
-     inert until Phase B stops shipping the noindex meta into tenant
-     artifacts. The header itself is correct and ready for that day — it is
-     just not yet the thing actually keeping a live tenant out of search
-     today. `all` only when hasContent says this tenant has a saved
-     sbv_operator_content row (a proxy for "went live deliberately"); every
-     other case — no row, lookup failure, RPC not yet deployed — stays
-     `noindex`. See sql/HAS-CONTENT.sql and nicheFor() above for how
-     hasContent is resolved and why it fails closed. */
+     X-Robots-Tag is the ONLY signal now. tools/build-site.js sets ROBOTS: ''
+     for every built page, and none of the 32 tenant artifacts carries a
+     baked <meta name="robots"> tag — the header/body conflict this comment
+     used to warn about no longer exists. `all` only when hasContent says
+     this tenant has a saved sbv_operator_content row (a proxy for "went live
+     deliberately"); every other case — no row, lookup failure, RPC not yet
+     deployed — stays `noindex`. See sql/HAS-CONTENT.sql and nicheFor() above
+     for how hasContent is resolved and why it fails closed. */
   /* The operator's own legal pages. Built per niche by tools/build-site.js and
      served from the same directory as the storefront, so the tenant sees them
      at /terms and /privacy. Always noindex: these are 32 near-identical

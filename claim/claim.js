@@ -757,12 +757,17 @@
        whichever of the two ran second. */
     var confirmed = arrivedFromConfirm();
 
-    var btns = document.querySelectorAll('.claim-btn');
-    for (var i = 0; i < btns.length; i++) {
-      on(btns[i], 'click', function () {
-        open(this.getAttribute('data-slug'), this.getAttribute('data-name'));
-      });
-    }
+    /* Delegated, not bound per-button (Task 10). sbv.js's paint() replaces
+       #catalog-root the moment live sbv_niches rows arrive — see its own
+       header comment — which would silently orphan one-shot listeners bound
+       here at boot, on the buttons catalog-render.js's footRow() draws. One
+       delegated listener on the document survives every repaint; it is the
+       same fix sbv.js's wireModal() already uses for the identical reason. */
+    on(document, 'click', function (e) {
+      var btn = e.target && e.target.closest && e.target.closest('.claim-btn');
+      if (!btn) return;
+      open(btn.getAttribute('data-slug'), btn.getAttribute('data-name'));
+    });
     initNav();
     if (confirmed) resumeClaim();
     confirmedBanner(confirmed);
@@ -770,4 +775,12 @@
   }
 
   window.initClaim = initClaim;
+
+  /* Exposed so sbv.js's paint() can re-run it after a repaint (Finding 5):
+     paint() replaces #catalog-root wholesale, which wipes out every
+     [data-claimed] badge loadCounts() wrote at boot, and loadCounts() never
+     ran again on its own. Named on initClaim rather than a second global —
+     one thing to check for, one thing to guard against on the five pages
+     that never load this file. */
+  initClaim.loadCounts = loadCounts;
 })();

@@ -225,6 +225,13 @@ body::after{
   .fee__cols{flex-direction:column;gap:24px}
   .fee__rule{border-left:0;border-top:2px dashed rgba(221,119,8,.4)}
   .fee__tag{margin-top:6px}
+  /* base.css's .btn is white-space:nowrap by design (never break mid-word on
+     a pill button), but this CTA's copy ("Book a free driveway walkthrough")
+     is long enough that nowrap forces the button past the card's edge at
+     360px (a11y sweep: 7px horizontal overflow). Letting it wrap here is
+     the same shape of fix base.css already applies to .price-box .btn
+     (full width in a narrow card) rather than shortening the copy. */
+  .fee__cta .btn{white-space:normal;max-width:100%}
 }
 
 /* ---------- prep tips: sticker-dot cards ---------- */

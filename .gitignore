@@ -15,3 +15,7 @@ node_modules/
 
 # Supabase CLI local link state — machine-specific, not shared config.
 supabase/.temp/
+
+# tools/build-shots.js's scratch rebuild for hero/2-branded. Removed by the
+# tool itself after every run (success or failure); this is a backstop only.
+/.sbv-hero3-build/
