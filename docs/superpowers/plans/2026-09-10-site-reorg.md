@@ -1574,6 +1574,19 @@ be a sign-in form presented as an admin panel.
 Six cards from `assets/shots/featured/`. Hover (and `:focus-within`, so keyboard users
 get it too) swaps to the `-hover` frame. **Screenshots, not iframes** — audit §6.4.
 
+> **Ruling R13 — one card has no hover frame.** `child-care`'s hero is an ambient CSS
+> twinkle with no discrete state to engage, so no capture can differ from its rest shot;
+> `assets/shots/featured/child-care-hover.jpg` deliberately does not exist. The card
+> markup must omit the `.on` image entirely for that niche rather than pointing at a
+> missing file — a broken `<img>` is worse than no hover. The CSS already degrades
+> correctly: with no `.on` child, `.fcard:hover .on` simply matches nothing.
+>
+> Before writing the cards, list what is actually on disk and build from that, never
+> from an assumed naming pattern:
+> ```bash
+> ls assets/shots/featured/
+> ```
+
 ```css
 .fcard-shot{position:relative}
 .fcard-shot img{display:block;width:100%;height:auto}
