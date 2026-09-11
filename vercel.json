@@ -48,6 +48,11 @@
       "permanent": true
     },
     {
+      "source": "/demo/",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
       "source": "/demo/:path*",
       "destination": "/services/",
       "permanent": true
@@ -58,12 +63,22 @@
       "permanent": true
     },
     {
+      "source": "/showcase/",
+      "destination": "/services/",
+      "permanent": true
+    },
+    {
       "source": "/showcase/:path*",
       "destination": "/services/",
       "permanent": true
     },
     {
       "source": "/portfolio",
+      "destination": "/work/",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio/",
       "destination": "/work/",
       "permanent": true
     },
