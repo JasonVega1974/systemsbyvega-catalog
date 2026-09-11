@@ -28,9 +28,17 @@
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
+const { execFileSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
 const OUT  = path.join(ROOT, 'assets', 'shots');
+/* Scratch dir for the hero/2-branded rebuild (Ruling R13 fix round 2). It
+   lives under ROOT — not an OS tmp dir — so the SAME static HTTP server that
+   serves every other local target can serve it too; file:// was fix round
+   2's finding 1 (root-relative /sites/landscaping/photos/... 404s under
+   file://). Always removed after use (see the try/finally around the main
+   loop below) and listed in .gitignore as a defensive backstop. */
+const HERO3_DIR = path.join(ROOT, '.sbv-hero3-build');
 const args = process.argv.slice(2);
 const only = (args.indexOf('--only') > -1) ? args[args.indexOf('--only') + 1] : null;
 const qualityFlag = (args.indexOf('--quality') > -1) ? Number(args[args.indexOf('--quality') + 1]) : 78;
@@ -51,7 +59,12 @@ const TARGETS = [
      which is where it already lived. A third frame can be added later if a
      signed-in capture becomes possible. */
   { group:'hero', name:'1-demo', url:'/sites/landscaping/' },
-  // 2-branded is produced by Step 3 (tools/build-shots-hero3.js), from a real rebuild.
+  /* 2-branded: a genuine build-site.js rebuild of landscaping under a
+     different brand (see buildHeroBranded() below), served over the same
+     HTTP server as every other local target — no file:// (Ruling R13 fix
+     round 2, finding 1) — and built WITHOUT --demo, so it never carries the
+     for-sale banner that correctly belongs only on 1-demo (finding 2). */
+  { group:'hero', name:'2-branded', prep:'hero-branded' },
 
   // featured — six niches, two frames each (rest + signature interaction)
   { group:'featured', name:'bin-cleaning',        url:'/sites/bin-cleaning/' },
@@ -156,8 +169,34 @@ const PREPARE = {
 };
 
 if (args.includes('--list')) {
-  TARGETS.forEach(t => console.log(`${t.group}/${t.name}  ${t.url}`));
+  TARGETS.forEach(t => console.log(`${t.group}/${t.name}  ${t.url || '(' + t.prep + ': built at run time)'}`));
   process.exit(0);
+}
+
+/* Rebuilds landscaping under a different brand, WITHOUT --demo, into
+   HERO3_DIR — then restores niches/landscaping/content.json immediately
+   (git checkout, same as before) and verifies the restore actually landed
+   clean before letting the caller proceed. Ruling R13 fix round 2: the
+   for-sale banner only belongs on 1-demo, and --demo was what put it on
+   2-branded too. */
+function buildHeroBranded() {
+  const contentPath = path.join(ROOT, 'niches', 'landscaping', 'content.json');
+  try {
+    const c = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+    c.brand.name = 'Vega & Sons Lawn Care';
+    c.brand.tagline = 'Cut clean. Every week.';
+    c.brand.city = 'Nampa, ID';
+    c.brand.phone = '(208) 555-0111';
+    fs.writeFileSync(contentPath, JSON.stringify(c, null, 2));
+    execFileSync(process.execPath,
+      [path.join(ROOT, 'tools', 'build-site.js'), 'landscaping', '--out', HERO3_DIR],
+      { stdio: 'inherit' });
+  } finally {
+    execFileSync('git', ['checkout', '--', 'niches/landscaping/content.json'], { cwd: ROOT });
+  }
+  const dirty = execFileSync('git', ['status', '--porcelain', 'niches/landscaping/content.json'], { cwd: ROOT })
+    .toString().trim();
+  if (dirty) throw new Error('content.json restore did not come back clean: ' + dirty);
 }
 
 function serve() {
@@ -218,25 +257,44 @@ async function launchBrowser() {
   const list = only ? TARGETS.filter(t => t.group === only) : TARGETS;
   let failed = 0;
   const failedNames = [];
-  for (const t of list) {
-    const dir = path.join(OUT, t.group);
-    fs.mkdirSync(dir, { recursive: true });
-    const url = t.url.startsWith('http') ? t.url : `http://127.0.0.1:${port}${t.url}`;
-    const page = await ctx.newPage();
-    try {
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
-      await page.waitForTimeout(1200);          // fonts + entry animations settle
-      if (t.prepare) await page.evaluate(PREPARE[t.prepare] || PREPARE.wait);
-      await page.screenshot({
-        path: path.join(dir, t.name + '.jpg'), type: 'jpeg', quality: qualityFlag,
-      });
-      console.log(`  ok    ${t.group}/${t.name}`);
-    } catch (e) {
-      failed++;
-      failedNames.push(`${t.group}/${t.name} (${t.url})`);
-      console.log(`  FAIL  ${t.group}/${t.name}  ${t.url}  ${e.message.split('\n')[0]}`);
+  let builtHero3 = false;
+  try {
+    for (const t of list) {
+      const dir = path.join(OUT, t.group);
+      fs.mkdirSync(dir, { recursive: true });
+      let url = t.url;
+      try {
+        if (t.prep === 'hero-branded') {
+          buildHeroBranded();
+          builtHero3 = true;
+          url = `/${path.relative(ROOT, HERO3_DIR).split(path.sep).join('/')}/`;
+        }
+        url = url.startsWith('http') ? url : `http://127.0.0.1:${port}${url}`;
+      } catch (e) {
+        failed++;
+        failedNames.push(`${t.group}/${t.name} (prep)`);
+        console.log(`  FAIL  ${t.group}/${t.name}  prep  ${e.message.split('\n')[0]}`);
+        continue;
+      }
+      const page = await ctx.newPage();
+      try {
+        await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
+        await page.waitForTimeout(1200);          // fonts + entry animations settle
+        if (t.prepare) await page.evaluate(PREPARE[t.prepare] || PREPARE.wait);
+        await page.screenshot({
+          path: path.join(dir, t.name + '.jpg'), type: 'jpeg', quality: qualityFlag,
+        });
+        console.log(`  ok    ${t.group}/${t.name}`);
+      } catch (e) {
+        failed++;
+        failedNames.push(`${t.group}/${t.name} (${url})`);
+        console.log(`  FAIL  ${t.group}/${t.name}  ${url}  ${e.message.split('\n')[0]}`);
+      }
+      await page.close();
     }
-    await page.close();
+  } finally {
+    // Never leave the scratch build behind, success or failure.
+    if (builtHero3) fs.rmSync(HERO3_DIR, { recursive: true, force: true });
   }
   await ctx.close(); await browser.close(); s.close();
   /* A missing screenshot must not pass quietly — a page task downstream would
