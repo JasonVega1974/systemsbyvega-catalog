@@ -90,7 +90,7 @@
         <span>— the rest get built in the order people ask for them.</span>
       </p>
       <div class="plate-cta">
-        <a class="btn btn-pri" href="#catalog">Browse the catalog</a>
+        <a class="btn btn-pri" href="/sites/#catalog">Browse the catalog</a>
         <a class="btn btn-sec" href="#how">How it works</a>
       </div>
     </div>
@@ -149,154 +149,6 @@
   </div>
 </section>
 
-<!-- ══════════════════════════ THE CATALOG ═══════════════════════════════ -->
-<section class="section" id="catalog">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">The catalog</span>
-      <h2>Every business, and exactly <br>what state it is in.</h2>
-      <p class="lede" style="margin-top:12px">
-        Sorted into six plates. An entry is either open today, in line to be built, or a website
-        you can buy for a business you already run. Nothing here is a projection.
-      </p>
-    </div>
-
-    <!-- Thirty-eight plates is a wall to a first-time visitor. These cut it to
-         four short boards. Rendered in the HTML rather than injected; the bar
-         starts hidden and applyFilter() in sbv.js recomputes every count from
-         the DOM before it unhides, so the numbers below are inert fallbacks a
-         visitor never sees. They are kept in sync anyway — a stale number in
-         source is how the wrong ones downstream got written. -->
-    <div class="filterbar" id="filterbar" hidden>
-      <div class="chips" role="group" aria-label="Filter the catalog">
-        <button type="button" class="chip" data-filter="" aria-pressed="true">
-          <span>Everything</span><b class="chip-n" data-count="">38</b>
-        </button>
-        <button type="button" class="chip" data-filter="is-open" aria-pressed="false">
-          <i class="dot" aria-hidden="true"></i>
-          <span>Open now</span><b class="chip-n" data-count="is-open">3</b>
-        </button>
-        <button type="button" class="chip" data-filter="is-in-line" aria-pressed="false">
-          <i class="dot" aria-hidden="true"></i>
-          <span>In line</span><b class="chip-n" data-count="is-in-line">10</b>
-        </button>
-        <button type="button" class="chip" data-filter="is-website-only" aria-pressed="false">
-          <i class="dot" aria-hidden="true"></i>
-          <span>Website only</span><b class="chip-n" data-count="is-website-only">25</b>
-        </button>
-      </div>
-      <!-- Split so the translation never has to interpolate a number: the only
-           translatable string here is the label. -->
-      <p class="filter-count" id="filter-count" role="status" aria-live="polite">
-        <span>On the board:</span> <b id="fc-n">38</b>/<b id="fc-t">38</b>
-      </p>
-    </div>
-
-    <div id="catalog-root">
-      <!-- BUILD:CATALOG -->
-<div class="family" data-fam="sale-resale" style="--fam:var(--fam-sale-resale)"><div class="plate-head reveal"><span class="plate-no">Plate SR</span><h2 class="plate-title">Sale &amp; Resale</h2></div><p class="plate-note">Businesses that run on other people&#39;s things — the sale, the lot, the booth.</p><div class="grid"><article class="entry sheet reveal is-open" data-fam="sale-resale" id="n-estate-sales"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker hot" aria-hidden="true"><span class="big">$497</span><span class="small">Founding</span></span><span class="card-meta"><span class="code">SR · N° 001</span><span class="tok open">Open now</span></span><h3>EstateSaleBiz</h3><p class="job">Run the whole sale when a household has to be emptied — pricing, staffing, and the day itself.</p><div class="entry-foot"><a class="card-go" href="https://estatesalebiz.com"><span>See the deal</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$497 + $39/mo · 3 cities · estatesalebiz.com</p></div></article><article class="entry sheet reveal is-open" data-fam="sale-resale" id="n-garage-sales"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker hot" aria-hidden="true"><span class="big">$249</span><span class="small">One time</span></span><span class="card-meta"><span class="code">SR · N° 002</span><span class="tok open">Open now</span></span><h3>GarageSaleBiz</h3><p class="job">Run other people&#39;s garage sales in your three cities — and be the map every shopper in town checks on Saturday morning.</p><div class="entry-foot"><a class="card-go" href="https://garagesalebiz.com"><span>See the deal</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$249 once · 3 cities · garagesalebiz.com</p></div></article><article class="entry sheet reveal is-in-line" data-fam="sale-resale" id="n-local-auctions"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">SR · N° 003</span><span class="tok wait">Waitlist</span></span><h3>Local Auctions</h3><p class="job">Run the bidding for estates, farms, and storage lots — catalog, consignors, gavel.</p><p class="caveat">Auctioneer licensing varies by state. Check yours before you get in line.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="local-auctions"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a></div></article><article class="entry sheet reveal is-open" data-fam="sale-resale" id="n-consignment-vintage"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker hot" aria-hidden="true"><span class="big">$197</span><span class="small">One time</span></span><span class="card-meta"><span class="code">SR · N° 004</span><span class="tok open">Open now</span></span><h3>ConsignmentBiz</h3><p class="job">Sell other people&#39;s furniture and finds on a split, without owning the inventory.</p><div class="entry-foot"><a class="card-go" href="https://consignmentbiz.com"><span>See the deal</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$197 once · 1 city · consignmentbiz.com</p></div></article><article class="entry sheet reveal is-in-line" data-fam="sale-resale" id="n-market-vendors"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">SR · N° 005</span><span class="tok wait">Waitlist</span></span><h3>Market Vendors</h3><p class="job">Be the booth directory and sign-up desk for the markets in your county.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="market-vendors"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a></div></article><article class="entry sheet reveal is-website-only" data-fam="sale-resale" id="n-estate-sale"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">SR · N° 006</span><span class="tok site">Website</span></span><h3>Estate Sales</h3><p class="job">Run the sale when a whole household has to be cleared — priced, staffed, and handed back broom-clean.</p><div class="entry-foot"><a class="card-go" href="/sites/estate-sale/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="sale-resale" id="n-garage-sale"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">SR · N° 007</span><span class="tok site">Website</span></span><h3>Garage Sales</h3><p class="job">Run other people&#39;s garage sales for them — sorted, priced, signed, staffed, and cleared by Sunday night.</p><div class="entry-foot"><a class="card-go" href="/sites/garage-sale/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div><div class="family" data-fam="haul-clear" style="--fam:var(--fam-haul-clear)"><div class="plate-head reveal"><span class="plate-no">Plate HC</span><h2 class="plate-title">Haul &amp; Clear</h2></div><p class="plate-note">Something needs to leave the property, and someone has to come get it.</p><div class="grid"><article class="entry sheet reveal is-in-line" data-fam="haul-clear" id="n-junk-removal"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">HC · N° 008</span><span class="tok wait">Waitlist</span></span><h3>Junk Removal</h3><p class="job">Take the cleanout calls — garages, estates, and the stuff nobody wants to load.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="junk-removal"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a></div></article><article class="entry sheet reveal is-in-line" data-fam="haul-clear" id="n-delivery"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">HC · N° 009</span><span class="tok wait">Waitlist</span></span><h3>Delivery &amp; Courier</h3><p class="job">Move packages across town same-day, on a zone map you set.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="delivery"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/delivery/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-website-only" data-fam="haul-clear" id="n-dumpster-rental"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HC · N° 010</span><span class="tok site">Website</span></span><h3>Dumpster Rental</h3><p class="job">Drop the container, haul it off, bill a flat rate.</p><div class="entry-foot"><a class="card-go" href="/sites/dumpster-rental/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="haul-clear" id="n-moving"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HC · N° 011</span><span class="tok site">Website</span></span><h3>Moving</h3><p class="job">Load, drive, unload — local moves priced before the truck arrives.</p><div class="entry-foot"><a class="card-go" href="/sites/moving/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div><div class="family" data-fam="curb-exterior" style="--fam:var(--fam-curb-exterior)"><div class="plate-head reveal"><span class="plate-no">Plate CE</span><h2 class="plate-title">Curb &amp; Exterior</h2></div><p class="plate-note">Work that happens outside the house, on a route, on a schedule.</p><div class="grid"><article class="entry sheet reveal is-in-line" data-fam="curb-exterior" id="n-pressure-washing"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">CE · N° 012</span><span class="tok wait">Waitlist</span></span><h3>Pressure Washing</h3><p class="job">Take the grime off driveways, siding, and decks, quoted from a photo.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="pressure-washing"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/pressure-washing/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-in-line" data-fam="curb-exterior" id="n-bin-cleaning"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">CE · N° 013</span><span class="tok wait">Waitlist</span></span><h3>Bin Cleaning</h3><p class="job">Clean the trash bins on a route, on a schedule, every month.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="bin-cleaning"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/bin-cleaning/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-in-line" data-fam="curb-exterior" id="n-landscaping"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">CE · N° 014</span><span class="tok wait">Waitlist</span></span><h3>Landscaping</h3><p class="job">Keep yards cut, edged, and planted through all four seasons.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="landscaping"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/landscaping/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-in-line" data-fam="curb-exterior" id="n-painting"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">CE · N° 015</span><span class="tok wait">Waitlist</span></span><h3>Painting</h3><p class="job">Repaint rooms and exteriors — colour picked before the first coat.</p><p class="caveat">Homes built before 1978 need EPA RRP certification for lead-safe work.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="painting"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/painting/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-roofing"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 016</span><span class="tok site">Website</span></span><h3>Roofing</h3><p class="job">Repair and replace roofs, and handle the storm-damage paperwork.</p><div class="entry-foot"><a class="card-go" href="/sites/roofing/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-residential-cleaning"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 017</span><span class="tok site">Website</span></span><h3>House Cleaning</h3><p class="job">Clean the same houses on the same days every week, on a route you build.</p><div class="entry-foot"><a class="card-go" href="/sites/residential-cleaning/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-commercial-cleaning"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 018</span><span class="tok site">Website</span></span><h3>Office Cleaning</h3><p class="job">Hold the keys to a handful of offices and clean them after everyone goes home.</p><div class="entry-foot"><a class="card-go" href="/sites/commercial-cleaning/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-window-cleaning"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 019</span><span class="tok site">Website</span></span><h3>Window Cleaning</h3><p class="job">Inside and out, screens and tracks — priced by the pane or by the house.</p><div class="entry-foot"><a class="card-go" href="/sites/window-cleaning/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-sprinkler"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 020</span><span class="tok site">Website</span></span><h3>Sprinkler &amp; Irrigation</h3><p class="job">Install and repair the system that keeps a lawn alive — zones, heads, valves, controllers.</p><div class="entry-foot"><a class="card-go" href="/sites/sprinkler/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="curb-exterior" id="n-christmas-lights"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">CE · N° 021</span><span class="tok site">Website</span></span><h3>Christmas Lights</h3><p class="job">Hang the lights in November, service them through December, and take them down in January.</p><div class="entry-foot"><a class="card-go" href="/sites/christmas-lights/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div><div class="family" data-fam="auto" style="--fam:var(--fam-auto)"><div class="plate-head reveal"><span class="plate-no">Plate AU</span><h2 class="plate-title">Auto</h2></div><p class="plate-note">The vehicle in the driveway or the bay.</p><div class="grid"><article class="entry sheet reveal is-in-line" data-fam="auto" id="n-car-detailing"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">AU · N° 022</span><span class="tok wait">Waitlist</span></span><h3>Car Detailing</h3><p class="job">Bring cars back to showroom condition in the customer&#39;s driveway.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="car-detailing"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/car-detailing/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-website-only" data-fam="auto" id="n-auto-repair"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">AU · N° 023</span><span class="tok site">Website</span></span><h3>Auto Repair</h3><p class="job">Diagnose it, fix it, and explain it before the work starts.</p><div class="entry-foot"><a class="card-go" href="/sites/auto-repair/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="auto" id="n-auto-body"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">AU · N° 024</span><span class="tok site">Website</span></span><h3>Auto Body</h3><p class="job">Put collision-damaged panels back to factory shape.</p><div class="entry-foot"><a class="card-go" href="/sites/auto-body/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="auto" id="n-mechanic"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">AU · N° 025</span><span class="tok site">Website</span></span><h3>Mobile Mechanic</h3><p class="job">Drive the shop to the driveway — the repairs that never needed a lift.</p><div class="entry-foot"><a class="card-go" href="/sites/mechanic/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div><div class="family" data-fam="home-trade" style="--fam:var(--fam-home-trade)"><div class="plate-head reveal"><span class="plate-no">Plate HT</span><h2 class="plate-title">Home &amp; Trade</h2></div><p class="plate-note">Licensed trades. These are websites, not territories — the licence is already the moat.</p><div class="grid"><article class="entry sheet reveal is-website-only" data-fam="home-trade" id="n-plumbing"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HT · N° 026</span><span class="tok site">Website</span></span><h3>Plumbing</h3><p class="job">Fix the leak, clear the drain, replace the water heater.</p><div class="entry-foot"><a class="card-go" href="/sites/plumbing/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="home-trade" id="n-electrician"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HT · N° 027</span><span class="tok site">Website</span></span><h3>Electrician</h3><p class="job">Run wire, upgrade panels, and pull the permits.</p><div class="entry-foot"><a class="card-go" href="/sites/electrician/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="home-trade" id="n-hvac"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HT · N° 028</span><span class="tok site">Website</span></span><h3>Heating &amp; Air</h3><p class="job">Keep the heat on in January and the air cold in July.</p><div class="entry-foot"><a class="card-go" href="/sites/hvac/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="home-trade" id="n-contracting"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HT · N° 029</span><span class="tok site">Website</span></span><h3>Contracting</h3><p class="job">Take a remodel from first sketch to final walkthrough.</p><div class="entry-foot"><a class="card-go" href="/sites/contracting/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="home-trade" id="n-metal-fabrication"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">HT · N° 030</span><span class="tok site">Website</span></span><h3>Metal Fabrication</h3><p class="job">Cut, weld, and build it in steel from a drawing.</p><div class="entry-foot"><a class="card-go" href="/sites/metal-fabrication/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div><div class="family" data-fam="people-pets" style="--fam:var(--fam-people-pets)"><div class="plate-head reveal"><span class="plate-no">Plate PP</span><h2 class="plate-title">People &amp; Pets</h2></div><p class="plate-note">Work built on trust with a person, a child, or an animal.</p><div class="grid"><article class="entry sheet reveal is-in-line" data-fam="people-pets" id="n-dog-walking"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="sticker soon" aria-hidden="true"><span class="big">Soon</span><span class="small">Waitlist</span></span><span class="card-meta"><span class="code">PP · N° 031</span><span class="tok wait">Waitlist</span></span><h3>Dog Walking</h3><p class="job">Walk the dogs on a weekly rhythm their owners can count on.</p><div class="entry-foot"><a class="card-go js-line" href="#line" data-niche="dog-walking"><span>Claim a spot</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><a class="card-alt" href="/sites/dog-walking/">See the site your customers would get</a></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-child-care"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 032</span><span class="tok site">Website</span></span><h3>Child Care</h3><p class="job">Watch the kids so the parents can have the evening.</p><div class="entry-foot"><a class="card-go" href="/sites/child-care/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-caregiving"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 033</span><span class="tok site">Website</span></span><h3>Caregiving</h3><p class="job">Keep someone company and safe in their own home.</p><div class="entry-foot"><a class="card-go" href="/sites/caregiving/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-personal-trainer"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 034</span><span class="tok site">Website</span></span><h3>Personal Trainer</h3><p class="job">Coach lifters and runners toward one specific goal.</p><div class="entry-foot"><a class="card-go" href="/sites/personal-trainer/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-tattoo-studio"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 035</span><span class="tok site">Website</span></span><h3>Tattoo Studio</h3><p class="job">Draw it, book it, and tattoo it in a private studio.</p><div class="entry-foot"><a class="card-go" href="/sites/tattoo-studio/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-dj"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 036</span><span class="tok site">Website</span></span><h3>DJ</h3><p class="job">Play the room — weddings, clubs, and anywhere with a dance floor.</p><div class="entry-foot"><a class="card-go" href="/sites/dj/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-bbq-food-truck"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 037</span><span class="tok site">Website</span></span><h3>BBQ Food Truck</h3><p class="job">Smoke it overnight and park where the crowd is.</p><div class="entry-foot"><a class="card-go" href="/sites/bbq-food-truck/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article><article class="entry sheet reveal is-website-only" data-fam="people-pets" id="n-personal-assistant"><span class="staple l" aria-hidden="true"></span><span class="staple r" aria-hidden="true"></span><span class="card-meta"><span class="code">PP · N° 038</span><span class="tok site">Website</span></span><h3>Personal Assistant</h3><p class="job">Take the errands, the calendar and the chasing off a busy person&#39;s plate.</p><div class="entry-foot"><a class="card-go" href="/sites/personal-assistant/"><span>See the site</span><svg class="go-arrow" viewBox="0 0 60 30" aria-hidden="true"><path d="M2 10h34V2l22 13-22 13v-8H2z"/></svg></a><p class="card-note">$299 launch-ready · $499 custom</p></div></article></div></div>
-<!-- /BUILD:CATALOG -->
-    </div>
-
-    <p class="filter-empty" id="filter-empty" hidden>Nothing on the board matches that filter.</p>
-
-    <div class="legend">
-      <span><i>▌</i> Open now — buy today</span>
-      <span>In line — recorded, not promised</span>
-      <span>Website only — you already run it</span>
-    </div>
-    <!-- Related products. Hand-authored and deliberately OUTSIDE the BUILD:
-         markers above — tools/build-catalog.js rewrites everything between
-         them from the seed, and these three are not territory niches. They
-         are whole businesses you operate, so they get their own band below
-         the board rather than a card in it. -->
-    <section class="related" aria-labelledby="related-h">
-      <p class="related-head">Also from Systems by Vega</p>
-      <h2 id="related-h">Looking for more than a website?</h2>
-      <p class="related-note">These are full platforms, not territory sites. You run the
-        whole operation; the website is only one part of what comes with it.</p>
-      <div class="related-grid">
-        <a class="related-card" href="https://estatesalebiz.com" rel="noopener"><b>EstateSaleBiz</b><span>Run estate sales as the business itself — the training, the pricing data, the contracts and the buyer-side tooling, not just a website for it.</span><em>estatesalebiz.com &rarr;</em></a>
-        <a class="related-card" href="https://garagesalebiz.com" rel="noopener"><b>GarageSaleBiz</b><span>The whole garage-sale operation: the course, the checklists and the map every shopper in town checks on Saturday morning.</span><em>garagesalebiz.com &rarr;</em></a>
-        <a class="related-card" href="https://consignmentbiz.com" rel="noopener"><b>ConsignmentBiz</b><span>Sell other people&rsquo;s furniture and finds on a split, without owning the inventory — the system behind the booth.</span><em>consignmentbiz.com &rarr;</em></a>
-      </div>
-    </section>
-  </div>
-</section>
-
-<!-- ══════════════════════════ GET IN LINE ═══════════════════════════════ -->
-<section class="section" id="line">
-  <div class="wrap-narrow">
-    <div class="section-head">
-      <span class="eyebrow">Get in line</span>
-      <h2>Tell me which one, <br>and which town.</h2>
-      <p class="lede" style="margin-top:12px">
-        This records that you want a specific business in a specific city. It is not a purchase,
-        not a deposit, and not a reservation — nothing is charged and there is nothing to cancel.
-      </p>
-    </div>
-
-    <form id="lineForm" novalidate>
-      <div class="field">
-        <label for="f-niche">Which business</label>
-        <select id="f-niche" name="niche" required>
-          <!-- BUILD:NICHE_SELECT -->
-<option value="">Pick a business…</option><optgroup label="In line — tell me you want this one"><option value="local-auctions">Local Auctions</option><option value="market-vendors">Market Vendors</option><option value="junk-removal">Junk Removal</option><option value="delivery">Delivery &amp; Courier</option><option value="pressure-washing">Pressure Washing</option><option value="bin-cleaning">Bin Cleaning</option><option value="landscaping">Landscaping</option><option value="painting">Painting</option><option value="car-detailing">Car Detailing</option><option value="dog-walking">Dog Walking</option></optgroup><optgroup label="Open today — go straight to the site"><option value="estate-sales" data-open="https://estatesalebiz.com">EstateSaleBiz</option><option value="garage-sales" data-open="https://garagesalebiz.com">GarageSaleBiz</option><option value="consignment-vintage" data-open="https://consignmentbiz.com">ConsignmentBiz</option></optgroup>
-<!-- /BUILD:NICHE_SELECT -->
-        </select>
-      </div>
-
-      <p class="note note-ok" id="f-open-warn" hidden></p>
-
-      <div class="field">
-        <label for="f-city">Your city</label>
-        <div class="row-2">
-          <input id="f-city" name="city" type="text" autocomplete="address-level2" placeholder="Nampa" required>
-          <select id="f-state" name="state" required>
-            <option value="">State</option>
-            <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option>
-            <option>CO</option><option>CT</option><option>DE</option><option>FL</option><option>GA</option>
-            <option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option>
-            <option>KS</option><option>KY</option><option>LA</option><option>ME</option><option>MD</option>
-            <option>MA</option><option>MI</option><option>MN</option><option>MS</option><option>MO</option>
-            <option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option>
-            <option>NM</option><option>NY</option><option>NC</option><option>ND</option><option>OH</option>
-            <option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
-            <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option>
-            <option>VA</option><option>WA</option><option>WV</option><option>WI</option><option>WY</option>
-            <option>DC</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="field">
-        <label for="f-email">Email</label>
-        <input id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
-      </div>
-
-      <div class="field">
-        <label for="f-name">Name <span style="text-transform:none;letter-spacing:0">(optional)</span></label>
-        <input id="f-name" name="name" type="text" autocomplete="name">
-      </div>
-
-      <div class="hp" aria-hidden="true">
-        <label for="f-hp">Leave this empty</label>
-        <input id="f-hp" name="company_website" type="text" tabindex="-1" autocomplete="off">
-      </div>
-
-      <button class="btn btn-pri btn-block" id="f-submit" type="submit">Get in line</button>
-
-      <p class="fine" style="margin-top:14px">
-        One email, once, to confirm. We use your address to tell you if this business gets built
-        in your city and for nothing else. We do not sell it and we will not add you to a
-        marketing list.
-      </p>
-    </form>
-
-    <p class="note" id="f-out" hidden></p>
-  </div>
-</section>
-
 <!-- ══════════════════════════ PROOF ═════════════════════════════════════ -->
 <section class="section" id="proof">
   <div class="wrap">
@@ -349,51 +201,6 @@
       <b>Everything else.</b> The other thirty-five entries in the catalog are either a website
       or a line you can join. None of them is pictured as though it exists.
     </p>
-  </div>
-</section>
-
-<!-- ══════════════════════════ REGISTRY ══════════════════════════════════ -->
-<section class="section" id="registry">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">The registry</span>
-      <h2>One operator per city. <br>Recorded, not promised.</h2>
-    </div>
-
-    <div class="reg-grid">
-      <div class="reveal">
-        <div class="reg-card">
-          <div class="reg-card-head">Territory registry</div>
-          <div class="reg-card-body">
-            <p>A city is one row.</p>
-            <p>A row is written once.</p>
-            <p>It cannot be written twice.</p>
-            <p>The checker reads that row.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="reg-body">
-        <p>Exclusivity is only worth something if it is written down somewhere you can check. For
-        the three businesses that are open, that row already exists, and the availability checker on
-        each of their sites reads it. That is the whole mechanism — there is no bidding, no renewal
-        auction, and no tier that buys you more of the map.</p>
-
-        <p>For everything else in the catalog there is nothing to check yet, because there is
-        nothing built. So instead we write down who asked, and for which town. When enough people
-        ask for the same business, that is the one that gets built next — and the people who asked
-        get the first offer on their own city before it is listed publicly.</p>
-
-        <p>It does not mean you would be the only person in town allowed to do the work. We cannot
-        grant that and nobody can. Anyone is free to run their own sales, and other companies may
-        operate near you. What you get is exclusivity within the platform, and the tools and
-        training that come with it.</p>
-
-        <p class="fine">Waiting counts appear only above three. A registry that says one person is
-        waiting argues against the thing it is meant to evidence, and an invented number would be
-        worse than either. Below that, this section carries the mechanism on its own.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -458,51 +265,6 @@
   </div>
 </section>
 
-<!-- ══════════════════════════ FAQ ═══════════════════════════════════════ -->
-<section class="section" id="faq">
-  <div class="wrap-narrow">
-    <div class="section-head">
-      <span class="eyebrow">Straight answers</span>
-      <h2>The questions worth asking.</h2>
-    </div>
-
-    <div class="qa"><button type="button">How much can I make?</button>
-      <div class="qa-a"><p>We will not answer that, and you should be wary of anyone who does. It
-      depends on your town, how many jobs you book, and how hard you work. Some operators never
-      book a job. You could lose money on this. What we can tell you is the mechanics — what the
-      software does, what the documents say, and what the price is.</p></div></div>
-
-    <div class="qa"><button type="button">Is this a franchise?</button>
-      <div class="qa-a"><p>No. You operate under your own business name, keep every dollar you
-      collect, and pay no royalty. We exercise no control over how you work. There is no franchise
-      fee because there is no franchise, and it is not a business opportunity either.</p></div></div>
-
-    <div class="qa"><button type="button">What does "in line" actually get me?</button>
-      <div class="qa-a"><p>A row in a table saying you want a specific business in a specific city,
-      and one email confirming it. That is all it is. It is not a reservation and it does not hold
-      your city — there is nothing to hold yet. If that business gets built, you get the first
-      offer on your city before it is listed publicly.</p></div></div>
-
-    <div class="qa"><button type="button">When will the rest be built?</button>
-      <div class="qa-a"><p>In the order people ask for them, which is the honest answer rather than
-      a roadmap with dates on it. Each of these takes months to build properly, and I build them
-      one at a time. If nobody asks for one, I will not build it.</p></div></div>
-
-    <div class="qa"><button type="button">Do I need a licence?</button>
-      <div class="qa-a"><p>For some of these, yes, and it varies enormously by state and city. Where
-      we know a business commonly needs one, the catalog entry says so — but you must check the
-      rules where you live and comply with them yourself. Nothing on this site is legal, tax, or
-      insurance advice.</p></div></div>
-
-    <div class="qa"><button type="button">Why are some of these websites only?</button>
-      <div class="qa-a"><p>Because a territory would be selling you something we cannot deliver.
-      Plumbing, electrical, heating and air, roofing and general contracting are licensed trades —
-      the licence already decides who can work in your town, so exclusivity from a software vendor
-      would add nothing. Others depend on a shop, a chair, or a particular person. Those we sell as
-      a website, which is the part we can actually hand over.</p></div></div>
-  </div>
-</section>
-
 <!-- ══════════════════════════ FOOTER ════════════════════════════════════ -->
 <!-- BUILD:FOOTER -->
 <footer class="gfoot">
@@ -520,51 +282,8 @@
 </footer><!-- /BUILD:FOOTER -->
 
 <div class="mcta">
-  <a class="btn btn-sec" href="#catalog">Browse the catalog</a>
-  <a class="btn btn-pri" href="#line">Get in line</a>
-</div>
-
-<!-- The plate, opened. Every field in here is either lifted from the card that
-     was clicked or derived from that card's status — nothing is authored per
-     business, so the modal cannot claim something the catalog does not. The
-     body is filled by sbv.js; the shell is static only so the dialog can carry
-     stable ids for aria-labelledby. -->
-<div class="nm" id="nm" data-open="0" role="dialog" aria-modal="true" aria-labelledby="nm-title" hidden>
-  <div class="nm-card" id="nm-card">
-    <span class="staple l" aria-hidden="true"></span>
-    <span class="staple r" aria-hidden="true"></span>
-    <button type="button" class="nm-close" id="nm-close" aria-label="Close">&times;</button>
-    <span class="card-meta">
-      <span class="code" id="nm-code"></span>
-      <span class="tok" id="nm-tok"></span>
-    </span>
-    <h3 id="nm-title"></h3>
-    <p class="nm-fam" id="nm-fam"></p>
-    <p class="nm-note" id="nm-note"></p>
-    <div class="nm-rows" id="nm-rows"></div>
-    <div class="nm-foot" id="nm-foot"></div>
-  </div>
-</div>
-
-<!-- Exit card. Desktop only, once per session, and never in the first twenty
-     seconds — so it cannot fire on a bounce, which is the behaviour that makes
-     these things hated. It offers the thing that is already free on this page
-     and says plainly that it costs nothing. -->
-<div class="exit" id="exit" data-open="0" role="dialog" aria-modal="true"
-     aria-labelledby="exit-h" hidden>
-  <div class="exit-card">
-    <button type="button" class="exit-close" id="exit-close" aria-label="Close">&times;</button>
-    <h3 id="exit-h">Before you close the tab.</h3>
-    <p>You do not have to decide anything today. You can put your town
-      down for a business that is not built yet, and that is the whole action.</p>
-    <p class="fine">Nothing is charged, there is nothing to cancel, and one
-      email confirms it. If it gets built, you get the first offer on your city before it is
-      listed publicly.</p>
-    <div class="exit-cta">
-      <a class="btn btn-pri" href="#line" id="exit-go">Get in line</a>
-      <button type="button" class="btn btn-sec" id="exit-no">Keep browsing</button>
-    </div>
-  </div>
+  <a class="btn btn-sec" href="/sites/#catalog">Browse the catalog</a>
+  <a class="btn btn-pri" href="/sites/#line">Get in line</a>
 </div>
 
 <script>

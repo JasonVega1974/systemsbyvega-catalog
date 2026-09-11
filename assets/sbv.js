@@ -98,7 +98,7 @@
        overwriting it would take the heading, the lede and the legend with it. */
     var root = el('catalog-root');
     if (root) {
-      root.innerHTML = R.catalog(state.families, state.niches, state.counts);
+      root.innerHTML = R.catalog(state.families, state.niches, state.counts, window.SBV_EXTRAS || {});
       wireLineLinks();
       observe();
       /* The repaint just destroyed every card, so anything that decorates a

@@ -22,13 +22,7 @@ const ROOT = path.resolve(__dirname, '..');
    here and this file exits 0. */
 const PAGES = [
   { route: '/',       file: 'index.html',       sharedAssets: true },
-  /* sharedAssets:false is a DECLARED, REASONED exception, not an oversight.
-     sites/index.html is ~300 lines of inline <style> and loads neither shared
-     asset, so the injected chrome is unstyled and its drawer is inert there.
-     Task 10 deletes that inline block when it consolidates the catalog into
-     this page, and flips this flag to true. The gate fails if it forgets. */
-  { route: '/sites/', file: 'sites/index.html', sharedAssets: false,
-    pending: 'inline <style> until Task 10 consolidates the catalog here' },
+  { route: '/sites/', file: 'sites/index.html', sharedAssets: true },
   { route: '/platforms/', file: 'platforms/index.html', sharedAssets: true },
   { route: '/services/', file: 'services/index.html', sharedAssets: true },
   { route: '/work/', file: 'work/index.html', sharedAssets: true },

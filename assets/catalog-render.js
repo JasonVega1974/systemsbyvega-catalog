@@ -75,8 +75,35 @@
     return { cls: 'site', text: 'Website' };
   }
 
+  /* Demo brand name and feature chips. These are NOT database columns and
+     must never become ones: they describe the artifact on disk, not the
+     product's commercial state. Passed in as a lookup so the runtime
+     re-render has them too — a field that lives only in the seed renders
+     once and disappears the moment live rows arrive. */
+  function extras(n, lookup) {
+    var x = (lookup && lookup[n.slug]) || {};
+    return (x.brand ? '<p class="card-brand">' + esc(x.brand) + '</p>' : '') +
+           (x.chips && x.chips.length
+             ? '<p class="card-chips">' + x.chips.map(function (c) {
+                 return '<span class="chip-sm">' + esc(c) + '</span>';
+               }).join('') + '</p>'
+             : '');
+  }
+
+  /* "Claim this territory" opens the claim/claim.js modal — slug and name are
+     real sbv_niches columns, so this survives the live re-render same as the
+     rest of the card. Offered wherever a turnkey site actually exists to buy,
+     regardless of whether the underlying business itself is open or in line. */
+  function claimBtn(n) {
+    if (!n.website_offer || !n.demo_path) return '';
+    return '<button type="button" class="card-go claim-btn" data-slug="' + esc(n.slug) +
+           '" data-name="' + esc(n.name) + '"><span>Claim this territory</span>' + ARROW + '</button>' +
+           '<p class="card-claimed" data-claimed="' + esc(n.slug) + '" hidden></p>';
+  }
+
   function footRow(n, counts) {
     var c = (counts && counts[n.slug]) || {};
+    var claim = claimBtn(n);
 
     if (n.status === 'open') {
       return '<a class="card-go" href="' + esc(n.open_url) + '">' +
@@ -96,17 +123,20 @@
                '<span>Claim a spot</span>' + ARROW +
              '</a>' + count +
              (n.website_offer && n.demo_path
-               ? '<a class="card-alt" href="' + esc(n.demo_path) + '">See the site your customers would get</a>'
+               ? '<a class="card-alt" href="' + esc(n.demo_path) + '">See the site your customers would get</a>' + claim
                : '');
     }
 
-    return '<a class="card-go" href="' + esc(n.demo_path || '#websites') + '">' +
+    return (claim || ('<a class="card-go" href="' + esc(n.demo_path || '#websites') + '">' +
              '<span>See the site</span>' + ARROW +
-           '</a>' +
+           '</a>')) +
+           (claim && n.demo_path
+             ? '<a class="card-alt" href="' + esc(n.demo_path) + '">See the site first</a>'
+             : '') +
            '<p class="card-note">$299 launch-ready · $499 custom</p>';
   }
 
-  function entry(n, famName, counts, idx) {
+  function entry(n, famName, counts, idx, extrasLookup) {
     var tok = statusTok(n);
     var bg  = badge(n);
     var cls = 'entry sheet reveal is-' + n.status.replace(/_/g, '-');
@@ -126,13 +156,14 @@
                '<span class="tok ' + tok.cls + '">' + esc(tok.text) + '</span>' +
              '</span>' +
              '<h3>' + esc(n.name) + '</h3>' +
+             extras(n, extrasLookup) +
              '<p class="job">' + esc(n.job_line) + '</p>' +
              (n.caveat ? '<p class="caveat">' + esc(n.caveat) + '</p>' : '') +
              '<div class="entry-foot">' + footRow(n, counts) + '</div>' +
            '</article>';
   }
 
-  function catalog(families, niches, counts) {
+  function catalog(families, niches, counts, extrasLookup) {
     /* Seed order decides the number on the plate, so it is computed once from
        the whole list before anything is grouped by family. */
     var seedIndex = {};
@@ -151,7 +182,7 @@
                '</div>' +
                '<p class="plate-note">' + esc(fam.note) + '</p>' +
                '<div class="grid">' +
-                 rows.map(function (n) { return entry(n, fam.name, counts, seedIndex[n.slug]); }).join('') +
+                 rows.map(function (n) { return entry(n, fam.name, counts, seedIndex[n.slug], extrasLookup); }).join('') +
                '</div>' +
              '</div>';
     }).join('');
@@ -206,6 +237,7 @@
     esc: esc,
     catalog: catalog,
     entry: entry,
+    extras: extras,
     nicheSelect: nicheSelect,
     figures: figures,
     numWord: numWord,

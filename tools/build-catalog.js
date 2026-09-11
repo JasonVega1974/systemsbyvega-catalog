@@ -1,22 +1,31 @@
 #!/usr/bin/env node
 /* ============================================================================
-   build-catalog.js — pre-render the catalog into index.html
+   build-catalog.js — pre-render the catalog into sites/index.html (and hand
+   its figures to every page that still needs one)
    ----------------------------------------------------------------------------
    Reads assets/data/niches.seed.json and writes the finished catalog markup,
-   the niche <select>, the inline seed, and every masthead figure into
-   index.html between BUILD: markers.
+   the niche <select>, the inline seed, and every masthead figure between
+   BUILD: markers. The catalog board itself lives on sites/index.html now
+   (Task 10 moved it off the root); index.html and platforms/index.html each
+   still need a subset of the same figures, so this file targets all three.
 
    WHY THIS EXISTS. The catalog is the product; it must be in the HTML. If the
    page drew itself from JavaScript, a visitor with JS disabled or a script that
    threw early would get an empty page — which is exactly the failure the demo
-   sites under /sites/ carry today (their #svcGrid, #priceGrid and #faqList
-   render as empty containers with JS off).
+   sites under /sites/ carried before this task (their #svcGrid, #priceGrid and
+   #faqList rendered as empty containers with JS off).
 
-   It also means NO COUNT IS EVER TYPED BY HAND. "29 businesses listed" and
-   "Two are open today" are computed from the seed on every build. The previous
+   It also means NO COUNT IS EVER TYPED BY HAND. "38 businesses listed" and
+   "Three are open today" are computed from the seed on every build. An earlier
    homepage claimed nine shipped projects while the portfolio rendered eleven,
    because both numbers were written out by a person. This removes that class
    of error entirely.
+
+   Ruling R1 — three files, three marker sets. inject() throws on a marker a
+   file does not declare, so each target below names exactly what it carries.
+   index.html does not yet carry the catalog's own figures in the right place
+   (Task 9 rebuilds that page) — it keeps only TOTAL/OPEN/SITES for its proof
+   strip, same as before this task.
 
    Run:  node tools/build-catalog.js          (from the repo root)
          node tools/build-catalog.js --check  (verify, write nothing; CI-safe)
@@ -28,11 +37,28 @@ const path = require('path');
 
 const ROOT   = path.resolve(__dirname, '..');
 const SEED   = path.join(ROOT, 'assets', 'data', 'niches.seed.json');
-const PAGE   = path.join(ROOT, 'index.html');
+const MANIFESTS = path.join(ROOT, 'assets', 'data', 'manifests.json');
 const R      = require(path.join(ROOT, 'assets', 'catalog-render.js'));
 const { inject } = require('./lib/inject');
 
 const CHECK = process.argv.includes('--check');
+
+/* Two files, different marker sets, and now a third. The catalog lives on
+   /sites/ now, but the landing page's proof strip still needs its three
+   figures — and those figures must come from the same R.figures() call as
+   everything else, or the landing page becomes a fourth place a count is
+   written down. platforms/index.html only ever needed the seed script, which
+   it used to carry by hand (see the removed TODO there). inject() throws on a
+   missing marker, so each target names exactly what it carries. */
+const TARGETS = [
+  { file: path.join(ROOT, 'index.html'),
+    markers: ['TOTAL', 'OPEN', 'SITES'] },
+  { file: path.join(ROOT, 'sites', 'index.html'),
+    markers: ['TOTAL', 'OPEN', 'SITES', 'THESIS_OPEN',
+              'CATALOG', 'NICHE_SELECT', 'SEED_SCRIPT', 'EXTRAS_SCRIPT'] },
+  { file: path.join(ROOT, 'platforms', 'index.html'),
+    markers: ['SEED_SCRIPT'] },
+];
 
 /* ------------------------------------------------------------- validation */
 /* A bad seed should stop the build, not ship a wrong catalog. */
@@ -81,6 +107,53 @@ function validate(seed) {
   return errs;
 }
 
+/* --------------------------------------------------------------- extras */
+/* window.SBV_EXTRAS: a slug-keyed lookup of things that describe the demo
+   ARTIFACT on disk (a brand name picked for the mockup, the feature chips a
+   template happens to ship with) rather than the business's commercial state.
+   Those can never become sbv_niches columns — see assets/catalog-render.js's
+   header — so they travel next to the seed instead, read by both the build
+   and the runtime re-render off the same file, same as SBV_SEED itself. */
+const SECTION_LABEL = {
+  pricing:      'Pricing tiers',
+  beforeAfter:  'Before/after gallery',
+  jobDetails:   'Job detail cards',
+  reviews:      'Reviews',
+  social:       'Social links',
+  ownerBlock:   'Owner profile',
+  footerContact:'Contact footer'
+};
+
+function buildExtras(seed) {
+  let manifests = {};
+  try { manifests = JSON.parse(fs.readFileSync(MANIFESTS, 'utf8')); }
+  catch (e) { /* no manifest data — extras degrade to brand-only or empty */ }
+
+  const extras = {};
+  seed.niches.forEach(n => {
+    if (!n.demo_path) return;
+    const dirSlug = n.demo_path.replace(/^\/sites\//, '').replace(/\/$/, '');
+    const contentPath = path.join(ROOT, 'sites', dirSlug, 'content.json');
+
+    let brand = null;
+    try {
+      const content = JSON.parse(fs.readFileSync(contentPath, 'utf8'));
+      brand = (content.brand && content.brand.name) || null;
+    } catch (e) { /* no content.json — brand stays unset, the card still renders */ }
+
+    const sections = (manifests[dirSlug] && manifests[dirSlug].sections) || {};
+    const chips = Object.keys(SECTION_LABEL)
+      .filter(k => sections[k])
+      .map(k => SECTION_LABEL[k]);
+    if (n.website_offer) chips.push('Owner admin panel (live CMS)');
+
+    if (brand || chips.length) extras[n.slug] = {};
+    if (brand) extras[n.slug].brand = brand;
+    if (chips.length) extras[n.slug].chips = chips;
+  });
+  return extras;
+}
+
 /* -------------------------------------------------------------------- run */
 function main() {
   const seed = JSON.parse(fs.readFileSync(SEED, 'utf8'));
@@ -91,35 +164,64 @@ function main() {
     process.exit(1);
   }
 
-  const fig = R.figures(seed.niches);
+  const fig    = R.figures(seed.niches);
+  const extras = buildExtras(seed);
+
   const seedScript =
     '\n<script>window.SBV_SEED=' +
     JSON.stringify({ families: seed.families, niches: seed.niches }) +
     ';</script>\n';
+  const extrasScript =
+    '\n<script>window.SBV_EXTRAS=' + JSON.stringify(extras) + ';</script>\n';
 
-  let html = fs.readFileSync(PAGE, 'utf8');
-  const before = html;
+  /* Every value ANY target might ask for, built once from the one R.figures()
+     call — so index.html, sites/index.html and platforms/index.html cannot
+     print three different counts for the same seed. Each target's own
+     `markers` list decides which of these it actually receives. */
+  const VALUES = {
+    THESIS_OPEN:  R.thesisOpen(fig.open),
+    TOTAL:        String(fig.total),
+    OPEN:         String(fig.open),
+    SITES:        String(fig.sites),
+    CATALOG:      '\n' + R.catalog(seed.families, seed.niches, {}, extras) + '\n',
+    NICHE_SELECT: '\n' + R.nicheSelect(seed.niches) + '\n',
+    SEED_SCRIPT:  seedScript,
+    EXTRAS_SCRIPT: extrasScript
+  };
 
-  html = inject(html, 'THESIS_OPEN',  R.thesisOpen(fig.open));
-  html = inject(html, 'TOTAL',        String(fig.total));
-  html = inject(html, 'OPEN',         String(fig.open));
-  html = inject(html, 'SITES',        String(fig.sites));
-  html = inject(html, 'CATALOG',      '\n' + R.catalog(seed.families, seed.niches, {}) + '\n');
-  html = inject(html, 'NICHE_SELECT', '\n' + R.nicheSelect(seed.niches) + '\n');
-  html = inject(html, 'SEED_SCRIPT',  seedScript);
+  let anyDrift = false;
+
+  TARGETS.forEach(target => {
+    const label = path.relative(ROOT, target.file);
+    let html = fs.readFileSync(target.file, 'utf8');
+    const before = html;
+
+    target.markers.forEach(marker => {
+      html = inject(html, marker, VALUES[marker], label);
+    });
+
+    if (CHECK) {
+      if (before !== html) {
+        console.error(`${label} is out of date with the seed.`);
+        anyDrift = true;
+      } else {
+        console.log(`${label} is in sync with the seed.`);
+      }
+      return;
+    }
+
+    fs.writeFileSync(target.file, html);
+    console.log(`built ${label} from seed`);
+  });
 
   if (CHECK) {
-    if (before !== html) {
-      console.error('index.html is out of date with the seed. Run: node tools/build-catalog.js');
+    if (anyDrift) {
+      console.error('Run: node tools/build-catalog.js');
       process.exit(1);
     }
-    console.log('index.html is in sync with the seed.');
     return;
   }
 
-  fs.writeFileSync(PAGE, html);
-
-  console.log('built index.html from seed');
   console.log(`  ${fig.total} listed · ${fig.open} open · ${fig.inLine} in line · ${fig.websiteOnly} website-only`);
   console.log(`  ${seed.families.length} family plates`);
 }
