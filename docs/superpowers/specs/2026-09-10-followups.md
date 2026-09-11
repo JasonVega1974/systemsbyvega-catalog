@@ -151,3 +151,23 @@ instead, with the reasoning written up at `assets/sbv.css:1173`. Apply the same 
 
 **Why Task 10:** that task moves this modal to `/sites/` anyway, so it is the natural
 place to fix it rather than touching `sbv.js` twice.
+
+---
+
+## F8 — purpose-built Open Graph art
+
+**Status:** open, cosmetic, not blocking.
+
+All six pages now carry `og:image`, but they reuse product screenshots from
+`assets/shots/` at **1280×800 (1.6:1)**. The social ideal is **1200×630 (1.91:1)**, so
+Facebook, Instagram, LinkedIn and X will letterbox or centre-crop them. Nothing breaks;
+the cards are just not composed for the frame.
+
+Given this site's traffic comes from paid social, purpose-built OG art — correct ratio,
+with the headline and a legible product shot composed for it — is worth doing as its own
+small design pass. `tools/build-og.js` already exists in this repo and generates OG
+images for the niche sites; extending it to cover the six marketing pages is the obvious
+route.
+
+A real screenshot beats a blank card, which is what five of the six pages had before, so
+this is an improvement to build on rather than a defect to fix.
