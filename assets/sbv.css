@@ -98,7 +98,7 @@
    avoid. Only four bands are dark, and they are spaced so the eye resets
    between them.
 */
-.plate, #catalog, #proof, #founder, .foot{
+.plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
