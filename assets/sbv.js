@@ -124,7 +124,7 @@
 
     rest('sbv_niches?select=*&is_listed=eq.true&order=sort.asc')
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (rows) { if (rows && rows.length) { state.niches = rows; paint(); } })
+      .then(function (rows) { if (rows && rows.length) { state.niches = rows; paint(); paintPlatforms(); } })
       .catch(function () { /* the pre-rendered catalog stands */ });
 
     rest('rpc/sbv_demand_counts')
@@ -838,6 +838,42 @@
     });
   }
 
+  /* ------------------------------------------------------------ platforms */
+  /* /platforms/ only. A no-op everywhere else — #platforms-root does not
+     exist on any other page, so this returns before touching the DOM.
+
+     The three open platforms, from the same rows the catalog reads. A price
+     typed into this page would be a fourth place the number lives — the
+     catalog, the seed, the database, and here — and the audit found what
+     happens when prose keeps its own copy of a figure. Status is hydrated
+     the same way, so the card cannot say "Open now" for a slug the seed no
+     longer marks open. */
+  var PLATFORM_STATUS_LABEL = { open: 'Open now', in_line: 'Waitlist', website_only: 'Website' };
+  function paintPlatforms() {
+    var root = el('platforms-root');
+    if (!root || !state.niches.length) return;
+    state.niches.filter(function (n) { return n.status === 'open'; })
+      .forEach(function (n) {
+        var card = root.querySelector('[data-slug="' + n.slug + '"]');
+        if (!card) return;
+        var price = card.querySelector('[data-price]');
+        if (price) price.textContent = n.price_label || '';
+        var status = card.querySelector('[data-status]');
+        if (status) status.textContent = PLATFORM_STATUS_LABEL[n.status] || n.status;
+      });
+
+    /* The closing "What's next" band. Chips, not a hand-typed list — the ten
+       in-line businesses are whatever the seed currently says they are, and
+       this reads it the same way the homepage's #line select does. */
+    var next = el('next-chips');
+    if (next) {
+      next.innerHTML = state.niches.filter(function (n) { return n.status === 'in_line'; })
+        .map(function (n) {
+          return '<a class="chip" href="/sites/#line" data-niche="' + n.slug + '">' + n.name + '</a>';
+        }).join('');
+    }
+  }
+
   function boot() {
     document.documentElement.classList.remove('no-js');
     wireLineLinks();
@@ -856,6 +892,7 @@
     heroBoard();
     wireRail();
     wireExit();
+    paintPlatforms();
 
     loadLive();
   }

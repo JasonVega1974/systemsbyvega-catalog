@@ -105,8 +105,13 @@
    the existing .qa accordion) sits dark for the same reason #proof does on
    the homepage — a dark band right before the closing ask resets the eye
    before the form. No content band repeats a neighbour's tone.
+
+   /platforms/ also reuses the same three rules. Its rhythm: nav dark, hero
+   dark (.plate), #esb paper, #gsb white, #csb paper, #next dark, footer dark.
+   Paper never sits next to paper — #esb and #csb are separated by #gsb white
+   in between, same principle as #problem/#process on /services/ not touching.
 */
-.plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer, #answers{
+.plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer, #answers, #next{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
@@ -134,7 +139,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#how, #line, #websites, #build, #inquiry{
+#how, #line, #websites, #build, #inquiry, #gsb{
   --bg:      var(--panel);
   --surface: var(--paper);
   --surface-2:var(--panel);
@@ -153,7 +158,7 @@
   background:var(--bg);
   color:var(--tx);
 }
-#registry, #faq, #problem, #process{
+#registry, #faq, #problem, #process, #esb, #csb{
   --bg:      var(--paper);
   --surface: var(--panel);
   --surface-2:var(--panel);
@@ -273,7 +278,8 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .section{padding:64px 0;border-top:1px solid var(--rule)}
 /* Bands are full-width and butt against each other; a hairline between two
    different grounds is noise, so only same-tone neighbours keep one. */
-#proof, #registry, #catalog, #how, #line, #websites, #faq, #founder{border-top:0}
+#proof, #registry, #catalog, #how, #line, #websites, #faq, #founder,
+#esb, #gsb, #csb, #next{border-top:0}
 .section-head{margin-bottom:30px}
 .section-head h2{margin:12px 0 16px}
 

@@ -35,6 +35,7 @@ const NAV = [
 const PAGES = [
   { route: '/',         file: 'index.html',         indexable: true },
   { route: '/sites/',   file: 'sites/index.html',   indexable: true },
+  { route: '/platforms/', file: 'platforms/index.html', indexable: true },
   { route: '/services/', file: 'services/index.html', indexable: true },
 ];
 
