@@ -171,3 +171,26 @@ route.
 
 A real screenshot beats a blank card, which is what five of the six pages had before, so
 this is an improvement to build on rather than a defect to fix.
+
+---
+
+## F9 — the a11y sweep cannot see inside closed drawers
+
+**Status:** open, known blind spot, documented in code.
+
+`tools/a11y-sweep.js`'s `vis()` guard excludes off-canvas elements
+(`r.right <= 0 || r.left >= vw`). That is correct for honeypots and off-screen
+scaffolding, and it removed a batch of false positives.
+
+But the sweep never *opens* anything, so any component that is off-canvas until
+interacted with — the mobile nav drawer above all — is now permanently invisible to the
+tap-target and focus-ring checks. That is the single component most likely to regress,
+and the brief for the task that added this guard named it as a likely offender.
+
+**To close it:** teach the sweep to drive each page's disclosure controls (click the
+burger, wait for the drawer, re-run the probes with it open) before reporting. That is a
+real feature, not a tweak, which is why it was deliberately not attempted during a
+polish pass.
+
+Until then the drawer's accessibility is covered only by the manual browser checks
+recorded in the task reports — verified working at the time, but not gated.
