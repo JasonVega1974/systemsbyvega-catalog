@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Systems by Vega — I build the whole system, not the website</title>
+<title>Systems by Vega — I build the whole system, not just the website</title>
 <meta name="description" content="Turnkey local businesses, multi-tenant SaaS platforms, and custom software — built solo, shipped, and running today. Browse the catalog, the platforms, or the work.">
 <link rel="canonical" href="https://systemsbyvega.com/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Systems by Vega — I build the whole system, not the website">
+<meta property="og:title" content="Systems by Vega — I build the whole system, not just the website">
 <meta property="og:description" content="Turnkey local businesses, multi-tenant SaaS platforms, and custom software — built solo, shipped, and running today.">
 <meta property="og:url" content="https://systemsbyvega.com/">
 <meta name="twitter:card" content="summary_large_image">
@@ -101,7 +101,7 @@
   <div class="wrap">
     <div class="plate-body">
       <div class="plate-sub">Systems by Vega</div>
-      <h1 class="display">I build the whole system,<br>not the website.</h1>
+      <h1 class="display">I build the whole system,<br>not just the website.</h1>
       <p class="thesis">
         Turnkey local businesses, multi-tenant SaaS platforms, and custom software —
         built solo, shipped, and running today.
@@ -111,24 +111,56 @@
         <a class="btn btn-sec" href="/work/">See what I build</a>
       </div>
 
-      <!-- The sequence: two real screenshots, cross-faded. Demo storefront,
-           then the same storefront rebuilt under another brand (Ruling R7 —
-           not three frames; /admin/ is behind auth). CSS @keyframes only. -->
+      <!-- The rotator: six real screenshots, one per featured niche, cross-
+           faded on a 30s loop — 5s a frame. Each is that niche's own hero,
+           captured from its built site by tools/build-shots.js (the same
+           assets/shots/featured/ rest frames the cards below use — one file,
+           one source of truth, and the browser downloads each only once).
+           Supersedes the two-frame demo-then-branded sequence of Rulings R7
+           and R14; see docs/superpowers/specs/2026-09-10-rulings.md.
+           Frames are labelled by TRADE, never by demo brand name: the brands
+           are examples, and a brand name in the hero — above the disclaimer
+           that qualifies them on the cards below — would read as a client
+           roster. CSS @keyframes only; pauses on hover. -->
       <div class="seq-frame reveal">
         <div class="seq-chrome" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="seq">
-          <img src="/assets/shots/hero/1-demo.jpg" width="1280" height="800"
-               alt="The landscaping demo storefront, Larkspur &amp; Ledge Landscape Co., carrying a banner that reads Demo — this site is for sale.">
-          <img src="/assets/shots/hero/2-branded.jpg" width="1280" height="800"
-               alt="The same site, genuinely rebuilt under a different brand — Vega &amp; Sons Lawn Care — with no demo banner.">
+          <img src="/assets/shots/featured/bin-cleaning.jpg" width="1280" height="800"
+               fetchpriority="high" decoding="async"
+               alt="The bin-cleaning demo storefront: a dark hero reading Clean bins. Fresher homes., above a starting price and a book button.">
+          <img src="/assets/shots/featured/landscaping.jpg" width="1280" height="800"
+               fetchpriority="low" decoding="async"
+               alt="The landscaping demo storefront: a lawn-care hero over a seasonal service list.">
+          <img src="/assets/shots/featured/dumpster-rental.jpg" width="1280" height="800"
+               fetchpriority="low" decoding="async"
+               alt="The dumpster-rental demo storefront: a container hero above a size and price picker.">
+          <img src="/assets/shots/featured/dog-walking.jpg" width="1280" height="800"
+               fetchpriority="low" decoding="async"
+               alt="The dog-walking demo storefront: a pet-care hero above a weekly walk builder.">
+          <img src="/assets/shots/featured/dj.jpg" width="1280" height="800"
+               fetchpriority="low" decoding="async"
+               alt="The DJ demo storefront: a neon hero over a live audio visualiser.">
+          <img src="/assets/shots/featured/child-care.jpg" width="1280" height="800"
+               fetchpriority="low" decoding="async"
+               alt="The child-care demo storefront: a dusk hero above an evening sitting rate.">
         </div>
         <div class="seq-cap" aria-hidden="true">
-          <span>The demo</span>
-          <span>Your site.</span>
+          <span>Bin cleaning</span>
+          <span>Landscaping</span>
+          <span>Dumpster rental</span>
+          <span>Dog walking</span>
+          <span>DJ</span>
+          <span>Child care</span>
         </div>
+        <!-- Reduced motion holds frame 1 and turns the rotation into a list,
+             so the other five trades are still stated rather than lost. -->
         <div class="seq-steps">
-          <div class="seq-step"><b>1</b><span>The demo</span></div>
-          <div class="seq-step"><b>2</b><span>Your site.</span></div>
+          <span class="seq-step is-current">Bin cleaning</span>
+          <span class="seq-step">Landscaping</span>
+          <span class="seq-step">Dumpster rental</span>
+          <span class="seq-step">Dog walking</span>
+          <span class="seq-step">DJ</span>
+          <span class="seq-step">Child care</span>
         </div>
       </div>
     </div>

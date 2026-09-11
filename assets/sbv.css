@@ -297,46 +297,70 @@ h3{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01
 .ledger-cell span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.1em;
   text-transform:uppercase;color:var(--tx-3);margin-top:9px}
 
-/* ---------------------------------------------------------- hero sequence --
-   Ruling R7: TWO real screenshots, cross-faded — the demo storefront, then
-   the same storefront rebuilt under another brand. Not a third admin frame:
-   /admin/ sits behind auth, and a logged-out capture would be a sign-in form
-   presented as an admin panel, which the admin step describes as text in
-   How-it-works instead. CSS @keyframes opacity on two stacked <img> — no JS,
-   no canvas, no library, because that is all two frames need. */
+/* ---------------------------------------------------------- hero rotator --
+   Six real screenshots, one per featured niche, cross-faded on a 30s loop.
+   Supersedes the two-frame demo-then-branded sequence of Rulings R7/R14 —
+   the hero's job is now "look how many trades are already running", which
+   six frames say and two could not.
+
+   The clock. 6 frames x 5s = a 30s cycle, so one slot is 16.667% and the
+   0.6s cross-fade is 2%. Each frame holds opacity 1 across its own slot and
+   fades out over the 2% that the NEXT frame fades in, which is what makes it
+   a cross-fade rather than a cut through the background. Frame n carries
+   animation-delay:n*5s; before its delay elapses the element sits at its own
+   opacity:0, so nothing flashes on first paint. Frame 6's fade-out (25s ->
+   30.6s) overlaps frame 1's next fade-in at 30s, so the loop closes seamlessly
+   instead of snapping.
+
+   Still CSS @keyframes on stacked <img> — no JS, no library. Six frames is
+   more state than two, but not enough to justify either. */
 .seq-frame{max-width:640px;margin:38px auto 0;padding:14px 14px 20px;
   background:var(--surface);border:1px solid var(--rule-2);border-radius:14px;
   box-shadow:var(--elev-2)}
 .seq-chrome{display:flex;gap:6px;padding:0 4px 12px}
 .seq-chrome i{width:9px;height:9px;border-radius:50%;background:var(--rule-2)}
 .seq{position:relative;aspect-ratio:16/10;border-radius:9px;overflow:hidden;background:var(--surface-2)}
-.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:seq 8s infinite}
+.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;animation:seq 30s infinite}
 .seq img:nth-child(1){animation-delay:0s}
-.seq img:nth-child(2){animation-delay:4s}
+.seq img:nth-child(2){animation-delay:5s}
+.seq img:nth-child(3){animation-delay:10s}
+.seq img:nth-child(4){animation-delay:15s}
+.seq img:nth-child(5){animation-delay:20s}
+.seq img:nth-child(6){animation-delay:25s}
 @keyframes seq{
-  0%,3%   {opacity:0}
-  8%,45%  {opacity:1}
-  50%,100%{opacity:0}
+  0%                {opacity:0}
+  2%,   16.6667%    {opacity:1}
+  18.6667%, 100%    {opacity:0}
 }
 /* Captions cross-fade on the same clock as the frames so the text never
-   contradicts the image. */
+   contradicts the image. Trades, not demo brand names — see the note on the
+   markup in index.html. */
 .seq-cap{position:relative;height:18px;margin-top:14px;text-align:center;
   font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--tx-2)}
-.seq-cap span{position:absolute;inset:0;opacity:0;animation:seq 8s infinite}
+.seq-cap span{position:absolute;inset:0;opacity:0;animation:seq 30s infinite}
 .seq-cap span:nth-child(1){animation-delay:0s}
-.seq-cap span:nth-child(2){animation-delay:4s}
+.seq-cap span:nth-child(2){animation-delay:5s}
+.seq-cap span:nth-child(3){animation-delay:10s}
+.seq-cap span:nth-child(4){animation-delay:15s}
+.seq-cap span:nth-child(5){animation-delay:20s}
+.seq-cap span:nth-child(6){animation-delay:25s}
+/* Pause on hover. Frames and captions share one clock, so both must pause or
+   the caption walks off its image. */
+.seq-frame:hover .seq img,
+.seq-frame:hover .seq-cap span{animation-play-state:paused}
 /* Reduced motion gets a DIFFERENT honest presentation, not a broken one:
-   frame 1 held, and the captions become a visible two-step row that explains
-   the same mechanism in text. */
-.seq-steps{display:none;gap:18px;margin-top:16px;justify-content:center;flex-wrap:wrap}
-.seq-step{display:flex;align-items:center;gap:9px;font-family:var(--mono);
-  font-size:12px;letter-spacing:.04em;color:var(--tx-2)}
-.seq-step b{width:22px;height:22px;border-radius:50%;background:var(--acc);color:var(--acc-ink);
-  display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:12px;flex:none}
+   frame 1 held with its own caption pinned under it, and the five trades it
+   can no longer rotate to become a visible row instead of being lost. */
+.seq-steps{display:none;gap:8px;margin-top:16px;justify-content:center;flex-wrap:wrap}
+.seq-step{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--tx-2);border:1px solid var(--rule-2);border-radius:999px;padding:5px 11px}
+/* The held frame keeps its own caption above this row, so the trade it is
+   showing is marked here too — otherwise the caption and the first chip
+   read as an accidental duplicate rather than a label and its list. */
+.seq-step.is-current{color:var(--acc);border-color:var(--acc)}
 @media(prefers-reduced-motion:reduce){
-  .seq img{animation:none}
-  .seq img:nth-child(1){opacity:1}
-  .seq-cap{display:none}
+  .seq img,.seq-cap span{animation:none}
+  .seq img:nth-child(1),.seq-cap span:nth-child(1){opacity:1}
   .seq-steps{display:flex}
 }
 

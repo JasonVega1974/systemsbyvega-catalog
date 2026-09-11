@@ -51,13 +51,14 @@ const TYPES = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript',
    runs in the page before the shot — that is how a signature interaction gets
    captured in its interesting state rather than at rest. */
 const TARGETS = [
-  /* hero — TWO frames (Ruling R7), not three.
-     /admin/ is behind auth: a headless capture is a sign-in form, and
-     shipping that captioned "your admin" would be a screenshot of something
-     not actually running — barred by the spec's own screenshot rule and by
-     the compliance checklist. The admin step stays in How-it-works as text,
-     which is where it already lived. A third frame can be added later if a
-     signed-in capture becomes possible. */
+  /* hero — NO LONGER THE LANDING-PAGE HERO. The hero there now rotates the
+     six `featured` REST frames below (see .seq in assets/sbv.css), which
+     superseded the two-frame demo-then-branded sequence of Rulings R7/R14.
+     This group is kept because 2-branded is still the og:image/twitter:image
+     on index.html — the only remaining consumer. 1-demo stays with it: it
+     costs one capture, and the pair is what makes the og image legible as a
+     before/after if the card is ever re-cropped. Delete both together, and
+     repoint the og tags first, if that stops being true. */
   { group:'hero', name:'1-demo', url:'/sites/landscaping/' },
   /* 2-branded: a genuine build-site.js rebuild of landscaping under a
      different brand (see buildHeroBranded() below), served over the same
@@ -66,7 +67,12 @@ const TARGETS = [
      for-sale banner that correctly belongs only on 1-demo (finding 2). */
   { group:'hero', name:'2-branded', prep:'hero-branded' },
 
-  // featured — six niches, two frames each (rest + signature interaction)
+  /* featured — six niches, two frames each (rest + signature interaction).
+     The REST frame of each is now load-bearing twice: the card on /, and the
+     landing-page hero rotator that cross-fades all six. One file per niche,
+     so a recapture updates both surfaces at once and the browser downloads
+     each only once. Keep this list and the rotator's six <img> in index.html
+     in the same order — the captions under the frame are positional. */
   { group:'featured', name:'bin-cleaning',        url:'/sites/bin-cleaning/' },
   { group:'featured', name:'bin-cleaning-hover',  url:'/sites/bin-cleaning/',  prepare:'slider' },
   { group:'featured', name:'landscaping',         url:'/sites/landscaping/' },
