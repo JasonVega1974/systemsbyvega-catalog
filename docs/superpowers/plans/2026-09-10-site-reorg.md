@@ -183,6 +183,18 @@ const PAGES = [
 
 const DISCLAIMER = 'makes no representation about income, revenue, profit, or results';
 
+/* Ruling R9 — sentences that legitimately contain a banned substring BECAUSE
+   they are the disclaimer of that very thing. Stripped before the FORBIDDEN
+   scan, or the gate flags the copy that exists to protect us: "I make no claim
+   about what you will earn" contains "you will earn".
+   Whole sentences only, never fragments — an over-broad entry here would hide
+   a real claim, and this list is meant to be auditable at a glance. */
+const EXEMPT = [
+  'I make no claim about what you will earn',
+  'makes no representation about income, revenue, profit, or results',
+  'We will not answer that, and you should be wary of anyone who does',
+];
+
 /* Substrings no page may contain. Each carries the reason, because a future
    reader deserves to know why a string is banned rather than guessing. */
 const FORBIDDEN = [
@@ -230,11 +242,15 @@ for (const page of PAGES) {
   if (!/<!-- BUILD:NAV -->/.test(html))    bad(page.route, 'no BUILD:NAV marker');
   if (!/<!-- BUILD:FOOTER -->/.test(html)) bad(page.route, 'no BUILD:FOOTER marker');
 
+  /* Strip the exempt sentences before scanning (Ruling R9). */
+  let scan = html;
+  for (const e of EXEMPT) scan = scan.split(e).join('');
+
   for (const [s, why] of FORBIDDEN) {
     /* /about/ is the one page allowed to name the employer, and only as a
        role. The card and the demo page are gone; the sentence stays. */
     if (s === 'Command Center' && page.route === '/about/') continue;
-    if (html.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
+    if (scan.includes(s)) bad(page.route, `forbidden string "${s}" — ${why}`);
   }
   for (const s of BANNED_COUNTS) {
     if (html.includes(s)) bad(page.route, `stale hand-typed count "${s}"`);
@@ -270,11 +286,32 @@ const { inject } = require('./lib/inject');
 node tools/build-catalog.js --check
 ```
 Expected: `index.html is in sync with the seed.` exit 0.
+
 **On Windows this reports drift — that is F2, not a regression.** Verify the real
-result the way CI will see it:
+result the way CI will see it, by injecting into the committed LF blob and comparing
+bytes (**Ruling R10** — `git stash` does *not* work here: a file that is not part of
+your diff is not rewritten by stashing, so the check still fails):
+
 ```bash
-git stash -q -u && node tools/build-catalog.js --check; echo "exit=$?"; git stash pop -q
+node -e "
+const fs=require('fs'),cp=require('child_process'),path=require('path');
+const R=require('./assets/catalog-render.js'), {inject}=require('./tools/lib/inject');
+const seed=JSON.parse(fs.readFileSync('assets/data/niches.seed.json','utf8'));
+const before=cp.execSync('git show HEAD:index.html',{encoding:'utf8',maxBuffer:1e8});
+const f=R.figures(seed.niches);
+let h=before;
+h=inject(h,'THESIS_OPEN',R.thesisOpen(f.open));
+h=inject(h,'TOTAL',String(f.total));
+h=inject(h,'OPEN',String(f.open));
+h=inject(h,'SITES',String(f.sites));
+h=inject(h,'CATALOG','\n'+R.catalog(seed.families,seed.niches,{})+'\n');
+h=inject(h,'NICHE_SELECT','\n'+R.nicheSelect(seed.niches)+'\n');
+h=inject(h,'SEED_SCRIPT','\n<script>window.SBV_SEED='+JSON.stringify({families:seed.families,niches:seed.niches})+';</script>\n');
+console.log(h===before?'ok    shared inject() is byte-identical to the old inline one'
+                      :'FAIL  shared inject() changed the output');
+"
 ```
+Expected: `ok    shared inject() is byte-identical to the old inline one`
 
 - [ ] **Step 6: Commit**
 
