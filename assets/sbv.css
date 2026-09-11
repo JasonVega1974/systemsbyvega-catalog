@@ -101,9 +101,12 @@
    /services/ reuses the same three rules rather than inventing a fourth.
    Its rhythm: nav dark, hero dark (.plate — the same nav+hero exception the
    homepage already uses), #problem paper, #build white, #process paper,
-   #inquiry white, footer dark. No content band repeats a neighbour's tone.
+   #answers dark, #inquiry white, footer dark. #answers (the FAQ, styled with
+   the existing .qa accordion) sits dark for the same reason #proof does on
+   the homepage — a dark band right before the closing ask resets the eye
+   before the form. No content band repeats a neighbour's tone.
 */
-.plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer{
+.plate, #catalog, #proof, #founder, .foot, .gnav, .gnav-drawer, #answers{
   --bg:      var(--con);
   --surface: var(--con-2);
   --surface-2:#171C26;
