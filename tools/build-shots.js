@@ -65,7 +65,10 @@ const TARGETS = [
   { group:'featured', name:'dj',                  url:'/sites/dj/pink/' },
   { group:'featured', name:'dj-hover',            url:'/sites/dj/pink/',       prepare:'wait' },
   { group:'featured', name:'child-care',          url:'/sites/child-care/' },
-  { group:'featured', name:'child-care-hover',    url:'/sites/child-care/',    prepare:'wait' },
+  // No child-care-hover (Ruling R13): its hero effect is an ambient CSS
+  // twinkle with no discrete state to engage, so no capture can produce a
+  // meaningfully distinct second frame. The landing-page task handles a
+  // card with no hover frame.
 
   // platforms — consignmentbiz already exists in assets/proof/; recapture all
   // three here so the group is self-consistent in size and quality.
@@ -85,23 +88,71 @@ const TARGETS = [
   { group:'work', name:'domvegz',          url:'https://domvegz.com' },
 ];
 
-/* Signature-interaction setup, run inside the page. Each returns only after
-   the interaction has visibly settled. Unknown keys just wait — a shot at
-   rest is a worse shot, never a wrong one. */
+/* Signature-interaction setup, run inside the page. Ruling R13: a hover
+   capture exists to show a DIFFERENT region of the page than the rest shot,
+   so each of these scrolls its real target into view, waits for the scroll
+   to settle, engages the interaction, waits for it to animate/re-render, and
+   leaves the page parked there for the screenshot. Selectors below were read
+   from each niche's actual sections.html/niche.js (see task-3 report) rather
+   than guessed — that is what produced near-duplicate "hover" frames the
+   first time. Unknown keys just wait — a shot at rest is a worse shot, never
+   a wrong one. */
 const PREPARE = {
-  slider: `(async()=>{const s=document.querySelector('[class*=ba-],[class*=slider] input,input[type=range]');
-           if(s){s.value=s.max?Math.round(s.max*0.55):55;s.dispatchEvent(new Event('input',{bubbles:true}));}
-           await new Promise(r=>setTimeout(r,600));})()`,
-  season: `(async()=>{const b=[...document.querySelectorAll('button,[role=tab]')]
-             .find(e=>/summer|fall|autumn/i.test(e.textContent));if(b)b.click();
-           await new Promise(r=>setTimeout(r,900));})()`,
-  picker: `(async()=>{const b=[...document.querySelectorAll('button,[role=tab],label')]
-             .find(e=>/20|30 ?yard|yd/i.test(e.textContent));if(b)b.click();
-           await new Promise(r=>setTimeout(r,700));})()`,
-  week:   `(async()=>{const d=[...document.querySelectorAll('button,[role=checkbox],label')]
-             .filter(e=>/mon|wed|fri/i.test(e.textContent)).slice(0,3);d.forEach(e=>e.click());
-           await new Promise(r=>setTimeout(r,700));})()`,
-  wait:   `new Promise(r=>setTimeout(r,2500))`,
+  /* bin-cleaning — the before/after slider is #ba, a div driven by
+     mousedown/mousemove/mouseup + a --pos CSS var (niche.js), NOT an
+     <input type=range>. Simulate a real drag toward the "before" side so
+     the reveal is unambiguous. */
+  slider: `(async()=>{
+    const ba = document.getElementById('ba');
+    if(!ba) return;
+    ba.scrollIntoView({block:'center'});
+    await new Promise(r=>setTimeout(r,500));
+    const r = ba.getBoundingClientRect();
+    const x = r.left + r.width * 0.24, y = r.top + r.height / 2;
+    ba.dispatchEvent(new MouseEvent('mousedown', {bubbles:true, clientX:x, clientY:y}));
+    window.dispatchEvent(new MouseEvent('mousemove', {bubbles:true, clientX:x, clientY:y}));
+    window.dispatchEvent(new MouseEvent('mouseup', {bubbles:true, clientX:x, clientY:y}));
+    await new Promise(r=>setTimeout(r,500));
+  })()`,
+  /* landscaping — the season wheel's tabs are #wheelTabs [data-season-tab],
+     one of which starts aria-selected (seasonForMonth). Click whichever tab
+     is NOT already selected so the frame shows a different season. */
+  season: `(async()=>{
+    const wheel = document.getElementById('wheel');
+    if(wheel) wheel.scrollIntoView({block:'center'});
+    await new Promise(r=>setTimeout(r,500));
+    const tabs = [...document.querySelectorAll('#wheelTabs [data-season-tab]')];
+    const current = tabs.find(t=>t.getAttribute('aria-selected')==='true');
+    const target = tabs.find(t=>t!==current) || tabs[0];
+    if(target) target.click();
+    await new Promise(r=>setTimeout(r,700));
+  })()`,
+  /* dumpster-rental — size picker. Already produced a meaningfully different
+     frame; kept, with an explicit scrollIntoView added for consistency. */
+  picker: `(async()=>{
+    const b=[...document.querySelectorAll('button,[role=tab],label')]
+      .find(e=>/20|30 ?yard|yd/i.test(e.textContent));
+    if(b){ b.scrollIntoView({block:'center'}); await new Promise(r=>setTimeout(r,400)); b.click(); }
+    await new Promise(r=>setTimeout(r,700));
+  })()`,
+  /* dog-walking — the week builder's day toggles are #weekGrid [data-bday].
+     Toggle three days on so the price panel leaves its empty state. Every
+     click calls renderBuilder(), which replaces #weekGrid's innerHTML — so
+     buttons queried before the first click go stale/detached immediately
+     after it. Re-query live from the DOM on each iteration instead of
+     collecting all three nodes up front. */
+  week: `(async()=>{
+    const grid = document.getElementById('weekGrid');
+    if(grid) grid.scrollIntoView({block:'center'});
+    await new Promise(r=>setTimeout(r,500));
+    for (let i = 0; i < 3; i++) {
+      const btn = document.querySelectorAll('#weekGrid [data-bday]')[i];
+      if (btn) btn.click();
+      await new Promise(r=>setTimeout(r,150));
+    }
+    await new Promise(r=>setTimeout(r,500));
+  })()`,
+  wait: `new Promise(r=>setTimeout(r,2500))`,
 };
 
 if (args.includes('--list')) {
