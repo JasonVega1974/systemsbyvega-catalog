@@ -131,7 +131,17 @@ const PROBE = () => {
        undersized nav link — closed navs like this exist specifically so
        their contents are NOT reachable until opened. Vertical position is
        untouched: below-the-fold content is genuinely visible on scroll and
-       must still be checked. */
+       must still be checked.
+
+       KNOWN BLIND SPOT: this sweep never opens a drawer, so the same guard
+       that correctly kills honeypot false positives (a field parked at
+       left:-9999px) also permanently excludes a CLOSED drawer's contents
+       from every check below — tap-target size and focus-ring included.
+       The nav drawer is exactly the component the brief named a likely
+       offender, so this makes the probe quieter there, not more accurate.
+       A drawer's tap targets and focus rings still need eyes-on checking
+       (or a script that clicks the toggle before measuring) rather than
+       trusting a clean sweep. Left as-is deliberately — see task-12-report.md. */
     if (r.right <= 0 || r.left >= vw) return false;
     return true;
   };
