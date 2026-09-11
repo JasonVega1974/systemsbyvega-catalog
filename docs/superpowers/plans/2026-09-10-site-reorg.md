@@ -73,6 +73,11 @@ must yield a *different honest* presentation, never a broken or empty one.
 
 **Mobile-first.** Every page correct at 390px. No horizontal overflow at 360px.
 
+**Shared `assets/sbv.js` (Ruling R3).** Five tasks append to this one file, and all six
+pages load it. Every addition must (a) register its own `wireX()` / `paintX()` call in
+`boot()`, and (b) return early if its root element is absent — otherwise a function
+written for one page throws on the other five.
+
 ---
 
 ## File Structure
@@ -114,7 +119,9 @@ The plan's test harness. Everything after this task has a real red/green cycle.
 - Create: `tools/lib/inject.js`
 - Create: `tools/check-pages.js`
 - Modify: `tools/build-catalog.js:36-45` (use the shared `inject`)
-- Modify: `vercel.json` (`buildCommand`)
+
+> **Ruling R2:** this task does **not** touch `vercel.json`. Task 2 Step 7 wires both
+> gates into `buildCommand` in a single edit.
 
 **Interfaces:**
 - Produces: `inject(html, marker, value) -> string` (CommonJS, `tools/lib/inject.js`)
@@ -196,8 +203,12 @@ const BANNED_COUNTS = [
   'twenty-nine I have not built', 'Two of these are finished',
 ];
 
+/* Ruling R5: failures are counted PER PAGE as well as in total, so a page
+   that just failed a check cannot also print an "ok" line. A gate whose own
+   output contradicts itself is the exact failure this project exists to fix. */
 let failures = 0;
-const bad = (route, msg) => { failures++; console.log(`  FAIL  ${route}  ${msg}`); };
+let pageFailures = 0;
+const bad = (route, msg) => { failures++; pageFailures++; console.log(`  FAIL  ${route}  ${msg}`); };
 const ok  = (route, msg) => console.log(`  ok    ${route}  ${msg}`);
 
 if (process.argv.includes('--list')) {
@@ -206,6 +217,7 @@ if (process.argv.includes('--list')) {
 }
 
 for (const page of PAGES) {
+  pageFailures = 0;
   const abs = path.join(ROOT, page.file);
   if (!fs.existsSync(abs)) { bad(page.route, `missing file ${page.file}`); continue; }
   const html = fs.readFileSync(abs, 'utf8');
@@ -227,8 +239,7 @@ for (const page of PAGES) {
   for (const s of BANNED_COUNTS) {
     if (html.includes(s)) bad(page.route, `stale hand-typed count "${s}"`);
   }
-  if (failures === 0 || !PAGES.some(p => p.route === page.route)) { /* noop */ }
-  ok(page.route, 'structure + compliance');
+  if (pageFailures === 0) ok(page.route, 'structure + compliance');
 }
 
 console.log(failures ? `\n${failures} failure(s)` : `\n${PAGES.length} page(s) clean`);
@@ -407,10 +418,20 @@ function footer() {
 function robots() {
   return ['User-agent: *',
     'Disallow: /admin/', 'Disallow: /__owner__/', 'Disallow: /claim/',
+    '',
     '# The 32 storefronts are near-identical templates and stay out of search.',
     '# vercel.json sends X-Robots-Tag: noindex for /sites/<slug>/ on the apex;',
     '# middleware.js flips it to `all` per tenant. This mirrors that.',
-    'Disallow: /sites/*/',
+    '#',
+    '# Ruling R6: the Allow comes FIRST and is anchored with $. A bare',
+    '# "Disallow: /sites/*/" is not safe here — a robots wildcard may match the',
+    '# empty string, so it can swallow /sites/ itself. That is precisely the bug',
+    '# commit 10f1035 just fixed in vercel.json, and re-introducing it through a',
+    '# different file would drop the primary revenue page out of search.',
+    '# Longest-match-wins makes the anchored Allow beat the Disallow for exactly',
+    '# one path, and nothing else.',
+    'Allow: /sites/$',
+    'Disallow: /sites/',
     '', `Sitemap: ${ORIGIN}/sitemap.xml`, ''].join('\n');
 }
 
@@ -662,10 +683,15 @@ const TYPES = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript',
    runs in the page before the shot — that is how a signature interaction gets
    captured in its interesting state rather than at rest. */
 const TARGETS = [
-  // hero — the three frames of the landing sequence
-  { group:'hero', name:'1-demo',  url:'/sites/landscaping/' },
-  { group:'hero', name:'2-admin', url:'/admin/' },
-  // 3-branded is produced by Step 3 below, from a real rebuild.
+  /* hero — TWO frames (Ruling R7), not three.
+     /admin/ is behind auth: a headless capture is a sign-in form, and
+     shipping that captioned "your admin" would be a screenshot of something
+     not actually running — barred by the spec's own screenshot rule and by
+     the compliance checklist. The admin step stays in How-it-works as text,
+     which is where it already lived. A third frame can be added later if a
+     signed-in capture becomes possible. */
+  { group:'hero', name:'1-demo', url:'/sites/landscaping/' },
+  // 2-branded is produced by Step 3 below, from a real rebuild.
 
   // featured — six niches, two frames each (rest + signature interaction)
   { group:'featured', name:'bin-cleaning',        url:'/sites/bin-cleaning/' },
@@ -784,10 +810,10 @@ function serve() {
 - [ ] **Step 2: Run it and confirm every target**
 
 ```bash
-node tools/build-shots.js --list          # 25 targets
+node tools/build-shots.js --list          # 24 targets
 node tools/build-shots.js
 ```
-Expected: `ok` for all 25, exit 0. If `@sparticuz/chromium` has no local binary, set
+Expected: `ok` for all 24, exit 0. If `@sparticuz/chromium` has no local binary, set
 `SITELAB_PLAYWRIGHT` or fall back to a system Chrome via
 `chromium.launch({ channel: 'chrome' })` — `a11y-sweep.js:39` documents the same
 resolution problem.
@@ -814,7 +840,7 @@ node tools/build-site.js landscaping --out /tmp/sbv-branded --demo
 git checkout -- niches/landscaping/content.json     # restore immediately
 ```
 
-Then screenshot `/tmp/sbv-branded/index.html` to `assets/shots/hero/3-branded.jpg`
+Then screenshot `/tmp/sbv-branded/index.html` to `assets/shots/hero/2-branded.jpg`
 by adding it as a temporary target, or with a one-off Playwright call at the same
 1280×800 / quality 78.
 
@@ -829,8 +855,9 @@ Expected: **empty**. If it is not, `git checkout -- niches/landscaping/content.j
 ```bash
 du -sh assets/shots/* && find assets/shots -name '*.jpg' | wc -l
 ```
-Expected: 26 files, ≈2.6 MB total. If any single file exceeds 200 KB, drop quality to
-70 and re-run that group. No page loads more than its own group.
+Expected: **25 files** (24 targets + `hero/2-branded.jpg` from Step 3), ≈2.5 MB total.
+If any single file exceeds 200 KB, drop quality to 70 and re-run that group. No page
+loads more than its own group.
 
 - [ ] **Step 5: Commit**
 
@@ -1188,6 +1215,12 @@ makes the rest of the page believable."
 - Modify: `tools/check-pages.js`, `tools/build-chrome.js` (`PAGES` += `/platforms/`)
 - Modify: `assets/sbv.js` (platform status hydration)
 
+> **Ruling R8:** `/platforms/` must carry the same three data tags `/sites/` does —
+> the inline `window.SBV_CONFIG`, the `<!-- BUILD:SEED_SCRIPT -->` marker pair, and
+> `<script src="/assets/sbv.js" defer>` — or `paintPlatforms()` has no rows to read and
+> every price renders empty. Add `SEED_SCRIPT` to this file's entry in the
+> `build-catalog.js` `TARGETS` array from Task 10.
+
 **Interfaces:**
 - Consumes: `assets/shots/platforms/*.jpg` (Task 3), `SBV_SEED` / `sbv_niches`
 - Produces: `#platforms-root`, hydrated by `sbv.js` from `sbv_niches`
@@ -1272,6 +1305,13 @@ finds the waitlist without being sold a website."
 **Files:**
 - Create: `work/index.html`, `work/projects.json`
 - Modify: `tools/check-pages.js`, `tools/build-chrome.js`
+- Modify: `assets/sbv.css` (grid + card components — **Ruling R4**)
+- Modify: `assets/sbv.js` (grid render + filters)
+
+> **Ruling R4:** the grid needs component CSS and it goes in `assets/sbv.css`, reading
+> band tokens (`--surface`, `--tx`, `--rule`, `--acc`). Do **not** copy the literal
+> colours out of `portfolio/assets/css/styles.css` — a page that ignores the band
+> system is the one thing spec §2.1 exists to prevent.
 
 **Interfaces:**
 - Consumes: `assets/shots/work/*.jpg` (Task 3)
@@ -1434,7 +1474,11 @@ important paragraph on the site and it is not being rewritten."
 - Modify: `index.html` (rebuilt)
 - Modify: `assets/sbv.css` (hero sequence, offerings, featured carousel)
 - Modify: `assets/sbv.js` (carousel)
-- Modify: `tools/build-catalog.js` (retarget the figure markers)
+
+> **Ruling R1:** this task does **not** edit `tools/build-catalog.js` — Task 10 already
+> gave it a `TARGETS` array covering both files. This task only inserts the
+> `<!-- BUILD:TOTAL -->`, `<!-- BUILD:OPEN -->` and `<!-- BUILD:SITES -->` marker pairs
+> into `index.html` where the proof strip needs them.
 
 **Interfaces:**
 - Consumes: `assets/shots/hero/*.jpg`, `assets/shots/featured/*.jpg`
@@ -1458,26 +1502,27 @@ figures only** and every one comes from a `BUILD:` marker.
 
 - [ ] **Step 3: Write the hero sequence**
 
-Three stacked `<img>`, CSS opacity keyframes, ~9s loop, plus the three captions as
-static labelled text:
+**Two frames (Ruling R7):** the demo storefront, and the same storefront rebuilt under
+another brand. Captions: **"The demo"** / **"Your site."** The admin step is described
+in How-it-works as text — `/admin/` is behind auth and a headless capture of it would
+be a sign-in form presented as an admin panel.
 
 ```css
-/* The sequence: demo → admin → your site. Three real screenshots, cross-
-   faded. Not a video, not a canvas, not a library — three <img> and one
-   @keyframes, because that is all it needs and it costs nothing to run. */
+/* The sequence: the demo, then the same site rebuilt under another brand.
+   Two real screenshots, cross-faded. Not a video, not a canvas, not a
+   library — two <img> and one @keyframes, because that is all it needs. */
 .seq{position:relative;aspect-ratio:16/10;border-radius:10px;overflow:hidden}
 .seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:0;animation:seq 9s infinite}
+  opacity:0;animation:seq 8s infinite}
 .seq img:nth-child(1){animation-delay:0s}
-.seq img:nth-child(2){animation-delay:3s}
-.seq img:nth-child(3){animation-delay:6s}
+.seq img:nth-child(2){animation-delay:4s}
 @keyframes seq{
-  0%,2%   {opacity:0}
-  5%,30%  {opacity:1}
-  33%,100%{opacity:0}
+  0%,3%   {opacity:0}
+  8%,45%  {opacity:1}
+  50%,100%{opacity:0}
 }
 /* Reduced motion gets a DIFFERENT honest presentation, not a broken one:
-   frame 1 held, and the three captions become a visible 1-2-3 row that
+   frame 1 held, and the captions become a visible two-step row that
    explains the same mechanism in text. */
 @media(prefers-reduced-motion:reduce){
   .seq img{animation:none}
@@ -1594,11 +1639,31 @@ In `build-catalog.js`, read every `niches/<slug>/content.json` for `brand.name` 
 `manifests.json` for the section flags, and emit `window.SBV_EXTRAS` alongside
 `SBV_SEED`.
 
-- [ ] **Step 3: Retarget the builder**
+- [ ] **Step 3: Retarget the builder — to TWO files, not one (Ruling R1)**
+
+A single `PAGE` constant cannot serve this plan: the catalog markers belong on
+`/sites/`, but `/` still needs `TOTAL` / `OPEN` / `SITES` for its proof strip, and
+`inject()` throws on a marker a file does not have. Replace `PAGE` with a `TARGETS`
+array and inject only the markers each file declares:
 
 ```js
-const PAGE = path.join(ROOT, 'sites', 'index.html');
+/* Two files, different marker sets. The catalog lives on /sites/ now, but the
+   landing page's proof strip still needs its three figures — and those figures
+   must come from the same R.figures() call as everything else, or the landing
+   page becomes the fourth place a count is written down. inject() throws on a
+   missing marker, so each target names exactly what it carries. */
+const TARGETS = [
+  { file: path.join(ROOT, 'index.html'),
+    markers: ['TOTAL', 'OPEN', 'SITES'] },
+  { file: path.join(ROOT, 'sites', 'index.html'),
+    markers: ['TOTAL', 'OPEN', 'SITES', 'THESIS_OPEN',
+              'CATALOG', 'NICHE_SELECT', 'SEED_SCRIPT', 'EXTRAS_SCRIPT'] },
+];
 ```
+
+`main()` loops `TARGETS`, builds the value map once from `R.figures(seed.niches)`, and
+injects only the markers listed for each file. `--check` reports drift per file and
+exits 1 if any file drifted.
 
 - [ ] **Step 4: Move the markers and the sections**
 
